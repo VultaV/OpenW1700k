@@ -50,8 +50,8 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
  #endif /* REALTEK_H */
 --- a/drivers/net/phy/realtek/realtek_main.c
 +++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -11,11 +11,13 @@
- #include <linux/ethtool_netlink.h>
+@@ -13,11 +13,13 @@
+ #include <linux/firmware.h>
  #include <linux/of.h>
  #include <linux/phy.h>
 +#include <linux/phy/phy-common-props.h>
@@ -64,14 +64,17 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
  #include <linux/string_choices.h>
  #include <net/phy/realtek_phy.h>
  
-@@ -217,10 +219,27 @@
- #define RTL_8221B_VM_CG				0x001cc84a
+@@ -263,6 +265,9 @@
  #define RTL_8251B				0x001cc862
  #define RTL_8261C				0x001cc890
-+#define RTL_8261N				0x001ccaf3
-+#define RTL_8264				0x001ccaf2
-+#define RTL_8264B				0x001cc813
+ #define RTL_8261C_CG				0x001cc898
++#define RTL_8261N			0x001ccaf3
++#define RTL_8264			0x001ccaf2
++#define RTL_8264B			0x001cc813
  
+ #define RTL8261C_CE_MODEL		0x00
+ #define RTL8261D_MODEL			0x81
+@@ -330,6 +335,20 @@ struct rtl8261x_fw_entry {
  /* RTL8211E and RTL8211F support up to three LEDs */
  #define RTL8211x_LED_COUNT			3
  
@@ -84,7 +87,7 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
 +#define   RTL826X_VEND1_VERSION_ID_VARIANT	GENMASK(2, 0)
 +
 +#define RTL826X_VND2_INER			0xA424
-+#define   RTL826X_VND2_INER_LINK_STATUS		BIT(4)
++#define   RTL826X_VND2_INER_LINK_STATUS	BIT(4)
 +#define   RTL826X_VND2_INER_PME			BIT(7)
 +
 +#define RTL826X_VND2_INSR			0xA43A
@@ -92,7 +95,7 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
  MODULE_DESCRIPTION("Realtek PHY driver");
  MODULE_AUTHOR("Johnson Leung");
  MODULE_LICENSE("GPL");
-@@ -2151,6 +2170,125 @@ static int rtl8251b_c45_match_phy_device
+@@ -2938,6 +2957,125 @@ static int rtl8251b_c45_match_phy_device
  	return rtlgen_is_c45_match(phydev, RTL_8251B, true);
  }
  
@@ -218,7 +221,7 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
  static int rtlgen_resume(struct phy_device *phydev)
  {
  	int ret = genphy_resume(phydev);
-@@ -2372,6 +2510,482 @@ static int rtlgen_sfp_config_aneg(struct
+@@ -3159,6 +3297,482 @@ static int rtlgen_sfp_config_aneg(struct
  	return 0;
  }
  
@@ -701,11 +704,10 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
  static struct phy_driver realtek_drvs[] = {
  	{
  		PHY_ID_MATCH_EXACT(0x00008201),
-@@ -2686,6 +3300,108 @@ static struct phy_driver realtek_drvs[]
- 		.resume		= genphy_resume,
+@@ -3482,6 +4096,108 @@ static struct phy_driver realtek_drvs[]
  		.read_mmd	= genphy_read_mmd_unsupported,
  		.write_mmd	= genphy_write_mmd_unsupported,
-+	}, {
+ 	}, {
 +		.name           = "RTL8251L 5Gbps PHY",
 +		.config_init    = rtl826x_config_init,
 +		.probe          = rtl826x_probe,
@@ -807,19 +809,10 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
 +		.get_wol        = rtl826x_get_wol,
 +		.get_tunable    = rtl826x_get_tunable,
 +		.set_tunable    = rtl826x_set_tunable,
- 	},
- };
- 
---- a/drivers/net/phy/realtek/Kconfig
-+++ b/drivers/net/phy/realtek/Kconfig
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0-only
- config REALTEK_PHY
- 	tristate "Realtek PHYs"
-+	select PHY_COMMON_PROPS
- 	help
- 	  Currently supports RTL821x/RTL822x and fast ethernet PHYs
- 
++	}, {
+ 		PHY_ID_MATCH_EXACT(RTL_8261C_CG),
+ 		.name			= "Realtek RTL8261C/D 10Gbps PHY",
+ 		.probe			= rtl8261x_probe,
 --- /dev/null
 +++ b/drivers/net/phy/realtek/phy_patch.c
 @@ -0,0 +1,35 @@
