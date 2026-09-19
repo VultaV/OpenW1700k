@@ -313,10 +313,10 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
  		airoha_metadata_dst_free(port);
 --- a/drivers/net/ethernet/airoha/airoha_eth.h
 +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -555,6 +555,9 @@ struct airoha_gdm_dev {
- 	int nbq;
- 
- 	struct airoha_hw_stats stats;
+@@ -596,6 +596,9 @@
+ 	 * QDMA migration.
+ 	 */
+ 	spinlock_t txq_lock[AIROHA_NUM_NETDEV_TX_RINGS];
 +
 +	struct phylink *phylink;
 +	struct phylink_config phylink_config;

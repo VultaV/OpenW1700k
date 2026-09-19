@@ -101,7 +101,7 @@ Signed-off-by: Steven Barth <cyrus@openwrt.org>
  	struct ip6_tnl_net *ip6n = net_generic(net, ip6_tnl_net_id);
  	struct in6_addr any;
  
- 	for_each_ip6_tunnel_rcu(ip6n->tnls_r_l[hash]) {
+ 	for_each_ip_tunnel_rcu(t, ip6n->tnls_r_l[hash]) {
  		if (!ipv6_addr_equal(local, &t->parms.laddr) ||
 -		    !ipv6_addr_equal(remote, &t->parms.raddr) ||
  		    !(t->dev->flags & IFF_UP))
@@ -133,7 +133,7 @@ Signed-off-by: Steven Barth <cyrus@openwrt.org>
  	memset(&any, 0, sizeof(any));
 -	hash = HASH(&any, local);
 +	hash = HASH(local);
- 	for_each_ip6_tunnel_rcu(ip6n->tnls_r_l[hash]) {
+ 	for_each_ip_tunnel_rcu(t, ip6n->tnls_r_l[hash]) {
  		if (!ipv6_addr_equal(local, &t->parms.laddr) ||
  		    !ipv6_addr_any(&t->parms.raddr) ||
 @@ -147,7 +166,7 @@ ip6_tnl_lookup(struct net *net, int link
@@ -142,7 +142,7 @@ Signed-off-by: Steven Barth <cyrus@openwrt.org>
  
 -	hash = HASH(remote, &any);
 +	hash = HASH(&any);
- 	for_each_ip6_tunnel_rcu(ip6n->tnls_r_l[hash]) {
+ 	for_each_ip_tunnel_rcu(t, ip6n->tnls_r_l[hash]) {
  		if (!ipv6_addr_equal(remote, &t->parms.raddr) ||
  		    !ipv6_addr_any(&t->parms.laddr) ||
 @@ -196,7 +215,7 @@ ip6_tnl_bucket(struct ip6_tnl_net *ip6n,

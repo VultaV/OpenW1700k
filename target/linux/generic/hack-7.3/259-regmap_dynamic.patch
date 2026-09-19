@@ -19,7 +19,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  
  config REGMAP
 -	bool
--	default y if (REGMAP_I2C || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SOUNDWIRE || REGMAP_SOUNDWIRE_MBQ || REGMAP_SCCB || REGMAP_I3C || REGMAP_SPI_AVMM || REGMAP_MDIO || REGMAP_FSI)
+-	default y if (REGMAP_I2C || REGMAP_SLIMBUS || REGMAP_SPI || REGMAP_SPMI || REGMAP_W1 || REGMAP_AC97 || REGMAP_MMIO || REGMAP_IRQ || REGMAP_SOUNDWIRE || REGMAP_SOUNDWIRE_MBQ || REGMAP_SCCB || REGMAP_I3C || REGMAP_SPI_AVMM || REGMAP_MDIO || REGMAP_FSI)
 +	tristate
  	help
  	  Enable support for the Register Map (regmap) access API.
@@ -33,7 +33,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  	default KUNIT_ALL_TESTS
  	select REGMAP_RAM
  
-@@ -32,62 +31,78 @@ config REGMAP_BUILD
+@@ -32,62 +31,78 @@
  	  normally enabled.
  
  config REGMAP_AC97
@@ -68,7 +68,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  config REGMAP_MDIO
 +	select REGMAP
  	tristate
- 	select MDIO_BUS
+ 	depends on PHYLIB
  
  config REGMAP_MMIO
 +	select REGMAP

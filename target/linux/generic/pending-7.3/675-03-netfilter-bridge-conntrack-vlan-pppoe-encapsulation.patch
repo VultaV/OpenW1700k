@@ -23,13 +23,14 @@
 +#include <linux/if_pppox.h>
 +#include <net/ipv6.h>
 +
- #include <linux/netfilter/nf_tables.h>
- #include <net/netfilter/nf_tables.h>
+ #include <linux/netfilter_ipv4.h>
  
-@@ -237,59 +241,116 @@
+ #include "../br_private.h"
+@@ -235,6 +239,43 @@
+ 
  	return 0;
  }
- 
++
 +static int nf_ct_bridge_inner(struct sk_buff *skb,
 +			      struct nf_bridge_frag_data *data,
 +			      __be16 *proto)
@@ -66,94 +67,9 @@
 +
 +	return 0;
 +}
-+
+ 
  static unsigned int nf_ct_bridge_pre(void *priv, struct sk_buff *skb,
  				     const struct nf_hook_state *state)
- {
- 	struct nf_hook_state bridge_state = *state;
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn *ct;
-+	struct nf_bridge_frag_data data;
- 	u32 len;
--	int ret;
-+	__be16 inner_proto;
-+	int offset, ret;
- 
- 	ct = nf_ct_get(skb, &ctinfo);
- 	if ((ct && !nf_ct_is_template(ct)) ||
- 	    ctinfo == IP_CT_UNTRACKED)
- 		return NF_ACCEPT;
- 
--	switch (skb->protocol) {
-+	if ((offset = nf_ct_bridge_inner(skb, &data, &inner_proto)) < 0) {
-+		offset = 0;
-+		goto notrack;
-+	}
-+
-+	__skb_pull(skb, offset);
-+	skb_reset_network_header(skb);
-+
-+	switch (inner_proto) {
- 	case htons(ETH_P_IP):
- 		if (!pskb_may_pull(skb, sizeof(struct iphdr)))
--			return NF_ACCEPT;
-+			goto notrack;
- 
- 		len = skb_ip_totlen(skb);
- 		if (pskb_trim_rcsum(skb, len))
--			return NF_ACCEPT;
-+			goto notrack;
- 
- 		if (nf_ct_br_ip_check(skb))
--			return NF_ACCEPT;
-+			goto notrack;
-+
-+		if (offset && ip_is_fragment(ip_hdr(skb)))
-+			goto notrack;
- 
- 		bridge_state.pf = NFPROTO_IPV4;
- 		ret = nf_ct_br_defrag4(skb, &bridge_state);
- 		break;
- 	case htons(ETH_P_IPV6):
- 		if (!pskb_may_pull(skb, sizeof(struct ipv6hdr)))
--			return NF_ACCEPT;
-+			goto notrack;
- 
- 		len = sizeof(struct ipv6hdr) + ntohs(ipv6_hdr(skb)->payload_len);
- 		if (pskb_trim_rcsum(skb, len))
--			return NF_ACCEPT;
-+			goto notrack;
- 
- 		if (nf_ct_br_ipv6_check(skb))
--			return NF_ACCEPT;
-+			goto notrack;
- 
-+		if (offset && ipv6_find_hdr(skb, &(unsigned int){0}, NEXTHDR_FRAGMENT, NULL, NULL) >= 0)
-+			goto notrack;
- 		bridge_state.pf = NFPROTO_IPV6;
- 		ret = nf_ct_br_defrag6(skb, &bridge_state);
- 		break;
- 	default:
--		nf_reset_ct(skb);
--		nf_ct_set(skb, NULL, IP_CT_UNTRACKED);
--		return NF_ACCEPT;
-+		goto notrack;
- 	}
- 
- 	if (ret != NF_ACCEPT)
- 		return ret;
- 
-+	__skb_push(skb, offset);
- 	return nf_conntrack_in(skb, &bridge_state);
-+
-+notrack:
-+	__skb_push(skb, offset);
-+	nf_reset_ct(skb);
-+	nf_ct_set(skb, NULL, IP_CT_UNTRACKED);
-+	return NF_ACCEPT;
- }
- 
- static unsigned int nf_ct_bridge_in(void *priv, struct sk_buff *skb,
 @@ -342,37 +403,67 @@
  				  struct sk_buff *))
  {

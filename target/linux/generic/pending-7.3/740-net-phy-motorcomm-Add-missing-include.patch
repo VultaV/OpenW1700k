@@ -12,11 +12,13 @@ Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
 
 --- a/drivers/net/phy/motorcomm.c
 +++ b/drivers/net/phy/motorcomm.c
+--- a/drivers/net/phy/motorcomm.c
++++ b/drivers/net/phy/motorcomm.c
 @@ -6,6 +6,7 @@
   * Author: Frank <Frank.Sae@motor-comm.com>
   */
  
 +#include <linux/bitfield.h>
+ #include <linux/clk.h>
  #include <linux/etherdevice.h>
  #include <linux/kernel.h>
- #include <linux/module.h>

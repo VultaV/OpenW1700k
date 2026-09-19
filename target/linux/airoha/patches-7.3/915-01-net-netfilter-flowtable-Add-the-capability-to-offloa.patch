@@ -27,14 +27,14 @@ Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
  	struct flow_dissector_key_keyid			enc_key_id;
  	union {
  		struct flow_dissector_key_ipv4_addrs	enc_ipv4;
-@@ -138,6 +139,7 @@ struct flow_offload_tuple {
- 					encap_num:2,
+@@ -156,6 +156,7 @@
+ 					tun_num:2,
  					in_vlan_ingress:2;
  	u16				mtu;
 +	u8				dscp;
- 	union {
- 		struct {
- 			struct dst_entry *dst_cache;
+ 	u32				dst_cookie;
+ 	struct dst_entry		*dst_cache;
+ 
 --- a/net/netfilter/nf_flow_table_ip.c
 +++ b/net/netfilter/nf_flow_table_ip.c
 @@ -385,6 +385,7 @@ static int nf_flow_offload_forward(struc

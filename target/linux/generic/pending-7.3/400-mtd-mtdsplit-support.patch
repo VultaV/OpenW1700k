@@ -52,7 +52,7 @@ Subject: [PATCH] mtd: mtdsplit support
  obj-$(CONFIG_MTD_BLOCK)		+= mtdblock.o
 --- a/drivers/mtd/mtdpart.c
 +++ b/drivers/mtd/mtdpart.c
-@@ -15,11 +15,13 @@
+@@ -15,12 +15,14 @@
  #include <linux/kmod.h>
  #include <linux/mtd/mtd.h>
  #include <linux/mtd/partitions.h>
@@ -60,12 +60,14 @@ Subject: [PATCH] mtd: mtdsplit support
  #include <linux/err.h>
  #include <linux/of.h>
  #include <linux/of_platform.h>
+ #include <linux/mtd/concat.h>
  
  #include "mtdcore.h"
 +#include "mtdsplit/mtdsplit.h"
  
  /*
   * MTD methods which simply translate the effective address and pass through
+
 @@ -242,6 +244,147 @@ static int mtd_add_partition_attrs(struc
  	return ret;
  }

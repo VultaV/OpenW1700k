@@ -11,13 +11,15 @@ Signed-off-by: Imre Kaloz <kaloz@openwrt.org>
 
 --- a/include/linux/netdevice.h
 +++ b/include/linux/netdevice.h
-@@ -162,8 +162,8 @@ static inline bool dev_xmit_complete(int
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -162,8 +162,8 @@
  
  #if defined(CONFIG_HYPERV_NET)
  # define LL_MAX_HEADER 128
--#elif defined(CONFIG_WLAN) || IS_ENABLED(CONFIG_AX25)
+-#elif defined(CONFIG_WLAN)
 -# if defined(CONFIG_MAC80211_MESH)
-+#elif defined(CONFIG_WLAN) || IS_ENABLED(CONFIG_AX25) || 1
++#elif defined(CONFIG_WLAN) || 1
 +# if defined(CONFIG_MAC80211_MESH) || 1
  #  define LL_MAX_HEADER 128
  # else

@@ -154,15 +154,28 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
  			      struct clk_hw_onecell_data *clk_data)
  {
  	void __iomem *base, *np_base;
-@@ -566,51 +588,7 @@ static int en7523_clk_hw_init(struct pla
+@@ -722,6 +722,7 @@
+ {
+ 	void __iomem *base, *np_base;
+ 	struct regmap *map, *clk_map;
++	int ret;
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+@@ -741,54 +742,15 @@
  	if (IS_ERR(clk_map))
  		return PTR_ERR(clk_map);
  
 -	en7523_register_clocks(&pdev->dev, clk_data, map, clk_map);
--
--	return 0;
--}
--
++	ret = en75xx_register_clocks(&pdev->dev, soc_data, clk_data, map, clk_map);
++	if (ret)
++		return ret;
+ 
+ 	return en7581_reset_register(&pdev->dev, clk_map, en7523_rst_map,
+ 				     ARRAY_SIZE(en7523_rst_map),
+ 				     en7581_rst_ofs);
+ }
+ 
 -static void en7581_register_clocks(struct device *dev, struct clk_hw_onecell_data *clk_data,
 -				   struct regmap *map, struct regmap *clk_map)
 -{
@@ -203,10 +216,10 @@ Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 -
 -	hw = en7523_register_pcie_clk(dev, clk_map);
 -	clk_data->hws[EN7523_CLK_PCIE] = hw;
-+	return en75xx_register_clocks(&pdev->dev, soc_data, clk_data, map, clk_map);
- }
+-}
  
  static int en7523_reset_update(struct reset_controller_dev *rcdev,
+ 			       unsigned long id, bool assert)
 @@ -689,10 +667,12 @@ static int en7581_reset_register(struct
  }
  

@@ -38,10 +38,10 @@ Signed-off-by: Robert Marko <robert.marko@sartura.hr>
  		return;
  
  	if (mem->sgt)
-@@ -118,7 +118,7 @@ static int io_import_dmabuf(struct io_zc
+@@ -164,7 +164,7 @@
  		return -EINVAL;
- 	if (WARN_ON_ONCE(!ifq->dev))
- 		return -EFAULT;
+ 	if (off)
+ 		return -EINVAL;
 -	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
 +	if (!IS_REACHABLE(CONFIG_DMA_SHARED_BUFFER))
  		return -EINVAL;

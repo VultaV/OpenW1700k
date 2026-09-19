@@ -63,19 +63,23 @@ Signed-off-by: Jihong Min <hurryman2212@gmail.com>
  }
  
  static void airoha_qdma_start(struct airoha_qdma *qdma)
-@@ -2147,12 +2157,6 @@ static int airoha_dev_open(struct net_de
- 	qdma = airoha_qdma_deref(dev);
+@@ -2268,16 +2268,6 @@
+ 	eth = qdma->eth;
  	qdma_id = qdma - &eth->qdma[0];
  
+-	/* HW LRO is configured on the QDMA and it is shared between
+-	 * all the devices using it. Refuse to open a second device on
+-	 * the same QDMA if LRO is enabled on any device sharing it.
+-	 */
 -	if (qdma->users && airoha_fe_lro_is_enabled(eth, qdma_id)) {
 -		netdev_warn(netdev, "required to disable HW GRO on QDMA%d\n",
 -			    qdma_id);
 -		return -EBUSY;
 -	}
 -
- 	err = phylink_of_phy_connect(dev->phylink, netdev->dev.of_node, 0);
- 	if (err) {
- 		netdev_err(netdev, "could not attach PHY: %d\n", err);
+ 	/* It seems GDM3 and GDM4 needs SPORT enabled to correctly work */
+ 	if (netdev_uses_dsa(netdev) || port->id > 2)
+ 		airoha_fe_set(eth, REG_GDM_INGRESS_CFG(port->id),
 @@ -2185,11 +2189,12 @@ static int airoha_dev_open(struct net_de
  	airoha_set_gdm_port_fwd_cfg(eth, REG_GDM_FWD_CFG(port->id),
  				    pse_port);
@@ -92,15 +96,7 @@ Signed-off-by: Jihong Min <hurryman2212@gmail.com>
  	return 0;
  }
  
-@@ -2213,7 +2218,6 @@ static int airoha_dev_stop(struct net_de
- 					    REG_GDM_FWD_CFG(port->id),
- 					    FE_PSE_PORT_DROP);
- 	airoha_qdma_stop(qdma);
--	airoha_update_netdev_features(dev);
- 
- 	phylink_stop(dev->phylink);
- 	phylink_disconnect_phy(dev->phylink);
-@@ -2537,19 +2541,6 @@ int airoha_get_fe_port(struct airoha_gdm
+@@ -2706,18 +2696,6 @@
  					   : port->id;
  }
  
@@ -108,9 +104,8 @@ Signed-off-by: Jihong Min <hurryman2212@gmail.com>
 -						 netdev_features_t features)
 -{
 -	struct airoha_gdm_dev *dev = netdev_priv(netdev);
--	struct airoha_qdma *qdma;
+-	struct airoha_qdma *qdma = dev->qdma;
 -
--	qdma = airoha_qdma_deref(dev);
 -	if (qdma->users > 1)
 -		features &= ~NETIF_F_GRO_HW;
 -
