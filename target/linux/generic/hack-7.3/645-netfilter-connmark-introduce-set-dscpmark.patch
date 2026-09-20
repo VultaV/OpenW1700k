@@ -109,6 +109,15 @@ Signed-off-by: Kevin Darbyshire-Bryant <ldir@darbyshire-bryant.me.uk>
  	__u8 invert;
 --- a/net/netfilter/xt_connmark.c
 +++ b/net/netfilter/xt_connmark.c
+@@ -14,5 +14,8 @@
+ #include <net/netfilter/nf_conntrack_ecache.h>
+ #include <linux/netfilter/x_tables.h>
+ #include <linux/netfilter/xt_connmark.h>
++#include <linux/ip.h>
++#include <linux/ipv6.h>
++#include <net/dsfield.h>
+ 
+ MODULE_AUTHOR("Henrik Nordstrom <hno@marasystems.com>");
 @@ -24,13 +24,13 @@ MODULE_ALIAS("ipt_connmark");
  MODULE_ALIAS("ip6t_connmark");
  

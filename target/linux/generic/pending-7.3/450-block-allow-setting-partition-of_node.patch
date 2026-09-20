@@ -29,7 +29,19 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  #include "../blk.h"
  
  /*
-@@ -35,15 +36,25 @@
+@@ -17,6 +18,9 @@
+ 		int flags;
+ 		bool has_info;
+ 		struct partition_meta_info info;
++#ifdef CONFIG_OF
++		struct device_node *np;
++#endif
+ 	} *parts;
+ 	int next;
+ 	int limit;
+--- a/block/partitions/check.h
++++ b/block/partitions/check.h
+@@ -35,15 +39,25 @@
  }
  
  static inline void
@@ -56,17 +68,6 @@ Signed-off-by: Daniel Golle <daniel@makrotopia.org>
  /* detection routines go here in alphabetical order: */
  int adfspart_check_ADFS(struct parsed_partitions *state);
  int adfspart_check_CUMANA(struct parsed_partitions *state);
-
-@@ -17,6 +17,9 @@
- 		int flags;
- 		bool has_info;
- 		struct partition_meta_info info;
-+#ifdef CONFIG_OF
-+		struct device_node *np;
-+#endif
- 	} *parts;
- 	int next;
- 	int limit;
 --- a/block/partitions/core.c
 +++ b/block/partitions/core.c
 @@ -9,6 +9,7 @@

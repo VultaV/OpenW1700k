@@ -161,12 +161,11 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  	int ret;
 --- a/drivers/net/dsa/mt7530.h
 +++ b/drivers/net/dsa/mt7530.h
-@@ -938,6 +938,13 @@ static inline void INIT_MT7530_DUMMY_POL
+@@ -938,6 +938,12 @@
  
  int mt7530_probe_common(struct mt7530_priv *priv);
  void mt7530_remove_common(struct mt7530_priv *priv);
-+void mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val);
-+void mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val);
++int mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val);
 +u32 mt7530_read(struct mt7530_priv *priv, u32 reg);
 +int mt7531_ind_c45_phy_read(struct mt7530_priv *priv, int port, int devad, int regnum);
 +int mt7531_ind_c45_phy_write(struct mt7530_priv *priv, int port, int devad, int regnum, u16 data);

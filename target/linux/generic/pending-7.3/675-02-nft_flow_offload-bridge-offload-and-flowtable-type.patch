@@ -47,13 +47,14 @@
  
 --- a/net/netfilter/nf_flow_table_path.c
 +++ b/net/netfilter/nf_flow_table_path.c
-@@ -15,6 +15,9 @@
+@@ -15,6 +15,10 @@
  #include <net/netfilter/nf_conntrack_core.h>
  #include <net/netfilter/nf_conntrack_extend.h>
  #include <net/netfilter/nf_flow_table.h>
 +#include <linux/if_bridge.h>
 +#include <net/route.h>
 +#include <net/ip6_route.h>
++#include <linux/if_vlan.h>
  
  static enum flow_offload_xmit_type nft_xmit_type(struct dst_entry *dst)
  {
@@ -159,7 +160,7 @@
  		goto err_out;
  
  	return 0;
-@@ -219,19 +230,52 @@
+@@ -219,19 +230,51 @@
  }
  
  static int nft_dev_forward_path(const struct nft_pktinfo *pkt,
@@ -168,7 +169,7 @@
  				const struct nf_conn *ct,
  				enum ip_conntrack_dir dir,
 +				     enum ip_conntrack_dir skb_dir, struct nft_flowtable *ft)
- 				struct nft_flowtable *ft)
+-				struct nft_flowtable *ft)
  {
  	const struct dst_entry *dst = route->tuple[dir].dst;
  	struct net_device_path_stack stack;
@@ -216,7 +217,7 @@
  		return -ENOENT;
  
  	route->tuple[!dir].in.ifindex = info.dev->ifindex;
-@@ -268,11 +312,46 @@
+@@ -268,11 +312,44 @@
  		   struct nf_flow_route *route, enum ip_conntrack_dir dir,
  		   struct nft_flowtable *ft)
  {
@@ -252,8 +253,6 @@
 +			other_dst = this_dst;
 +			dst_hold(this_dst);
 +		}
-+	}
-+
 +	}
 +
 +	if (this_dst)

@@ -44,7 +44,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
  obj-$(CONFIG_NETFILTER_XT_TARGET_LED) += xt_LED.o
 --- /dev/null
 +++ b/net/netfilter/xt_FLOWOFFLOAD.c
-@@ -0,0 +1,714 @@
+@@ -0,0 +1,715 @@
 +/*
 + * Copyright (C) 2018-2021 Felix Fietkau <nbd@nbd.name>
 + *
@@ -55,6 +55,7 @@ Signed-off-by: Felix Fietkau <nbd@nbd.name>
 +#include <linux/module.h>
 +#include <linux/init.h>
 +#include <linux/netfilter.h>
++#include <linux/netfilter/x_tables.h>
 +#include <linux/netfilter/xt_FLOWOFFLOAD.h>
 +#include <linux/if_vlan.h>
 +#include <net/ip.h>
