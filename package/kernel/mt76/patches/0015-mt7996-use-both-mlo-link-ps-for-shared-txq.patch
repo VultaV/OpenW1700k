@@ -1,0 +1,140 @@
+Subject: mt7996: use both MLO link PS states for the shared station TXQ
+
+Default enabled for two-link MLO; validates current primary and secondary WCIDs.
+Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
+
+--- a/tx.c
++++ b/tx.c
+@@ -44,6 +44,15 @@
+ 	spin_lock_bh(&dev->status_lock);
+ }
+ EXPORT_SYMBOL_GPL(mt76_tx_status_lock);
++
++static bool
++mt76_txq_is_ps(struct mt76_dev *dev, struct mt76_wcid *wcid)
++{
++	if (dev->drv->txq_ps)
++		return dev->drv->txq_ps(wcid);
++
++	return test_bit(MT_WCID_FLAG_PS, &wcid->flags);
++}
+ 
+ static void
+ mt76_txq_wake_ps(struct mt76_dev *dev, struct mt76_wcid *completed,
+@@ -72,7 +81,7 @@
+ 		if (!wcid)
+ 			continue;
+ 
+-		ps = test_bit(MT_WCID_FLAG_PS, &wcid->flags);
++		ps = mt76_txq_is_ps(dev, wcid);
+ 		if (!ps && !completed_ps)
+ 			continue;
+ 
+@@ -532,7 +541,7 @@
+ 	bool stop = false;
+ 	int idx;
+ 
+-	if (test_bit(MT_WCID_FLAG_PS, &wcid->flags)) {
++	if (mt76_txq_is_ps(dev, wcid)) {
+ 		if (!(dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING))
+ 			return 0;
+ 		if (ieee80211_txq_aql_pending(phy->hw, txq))
+@@ -558,7 +567,7 @@
+ 	if (idx < 0)
+ 		return idx;
+ 
+-	if (test_bit(MT_WCID_FLAG_PS, &wcid->flags))
++	if (mt76_txq_is_ps(dev, wcid))
+ 		goto out;
+ 
+ 	do {
+@@ -622,7 +631,7 @@
+ 
+ 		q = phy->q_tx[qid];
+ 
+-		if (test_bit(MT_WCID_FLAG_PS, &wcid->flags)) {
++		if (mt76_txq_is_ps(dev, wcid)) {
+ 			if (!(dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING))
+ 				continue;
+ 
+--- a/mt76.h
++++ b/mt76.h
+@@ -569,6 +569,7 @@
+ 				struct mt76_queue_entry *e);
+ 
+ 	bool (*tx_status_data)(struct mt76_dev *dev, u8 *update);
++	bool (*txq_ps)(struct mt76_wcid *wcid);
+ 
+ 	bool (*rx_check)(struct mt76_dev *dev, void *data, int len);
+ 
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -6,6 +6,48 @@
+ #include "mt7996.h"
+ #include "mcu.h"
+ #include "mac.h"
++
++static bool mlo_ps_gate_fix = true;
++module_param_named(mlo_ps_gate_fix, mlo_ps_gate_fix, bool, 0600);
++MODULE_PARM_DESC(mlo_ps_gate_fix,
++	"Account for both active MLO links when gating the shared station TXQ");
++
++bool mt7996_txq_ps(struct mt76_wcid *wcid)
++{
++	struct mt7996_sta_link *primary, *secondary;
++	struct ieee80211_sta *sta;
++	struct mt7996_sta *msta;
++	u8 primary_id, secondary_id;
++
++	if (!test_bit(MT_WCID_FLAG_PS, &wcid->flags))
++		return false;
++	if (!READ_ONCE(mlo_ps_gate_fix) || !wcid->sta || !wcid->link_valid)
++		return true;
++	sta = wcid_to_sta(wcid);
++	if (!sta || !sta->mlo)
++		return true;
++	msta = (struct mt7996_sta *)sta->drv_priv;
++	primary_id = READ_ONCE(msta->deflink_id);
++	secondary_id = READ_ONCE(msta->seclink_id);
++	if (primary_id >= IEEE80211_MLD_MAX_NUM_LINKS ||
++	    secondary_id >= IEEE80211_MLD_MAX_NUM_LINKS ||
++	    primary_id == secondary_id || wcid->link_id != primary_id)
++		return true;
++
++	/* ponytail: limit to two-link MLO until three-link PS is verified. */
++	if (READ_ONCE(sta->valid_links) != (BIT(primary_id) | BIT(secondary_id)))
++		return true;
++	primary = mt7996_sta_link(msta, primary_id);
++	secondary = mt7996_sta_link(msta, secondary_id);
++	if (!primary || wcid != &primary->wcid || !secondary ||
++	    !secondary->wcid.link_valid || secondary->wcid.link_id != secondary_id)
++		return true;
++
++	/* The TXQs belong to the primary WCID, but serve both MLO links.
++	 * Keep per-link firmware PS flags and actual TX WCID selection intact.
++	 */
++	return test_bit(MT_WCID_FLAG_PS, &secondary->wcid.flags);
++}
+ 
+ int mt7996_run(struct mt7996_phy *phy)
+ {
+--- a/mt7996/mmio.c
++++ b/mt7996/mmio.c
+@@ -842,6 +842,7 @@
+ 				SURVEY_INFO_TIME_BSS_RX,
+ 		.token_size = MT7996_TOKEN_SIZE,
+ 		.tx_prepare_skb = mt7996_tx_prepare_skb,
++		.txq_ps = mt7996_txq_ps,
+ 		.tx_complete_skb = mt76_connac_tx_complete_skb,
+ 		.rx_skb = mt7996_queue_rx_skb,
+ 		.rx_check = mt7996_rx_check,
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -956,6 +956,7 @@
+ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
+ 			      struct ieee80211_sta *sta,
+ 			      struct ieee80211_twt_setup *twt);
++bool mt7996_txq_ps(struct mt76_wcid *wcid);
+ int mt7996_tx_prepare_skb(struct mt76_dev *mdev, void *txwi_ptr,
+ 			  enum mt76_txq_id qid, struct mt76_wcid *wcid,
+ 			  struct ieee80211_sta *sta,

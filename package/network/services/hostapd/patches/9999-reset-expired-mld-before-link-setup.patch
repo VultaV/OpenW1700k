@@ -1,0 +1,32 @@
+--- a/src/ap/ieee802_11.c
++++ b/src/ap/ieee802_11.c
+@@ -7502,6 +7502,29 @@
+ 		goto fail;
+ 	}
+ 
++#ifdef CONFIG_IEEE80211BE
++	/* An expired PMF association must be removed before creating any
++	 * partner link STAs. Otherwise an old partner is rejected as a
++	 * duplicate, or a new WCID is included in the old STA's BA teardown.
++	 * Keep FT/FILS key-preserving paths and pending SA Query unchanged.
++	 */
++	if (ap_sta_is_mld(hapd, sta) && sta->sa_query_timed_out &&
++	    (sta->flags & (WLAN_STA_MFP | WLAN_STA_AUTHORIZED)) ==
++	    (WLAN_STA_MFP | WLAN_STA_AUTHORIZED) &&
++	    !sta->added_unassoc &&
++	    FULL_AP_CLIENT_STATE_SUPP(hapd->iface->drv_flags) &&
++	    (sta->auth_alg == WLAN_AUTH_OPEN || sta->auth_alg == WLAN_AUTH_SAE)) {
++		u32 auth = sta->flags & WLAN_STA_AUTH;
++
++		if (ap_sta_re_add(hapd, sta) < 0) {
++			resp = WLAN_STATUS_AP_UNABLE_TO_HANDLE_NEW_STA;
++			goto fail;
++		}
++		sta->flags |= auth;
++		wpa_auth_sm_event(sta->wpa_sm, WPA_DRV_STA_REMOVED);
++	}
++#endif /* CONFIG_IEEE80211BE */
++
+ 	/*
+ 	 * sta->capability is used in check_assoc_ies() for RRM enabled
+ 	 * capability element.

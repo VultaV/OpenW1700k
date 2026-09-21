@@ -1,0 +1,111 @@
+Subject: [PATCH] wifi: mt76: rearm PS TXQs after returning AQL airtime
+
+A PS TXQ with pending AQL airtime is removed from the airtime scheduler
+until a buffered frame completes. In MLO the completion WCID can belong to
+an awake link, while the TXQ's current WCID belongs to a sleeping link.
+Checking the completion WCID therefore misses the queue that needs waking.
+
+The wake also currently precedes the AQL return in tx_status_ext. A worker
+running in that interval can remove the TXQ again. With tracked TX status,
+the airtime may not be returned until a later TXS or timeout notification.
+
+Rearm after tx_status_ext in both status paths, checking each TXQ's current
+WCID and remaining AC airtime. Preserve the existing wake when the completing
+link is sleeping but the TXQ has since moved to an awake primary; the latter
+need not wait for all AQL airtime to drain. Use the current TXQ PHY. No skb
+fields are accessed after mac80211 consumes it.
+
+This does not track a previously blocked queue across a primary replacement
+when both the completing link and the new primary are awake. That existing
+link-lifecycle case needs separate handling; no new TXQ state is introduced.
+
+--- a/tx.c
++++ b/tx.c
+@@ -44,6 +44,49 @@
+ 	spin_lock_bh(&dev->status_lock);
+ }
+ EXPORT_SYMBOL_GPL(mt76_tx_status_lock);
++
++static void
++mt76_txq_wake_ps(struct mt76_dev *dev, struct mt76_wcid *completed,
++		 struct ieee80211_sta *sta)
++{
++	bool completed_ps = completed &&
++		test_bit(MT_WCID_FLAG_PS, &completed->flags);
++	bool wake = false;
++	int i;
++
++	if (!sta || !(dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING))
++		return;
++
++	for (i = 0; i < ARRAY_SIZE(sta->txq); i++) {
++		struct ieee80211_txq *txq = sta->txq[i];
++		struct ieee80211_hw *hw;
++		struct mt76_wcid *wcid;
++		struct mt76_txq *mtxq;
++		bool ps;
++
++		if (!txq)
++			continue;
++
++		mtxq = (struct mt76_txq *)txq->drv_priv;
++		wcid = __mt76_wcid_ptr(dev, READ_ONCE(mtxq->wcid));
++		if (!wcid)
++			continue;
++
++		ps = test_bit(MT_WCID_FLAG_PS, &wcid->flags);
++		if (!ps && !completed_ps)
++			continue;
++
++		hw = mt76_phy_hw(dev, wcid->phy_idx);
++		if (ps && ieee80211_txq_aql_pending(hw, txq))
++			continue;
++
++		ieee80211_schedule_txq(hw, txq);
++		wake = true;
++	}
++
++	if (wake)
++		mt76_worker_schedule(&dev->tx_worker);
++}
+ 
+ void
+ mt76_tx_status_unlock(struct mt76_dev *dev, struct sk_buff_head *list)
+@@ -80,6 +123,7 @@
+ 		spin_lock_bh(&dev->rx_lock);
+ 		ieee80211_tx_status_ext(hw, &status);
+ 		spin_unlock_bh(&dev->rx_lock);
++		mt76_txq_wake_ps(dev, wcid, status.sta);
+ 	}
+ 	rcu_read_unlock();
+ }
+@@ -268,21 +312,6 @@
+ 
+ 	wcid = __mt76_wcid_ptr(dev, wcid_idx);
+ 	mt76_tx_check_non_aql(dev, wcid, skb);
+-
+-	if (wcid && (dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING) &&
+-	    test_bit(MT_WCID_FLAG_PS, &wcid->flags)) {
+-		struct ieee80211_sta *sta = wcid_to_sta(wcid);
+-
+-		if (sta) {
+-			struct ieee80211_hw *hw = mt76_phy_hw(dev, wcid->phy_idx);
+-			int i;
+-
+-			for (i = 0; i < ARRAY_SIZE(sta->txq); i++)
+-				if (sta->txq[i])
+-					ieee80211_schedule_txq(hw, sta->txq[i]);
+-			mt76_worker_schedule(&dev->tx_worker);
+-		}
+-	}
+ 
+ #ifdef CONFIG_NL80211_TESTMODE
+ 	if (mt76_is_testmode_skb(dev, skb, &hw)) {
+@@ -311,6 +340,7 @@
+ 		spin_lock_bh(&dev->rx_lock);
+ 		ieee80211_tx_status_ext(hw, &status);
+ 		spin_unlock_bh(&dev->rx_lock);
++		mt76_txq_wake_ps(dev, wcid, status.sta);
+ 		goto out;
+ 	}
+ 

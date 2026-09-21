@@ -25,7 +25,7 @@ def get_initial_output(image_info):
     # preserve existing profiles.json
     if output_path.is_file():
         profiles = json.loads(output_path.read_text())
-        if profiles["version_code"] == image_info["version_code"]:
+        if (profiles["version_code"], profiles["version_number"]) == (image_info["version_code"], image_info["version_number"]):
             return profiles
     return image_info
 
@@ -69,6 +69,7 @@ if output:
     ) = run(
         [
             "make",
+            "-j1",
             "--no-print-directory",
             "-C",
             "target/linux/",

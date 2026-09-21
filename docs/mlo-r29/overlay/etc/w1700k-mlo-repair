@@ -1,0 +1,132 @@
+{
+  "base_source": "6d74443bce54df63f6d877040d406cdbcfc16f81",
+  "build_profile": "ubi2",
+  "build_label": "ubi2-mlo-npu-ownership-r29-20260919-tailscale",
+  "kernel": "6.18.44",
+  "mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
+  "mt76_package_release": 26,
+  "feeds": {
+    "packages": "d50c9e2ac63808f8ea487ef8bc91632e7a483804",
+    "luci": "289a7260434d4b8212a9cc6cf6160cb1935270c1",
+    "routing": "4b9891b9136259f93294a424507ed24c5e8c1cbd"
+  },
+  "patch_sha256": {
+    "0001-wifi-mt76-mt7996-add-token-and-NPU-debugfs-counters.patch": "2dd8badeff8f7c16a4479e998fc916c655756a40f3985eb034ba267cf0c01316",
+    "0003-wifi-mt76-mt7996-replace-direct-WTBL-access-with-MCU-for-station-statistics.patch": "05ecd02087f7e4e67f36535d2edf53dad1c039d5ea8dbf79ba7a1db37471f68b",
+    "0005-wifi-mt76-mt7996-guard-txfree-overrun.patch": "4c83661e2bd54256d3897ce83e8b110eaaba334954beb236c90b36171ca1fdec",
+    "0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch": "865f7c7d47b687fdb5aea7b1d58acf214bb206652529acf4ba4267b501fa0e27",
+    "0008-mt76-wake-ps-txqs-after-aql-return.patch": "1592454eb54ed918105988604fd64236bc736df243e66afdc907c0b37fa603a1",
+    "0009-mt7996-show-per-link-power-save-state.patch": "7c8c887095fa2355c31919e61f3c3ed8669665dec1e94920cc14ba8269b15619",
+    "0010-enable-firmware-txpower-limit.patch": "413a6b8171b1ad9ba64d973d37dbb80cabe4e10e19df33fc6ed65ba19b25e8c9",
+    "0011-refresh-power-limits-on-txpower-changes.patch": "1b1f7dd058079affd700e843b2c76233e206dfcb70b35e1a663ff265f0b5eca3",
+    "0012-mt7996-resolve-rate-control-phy-from-active-link.patch": "e8167cc045bba5fa62b305d462eda17101a0f7032bdfc2d03dc9d3508c2a420f",
+    "0015-mt7996-use-both-mlo-link-ps-for-shared-txq.patch": "8671c465b82e42bc844dabdd71d159e84258e962724795d2782ac6ca1d87f998",
+    "0016-mt7996-trace-ba-failure-and-mld-teardown.patch": "635586fe76c5b72174c964cf49664d12e88691b300e8036823fb67f61aaeda32",
+    "0018-mt7996-trace-station-disconnect-result.patch": "53a4ee361adce084ca2888642e37f2b79ecc9b460c545e2dc97aa18b80a526b0",
+    "0020-mt7996-test-selected-peer-nstr-on-r17.patch": "ca1790fdf10ffbdc50ba01df89cbf47e8eb7662a6e103870bdd4ca4ba77f7ccd",
+    "0021-mt7996-show-per-link-tx-feedback.patch": "c2bd61bf45b4ff22f0d6d7c9d48e782885cbef16818f1fd5875f1deaeb3b30b6",
+    "0022-mt7996-count-tx-completion-error-flags.patch": "ae9a4f95a25af1057271a548f158581f56d654acf97dba5c955ed88613042279",
+    "0023-mt7996-test-awake-link-tx-selection.patch": "c8ba4498a8030fa7ee9e9f47ebbc765c998274f0fda8fd7eaa0b7e88b0b6a797",
+    "0024-mt7996-count-tx-link-selection.patch": "3291b9e6ef516864da15b5e594849bb467fed61ee201227c48142c903d2b3a86",
+    "0025-mt7996-trace-failed-test-packet-headers.patch": "3ea3b395717469a07e3e09c71247fa7d0e62bf2ee9901b10a2e48aaf5b379446",
+    "0026-mt7996-trace-ba-frames-and-mcu-results.patch": "db2ba1f6ce893aa9390b0a93342898439c9b6c4352084adadbf2ce5e83d3a114",
+    "0027-mt7996-trace-mlo-ps-event-order.patch": "04a43d50636a2bfa41225a0b04fa1d0f9cee11a37ddda716051d1b4fa460cae8",
+    "0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch": "e15ff0e359accbbe1932136bd8f6cb9015eaa08d2f7a0b5d631c727e2f292ce4"
+  },
+  "hardware_validation": "Not installed. r27 diagnoses host-observed PS transition ordering; r26 reproduced195 status1 headers and186 rxholes after successful BA. No confirmed MLO fix.",
+  "feed_patch_sha256": {
+    "packages/libs/libpfring/patches/0002-use-target-ar-for-bundled-libraries.patch": "ba0ccdc34e3ed16e7ca58f901d37b0ff55b0e199e5c02b02a9dc7823623a398d"
+  },
+  "host_build": {
+    "platform": "Darwin arm64",
+    "gnu_make": "4.4.1",
+    "tfa_host_cflags": "-include stdint.h",
+    "path": "GNU make and GNU getopt before system tools",
+    "go_bootstrap": "1.26.5",
+    "go_compiler": "1.27.1"
+  },
+  "host_patch_sha256": {
+    "package/firmware/rtl826x-firmware/patches/0002-use-portable-host-headers.patch": "84fdaacee2d95af474746adf166e57eb23130dfa8bf4426b4713a99b253cd0b1"
+  },
+  "remote_access": {
+    "package": "tailscale",
+    "version": "1.102.2-r1",
+    "state_file": "/etc/tailscale/tailscaled.state",
+    "preserve_settings_required": true,
+    "private_state_embedded": false,
+    "hardware_validation": "r26 separate AP configuration restored, Tailscale running; r27 not yet installed."
+  },
+  "upstream_release": "ubi2_2026.09.10_r36182-6d74443bce",
+  "source_revision_marker": "r36182-6d74443bce",
+  "withdrawn_patches": [
+    "0007-wifi-mt76-mt7996-restore-mlo-link-selection.patch"
+  ],
+  "known_unresolved": [
+    "Physical iPhone MLO stalls reproduced without Mirroring on a 2.5G server path. 16 retransmissions reached Wi-Fi output; location after that tap is unresolved.",
+    "Both-link PS correlates with stalls. iw byte counters are mac80211 software accounting on this Airoha build and do not prove firmware admission; per-band hardware feedback is not per-peer delivery.",
+    "NSTR is default-empty and has not eliminated the reproducible stalls.",
+    "FT/FILS and other untested stale-association cases remain outside the existing OPEN/SAE recovery fix.",
+    "r21 mirrored iPhone MLO: final UI 826/0/998 Mbps; error-report increments precede low throughput with unchanged TID0 BA token. Actual transmitting band is not identified by the feedback WCID; TXS flags and TXFREE raw status need device measurement.",
+    "r24 verified the awake selector changes prepared WCID, but the prior r23 ON throughput was worse. Matched Mac MLO trials show transient no-scan loss; actual iPhone long stalls remain uncorrected.",
+    "r25 sampled raw status1 packets can be TCP-acknowledged without retransmission; status1 is not itself proof of final loss. Native RX BA reset produced no lasting fix; later single6 slow period overlapped OS scans.",
+    "r26 successful RX4 BA programming preceded a short status1/rxholes burst; second matched Mac run was clean. Missing software RX BA is not necessary for that short event. Full zero-throughput root cause remains unresolved.",
+    "r29 NPU publication ordering change has not yet been tested on the router; no MLO stability or throughput claim."
+  ],
+  "diagnostic_only_changes": [
+    "0009 displays MLO per-WCID PS even when the embedded default VIF link has no channel context",
+    "0016 logs failed BA MCU requests and MLD teardown result, WCID, link and disabled state. Instrumentation preserves existing MCU command behavior; separate hostapd expired-association recovery is listed under functional changes.",
+    "0018 logs disconnect command results; also occurs during new station initialization.",
+    "0020 default-empty selected-peer NSTR bitmap test; changes mutual hardware-band STR bits only on exactly two non-EML links at reassociation.",
+    "0021 displays existing per-link TXS report totals and TXFREE retry/failed-attempt counters in hw-queues. No TX, PS, firmware, MCU query or counter writer changes. TXS is sampled feedback, not delivered packets; failed attempts include retries; snapshots are not coherent across fields.",
+    "0022 counts TXS formats, overlapping MPDU format-0 bits 16..22 and atomic TXFREE raw status bins per station WCID. No additional firmware requests, TX selection, power-save or BA command changes. Events are not delivered TCP packet counts; PS is a flag, not itself an error.",
+    "0024 counts host WCID preparation, successful awake-selector precondition checks and redirect decisions per link. Displays actual WCID link_id and sta.mlo. No firmware queries or scheduling changes. Counts do not prove firmware admission or air delivery.",
+    "0025 default-off tx_drop_trace logs up to 8 IPv4 TCP source-port 5203 failed TXFREE packet headers per 5 seconds, after payload DMA unmap. No TX preparation, firmware command or scheduling changes. Host TXP WCID and completion WCID/PS do not identify the physical air link.",
+    "0026 default-off ba_trace logs bounded ADDBA/DELBA RX/TX headers and per-link STA_REC_BA results/timing. No packet, descriptor, BA policy or MCU command changes. TX preparation is not air delivery. No fix claim.",
+    "0027 default-off ps_trace logs changed two-link MLO PS events and status1 host snapshots with independent128/5s and8/5s limits and per-kind eligible sequence IDs. Existing packet trace splits status1/other8/5s budgets. No PS, queue, packet, firmware, link selection or BA behavior change. Independent host reads are not atomic air-state evidence; suppressed events remain missing."
+  ],
+  "functional_changes": [
+    "0012 resolves the RC update PHY from the affected active VIF link; baseline source reproduction fails and fixed source passes. Effect on field throughput is not yet established.",
+    "0015 default-enabled shared station TXQ PS gate for two valid selected links; preserves per-link firmware PS, actual TX WCID and BA commands; three-link MLO retains original behavior.",
+    "hostapd preserves RX_FROM_UNKNOWN link_id through the BSSID lookup so an AP MLD can respond to a removed station on its actual link.",
+    "hostapd retires an expired PMF MLD association before fresh partner setup for OPEN/SAE with full AP client state, preserving existing authentication state and invalidating the old driver key-installed flag. Pending SA Query and FT/FILS unchanged.",
+    "Deliver per-wiphy NOP_FINISHED/PRE_CAC_EXPIRED to all BSS links, including newly inherited operating frequencies; per-AP hardware range validation remains. Radar/CAC event routing unchanged.",
+    "0029 publishes NPU RX replacement buffer fields before dma_wmb and WRITE_ONCE(ctrl, 0). Exact-source ownership model fails before and passes after; ARM64 dmb oshst verified. Original iPhone MLO stall repair remains unproven."
+  ],
+  "mlo_ps_gate_fix": "0015 default-enabled shared station TXQ PS gate for two valid selected links; preserves per-link firmware PS, actual TX WCID and BA commands; three-link MLO retains original behavior.",
+  "removed_diagnostic_patches": [
+    "0013-mt7996-report-eml-capability-and-mode-result.patch",
+    "0014-mt7996-test-selected-peer-nstr-bitmap.patch",
+    "0019-mt7996-diagnose-mlo-management-tx-descriptor.patch"
+  ],
+  "npu_enabled": true,
+  "mt76_recipe_sha256": "fb409239b7a6afbc511d538955a394a23caefd2b67dc4bec2d82984a1a579e09",
+  "prior_build_bundle_sha256": {
+    "source-fixes.patch": "55aa4fdefac51b56cea5c930871af2290325c0d4e65a89b5a89a38857d92f2b7",
+    "build-pipeline-fixes.patch": "8958d585e5c1b149b01d476661594d7a9575ad701a89a70367ffa1c2aacedb91",
+    "feed-fixes.patch": "f40f5cf4351f6e958e7d238a311d17867006fd8bb8059345ccf8a2a333ae2a8f"
+  },
+  "hostapd_package_release": 5,
+  "hostapd_patch_sha256": {
+    "999-preserve-link-id-for-unknown-station.patch": "588ee2b838896ee2aadc0c3ebb9bd40aacedab8f4416cc433a6b511bd15e8bea",
+    "9999-reset-expired-mld-before-link-setup.patch": "00b1bf17fdd9128b92e12aa087335aa7bdbd59e9fac605f4cb4c80f14e3cf99d",
+    "9999-deliver-dfs-state-to-unconfigured-links.patch": "39fcc81774817202a22d1b8844af8966ceeb6af94874d1b2d2849ffb6f6766e5"
+  },
+  "hostapd_recipe_sha256": "26304233549c5d9c604d1d2541033febc7b95fbed154991668ccaad369193b69",
+  "hostapd_binary_sha256": "2a690fa0ee188787f1661b8d873faa9c592278660f0cfcc19e2bbfeb072a16a5",
+  "hostapd_driver_source_sha256": "7b9fbe7dab55e939ad2a8632af031c9f037c995105c3b6bc7ac17e80fd28e2d7",
+  "driver_source_overrides": {
+    "mt7996/debugfs.c": "8d80dafe2a71c91649cf512f5788dff8f0e8d8770ab66d09f2f84326454ebde8",
+    "mt7996/mac.c": "7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e",
+    "mt7996/mt7996.h": "f25c91f6786ae91a29542ca0c444d94bd9c31e896f4244901e934402acf25f0a",
+    "mt7996/mcu.c": "944d2053f5bbc96dfaad2625ee28ebdd41c0855d9510f9fe07d4653b50c6b5c9",
+    "npu.c": "5a70be791b6543c607fdf038fe532e07ed9565e0b67eba93bd99c4e01ef7499c"
+  },
+  "experimental_changes": [
+    "0023 awake-WCID selector remains default OFF. r23 ON worsened average speed (869/510/838 Mbps OFF/ON/OFF); do not enable as a fix. Retained only for bounded instrumented diagnosis."
+  ],
+  "driver_module_sha256": {
+    "mt76.ko": "fb6b1d736e096ef4298bc82d199c4ce3c0ed4a32b1a3c0a54d762e47a26acf4b",
+    "mt76-connac-lib.ko": "c237bcf8bc308d4b4dd69c34243c05309c92052104e7f23de7acd3b694d9803e",
+    "mt7996e.ko": "11f16b9b8ec8512c9bc5479bbd5ef3767fb3be76f7220cd2ca364b4ddbc01410"
+  }
+}

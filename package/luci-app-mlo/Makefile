@@ -2,6 +2,9 @@
 
 include $(TOPDIR)/rules.mk
 
+PKG_VERSION = $(PKG_SRC_VERSION)
+PKG_RELEASE:=2
+
 LUCI_TITLE:=LuCI Support for Wi-Fi MLO
 LUCI_DEPENDS:=+luci-base +luci-mod-network
 

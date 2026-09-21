@@ -1,0 +1,17 @@
+{
+  "comparison": "r29 extracted image vs r27 extracted image",
+  "identical": true,
+  "files": {
+    "rtl8264b.bin": "7a0bcf605739d6f780e0799bbea0c73acf56c9a4cbba015da5d27589bf4352ca",
+    "regulatory.db": "6fb59be8734f9d7dbbae5b49b9798eb576fea860e85496d86c74622005fa8cb1",
+    "rtl8261n.bin": "ae1963b2a84a17eaa2fb9052591bdb5152838feda045d7313f45a8608b918533",
+    "airoha/en7581_MT7996_npu_data.bin": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1",
+    "airoha/en7581_MT7996_npu_rv32.bin": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+    "mediatek/mt7996/mt7996_dsp.bin": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d",
+    "mediatek/mt7996/mt7996_wa.bin": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448",
+    "mediatek/mt7996/mt7996_eeprom_2i5i6i.bin": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28",
+    "mediatek/mt7996/mt7996_rom_patch.bin": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400",
+    "mediatek/mt7996/mt7996_eeprom.bin": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6",
+    "mediatek/mt7996/mt7996_wm.bin": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+  }
+}

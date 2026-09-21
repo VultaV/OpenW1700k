@@ -1,0 +1,136 @@
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -4,7 +4,10 @@
+  */
+ 
+ #include <linux/etherdevice.h>
++#include <linux/ratelimit.h>
++#include <linux/tcp.h>
+ #include <linux/timekeeping.h>
++#include <net/ip.h>
+ #include "coredump.h"
+ #include "mt7996.h"
+ #include "../dma.h"
+@@ -1250,10 +1253,71 @@
+ 			 DMA_TO_DEVICE);
+ }
+ 
++static bool tx_drop_trace;
++module_param_named(tx_drop_trace, tx_drop_trace, bool, 0600);
++MODULE_PARM_DESC(tx_drop_trace,
++		 "Trace failed IPv4 TCP source-port 5203 headers, default off");
++
++static void
++mt7996_trace_tx_drop(struct mt7996_dev *dev, struct mt76_txwi_cache *t,
++		     struct mt76_wcid *wcid, u32 free_info)
++{
++	/* ponytail: global 8/5s sample; use a bounded ring if bursts need full capture. */
++	static DEFINE_RATELIMIT_STATE(rs, 5 * HZ, 8);
++	struct sk_buff *skb = t->skb;
++	struct mt76_connac_txp_common *txp;
++	struct ethhdr ethbuf, *eth;
++	struct iphdr ipbuf, *ip;
++	struct tcphdr tcpbuf, *tcp;
++	__le32 *txwi;
++	unsigned int ihl, thl, len;
++
++	if (!READ_ONCE(tx_drop_trace) || !skb ||
++	    !(free_info & MT_TXFREE_INFO_HEADER) ||
++	    !FIELD_GET(MT_TXFREE_INFO_STAT, free_info) ||
++	    !(IEEE80211_SKB_CB(skb)->flags & IEEE80211_TX_CTL_HW_80211_ENCAP))
++		return;
++
++	txwi = (__le32 *)mt76_get_txwi_ptr(&dev->mt76, t);
++	if (le32_to_cpu(txwi[7]) & MT_TXD7_MAC_TXD)
++		return;
++	eth = skb_header_pointer(skb, 0, sizeof(ethbuf), &ethbuf);
++	ip = skb_header_pointer(skb, ETH_HLEN, sizeof(ipbuf), &ipbuf);
++	if (!eth || eth->h_proto != htons(ETH_P_IP) || !ip ||
++	    ip->version != 4 || ip->ihl < 5 || ip->protocol != IPPROTO_TCP ||
++	    ip_is_fragment(ip))
++		return;
++	ihl = ip->ihl * 4;
++	len = ntohs(ip->tot_len);
++	if (len < ihl + sizeof(tcpbuf) || len > skb->len - ETH_HLEN)
++		return;
++	tcp = skb_header_pointer(skb, ETH_HLEN + ihl, sizeof(tcpbuf), &tcpbuf);
++	if (!tcp || tcp->source != htons(5203) || tcp->doff < 5)
++		return;
++	thl = tcp->doff * 4;
++	if (thl > len - ihl || !__ratelimit(&rs))
++		return;
++
++	txp = mt76_connac_txwi_to_txp(&dev->mt76, t);
++	/* TXP records host preparation; completion WCID/PS is not an air-link proof. */
++	dev_info(dev->mt76.dev,
++		 "TXDROP raw=%08x token=%u prep=%u bss=%u txp=%04x done=%d link=%d phy=%d ps=%d tid=%u %pI4:%u>%pI4:%u seq=%u ack=%u ipid=%u bytes=%u skb=%u\n",
++		 free_info, le16_to_cpu(txp->fw.token),
++		 le16_to_cpu(txp->fw.rept_wds_wcid), txp->fw.bss_idx,
++		 le16_to_cpu(txp->fw.flags), wcid ? wcid->idx : -1,
++		 wcid ? wcid->link_id : -1, wcid ? wcid->phy_idx : -1,
++		 wcid ? test_bit(MT_WCID_FLAG_PS, &wcid->flags) : -1,
++		 skb->priority & IEEE80211_QOS_CTL_TID_MASK,
++		 &ip->saddr, ntohs(tcp->source), &ip->daddr, ntohs(tcp->dest),
++		 ntohl(tcp->seq), ntohl(tcp->ack_seq), ntohs(ip->id),
++		 len - ihl - thl, skb->len);
++}
++
+ static void
+ mt7996_txwi_free(struct mt7996_dev *dev, struct mt76_txwi_cache *t,
+ 		 struct ieee80211_link_sta *link_sta,
+-		 struct mt76_wcid *wcid, struct list_head *free_list)
++		 struct mt76_wcid *wcid, struct list_head *free_list,
++		 u32 free_info)
+ {
+ 	struct mt76_dev *mdev = &dev->mt76;
+ 	__le32 *txwi;
+@@ -1263,6 +1327,7 @@
+ 	if (!t->skb)
+ 		goto out;
+ 
++	mt7996_trace_tx_drop(dev, t, wcid, free_info);
+ 	txwi = (__le32 *)mt76_get_txwi_ptr(mdev, t);
+ 	if (link_sta) {
+ 		wcid_idx = wcid->idx;
+@@ -1309,6 +1374,7 @@
+ 	struct sk_buff *skb, *tmp;
+ 	void *end = data + len;
+ 	bool wake = false;
++	u32 free_info = 0;
+ 	u16 total, count = 0;
+ 	u8 ver;
+ 
+@@ -1343,6 +1409,7 @@
+ 			struct ieee80211_sta *sta;
+ 			u16 idx;
+ 
++			free_info = 0;
+ 			idx = FIELD_GET(MT_TXFREE_INFO_WLAN_ID, info);
+ 			wcid = mt76_wcid_ptr(dev, idx);
+ 			sta = wcid_to_sta(wcid);
+@@ -1363,6 +1430,7 @@
+ 		} else if (info & MT_TXFREE_INFO_HEADER) {
+ 			u32 tx_retries = 0, tx_failed = 0, count;
+ 
++			free_info = info;
+ 			if (!wcid)
+ 				continue;
+ 
+@@ -1388,7 +1456,7 @@
+ 				continue;
+ 
+ 			mt7996_txwi_free(dev, txwi, link_sta, wcid,
+-					 &free_list);
++					 &free_list, free_info);
+ 		}
+ 	}
+ 
+@@ -2222,7 +2290,7 @@
+ 
+ 	spin_lock_bh(&dev->mt76.token_lock);
+ 	idr_for_each_entry(&dev->mt76.token, txwi, id) {
+-		mt7996_txwi_free(dev, txwi, NULL, NULL, NULL);
++		mt7996_txwi_free(dev, txwi, NULL, NULL, NULL, 0);
+ 		dev->mt76.token_count--;
+ 	}
+ 	spin_unlock_bh(&dev->mt76.token_lock);

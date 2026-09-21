@@ -451,12 +451,14 @@ return view.extend({
 		};
 
 		quickAdd = function(mode) {
-			let selectedRadios = radios.slice(0, 2).map(r => r['.name']);
+			let selectedRadios = radios.filter(r => r.disabled != '1')
+				.sort((a, b) => [ '5g', '6g' ].includes(b.band) - [ '5g', '6g' ].includes(a.band))
+				.slice(0, 2).map(r => r['.name']);
 			let sid;
 			let defaultNetworks = [];
 
 			if (selectedRadios.length < 2) {
-				ui.addNotification(null, E('p', _('At least two configured radios are required before an MLO interface can be created.')));
+				ui.addNotification(null, E('p', _('At least two enabled radios are required before an MLO interface can be created.')));
 				return Promise.resolve();
 			}
 
@@ -521,7 +523,7 @@ return view.extend({
 
 		o = s.taboption('general', form.Flag, 'mlo', _('Enable MLO'),
 			_('When enabled, this <code>wifi-iface</code> spans multiple radios through a multi-value <code>device</code> list.'));
-		o.default = o.enabled;
+		o.default = o.disabled;
 		o.rmempty = false;
 
 		o = s.taboption('general', form.ListValue, 'mode', _('Mode'));
@@ -544,8 +546,11 @@ return view.extend({
 			if (!values.length)
 				return _('Select at least one radio device');
 
-			if (mloEnabled == '1' && values.length < 2)
-				return _('MLO requires at least two radio devices');
+			if (values.some(device => !radiosByName[device]))
+				return _('Select a configured radio device');
+
+			if (mloEnabled == '1' && values.filter(device => radiosByName[device].disabled != '1').length < 2)
+				return _('MLO requires at least two enabled radio devices');
 
 			return true;
 		};

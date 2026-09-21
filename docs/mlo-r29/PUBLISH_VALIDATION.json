@@ -1,0 +1,42 @@
+[
+  {
+    "check": "test_mlo_ui.js",
+    "exit_code": 0,
+    "seconds": 0.13
+  },
+  {
+    "check": "test_image_metadata.py",
+    "exit_code": 0,
+    "seconds": 0.33
+  },
+  {
+    "check": "test_hostapd_mld_reassoc.py",
+    "exit_code": 0,
+    "seconds": 1.05
+  },
+  {
+    "check": "test_hostapd_dfs_pending_link.py",
+    "exit_code": 0,
+    "seconds": 0.64
+  },
+  {
+    "check": "test_mt76_npu_rx.py",
+    "exit_code": 0,
+    "seconds": 2.57
+  },
+  {
+    "check": "test_mt76_ps_wake.py",
+    "exit_code": 0,
+    "seconds": 0.99
+  },
+  {
+    "check": "test_mt7996_mlo_ps.py",
+    "exit_code": 0,
+    "seconds": 0.57
+  },
+  {
+    "check": "test_mt7996_active_link.py",
+    "exit_code": 0,
+    "seconds": 0.45
+  }
+]

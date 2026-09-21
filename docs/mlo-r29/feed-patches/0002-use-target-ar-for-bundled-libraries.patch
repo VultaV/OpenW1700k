@@ -1,0 +1,107 @@
+Subject: [PATCH] configure: use the supplied archiver for bundled libraries
+
+OpenWrt supplies the target AR, but archive listing and extraction use the
+host ar unconditionally. Darwin ar misreads GNU archive long member names,
+leaving headers such as pfring_mod_mlx.h unextracted. Use the same supplied
+archiver for both operations.
+
+--- a/userland/configure
++++ b/userland/configure
+@@ -3790,7 +3790,7 @@
+ 
+ fi
+ 
+-AR_X="ar x"
++AR_X="$AR x"
+ 
+ if [ $MACHINE == "x86_64" ] || [ $MACHINE == "aarch64" ]; then
+     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for pthread_setaffinity_np in -lpthread" >&5
+@@ -3843,7 +3843,7 @@
+     PF_RING_ZC_LIB="libs/libpfring_zc_${MACHINE}${LIBARCH}.a"
+     if test -f lib/$PF_RING_ZC_LIB; then
+       HAVE_PF_RING_ZC="-D HAVE_PF_RING_ZC"
+-      PF_RING_ZC_OBJS=`ar t lib/${PF_RING_ZC_LIB} | grep -F .o | tr '\n' ' '`
++      PF_RING_ZC_OBJS=`$AR t lib/${PF_RING_ZC_LIB} | grep -F .o | tr '\n' ' '`
+       PF_RING_ZC_DEP="extract_pfring_zc_lib"
+       PF_RING_ZC_H="pfring_zc.h"
+       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+@@ -3860,7 +3860,7 @@
+         PF_RING_ZC_LIB_DBG="libs/libpfring_zc_${MACHINE}_dbg.a"
+         if test -f "lib/${PF_RING_ZC_LIB_DBG}"; then
+           PF_RING_ZC_LIB=${PF_RING_ZC_LIB_DBG}
+-          PF_RING_ZC_OBJS=`ar t lib/${PF_RING_ZC_LIB_DBG} | grep -F .o | tr '\n' ' '`
++          PF_RING_ZC_OBJS=`$AR t lib/${PF_RING_ZC_LIB_DBG} | grep -F .o | tr '\n' ' '`
+           { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ printf "%s\n" "yes" >&6; }
+         else
+@@ -3895,7 +3895,7 @@
+       PF_RING_FT_LIB="libs/libpfring_ft_${MACHINE}${LIBARCH}${PF_RING_FT_LIB_EXT}.a"
+       if test -f "lib/$PF_RING_FT_LIB"; then
+         HAVE_PF_RING_FT="-D HAVE_PF_RING_FT"
+-        PF_RING_FT_OBJS=`ar t lib/${PF_RING_FT_LIB} | grep -F .o | tr '\n' ' '`
++        PF_RING_FT_OBJS=`$AR t lib/${PF_RING_FT_LIB} | grep -F .o | tr '\n' ' '`
+         PF_RING_FT_DEP="extract_pfring_ft_lib"
+         PF_RING_FT_H="pfring_ft.h"
+         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+@@ -3912,7 +3912,7 @@
+           PF_RING_FT_LIB_DBG="libs/libpfring_ft_${MACHINE}_dbg${PF_RING_FT_LIB_EXT}.a"
+           if test -f "lib/${PF_RING_FT_LIB_DBG}"; then
+             PF_RING_FT_LIB=${PF_RING_FT_LIB_DBG}
+-            PF_RING_FT_OBJS=`ar t lib/${PF_RING_FT_LIB_DBG} | grep -F .o | tr '\n' ' '`
++            PF_RING_FT_OBJS=`$AR t lib/${PF_RING_FT_LIB_DBG} | grep -F .o | tr '\n' ' '`
+             { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ printf "%s\n" "yes" >&6; }
+           else
+@@ -3929,7 +3929,7 @@
+     NPCAP_LIB="libs/libnpcap_${MACHINE}${LIBARCH}.a"
+     if test -f lib/$NPCAP_LIB; then
+       HAVE_NPCAP="-D HAVE_NPCAP"
+-      NPCAP_OBJS=`ar t lib/${NPCAP_LIB} | grep -F .o | tr '\n' ' '`
++      NPCAP_OBJS=`$AR t lib/${NPCAP_LIB} | grep -F .o | tr '\n' ' '`
+       NPCAP_DEP="extract_npcap_lib"
+       NPCAP_H="npcap.h"
+       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+@@ -3973,14 +3973,14 @@
+   if test -f "lib/$MOD_FIBERBLAZE_LIB"; then
+     FIBERBLAZE_LIB="-lm -ldl"
+     HAVE_FIBERBLAZE="-D HAVE_FIBERBLAZE"
+-    FIBERBLAZE_OBJS=`ar t lib/$MOD_FIBERBLAZE_LIB | grep .o\$ | tr '\n' ' '`
++    FIBERBLAZE_OBJS=`$AR t lib/$MOD_FIBERBLAZE_LIB | grep .o\$ | tr '\n' ' '`
+     FIBERBLAZE_DEP="extract_fiberblaze_lib"
+   fi
+ 
+     MOD_NT_LIB="libs/libpfring_nt_$MACHINE$LIBARCH.a"
+   if test -f "lib/$MOD_NT_LIB"; then
+     HAVE_NT="-D HAVE_NT"
+-    NT_OBJS=`ar t lib/$MOD_NT_LIB | grep .o\$ | tr '\n' ' '`
++    NT_OBJS=`$AR t lib/$MOD_NT_LIB | grep .o\$ | tr '\n' ' '`
+     NT_DEP="extract_nt_lib"
+     if test ! -z "$DEBUG" ; then
+       { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking NT debug library" >&5
+@@ -3988,7 +3988,7 @@
+       MOD_NT_LIB_DBG="libs/libpfring_nt_${MACHINE}_dbg.a"
+       if test -f "lib/${MOD_NT_LIB_DBG}"; then
+         MOD_NT_LIB=${MOD_NT_LIB_DBG}
+-        NT_OBJS=`ar t lib/${MOD_NT_LIB_DBG} | grep -F .o | tr '\n' ' '`
++        NT_OBJS=`$AR t lib/${MOD_NT_LIB_DBG} | grep -F .o | tr '\n' ' '`
+         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ printf "%s\n" "yes" >&6; }
+       else
+@@ -4004,7 +4004,7 @@
+ 
+ if test -f "lib/${MOD_MLX_LIB}"; then
+     HAVE_MLX="-D HAVE_MLX"
+-    MLX_OBJS=`ar t lib/${MOD_MLX_LIB} | grep -F .o | tr '\n' ' '`
++    MLX_OBJS=`$AR t lib/${MOD_MLX_LIB} | grep -F .o | tr '\n' ' '`
+     MLX_DEP="extract_mlx_lib"
+ 
+         MLX_LIB="" # Use dlopen
+@@ -4018,7 +4018,7 @@
+       MOD_MLX_LIB_DBG="libs/libpfring_mlx_${MACHINE}_dbg.a"
+       if test -f "lib/${MOD_MLX_LIB_DBG}"; then
+         MOD_MLX_LIB=${MOD_MLX_LIB_DBG}
+-        MLX_OBJS=`ar t lib/${MOD_MLX_LIB_DBG} | grep -F .o | tr '\n' ' '`
++        MLX_OBJS=`$AR t lib/${MOD_MLX_LIB_DBG} | grep -F .o | tr '\n' ' '`
+         { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ printf "%s\n" "yes" >&6; }
+       else

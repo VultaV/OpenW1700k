@@ -1,0 +1,14 @@
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -3319,6 +3319,11 @@
+ out:
+ 	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
+ 				    MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	if (conn_state == CONN_STATE_DISCONNECT)
++		dev_info_ratelimited(dev->mt76.dev,
++			"MLO disconnect result=%d wcid=%d link=%d sta=%d disabled=%d\n",
++			ret, wcid->idx, wcid->link_id,
++			wcid->sta, wcid->sta_disabled);
+ 	if (ret || conn_state == CONN_STATE_DISCONNECT)
+ 		return ret;
+ 

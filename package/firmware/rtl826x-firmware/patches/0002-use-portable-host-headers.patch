@@ -1,0 +1,50 @@
+Subject: [PATCH] build the firmware generator with portable host headers
+
+The generator only needs fixed-width unsigned types and EINVAL. Use the
+standard C headers instead of Linux UAPI headers, and use Darwin's native
+host-to-little-endian conversion when building on macOS. Keep the packed
+output format and all firmware data unchanged.
+
+--- a/phy_patch.c
++++ b/phy_patch.c
+@@ -1,9 +1,13 @@
+ #include <stdio.h>
+-#include <linux/types.h>
+-#include <linux/errno.h>
++#include <errno.h>
+ #include <string.h>
+ #include <stdlib.h>
++#ifdef __APPLE__
++#include <libkern/OSByteOrder.h>
++#define htole16(x) OSSwapHostToLittleInt16(x)
++#else
+ #include <endian.h>
++#endif
+ 
+ #include "phy_patch.h"
+ 
+--- a/rtl8261n_rtl8264b.c
++++ b/rtl8261n_rtl8264b.c
+@@ -1,6 +1,5 @@
+ #include <stdio.h>
+-#include <linux/types.h>
+-#include <linux/errno.h>
++#include <errno.h>
+ #include <string.h>
+ #include <stdlib.h>
+ 
+--- a/phy_patch.h
++++ b/phy_patch.h
+@@ -1,7 +1,11 @@
+ #ifndef __PHY_PATCH_H__
+ #define __PHY_PATCH_H__
+ 
+-#include <linux/types.h>
++#include <stdint.h>
++
++typedef uint8_t __u8;
++typedef uint16_t __u16;
++typedef uint32_t __u32;
+ 
+ typedef enum rtk_phypatch_type_e
+ {

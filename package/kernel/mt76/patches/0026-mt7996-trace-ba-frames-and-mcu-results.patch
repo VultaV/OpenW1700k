@@ -1,0 +1,148 @@
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -15,6 +15,70 @@
+ #include "mcu.h"
+ 
+ #define to_rssi(field, rcpi)	((FIELD_GET(field, rcpi) - 220) / 2)
++
++bool mt7996_ba_trace;
++module_param_named(ba_trace, mt7996_ba_trace, bool, 0600);
++MODULE_PARM_DESC(ba_trace, "Trace BA action headers and firmware BA commands");
++
++static void
++mt7996_trace_ba_frame(struct mt7996_dev *dev, struct sk_buff *skb,
++		      unsigned int offset, struct mt76_wcid *wcid,
++		      int phy, bool rx)
++{
++	static DEFINE_RATELIMIT_STATE(limit, 5 * HZ, 64);
++	struct ieee80211_hdr saved_hdr;
++	const struct ieee80211_hdr *hdr;
++	u8 saved_body[9];
++	const u8 *body;
++	unsigned int body_offset, size;
++	u16 cap, tid, seq;
++	int token = -1, timeout = -1, ssn = -1, result = -1;
++
++	if (!READ_ONCE(mt7996_ba_trace) || offset > skb->len ||
++	    skb->len - offset < 24)
++		return;
++	hdr = skb_header_pointer(skb, offset, 24, &saved_hdr);
++	if (!hdr || !ieee80211_is_action(hdr->frame_control))
++		return;
++	seq = le16_to_cpu(hdr->seq_ctrl);
++	if (ieee80211_has_morefrags(hdr->frame_control) ||
++	    (seq & IEEE80211_SCTL_FRAG))
++		return;
++	body_offset = offset + ieee80211_hdrlen(hdr->frame_control);
++	body = skb_header_pointer(skb, body_offset, 2, saved_body);
++	if (!body || body[0] != WLAN_CATEGORY_BACK ||
++	    body[1] > WLAN_ACTION_DELBA)
++		return;
++	size = body[1] == WLAN_ACTION_DELBA ? 6 : 9;
++	body = skb_header_pointer(skb, body_offset, size, saved_body);
++	if (!body)
++		return;
++	if (body[1] == WLAN_ACTION_DELBA) {
++		cap = get_unaligned_le16(body + 2);
++		tid = FIELD_GET(IEEE80211_DELBA_PARAM_TID_MASK, cap);
++		result = get_unaligned_le16(body + 4);
++	} else {
++		token = body[2];
++		if (body[1] == WLAN_ACTION_ADDBA_REQ) {
++			cap = get_unaligned_le16(body + 3);
++			timeout = get_unaligned_le16(body + 5);
++			ssn = get_unaligned_le16(body + 7) >> 4;
++		} else {
++			result = get_unaligned_le16(body + 3);
++			cap = get_unaligned_le16(body + 5);
++			timeout = get_unaligned_le16(body + 7);
++		}
++		tid = FIELD_GET(IEEE80211_ADDBA_PARAM_TID_MASK, cap);
++	}
++	if (!__ratelimit(&limit))
++		return;
++	dev_info(dev->mt76.dev,
++		 "BATRACE dir=%c act=%u sa=%pM da=%pM wcid=%d link=%d phy=%d tok=%d tid=%u cap=%04x timeout=%d ssn=%d result=%d seq=%04x fc=%04x bytes=%u\n",
++		 rx ? 'R' : 'T', body[1], hdr->addr2, hdr->addr1,
++		 wcid ? wcid->idx : -1, wcid ? wcid->link_id : -1, phy,
++		 token, tid, cap, timeout, ssn, result, seq,
++		 le16_to_cpu(hdr->frame_control), skb->len);
++}
+ 
+ static struct mt76_wcid *mt7996_rx_get_wcid(struct mt7996_dev *dev,
+ 					    u16 idx, u8 band_idx)
+@@ -577,6 +641,13 @@
+ 				*qos &= ~IEEE80211_QOS_CTL_A_MSDU_PRESENT;
+ 		}
+ 		skb_set_mac_header(skb, (unsigned char *)hdr - skb->data);
++		if (ieee80211_is_action(fc) &&
++		    !(status->flag & (RX_FLAG_ONLY_MONITOR | RX_FLAG_FAILED_FCS_CRC)) &&
++		    (!ieee80211_has_protected(fc) ||
++		     ((status->flag & RX_FLAG_DECRYPTED) &&
++		      (status->flag & RX_FLAG_IV_STRIPPED))))
++			mt7996_trace_ba_frame(dev, skb, (u8 *)hdr - skb->data,
++					      status->wcid, status->phy_idx, true);
+ 	} else {
+ 		status->flag |= RX_FLAG_8023;
+ 		mt7996_wed_check_ppe(dev, &dev->mt76.q_rx[q], msta, skb,
+@@ -662,6 +733,10 @@
+ 	bool hw_bigtk = false;
+ 	u8 fc_type, fc_stype;
+ 	u32 val;
++
++	if (ieee80211_is_action(fc))
++		mt7996_trace_ba_frame(dev, skb, 0, wcid,
++				      wcid ? wcid->phy_idx : -1, false);
+ 
+ 	if (ieee80211_is_action(fc) &&
+ 	    skb->len >= IEEE80211_MIN_ACTION_SIZE(action_code) &&
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -7,6 +7,7 @@
+ #include <linux/fs.h>
+ #include <linux/moduleparam.h>
+ #include <linux/of.h>
++#include <linux/ratelimit.h>
+ #include "mt7996.h"
+ #include "mcu.h"
+ #include "mac.h"
+@@ -1752,8 +1753,10 @@
+ 		  struct ieee80211_ampdu_params *params,
+ 		  struct mt76_wcid *wcid, bool enable, bool tx)
+ {
++	static DEFINE_RATELIMIT_STATE(ba_limit, 5 * HZ, 64);
+ 	struct sta_rec_ba_uni *ba;
+ 	struct sk_buff *skb;
++	u64 started;
+ 	int ret;
+ 	struct tlv *tlv;
+ 
+@@ -1773,8 +1776,17 @@
+ 	ba->tid = params->tid;
+ 	ba->ba_rdd_rro = !tx && enable && mt7996_has_hwrro(dev);
+ 
++	started = READ_ONCE(mt7996_ba_trace) ? ktime_get_ns() : 0;
+ 	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
+ 				    MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	if (started && __ratelimit(&ba_limit))
++		dev_info(dev->mt76.dev,
++			"BAMCU sta=%pM links=%04x wcid=%u link=%u tx=%u en=%u tid=%u ssn=%u size=%u timeout=%u rro=%u ret=%d us=%llu\n",
++			params->sta->addr, params->sta->valid_links,
++			wcid->idx, wcid->link_id, tx, enable, params->tid,
++			params->ssn, params->buf_size, params->timeout,
++			!tx && enable && mt7996_has_hwrro(dev), ret,
++			(unsigned long long)((ktime_get_ns() - started) / 1000));
+ 	if (ret)
+ 		dev_warn_ratelimited(dev->mt76.dev,
+ 			"MLO BA result=%d enable=%d tx=%d wcid=%d link=%d sta=%d disabled=%d\n",
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -10,6 +10,8 @@
+ #include <linux/ktime.h>
+ #include "../mt76_connac.h"
+ #include "regs.h"
++
++extern bool mt7996_ba_trace;
+ 
+ #define MT7996_MAX_RADIOS		3
+ #define MT7996_MAX_INTERFACES		19	/* per-band */

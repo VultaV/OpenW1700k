@@ -1,0 +1,76 @@
+Subject: [PATCH] wifi: mt76: preserve NPU RX ownership and control report layout
+
+mt76_npu_dequeue() builds a recyclable skb while walking the descriptors.
+If a later descriptor is not ready, it frees the partial skb but leaves
+the queue tail and entries unchanged. A subsequent poll can then build
+another skb from a buffer that has already been returned to the page pool.
+
+Check ownership of the complete chain before transferring any buffers to
+the skb. Read descriptor metadata after the DMA ownership barriers and
+bound the advertised chain length by the number of posted descriptors.
+Pending chains and skb allocation failures leave ownership with the ring.
+
+The NPU receive path also assembles multi-descriptor packets with skb
+fragments. TXFREE, TXS and MCU handlers parse reports through raw pointers,
+using skb->len, which includes fragments outside the linear head. Linearize
+control reports before dispatch and refresh the data pointers afterwards.
+Normal received data keeps its existing zero-copy path.
+
+--- a/npu.c
++++ b/npu.c
+@@ -66,19 +66,31 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
+ 	struct airoha_npu_rx_dma_desc *desc = (void *)q->desc;
+ 	int i, nframes, index = q->tail;
+ 	struct sk_buff *skb = NULL;
+ 
+-	nframes = FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
++	if (!q->queued ||
++	    !(READ_ONCE(desc[index].ctrl) & NPU_RX_DMA_DESC_DONE_MASK))
++		return NULL;
++
++	dma_rmb();
++	nframes = FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK,
++			    READ_ONCE(desc[index].info));
+ 	nframes = max_t(int, nframes, 1);
++	if (nframes > q->queued)
++		return NULL;
++
++	/* Keep every buffer owned by the ring until the whole packet is ready. */
++	for (i = 1; i < nframes; i++) {
++		int next = (index + i) % q->ndesc;
++
++		if (!(READ_ONCE(desc[next].ctrl) & NPU_RX_DMA_DESC_DONE_MASK))
++			return NULL;
++	}
++	dma_rmb();
+ 
+ 	for (i = 0; i < nframes; i++) {
+ 		struct mt76_queue_entry *e = &q->entry[index];
+ 		int len = FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
+-				    desc[index].ctrl);
+-
+-		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl)) {
+-			dev_kfree_skb(skb);
+-			return NULL;
+-		}
++				    READ_ONCE(desc[index].ctrl));
+ 
+ 		dma_sync_single_for_cpu(dev->dma_dev, e->dma_addr[0],
+ 					e->dma_len[0],
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -1706,6 +1706,14 @@ void mt7996_queue_rx_skb(struct mt76_dev *mdev, enum mt76_rxq_id q,
+ 			type = PKT_TYPE_NORMAL;
+ 	}
+ 
++	if (type != PKT_TYPE_NORMAL && skb_linearize(skb)) {
++		dev_kfree_skb(skb);
++		return;
++	}
++
++	rxd = (__le32 *)skb->data;
++	end = (__le32 *)&skb->data[skb->len];
++
+ 	switch (type) {
+ 	case PKT_TYPE_TXRX_NOTIFY:
+ 		if (mtk_wed_device_active(&dev->mt76.mmio.wed_hif2) &&

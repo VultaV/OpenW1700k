@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "installed": true,
+  "board": "gemtek,w1700k-ubi",
+  "version": "ubi2-mlo-npu-ownership-r29-20260919-tailscale",
+  "reboot_verified": true,
+  "config_hashes_unchanged": true,
+  "root_files_preserved": 1130,
+  "tailscale_restored": true,
+  "wired_links_restored": true,
+  "all_three_aps_enabled": true,
+  "module_hashes": {
+    "/lib/modules/6.18.44/mt76.ko": "fb6b1d736e096ef4298bc82d199c4ce3c0ed4a32b1a3c0a54d762e47a26acf4b",
+    "/lib/modules/6.18.44/mt76-connac-lib.ko": "c237bcf8bc308d4b4dd69c34243c05309c92052104e7f23de7acd3b694d9803e",
+    "/lib/modules/6.18.44/mt7996e.ko": "11f16b9b8ec8512c9bc5479bbd5ef3767fb3be76f7220cd2ca364b4ddbc01410",
+    "/usr/sbin/wpad": "2a690fa0ee188787f1661b8d873faa9c592278660f0cfcc19e2bbfeb072a16a5"
+  },
+  "mlo_fix_proven": false
+}

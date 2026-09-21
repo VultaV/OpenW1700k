@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "source_files": 14,
+  "changed_source": [
+    "npu.c"
+  ],
+  "driver_module_sha256": {
+    "mt76.ko": "fb6b1d736e096ef4298bc82d199c4ce3c0ed4a32b1a3c0a54d762e47a26acf4b",
+    "mt76-connac-lib.ko": "c237bcf8bc308d4b4dd69c34243c05309c92052104e7f23de7acd3b694d9803e",
+    "mt7996e.ko": "11f16b9b8ec8512c9bc5479bbd5ef3767fb3be76f7220cd2ca364b4ddbc01410"
+  },
+  "firmware_unchanged": {
+    "mediatek/mt7996/mt7996_dsp.bin": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d",
+    "mediatek/mt7996/mt7996_wa.bin": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448",
+    "mediatek/mt7996/mt7996_eeprom_2i5i6i.bin": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28",
+    "mediatek/mt7996/mt7996_rom_patch.bin": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400",
+    "mediatek/mt7996/mt7996_eeprom.bin": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6",
+    "mediatek/mt7996/mt7996_wm.bin": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+  },
+  "aarch64_dma_barrier_verified": true,
+  "installed": false,
+  "limitation": "Host ownership model and cross-build, not hardware reproduction or MLO repair proof."
+}

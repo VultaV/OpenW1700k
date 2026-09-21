@@ -1,0 +1,24 @@
+baseline:
+FAIL: awake secondary completion rearms sleeping primary TXQ
+FAIL: backlog progresses without another enqueue or PS transition
+FAIL: single-link PS wake occurs after AQL return
+FAIL: worker interleaving cannot consume the wake before AQL return
+FAIL: DMA alone retains AQL and does not prematurely wake
+FAIL: later TXS or timeout returns airtime and rearms
+FAIL: DMA alone retains AQL and does not prematurely wake
+FAIL: later TXS or timeout returns airtime and rearms
+FAIL: later TXS or timeout returns airtime and rearms
+FAIL: later TXS or timeout returns airtime and rearms
+FAIL: DMA after TXS rearms through status_unlock
+FAIL: last completion with outstanding AC airtime rearms
+FAIL: changed primary uses current TXQ WCID and its PHY
+FAIL: delayed sleeping-link status wakes replacement awake primary
+FAIL: primary changed between DMA and TXS is checked at airtime return
+FAIL: a different AC's pending airtime does not block ready AC
+FAIL: other AC is rearmed when its airtime is returned
+FAIL: single-link station on another hardware PHY keeps its wake
+FAIL: missing current WCID is ignored
+29 checks, 19 failed
+patched:
+29 checks, 0 failed
+Pinned-source regression reproduced before 0008; all checks pass after it (ASan/UBSan).

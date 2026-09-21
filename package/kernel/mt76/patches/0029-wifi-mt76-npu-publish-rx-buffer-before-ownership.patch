@@ -1,0 +1,26 @@
+Subject: [PATCH] wifi: mt76: publish NPU RX buffer before returning ownership
+
+Clearing ctrl makes a recycled descriptor available to the NPU. Do not
+clear it with memset before the replacement DMA address is installed.
+Order all descriptor fields before the final ownership store, including
+when the shared refill function is called from NAPI or queue reset.
+
+Based on the RX ownership analysis published by NoTengoBattery:
+https://forum.openwrt.org/t/quantum-fiber-w1700k-support/222776/3890
+
+--- a/npu.c
++++ b/npu.c
+@@ -32,8 +32,12 @@
+ 		page = virt_to_head_page(e->buf);
+ 		e->dma_addr[0] = page_pool_get_dma_addr(page) + offset;
+ 
+-		memset(&desc[q->head], 0, sizeof(*desc));
++		desc[q->head].info = 0;
++		desc[q->head].data = 0;
+ 		desc[q->head].addr = e->dma_addr[0];
++		desc[q->head].rsv = 0;
++		dma_wmb();
++		WRITE_ONCE(desc[q->head].ctrl, 0);
+ 
+ 		q->head = (q->head + 1) % q->ndesc;
+ 		q->queued++;

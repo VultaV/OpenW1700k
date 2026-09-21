@@ -1,0 +1,35 @@
+From: Codex <codex@local>
+Subject: [PATCH] wifi: mt76: mt7996: expose existing per-link TX feedback
+
+On the Airoha build iw station statistics expose only the default WCID's
+retry/failure counters. Extend the existing read-only per-link queue output
+with TXS report totals and TXFREE counters already maintained by the driver.
+TXS reports are sampled feedback, not successful-packet counts. TXFREE failed
+attempts include retries as well as the terminal status bit. Snapshots are
+not coherent across counters. No TX path, MCU queries or counter writers change.
+
+--- a/mt7996/debugfs.c
++++ b/mt7996/debugfs.c
+@@ -659,6 +659,7 @@
+ 		struct mt7996_sta_link *msta_link;
+ 		struct mt76_vif_link *mlink;
+ 		struct mt76_phy *mphy;
++		u64 txs = 0;
+ 		u8 ac;
+ 
+ 		mlink = rcu_dereference(mvif->mt76.link[link_id]);
+@@ -673,6 +674,14 @@
+ 			   link_id, msta_link->wcid.idx,
+ 			   READ_ONCE(msta_link->wcid.link_valid),
+ 			   test_bit(MT_WCID_FLAG_PS, &msta_link->wcid.flags));
++
++		/* TXS reports are sampled status, not delivered MPDU counts. */
++		for (ac = 0; ac < ARRAY_SIZE(msta_link->wcid.stats.tx_mode); ac++)
++			txs += READ_ONCE(msta_link->wcid.stats.tx_mode[ac]);
++		seq_printf(s, "\t\ttxs_reports:%llu txfree_retries:%u txfree_failed_attempts:%u\n",
++			   (unsigned long long)txs,
++			   READ_ONCE(msta_link->wcid.stats.tx_retries),
++			   READ_ONCE(msta_link->wcid.stats.tx_failed));
+ 
+ 		mphy = mt76_vif_link_phy(mlink);
+ 		if (!mphy)

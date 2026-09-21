@@ -1,0 +1,53 @@
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -1748,6 +1748,7 @@
+ {
+ 	struct sta_rec_ba_uni *ba;
+ 	struct sk_buff *skb;
++	int ret;
+ 	struct tlv *tlv;
+ 
+ 	skb = __mt76_connac_mcu_alloc_sta_req(&dev->mt76, mvif, wcid,
+@@ -1766,8 +1767,15 @@
+ 	ba->tid = params->tid;
+ 	ba->ba_rdd_rro = !tx && enable && mt7996_has_hwrro(dev);
+ 
+-	return mt76_mcu_skb_send_msg(&dev->mt76, skb,
+-				     MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
++				    MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	if (ret)
++		dev_warn_ratelimited(dev->mt76.dev,
++			"MLO BA result=%d enable=%d tx=%d wcid=%d link=%d sta=%d disabled=%d\n",
++			ret, enable, tx, wcid->idx, wcid->link_id,
++			wcid->sta, wcid->sta_disabled);
++
++	return ret;
+ }
+ 
+ /** starec & wtbl **/
+@@ -3324,6 +3332,7 @@
+ 				struct mt7996_sta_link *msta_link)
+ {
+ 	struct sk_buff *skb;
++	int ret;
+ 
+ 	skb = __mt76_connac_mcu_alloc_sta_req(&dev->mt76, &link->mt76,
+ 					      &msta_link->wcid,
+@@ -3333,8 +3342,14 @@
+ 
+ 	mt76_connac_mcu_add_tlv(skb, STA_REC_MLD_OFF, sizeof(struct tlv));
+ 
+-	return mt76_mcu_skb_send_msg(&dev->mt76, skb,
+-				     MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
++				    MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	dev_info_ratelimited(dev->mt76.dev,
++		"MLO teardown result=%d wcid=%d link=%d sta=%d disabled=%d\n",
++		ret, msta_link->wcid.idx, msta_link->wcid.link_id,
++		msta_link->wcid.sta, msta_link->wcid.sta_disabled);
++
++	return ret;
+ }
+ 
+ void mt7996_mcu_update_sta_rec_bw(void *data, struct ieee80211_sta *sta)

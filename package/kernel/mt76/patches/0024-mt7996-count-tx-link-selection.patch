@@ -1,0 +1,60 @@
+Subject: mt7996: count host WCID preparation and awake-selector decisions
+
+--- a/mt7996/debugfs.c
++++ b/mt7996/debugfs.c
+@@ -700,6 +700,12 @@
+ 			   (u32)atomic_read(&msta_link->txfree_status[1]),
+ 			   (u32)atomic_read(&msta_link->txfree_status[2]),
+ 			   (u32)atomic_read(&msta_link->txfree_status[3]));
++		seq_printf(s, "\t\ttx_prepared:%u awake_checks:%u awake_redirects:%u wcid_link:%u sta_mlo:%u\n",
++			   (u32)atomic_read(&msta_link->tx_prepared),
++			   (u32)atomic_read(&msta_link->tx_awake_checks),
++			   (u32)atomic_read(&msta_link->tx_awake_redirects),
++			   msta_link->wcid.link_id,
++			   sta->mlo);
+ 
+ 		mphy = mt76_vif_link_phy(mlink);
+ 		if (!mphy)
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -952,9 +952,12 @@
+ 	    other->wcid.link_id != other_id)
+ 		return preferred;
+ 
++	atomic_inc(&selected->tx_awake_checks);
+ 	if (test_bit(MT_WCID_FLAG_PS, &selected->wcid.flags) &&
+-	    !test_bit(MT_WCID_FLAG_PS, &other->wcid.flags))
++	    !test_bit(MT_WCID_FLAG_PS, &other->wcid.flags)) {
++		atomic_inc(&other->tx_awake_redirects);
+ 		return other_id;
++	}
+ 
+ 	return preferred;
+ }
+@@ -1058,6 +1061,14 @@
+ 	}
+ 
+ 	wcid = mt7996_get_tx_wcid(wcid);
++
++	/* Host preparation count; this does not prove firmware admission. */
++	if (wcid->sta) {
++		struct mt7996_sta_link *prepared;
++
++		prepared = container_of(wcid, struct mt7996_sta_link, wcid);
++		atomic_inc(&prepared->tx_prepared);
++	}
+ 
+ 	pid = mt76_tx_status_skb_add(mdev, wcid, tx_info->skb);
+ 	memset(txwi_ptr, 0, MT_TXD_SIZE);
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -312,6 +312,9 @@
+ 	u32 txs_formats[4];
+ 	u32 txs_mpdu_flags[7]; /* TXS0 bits 16..22, only format 0 */
+ 	atomic_t txfree_status[4];
++	atomic_t tx_prepared;
++	atomic_t tx_awake_checks;
++	atomic_t tx_awake_redirects;
+ };
+ 
+ struct mt7996_sta {

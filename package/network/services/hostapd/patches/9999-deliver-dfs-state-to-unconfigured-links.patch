@@ -1,0 +1,59 @@
+Subject: nl80211: deliver wiphy DFS channel state to every BSS link
+
+--- a/src/drivers/driver_nl80211_event.c
++++ b/src/drivers/driver_nl80211_event.c
+@@ -2763,6 +2763,7 @@
+ 	struct i802_bss *bss_iter;
+ 	int i;
+ 	bool hit = false;
++	bool channel_state;
+ 
+ 	if (!tb[NL80211_ATTR_WIPHY_FREQ] || !tb[NL80211_ATTR_RADAR_EVENT])
+ 		return;
+@@ -2770,6 +2771,8 @@
+ 	os_memset(&data, 0, sizeof(data));
+ 	data.dfs_event.freq = nla_get_u32(tb[NL80211_ATTR_WIPHY_FREQ]);
+ 	event_type = nla_get_u32(tb[NL80211_ATTR_RADAR_EVENT]);
++	channel_state = event_type == NL80211_RADAR_NOP_FINISHED ||
++		event_type == NL80211_RADAR_PRE_CAC_EXPIRED;
+ 
+ 	/* Check HT params */
+ 	if (tb[NL80211_ATTR_WIPHY_CHANNEL_TYPE]) {
+@@ -2807,6 +2810,10 @@
+ 	/* It is possible to have the event without ifidx and wdev_id, e.g.,
+ 	 * with NL80211_RADAR_NOP_FINISHED and NL80211_RADAR_PRE_CAC_EXPIRED.
+ 	 * Hence need to check on all BSSs. */
++	/* Channel state belongs to the wiphy, not its operating frequency.
++	 * New BSSs may still inherit another BSS frequency during HT scan.
++	 * Deliver state to every link; the AP handler checks its HW range.
++	 */
+ 	for (bss_iter = drv->first_bss; bss_iter; bss_iter = bss_iter->next) {
+ 		/* Find a link match based on the frequency. If
+ 		 * NL80211_DRV_LINK_ID_NA is returned, either a match was not
+@@ -2815,10 +2822,12 @@
+ 			bss_iter, data.dfs_event.freq);
+ 		/* If a link match is found, exit the loop after the handler is
+ 		 * called */
+-		if (data.dfs_event.link_id != NL80211_DRV_LINK_ID_NA)
++		if (!channel_state &&
++		    data.dfs_event.link_id != NL80211_DRV_LINK_ID_NA)
+ 			return nl80211_process_radar_event(bss_iter, &data,
+ 							   event_type);
+-		if (data.dfs_event.link_id == NL80211_DRV_LINK_ID_NA) {
++		if (!channel_state &&
++		    data.dfs_event.link_id == NL80211_DRV_LINK_ID_NA) {
+ 			/* For non-MLO operation, frequency should still match
+ 			 */
+ 			if (!bss_iter->valid_links &&
+@@ -2832,8 +2841,9 @@
+ 		 * if the link frequency is 5 GHz, pass the event to it.
+ 		 */
+ 		for_each_link_default(bss_iter->valid_links, i, 0) {
+-			if (bss_iter->links[i].freq < 5180 ||
+-			    bss_iter->links[i].freq > 5900)
++			if (!channel_state &&
++			    (bss_iter->links[i].freq < 5180 ||
++			     bss_iter->links[i].freq > 5900))
+ 				continue;
+ 
+ 			data.dfs_event.link_id = bss_iter->valid_links ?

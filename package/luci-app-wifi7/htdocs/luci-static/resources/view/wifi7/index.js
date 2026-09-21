@@ -8,7 +8,8 @@ var callUciGetWireless = rpc.declare({
     object: 'uci',
     method: 'get',
     params: [ 'config' ],
-    expect: { values: {} }
+    expect: { values: {} },
+    reject: true
 });
 
 var callHostapdStatus = rpc.declare({
@@ -859,15 +860,15 @@ return view.extend({
                         fieldRow('MLD MAC',
                             roValue(stat0['mld_addr[0]'] || '?')),
                         fieldRow('Active links',
-                            roValue('mld_allowed_links: 0x07  (2G + 5G + 6G)')),
+                            roValue(stat0['mld_allowed_links'] || 'Not reported by hostapd')),
                         fieldRow('EMLSR',
                             roValue((function() {
                                 // EMLSR status from hostapd stat -- ap_mld_type indicates STR or EMLSR
                                 var mldType = stat0['ap_mld_type'] || '';
                                 var emlCap  = stat0['eml_capabilities'] || stat0['eml_cap'] || '';
-                                if (mldType.indexOf('EMLSR') >= 0) return 'active -- ' + mldType;
-                                if (emlCap) return 'capable (eml_cap=' + emlCap + ') -- not active';
-                                return 'STR mode (simultaneous TX/RX on all links)';
+                                if (mldType) return mldType;
+                                if (emlCap) return 'Reported capability: ' + emlCap;
+                                return 'Not reported by hostapd';
                             })()))
                     ]));
             })(),
@@ -878,10 +879,10 @@ return view.extend({
             progressDiv,
             (function() {
                 // --- Add MLD network section ---
-                var callUciSetMld2   = rpc.declare({ object:'uci', method:'set',
-                    params:['config','section','values'], expect:{} });
+                var callUciAddMld2 = rpc.declare({ object:'uci', method:'add',
+                    params:['config','type','name','values'], expect:{section:''}, reject:true });
                 var callUciCommitMld2 = rpc.declare({ object:'uci', method:'commit',
-                    params:['config'], expect:{} });
+                    params:['config'], reject:true });
 
                 // nextSectionName: find next free mloN name (YYH2913 pattern)
                 function nextMloName() {
@@ -917,12 +918,20 @@ return view.extend({
                 });
 
                 // Radio checkboxes -- multi-radio device list (luci-app-mlo pattern)
-                var radioChecks = [
+                var radioChoices = [
                     { radio: 'radio0', label: '2.4 GHz', bg: '#0a2a1a', fg: '#5dcaa5' },
                     { radio: 'radio1', label: '5 GHz',   bg: '#0a1a3a', fg: '#85b7eb' },
                     { radio: 'radio2', label: '6 GHz',   bg: '#1a0a3a', fg: '#afa9ec' }
-                ].map(function(r) {
-                    var chk = E('input', { 'type': 'checkbox', 'checked': true,
+                ].filter(function(r) {
+                    return uciData[r.radio] && uciData[r.radio]['.type'] === 'wifi-device' &&
+                        uciData[r.radio]['disabled'] !== '1';
+                });
+                var defaultRadios = radioChoices.slice().sort(function(a, b) {
+                    return ['5g', '6g'].includes(uciData[b.radio].band) -
+                        ['5g', '6g'].includes(uciData[a.radio].band);
+                }).slice(0, 2).map(function(r) { return r.radio; });
+                var radioChecks = radioChoices.map(function(r) {
+                    var chk = E('input', { 'type': 'checkbox', 'checked': defaultRadios.includes(r.radio),
                         'style': 'width:15px;height:15px;cursor:pointer;margin-right:5px' });
                     var lbl = E('label', { 'style': 'font-size:12px;color:#ccc;' +
                         'display:inline-flex;align-items:center;margin-right:12px;cursor:pointer' },
@@ -964,33 +973,34 @@ return view.extend({
                     cancelAddBtn.disabled = true;
                     addStatusSpan.textContent = 'Creating ' + newSID + '...';
 
-                    // UCI add wifi-iface + set values + commit + wifi restart
-                    // Build UCI commands as single shell script
-                    var devList = selectedRadios.map(function(r) {
-                        return 'uci add_list wireless.' + newSID + '.device=' + r;
-                    }).join('; ');
-                    var uciScript = [
-                        'uci set wireless.' + newSID + '=wifi-iface',
-                        'uci set wireless.' + newSID + '.ssid=' + JSON.stringify(ssid),
-                        'uci set wireless.' + newSID + '.key=' + JSON.stringify(key),
-                        'uci set wireless.' + newSID + '.encryption=' + enc,
-                        'uci set wireless.' + newSID + '.ieee80211w=2',
-                        'uci set wireless.' + newSID + '.mlo=1',
-                        'uci set wireless.' + newSID + '.mode=ap',
-                        'uci set wireless.' + newSID + '.network=lan',
-                        devList,
-                        'uci commit wireless'
-                    ].join(' && ');
+                    var values = { ssid:ssid, key:key, encryption:enc, ieee80211w:'2',
+                        mlo:'1', mode:'ap', network:'lan', device:selectedRadios };
 
                     addStatusSpan.textContent = 'Writing UCI (' + newSID + ')...';
-                    L.resolveDefault(callExec('/bin/sh', ['-c', uciScript]), null)
+                    return callUciGetWireless('wireless')
+                    .then(function(current) {
+                        if (current[newSID]) throw new Error(newSID + ' already exists');
+                        return callUciAddMld2('wireless', 'wifi-iface', newSID, values);
+                    })
+                    .then(function(section) {
+                        if (section !== newSID) throw new Error('Could not create ' + newSID);
+                        return callUciCommitMld2('wireless');
+                    })
                     .then(function() {
+                        uciData[newSID] = Object.assign({'.type':'wifi-iface'}, values);
                         addStatusSpan.textContent = 'Running wifi reload...';
                         return callExec('/sbin/wifi', ['reload']);
                     })
-                    .then(function() {
+                    .then(function(result) {
+                        if (!result || result.code !== 0) throw new Error('WiFi reload failed');
                         addStatusSpan.textContent = 'Done -- reload page to see new network';
                         addStatusSpan.style.color = '#1d9e75';
+                    })
+                    .catch(function(error) {
+                        addStatusSpan.textContent = 'Failed: ' + error.message + '. Reload the page to review the configuration.';
+                        addStatusSpan.style.color = '#e24b4a';
+                    })
+                    .finally(function() {
                         doAddBtn.disabled   = false;
                         cancelAddBtn.disabled = false;
                     });

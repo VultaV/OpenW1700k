@@ -125,6 +125,7 @@ define Host/Prepare
 endef
 
 HOST_CFLAGS += \
+	-include stdint.h \
 	-DFLASH_TABLE_OPEN \
 	-DTCSUPPORT_BL2_OPTIMIZATION \
 	-I$(HOST_BUILD_DIR)/plat/ecnt/en7523/include

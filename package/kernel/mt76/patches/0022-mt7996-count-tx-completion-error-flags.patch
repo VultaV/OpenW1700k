@@ -1,0 +1,107 @@
+Subject: [DIAGNOSTIC] mt7996: preserve sampled TX status flags
+
+Record TXS formats, format-0 bits 16..22, and raw TXFREE status bins.
+Counts are per WCID and wrap at 32 bits. Flags can overlap and do not
+identify TCP packets. TXFREE bins use atomics across completion queues.
+No radio commands, status frequency, TX selection, PS flags or ACK
+classification are changed. This is not an MLO stall fix.
+
+--- a/mt7996/debugfs.c
++++ b/mt7996/debugfs.c
+@@ -682,6 +682,24 @@
+ 			   (unsigned long long)txs,
+ 			   READ_ONCE(msta_link->wcid.stats.tx_retries),
+ 			   READ_ONCE(msta_link->wcid.stats.tx_failed));
++		seq_printf(s, "\t\ttxs_formats: %u %u %u %u\n",
++			   READ_ONCE(msta_link->txs_formats[0]),
++			   READ_ONCE(msta_link->txs_formats[1]),
++			   READ_ONCE(msta_link->txs_formats[2]),
++			   READ_ONCE(msta_link->txs_formats[3]));
++		seq_printf(s, "\t\ttxs_mpdu_flags: ack:%u rts:%u queue:%u bip:%u txop:%u ps:%u ba:%u\n",
++			   READ_ONCE(msta_link->txs_mpdu_flags[0]),
++			   READ_ONCE(msta_link->txs_mpdu_flags[1]),
++			   READ_ONCE(msta_link->txs_mpdu_flags[2]),
++			   READ_ONCE(msta_link->txs_mpdu_flags[3]),
++			   READ_ONCE(msta_link->txs_mpdu_flags[4]),
++			   READ_ONCE(msta_link->txs_mpdu_flags[5]),
++			   READ_ONCE(msta_link->txs_mpdu_flags[6]));
++		seq_printf(s, "\t\ttxfree_status: %u %u %u %u\n",
++			   (u32)atomic_read(&msta_link->txfree_status[0]),
++			   (u32)atomic_read(&msta_link->txfree_status[1]),
++			   (u32)atomic_read(&msta_link->txfree_status[2]),
++			   (u32)atomic_read(&msta_link->txfree_status[3]));
+ 
+ 		mphy = mt76_vif_link_phy(mlink);
+ 		if (!mphy)
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -1232,6 +1232,16 @@
+ 	mt76_put_txwi(mdev, t);
+ }
+ 
++static void mt7996_mac_txfree_diag(struct mt76_wcid *wcid, u32 info)
++{
++	struct mt7996_sta_link *link;
++
++	if (!wcid->sta)
++		return;
++	link = container_of(wcid, struct mt7996_sta_link, wcid);
++	atomic_inc(&link->txfree_status[FIELD_GET(MT_TXFREE_INFO_STAT, info)]);
++}
++
+ static void
+ mt7996_mac_tx_free(struct mt7996_dev *dev, void *data, int len)
+ {
+@@ -1310,6 +1320,7 @@
+ 
+ 			wcid->stats.tx_retries += tx_retries;
+ 			wcid->stats.tx_failed += tx_failed;
++			mt7996_mac_txfree_diag(wcid, info);
+ 			continue;
+ 		}
+ 
+@@ -1337,6 +1348,22 @@
+ 		skb_list_del_init(skb);
+ 		napi_consume_skb(skb, 1);
+ 	}
++}
++
++static void mt7996_mac_txs_diag(struct mt76_wcid *wcid, u32 txs)
++{
++	struct mt7996_sta_link *link;
++	u8 format = FIELD_GET(MT_TXS0_TXS_FORMAT, txs);
++	int bit;
++
++	if (!wcid->sta)
++		return;
++	link = container_of(wcid, struct mt7996_sta_link, wcid);
++	link->txs_formats[format]++;
++	if (format)
++		return;
++	for (bit = 0; bit < ARRAY_SIZE(link->txs_mpdu_flags); bit++)
++		link->txs_mpdu_flags[bit] += !!(txs & BIT(16 + bit));
+ }
+ 
+ static bool
+@@ -1357,6 +1384,7 @@
+ 	txs = le32_to_cpu(txs_data[0]);
+ 
+ 	mt76_tx_status_lock(mdev, &list);
++	mt7996_mac_txs_diag(wcid, txs);
+ 
+ 	/* only report MPDU TXS */
+ 	if (le32_get_bits(txs_data[0], MT_TXS0_TXS_FORMAT) == 0) {
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -307,6 +307,11 @@
+ 	} twt;
+ 
+ 	struct rcu_head rcu_head;
++
++	/* Diagnostic event counts; flags can overlap within a sampled TXS. */
++	u32 txs_formats[4];
++	u32 txs_mpdu_flags[7]; /* TXS0 bits 16..22, only format 0 */
++	atomic_t txfree_status[4];
+ };
+ 
+ struct mt7996_sta {

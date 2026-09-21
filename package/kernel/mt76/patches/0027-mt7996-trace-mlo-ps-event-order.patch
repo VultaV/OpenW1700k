@@ -1,0 +1,169 @@
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -1337,8 +1337,9 @@
+ mt7996_trace_tx_drop(struct mt7996_dev *dev, struct mt76_txwi_cache *t,
+ 		     struct mt76_wcid *wcid, u32 free_info)
+ {
+-	/* ponytail: global 8/5s sample; use a bounded ring if bursts need full capture. */
+-	static DEFINE_RATELIMIT_STATE(rs, 5 * HZ, 8);
++	/* ponytail: separate status1 budget; samples are not a complete packet trace. */
++	static DEFINE_RATELIMIT_STATE(status1_limit, 5 * HZ, 8);
++	static DEFINE_RATELIMIT_STATE(other_limit, 5 * HZ, 8);
+ 	struct sk_buff *skb = t->skb;
+ 	struct mt76_connac_txp_common *txp;
+ 	struct ethhdr ethbuf, *eth;
+@@ -1370,7 +1371,9 @@
+ 	if (!tcp || tcp->source != htons(5203) || tcp->doff < 5)
+ 		return;
+ 	thl = tcp->doff * 4;
+-	if (thl > len - ihl || !__ratelimit(&rs))
++	if (thl > len - ihl ||
++	    !__ratelimit(FIELD_GET(MT_TXFREE_INFO_STAT, free_info) == 1 ?
++			 &status1_limit : &other_limit))
+ 		return;
+ 
+ 	txp = mt76_connac_txwi_to_txp(&dev->mt76, t);
+@@ -1425,7 +1428,8 @@
+ 	mt76_put_txwi(mdev, t);
+ }
+ 
+-static void mt7996_mac_txfree_diag(struct mt76_wcid *wcid, u32 info)
++static void mt7996_mac_txfree_diag(struct mt7996_dev *dev,
++				 struct mt76_wcid *wcid, u32 info)
+ {
+ 	struct mt7996_sta_link *link;
+ 
+@@ -1433,6 +1437,8 @@
+ 		return;
+ 	link = container_of(wcid, struct mt7996_sta_link, wcid);
+ 	atomic_inc(&link->txfree_status[FIELD_GET(MT_TXFREE_INFO_STAT, info)]);
++	if (FIELD_GET(MT_TXFREE_INFO_STAT, info) == 1)
++		mt7996_trace_mlo_ps(dev, wcid, 'F', info);
+ }
+ 
+ static void
+@@ -1516,7 +1522,7 @@
+ 
+ 			wcid->stats.tx_retries += tx_retries;
+ 			wcid->stats.tx_failed += tx_failed;
+-			mt7996_mac_txfree_diag(wcid, info);
++			mt7996_mac_txfree_diag(dev, wcid, info);
+ 			continue;
+ 		}
+ 
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -1097,16 +1097,74 @@
+ 	}
+ }
+ 
++/* Diagnostic only. P detail: TLV tag << 2 | old PS << 1 | new PS.
++ * F detail: raw status1 TXFREE header, not a delivered-packet count.
++ */
++static bool ps_trace;
++module_param_named(ps_trace, ps_trace, bool, 0600);
++MODULE_PARM_DESC(ps_trace, "Trace MLO PS transitions and status1 snapshots, default off");
++
++void mt7996_trace_mlo_ps(struct mt7996_dev *dev, struct mt76_wcid *wcid,
++			 char kind, u32 detail)
++{
++	static DEFINE_RATELIMIT_STATE(ps_limit, 5 * HZ, 128);
++	static DEFINE_RATELIMIT_STATE(free_limit, 5 * HZ, 8);
++	static atomic_t ps_seq = ATOMIC_INIT(0), free_seq = ATOMIC_INIT(0);
++	struct mt7996_sta_link *primary, *secondary;
++	struct ieee80211_sta *sta;
++	struct mt7996_sta *msta;
++	u8 pid, sid;
++	u32 seq;
++
++	if (!READ_ONCE(ps_trace) || !wcid)
++		return;
++	sta = wcid_to_sta(wcid);
++	if (!sta || !sta->mlo)
++		return;
++	msta = (struct mt7996_sta *)sta->drv_priv;
++	pid = READ_ONCE(msta->deflink_id);
++	sid = READ_ONCE(msta->seclink_id);
++	if (pid >= IEEE80211_MLD_MAX_NUM_LINKS ||
++	    sid >= IEEE80211_MLD_MAX_NUM_LINKS || pid == sid ||
++	    READ_ONCE(sta->valid_links) != (BIT(pid) | BIT(sid)))
++		return;
++	primary = mt7996_sta_link(msta, pid);
++	secondary = mt7996_sta_link(msta, sid);
++	if (!primary || !secondary ||
++	    (wcid != &primary->wcid && wcid != &secondary->wcid))
++		return;
++
++	/* ponytail: bounded samples; sequence gaps identify omitted eligible events. */
++	seq = atomic_inc_return(kind == 'P' ? &ps_seq : &free_seq);
++	if (!__ratelimit(kind == 'P' ? &ps_limit : &free_limit))
++		return;
++	/* Independent host reads; not an atomic firmware/air-state snapshot. */
++	dev_info(dev->mt76.dev,
++		 "MLOPS kind=%c n=%u sta=%pM src=%u link=%u detail=%08x p=%u/%u/%d s=%u/%u/%d gate=%d non_aql=%d\n",
++		 kind, seq, sta->addr, wcid->idx, wcid->link_id, detail,
++		 pid, primary->wcid.idx,
++		 test_bit(MT_WCID_FLAG_PS, &primary->wcid.flags),
++		 sid, secondary->wcid.idx,
++		 test_bit(MT_WCID_FLAG_PS, &secondary->wcid.flags),
++		 mt7996_txq_ps(&primary->wcid),
++		 atomic_read(&primary->wcid.non_aql_packets));
++}
++
+ static void
+-mt7996_mcu_ps_transition(struct mt7996_dev *dev, u16 wcid_idx, bool ps)
++mt7996_mcu_ps_transition(struct mt7996_dev *dev, u16 wcid_idx, bool ps, u16 tag)
+ {
+ 	struct mt76_wcid *wcid;
++	bool old_ps;
+ 
+ 	wcid = mt76_wcid_ptr(dev, wcid_idx);
+ 	if (!wcid || !wcid_to_sta(wcid))
+ 		return;
+ 
++	old_ps = test_bit(MT_WCID_FLAG_PS, &wcid->flags);
+ 	mt76_sta_ps_transition(&dev->mt76, wcid, ps);
++	if (old_ps != ps)
++		mt7996_trace_mlo_ps(dev, wcid, 'P',
++				    (tag << 2) | (old_ps << 1) | ps);
+ }
+ 
+ static void
+@@ -1141,7 +1199,7 @@
+ 
+ 			mt7996_mcu_ps_transition(dev,
+ 						 le16_to_cpu(info->wlan_idx),
+-						 info->ps_bit);
++						 info->ps_bit, tag);
+ 			break;
+ 		}
+ 		case UNI_PS_MULTI_CLIENT_INFO: {
+@@ -1159,7 +1217,7 @@
+ 
+ 				mt7996_mcu_ps_transition(dev,
+ 					FIELD_GET(MT7996_PS_MULTI_WCID, entry),
+-					!!(entry & MT7996_PS_MULTI_PS_BIT));
++					!!(entry & MT7996_PS_MULTI_PS_BIT), tag);
+ 			}
+ 			break;
+ 		}
+@@ -1170,7 +1228,7 @@
+ 
+ 			for (i = 0; i < bitmap_len * 8; i++)
+ 				mt7996_mcu_ps_transition(dev, i,
+-					!!(bitmap[i / 8] & BIT(i % 8)));
++					!!(bitmap[i / 8] & BIT(i % 8)), tag);
+ 			break;
+ 		}
+ 		}
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -967,6 +967,8 @@
+ 			      struct ieee80211_sta *sta,
+ 			      struct ieee80211_twt_setup *twt);
+ bool mt7996_txq_ps(struct mt76_wcid *wcid);
++void mt7996_trace_mlo_ps(struct mt7996_dev *dev, struct mt76_wcid *wcid,
++			 char kind, u32 detail);
+ int mt7996_tx_prepare_skb(struct mt76_dev *mdev, void *txwi_ptr,
+ 			  enum mt76_txq_id qid, struct mt76_wcid *wcid,
+ 			  struct ieee80211_sta *sta,

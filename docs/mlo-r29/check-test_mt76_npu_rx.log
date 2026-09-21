@@ -1,0 +1,8 @@
+baseline: NPU can observe ownership before the replacement address
+baseline: retry consumed a recycled ring buffer
+baseline: TXFREE parsed head padding instead of the fragment
+patched: ordered ownership, wrap, allocation failure and reserved slot pass
+baseline: NPU can observe ownership before the replacement address
+patched: partial chain, wrap, allocation failure, count bound and empty ring pass
+patched: fragmented controls, refreshed pointers, normal zero-copy and allocation failure pass
+Three exact-source regressions reproduced before the patches and passed after them.

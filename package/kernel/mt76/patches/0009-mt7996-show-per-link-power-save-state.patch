@@ -1,0 +1,58 @@
+From: Codex <codex@local>
+Subject: [PATCH] wifi: mt76: mt7996: show per-link PS using active link PHY
+
+The embedded default VIF link has no channel context for a 5+6 GHz MLD.
+Print host WCID state before resolving the active link PHY for hardware
+queue reads, so the diagnostics include MLO peers and links without a
+channel. Values are read-only snapshots under the existing RCU lock.
+
+--- a/mt7996/debugfs.c
++++ b/mt7996/debugfs.c
+@@ -640,24 +640,25 @@
+ {
+ 	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
+ 	struct mt7996_vif *mvif = msta->vif;
+-	struct mt7996_phy *phy = mt7996_vif_link_phy(&mvif->deflink);
+ 	struct ieee80211_link_sta *link_sta;
+ 	struct seq_file *s = data;
+ 	struct ieee80211_vif *vif;
+ 	struct mt7996_dev *dev;
+ 	unsigned int link_id;
+ 
+-	if (!phy)
+-		return;
+-
+ 	vif = container_of((void *)mvif, struct ieee80211_vif, drv_priv);
+-	dev = phy->dev;
+ 
+ 	rcu_read_lock();
++
++	seq_printf(s, "STA %pM valid_links:0x%04x primary:%d secondary:%d\n",
++		   sta->addr, READ_ONCE(sta->valid_links),
++		   READ_ONCE(msta->deflink_id),
++		   READ_ONCE(msta->seclink_id));
+ 
+ 	for_each_sta_active_link(vif, sta, link_sta, link_id) {
+ 		struct mt7996_sta_link *msta_link;
+ 		struct mt76_vif_link *mlink;
++		struct mt76_phy *mphy;
+ 		u8 ac;
+ 
+ 		mlink = rcu_dereference(mvif->mt76.link[link_id]);
+@@ -667,6 +668,16 @@
+ 		msta_link = mt7996_sta_link(msta, link_id);
+ 		if (!msta_link)
+ 			continue;
++
++		seq_printf(s, "\tlink:%d wcid:%d valid:%d ps:%d\n",
++			   link_id, msta_link->wcid.idx,
++			   READ_ONCE(msta_link->wcid.link_valid),
++			   test_bit(MT_WCID_FLAG_PS, &msta_link->wcid.flags));
++
++		mphy = mt76_vif_link_phy(mlink);
++		if (!mphy)
++			continue;
++		dev = mt7996_hw_dev(mphy->hw);
+ 
+ 		for (ac = 0; ac < 4; ac++) {
+ 			u32 idx = msta_link->wcid.idx >> 5, qlen, ctrl, val;

@@ -1,0 +1,103 @@
+Subject: [PATCH] wifi: mt76: mt7996: restore opt-in NSTR test on corrected TXQ baseline
+
+Default empty selector leaves firmware TLVs unchanged. This is a diagnostic, not automatic NSTR negotiation. Reuses the r8 test with PS and hostapd recovery fixes retained.
+
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -5,11 +5,17 @@
+ 
+ #include <linux/firmware.h>
+ #include <linux/fs.h>
++#include <linux/moduleparam.h>
+ #include <linux/of.h>
+ #include "mt7996.h"
+ #include "mcu.h"
+ #include "mac.h"
+ #include "eeprom.h"
++
++/* Diagnostic only; empty by default. Apply on the selected peer's next association. */
++static char nstr_test_peer[18];
++module_param_string(nstr_test_peer, nstr_test_peer, sizeof(nstr_test_peer), 0600);
++MODULE_PARM_DESC(nstr_test_peer, "Test NSTR firmware bitmap for one two-link peer MAC");
+ 
+ #define fw_name(_dev, name, ...)	({			\
+ 	char *_fw;						\
+@@ -3235,19 +3241,49 @@
+ 	}
+ }
+ 
+-static void
++static bool
+ mt7996_mcu_sta_eht_mld_tlv(struct mt7996_dev *dev, struct sk_buff *skb,
+ 			   struct ieee80211_sta *sta)
+ {
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
+ 	struct sta_rec_eht_mld *eht_mld;
++	unsigned long valid = sta->valid_links;
++	u8 addr[ETH_ALEN], bands = 0;
++	bool selected;
+ 	struct tlv *tlv;
+ 	int i;
+ 
+ 	tlv = mt76_connac_mcu_add_tlv(skb, STA_REC_EHT_MLD, sizeof(*eht_mld));
+ 	eht_mld = (struct sta_rec_eht_mld *)tlv;
+-
+ 	for (i = 0; i < ARRAY_SIZE(eht_mld->str_cap); i++)
+ 		eht_mld->str_cap[i] = 0x7;
++
++	kernel_param_lock(THIS_MODULE);
++	selected = mac_pton(nstr_test_peer, addr) && ether_addr_equal(sta->addr, addr);
++	kernel_param_unlock(THIS_MODULE);
++	if (!selected || !sta->mlo || sta->eml_cap || hweight16(valid) != 2)
++		return false;
++
++	for_each_set_bit(i, &valid, IEEE80211_MLD_MAX_NUM_LINKS) {
++		struct mt7996_sta_link *link;
++
++		link = mt76_dereference(msta->link[i], &dev->mt76);
++		if (!link || !link->wcid.link_valid ||
++		    link->wcid.phy_idx >= ARRAY_SIZE(eht_mld->str_cap))
++			return false;
++		bands |= BIT(link->wcid.phy_idx);
++	}
++	if (hweight8(bands) != 2)
++		return false;
++
++	for (i = 0; i < ARRAY_SIZE(eht_mld->str_cap); i++)
++		if (bands & BIT(i))
++			eht_mld->str_cap[i] &= ~(bands & ~BIT(i));
++	dev_info_ratelimited(dev->mt76.dev,
++		"MLO NSTR test sta=%pM bands=0x%02x str=%02x/%02x/%02x\n",
++		sta->addr, bands, eht_mld->str_cap[0], eht_mld->str_cap[1],
++		eht_mld->str_cap[2]);
++	return true;
+ }
+ 
+ int mt7996_mcu_add_sta(struct mt7996_dev *dev,
+@@ -3260,6 +3296,7 @@
+ 	struct mt76_wcid *wcid = msta_link ? &msta_link->wcid : link->mt76.wcid;
+ 	struct ieee80211_sta *sta = link_sta ? link_sta->sta : NULL;
+ 	struct sk_buff *skb;
++	bool nstr_test = false;
+ 	int ret;
+ 
+ 	skb = __mt76_connac_mcu_alloc_sta_req(&dev->mt76, &link->mt76, wcid,
+@@ -3312,13 +3349,17 @@
+ 		if (sta->mlo) {
+ 			mt7996_mcu_sta_mld_setup_tlv(dev, skb, link_conf->vif,
+ 						     sta);
+-			mt7996_mcu_sta_eht_mld_tlv(dev, skb, sta);
++			nstr_test = mt7996_mcu_sta_eht_mld_tlv(dev, skb, sta);
+ 		}
+ 	}
+ 
+ out:
+ 	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
+ 				    MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);
++	if (nstr_test)
++		dev_info_ratelimited(dev->mt76.dev,
++			"MLO NSTR test sta=%pM wcid=%u MCU result=%d\n",
++			sta->addr, wcid->idx, ret);
+ 	if (conn_state == CONN_STATE_DISCONNECT)
+ 		dev_info_ratelimited(dev->mt76.dev,
+ 			"MLO disconnect result=%d wcid=%d link=%d sta=%d disabled=%d\n",
