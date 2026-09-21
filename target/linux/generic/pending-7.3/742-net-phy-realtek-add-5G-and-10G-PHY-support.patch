@@ -1200,3 +1200,13 @@ Signed-off-by: Balázs Triszka <info@balika011.hu>
 +int rtl8264b_phy_patch_db_init(struct phy_device *phydev);
 +
 +#endif
+--- a/drivers/net/phy/realtek/Kconfig
++++ b/drivers/net/phy/realtek/Kconfig
+@@ -2,6 +2,7 @@
+ config REALTEK_PHY
+ 	tristate "Realtek PHYs"
+ 	select PHY_PACKAGE
++	select PHY_COMMON_PROPS
+ 	help
+ 	  Currently supports RTL821x/RTL822x and fast ethernet PHYs
+ 
