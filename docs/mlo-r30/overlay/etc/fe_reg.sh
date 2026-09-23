@@ -2,7 +2,7 @@ ravr()
 {
   REG=$1
   ADDR=$2
-  
+
   RES=$(devmem $ADDR)
   printf "%-30s (%-10s) = %-8s\n" $REG $ADDR $RES
 }

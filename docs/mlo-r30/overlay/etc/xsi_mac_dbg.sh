@@ -18,7 +18,7 @@ reg_c2()
 
   V1=$(($BASE | $OFF))
   RES=$(devmem $V1)
-  printf "%-30s    = %-10s\n" $NAME $RES 
+  printf "%-30s    = %-10s\n" $NAME $RES
 }
 
 seg_c1()
@@ -105,16 +105,16 @@ xsi_dbg()
   reg_c2 TX_NORMAL_PKT_BYTES_CNT $BASE 0x138
 
   reg_c1 RX_FRAME_CNT $BASE 0x180
-  reg_c2 RX_OCTETS_CNT $BASE 0x184 
+  reg_c2 RX_OCTETS_CNT $BASE 0x184
   reg_c1 RX_PKT_CNT $BASE 0x188
   reg_c2 RX_ETH_CNT $BASE 0x18C
   seg_c1 RX_PAUSEON_CNT $BASE 0x190 0
   seg_c2 RX_PAUSEOFF_CNT $BASE 0x190 16
   seg_c1 RX_LENERR_CNT $BASE 0x194 0
   seg_c2 RX_FRAGERR_CNT $BASE 0x194 16
-  seg_c1 RX_CRCERR_CNT $BASE 0x198 0 
+  seg_c1 RX_CRCERR_CNT $BASE 0x198 0
   seg_c2 RX_CODINGERR_CNT $BASE 0x198 16
-  reg_c1 RXMBI_ETH_CNT $BASE 0x19C  
+  reg_c1 RXMBI_ETH_CNT $BASE 0x19C
   seg_c2 RXMBI_ERRDROP_CNT $BASE 0x1A0 0
   seg_c1 RXMBI_SOFDROP_CNT $BASE 0x1A0 16
   seg_c2 RX_SOF_CNT $BASE 0x1A4 0

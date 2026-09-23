@@ -28,4 +28,3 @@ do
    echo "$x $CV1 $CV2 $CV3 $CV4 $CV5 $CV6 $CV7 $CV8"
    i=`expr $i + 1`
 done
-

@@ -34,4 +34,3 @@ for i in $(seq 512 575); do
 
     echo $i > unexport
 done
-

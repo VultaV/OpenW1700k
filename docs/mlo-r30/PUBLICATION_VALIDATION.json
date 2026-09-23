@@ -24,5 +24,11 @@
     "Host checks do not simulate hardware.",
     "r31 image not installed/boot-tested.",
     "Mac post-activation throughput check failed and overlaps client scanning."
-  ]
+  ],
+  "overlay_formatting": {
+    "initial_diff_check_whitespace_warnings": 17,
+    "files_normalized": 6,
+    "shell_syntax_checks": "passed",
+    "functional_change": false
+  }
 }

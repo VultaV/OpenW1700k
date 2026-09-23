@@ -21,3 +21,5 @@ python3 tests/test_bridge_flow_offload.py
 Publication checks: ownership 7 cases/0 failures; TTL 12 structural checks and 2,091 extracted-C assertions/0 failures; generator 20 tests/0 failures or skips. Host harnesses stub platform/kernel calls and do not simulate hardware. Existing r29 driver/UI checks retain their documented limits.
 
 The package enables nothing automatically. Its pair must refer to trusted, untagged bridge members; unsupported kernel/board, isolation/VLAN/ingress policy or legacy hooks prevent activation. The tested installation uses LAN2 and ap-mld0. Do not infer routed hardware-offload acceptance from these bridge-only results.
+
+Public overlay shell files have trailing whitespace and extra EOF blank lines removed from their as-built copies. Shell syntax checks pass; this formatting difference is not a reproducible-image claim.

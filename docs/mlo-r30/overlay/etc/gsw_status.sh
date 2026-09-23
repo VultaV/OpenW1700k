@@ -77,16 +77,16 @@ get_port_info()
   RES2=$(devmem $V2)
   printf "Tx Defer               = 0x%08X, Tx Late Collision      = 0x%08X\n" $RES1 $RES2
 
-  V1=$(($ADDR | 0x128))                                                                  
-  V2=$(($ADDR | 0x12C))                                                                  
-  RES1=$(devmem $V1)  
-  RES2=$(devmem $V2)  
+  V1=$(($ADDR | 0x128))
+  V2=$(($ADDR | 0x12C))
+  RES1=$(devmem $V1)
+  RES2=$(devmem $V2)
   printf "Tx eXcessive Collision = 0x%08X, Tx Pause Pkt           = 0x%08X\n" $RES1 $RES2
-                                                                                         
-  V1=$(($ADDR | 0x00))                                                                   
-  V2=$(($ADDR | 0x48))                                                                   
-  RES1=$(devmem $V1)   
-  RES2=$(devmem $V2)   
+
+  V1=$(($ADDR | 0x00))
+  V2=$(($ADDR | 0x48))
+  RES1=$(devmem $V1)
+  RES2=$(devmem $V2)
   printf "Tx Drop Pkts           = 0x%08X, TX Octet Counter       = 0x%08X\n" $RES1 $RES2
 
 }
