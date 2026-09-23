@@ -26,3 +26,24 @@ No candidate patch or speculative firmware/PPE flush was applied to the live rou
 - [mac80211 STA notification](https://github.com/hurryman2212/OpenW1700k-test/blob/73c3ab3081432f02d90b0084f63ea8ca4ea8589b/package/kernel/mac80211/patches/subsys/990-mac80211-emit-switchdev-fdb-del-on-sta-disconnect.patch)
 - [Airoha PPE cleanup](https://github.com/hurryman2212/OpenW1700k-test/blob/73c3ab3081432f02d90b0084f63ea8ca4ea8589b/target/linux/airoha/patches-6.18/930-net-airoha-ppe-flush-stale-PPE-flows-on-FDB-and-STA-events.patch)
 - [Netfilter FDB cleanup](https://github.com/hurryman2212/OpenW1700k-test/blob/73c3ab3081432f02d90b0084f63ea8ca4ea8589b/target/linux/airoha/patches-6.18/990-01-netfilter-nf_flow_table-invalidate-flows-on-bridge-FDB-roaming.patch)
+
+
+## Disconnect path traced and measured
+
+The prepared source was traced through these actual call paths (line numbers in the preserved r30/r31 prepared tree):
+
+| Path | Observed behavior |
+|---|---|
+| mac80211 `sta_info.c:1549`, `__sta_info_destroy_part2` | Moves station state downward and calls the driver; no candidate FDB-delete notification here. |
+| mt7996 `main.c:1533`, DISASSOC | Tears down TWT; sends Wi-Fi MCU disconnect or last-link MLD teardown; clears station flags. |
+| mt7996 `mcu.c:3446`, MLD teardown | Sends `STA_REC_MLD_OFF` through the Wi-Fi MCU STA_REC_UPDATE command; not a host PPE cleanup callback. |
+| mt7996 `main.c:1305` and mt76 `mac80211.c:1738` | Removes poll/RC/host TX lists, releases tracked SKBs/WCIDs and updates WTBL. No PPE flow invalidation call in these paths. |
+| mt7996 `main.c:2699`, ops | No `flush_sta`/`flush` implementation registered. |
+| mt76 `npu.c:319`, setup callback | Forwards TC flower operations to Airoha PPE. The current `airoha_ppe_dev` interface has no per-station flush operation. |
+| netfilter `nf_flow_table_core.c:812` | Netdevice cleanup responds to NETDEV_DOWN; removing one station does not take down ap-mld0. |
+| mt7996 `main.c:2552` and Airoha `airoha_ppe.c:342` | Forward-path construction captures the current primary-link WCID into the PPE WDMA entry. |
+| Airoha `airoha_ppe.c:1090`, replace | An already registered cookie returns EEXIST before constructing an updated forward path. |
+
+The NPU mailbox header's `WLAN_FUNC_SET_WAIT_DEL_STA` enum alone does not establish a PPE cleanup mechanism. No caller was found in the examined host mt76/NPU implementation. The separately reconstructed FDK routes its analogous command to an RRO station bitmap, not to PPE flow deletion. That reconstruction does not prove the installed opaque firmware's full semantics.
+
+Live follow-up: while the test Mac was absent from the AP, four HW connections/eight matching BND directions remained for at least the 15.62-second observed window. Download entries retained WCID 2 and advancing bind timestamps. MCU teardown returned 0. This corroborates missing immediate host/PPE invalidation, but the reconnect again reused WCIDs (11/2) and recovered, so wrong-WCID forwarding and historical Air stalls remain unproven. The minimum next discriminator is the same existing TCP connection with a genuinely changed station WCID, not another identical reused-WCID trial. No production cleanup change has been applied.

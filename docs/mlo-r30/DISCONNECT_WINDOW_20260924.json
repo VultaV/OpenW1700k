@@ -1,0 +1,111 @@
+{
+  "scope": "Mac IPv4 reverse TCP P4, 120s including an intentional Wi-Fi disconnect; no router writes",
+  "finding": "Four HW connections and eight matching BND directions remained while the AP had no test station",
+  "absent_late_seconds_after_confirmed_absence": 15.618304014205933,
+  "off_to_verified_reassociation_seconds": 31.204347848892212,
+  "wcids_before": {
+    "1": 11,
+    "2": 2
+  },
+  "wcids_after": {
+    "1": 11,
+    "2": 2
+  },
+  "snapshots": {
+    "before-disconnect": {
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "download_wcids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "download_bind_timestamps": [
+        1595,
+        1595,
+        1595,
+        1595
+      ]
+    },
+    "absent-early": {
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "download_wcids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "download_bind_timestamps": [
+        1615,
+        1615,
+        1615,
+        1615
+      ]
+    },
+    "absent-late": {
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "download_wcids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "download_bind_timestamps": [
+        1626,
+        1624,
+        1624,
+        1625
+      ]
+    },
+    "after-reconnect": {
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "download_wcids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "download_bind_timestamps": [
+        1647,
+        1647,
+        1647,
+        1647
+      ]
+    },
+    "late": {
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "download_wcids": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "download_bind_timestamps": [
+        1675,
+        1675,
+        1675,
+        1675
+      ]
+    }
+  },
+  "zero_intervals_before_planned_outage": 0,
+  "zero_intervals_during_planned_outage": 17,
+  "zero_intervals_after_verified_reassociation": 0,
+  "first_full_gigabit_interval_end_after_reassociation_seconds": 1.926423266448971,
+  "whole_test_receiver_mbps_including_planned_outage": 1075.119986206486,
+  "wired_passed": 105,
+  "wired_total": 105,
+  "router_unchanged": true,
+  "original_wifi_restored": true,
+  "limitations": [
+    "WCIDs were reused; changed-WCID forwarding was not tested.",
+    "BND presence and advancing timestamps do not prove successful wireless delivery.",
+    "No claim that this caused an earlier Air stall; no cleanup patch installed."
+  ],
+  "final_additional_wired_probe_passed": true
+}

@@ -65,3 +65,6 @@ A separate intentional radio cycle during an existing 180-second download preser
 All 844 wired HTTP checks passed (682 sustained, 162 reconnect). Router configuration/boot remained unchanged and Mac original Wi-Fi was restored. One NPU fast-descriptor-wait sample occurred during ongoing upload without a persistent hang; a PC range hit alone is not deadlock evidence.
 
 See [test evidence](SUSTAINED_RECONNECT_20260924.json) and [candidate reconnect patch review](RECONNECT_REVIEW.md). Candidate patches remain uninstalled; direct application has a hash-linkage mismatch against the current driver and broader dependencies. Air sleep/wake acceptance after hardware acceleration remains pending. These results do not mark the overall investigation complete.
+
+
+A further [disconnect-window test](DISCONNECT_WINDOW_20260924.json) found four HW connections/eight matching PPE BND directions still present 15.62 seconds after the Mac station disappeared, retaining the old download WCID. MCU teardown returned success. Reconnection reused both WCIDs and recovered without later zero-byte intervals; 105/105 wired probes plus one final check passed. The source trace and limits are in [RECONNECT_REVIEW.md](RECONNECT_REVIEW.md). Retention is confirmed; changed-WCID failure and a causal link to historical Air stalls remain unproven. No speculative cleanup patch was installed.
