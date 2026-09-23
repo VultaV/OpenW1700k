@@ -1,0 +1,104 @@
+{
+  "scope": "Mac MLO, eight new IPv4 TCP P4 sessions, eight seconds each, alternating download/upload, no rate limit",
+  "trials": [
+    {
+      "trial": 1,
+      "direction": "download",
+      "receiver_mbps": 1938.6936275455862,
+      "minimum_interval_mbps": 1874.262491469708,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.1826350688934326,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 2,
+      "direction": "upload",
+      "receiver_mbps": 1796.5447949286258,
+      "minimum_interval_mbps": 1772.0898487572779,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.203371047973633,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 3,
+      "direction": "download",
+      "receiver_mbps": 1963.0972809956045,
+      "minimum_interval_mbps": 1884.649536325584,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.206803798675537,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 4,
+      "direction": "upload",
+      "receiver_mbps": 1816.3167775264376,
+      "minimum_interval_mbps": 1800.4369855523787,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.1988930702209473,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 5,
+      "direction": "download",
+      "receiver_mbps": 1606.5101304035784,
+      "minimum_interval_mbps": 1274.116555301239,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.202971935272217,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 6,
+      "direction": "upload",
+      "receiver_mbps": 1797.8704222191611,
+      "minimum_interval_mbps": 1784.4307295673225,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.200144052505493,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 7,
+      "direction": "download",
+      "receiver_mbps": 1864.2851677684112,
+      "minimum_interval_mbps": 1774.3038335703523,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.19413423538208,
+      "all_later_samples_remained_hardware": true
+    },
+    {
+      "trial": 8,
+      "direction": "upload",
+      "receiver_mbps": 1794.348215512911,
+      "minimum_interval_mbps": 1783.6474440293764,
+      "zero_intervals": 0,
+      "hw_connections": 4,
+      "ppe_bound_directions": 8,
+      "first_all_hardware_sample_seconds": 2.1895930767059326,
+      "all_later_samples_remained_hardware": true
+    }
+  ],
+  "hardware_connections": 32,
+  "attempted_data_connections": 32,
+  "wired_passed": 81,
+  "wired_total": 81,
+  "router_unchanged": true,
+  "original_wifi_restored": true,
+  "limitations": [
+    "Registration coverage only; short bursts do not establish sustained throughput or Air-specific behavior.",
+    "Air software-only flow did not recur; its original callback error remains unknown.",
+    "The running kernel has no KPROBES/FTRACE/DYNAMIC_DEBUG or NF_FLOW_TABLE_PROCFS. No diagnostic firmware installed."
+  ]
+}
