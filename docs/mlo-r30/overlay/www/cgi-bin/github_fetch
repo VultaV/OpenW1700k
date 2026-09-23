@@ -1,0 +1,70 @@
+#!/bin/sh
+
+umask 077
+
+fail() {
+    printf 'Status: %s\r\nContent-Type: application/json\r\nCache-Control: no-store\r\n\r\n' "$1"
+    jq -nc --arg error "$2" '{error: $error}'
+    exit 1
+}
+
+[ "$REQUEST_METHOD" = POST ] || fail '405 Method Not Allowed' 'Use POST with a LuCI session'
+case "$CONTENT_LENGTH" in ''|*[!0-9]*) fail '400 Bad Request' 'Invalid request length';; esac
+[ "$CONTENT_LENGTH" -le 1024 ] || fail '413 Content Too Large' 'Request too large'
+body=$(head -c "$CONTENT_LENGTH")
+session=$(printf '%s' "$body" | jq -er '.sessionid | strings | select(test("^[0-9a-f]{32}$"))') ||
+    fail '403 Forbidden' 'A valid LuCI session is required'
+
+# Use the same permissions as LuCI firmware uploads, including the destination ACL.
+for permission in 'cgi-io upload' 'file /tmp/firmware.bin'; do
+    set -- $permission
+    access=$(jq -nc --arg session "$session" --arg scope "$1" --arg object "$2" \
+        '{ubus_rpc_session: $session, scope: $scope, object: $object, function: "write"}')
+    ubus call session access "$access" | jq -e '.access == true' >/dev/null ||
+        fail '403 Forbidden' 'Firmware upload permission denied'
+done
+
+tag=$(printf '%s' "$body" | jq -er '.tag | strings | select(length > 0 and length <= 128)') ||
+    fail '400 Bad Request' 'Invalid release tag'
+encoded_tag=$(printf '%s' "$tag" | jq -sRr @uri)
+workdir=$(mktemp -d /tmp/github_firmware.XXXXXX) || fail '500 Internal Server Error' 'Cannot create staging directory'
+trap 'rm -rf "$workdir"' 0
+trap 'exit 1' HUP INT TERM
+
+download() {
+    curl -fSsL --proto '=https' --proto-redir '=https' --connect-timeout 15 --max-time 300 -o "$2" "$1"
+}
+
+download "https://api.github.com/repos/w1700k/builds/releases/tags/$encoded_tag" "$workdir/release.json" ||
+    fail '502 Bad Gateway' 'Could not fetch release metadata'
+asset=$(jq -ec --arg tag "$tag" '
+    select(.tag_name == $tag) | [.assets[] |
+        select(.name | test("^openwrt-airoha-an7581-[A-Za-z0-9._-]+-squashfs-sysupgrade\\.(itb|bin)$"))] |
+    select(length == 1) | .[0]' "$workdir/release.json") ||
+    fail '502 Bad Gateway' 'Release must contain exactly one sysupgrade image'
+url=$(printf '%s' "$asset" | jq -er '.browser_download_url |
+    select(test("^https://github.com/w1700k/builds/releases/download/[^\\s?#]+$"))') ||
+    fail '502 Bad Gateway' 'Invalid firmware asset URL'
+filename=$(printf '%s' "$asset" | jq -r '.name')
+sha256=$(printf '%s' "$asset" | jq -r '.digest // "" | select(test("^sha256:[A-Fa-f0-9]{64}$")) | ltrimstr("sha256:")')
+if [ -z "$sha256" ]; then
+    sums_url=$(jq -er '[.assets[] | select(.name == "sha256sums")] | select(length == 1) | .[0].browser_download_url |
+        select(test("^https://github.com/w1700k/builds/releases/download/[^\\s?#]+$"))' "$workdir/release.json") ||
+        fail '502 Bad Gateway' 'No SHA256 digest available for firmware'
+    download "$sums_url" "$workdir/sha256sums" || fail '502 Bad Gateway' 'Could not download SHA256 checksums'
+    sha256=$(awk -v name="$filename" '$2 == name || $2 == "*" name { print $1 }' "$workdir/sha256sums")
+fi
+printf '%s' "$sha256" | jq -eRs 'test("^[A-Fa-f0-9]{64}$")' >/dev/null ||
+    fail '502 Bad Gateway' 'Missing or ambiguous SHA256 checksum'
+sha256=$(printf '%s' "$sha256" | tr 'A-F' 'a-f')
+
+download "$url" "$workdir/firmware.bin" || fail '502 Bad Gateway' 'Could not download firmware'
+actual=$(sha256sum "$workdir/firmware.bin") || fail '500 Internal Server Error' 'Could not compute SHA256 checksum'
+[ "${actual%% *}" = "$sha256" ] || fail '422 Unprocessable Content' 'Firmware SHA256 checksum mismatch'
+# Test the actual image against this device before replacing any prepared image.
+sysupgrade --test "$workdir/firmware.bin" >"$workdir/validation.log" 2>&1 ||
+    fail '422 Unprocessable Content' 'Firmware is not compatible with this device'
+[ ! -d /tmp/firmware.bin ] && mv -f "$workdir/firmware.bin" /tmp/firmware.bin ||
+    fail '500 Internal Server Error' 'Could not prepare firmware for installation'
+printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n'
+jq -nc --arg sha256 "$sha256" '{success: true, path: "/tmp/firmware.bin", sha256: $sha256}'

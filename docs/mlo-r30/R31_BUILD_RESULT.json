@@ -1,0 +1,103 @@
+{
+  "image": "openwrt-ubi2-mlo-bridge-final-r31-20260924-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "14d671fc06bff30acb15c4a6fa3cfd6250453cbeda3194b79be3f578cb2c67e0",
+  "bytes": 30290791,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 6.346236542041879
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 16.84491604095092
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 408.56703999999445
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.628420332970563
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 12.658113374956883
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 7.13382874999661
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 10.444219457975123
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 5.915291708020959
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.146795792039484
+    }
+  ],
+  "verifier_sha256": "982abfb219b615276b5a8f4f5620a0f56af9d538ff9a899e61bc12751593829b",
+  "kernel_payload_and_all_modules_equal_r30": true,
+  "firmware_equal_r30_count": 11,
+  "packages": {
+    "bridge-flow-offload": "1.0-r2",
+    "ip-bridge": "6.18.0-r2"
+  },
+  "installed": false
+}

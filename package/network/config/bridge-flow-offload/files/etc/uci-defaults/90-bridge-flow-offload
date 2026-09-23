@@ -1,0 +1,18 @@
+#!/bin/sh
+# Registration only. Activation/migration must be explicitly reviewed separately.
+name=firewall.bridge_flow_offload
+path=/usr/share/bridge-flow-offload/apply-rules.sh
+type=$(uci -q get "$name")
+if [ -n "$type" ]; then
+	if [ "$type" != include ] || [ "$(uci -q get "$name.path")" != "$path" ]; then
+		logger -t bridge-flow-offload 'include name collision; registration left unchanged'
+		exit 1
+	fi
+fi
+uci -q batch <<EOF
+set $name=include
+set $name.type='script'
+set $name.path='$path'
+set $name.fw4_compatible='1'
+commit firewall
+EOF

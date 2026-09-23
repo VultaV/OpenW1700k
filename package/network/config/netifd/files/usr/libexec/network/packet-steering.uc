@@ -11,6 +11,7 @@ let disable;
 let cpus;
 let all_cpus;
 let local_flows = 0;
+let steer_mt76_tx = trim(readfile("/tmp/sysinfo/board_name")) == "gemtek,w1700k-ubi";
 
 while (length(ARGV) > 0) {
 	let arg = shift(ARGV);
@@ -159,6 +160,7 @@ for (let dev in netdevs) {
 			netdev: [],
 			phy: [],
 			tasks: [],
+			tx_tasks: [],
 			rx_tasks: [],
 			rx_queues: map(glob(`/sys/class/net/${dev}/queues/rx-*/rps_cpus`),
 			               (v) => basename(dirname(v))),
@@ -185,6 +187,13 @@ for (let path in glob("/proc/*/exe")) {
 	let name = task_name(pid);
 	for (let devname in phys_devs) {
 		let dev = phys_devs[devname];
+		let tx_match = steer_mt76_tx && dev.driver == "mt7996e" &&
+			match(name, /^mt76-tx (phy\d+)$/);
+		if (tx_match && index(dev.phy, tx_match[1]) >= 0) {
+			push(dev.tx_tasks, pid);
+			break;
+		}
+
 		if (!task_device_match(name, dev))
 			continue;
 
@@ -246,6 +255,7 @@ function assign_dev_cpu(dev) {
 			cpu = -1;
 		else
 			cpu = get_next_cpu(rx_weight, dev.napi_cpu);
+		dev.rps_cpu = cpu;
 		for (let netdev in dev.netdev)
 			set_netdev_cpu(netdev, cpu);
 	}
@@ -271,6 +281,17 @@ for (let devname in phys_devs) {
 	let dev = phys_devs[devname];
 	if (length(dev.phy) > 0)
 		assign_dev_cpu(dev);
+}
+
+// Reuse the WLAN RPS CPU without changing existing NAPI or RPS placement.
+for (let devname in phys_devs) {
+	let dev = phys_devs[devname];
+	let cpu = dev.rps_cpu;
+	if (disable || all_cpus || dev.napi_cpu == null ||
+	    cpu == null || cpu < 0 || cpu == dev.napi_cpu)
+		cpu = join(",", map(cpus, (cpu) => cpu.id));
+	for (let task in dev.tx_tasks)
+		set_task_cpu(task, cpu);
 }
 
 if (debug > 1)

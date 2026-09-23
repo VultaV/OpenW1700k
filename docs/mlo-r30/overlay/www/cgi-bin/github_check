@@ -1,0 +1,18 @@
+#!/bin/sh
+
+fail() {
+    printf 'Status: 502 Bad Gateway\r\nContent-Type: application/json\r\n\r\n'
+    printf '{"error":"Could not fetch valid GitHub releases"}\n'
+    exit 1
+}
+
+releases=$(curl -fSs --proto '=https' --connect-timeout 15 --max-time 30 \
+    https://api.github.com/repos/w1700k/builds/releases) || fail
+result=$(printf '%s' "$releases" | jq -ec '
+    if type != "array" then error("Invalid release list") else
+    [.[] | .tag_name as $tag | .assets[] |
+        select(.name | test("^openwrt-airoha-an7581-[A-Za-z0-9._-]+-squashfs-sysupgrade\\.(itb|bin)$")) |
+        {tag: $tag, url: .browser_download_url,
+         version: (.name | ltrimstr("openwrt-airoha-an7581-") | sub("-squashfs-sysupgrade\\.(itb|bin)$"; ""))}]
+    end') || fail
+printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n%s\n' "$result"

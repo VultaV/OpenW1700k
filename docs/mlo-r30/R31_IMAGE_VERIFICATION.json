@@ -1,0 +1,39 @@
+{
+  "result": "PASS",
+  "image": "openwrt-ubi2-mlo-bridge-final-r31-20260924-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "14d671fc06bff30acb15c4a6fa3cfd6250453cbeda3194b79be3f578cb2c67e0",
+  "kernel_release": "6.18.44-w1700k-mlo-r30",
+  "kernel_package": "6.18.44~79fc2fbce6cfc1543d680c87480e709f-r1",
+  "module_vermagic": [
+    "6.18.44-w1700k-mlo-r30 SMP mod_unload aarch64"
+  ],
+  "module_count": 74,
+  "kmod_package_count": 64,
+  "package_count": 206,
+  "firmware_files_unchanged": 11,
+  "firmware_packages": [
+    "airoha-en7581-mt7996-npu-firmware",
+    "kmod-mt7996-firmware",
+    "kmod-mt7996-firmware-common",
+    "rtl826x-firmware",
+    "wireless-regdb"
+  ],
+  "preserved_wpad_luci_files": 338,
+  "selected_module_sha256": {
+    "airoha-eth.ko": "fa6338246fb6fde61ee5f2e0e8c036c625c94948950575ce64a9e8307c0dde5b",
+    "airoha_npu.ko": "11f41e7e3bee232cfe18f98f2d1201edd21b0a511c177f012cad0adf2016a407",
+    "nf_flow_table.ko": "6a929cd727682b256b6283c76be3c98089ecc811643753367218f502cfcd1739",
+    "nf_flow_table_inet.ko": "eb2c4d94bd6e7df5441e391a591f9be9ec60d711236e72fd21486d1ade5a64c1",
+    "nft_flow_offload.ko": "abc16e9d3975fd0a673c1cea44feceb93833057270575a6ec41cfd580bdb619e",
+    "nf_conntrack_bridge.ko": "c4fb8e836f3904e072130dd353d14ce296528e50581936a0e46789315e4539b2",
+    "mt76.ko": "b0adffd2a85c860801eb3531bc191578fb3dda58b00646087075746ce2b9ea99",
+    "mt76-connac-lib.ko": "24294b90ab073c7352dd654529b27e7ae083a83948e54ad6e68679d569b89515",
+    "mt7996e.ko": "03d0eaa4e05311dcaeecb7c791310bf5ae1d85ce7fd0e7e6f1029c1b30f75eeb",
+    "mac80211.ko": "402a06fe761ed9bce49abd9e7638e88237894dac986e9f80dd46545852daac60",
+    "cfg80211.ko": "8b6238a372ccdaca40bead189cadd27344419777347487f474e980a92533b444",
+    "tun.ko": "08d099047af06e710e9e6defb7566a428aad22508fadacc7a8a913c8fba1ec60"
+  },
+  "limits": [
+    "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+  ]
+}

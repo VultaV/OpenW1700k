@@ -1,0 +1,67 @@
+{
+  "measurement_status": "completed",
+  "receiver_mbps": 1892.4340068782676,
+  "seconds": 300.004038,
+  "min_interval_mbps": 97.5644974485098,
+  "max_interval_mbps": 2024.537498892551,
+  "zero_intervals": 0,
+  "below_1gbps_intervals": [
+    {
+      "start": 0,
+      "end": 1.002472,
+      "mbps": 506.25928924888586
+    },
+    {
+      "start": 1.002472,
+      "end": 2.004072,
+      "mbps": 375.837433926405
+    },
+    {
+      "start": 2.004072,
+      "end": 3.002952,
+      "mbps": 139.61697500155014
+    },
+    {
+      "start": 3.002952,
+      "end": 4.002471,
+      "mbps": 97.5644974485098
+    },
+    {
+      "start": 4.002471,
+      "end": 5.002288,
+      "mbps": 484.53077447401444
+    },
+    {
+      "start": 5.002288,
+      "end": 6.005022,
+      "mbps": 185.09192071213766
+    },
+    {
+      "start": 6.005022,
+      "end": 7.005023,
+      "mbps": 241.17225000021935
+    },
+    {
+      "start": 7.005023,
+      "end": 8.005037,
+      "mbps": 196.0809771631441
+    },
+    {
+      "start": 8.005037,
+      "end": 9.000101,
+      "mbps": 493.167834490329
+    }
+  ],
+  "sender_retransmits": 8603,
+  "mean_observation_cpu_percent": 6.684580314076162,
+  "wired_passed": 346,
+  "wired_failed": 0,
+  "recovery_disarmed": true,
+  "temporary_bridge_tables_removed": true,
+  "evidence": "Private local evidence retained; not published",
+  "limits": [
+    "One sequential Mac 6GHz comparison; not a repeated randomized A/B.",
+    "No endpoint TTL capture during this 300-second run; earlier bounded r30 TTL capture passed.",
+    "Start-of-run throughput dip still present; iPhone and persistent policy acceptance pending."
+  ]
+}

@@ -1,0 +1,86 @@
+Subject: [EXPERIMENTAL] netfilter: preserve TTL for bridge-family flowtables
+
+The local bridge-family extension shares the routed flowtable packet
+path, which decrements TTL and hop limit on L2 transit. Mark only flows
+created from the bridge family and skip those two software mutations.
+
+Carry the same requirement to hardware with a distinct KEEP_TTL action.
+Append the action without changing existing IDs or structure layouts;
+unsupported drivers must reject it. Keep the existing low-TTL fallback.
+
+This private action requires a matching full kernel/module build with a
+unique kernel release. Target build and hardware validation are pending.
+
+---
+--- a/include/net/flow_offload.h
++++ b/include/net/flow_offload.h
+@@ -184,6 +184,8 @@
+ 	FLOW_ACTION_VLAN_PUSH_ETH,
+ 	FLOW_ACTION_VLAN_POP_ETH,
+ 	FLOW_ACTION_CONTINUE,
++	/* Preserve IPv4 TTL and IPv6 hop limit during forwarding. */
++	FLOW_ACTION_KEEP_TTL,
+ 	NUM_FLOW_ACTIONS,
+ };
+ 
+--- a/include/net/netfilter/nf_flow_table.h
++++ b/include/net/netfilter/nf_flow_table.h
+@@ -173,6 +173,7 @@
+ 	NF_FLOW_HW_PENDING,
+ 	NF_FLOW_HW_BIDIRECTIONAL,
+ 	NF_FLOW_HW_ESTABLISHED,
++	NF_FLOW_BRIDGE,
+ };
+ 
+ enum flow_offload_type {
+--- a/net/netfilter/nft_flow_offload.c
++++ b/net/netfilter/nft_flow_offload.c
+@@ -138,6 +138,8 @@
+ 	nft_flow_set_dscp(pkt, flow, !dir);
+ 
+ 	flow_offload_route_init(flow, &route);
++	if (nft_pf(pkt) == NFPROTO_BRIDGE)
++		__set_bit(NF_FLOW_BRIDGE, &flow->flags);
+ 	if (tcph)
+ 		flow_offload_ct_tcp(ct);
+ 
+--- a/net/netfilter/nf_flow_table_ip.c
++++ b/net/netfilter/nf_flow_table_ip.c
+@@ -412,7 +412,8 @@
+ 				    FIELD_PREP(INET_DSCP_MASK,
+ 					       tuplehash->tuple.dscp));
+ 
+-	ip_decrease_ttl(iph);
++	if (!test_bit(NF_FLOW_BRIDGE, &flow->flags))
++		ip_decrease_ttl(iph);
+ 	skb_clear_tstamp(skb);
+ 
+ 	if (flow_table->flags & NF_FLOWTABLE_COUNTER)
+@@ -697,7 +698,8 @@
+ 				    FIELD_PREP(INET_DSCP_MASK,
+ 					       tuplehash->tuple.dscp));
+ 
+-	ip6h->hop_limit--;
++	if (!test_bit(NF_FLOW_BRIDGE, &flow->flags))
++		ip6h->hop_limit--;
+ 	skb_clear_tstamp(skb);
+ 
+ 	if (flow_table->flags & NF_FLOWTABLE_COUNTER)
+--- a/net/netfilter/nf_flow_table_offload.c
++++ b/net/netfilter/nf_flow_table_offload.c
+@@ -691,6 +691,15 @@
+ 	const struct flow_offload_tuple *tuple;
+ 	int i;
+ 
++	if (test_bit(NF_FLOW_BRIDGE, &flow->flags)) {
++		struct flow_action_entry *entry;
++
++		entry = flow_action_entry_next(flow_rule);
++		if (!entry)
++			return -E2BIG;
++		entry->id = FLOW_ACTION_KEEP_TTL;
++	}
++
+ 	if (flow_offload_decap_tunnel(flow, dir, flow_rule) < 0 ||
+ 	    flow_offload_encap_tunnel(flow, dir, flow_rule) < 0)
+ 		return -1;

@@ -54,6 +54,9 @@ else
     LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-$(strip $(lastword $(subst -, ,$(LINUX_VERSION))))
   endif
 
+  # Private KEEP_TTL action ABI: reject modules from ordinary r29/upstream images.
+  LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-w1700k-mlo-r30
+
   LINUX_KERNEL:=$(KERNEL_BUILD_DIR)/vmlinux
 
   ifneq (,$(findstring -rc,$(LINUX_VERSION)))
@@ -131,7 +134,7 @@ KERNEL_NOSTDINC_FLAGS = \
 
 ifeq ($(call qstrip,$(CONFIG_EXTERNAL_KERNEL_TREE))$(call qstrip,$(CONFIG_KERNEL_GIT_CLONE_URI)),)
   KERNEL_MAKE_FLAGS += \
-	KERNELRELEASE=$(LINUX_VERSION)
+	KERNELRELEASE=$(LINUX_UNAME_VERSION)
 endif
 
 KERNEL_MAKEOPTS = -C $(LINUX_DIR) $(KERNEL_MAKE_FLAGS)

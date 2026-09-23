@@ -1,0 +1,8 @@
+{
+  "device": "iPhone Air",
+  "average_mbps": 1480,
+  "minimum_mbps": 0,
+  "maximum_mbps": 2023,
+  "stall_timing": "unknown; user could not determine whether zero occurred at start or during traffic",
+  "source": "user physical iPerf result"
+}

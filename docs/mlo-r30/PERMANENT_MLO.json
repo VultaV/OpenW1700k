@@ -1,0 +1,34 @@
+{
+  "status": "MLO retained; configuration/registration passed; extra Mac throughput check failed",
+  "date": "2026-09-24",
+  "wireless": "OpenWrt_5G, 5+6GHz, 160MHz per link",
+  "offload": "LAN2 <-> ap-mld0, IPv4 TCP only",
+  "both_aps_enabled": true,
+  "guard_result": "ACCEPTED",
+  "owner_and_watchdog_exited": true,
+  "rebooted": false,
+  "network_firewall_unchanged": true,
+  "activation_wired": {
+    "passed": 8,
+    "failed": 0
+  },
+  "mac_check_wired": {
+    "passed": 59,
+    "failed": 0
+  },
+  "mac_original_wifi_restored": true,
+  "mac_check": {
+    "duration_seconds": 20,
+    "mean_mbps": 560.7657434559106,
+    "minimum_mbps": 68.7321768932124,
+    "maximum_mbps": 1681.7131612016499,
+    "zero_intervals": 0,
+    "hw_data_connections": 4,
+    "ppe_bound_directions": 8,
+    "valid_links": "0x6",
+    "performance_acceptance": "failed",
+    "scan_evidence": "BEST CONNECTED SCAN at 02:02:41.082 KST; live scanning states through 02:02:56.904; traffic 02:02:41.722 to 02:03:01.722; recovery after about 16 seconds. Temporal support for scan contribution, not causal proof."
+  },
+  "air_reassociated": true,
+  "full_reboot_persistence_tested": false
+}

@@ -1,0 +1,28 @@
+{
+  "source_hashes_match_built_image": 13,
+  "private_material_pattern_scan_files": 51,
+  "private_material_pattern_scan_matches": 0,
+  "ownership_cases": {
+    "passed": 7,
+    "failed": 0
+  },
+  "ttl_structural_checks": {
+    "passed": 12,
+    "failed": 0
+  },
+  "ttl_extracted_c_assertions": {
+    "passed": 2091,
+    "failed": 0
+  },
+  "bridge_generator_tests": {
+    "passed": 20,
+    "failed": 0,
+    "skipped": 0
+  },
+  "limitations": [
+    "Pattern scan supplements image verification; not a proof against all possible secrets.",
+    "Host checks do not simulate hardware.",
+    "r31 image not installed/boot-tested.",
+    "Mac post-activation throughput check failed and overlaps client scanning."
+  ]
+}

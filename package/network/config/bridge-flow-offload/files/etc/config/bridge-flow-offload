@@ -1,0 +1,7 @@
+config bridge-flow-offload 'main'
+	option enabled '0'
+	option network 'lan'
+	option bridge 'br-lan'
+	# Exactly two explicitly trusted, untagged ports. Never discover/add members.
+	list ports 'lan2'
+	list ports 'phy0.2-ap0'

@@ -1,0 +1,15 @@
+{
+  "status": "passed bounded 60-second settled MLO comparison",
+  "mbps": 1945.659926668587,
+  "min_mbps": 1804.4312435342174,
+  "max_mbps": 1977.0628348411035,
+  "cpu_busy": 6.520682841501733,
+  "wired_passed": 158,
+  "wired_failed": 0,
+  "hw_connections": 4,
+  "ppe_directions": 8,
+  "ap_restored": true,
+  "production_bridge_restored": true,
+  "settle_seconds": 45.167054653167725,
+  "limitation": "One nonrandomized pair; full stability and Air acceptance still pending"
+}

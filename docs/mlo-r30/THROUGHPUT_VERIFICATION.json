@@ -1,0 +1,61 @@
+{
+  "result": "PASS",
+  "scope": "Mac single 6GHz IPv4 reverse TCP, 4 streams, ON/OFF/ON 20 seconds each",
+  "phases": {
+    "on1": {
+      "receiver_mbps": 1854.340314302869,
+      "minimum_reported_interval_mbps": 1755.030225856,
+      "maximum_reported_interval_mbps": 1942.9937831906893,
+      "zero_byte_intervals": 0,
+      "cpu_whole_observation_percent": 5.644731837200457,
+      "cpu_middle_samples_1_to_4_percent": 6.763945888432892,
+      "middle_sample_duration_seconds": 16.719999999999914,
+      "data_flows_verified": 4,
+      "bound_directions_verified": 8,
+      "cleanup": "owned_table_absent_and_wired_healthy",
+      "recovery_disarmed": true
+    },
+    "off": {
+      "receiver_mbps": 1392.03277226453,
+      "minimum_reported_interval_mbps": 1301.2711817290185,
+      "maximum_reported_interval_mbps": 1505.0958298246592,
+      "zero_byte_intervals": 0,
+      "cpu_whole_observation_percent": 38.6503527998799,
+      "cpu_middle_samples_1_to_4_percent": 63.35832083958021,
+      "middle_sample_duration_seconds": 17.17999999999995,
+      "data_flows_verified": 4,
+      "bound_directions_verified": 0,
+      "cleanup": "owned_table_absent_and_wired_healthy",
+      "recovery_disarmed": null
+    },
+    "on2": {
+      "receiver_mbps": 1956.2816873020845,
+      "minimum_reported_interval_mbps": 1841.647152950331,
+      "maximum_reported_interval_mbps": 2008.6553887383002,
+      "zero_byte_intervals": 0,
+      "cpu_whole_observation_percent": 5.711681604131855,
+      "cpu_middle_samples_1_to_4_percent": 6.894977168949771,
+      "middle_sample_duration_seconds": 16.770000000000095,
+      "data_flows_verified": 4,
+      "bound_directions_verified": 8,
+      "cleanup": "owned_table_absent_and_wired_healthy",
+      "recovery_disarmed": true
+    }
+  },
+  "on_mean_mbps": 1905.3110008024769,
+  "on_mean_vs_off_percent": 36.87256785649928,
+  "wired": {
+    "passed": 72,
+    "failed": 0
+  },
+  "cpu_note": "Whole observation contains equal pre/post intervals; middle sample 1-to-4 is additionally reported with its duration.",
+  "limits": [
+    "No long-duration, upload, MLO, Air, IPv6 or routed-traffic acceptance in this comparison.",
+    "During-traffic PPE snapshots verify programmed data flows; no per-packet hardware trace.",
+    "Temporary offload tables were removed; no persistent activation."
+  ],
+  "run_safety_warnings": [
+    "The original launcher used missing nohup; the independent recovery timer did not start. Traffic, wired and rule-cleanup evidence remains valid. Arm-file removal alone was not proof of a running recovery process."
+  ],
+  "recovery_launcher_issue": "RECOVERY_LAUNCHER_ISSUE.json"
+}

@@ -1,0 +1,13 @@
+{
+  "scope": "Mac single6 follow-up to Air one-SW-flow observation; different client and load",
+  "trials": 5,
+  "seconds_each": 8,
+  "streams_each": 4,
+  "rate_per_stream_mbps": 100,
+  "hw_connections": 20,
+  "total_connections": 20,
+  "wired_passed": 69,
+  "wired_failed": 0,
+  "original_wifi_restored": true,
+  "air_failure_reason": "not captured; not reproduced by this Mac test"
+}

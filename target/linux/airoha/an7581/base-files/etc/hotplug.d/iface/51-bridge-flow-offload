@@ -1,13 +1,5 @@
 #!/bin/sh
 
-[ "$ACTION" = ifup ] || exit 0
-[ "$INTERFACE" = lan ] || exit 0
-
-(
-	exec 9>/var/lock/bridge-flow-offload.lock
-	flock -n 9 || exit 0
-	sleep 10
-	/usr/share/bridge-flow-offload/apply-rules.sh
-) &
-
-exit 0
+# The generator filters relevant events and serializes against the fw4 include.
+[ ! -x /usr/share/bridge-flow-offload/apply-rules.sh ] ||
+	/usr/share/bridge-flow-offload/apply-rules.sh --iface-event

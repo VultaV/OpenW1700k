@@ -1,0 +1,44 @@
+Subject: [EXPERIMENTAL] net: airoha: handle explicit KEEP_TTL flow action
+
+Recognize the private KEEP_TTL action only for IPv4 and IPv6 flow matches.
+For those entries clear the IB1 BIND_TTL bit after preparation, preserving
+the existing default for routed and TC rules that lack the new action.
+
+The bit-clear behavior is a candidate awaiting AN7581 packet validation;
+the observed bridge TTL decrease alone does not prove its control bit.
+This patch requires the companion generic KEEP_TTL patch and a matching
+full kernel/module build with a unique kernel release.
+
+---
+--- a/drivers/net/ethernet/airoha/airoha_ppe.c
++++ b/drivers/net/ethernet/airoha/airoha_ppe.c
+@@ -1097,6 +1097,7 @@
+ 	struct flow_action_entry *act;
+ 	struct airoha_foe_entry hwe;
+ 	u8 dsfield = 0, l4proto = 0;
++	bool keep_ttl = false;
+ 	int err, i, offload_type;
+ 	u16 addr_type = 0;
+ 
+@@ -1160,6 +1161,12 @@
+ 
+ 	flow_action_for_each(i, act, &rule->action) {
+ 		switch (act->id) {
++		case FLOW_ACTION_KEEP_TTL:
++			if (addr_type != FLOW_DISSECTOR_KEY_IPV4_ADDRS &&
++			    addr_type != FLOW_DISSECTOR_KEY_IPV6_ADDRS)
++				return -EOPNOTSUPP;
++			keep_ttl = true;
++			break;
+ 		case FLOW_ACTION_MANGLE:
+ 			if (offload_type == PPE_PKT_TYPE_BRIDGE)
+ 				return -EOPNOTSUPP;
+@@ -1203,6 +1210,8 @@
+ 					   &data, l4proto, dsfield);
+ 	if (err)
+ 		return err;
++	if (keep_ttl)
++		hwe.ib1 &= ~AIROHA_FOE_IB1_BIND_TTL;
+ 
+ 	if (flow_rule_match_key(rule, FLOW_DISSECTOR_KEY_PORTS)) {
+ 		struct flow_match_ports ports;

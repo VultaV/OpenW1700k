@@ -1,0 +1,45 @@
+{
+  "measurement_status": "completed",
+  "mean_mbps": 1713.6767981036649,
+  "min_interval_mbps": 59.833693499289964,
+  "max_interval_mbps": 2025.4100098619344,
+  "zero_intervals": 0,
+  "sender_retransmits": 20560,
+  "dip_snapshots": [
+    {
+      "time": 1790155782.4311712,
+      "elapsed": 15.445006333000492,
+      "mbps": 467.59269190852217,
+      "scope": "all en0 receive bytes; not isolated TCP goodput"
+    }
+  ],
+  "dip_observation": {
+    "mlo_mask": "0x6",
+    "primary_link": 2,
+    "link1_ps": 1,
+    "link2_ps": 1,
+    "link2_txfree_retries": 410,
+    "link2_txfree_failed_attempts": 5463,
+    "link2_status2_count": 5053,
+    "all_four_hw_offload_connections_present": true,
+    "all_eight_ppe_bound_directions_present": true
+  },
+  "recovery_observation": {
+    "nearby_en0_receive_mbps": 2045.93,
+    "link1_ps": 1,
+    "link2_ps": 0
+  },
+  "limits": [
+    "PS bits are host state, not an atomic firmware or over-the-air capture.",
+    "One low-throughput snapshot cannot establish causal order.",
+    "Interface receive rate is all en0 traffic; final iperf goodput is reported separately.",
+    "Repeated per-radio diagnostic rows are duplicates, not separate failures.",
+    "TXFREE failed attempts includes retries; status2 meaning remains unverified."
+  ],
+  "evidence": "Private local evidence retained; not published",
+  "stability_status": "not_passed",
+  "wired_passed": 375,
+  "wired_failed": 0,
+  "restored": true,
+  "recovery_disarmed": true
+}

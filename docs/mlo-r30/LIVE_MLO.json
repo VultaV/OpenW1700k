@@ -1,0 +1,81 @@
+{
+  "status": "functional_only; MLO throughput stability not accepted",
+  "mbps": 1437.0873937738004,
+  "min_mbps": 82.0883064670711,
+  "max_mbps": 1983.1262971479305,
+  "zero_intervals": 0,
+  "below_1000_mbps_intervals": [
+    {
+      "start": 13.00142,
+      "mbps": 600.7618677655593
+    },
+    {
+      "start": 14.005031,
+      "mbps": 546.311905839069
+    },
+    {
+      "start": 15.005024,
+      "mbps": 407.40900312256997
+    },
+    {
+      "start": 16.001072,
+      "mbps": 313.4543780889297
+    },
+    {
+      "start": 17.00464,
+      "mbps": 167.15819768926784
+    },
+    {
+      "start": 18.00204,
+      "mbps": 130.1070847951385
+    },
+    {
+      "start": 19.001397,
+      "mbps": 282.09010867029156
+    },
+    {
+      "start": 20.005032,
+      "mbps": 126.30757237490954
+    },
+    {
+      "start": 21.001244,
+      "mbps": 133.27257056456875
+    },
+    {
+      "start": 22.000468,
+      "mbps": 92.90001703802974
+    },
+    {
+      "start": 23.005024,
+      "mbps": 254.9093597304942
+    },
+    {
+      "start": 24.000497,
+      "mbps": 212.65677910638811
+    },
+    {
+      "start": 25.001457,
+      "mbps": 457.64203297938985
+    },
+    {
+      "start": 26.005028,
+      "mbps": 265.2905186273563
+    },
+    {
+      "start": 27.005025,
+      "mbps": 82.0883064670711
+    },
+    {
+      "start": 28.001378,
+      "mbps": 981.3272864968762
+    }
+  ],
+  "last_20_intervals_mean_mbps": 1913.516402480606,
+  "cpu_busy": 6.403159496293418,
+  "wired_checks": 125,
+  "wired_failures": 0,
+  "hw_data_connections": 4,
+  "ppe_directions": 8,
+  "production_bridge_restored": true,
+  "ap_restored": true
+}

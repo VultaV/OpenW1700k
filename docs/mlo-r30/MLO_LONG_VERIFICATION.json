@@ -1,0 +1,252 @@
+{
+  "measurement_status": "completed",
+  "stability_status": "not_passed_due_to_large_dips",
+  "receiver_mbps": 1781.5519282032126,
+  "seconds": 300.004064,
+  "minimum_interval_mbps": 35.64303080249626,
+  "maximum_interval_mbps": 2057.979191104294,
+  "zero_intervals": 0,
+  "below_1gbps_intervals": [
+    {
+      "start": 14.00262,
+      "end": 15.00163,
+      "mbps": 574.1394548715062
+    },
+    {
+      "start": 15.00163,
+      "end": 16.002609,
+      "mbps": 640.0533578865676
+    },
+    {
+      "start": 16.002609,
+      "end": 17.005022,
+      "mbps": 471.7693802381786
+    },
+    {
+      "start": 17.005022,
+      "end": 18.003256,
+      "mbps": 298.3224291722828
+    },
+    {
+      "start": 18.003256,
+      "end": 19.005024,
+      "mbps": 176.89659206821779
+    },
+    {
+      "start": 19.005024,
+      "end": 20.00382,
+      "mbps": 114.43256238708275
+    },
+    {
+      "start": 20.00382,
+      "end": 21.004194,
+      "mbps": 159.32397128077844
+    },
+    {
+      "start": 21.004194,
+      "end": 22.005044,
+      "mbps": 213.72784340464557
+    },
+    {
+      "start": 22.005044,
+      "end": 23.003502,
+      "mbps": 525.0976860132911
+    },
+    {
+      "start": 23.003502,
+      "end": 24.005038,
+      "mbps": 408.31745960641996
+    },
+    {
+      "start": 24.005038,
+      "end": 25.005029,
+      "mbps": 216.00860014249787
+    },
+    {
+      "start": 25.005029,
+      "end": 26.004187,
+      "mbps": 268.6616624602323
+    },
+    {
+      "start": 26.004187,
+      "end": 27.001081,
+      "mbps": 67.31795343136383
+    },
+    {
+      "start": 27.001081,
+      "end": 28.004178,
+      "mbps": 70.0376812849228
+    },
+    {
+      "start": 28.004178,
+      "end": 29.001957,
+      "mbps": 48.34186271020434
+    },
+    {
+      "start": 29.001957,
+      "end": 30.005027,
+      "mbps": 635.5829702935806
+    },
+    {
+      "start": 140.017592,
+      "end": 141.00505,
+      "mbps": 971.6332736058705
+    },
+    {
+      "start": 152.004925,
+      "end": 153.005031,
+      "mbps": 298.812492731004
+    },
+    {
+      "start": 153.005031,
+      "end": 154.000446,
+      "mbps": 67.41797729300926
+    },
+    {
+      "start": 154.000446,
+      "end": 155.002094,
+      "mbps": 293.11823603192977
+    },
+    {
+      "start": 155.002094,
+      "end": 156.003716,
+      "mbps": 67.00019226138635
+    },
+    {
+      "start": 156.003716,
+      "end": 157.0022,
+      "mbps": 55.65890604080497
+    },
+    {
+      "start": 157.0022,
+      "end": 158.003115,
+      "mbps": 432.66597677876354
+    },
+    {
+      "start": 158.003115,
+      "end": 159.005119,
+      "mbps": 447.89293829433416
+    },
+    {
+      "start": 159.005119,
+      "end": 160.005025,
+      "mbps": 396.39898812732247
+    },
+    {
+      "start": 160.005025,
+      "end": 161.003702,
+      "mbps": 257.2414464967467
+    },
+    {
+      "start": 161.003702,
+      "end": 162.003942,
+      "mbps": 35.64303080249626
+    },
+    {
+      "start": 162.003942,
+      "end": 163.001893,
+      "mbps": 715.546431298019
+    }
+  ],
+  "mean_observation_cpu_percent": 8.038870553722038,
+  "max_observed_per_core_interval_busy_percent": 36.85220729366603,
+  "cpu_samples": 63,
+  "wired_passed": 386,
+  "wired_failed": 0,
+  "restored": true,
+  "recovery_disarmed": true,
+  "hardware_data_flows": 4,
+  "limits": [
+    "One Mac MLO 300-second reverse IPv4 TCP run; no paired sustained 6GHz baseline yet.",
+    "PPE capture proves registration near start only; it does not prove every dip used the hardware path.",
+    "Five-second CPU intervals plus collection time cannot exclude sub-interval CPU bursts.",
+    "No iPhone acceptance or persistent activation yet."
+  ],
+  "evidence": {},
+  "sender_retransmits": 24875,
+  "largest_retransmission_intervals": [
+    {
+      "start": 14.0,
+      "end": 15.0,
+      "mbps": 587.0,
+      "retransmits": 5781
+    },
+    {
+      "start": 64.0,
+      "end": 65.0,
+      "mbps": 1460.0,
+      "retransmits": 4621
+    },
+    {
+      "start": 152.0,
+      "end": 153.0,
+      "mbps": 294.0,
+      "retransmits": 3416
+    },
+    {
+      "start": 153.0,
+      "end": 154.0,
+      "mbps": 73.4,
+      "retransmits": 1502
+    },
+    {
+      "start": 154.0,
+      "end": 155.0,
+      "mbps": 294.0,
+      "retransmits": 932
+    },
+    {
+      "start": 181.0,
+      "end": 182.0,
+      "mbps": 1920.0,
+      "retransmits": 768
+    },
+    {
+      "start": 132.0,
+      "end": 133.0,
+      "mbps": 1920.0,
+      "retransmits": 599
+    },
+    {
+      "start": 151.0,
+      "end": 152.0,
+      "mbps": 1980.0,
+      "retransmits": 574
+    },
+    {
+      "start": 137.0,
+      "end": 138.0,
+      "mbps": 1950.0,
+      "retransmits": 525
+    },
+    {
+      "start": 16.0,
+      "end": 17.0,
+      "mbps": 482.0,
+      "retransmits": 512
+    },
+    {
+      "start": 117.0,
+      "end": 118.0,
+      "mbps": 1960.0,
+      "retransmits": 423
+    },
+    {
+      "start": 290.0,
+      "end": 291.0,
+      "mbps": 2000.0,
+      "retransmits": 417
+    }
+  ],
+  "per_link_diagnostic": {
+    "link2_retry_delta": 7215,
+    "link2_failed_attempt_delta": 25829,
+    "link2_txfree_status2_delta": 18614,
+    "link1_retry_delta": 0,
+    "iw_station_retry_and_failed_before_after": [
+      0,
+      0
+    ],
+    "limitation": "Status 2 numeric value preserved without asserting firmware meaning; failed_attempts includes retry attempts and is not unique packet loss."
+  }
+}

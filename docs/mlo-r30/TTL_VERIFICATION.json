@@ -1,0 +1,180 @@
+{
+  "checks": {
+    "failed": 0,
+    "names": [],
+    "passed": 42
+  },
+  "limits": [
+    "IPv4 reverse TCP at 100 Mbps for 8 seconds only; not IPv6, routed TTL or maximum throughput.",
+    "Receiver capture and one during-traffic registration snapshot; not continuous per-packet hardware attribution.",
+    "Original payload length is inferred from IP/TCP headers; no TCP payload or checksum is read/validated."
+  ],
+  "phases": {
+    "hw": {
+      "capture": {
+        "after_snapshot_packets": 39676,
+        "after_snapshot_ttl_counts": {
+          "64": 39676
+        },
+        "bad_ipv4_header_checksums": 0,
+        "data_outside_window": 0,
+        "packets": 69540,
+        "payload_bytes_on_wire": 100166520,
+        "payload_packets": 69536,
+        "payload_seconds": {
+          "0": 8566,
+          "1": 8736,
+          "2": 8645,
+          "3": 8653,
+          "4": 8728,
+          "5": 8645,
+          "6": 8653,
+          "7": 8728,
+          "8": 182
+        },
+        "payload_time_range": [
+          1790151338.085053,
+          1790151346.086624
+        ],
+        "payload_ttl_counts": {
+          "64": 69536
+        },
+        "ttl_counts": {
+          "64": 69540
+        }
+      },
+      "captured_payload_to_received_bytes_ratio": 1.000274738092073,
+      "client_data_port": 55718,
+      "duration": 8.005033,
+      "match_window_epoch": [
+        1790151338.019,
+        1790151346.574033
+      ],
+      "receiver_bytes": 100139008,
+      "receiver_mbps": 100.0760476565181,
+      "registration": {
+        "conntrack_present": true,
+        "hw_offload": true,
+        "offload": false,
+        "ppe_bound_entries": [
+          {
+            "direction": "server_to_client",
+            "ib1_hex": "200001fc",
+            "ttl_bit24_set": false
+          },
+          {
+            "direction": "client_to_server",
+            "ib1_hex": "200001fc",
+            "ttl_bit24_set": false
+          }
+        ]
+      },
+      "snapshot_epoch": 1790151341.515278
+    },
+    "noft": {
+      "capture": {
+        "after_snapshot_packets": 39858,
+        "after_snapshot_ttl_counts": {
+          "64": 39858
+        },
+        "bad_ipv4_header_checksums": 0,
+        "data_outside_window": 0,
+        "packets": 69528,
+        "payload_bytes_on_wire": 100139008,
+        "payload_packets": 69524,
+        "payload_seconds": {
+          "0": 8562,
+          "1": 8728,
+          "2": 8645,
+          "3": 8736,
+          "4": 8645,
+          "5": 8653,
+          "6": 8728,
+          "7": 8645,
+          "8": 182
+        },
+        "payload_time_range": [
+          1790151313.476878,
+          1790151321.478869
+        ],
+        "payload_ttl_counts": {
+          "64": 69524
+        },
+        "ttl_counts": {
+          "64": 69528
+        }
+      },
+      "captured_payload_to_received_bytes_ratio": 1.0,
+      "client_data_port": 55662,
+      "duration": 8.004494,
+      "match_window_epoch": [
+        1790151313.414,
+        1790151321.968494
+      ],
+      "receiver_bytes": 100139008,
+      "receiver_mbps": 100.08278649468662,
+      "registration": {
+        "conntrack_present": false,
+        "hw_offload": false,
+        "offload": false,
+        "ppe_bound_entries": []
+      },
+      "snapshot_epoch": 1790151316.8937511
+    },
+    "sw": {
+      "capture": {
+        "after_snapshot_packets": 39585,
+        "after_snapshot_ttl_counts": {
+          "64": 39585
+        },
+        "bad_ipv4_header_checksums": 0,
+        "data_outside_window": 0,
+        "packets": 69528,
+        "payload_bytes_on_wire": 100139008,
+        "payload_packets": 69524,
+        "payload_seconds": {
+          "0": 8554,
+          "1": 8736,
+          "2": 8645,
+          "3": 8645,
+          "4": 8736,
+          "5": 8645,
+          "6": 8662,
+          "7": 8719,
+          "8": 182
+        },
+        "payload_time_range": [
+          1790151325.445315,
+          1790151333.447465
+        ],
+        "payload_ttl_counts": {
+          "64": 69524
+        },
+        "ttl_counts": {
+          "64": 69528
+        }
+      },
+      "captured_payload_to_received_bytes_ratio": 1.0,
+      "client_data_port": 55691,
+      "duration": 8.005028,
+      "match_window_epoch": [
+        1790151325.379,
+        1790151333.934028
+      ],
+      "receiver_bytes": 100139008,
+      "receiver_mbps": 100.07611016476146,
+      "registration": {
+        "conntrack_present": true,
+        "hw_offload": false,
+        "offload": true,
+        "ppe_bound_entries": []
+      },
+      "snapshot_epoch": 1790151328.890827
+    }
+  },
+  "status": "passed",
+  "run_safety_warnings": [
+    "The original launcher used missing nohup; the independent recovery timer did not start. Traffic, wired and rule-cleanup evidence remains valid. Arm-file removal alone was not proof of a running recovery process."
+  ],
+  "recovery_launcher_issue": "RECOVERY_LAUNCHER_ISSUE.json"
+}

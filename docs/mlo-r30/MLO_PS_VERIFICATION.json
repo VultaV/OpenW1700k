@@ -1,0 +1,64 @@
+{
+  "status": "measurement_completed_cause_unproven",
+  "receiver_mbps": 1868.9683432464526,
+  "min_interval_mbps": 99.6570723739592,
+  "max_interval_mbps": 1989.93844190963,
+  "zero_intervals": 0,
+  "sender_retransmits": 15112,
+  "low_interval_range_seconds": [
+    13,
+    25
+  ],
+  "global_ps_records": 481,
+  "global_ps_missing_between_emitted": 141,
+  "target_ps_records": 481,
+  "target_ps_relative_time_range_seconds": [
+    -9.856338500976562,
+    352.0897614955902
+  ],
+  "retained_kernel_record_sequence_gaps": 0,
+  "clock_anchor_span_seconds": 0.020451068878173828,
+  "wired_passed": 376,
+  "wired_failed": 0,
+  "restored": true,
+  "ps_trace_after": "N",
+  "recovery_disarmed": true,
+  "limits": [
+    "PS host notifications and separately read bits are not an atomic air/FW timeline.",
+    "Rate limiting omits events; exact sleep duration and causal order are not established.",
+    "Relative client start precedes TCP setup; time alignment is approximate.",
+    "Earlier r27 controlled AWDL work observed similar short losses; no new AWDL operation was requested in this r30 run.",
+    "Air original prolonged-stall acceptance remains pending."
+  ],
+  "evidence": {
+    "traffic": "Private local evidence retained; not published"
+  },
+  "during_traffic_ps_records": 330,
+  "during_traffic_ps_time_range_seconds": [
+    0.030444622039794922,
+    198.76807355880737
+  ],
+  "ps_ten_second_bins": [
+    {
+      "start": 0,
+      "ps_records": 3,
+      "minimum_mbps": 1877.2135752443003
+    },
+    {
+      "start": 10,
+      "ps_records": 198,
+      "minimum_mbps": 99.6570723739592
+    },
+    {
+      "start": 20,
+      "ps_records": 125,
+      "minimum_mbps": 202.16233094425039
+    },
+    {
+      "start": 190,
+      "ps_records": 4,
+      "minimum_mbps": 1905.001242577801
+    }
+  ],
+  "interpretation": "PS notifications also occurred in high-throughput windows; mere presence of a PS transition is insufficient to explain the dip."
+}

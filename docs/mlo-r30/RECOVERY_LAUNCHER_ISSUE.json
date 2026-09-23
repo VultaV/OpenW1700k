@@ -1,0 +1,18 @@
+{
+  "time": 1790152288.611506,
+  "issue": "nohup is absent on router; asynchronous launch did not report child failure",
+  "evidence": {
+    "/tmp/codex-hwft-r30-035d2942c87bd04a.armed.log": "ash: line 0: nohup: not found\n",
+    "/tmp/codex-hwft-r30-0fd1a204a8dfcf86.armed.log": "ash: line 0: nohup: not found\n",
+    "/tmp/codex-hwft-r30-2a9c5bb410a11908.armed.log": "ash: line 0: nohup: not found\n"
+  },
+  "observed_effect": "Completed traffic and rule cleanup were valid; independent recovery reboot process was not running",
+  "next_action": "Use setsid and verify actual detached child readiness, identity and survival before further hardware trials",
+  "real_recovery_reboot_tested": false,
+  "fix": {
+    "status": "detached_launch_verified",
+    "method": "setsid plus child PID/starttime/session readiness and separate SSH verification",
+    "probe": "private/recovery-launcher-probe-4867c6c688ed973a/result.json",
+    "limits": "Probe writes a marker after two seconds; real reboot recovery was not exercised"
+  }
+}

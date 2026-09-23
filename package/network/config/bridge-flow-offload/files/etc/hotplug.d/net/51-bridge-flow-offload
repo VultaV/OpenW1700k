@@ -1,0 +1,4 @@
+#!/bin/sh
+# Match explicit names even after a removed device has lost its master symlink.
+[ ! -x /usr/share/bridge-flow-offload/apply-rules.sh ] ||
+	/usr/share/bridge-flow-offload/apply-rules.sh --net-event

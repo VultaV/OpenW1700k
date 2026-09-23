@@ -26,7 +26,7 @@
  #include <linux/netfilter/nf_tables.h>
  #include <net/netfilter/nf_tables.h>
  
-@@ -237,58 +241,117 @@
+@@ -237,58 +241,118 @@
  	return 0;
  }
  
@@ -149,12 +149,13 @@
 +
 +notrack:
 +	__skb_push(skb, offset);
++	nf_reset_ct(skb);
 +	nf_ct_set(skb, NULL, IP_CT_UNTRACKED);
 +	return NF_ACCEPT;
  }
  
  static unsigned int nf_ct_bridge_in(void *priv, struct sk_buff *skb,
-@@ -341,37 +404,68 @@
+@@ -341,37 +405,67 @@
  				  struct sk_buff *))
  {
  	struct nf_bridge_frag_data data;
@@ -189,7 +190,6 @@
 -	return NF_STOLEN;
 +	WARN_ON_ONCE(1);
 +drop:
-+	kfree_skb(skb);
 +	return NF_DROP;
  }
  

@@ -1,0 +1,18 @@
+{
+  "scope": "Mac 300-second MLO after 45-second association settling; not Air acceptance",
+  "mbps": 1877.3898214653523,
+  "min_mbps": 1801.7975957657243,
+  "max_mbps": 1952.23560099991,
+  "zero_intervals": 0,
+  "below_1000_intervals": 0,
+  "cpu_busy": 6.512256603222153,
+  "wired_passed": 425,
+  "wired_failed": 0,
+  "valid_links": "0x0006",
+  "hw_connections": 4,
+  "ppe_directions": 8,
+  "scan_start_log_matches": 0,
+  "scan_log_sha256": "9f56fca152030dba9e8ee76dee4fc8967ab667507b5878f0f9ab819d55b6b9a6",
+  "ap_restored": true,
+  "production_bridge_restored": true
+}

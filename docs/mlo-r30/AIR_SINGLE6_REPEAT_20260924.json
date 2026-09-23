@@ -1,0 +1,25 @@
+{
+  "scope": "LAN2 aggregate RX, not application goodput",
+  "boundary": "first-to-last >100Mbps interval; first/last partial intervals excluded from interior statistics",
+  "active_span_seconds": 300.9300000000003,
+  "interior_seconds": 298.880000000001,
+  "interior_intervals": 291,
+  "mean_lan_rx_mbps": 2089.5267112151964,
+  "minimum_lan_rx_mbps": 1881.888776701156,
+  "maximum_lan_rx_mbps": 2161.332240771508,
+  "intervals_below_500_mbps": 0,
+  "zero_intervals": 0,
+  "mean_cpu_busy_percent": 19.605420762193724,
+  "acceleration": "3 data connections HW_OFFLOAD with 6 BND directions; data port49429 OFFLOAD without HW_OFFLOAD, both PPE directions UNB",
+  "application_result": {
+    "device": "iPhone Air",
+    "average_mbps": 1993,
+    "minimum_mbps": 1761,
+    "maximum_mbps": 2047,
+    "stall": false,
+    "source": "user physical iPerf result",
+    "duration_seconds": 300,
+    "direction": "download",
+    "streams": 4
+  }
+}
