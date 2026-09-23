@@ -1,0 +1,244 @@
+{
+  "upload": {
+    "seconds": 300.025174,
+    "receiver_mbps": 1698.3345324216027,
+    "minimum_interval_mbps": 26.20955089714618,
+    "maximum_interval_mbps": 1884.6615069090146,
+    "zero_intervals": 0,
+    "below_1000_intervals": [
+      {
+        "start": 13.001681,
+        "end": 14.009994,
+        "mbps": 841.30427156602
+      },
+      {
+        "start": 14.009994,
+        "end": 15.001542,
+        "mbps": 575.2876744080207
+      },
+      {
+        "start": 15.001542,
+        "end": 16.010021,
+        "mbps": 413.8244310062649
+      },
+      {
+        "start": 16.010021,
+        "end": 17.010024,
+        "mbps": 314.57186250279403
+      },
+      {
+        "start": 17.010024,
+        "end": 18.00855,
+        "mbps": 464.1547667392095
+      },
+      {
+        "start": 18.00855,
+        "end": 19.009666,
+        "mbps": 644.1553385708594
+      },
+      {
+        "start": 19.009666,
+        "end": 20.005926,
+        "mbps": 269.44317688886775
+      },
+      {
+        "start": 20.005926,
+        "end": 21.006011,
+        "mbps": 522.146467522173
+      },
+      {
+        "start": 21.006011,
+        "end": 22.001632,
+        "mbps": 193.7865704383216
+      },
+      {
+        "start": 22.001632,
+        "end": 23.009942,
+        "mbps": 80.07493248479763
+      },
+      {
+        "start": 23.009942,
+        "end": 24.006943,
+        "mbps": 39.96574557880195
+      },
+      {
+        "start": 24.006943,
+        "end": 25.009193,
+        "mbps": 83.6977637034061
+      },
+      {
+        "start": 25.009193,
+        "end": 26.001603,
+        "mbps": 29.58467556508964
+      },
+      {
+        "start": 26.001603,
+        "end": 27.001788,
+        "mbps": 26.20955089714618
+      },
+      {
+        "start": 27.001788,
+        "end": 28.001596,
+        "mbps": 267.4382245449626
+      },
+      {
+        "start": 28.001596,
+        "end": 29.001576,
+        "mbps": 271.58662310893
+      },
+      {
+        "start": 29.001576,
+        "end": 30.001096,
+        "mbps": 649.380244052342
+      }
+    ],
+    "cpu_busy_percent": 4.7341651725273515,
+    "hw_connections": 4,
+    "ppe_bound_directions": 8,
+    "valid_cpu_samples": 63,
+    "live_scan_requests": 33,
+    "first_live_scan_local": "2026-09-24 02:14:17.024",
+    "last_live_scan_local": "2026-09-24 02:14:29.491",
+    "npu_wait_range_samples": {
+      "0": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "1": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "2": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 1
+      },
+      "3": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "4": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "5": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "6": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "7": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      }
+    },
+    "test_start_epoch": 1790183644.769,
+    "assessment": "Initial throughput dip present; matches live channel scan timing; no zero interval"
+  },
+  "download": {
+    "seconds": 300.00707,
+    "receiver_mbps": 1916.8286503114743,
+    "minimum_interval_mbps": 1374.3544513462539,
+    "maximum_interval_mbps": 1992.0143502864307,
+    "zero_intervals": 0,
+    "below_1000_intervals": [],
+    "cpu_busy_percent": 5.961664013614923,
+    "hw_connections": 4,
+    "ppe_bound_directions": 8,
+    "valid_cpu_samples": 63,
+    "live_scan_requests": 0,
+    "first_live_scan_local": null,
+    "last_live_scan_local": null,
+    "npu_wait_range_samples": {
+      "0": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "1": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "2": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "3": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "4": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "5": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "6": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      },
+      "7": {
+        "slow_next_descriptor_wait": 0,
+        "fast_next_descriptor_wait": 0
+      }
+    },
+    "test_start_epoch": 1790183991.631,
+    "assessment": "Bounded 300-second throughput pass"
+  },
+  "scope": "Mac MLO P4 IPv4 TCP, 300s upload then 300s download on same association; scoped production bridge offload",
+  "wired": {
+    "passed": 682,
+    "total": 682
+  },
+  "router_unchanged": true,
+  "mac_original_wifi_restored": true,
+  "reconnect": {
+    "scope": "Mac existing IPv4 reverse TCP P4, intentional Wi-Fi power cycle at 60s, total 180s",
+    "iperf_exit": 0,
+    "whole_test_mbps": 1436.7006627904893,
+    "off_to_reassociated_seconds": 16.97952389717102,
+    "first_full_interval_above_1000_after_reassociation_seconds": 1.1931530280914302,
+    "planned_outage_start_seconds": 60.83035707473755,
+    "reassociation_seconds": 77.80988097190857,
+    "zero_intervals": 4,
+    "zero_intervals_after_reassociation": 0,
+    "hw_connections_each_snapshot": 4,
+    "ppe_bound_directions_each_snapshot": 8,
+    "same_data_ports_before_and_after": true,
+    "same_mac_and_ip": true,
+    "wcid_before_after": {
+      "link1": [
+        10,
+        10
+      ],
+      "link2": [
+        2,
+        2
+      ]
+    },
+    "valid_links_before_after": [
+      "0x6",
+      "0x6"
+    ],
+    "router_unchanged": true,
+    "original_wifi_restored": true,
+    "wired_passed": 162,
+    "wired_total": 162,
+    "limitations": [
+      "Planned radio interruption is not an unexplained router stall.",
+      "WCIDs were reused; this does not test stale-PPE forwarding when a returning station receives a different WCID.",
+      "No packet capture proves every packet used hardware."
+    ],
+    "best_connected_scan_local_times": [
+      "2026-09-24 02:26:41.861",
+      "2026-09-24 02:28:02.516"
+    ],
+    "post_reassociation_dip_seconds": [
+      98,
+      115
+    ],
+    "post_reassociation_scan_note": "Second BEST CONNECTED SCAN at +97.16 seconds overlaps the 98\u2013115s nonzero dip; temporal evidence, not isolated causal proof."
+  }
+}

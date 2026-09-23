@@ -54,3 +54,14 @@ r31 SHA256: `14d671fc06bff30acb15c4a6fa3cfd6250453cbeda3194b79be3f578cb2c67e0`.
 Nine build stages passed. Extracted-image verification confirms all 74 modules, the kernel payload, 11 firmware files and 338 wpad/LuCI files match r30. It includes bridge-flow-offload 1.0-r2 and ip-bridge 6.18.0-r2, defaults acceleration disabled, and embeds no personal Wi-Fi/Tailscale identity. Kernel release remains `6.18.44-w1700k-mlo-r30`; **r31 has not been boot-tested**.
 
 See [build instructions](BUILD.md), [build result](R31_BUILD_RESULT.json), [image verification](R31_IMAGE_VERIFICATION.json), and [historical ledger](HISTORY.md). This is the preserved Linux 6.18.44/r29 source plus selected fixes, not a rebase onto newer upstream releases.
+
+
+## Additional sustained and reconnect coverage (2026-09-24)
+
+Mac MLO, same association: upload 300 seconds averaged 1698.33 Mbps (CPU 4.73%); download 300 seconds averaged 1916.83 Mbps (minimum 1374.35; CPU 5.96%). Both had four HW data connections/eight BND directions and no zero-byte interval. Upload's 17 below-1Gbps intervals occurred only at 13–30 seconds, overlapping 33 live channel scans. The subsequent download had no below-1Gbps interval or matching live scan request. CPU percentages include pre/post observation.
+
+A separate intentional radio cycle during an existing 180-second download preserved the same four TCP data ports. Same-IP/MAC reassociation took 16.98 seconds including radio startup; the first full >=1Gbps interval ended within 1.20 seconds afterward, with no later zero interval. Later 98–115s nonzero dips again overlapped a client scan. Both WCIDs were reused, so stale-PPE behavior with changed WCIDs is **not verified**. The four planned-outage zero intervals are not unexplained router stalls.
+
+All 844 wired HTTP checks passed (682 sustained, 162 reconnect). Router configuration/boot remained unchanged and Mac original Wi-Fi was restored. One NPU fast-descriptor-wait sample occurred during ongoing upload without a persistent hang; a PC range hit alone is not deadlock evidence.
+
+See [test evidence](SUSTAINED_RECONNECT_20260924.json) and [candidate reconnect patch review](RECONNECT_REVIEW.md). Candidate patches remain uninstalled; direct application has a hash-linkage mismatch against the current driver and broader dependencies. Air sleep/wake acceptance after hardware acceleration remains pending. These results do not mark the overall investigation complete.
