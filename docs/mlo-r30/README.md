@@ -13,6 +13,7 @@ Air tests used the same 2.5 GbE server, four reverse TCP streams, five minutes, 
 | Air, single6 repeat | **1993 / 1761 / 2047** | No reported stall in 300 seconds |
 | Air, MLO after two-minute screen lock | 1783 / 468 / 2029 | User reported a slowdown without a stall |
 | Air, MLO awake comparison | 1744 / 1271 / 2017 | No interior zero-byte router interval; user supplied rates only |
+| Air, MLO with PS event capture | 1905 / 1505 / 2027 | No interior zero-byte router interval; user supplied rates only |
 | Mac, earlier settled MLO | 1877 / 1802 / 1952 | No zero/below-1Gbps one-second interval in 300 seconds |
 | Mac, after permanent activation | 561 / 69 / 1682 | 20-second performance check failed; overlaps client scanning |
 
@@ -85,3 +86,13 @@ The wake run stayed near 2Gbps port RX for about 232 seconds before slowing. The
 A 75.50-second awake channel-counter comparison reported 6GHz busy 94.30%, transmit 90.95% and receive 2.99%; 5GHz transmit was 0.88%. Traffic remained predominantly on 6GHz. This does not establish concurrent link aggregation or exclude external interference. Sequential runs with means differing by about 2.2% do not establish a causal sleep effect. The evidence does not support CPU saturation or loss of hardware registration as the explanation for these dips; client, wireless-driver and firmware behavior remain to distinguish.
 
 See [sanitized sleep/wake evidence](AIR_WAKE_20260924.json). Raw identities, addresses, router logs and backups remain private. No new firmware patch was justified by this comparison.
+
+## PS event capture follow-up
+
+A further same-association Air run returned **1905 / 1505 / 2027 Mbps**, with no interior zero/below-500Mbps port interval, CPU mean **7.64%**, four HW data flows/eight BND directions throughout 53 interior snapshots, and **418/418** successful wired checks. The PS diagnostic and console logging level were temporarily changed and restored; router boot, network configuration and acceleration remained unchanged.
+
+The transferred kernel stream had 3,247 continuous emitted records. Excluding two seconds at each traffic boundary, Air had four emitted PS transitions and eight detailed TXFREE status1 reports. A brief 6GHz host-PS transition pair was about 4.55ms apart while its one-second port interval was 2081Mbps. The status1 burst occurred with the primary host flag awake, secondary asleep and TXQ gate open; its port interval was 1881Mbps. Host event timing is not an over-the-air sleep-duration measurement. These observations do not reproduce the prior large dip or justify treating PS/status1 presence alone as its cause.
+
+The matched status1 counter increased **36**, but only **8** detailed records were emitted. At least 28 details are absent, consistent with the diagnostic's eight-per-five-second limit. A missing tail can leave no internal sequence gap or suppression notice; counters and log sequences must be checked together. Header counts are not lost-packet counts.
+
+Source inspection separates `mt76_sta_ps_transition()`/host TXQ scheduling from the primary-WCID path registered by `mt7996_net_fill_forward_path()` and Airoha PPE. Bulk accelerated packets bypass per-packet host TX preparation. Changing the host awake selector alone is therefore not a demonstrated repair for this path; the earlier r23 experiment also regressed performance. Firmware may still perform internal MLO decisions, so static PPE route selection does not prove a firmware defect. See [sanitized PS event evidence](AIR_PS_EVENTS_20260924.json). No new driver or NPU workaround was installed.

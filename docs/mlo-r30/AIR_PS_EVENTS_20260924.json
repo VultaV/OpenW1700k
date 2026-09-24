@@ -1,0 +1,106 @@
+{
+  "interior_intervals": 292,
+  "zero_intervals": 0,
+  "below_500_intervals": 0,
+  "minimum_lan_rx_mbps": 1566.3503372709913,
+  "active_cpu_busy_percent": 7.641849786815349,
+  "interior_slow_samples": 53,
+  "all_interior_samples_four_hw_eight_bnd": true,
+  "valid_links_all": 6,
+  "wired_passed": 418,
+  "wired_total": 418,
+  "router_unchanged": true,
+  "scope": "Air, same r30 MLO association, five-minute reverse IPv4 TCP/P4, no mirroring; PS diagnostic enabled temporarily",
+  "application_result": {
+    "device": "iPhone Air",
+    "average_mbps": 1905,
+    "minimum_mbps": 1505,
+    "maximum_mbps": 2027,
+    "stall": null,
+    "source": "user physical iPerf result; stall question not separately answered",
+    "duration_seconds": 300,
+    "direction": "download",
+    "streams": 4
+  },
+  "events": {
+    "scope": "Emitted host diagnostics; source firmware notifications and host snapshots do not prove actual air-state or delivery",
+    "kernel_records": 3247,
+    "kernel_sequence_continuous": true,
+    "traffic_boundary_margin_seconds": 2,
+    "global_event_coverage": {
+      "P": {
+        "observed": 3237,
+        "missing_between_first_last": 0,
+        "reordered": false
+      },
+      "F": {
+        "observed": 8,
+        "missing_between_first_last": 0,
+        "reordered": false
+      }
+    },
+    "suppression_notice_count": 0,
+    "status1_counter_vs_log": {
+      "counter_window_seconds": 289.3399999999965,
+      "counter_delta": 36,
+      "emitted_F_records": 8,
+      "counter_events_without_detail": 28,
+      "limit": "Endpoint snapshots are non-atomic. Missing details can trail the last emitted sequence; no internal sequence gap is not complete event coverage."
+    },
+    "air_active_PS_transitions": 4,
+    "air_active_status1_reports": 8,
+    "active_PS_transitions_by_link": {
+      "1": 2,
+      "2": 2
+    },
+    "paired_host_PS_intervals": [
+      {
+        "link": 2,
+        "from_traffic_seconds": 19.58182900000247,
+        "seconds": 0.004549999997834675,
+        "all_global_P_sequences_present": true
+      }
+    ],
+    "limits": [
+      "Only transitions passing the two-link diagnostic gate are eligible; rate limiting can omit eligible events.",
+      "Paired PS durations are host-observed intervals and can contain omitted transitions if coverage has gaps; unpaired boundary states are omitted.",
+      "Router uptime and kernel timestamps support coarse alignment; sub-millisecond air-event latency is not established.",
+      "No causal driver/firmware fix is inferred from correlation alone."
+    ]
+  },
+  "final_verification": {
+    "router_unchanged": true,
+    "ps_trace_off": true,
+    "console_restored": true,
+    "trace_lock_released": true,
+    "recorder_completed": true,
+    "wired_passed": 418,
+    "wired_total": 418,
+    "hardware_offload_still_enabled": true
+  },
+  "host_path_counters": {
+    "traffic": {
+      "span_seconds": 289.820000000007,
+      "host_tx_prepared_delta": 1493,
+      "txfree_header_status_deltas": [
+        6373863,
+        2705,
+        34163,
+        0
+      ],
+      "interpretation": "Different counter units; not a packet offload percentage. Bulk hardware traffic does not call the host TX preparation hook per packet."
+    },
+    "awake-repeat": {
+      "span_seconds": 294.9100000000035,
+      "host_tx_prepared_delta": 76,
+      "txfree_header_status_deltas": [
+        6344689,
+        0,
+        516,
+        0
+      ],
+      "interpretation": "Different counter units; not a packet offload percentage. Bulk hardware traffic does not call the host TX preparation hook per packet."
+    }
+  },
+  "interpretation": "No large slowdown reproduced. PS transitions and status1 details occurred with continuing traffic. A simple host-PS flag or status1 presence is insufficient root-cause evidence. No new firmware workaround was applied."
+}
