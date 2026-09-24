@@ -2,6 +2,8 @@
 
 No production code changed. Scope is the current prepared r30/r31 source versus three public candidate patches from hurryman2212/OpenW1700k-test offload-oc, commit 73c3ab3081432f02d90b0084f63ea8ca4ea8589b (2026-08-05). Public candidate links are pinned below; local downloaded Git blob hashes were verified.
 
+Follow-up: a narrower [isolated cleanup candidate](reconnect-candidate/README.md) now has host checks and target-object compilation. It is outside the active build patch directories and is not installed. Review of two companion patches also found slot-ownership concerns; the original 930 subflow cleanup's use-after-free was reproduced against the current helper under host ASan. Hardware lifecycle validation remains required.
+
 ## Confirmed current behavior
 
 - nf_flow_table_core.c flow_offload_refresh retries hardware work for active software flows; a persistent software-only flow cannot be explained merely by saying there is no retry.

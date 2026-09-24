@@ -50,6 +50,8 @@ The extra Mac check retained four hardware flows but was slow during an airportd
 
 Remaining: Air upload and changed-WCID reconnect coverage, full reboot/firewall persistence, the one software-only Air flow, and unexplained wireless dips with matching driver/firmware evidence. IPv6/UDP acceleration is outside the enabled scope. Do not describe all historical stalls as fixed.
 
+A [reconnect cleanup source candidate](reconnect-candidate/README.md) passed isolated host checks and four target-object compiles. It is not part of the active build or installed firmware; PPE ownership/relearning and kernel lifecycle validation remain outstanding.
+
 ## Image and reproducibility
 
 r31 SHA256: `14d671fc06bff30acb15c4a6fa3cfd6250453cbeda3194b79be3f578cb2c67e0`.

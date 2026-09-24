@@ -1,0 +1,110 @@
+{
+  "checks": [
+    {
+      "name": "host-harness",
+      "exit_code": 0
+    },
+    {
+      "name": "target-objects",
+      "exit_code": 0
+    },
+    {
+      "name": "001-netfilter-bridge-fdb-cleanup",
+      "exit_code": 0
+    },
+    {
+      "name": "002-mac80211-station-fdb-notify",
+      "exit_code": 0
+    },
+    {
+      "name": "patch-roundtrip-byte-match",
+      "exit_code": 0
+    },
+    {
+      "name": "negative-control-port-scope",
+      "rejected": true
+    },
+    {
+      "name": "negative-control-direct-union-guard",
+      "rejected": true
+    },
+    {
+      "name": "negative-control-generation-cutoff",
+      "rejected": true
+    }
+  ],
+  "target_objects": 4,
+  "host_matching_cases": 13,
+  "host_rejected_events": 9,
+  "host_failed_insertion_cases": 1,
+  "host_publication_races": 1000,
+  "failures": 0,
+  "limits": [
+    "Stubbed host harness and isolated target objects only",
+    "No linked module or firmware",
+    "No lockdep/KASAN kernel run or live reconnect test",
+    "Candidate not applied to build tree or router"
+  ],
+  "objects": [
+    {
+      "case": "nf_flow_table_core-switchdev-on",
+      "exit_code": 0,
+      "sha256": "4d75b1fbd9c000c9ebd4696ad52d95f4c1aa2091d67b2b03274677d7234e1630",
+      "bytes": 220360
+    },
+    {
+      "case": "nf_flow_table_core-switchdev-off",
+      "exit_code": 0,
+      "sha256": "92e473dc8d97923d469d4ed32fbb9d09ff364ba82a8a75ac819ff4a9dc749af5",
+      "bytes": 199608
+    },
+    {
+      "case": "sta_info-switchdev-on",
+      "exit_code": 0,
+      "sha256": "229cc5f59059fab23f9f931c6cf3658ecd34547db923194bff40e27a570de850",
+      "bytes": 429808
+    },
+    {
+      "case": "sta_info-switchdev-off",
+      "exit_code": 0,
+      "sha256": "94f72e056f1c0745807173823e00a4ced9f4d6f45004a5979b24203f4ffe33d1",
+      "bytes": 429600
+    }
+  ],
+  "build_source_unchanged": true,
+  "upstream_incompatibility": {
+    "candidate": "930-net-airoha-ppe-flush-stale-PPE-flows-on-FDB-and-STA-events.patch",
+    "blob": "01a60e12e955eb4e59072714c2b598cd542ba868",
+    "expected_incompatibility_reproduced": true,
+    "finding": "Current remove_flow frees L2 subflow; candidate next accesses freed node and then frees it again.",
+    "scope": "Extracted current helper and candidate statements; list/hardware stubs; host ASan only. Not installed firmware."
+  },
+  "sources": [
+    {
+      "path": "linux-6.18.44/include/net/netfilter/nf_flow_table.h",
+      "before_sha256": "b83771804177eb765575e05a302d0f6ee99b25c8854173f741b538e2a119131f",
+      "candidate_sha256": "18b3de50ba60be44c3619761943c3dfb02a7ecbe4db5a215d536a1563841271b"
+    },
+    {
+      "path": "linux-6.18.44/net/netfilter/nf_flow_table_core.c",
+      "before_sha256": "39d393383fa478defe1ddc0612d2b45014b7c88fc4c32614bd2e56ca207e8066",
+      "candidate_sha256": "b2e497dd4ccfcec09ec95afee47fddfe9794a443b1f46066dba5b0b9097cc464"
+    },
+    {
+      "path": "mac80211-regular/backports-7.2/net/mac80211/sta_info.c",
+      "before_sha256": "1d61be0cc36e535e17bf4d2121ce7a6fbee666fe42cee5fb627f56e6c407810d",
+      "candidate_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60"
+    }
+  ],
+  "router_unchanged": {
+    "boot_unchanged": true,
+    "configuration_hashes_unchanged": true,
+    "lan_carrier": true,
+    "server_lan_mbps": 2500,
+    "ps_trace_off": true,
+    "awake_experiment_off": true,
+    "diagnostic_lock_absent": true,
+    "console_restored": true,
+    "candidate_installed": false
+  }
+}
