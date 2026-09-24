@@ -41,7 +41,10 @@ reject() {
 
 validate() {
 	local port master value tables line details
-	[ "$(uname -r)" = '6.18.44-w1700k-mlo-r30' ] || { reject 'unvalidated kernel TTL behavior'; return 1; }
+	case "$(uname -r)" in
+		6.18.44-w1700k-mlo-r30|6.18.44-w1700k-mlo-r32) :;;
+		*) reject 'unvalidated kernel TTL behavior'; return 1;;
+	esac
 	[ "$(cat /tmp/sysinfo/board_name 2>/dev/null)" = 'gemtek,w1700k-ubi' ] || { reject 'unvalidated board'; return 1; }
 	identifier "$BRIDGE" && [ "$BRIDGE" = br-lan ] || { reject 'unsupported bridge'; return 1; }
 	[ "$COUNT" = 2 ] && [ "$PORT_A" != "$PORT_B" ] || { reject 'exactly two distinct trusted ports required'; return 1; }

@@ -1,0 +1,125 @@
+{
+  "result": "PASS",
+  "counts": {
+    "passed": 24,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100.0
+  },
+  "checks": [
+    {
+      "name": "expected_board_before_and_after",
+      "passed": true
+    },
+    {
+      "name": "expected_preinstall_build",
+      "passed": true
+    },
+    {
+      "name": "expected_running_r32_kernel_and_release",
+      "passed": true
+    },
+    {
+      "name": "live_manifest_matches_verified_candidate",
+      "passed": true
+    },
+    {
+      "name": "new_boot_id",
+      "passed": true
+    },
+    {
+      "name": "all_collected_uci_settings_unchanged",
+      "passed": true
+    },
+    {
+      "name": "all_module_paths_and_hashes_match_image",
+      "passed": true
+    },
+    {
+      "name": "selected_live_module_hashes_match_verification",
+      "passed": true
+    },
+    {
+      "name": "no_old_module_directory_or_symlink_restored",
+      "passed": true
+    },
+    {
+      "name": "loaded_modules_match_image_inventory",
+      "passed": true
+    },
+    {
+      "name": "no_forced_module_load_taint",
+      "passed": true
+    },
+    {
+      "name": "installed_wpad_matches_verified_image",
+      "passed": true
+    },
+    {
+      "name": "running_wpad_matches_verified_image",
+      "passed": true
+    },
+    {
+      "name": "tailscale_running_and_online",
+      "passed": true
+    },
+    {
+      "name": "tailscale-node_unchanged",
+      "passed": true
+    },
+    {
+      "name": "tailscale-address_unchanged",
+      "passed": true
+    },
+    {
+      "name": "lan2_carrier_and_2500mbps",
+      "passed": true
+    },
+    {
+      "name": "lan4_wired_carrier_up",
+      "passed": true
+    },
+    {
+      "name": "same_mlo_and_2g_ap_inventory",
+      "passed": true
+    },
+    {
+      "name": "hostapd.ap-mld0_enabled",
+      "passed": true
+    },
+    {
+      "name": "hostapd.phy0.0-ap0_enabled",
+      "passed": true
+    },
+    {
+      "name": "no_pending_uci_changes",
+      "passed": true
+    },
+    {
+      "name": "diagnostics_disabled",
+      "passed": true
+    },
+    {
+      "name": "scoped_bridge_acceleration_restored",
+      "passed": true
+    }
+  ],
+  "kernel_release": "6.18.44-w1700k-mlo-r32",
+  "build_label": "ubi2-mlo-reconnect-r32-20260924-tailscale",
+  "module_files_checked": 74,
+  "scope": "r32 installed image with bridge-flow-offload 1.0-r3; not an r33 image boot test.",
+  "package": {
+    "result": "PASS",
+    "package": "bridge-flow-offload-1.0-r3.apk",
+    "sha256": "d7328af85821aceb3334a7b78269860bb1d903680b597931dea444f8b9751fdb",
+    "configs_unchanged": true,
+    "boot_unchanged": true,
+    "table_active": true,
+    "wired_check_passed": true,
+    "only_package_upgraded": true,
+    "packaged_default_saved_separately": true,
+    "xattr_warnings": 7,
+    "content_hashes_verified": true
+  }
+}

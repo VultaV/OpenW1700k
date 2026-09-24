@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "scenario": "Four reverse TCP streams, 120 seconds, intentional Mac Wi-Fi disconnect with at least 15 seconds of confirmed station absence",
+  "versions": {
+    "r30": {
+      "entries": {
+        "before-disconnect": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        },
+        "absent-early": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        },
+        "absent-late": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        },
+        "after-reconnect": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        },
+        "late": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        }
+      },
+      "absence_to_first_snapshot_seconds": 0.129,
+      "absence_to_late_snapshot_seconds": 15.618,
+      "reassociated_after_seconds": 31.204,
+      "steady_windows": {
+        "before_disconnect": {
+          "mbps": 1462.0,
+          "intervals": 21,
+          "zero_byte_intervals": 0
+        },
+        "late_after_reconnect": {
+          "mbps": 1435.2,
+          "intervals": 33,
+          "zero_byte_intervals": 0
+        }
+      },
+      "wired_checks_passed": 105,
+      "router_unchanged": true,
+      "original_mac_wifi_restored": true,
+      "wcid_changed": false
+    },
+    "r32": {
+      "entries": {
+        "before-disconnect": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        },
+        "absent-early": {
+          "hw_connections": 0,
+          "bound_entries": 0
+        },
+        "absent-late": {
+          "hw_connections": 0,
+          "bound_entries": 0
+        },
+        "after-reconnect": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        },
+        "late": {
+          "hw_connections": 4,
+          "bound_entries": 8
+        }
+      },
+      "absence_to_first_snapshot_seconds": 0.149,
+      "absence_to_late_snapshot_seconds": 15.518,
+      "reassociated_after_seconds": 29.606,
+      "steady_windows": {
+        "before_disconnect": {
+          "mbps": 1207.7,
+          "intervals": 21,
+          "zero_byte_intervals": 0
+        },
+        "late_after_reconnect": {
+          "mbps": 1737.6,
+          "intervals": 33,
+          "zero_byte_intervals": 0
+        }
+      },
+      "wired_checks_passed": 107,
+      "router_unchanged": true,
+      "original_mac_wifi_restored": true,
+      "wcid_changed": false
+    }
+  },
+  "limits": [
+    "One r32 Mac trial; does not establish Air stall resolution, new WCID reuse behavior or long-run reliability.",
+    "Counts match the four data connections; zero throughput during the intentional Wi-Fi interruption is excluded from steady windows.",
+    "The first absence snapshot bounds observation latency; it is not an exact hardware flush latency measurement."
+  ]
+}

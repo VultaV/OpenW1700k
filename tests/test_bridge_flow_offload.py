@@ -180,10 +180,24 @@ class Generator(unittest.TestCase):
         self.seed();self.reject(self.run_script())
 
     def test_unvalidated_kernel_and_legacy_bridge_netfilter(self):
-        self.config['kernel']='6.18.44';self.seed();self.reject(self.run_script())
+        for kernel in ['6.18.44','6.18.44-w1700k-mlo-r31','6.18.44-w1700k-mlo-r33',
+                       '6.18.44-w1700k-mlo-r32-other']:
+            self.config['kernel']=kernel;self.seed();self.reject(self.run_script())
         del self.config['kernel']
         (self.base/'proc/sys/net/bridge/bridge-nf-call-iptables').write_text('1\n')
         self.seed();self.reject(self.run_script())
+
+    def test_validated_kernels_in_every_entrypoint(self):
+        self.config['bridge-flow-offload.main.network']='lan'
+        for kernel in ['6.18.44-w1700k-mlo-r30','6.18.44-w1700k-mlo-r32']:
+            self.config['kernel']=kernel
+            for args,env in [((),{}),((),{'source':True}),
+                             (('--net-event',),{'ACTION':'add','DEVICENAME':'phy0.2-ap0'}),
+                             (('--iface-event',),{'ACTION':'ifup','INTERFACE':'lan'})]:
+                with self.subTest(kernel=kernel,args=args,env=env):
+                    result=self.run_script(*args,**env)
+                    self.assertEqual(result.returncode,0,result.stderr)
+                    self.assertIn('flags offload;', (self.base/'table.txt').read_text())
 
     def test_vlan_filtering_and_vlan_port(self):
         path=self.base/'sys/class/net/br-lan/bridge/vlan_filtering'

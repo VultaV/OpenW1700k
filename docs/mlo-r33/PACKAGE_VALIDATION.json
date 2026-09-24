@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "counts": {
+    "passed": 21,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100
+  },
+  "baseline_r32_failures_reproduced": 4,
+  "entrypoints": [
+    "direct",
+    "fw4 include",
+    "net hotplug",
+    "interface hotplug"
+  ],
+  "allowed_kernels": [
+    "6.18.44-w1700k-mlo-r30",
+    "6.18.44-w1700k-mlo-r32"
+  ],
+  "unvalidated_releases_rejected": true,
+  "generator_sha256": "a6fb74a051e9c0b65b30c9e8557aaba20d9cca4c284bc55fa8f64ebe9a283eb4",
+  "test_sha256": "022f690c341c59368ec522c43b0f8e944f4337f5b8ec46a39f5089094cc90ccd"
+}

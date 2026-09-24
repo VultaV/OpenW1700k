@@ -1,0 +1,181 @@
+{
+  "image": "openwrt-ubi2-mlo-bridge-compat-r33-20260924-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "38a2b5ea17131e362e3f731943bfe3157544b542e1b6f23b4d112ccb904e2790",
+  "bytes": 30290792,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 5.9046013750485145
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.973471334029455
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 406.7806100840098
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.851015415973961
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 12.892440875002649
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 7.012052915990353
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 11.07011541700922
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 6.317506166989915
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.7703870839905
+    }
+  ],
+  "final_stage_exit_codes": {
+    "defconfig": 0,
+    "kernel": 0,
+    "packages": 0,
+    "package-install": 0,
+    "target-install": 0,
+    "index": 0,
+    "buildinfo": 0,
+    "image-info": 0,
+    "checksum": 0
+  },
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-bridge-compat-r33-20260924-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "38a2b5ea17131e362e3f731943bfe3157544b542e1b6f23b4d112ccb904e2790",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 338,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f8dc3a28bbfe4ed38aae7bf2c645af5872faa7818a2691ab64323a3638997dbe",
+      "airoha_npu.ko": "5b86a837500fb67e4c1c7225a1ce2bd0f02c709d0a4ce2fc856bf23dba2931ae",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "243009a786ba418d04595df9c1f01552765858401a60655d6bbad4d128d9bf27",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "231b06035c5b479432eeb64192aff5382f4b091a7a3c3f8edb73ff48e2f21119",
+      "mac80211.ko": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "kernel_and_all_modules_identical_to_r32": true,
+  "image_generator_accepts_its_kernel": true,
+  "only_package_version_change": {
+    "bridge-flow-offload": {
+      "baseline": "1.0-r2",
+      "candidate": "1.0-r3"
+    }
+  },
+  "package_validation": {
+    "status": "PASS",
+    "counts": {
+      "passed": 21,
+      "failed": 0,
+      "warnings": 0,
+      "skipped": 0,
+      "pass_rate_percent": 100
+    },
+    "baseline_r32_failures_reproduced": 4,
+    "entrypoints": [
+      "direct",
+      "fw4 include",
+      "net hotplug",
+      "interface hotplug"
+    ],
+    "allowed_kernels": [
+      "6.18.44-w1700k-mlo-r30",
+      "6.18.44-w1700k-mlo-r32"
+    ],
+    "unvalidated_releases_rejected": true,
+    "generator_sha256": "a6fb74a051e9c0b65b30c9e8557aaba20d9cca4c284bc55fa8f64ebe9a283eb4",
+    "test_sha256": "022f690c341c59368ec522c43b0f8e944f4337f5b8ec46a39f5089094cc90ccd"
+  },
+  "runtime_evidence_scope": "r32 installed image plus 1.0-r3 package, recorded separately; r33 image not installed or boot-tested",
+  "installed": false,
+  "boot_tested": false,
+  "verifier_sha256": "ef8ccc4c27b679a7f70290cc7deaa7da3c0131ea48d494c34ff7f53cc4db3add"
+}
