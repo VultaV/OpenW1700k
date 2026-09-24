@@ -40,13 +40,15 @@ typedef int64_t s64;
 #define FLOW_OFFLOAD_DIR_MAX 2
 #define FLOW_OFFLOAD_XMIT_DIRECT 3
 #define NF_FLOW_BRIDGE 0
+#define NF_FLOW_TEARDOWN 1
+#define IPS_OFFLOAD_BIT 0
 #define CONFIG_NET_SWITCHDEV 1
 #define IS_ENABLED(x) (x)
 #define NOTIFY_DONE 0
 #define GFP_ATOMIC 0
 #define SWITCHDEV_FDB_DEL_TO_DEVICE 1
 struct net { int refs; } net_a, net_b;
-struct nf_conn { struct net *net; } ct = { &net_a };
+struct nf_conn { struct net *net; unsigned long status; } ct = { .net = &net_a };
 struct flow_offload_tuple {
     int xmit_type, encap_num;
     struct { unsigned ifidx; u8 h_dest[6]; } out;
@@ -73,6 +75,14 @@ static bool alloc_failure;
 static atomic_bool add_started, event_allocated, gate;
 static struct flow_fdb_cleanup *queued;
 static bool test_bit(int bit, const unsigned long *value) { return !!(*value & (1UL << bit)); }
+static bool test_and_set_bit(int bit, unsigned long *value) { return !!(__atomic_fetch_or(value, 1UL << bit, __ATOMIC_SEQ_CST) & (1UL << bit)); }
+static void clear_bit(int bit, unsigned long *value) { __atomic_fetch_and(value, ~(1UL << bit), __ATOMIC_SEQ_CST); }
+#define clear_bit_unlock clear_bit
+static int fixup_count;
+static void flow_offload_fixup_ct(struct flow_offload *flow) {
+    assert(test_bit(IPS_OFFLOAD_BIT, &flow->ct->status));
+    fixup_count++;
+}
 static bool net_eq(const struct net *a, const struct net *b) { return a == b; }
 static struct net *nf_ct_net(const struct nf_conn *c) { return c->net; }
 static bool ether_addr_equal(const u8 *a, const u8 *b) { return memcmp(a, b, 6) == 0; }
@@ -133,7 +143,7 @@ int main(void) {
     struct flow_offload f = baseline(), copy;
     struct flow_fdb_cleanup event = { .net = &net_a, .gen = 1, .ifindex = 7, .addr = {2, 0, 0, 0, 0, 1} };
     struct switchdev_notifier_fdb_info info = { .info.dev = &device, .addr = event.addr };
-    struct nf_conn other_ct = { &net_b };
+    struct nf_conn other_ct = { .net = &net_b };
     assert(nf_flow_fdb_matches(&f, &event));
     copy = f; copy.flags = 0; assert(!nf_flow_fdb_matches(&copy, &event));
     copy = f; copy.ct = &other_ct; assert(!nf_flow_fdb_matches(&copy, &event));
@@ -179,7 +189,15 @@ int main(void) {
         release_event();
     }
     assert(net_a.refs == 0 && queued_count == 1000);
-    puts("PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races; failures=0");
+    f = baseline(); ct.status = 1;
+    flow_offload_teardown(&f);
+    assert(!ct.status && fixup_count == 1 && test_bit(NF_FLOW_TEARDOWN, &f.flags));
+    copy = baseline(); ct.status = 1; /* Same conntrack has a replacement flow. */
+    flow_offload_teardown(&f);
+    assert(ct.status == 1 && fixup_count == 1);
+    flow_offload_teardown(&copy);
+    assert(!ct.status && fixup_count == 2);
+    puts("PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races, 3 teardown cases; failures=0");
     return 0;
 }
 '''
@@ -188,7 +206,7 @@ int main(void) {
 def main():
     source = Path(sys.argv[1]).read_text()
     c = PREFIX + '\n'.join(function(source, name) for name in
-        ['flow_offload_add', 'nf_flow_fdb_matches', 'nf_flow_fdb_event']) + SUFFIX
+        ['flow_offload_add', 'flow_offload_teardown', 'nf_flow_fdb_matches', 'nf_flow_fdb_event']) + SUFFIX
     with tempfile.TemporaryDirectory(prefix='bridge-fdb-check-') as directory:
         path = Path(directory)
         (path / 'check.c').write_text(c)

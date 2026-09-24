@@ -10,6 +10,7 @@ During the earlier controlled disconnect, four hardware connections and eight ma
 - Netfilter queues the atomic notification to a worker. It matches only older, bridge-origin, untagged direct-transmit flows in the same network namespace, with the same destination MAC and egress interface. Tagged, routed, local and multicast cases are excluded.
 - A generation cutoff is captured under the same spinlock used to publish both bridge-flow tuples. A walk cannot miss a half-published old flow, and delayed work cannot delete a flow published after its event. The lock is on flow creation/event handling, not every packet.
 - The worker marks matching flows for normal teardown and schedules the existing GC work. Existing FLOW_CLS_DESTROY callbacks retain ownership of driver objects. Pending hardware work is retried by normal GC; this is not synchronous, instantaneous hardware invalidation.
+- The shared `flow_offload_teardown()` becomes idempotent: only its first invocation fixes conntrack state and then releases IPS_OFFLOAD. The old function cleared that bit even on repeated teardown. An extracted-C regression demonstrates an old flow clearing the bit after a replacement flow claims the same conntrack. The candidate preserves the replacement's bit. This shared change also affects existing IP, TC and device-cleanup callers, so their runtime coverage is required.
 - Network references cover deferred work. Module init failures unwind notifier/workqueue registration; module exit unregisters and drains the new workqueue before offload shutdown. No bridge ageing timer or firmware image is changed.
 
 The matcher deliberately supports the currently enabled untagged bridge topology only. Allocation failure drops that notification and leaves normal expiry as fallback. The unsigned 64-bit generation uses signed-delta comparison, assuming fewer than 2^63 events can remain outstanding.
@@ -18,8 +19,8 @@ The matcher deliberately supports the currently enabled untagged bridge topology
 
 [Validation evidence](VALIDATION.json):
 
-- Extracted-C host harness with AddressSanitizer and UndefinedBehaviorSanitizer: **13 matching cases, 9 rejected-event cases, 1 failed-insertion case and 1,000 publication interleavings passed; 0 failed**. Kernel services are stubbed.
-- Three negative controls removing port scope, direct-transmit union guarding or generation guarding were rejected by the harness.
+- Extracted-C host harness with AddressSanitizer and UndefinedBehaviorSanitizer: **13 matching cases, 9 rejected-event cases, 1 failed-insertion case, 1,000 publication interleavings and 3 teardown cases passed; 0 failed**. Kernel services are stubbed.
+- Four negative controls removing port scope, direct-transmit union guarding, generation guarding or teardown idempotence were rejected by the harness.
 - **4/4 ARM64 object compiles passed**, using the prepared r30 target flags: netfilter core and mac80211 station code, each with switchdev enabled/disabled. The disabled case is a compile-time override, not a complete alternate kernel configuration.
 - Both patches applied to disposable source copies and reproduced the candidate files byte for byte. Checkpatch reported zero errors/warnings/checks with signoff/path checks excluded.
 - Prepared build-source hashes stayed unchanged. Read-only router verification found unchanged boot/configuration, working wired carrier and restored diagnostics.

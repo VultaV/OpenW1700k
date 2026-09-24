@@ -58,11 +58,10 @@ Not installed; review and runtime validation required.
  {
  	int err;
  
-@@ -345,6 +363,26 @@
- 	}
+@@ -346,6 +364,26 @@
  
  	return 0;
-+}
+ }
 +
 +int flow_offload_add(struct nf_flowtable *flow_table, struct flow_offload *flow)
 +{
@@ -82,10 +81,29 @@ Not installed; review and runtime validation required.
 +	}
 +#endif
 +	return __flow_offload_add(flow_table, flow);
- }
++}
  EXPORT_SYMBOL_GPL(flow_offload_add);
  
-@@ -748,6 +786,99 @@
+ void flow_offload_refresh(struct nf_flowtable *flow_table,
+@@ -381,9 +419,14 @@
+ 
+ void flow_offload_teardown(struct flow_offload *flow)
+ {
+-	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
+-	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
+-		flow_offload_fixup_ct(flow);
++	if (test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
++		return;
++
++	/* An old flow may be visited again after this conntrack is re-offloaded.
++	 * Finish fixup before allowing another flow to claim IPS_OFFLOAD.
++	 */
++	flow_offload_fixup_ct(flow);
++	clear_bit_unlock(IPS_OFFLOAD_BIT, &flow->ct->status);
+ }
+ EXPORT_SYMBOL_GPL(flow_offload_teardown);
+ 
+@@ -748,6 +791,99 @@
  }
  EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
  
@@ -185,7 +203,7 @@ Not installed; review and runtime validation required.
  void nf_flow_table_free(struct nf_flowtable *flow_table)
  {
  	mutex_lock(&flowtable_lock);
-@@ -846,8 +977,24 @@
+@@ -846,8 +982,24 @@
  	if (ret)
  		goto out_bpf;
  
@@ -210,7 +228,7 @@ Not installed; review and runtime validation required.
  out_bpf:
  	nf_flow_table_offload_exit();
  out_offload:
-@@ -857,6 +1004,10 @@
+@@ -857,6 +1009,10 @@
  
  static void __exit nf_flow_table_module_exit(void)
  {

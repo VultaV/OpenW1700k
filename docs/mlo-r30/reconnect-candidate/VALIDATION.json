@@ -9,6 +9,10 @@
       "exit_code": 0
     },
     {
+      "name": "checkpatch",
+      "exit_code": 0
+    },
+    {
       "name": "001-netfilter-bridge-fdb-cleanup",
       "exit_code": 0
     },
@@ -31,6 +35,10 @@
     {
       "name": "negative-control-generation-cutoff",
       "rejected": true
+    },
+    {
+      "name": "negative-control-repeated-teardown",
+      "rejected": true
     }
   ],
   "target_objects": 4,
@@ -38,6 +46,7 @@
   "host_rejected_events": 9,
   "host_failed_insertion_cases": 1,
   "host_publication_races": 1000,
+  "host_teardown_cases": 3,
   "failures": 0,
   "limits": [
     "Stubbed host harness and isolated target objects only",
@@ -49,14 +58,14 @@
     {
       "case": "nf_flow_table_core-switchdev-on",
       "exit_code": 0,
-      "sha256": "4d75b1fbd9c000c9ebd4696ad52d95f4c1aa2091d67b2b03274677d7234e1630",
-      "bytes": 220360
+      "sha256": "bfc463b44046bc8e41d824ae4e00643ac9ca54d827b9515cdf36605987b49c86",
+      "bytes": 219992
     },
     {
       "case": "nf_flow_table_core-switchdev-off",
       "exit_code": 0,
-      "sha256": "92e473dc8d97923d469d4ed32fbb9d09ff364ba82a8a75ac819ff4a9dc749af5",
-      "bytes": 199608
+      "sha256": "c72f280255c827e36e9750397ae1190a39a8fd66da0e71c5bb009ac6f2910a93",
+      "bytes": 199208
     },
     {
       "case": "sta_info-switchdev-on",
@@ -79,23 +88,6 @@
     "finding": "Current remove_flow frees L2 subflow; candidate next accesses freed node and then frees it again.",
     "scope": "Extracted current helper and candidate statements; list/hardware stubs; host ASan only. Not installed firmware."
   },
-  "sources": [
-    {
-      "path": "linux-6.18.44/include/net/netfilter/nf_flow_table.h",
-      "before_sha256": "b83771804177eb765575e05a302d0f6ee99b25c8854173f741b538e2a119131f",
-      "candidate_sha256": "18b3de50ba60be44c3619761943c3dfb02a7ecbe4db5a215d536a1563841271b"
-    },
-    {
-      "path": "linux-6.18.44/net/netfilter/nf_flow_table_core.c",
-      "before_sha256": "39d393383fa478defe1ddc0612d2b45014b7c88fc4c32614bd2e56ca207e8066",
-      "candidate_sha256": "b2e497dd4ccfcec09ec95afee47fddfe9794a443b1f46066dba5b0b9097cc464"
-    },
-    {
-      "path": "mac80211-regular/backports-7.2/net/mac80211/sta_info.c",
-      "before_sha256": "1d61be0cc36e535e17bf4d2121ce7a6fbee666fe42cee5fb627f56e6c407810d",
-      "candidate_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60"
-    }
-  ],
   "router_unchanged": {
     "boot_unchanged": true,
     "configuration_hashes_unchanged": true,
@@ -106,5 +98,27 @@
     "diagnostic_lock_absent": true,
     "console_restored": true,
     "candidate_installed": false
+  },
+  "sources": [
+    {
+      "path": "linux-6.18.44/include/net/netfilter/nf_flow_table.h",
+      "before_sha256": "b83771804177eb765575e05a302d0f6ee99b25c8854173f741b538e2a119131f",
+      "candidate_sha256": "18b3de50ba60be44c3619761943c3dfb02a7ecbe4db5a215d536a1563841271b"
+    },
+    {
+      "path": "linux-6.18.44/net/netfilter/nf_flow_table_core.c",
+      "before_sha256": "39d393383fa478defe1ddc0612d2b45014b7c88fc4c32614bd2e56ca207e8066",
+      "candidate_sha256": "d285095bf6d8f778acebe8f1a91ed64f86acb879c59cbe4492e2c9c2cdfbe1f9"
+    },
+    {
+      "path": "mac80211-regular/backports-7.2/net/mac80211/sta_info.c",
+      "before_sha256": "1d61be0cc36e535e17bf4d2121ce7a6fbee666fe42cee5fb627f56e6c407810d",
+      "candidate_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60"
+    }
+  ],
+  "repeated_teardown_regression": {
+    "baseline_reproduced": true,
+    "candidate_passed": true,
+    "scope": "Extracted C, old flow teardown repeated after replacement flow claims the same conntrack."
   }
 }
