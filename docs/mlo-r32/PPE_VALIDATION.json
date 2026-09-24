@@ -1,0 +1,72 @@
+{
+  "baseline": [
+    {
+      "case": 0,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 1,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 2,
+      "exit_code": 0,
+      "expected_failure": false
+    },
+    {
+      "case": 3,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 4,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 5,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 6,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 7,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 8,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 9,
+      "exit_code": 250,
+      "expected_failure": true
+    },
+    {
+      "case": 10,
+      "exit_code": 250,
+      "expected_failure": true
+    }
+  ],
+  "candidate": {
+    "passed": 11,
+    "failed": 0
+  },
+  "target_object": {
+    "exit_code": 0,
+    "sha256": "abb123bf2a1e8dddb29cb71601af1f6b08170203ed7cb4a76607df939e9d3a30",
+    "bytes": 260280
+  },
+  "patch_roundtrip": true,
+  "checkpatch_exit_code": 0,
+  "build_source_unchanged": true,
+  "scope": "Extracted C and actual header layouts, host ASan/UBSan with mocked hardware. Target object only; no linked firmware or router installation."
+}

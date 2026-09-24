@@ -1,6 +1,6 @@
 # Reconnect cleanup candidate, 2026-09-24
 
-**Experimental source candidate only. Not included in the normal patch directories, r30/r31 images, or the running router.** No firmware was linked or installed for this change. The observed retained PPE entries are real; a changed-WCID forwarding failure and a causal link to historical Air stalls are still unproven.
+**Experimental source candidate, initially validated in isolation.** These changes are absent from r30/r31 and the running router. They are now integrated into the [r32 build sources](../../mlo-r32/README.md), together with the PPE slot-ownership repair. The r32 release record gives its image status; this document records the earlier isolated checks. The observed retained PPE entries are real; a changed-WCID forwarding failure and a causal link to historical Air stalls are still unproven.
 
 During the earlier controlled disconnect, four hardware connections and eight matching PPE BND directions survived at least 15.62 seconds after the station disappeared. Removing one station does not take down the AP, so the existing NETDEV_DOWN flow cleanup does not run. See [source and runtime evidence](../RECONNECT_REVIEW.md).
 
@@ -49,4 +49,4 @@ Against the current prepared driver, 930 has two concrete ownership incompatibil
 
 ## Remaining before deployment
 
-Validate current PPE slot ownership across old/new cookies with the same tuple and across collisions. Normal teardown/reinsertion must not invalidate a newer binding. Then complete kernel/module integration, lockdep/KASAN or equivalent lifecycle testing, changed-WCID reconnect testing, unrelated-station isolation and wired continuity checks. The current candidate alone is not claimed to finish those requirements or resolve the overall investigation.
+The r32 PPE host regression now covers old/new rules with the same tuple and collisions; those checks do not establish hardware behavior. Kernel lifecycle testing, changed-WCID reconnect testing, unrelated-station isolation and wired continuity checks remain required before calling the reconnect repair verified. The current candidate alone is not claimed to resolve the overall investigation.

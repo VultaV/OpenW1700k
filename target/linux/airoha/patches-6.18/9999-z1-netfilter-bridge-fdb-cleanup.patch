@@ -1,0 +1,241 @@
+Subject: [EXPERIMENTAL] netfilter-bridge-fdb-cleanup
+
+Not installed; review and runtime validation required.
+
+---
+--- a/include/net/netfilter/nf_flow_table.h
++++ b/include/net/netfilter/nf_flow_table.h
+@@ -187,6 +187,9 @@
+ 	unsigned long				flags;
+ 	u16					type;
+ 	u32					timeout;
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++	u64					fdb_gen;
++#endif
+ 	struct rcu_head				rcu_head;
+ };
+ 
+--- a/net/netfilter/nf_flow_table_core.c
++++ b/net/netfilter/nf_flow_table_core.c
+@@ -5,6 +5,8 @@
+ #include <linux/netfilter.h>
+ #include <linux/rhashtable.h>
+ #include <linux/netdevice.h>
++#include <linux/etherdevice.h>
++#include <net/switchdev.h>
+ #include <net/ip.h>
+ #include <net/ip6_route.h>
+ #include <net/netfilter/nf_flow_table.h>
+@@ -15,6 +17,21 @@
+ 
+ static DEFINE_MUTEX(flowtable_lock);
+ static LIST_HEAD(flowtables);
++
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++/* Serialize publication with the event cutoff, not with packet forwarding. */
++static DEFINE_SPINLOCK(flow_fdb_lock);
++static u64 flow_fdb_gen;
++static struct workqueue_struct *flow_fdb_wq;
++
++struct flow_fdb_cleanup {
++	struct work_struct work;
++	struct net *net;
++	u64 gen;
++	u32 ifindex;
++	u8 addr[ETH_ALEN];
++};
++#endif
+ 
+ static void
+ flow_offload_fill_dir(struct flow_offload *flow,
+@@ -315,7 +332,8 @@
+ 	return timeout;
+ }
+ 
+-int flow_offload_add(struct nf_flowtable *flow_table, struct flow_offload *flow)
++static int __flow_offload_add(struct nf_flowtable *flow_table,
++			      struct flow_offload *flow)
+ {
+ 	int err;
+ 
+@@ -346,6 +364,26 @@
+ 
+ 	return 0;
+ }
++
++int flow_offload_add(struct nf_flowtable *flow_table, struct flow_offload *flow)
++{
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++	int err;
++
++	if (test_bit(NF_FLOW_BRIDGE, &flow->flags)) {
++		/* ponytail: one lock for new bridge flows; shard only if measured.
++		 * Publish both tuples before an FDB event can capture its cutoff.
++		 * Otherwise a deferred walk could miss an in-flight insertion.
++		 */
++		spin_lock_bh(&flow_fdb_lock);
++		flow->fdb_gen = flow_fdb_gen;
++		err = __flow_offload_add(flow_table, flow);
++		spin_unlock_bh(&flow_fdb_lock);
++		return err;
++	}
++#endif
++	return __flow_offload_add(flow_table, flow);
++}
+ EXPORT_SYMBOL_GPL(flow_offload_add);
+ 
+ void flow_offload_refresh(struct nf_flowtable *flow_table,
+@@ -381,9 +419,14 @@
+ 
+ void flow_offload_teardown(struct flow_offload *flow)
+ {
+-	clear_bit(IPS_OFFLOAD_BIT, &flow->ct->status);
+-	if (!test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
+-		flow_offload_fixup_ct(flow);
++	if (test_and_set_bit(NF_FLOW_TEARDOWN, &flow->flags))
++		return;
++
++	/* An old flow may be visited again after this conntrack is re-offloaded.
++	 * Finish fixup before allowing another flow to claim IPS_OFFLOAD.
++	 */
++	flow_offload_fixup_ct(flow);
++	clear_bit_unlock(IPS_OFFLOAD_BIT, &flow->ct->status);
+ }
+ EXPORT_SYMBOL_GPL(flow_offload_teardown);
+ 
+@@ -748,6 +791,99 @@
+ }
+ EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
+ 
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++static bool nf_flow_fdb_matches(const struct flow_offload *flow,
++				const struct flow_fdb_cleanup *cleanup)
++{
++	int dir;
++
++	if (!test_bit(NF_FLOW_BRIDGE, &flow->flags) ||
++	    !net_eq(nf_ct_net(flow->ct), cleanup->net) ||
++	    (s64)(flow->fdb_gen - cleanup->gen) >= 0)
++		return false;
++
++	/* This candidate is limited to the supported untagged bridge path. */
++	if (flow->tuplehash[0].tuple.encap_num ||
++	    flow->tuplehash[1].tuple.encap_num)
++		return false;
++
++	for (dir = 0; dir < FLOW_OFFLOAD_DIR_MAX; dir++) {
++		const struct flow_offload_tuple *tuple = &flow->tuplehash[dir].tuple;
++
++		if (tuple->xmit_type == FLOW_OFFLOAD_XMIT_DIRECT &&
++		    tuple->out.ifidx == cleanup->ifindex &&
++		    ether_addr_equal(tuple->out.h_dest, cleanup->addr))
++			return true;
++	}
++
++	return false;
++}
++
++static void nf_flow_fdb_cleanup_one(struct nf_flowtable *flowtable,
++				    struct flow_offload *flow, void *data)
++{
++	if (nf_flow_fdb_matches(flow, data))
++		flow_offload_teardown(flow);
++}
++
++static void nf_flow_fdb_cleanup_work(struct work_struct *work)
++{
++	struct flow_fdb_cleanup *cleanup =
++		container_of(work, struct flow_fdb_cleanup, work);
++	struct nf_flowtable *flowtable;
++
++	mutex_lock(&flowtable_lock);
++	list_for_each_entry(flowtable, &flowtables, list) {
++		if (flowtable->type->family != NFPROTO_BRIDGE ||
++		    !net_eq(read_pnet(&flowtable->net), cleanup->net))
++			continue;
++
++		nf_flow_table_iterate(flowtable, nf_flow_fdb_cleanup_one, cleanup);
++		/* Let the existing GC serialize deletion and retry pending HW work.
++		 * Do not run a second, concurrent GC or free driver-owned entries.
++		 */
++		mod_delayed_work(system_power_efficient_wq, &flowtable->gc_work, 0);
++	}
++	mutex_unlock(&flowtable_lock);
++	put_net(cleanup->net);
++	kfree(cleanup);
++}
++
++static int nf_flow_fdb_event(struct notifier_block *nb,
++			     unsigned long event, void *ptr)
++{
++	struct switchdev_notifier_fdb_info *fdb = ptr;
++	struct flow_fdb_cleanup *cleanup;
++	struct net_device *dev;
++
++	if (event != SWITCHDEV_FDB_DEL_TO_DEVICE || !fdb || !fdb->addr)
++		return NOTIFY_DONE;
++
++	dev = switchdev_notifier_info_to_dev(&fdb->info);
++	if (!dev || !netif_is_bridge_port(dev) || fdb->is_local || fdb->vid ||
++	    !is_valid_ether_addr(fdb->addr))
++		return NOTIFY_DONE;
++
++	cleanup = kmalloc(sizeof(*cleanup), GFP_ATOMIC);
++	if (!cleanup)
++		return NOTIFY_DONE;
++
++	cleanup->net = get_net(dev_net(dev));
++	cleanup->ifindex = dev->ifindex;
++	ether_addr_copy(cleanup->addr, fdb->addr);
++	INIT_WORK(&cleanup->work, nf_flow_fdb_cleanup_work);
++	spin_lock_bh(&flow_fdb_lock);
++	cleanup->gen = ++flow_fdb_gen;
++	spin_unlock_bh(&flow_fdb_lock);
++	queue_work(flow_fdb_wq, &cleanup->work);
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block flow_fdb_notifier = {
++	.notifier_call = nf_flow_fdb_event,
++};
++#endif
++
+ void nf_flow_table_free(struct nf_flowtable *flow_table)
+ {
+ 	mutex_lock(&flowtable_lock);
+@@ -846,8 +982,24 @@
+ 	if (ret)
+ 		goto out_bpf;
+ 
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++	flow_fdb_wq = alloc_ordered_workqueue("nf_flow_fdb", 0);
++	if (!flow_fdb_wq) {
++		ret = -ENOMEM;
++		goto out_netdev;
++	}
++	ret = register_switchdev_notifier(&flow_fdb_notifier);
++	if (ret)
++		goto out_fdb;
++#endif
+ 	return 0;
+ 
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++out_fdb:
++	destroy_workqueue(flow_fdb_wq);
++out_netdev:
++	unregister_netdevice_notifier(&flow_offload_netdev_notifier);
++#endif
+ out_bpf:
+ 	nf_flow_table_offload_exit();
+ out_offload:
+@@ -857,6 +1009,10 @@
+ 
+ static void __exit nf_flow_table_module_exit(void)
+ {
++#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
++	unregister_switchdev_notifier(&flow_fdb_notifier);
++	destroy_workqueue(flow_fdb_wq);
++#endif
+ 	unregister_netdevice_notifier(&flow_offload_netdev_notifier);
+ 	nf_flow_table_offload_exit();
+ 	unregister_pernet_subsys(&nf_flow_table_net_ops);

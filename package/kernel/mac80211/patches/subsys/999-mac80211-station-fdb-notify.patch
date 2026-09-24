@@ -1,0 +1,33 @@
+Subject: [EXPERIMENTAL] mac80211-station-fdb-notify
+
+Not installed; review and runtime validation required.
+
+---
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -17,6 +17,7 @@
+ #include <linux/if_arp.h>
+ #include <linux/timer.h>
+ #include <linux/rtnetlink.h>
++#include <net/switchdev.h>
+ 
+ #include <net/mac80211.h>
+ #include "ieee80211_i.h"
+@@ -1612,6 +1613,17 @@
+ 	sta_dbg(sdata, "Removed STA %pM\n", sta->sta.addr);
+ 
+ 	cfg80211_del_sta_sinfo(&sdata->wdev, sta->sta.addr, sinfo, GFP_KERNEL);
++	/* The AP stays up when one station leaves: NETDEV_DOWN will not run. */
++	if ((sdata->vif.type == NL80211_IFTYPE_AP ||
++	     sdata->vif.type == NL80211_IFTYPE_AP_VLAN) &&
++	    netif_is_bridge_port(sdata->dev)) {
++		struct switchdev_notifier_fdb_info fdb = {
++			.addr = sta->sta.addr,
++		};
++
++		call_switchdev_notifiers(SWITCHDEV_FDB_DEL_TO_DEVICE,
++					 sdata->dev, &fdb.info, NULL);
++	}
+ 	kfree(sinfo);
+ 
+ 	ieee80211_sta_debugfs_remove(sta);

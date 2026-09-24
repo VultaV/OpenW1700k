@@ -1,0 +1,216 @@
+{
+  "image": "openwrt-ubi2-mlo-reconnect-r32-20260924-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "e63c09a8c1f2d57a9895a1ed3c12a7350f07c2d06d1294af280881a2d1c9c95d",
+  "bytes": 30290788,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 14.515553708013613
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 169.27878445899114
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 2,
+      "seconds": 12.872840791998897
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 558.0824076249846
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 16.314689708990045
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 13.320983708952554
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 7.057908792048693
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 11.012888791970909
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 6.023135582974646
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.393712541961577
+    }
+  ],
+  "final_stage_exit_codes": {
+    "defconfig": 0,
+    "kernel": 0,
+    "packages": 0,
+    "package-install": 0,
+    "target-install": 0,
+    "index": 0,
+    "buildinfo": 0,
+    "image-info": 0,
+    "checksum": 0
+  },
+  "earlier_failure": "Initial package stage: sandbox denied the fakeroot local socket. Retried with normal host access; final stage passed.",
+  "verifier_sha256": "d56719febbb9ebf920a4a8e4d6c112817fb2d8cfd462abb4c9f7e0745aea3ce9",
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-reconnect-r32-20260924-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "e63c09a8c1f2d57a9895a1ed3c12a7350f07c2d06d1294af280881a2d1c9c95d",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 338,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f8dc3a28bbfe4ed38aae7bf2c645af5872faa7818a2691ab64323a3638997dbe",
+      "airoha_npu.ko": "5b86a837500fb67e4c1c7225a1ce2bd0f02c709d0a4ce2fc856bf23dba2931ae",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "243009a786ba418d04595df9c1f01552765858401a60655d6bbad4d128d9bf27",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "231b06035c5b479432eeb64192aff5382f4b091a7a3c3f8edb73ff48e2f21119",
+      "mac80211.ko": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "source_checks": {
+    "fresh_prepared_sources_match_host_tested_candidates": true,
+    "files": [
+      {
+        "file": "include/net/netfilter/nf_flow_table.h",
+        "sha256": "18b3de50ba60be44c3619761943c3dfb02a7ecbe4db5a215d536a1563841271b"
+      },
+      {
+        "file": "net/netfilter/nf_flow_table_core.c",
+        "sha256": "d285095bf6d8f778acebe8f1a91ed64f86acb879c59cbe4492e2c9c2cdfbe1f9"
+      },
+      {
+        "file": "drivers/net/ethernet/airoha/airoha_ppe.c",
+        "sha256": "bf50f9c2b9b7de4146f9b120e5b35470771da70b969e53f771871dc4d596b3c0"
+      },
+      {
+        "file": "net/mac80211/sta_info.c",
+        "sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60"
+      }
+    ],
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package_abi_hash": "73da9a4281bd33ef609e81ecc0cb78e7",
+    "hardware_validation": false
+  },
+  "ppe_host_regression": {
+    "passed": 11,
+    "failed": 0,
+    "baseline_failures_reproduced": 10
+  },
+  "netfilter_host_regression": {
+    "passed": 1026,
+    "failed": 0
+  },
+  "installed": false,
+  "boot_tested": false,
+  "hardware_reconnect_tested": false,
+  "compiled_symbol_checks": {
+    "nf_flow_table.ko": {
+      "symbols_found": [
+        "nf_flow_fdb_event",
+        "nf_flow_fdb_cleanup_work"
+      ],
+      "sha256": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70"
+    },
+    "mac80211.ko": {
+      "symbols_found": [
+        "call_switchdev_notifiers"
+      ],
+      "sha256": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79"
+    },
+    "airoha_ppe.o": {
+      "symbols_found": [
+        "airoha_ppe_foe_clear_entry"
+      ],
+      "sha256": "9df6a5b8ed16c738bee02db441e141a17656e48fb0b8b2aec985c0815a4e056a"
+    },
+    "scope": "PPE helper verified in linked-build object; the packaged driver strips unreferenced local symbol names. Final kernel/module ABI checked by image verifier."
+  }
+}
