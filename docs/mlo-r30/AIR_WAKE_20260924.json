@@ -1,0 +1,341 @@
+{
+  "scope": "iPhone Air, same MLO association and position, no mirroring, IPv4 reverse TCP/P4, two 300-second tests; r30 plus bridge-flow-offload 1.0-r2",
+  "sleep": {
+    "sample_span_seconds": 136.09999999999127,
+    "samples": 25,
+    "valid_links_all": 6,
+    "both_ps_1_samples": 24,
+    "ps_flag_scope": "driver-reported link flags; screen lock does not imply continuous radio sleep",
+    "wired_passed": 135,
+    "wired_total": 135,
+    "router_unchanged": true
+  },
+  "tests": {
+    "traffic": {
+      "interior_intervals": 292,
+      "zero_intervals": 0,
+      "below_500_intervals": 1,
+      "minimum_lan_rx_mbps": 430.46958431200596,
+      "active_cpu_busy_percent": 8.01413244861907,
+      "interior_slow_samples": 52,
+      "all_interior_samples_four_hw_eight_bnd": true,
+      "valid_links_all": 6,
+      "bins_30_seconds": [
+        {
+          "from_seconds": 0,
+          "covered_seconds": 28.64999999999418,
+          "lan_rx_mbps": 2007.5403010126245,
+          "cpu_busy_percent": 8.117901205899939
+        },
+        {
+          "from_seconds": 30,
+          "covered_seconds": 30.69999999999709,
+          "lan_rx_mbps": 1982.7816826060512,
+          "cpu_busy_percent": 8.032956956365876
+        },
+        {
+          "from_seconds": 60,
+          "covered_seconds": 29.669999999998254,
+          "lan_rx_mbps": 2049.9678428043003,
+          "cpu_busy_percent": 7.77196253856288
+        },
+        {
+          "from_seconds": 90,
+          "covered_seconds": 29.680000000007567,
+          "lan_rx_mbps": 2051.896857950959,
+          "cpu_busy_percent": 8.333855271370995
+        },
+        {
+          "from_seconds": 120,
+          "covered_seconds": 30.69999999999709,
+          "lan_rx_mbps": 2046.4093576549171,
+          "cpu_busy_percent": 9.682394192286269
+        },
+        {
+          "from_seconds": 150,
+          "covered_seconds": 29.660000000003492,
+          "lan_rx_mbps": 2052.17321618317,
+          "cpu_busy_percent": 7.605109022317707
+        },
+        {
+          "from_seconds": 180,
+          "covered_seconds": 29.679999999993015,
+          "lan_rx_mbps": 2076.0790805934807,
+          "cpu_busy_percent": 7.377938074399402
+        },
+        {
+          "from_seconds": 210,
+          "covered_seconds": 30.710000000006403,
+          "lan_rx_mbps": 1861.7470788664305,
+          "cpu_busy_percent": 8.312855230419459
+        },
+        {
+          "from_seconds": 240,
+          "covered_seconds": 29.679999999993015,
+          "lan_rx_mbps": 1093.5165986525485,
+          "cpu_busy_percent": 7.251106387856577
+        },
+        {
+          "from_seconds": 270,
+          "covered_seconds": 29.670000000012806,
+          "lan_rx_mbps": 1478.495634916787,
+          "cpu_busy_percent": 7.32958683110779
+        }
+      ],
+      "wired_passed": 419,
+      "wired_total": 419,
+      "router_unchanged": true,
+      "npu_wait_range_samples": {
+        "0": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "1": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "2": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 1
+        },
+        "3": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "4": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "5": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "6": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "7": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        }
+      },
+      "application_result": {
+        "device": "iPhone Air",
+        "average_mbps": 1783,
+        "minimum_mbps": 468,
+        "maximum_mbps": 2029,
+        "stall": false,
+        "source": "user physical iPerf result",
+        "duration_seconds": 300,
+        "direction": "download",
+        "streams": 4
+      },
+      "traffic_span_seconds": 300.83000000000175,
+      "data_connections": 4,
+      "ppe_bound_directions": 8,
+      "link2_ps1_samples": 4,
+      "association_and_wcids_unchanged": true
+    },
+    "awake-repeat": {
+      "interior_intervals": 292,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "minimum_lan_rx_mbps": 1294.009419602674,
+      "active_cpu_busy_percent": 7.244938467645891,
+      "interior_slow_samples": 53,
+      "all_interior_samples_four_hw_eight_bnd": true,
+      "valid_links_all": 6,
+      "bins_30_seconds": [
+        {
+          "from_seconds": 0,
+          "covered_seconds": 28.660000000003492,
+          "lan_rx_mbps": 1820.3646459174336,
+          "cpu_busy_percent": 7.260715705581612
+        },
+        {
+          "from_seconds": 30,
+          "covered_seconds": 30.69000000000233,
+          "lan_rx_mbps": 1746.1608151187986,
+          "cpu_busy_percent": 7.3176754053498945
+        },
+        {
+          "from_seconds": 60,
+          "covered_seconds": 29.669999999998254,
+          "lan_rx_mbps": 1745.1019098079896,
+          "cpu_busy_percent": 7.342726294051185
+        },
+        {
+          "from_seconds": 90,
+          "covered_seconds": 29.669999999998254,
+          "lan_rx_mbps": 1880.1680016179064,
+          "cpu_busy_percent": 7.173594848397318
+        },
+        {
+          "from_seconds": 120,
+          "covered_seconds": 30.69000000000233,
+          "lan_rx_mbps": 2017.6331970021279,
+          "cpu_busy_percent": 7.8004394342357495
+        },
+        {
+          "from_seconds": 150,
+          "covered_seconds": 29.669999999998254,
+          "lan_rx_mbps": 1886.0799050894268,
+          "cpu_busy_percent": 7.168644174353366
+        },
+        {
+          "from_seconds": 180,
+          "covered_seconds": 29.669999999998254,
+          "lan_rx_mbps": 1829.1286018201279,
+          "cpu_busy_percent": 7.093575153059556
+        },
+        {
+          "from_seconds": 210,
+          "covered_seconds": 30.69000000000233,
+          "lan_rx_mbps": 1760.747273769824,
+          "cpu_busy_percent": 7.750633527904587
+        },
+        {
+          "from_seconds": 240,
+          "covered_seconds": 29.669999999998254,
+          "lan_rx_mbps": 1804.2508985508307,
+          "cpu_busy_percent": 6.857748904268892
+        },
+        {
+          "from_seconds": 270,
+          "covered_seconds": 29.679999999993015,
+          "lan_rx_mbps": 1794.621018868347,
+          "cpu_busy_percent": 6.836141249976148
+        }
+      ],
+      "wired_passed": 418,
+      "wired_total": 418,
+      "router_unchanged": true,
+      "npu_wait_range_samples": {
+        "0": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "1": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "2": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 1
+        },
+        "3": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "4": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "5": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "6": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        },
+        "7": {
+          "slow_next_descriptor_wait": 0,
+          "fast_next_descriptor_wait": 0
+        }
+      },
+      "application_result": {
+        "device": "iPhone Air",
+        "average_mbps": 1744,
+        "minimum_mbps": 1271,
+        "maximum_mbps": 2017,
+        "stall": null,
+        "source": "user physical iPerf result; stall question not separately answered",
+        "duration_seconds": 300,
+        "direction": "download",
+        "streams": 4
+      },
+      "traffic_span_seconds": 300.8000000000029,
+      "data_connections": 4,
+      "ppe_bound_directions": 8,
+      "link2_ps1_samples": 0,
+      "association_and_wcids_unchanged": true
+    }
+  },
+  "wired_passed": 972,
+  "wired_total": 972,
+  "driver_correlation": {
+    "initial_steady": {
+      "covered_seconds": 204.4499999999971,
+      "failed_attempt_counter_per_second": 280.5282465150444,
+      "txfree_status_deltas": [
+        4907171,
+        0,
+        2967,
+        0
+      ]
+    },
+    "late_reduced": {
+      "covered_seconds": 51.229999999995925,
+      "failed_attempt_counter_per_second": 774.0191294164192,
+      "txfree_status_deltas": [
+        699904,
+        2691,
+        30567,
+        0
+      ]
+    },
+    "link2_ps1_samples": [
+      243.71,
+      249.4,
+      255.1,
+      289.3
+    ],
+    "interpretation": "Failed-attempt counter includes retries plus nonzero TXFREE status per header, not a lost-packet count. PS flags and status counters are sampled, not causal proof."
+  },
+  "awake_survey": {
+    "2412": {
+      "deltas_ms": {
+        "channel active time": 75496,
+        "channel busy time": 26810,
+        "channel receive time": 23364,
+        "channel BSS receive time": 58,
+        "channel transmit time": 2598
+      },
+      "busy_percent": 35.51181519550705,
+      "tx_percent": 3.441241920101727,
+      "rx_percent": 30.94733495814348
+    },
+    "5180": {
+      "deltas_ms": {
+        "channel active time": 75497,
+        "channel busy time": 805,
+        "channel receive time": 132,
+        "channel BSS receive time": 113,
+        "channel transmit time": 668
+      },
+      "busy_percent": 1.0662675338092904,
+      "tx_percent": 0.884803369670318,
+      "rx_percent": 0.17484138442587122
+    },
+    "6135": {
+      "deltas_ms": {
+        "channel active time": 75497,
+        "channel busy time": 71190,
+        "channel receive time": 2259,
+        "channel BSS receive time": 2257,
+        "channel transmit time": 68664
+      },
+      "busy_percent": 94.29513755513464,
+      "tx_percent": 90.94930924407592,
+      "rx_percent": 2.9921718743791144
+    }
+  },
+  "limitations": [
+    "Port counters include overhead and other LAN2 traffic; they are not application goodput.",
+    "PS and TXFREE counters are sampled; association with a dip does not prove causation or packet loss.",
+    "The awake-repeat user supplied rate values without a separate stall answer; its router record has no interior zero interval.",
+    "Sequential runs without randomization do not establish a causal sleep effect; mean rates differ by about 2.2%.",
+    "No diagnostic setting, firmware, radio configuration or reboot was changed. The original software-only Air flow and changed-WCID reconnect remain unverified."
+  ]
+}

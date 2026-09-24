@@ -1,6 +1,6 @@
 # W1700K r30/r31: bridge acceleration and wireless results
 
-Status, 2026-09-24: r30 is installed with bridge-flow-offload 1.0-r2. iPhone Air completed five-minute MLO and single-6GHz downloads at about 2 Gbps without reported stalls. MLO and scoped IPv4 TCP acceleration are saved on the test router. **r31 integrates those packages but is not installed or boot-tested.** Long-term reliability remains unproven.
+Status, 2026-09-24: r30 is installed with bridge-flow-offload 1.0-r2. iPhone Air completed earlier five-minute MLO and single-6GHz downloads at about 2 Gbps without reported stalls. The subsequent sleep/wake and awake comparisons averaged 1.78/1.74 Gbps, with no interior zero-byte router interval; a late wake-test dip remains unexplained. MLO and scoped IPv4 TCP acceleration are saved on the test router. **r31 integrates those packages but is not installed or boot-tested.** Long-term reliability remains unproven.
 
 ## Results
 
@@ -11,6 +11,8 @@ Air tests used the same 2.5 GbE server, four reverse TCP streams, five minutes, 
 | Air, first single6 | 1480 / 0 / 2023 | Zero timing unknown; not cleared retroactively |
 | Air, 5+6GHz MLO | **1963 / 1806 / 2020** | No reported stall in 300 seconds |
 | Air, single6 repeat | **1993 / 1761 / 2047** | No reported stall in 300 seconds |
+| Air, MLO after two-minute screen lock | 1783 / 468 / 2029 | User reported a slowdown without a stall |
+| Air, MLO awake comparison | 1744 / 1271 / 2017 | No interior zero-byte router interval; user supplied rates only |
 | Mac, earlier settled MLO | 1877 / 1802 / 1952 | No zero/below-1Gbps one-second interval in 300 seconds |
 | Mac, after permanent activation | 561 / 69 / 1682 | 20-second performance check failed; overlaps client scanning |
 
@@ -45,7 +47,7 @@ OpenWrt_5G now provides 5+6GHz MLO, with LAN2-to-ap-mld0 acceleration. Both APs 
 
 The extra Mac check retained four hardware flows but was slow during an airportd BEST CONNECTED SCAN. Scanning began immediately before traffic and continued through about 16 seconds; throughput then recovered. Earlier Mac dips also overlapped scans, while settled 60/300-second tests passed. This supports a scan contribution, not a guarantee that a fixed settling delay or all clients will avoid dips.
 
-Remaining: long-duration/reconnect/upload coverage, full reboot/firewall persistence, the one software-only Air flow, and any new stall with matching driver/NPU evidence. IPv6/UDP acceleration is outside the enabled scope. Do not describe all historical stalls as fixed.
+Remaining: Air upload and changed-WCID reconnect coverage, full reboot/firewall persistence, the one software-only Air flow, and unexplained wireless dips with matching driver/firmware evidence. IPv6/UDP acceleration is outside the enabled scope. Do not describe all historical stalls as fixed.
 
 ## Image and reproducibility
 
@@ -64,10 +66,22 @@ A separate intentional radio cycle during an existing 180-second download preser
 
 All 844 wired HTTP checks passed (682 sustained, 162 reconnect). Router configuration/boot remained unchanged and Mac original Wi-Fi was restored. One NPU fast-descriptor-wait sample occurred during ongoing upload without a persistent hang; a PC range hit alone is not deadlock evidence.
 
-See [test evidence](SUSTAINED_RECONNECT_20260924.json) and [candidate reconnect patch review](RECONNECT_REVIEW.md). Candidate patches remain uninstalled; direct application has a hash-linkage mismatch against the current driver and broader dependencies. Air sleep/wake acceptance after hardware acceleration remains pending. These results do not mark the overall investigation complete.
+See [test evidence](SUSTAINED_RECONNECT_20260924.json) and [candidate reconnect patch review](RECONNECT_REVIEW.md). Candidate patches remain uninstalled; direct application has a hash-linkage mismatch against the current driver and broader dependencies. The Air sleep/wake follow-up is recorded below. These results do not mark the overall investigation complete.
 
 
 A further [disconnect-window test](DISCONNECT_WINDOW_20260924.json) found four HW connections/eight matching PPE BND directions still present 15.62 seconds after the Mac station disappeared, retaining the old download WCID. MCU teardown returned success. Reconnection reused both WCIDs and recovered without later zero-byte intervals; 105/105 wired probes plus one final check passed. The source trace and limits are in [RECONNECT_REVIEW.md](RECONNECT_REVIEW.md). Retention is confirmed; changed-WCID failure and a causal link to historical Air stalls remain unproven. No speculative cleanup patch was installed.
 
 
 [Full-rate registration follow-up](LOAD_REGISTRATION_20260924.json): eight new 8-second Mac MLO sessions alternating download/upload registered all 32/32 data connections, with both PPE directions and TTL bit24 clear. All later samples retained registration; no zero-byte interval occurred. Mean downloads ranged 1606.51–1963.10 Mbps and uploads 1794.35–1816.32 Mbps. All 81/81 wired checks passed; router boot/configuration and original Mac Wi-Fi were preserved. This is short full-load registration coverage, not an Air reproduction or long-duration acceptance. The original Air callback failure remains unknown; current kernel tracing facilities are disabled, and no diagnostic firmware was installed.
+
+## Air sleep/wake follow-up (2026-09-24)
+
+After the user locked the screen, a 136.10-second observation retained both links and WCIDs. Both driver PS flags were set in 24/25 samples. The wake download returned **1783 / 468 / 2029 Mbps**, with a user-reported slowdown and no stall. A subsequent same-association awake download returned **1744 / 1271 / 2017 Mbps**; the user did not separately answer the stall question. Both router recordings had 292 interior one-second intervals with no zero interval. The wake run had one below-500Mbps port interval; the awake run had none.
+
+All 52/53 respective interior slow samples retained four HW_OFFLOAD data connections, eight matching PPE BND directions and TTL bit24 clear. Active CPU means were **8.01% / 7.24%** across four cores. Both MLO links and WCIDs remained unchanged. All **972/972** wired checks across the lock observation and both recordings passed. No router configuration, firmware, diagnostic setting or reboot was changed. Recorders exited normally.
+
+The wake run stayed near 2Gbps port RX for about 232 seconds before slowing. The later dip overlapped increased 6GHz TXFREE nonzero status/retry counters and four sampled PS=1 observations. The awake comparison had no active 6GHz PS=1 sample. These are correlated observations, not proof that PS caused the dip. `txfree_failed_attempts` includes retries and nonzero header status, so it is not a lost-packet count. Each run also sampled one NPU descriptor-wait PC during ongoing traffic; this does not establish a hang.
+
+A 75.50-second awake channel-counter comparison reported 6GHz busy 94.30%, transmit 90.95% and receive 2.99%; 5GHz transmit was 0.88%. Traffic remained predominantly on 6GHz. This does not establish concurrent link aggregation or exclude external interference. Sequential runs with means differing by about 2.2% do not establish a causal sleep effect. The evidence does not support CPU saturation or loss of hardware registration as the explanation for these dips; client, wireless-driver and firmware behavior remain to distinguish.
+
+See [sanitized sleep/wake evidence](AIR_WAKE_20260924.json). Raw identities, addresses, router logs and backups remain private. No new firmware patch was justified by this comparison.
