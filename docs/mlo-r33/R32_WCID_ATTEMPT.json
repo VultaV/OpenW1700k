@@ -1,0 +1,193 @@
+{
+  "status": "INCOMPLETE",
+  "scope": "r32 installed kernel with bridge-flow-offload 1.0-r3; one Mac reconnect with one intervening Air reassociation",
+  "changed_wcid_scenario_exercised": false,
+  "mac_valid_links_before_after": [
+    6,
+    6
+  ],
+  "air_valid_links_before_after": [
+    4,
+    4
+  ],
+  "air_wcid_changed": false,
+  "air_saved_association": {
+    "frame_matches_ie": true,
+    "eht_capabilities_present": true,
+    "multi_link_element_present": false
+  },
+  "flow_registration_probes": {
+    "before-disconnect": [
+      {
+        "stream": 1,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 2,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 3,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 4,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      }
+    ],
+    "absent-early": [
+      {
+        "stream": 1,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      },
+      {
+        "stream": 2,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      },
+      {
+        "stream": 3,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      },
+      {
+        "stream": 4,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      }
+    ],
+    "absent-late": [
+      {
+        "stream": 1,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      },
+      {
+        "stream": 2,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      },
+      {
+        "stream": 3,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      },
+      {
+        "stream": 4,
+        "result": "PASS",
+        "hardware": false,
+        "bound_entries": 0
+      }
+    ],
+    "after-reconnect": [
+      {
+        "stream": 1,
+        "result": "FAIL",
+        "reason": "HW phase did not register the data flow as HW_OFFLOAD"
+      },
+      {
+        "stream": 2,
+        "result": "FAIL",
+        "reason": "HW phase did not register the data flow as HW_OFFLOAD"
+      },
+      {
+        "stream": 3,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 4,
+        "result": "FAIL",
+        "reason": "HW phase did not register the data flow as HW_OFFLOAD"
+      }
+    ],
+    "late": [
+      {
+        "stream": 1,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 2,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 3,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      },
+      {
+        "stream": 4,
+        "result": "PASS",
+        "hardware": true,
+        "bound_entries": 2
+      }
+    ]
+  },
+  "flow_registration_probe_summary": {
+    "passed": 17,
+    "failed": 3,
+    "total": 20,
+    "pass_rate_percent": 85.0
+  },
+  "absence_to_first_snapshot_seconds": 0.1425189971923828,
+  "absence_to_late_snapshot_seconds": 15.5990469455719,
+  "station_absence_to_confirmed_reassociation_seconds": 57.64894700050354,
+  "receive_windows": {
+    "full_trial": {
+      "intervals": 180,
+      "receiver_mbps": 1062.00210015627,
+      "minimum_mbps": 0.0,
+      "zero_intervals": 45,
+      "below_500_intervals": 74
+    },
+    "after_confirmed_reassociation": {
+      "from_seconds": 84,
+      "intervals": 96,
+      "receiver_mbps": 1564.2105205952525,
+      "minimum_mbps": 61.311907201899345,
+      "zero_intervals": 0,
+      "below_500_intervals": 14
+    },
+    "last_30_seconds": {
+      "intervals": 30,
+      "receiver_mbps": 1933.4764287341145,
+      "minimum_mbps": 1889.4784109649438,
+      "zero_intervals": 0,
+      "below_500_intervals": 0
+    }
+  },
+  "logged_live_scan_requests": 0,
+  "wired_checks_passed": 163,
+  "router_unchanged": true,
+  "original_mac_wifi_restored": true,
+  "limits": [
+    "Changed WCIDs were not induced; this scenario remains unverified.",
+    "Three immediate post-reassociation HW probes failed; all four flows had both PPE directions at the late snapshot scheduled at or after 135 seconds. Exact restoration time was not recorded.",
+    "Post-reassociation slow intervals remain unexplained; no matching logged airportd scan request was found. Zero logged requests does not exclude all radio scans.",
+    "The full trial deliberately interrupts Wi-Fi. Its average and zero intervals are not steady-state performance results.",
+    "A missing Multi-Link element in this saved Air request does not identify why the client selected a single link. AP advertisement, client cache and client behavior are not separated.",
+    "This is not an Air application-throughput test or proof that its earlier stalls are resolved."
+  ]
+}
