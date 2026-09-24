@@ -1,0 +1,593 @@
+{
+  "status": "OBSERVED",
+  "scope": "One 180-second Mac reconnect diagnostic, r32 kernel plus bridge-flow-offload 1.0-r3; Air unchanged",
+  "sample_count": 210,
+  "clock_alignment_uncertainty_seconds": 0.034050941467285156,
+  "longest_collection_seconds": 0.12000000000080036,
+  "after_confirmed_reassociation": {
+    "from_seconds": 84,
+    "intervals": 96,
+    "receiver_mbps": 1555.8077560386778,
+    "minimum_mbps": 97.8892425057318,
+    "zero_intervals": 0,
+    "below_500_intervals": 16
+  },
+  "post_reassociation_hardware_connection_counts": {
+    "0": 0,
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 87
+  },
+  "slow_intervals": [
+    {
+      "start": 105.004538,
+      "receiver_mbps": 406.2050216048274,
+      "nearest_sample_distance_seconds": 0.33378605731201105,
+      "elapsed": 105.17283344268799,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 6.221198156682028
+    },
+    {
+      "start": 106.008701,
+      "receiver_mbps": 111.82390997367685,
+      "nearest_sample_distance_seconds": 0.22285016221619003,
+      "elapsed": 106.28283333778381,
+      "collect_seconds": 0.11000000000058208,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 5.668934240362812
+    },
+    {
+      "start": 107.002666,
+      "receiver_mbps": 415.14067090676116,
+      "nearest_sample_distance_seconds": 0.10868452870178658,
+      "elapsed": 107.39283347129822,
+      "collect_seconds": 0.0999999999994543,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 3.686635944700461
+    },
+    {
+      "start": 108.00037,
+      "receiver_mbps": 447.6443504054456,
+      "nearest_sample_distance_seconds": 0.007645624069212431,
+      "elapsed": 108.49283337593079,
+      "collect_seconds": 0.11000000000058208,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 3.2710280373831777
+    },
+    {
+      "start": 109.000588,
+      "receiver_mbps": 97.8892425057318,
+      "nearest_sample_distance_seconds": 0.09878800944520094,
+      "elapsed": 109.60283350944519,
+      "collect_seconds": 0.0999999999994543,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 4.576659038901602
+    },
+    {
+      "start": 110.007503,
+      "receiver_mbps": 128.64898539660894,
+      "nearest_sample_distance_seconds": 0.20406390454101597,
+      "elapsed": 110.71283340454102,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 3.4722222222222223
+    },
+    {
+      "start": 111.010036,
+      "receiver_mbps": 158.83343688149483,
+      "nearest_sample_distance_seconds": 0.31766729963683815,
+      "elapsed": 111.82283329963684,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 4.794520547945205
+    },
+    {
+      "start": 112.000296,
+      "receiver_mbps": 346.0141582326367,
+      "nearest_sample_distance_seconds": 0.42251444268798366,
+      "elapsed": 112.92283344268799,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 5.011389521640091
+    },
+    {
+      "start": 113.000342,
+      "receiver_mbps": 223.40904220617315,
+      "nearest_sample_distance_seconds": 0.5279373377838112,
+      "elapsed": 114.03283333778381,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 6.150341685649202
+    },
+    {
+      "start": 114.00945,
+      "receiver_mbps": 160.84628812209343,
+      "nearest_sample_distance_seconds": 0.4720696622161853,
+      "elapsed": 114.03283333778381,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 6.150341685649202
+    },
+    {
+      "start": 115.000356,
+      "receiver_mbps": 404.031122707988,
+      "nearest_sample_distance_seconds": 0.37230551916503885,
+      "elapsed": 115.13283348083496,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 4.805491990846682
+    },
+    {
+      "start": 116.009922,
+      "receiver_mbps": 331.5872461055903,
+      "nearest_sample_distance_seconds": 0.2635686240692223,
+      "elapsed": 116.24283337593079,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 5.045871559633028
+    },
+    {
+      "start": 117.002882,
+      "receiver_mbps": 270.2171181045315,
+      "nearest_sample_distance_seconds": 0.16257248101806,
+      "elapsed": 117.34283351898193,
+      "collect_seconds": 0.10999999999967258,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 5.936073059360731
+    },
+    {
+      "start": 118.00793,
+      "receiver_mbps": 390.34324361074925,
+      "nearest_sample_distance_seconds": 0.056090085922249955,
+      "elapsed": 118.45283341407776,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 6.531531531531532
+    },
+    {
+      "start": 119.009917,
+      "receiver_mbps": 395.6004522596252,
+      "nearest_sample_distance_seconds": 0.04725531871032729,
+      "elapsed": 119.55283331871033,
+      "collect_seconds": 0.0999999999994543,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 5.607476635514018
+    },
+    {
+      "start": 120.001239,
+      "receiver_mbps": 141.0960856246774,
+      "nearest_sample_distance_seconds": 0.1599584522247426,
+      "elapsed": 120.66283345222473,
+      "collect_seconds": 0.1000000000003638,
+      "authorized": true,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ],
+      "hardware_connections": 4,
+      "tx_bitrate_mbps": 2401.9,
+      "tx_retries": 0.0,
+      "tx_failed": 0.0,
+      "cpu_busy_percent_since_previous_sample": 4.587155963302752
+    }
+  ],
+  "wired_checks_passed": 201,
+  "router_unchanged": true,
+  "original_mac_wifi_restored": true,
+  "limits": [
+    "Sampled hardware presence does not measure hardware packet delivery or exclude other failures.",
+    "Added per-second flow and station reads can affect timing; this is diagnostic evidence, not a matched throughput benchmark.",
+    "Counter and bitrate values are AP driver reports, not an over-the-air capture.",
+    "The intentional disconnect is excluded from the post-reassociation window; this does not establish Air stall resolution."
+  ]
+}

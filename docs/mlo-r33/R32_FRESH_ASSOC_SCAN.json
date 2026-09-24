@@ -1,0 +1,154 @@
+{
+  "status": "OBSERVED",
+  "scope": "r32 kernel plus bridge-flow-offload 1.0-r3; fresh Mac MLO association, no settling delay, live airportd log stream",
+  "application_receive": {
+    "intervals": 120,
+    "receiver_mbps": 1630.2179413748356,
+    "minimum_mbps": 97.80250497066775,
+    "zero_intervals": 0,
+    "below_500_intervals": 15
+  },
+  "after_60_seconds": {
+    "intervals": 60,
+    "receiver_mbps": 1871.207056355546,
+    "minimum_mbps": 1821.7492567194217,
+    "zero_intervals": 0,
+    "below_500_intervals": 0
+  },
+  "aggregate_cpu_busy_percent": 5.998286203941731,
+  "live_scan_requests": 33,
+  "first_live_scan_seconds": 12.385999917984009,
+  "last_live_scan_seconds": 23.978999853134155,
+  "best_connected_scan_requests": [
+    12.363999843597412
+  ],
+  "below_500_intervals": [
+    {
+      "start": 14.01003,
+      "end": 15.001592,
+      "mbps": 195.63734619428516,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 15.001592,
+      "end": 16.0094,
+      "mbps": 97.80250497066775,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 16.0094,
+      "end": 17.006065,
+      "mbps": 301.948309335191,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 17.006065,
+      "end": 18.010027,
+      "mbps": 370.775452844275,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 18.010027,
+      "end": 19.006064,
+      "mbps": 224.23533118728326,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 19.006064,
+      "end": 20.010035,
+      "mbps": 138.90900303762882,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 20.010035,
+      "end": 21.006953,
+      "mbps": 130.42539210660698,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 21.006953,
+      "end": 22.006186,
+      "mbps": 150.061464027798,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 22.006186,
+      "end": 23.010021,
+      "mbps": 188.0226202373985,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 23.010021,
+      "end": 24.010022,
+      "mbps": 358.61265000032614,
+      "overlaps_first_to_last_live_request": true
+    },
+    {
+      "start": 24.010022,
+      "end": 25.009584,
+      "mbps": 468.9188466989694,
+      "overlaps_first_to_last_live_request": false
+    },
+    {
+      "start": 25.009584,
+      "end": 26.002943,
+      "mbps": 419.067688241839,
+      "overlaps_first_to_last_live_request": false
+    },
+    {
+      "start": 26.002943,
+      "end": 27.000396,
+      "mbps": 441.5264993324395,
+      "overlaps_first_to_last_live_request": false
+    },
+    {
+      "start": 27.000396,
+      "end": 28.001578,
+      "mbps": 416.8405590886378,
+      "overlaps_first_to_last_live_request": false
+    },
+    {
+      "start": 28.001578,
+      "end": 29.010021,
+      "mbps": 263.0686400162545,
+      "overlaps_first_to_last_live_request": false
+    }
+  ],
+  "dip_snapshots": [
+    {
+      "elapsed": 15.474287749966606,
+      "en0_aggregate_mbps": 173.20081927643915,
+      "flows": [
+        {
+          "stream": 1,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 2,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 3,
+          "hardware": true,
+          "bound_entries": 2
+        },
+        {
+          "stream": 4,
+          "hardware": true,
+          "bound_entries": 2
+        }
+      ]
+    }
+  ],
+  "wired_checks_passed": 149,
+  "router_unchanged": true,
+  "mac_original_wifi_restored": true,
+  "limits": [
+    "The scan/slowdown overlap is temporal evidence, not a controlled experiment disabling scans.",
+    "It does not establish that Air stalls or all earlier Mac dips share this cause.",
+    "The first-to-last live-request span is not an explicit scan-completion measurement.",
+    "The diagnostic starts immediately after association; it is not a matched five-minute throughput benchmark."
+  ]
+}
