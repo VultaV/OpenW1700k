@@ -1,0 +1,151 @@
+{
+  "status": "FAIL",
+  "scope": "Air sleep/wake stability failure: one brief user-observed stop on r32 kernel plus bridge-flow-offload 1.0-r3",
+  "date": "2026-09-25",
+  "application_receive": {
+    "device": "iPhone Air",
+    "direction": "download",
+    "streams": 4,
+    "duration_seconds": 300,
+    "average_mbps": 1914,
+    "minimum_mbps": 0,
+    "maximum_mbps": 2041,
+    "source": "User-reported iPerf result",
+    "stall_report": "Brief stop after sleep/wake"
+  },
+  "topology": {
+    "server_wired_mbps": 2500,
+    "management_wired_mbps": 1000,
+    "mlo_bands_ghz": [
+      5,
+      6
+    ],
+    "mirroring": false
+  },
+  "recording": {
+    "fast_samples": 500,
+    "slow_samples": 100,
+    "traffic_seconds": 300.820000000007,
+    "interior_approximately_one_second_intervals": 292,
+    "lan2_aggregate_zero_intervals": 0,
+    "lan2_aggregate_below_500_intervals": 1,
+    "lan2_aggregate_minimum_mbps": 184.66132815554852,
+    "both_links_present_all_samples": true,
+    "same_wcids_before_during_after": true
+  },
+  "aggregate_cpu_busy_percent": 7.548846236791029,
+  "offload": {
+    "interior_snapshots": 52,
+    "four_hardware_flows_eight_bound_entries_in_every_snapshot": true
+  },
+  "link_observation": [
+    {
+      "band_ghz": 5,
+      "sample_count": 53,
+      "ps0_samples": 0,
+      "ps1_samples": 53,
+      "txs_reports_delta": 0,
+      "tx_prepared_delta": 0,
+      "counters_are_not_total_hardware_offloaded_bytes": true
+    },
+    {
+      "band_ghz": 6,
+      "sample_count": 53,
+      "ps0_samples": 51,
+      "ps1_samples": 2,
+      "txs_reports_delta": 63120,
+      "tx_prepared_delta": 88,
+      "counters_are_not_total_hardware_offloaded_bytes": true
+    }
+  ],
+  "npu_wait_range_samples": {
+    "0": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "1": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "2": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "3": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "4": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "5": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "6": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "7": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    }
+  },
+  "wired_checks": {
+    "passed": 551,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "total": 551,
+    "pass_rate_percent": 100
+  },
+  "router_configuration_and_boot_unchanged": true,
+  "kernel_messages_emitted_during_test": 0,
+  "experimental_forced_awake_enabled": false,
+  "ps_trace_enabled": false,
+  "r33_full_image_boot_tested": false,
+  "limits": [
+    "The user explicitly reported a brief stop and minimum 0 Mbps; aggregate LAN counters with no zero interval do not invalidate this observation.",
+    "The aggregate low interval starts 21.48 seconds after traffic begins; its exact alignment with the user-observed stop is unknown.",
+    "The nearest offload snapshot is about 0.50 seconds after the low interval midpoint; transient changes between samples cannot be ruled out.",
+    "No NPU suspect-wait PC sample was observed, which cannot rule out a brief firmware wait between samples.",
+    "Screen lock was confirmed by the user; exact unlock-to-traffic latency was not measured.",
+    "This is one sequential awake/sleep-wake pair, not proof that sleep or a particular driver/firmware mechanism caused the dip.",
+    "Raw iPerf client per-second data was unavailable; application values are user-reported.",
+    "The r33 full image was not installed or boot tested."
+  ],
+  "recording_integrity_status": "PASS",
+  "sleep_observation": {
+    "status": "PASS",
+    "scope": "Air physically locked by user; read-only MLO sleep observation",
+    "slow_samples": 25,
+    "observed_seconds": 135.88999999999942,
+    "both_links_all_samples": true,
+    "ps1_on_both_links_samples": 22,
+    "wired_passed": 134,
+    "wired_total": 134,
+    "router_unchanged": true
+  },
+  "low_intervals": [
+    {
+      "from_start_seconds": 21.479999999995925,
+      "interval_seconds": 1.0299999999988358,
+      "lan2_aggregate_mbps": 184.66132815554852,
+      "cpu_busy_percent": 3.950617283950617,
+      "nearest_offload_snapshot_seconds_from_interval_midpoint": 0.4950000000098953,
+      "hardware_flows": 4,
+      "missing_or_partial": {},
+      "link_ps": [
+        {
+          "band_ghz": 5,
+          "ps": 1
+        },
+        {
+          "band_ghz": 6,
+          "ps": 0
+        }
+      ]
+    }
+  ]
+}
