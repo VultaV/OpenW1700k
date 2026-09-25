@@ -1,0 +1,109 @@
+{
+  "scope": "Actual downloaded upstream ubi2 image versus extracted installed-r32 baseline, no installation",
+  "image_sha256": "9e9b2bef95b3b7b222c580d14afec49ecd75fe7c6ea6ae89f5c74f565dce0b87",
+  "fit_hashes_valid": true,
+  "firmware": [
+    {
+      "file": "airoha/en7581_MT7996_npu_data.bin",
+      "old_bytes": 3084,
+      "old_sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1",
+      "new_exists": true,
+      "new_bytes": 3084,
+      "new_sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1",
+      "same": true
+    },
+    {
+      "file": "airoha/en7581_MT7996_npu_rv32.bin",
+      "old_bytes": 122336,
+      "old_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "new_exists": true,
+      "new_bytes": 122336,
+      "new_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "same": true
+    },
+    {
+      "file": "mediatek/mt7996/mt7996_dsp.bin",
+      "old_bytes": 192688,
+      "old_sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d",
+      "new_exists": true,
+      "new_bytes": 192688,
+      "new_sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d",
+      "same": true
+    },
+    {
+      "file": "mediatek/mt7996/mt7996_eeprom.bin",
+      "old_bytes": 7680,
+      "old_sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6",
+      "new_exists": true,
+      "new_bytes": 7680,
+      "new_sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6",
+      "same": true
+    },
+    {
+      "file": "mediatek/mt7996/mt7996_eeprom_2i5i6i.bin",
+      "old_bytes": 7680,
+      "old_sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28",
+      "new_exists": true,
+      "new_bytes": 7680,
+      "new_sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28",
+      "same": true
+    },
+    {
+      "file": "mediatek/mt7996/mt7996_rom_patch.bin",
+      "old_bytes": 37216,
+      "old_sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400",
+      "new_exists": true,
+      "new_bytes": 37216,
+      "new_sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400",
+      "same": true
+    },
+    {
+      "file": "mediatek/mt7996/mt7996_wa.bin",
+      "old_bytes": 510064,
+      "old_sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448",
+      "new_exists": true,
+      "new_bytes": 510064,
+      "new_sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448",
+      "same": true
+    },
+    {
+      "file": "mediatek/mt7996/mt7996_wm.bin",
+      "old_bytes": 2666168,
+      "old_sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592",
+      "new_exists": true,
+      "new_bytes": 2666168,
+      "new_sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592",
+      "same": true
+    },
+    {
+      "file": "regulatory.db",
+      "old_bytes": 6328,
+      "old_sha256": "6fb59be8734f9d7dbbae5b49b9798eb576fea860e85496d86c74622005fa8cb1",
+      "new_exists": true,
+      "new_bytes": 6328,
+      "new_sha256": "6fb59be8734f9d7dbbae5b49b9798eb576fea860e85496d86c74622005fa8cb1",
+      "same": true
+    },
+    {
+      "file": "rtl8261n.bin",
+      "old_bytes": 14370,
+      "old_sha256": "ae1963b2a84a17eaa2fb9052591bdb5152838feda045d7313f45a8608b918533",
+      "new_exists": true,
+      "new_bytes": 14370,
+      "new_sha256": "ae1963b2a84a17eaa2fb9052591bdb5152838feda045d7313f45a8608b918533",
+      "same": true
+    },
+    {
+      "file": "rtl8264b.bin",
+      "old_bytes": 21700,
+      "old_sha256": "7a0bcf605739d6f780e0799bbea0c73acf56c9a4cbba015da5d27589bf4352ca",
+      "new_exists": true,
+      "new_bytes": 21700,
+      "new_sha256": "7a0bcf605739d6f780e0799bbea0c73acf56c9a4cbba015da5d27589bf4352ca",
+      "same": true
+    }
+  ],
+  "additional_firmware": [
+    "rtl_nic/rtl8261c.bin"
+  ]
+}

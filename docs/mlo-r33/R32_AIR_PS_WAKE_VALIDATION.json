@@ -1,0 +1,336 @@
+{
+  "status": "PASS",
+  "scope": "One r32 Air MLO sleep/wake diagnostic run without an observed stop; not a fix or overall acceptance",
+  "date": "2026-09-25",
+  "application_receive": {
+    "average_mbps": 1715,
+    "minimum_mbps": 1336,
+    "maximum_mbps": 1987,
+    "stall_report": "No stop observed",
+    "source": "User-reported iPerf result"
+  },
+  "sleep_observation": {
+    "status": "PASS",
+    "seconds": 136.95000000001164,
+    "samples": 25,
+    "both_links": true,
+    "both_ps1_samples": 25,
+    "wired_passed": 136,
+    "same_association": true
+  },
+  "recording": {
+    "fast_samples": 500,
+    "slow_samples": 100,
+    "traffic_seconds": 300.99000000000524,
+    "interior_intervals": 292,
+    "lan2_aggregate_zero_intervals": 0,
+    "lan2_aggregate_below_500_intervals": 0,
+    "minimum_lan2_aggregate_mbps": 1352.8598524287136,
+    "both_links_and_same_wcids": true
+  },
+  "aggregate_cpu_busy_percent": 14.664540617363121,
+  "offload": {
+    "interior_snapshots": 52,
+    "all_four_hardware_flows_eight_bound_entries": true
+  },
+  "events": {
+    "scope": "Emitted host diagnostics; source firmware notifications and host snapshots do not prove actual air-state or delivery",
+    "kernel_records": 1540,
+    "kernel_sequence_continuous": true,
+    "traffic_boundary_margin_seconds": 2,
+    "global_event_coverage": {
+      "P": {
+        "observed": 1528,
+        "missing_between_first_last": 0,
+        "reordered": false
+      },
+      "F": {
+        "observed": 10,
+        "missing_between_first_last": 0,
+        "reordered": false
+      }
+    },
+    "suppression_notice_count": 0,
+    "status1_counter_vs_log": {
+      "counter_window_seconds": 291.50999999999476,
+      "counter_delta": 31,
+      "emitted_F_records": 8,
+      "counter_events_without_detail": 23,
+      "limit": "Endpoint snapshots are non-atomic. Missing details can trail the last emitted sequence; no internal sequence gap is not complete event coverage."
+    },
+    "air_active_PS_transitions": 4,
+    "air_active_status1_reports": 8,
+    "active_PS_transitions_by_link": {
+      "1": 2,
+      "2": 2
+    },
+    "paired_host_PS_intervals": [
+      {
+        "link": 2,
+        "from_traffic_seconds": 252.8370300000097,
+        "seconds": 0.007538999998359941,
+        "all_global_P_sequences_present": true
+      }
+    ],
+    "limits": [
+      "Only transitions passing the two-link diagnostic gate are eligible; rate limiting can omit eligible events.",
+      "Paired PS durations are host-observed intervals and can contain omitted transitions if coverage has gaps; unpaired boundary states are omitted.",
+      "Router uptime and kernel timestamps support coarse alignment; sub-millisecond air-event latency is not established.",
+      "No causal driver/firmware fix is inferred from correlation alone."
+    ]
+  },
+  "event_correlation": [
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.71470900000713,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.71476000000257,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.71478700000443,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.7148140000063,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.71484000000055,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.71486600000935,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.7148920000036,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "F",
+      "link": 2,
+      "from_start_seconds": 203.71491900000547,
+      "lan2_mbps": 1771.5708815554003,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "P",
+      "link": 2,
+      "from_start_seconds": 252.8370300000097,
+      "lan2_mbps": 1513.788194176468,
+      "primary_ps": 1,
+      "secondary_ps": 1,
+      "host_txq_gate": 1,
+      "non_aql": 0
+    },
+    {
+      "kind": "P",
+      "link": 2,
+      "from_start_seconds": 252.84456900000805,
+      "lan2_mbps": 1513.788194176468,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "P",
+      "link": 1,
+      "from_start_seconds": 252.84462400000484,
+      "lan2_mbps": 1513.788194176468,
+      "primary_ps": 0,
+      "secondary_ps": 0,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    },
+    {
+      "kind": "P",
+      "link": 1,
+      "from_start_seconds": 252.86394999999902,
+      "lan2_mbps": 1513.788194176468,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "host_txq_gate": 0,
+      "non_aql": 0
+    }
+  ],
+  "txfree_comparison": [
+    {
+      "case": "mlo_normal",
+      "counter_window_start_seconds": -0.8899999999994179,
+      "counter_window_end_seconds": 306.25999999999476,
+      "six_ghz_txfree_status_deltas": [
+        7330981,
+        0,
+        0,
+        0
+      ],
+      "status2_increment_windows": []
+    },
+    {
+      "case": "mlo_wake_stall",
+      "counter_window_start_seconds": -0.16999999999825377,
+      "counter_window_end_seconds": 306.24000000000524,
+      "six_ghz_txfree_status_deltas": [
+        7089138,
+        626,
+        5380,
+        0
+      ],
+      "status2_increment_windows": [
+        {
+          "start_seconds": 5.4799999999959255,
+          "end_seconds": 11.139999999999418,
+          "status2_delta": 3367
+        },
+        {
+          "start_seconds": 11.139999999999418,
+          "end_seconds": 16.80999999999767,
+          "status2_delta": 1175
+        },
+        {
+          "start_seconds": 16.80999999999767,
+          "end_seconds": 22.49000000000524,
+          "status2_delta": 323
+        },
+        {
+          "start_seconds": 45.13999999999942,
+          "end_seconds": 50.80999999999767,
+          "status2_delta": 515
+        }
+      ]
+    },
+    {
+      "case": "single6_wake_slow",
+      "counter_window_start_seconds": -0.7599999999947613,
+      "counter_window_end_seconds": 306.0500000000029,
+      "six_ghz_txfree_status_deltas": [
+        6927186,
+        764,
+        6255,
+        0
+      ],
+      "status2_increment_windows": [
+        {
+          "start_seconds": -0.7599999999947613,
+          "end_seconds": 4.919999999998254,
+          "status2_delta": 4631
+        },
+        {
+          "start_seconds": 10.630000000004657,
+          "end_seconds": 16.339999999996508,
+          "status2_delta": 444
+        },
+        {
+          "start_seconds": 21.99000000000524,
+          "end_seconds": 27.660000000003492,
+          "status2_delta": 824
+        },
+        {
+          "start_seconds": 27.660000000003492,
+          "end_seconds": 33.30999999999767,
+          "status2_delta": 36
+        },
+        {
+          "start_seconds": 33.30999999999767,
+          "end_seconds": 39.0,
+          "status2_delta": 320
+        }
+      ]
+    },
+    {
+      "case": "mlo_wake_ps_trace",
+      "counter_window_start_seconds": -4.829999999987194,
+      "counter_window_end_seconds": 303.83000000000175,
+      "six_ghz_txfree_status_deltas": [
+        6351343,
+        31,
+        475,
+        0
+      ],
+      "status2_increment_windows": [
+        {
+          "start_seconds": 252.35000000000582,
+          "end_seconds": 258.070000000007,
+          "status2_delta": 475
+        }
+      ]
+    }
+  ],
+  "wired_checks": {
+    "passed": 556,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "total": 556,
+    "pass_rate_percent": 100
+  },
+  "restoration": {
+    "status": "PASS",
+    "ps_trace": false,
+    "forced_awake": false,
+    "console_restored": true,
+    "trace_lock_released": true,
+    "boot_and_config_unchanged": true,
+    "lan2_mbps": 2500,
+    "lan4_mbps": 1000
+  },
+  "r33_full_image_boot_tested": false,
+  "limits": [
+    "This diagnostic run did not reproduce the earlier stall; the objective remains unresolved.",
+    "Diagnostic logging was enabled, so throughput is not a controlled OFF/ON performance comparison.",
+    "TXFREE status 2 also increased in this non-stalling run; its presence is not sufficient evidence of the stall cause.",
+    "The logger excludes standalone stations and detailed status 2; 23 of 31 status1 counter increments have no detailed record due to the bounded logger.",
+    "Raw TXFREE counters are not lost TCP packet counts or loss rates.",
+    "PS intervals describe host notification timing, not exact over-the-air power-state duration.",
+    "The comparison counter windows bracket the traffic and include several seconds of boundary/control traffic.",
+    "LAN aggregate traffic differs from application goodput."
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "wm": {
+    "bytes": 2666168,
+    "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592",
+    "version": "____000000",
+    "build_date": "20260721003035",
+    "chip_id": 22,
+    "eco_code": 0,
+    "format_version": 2,
+    "format_flag": 1,
+    "regions": [
+      {
+        "address": "0x916400",
+        "payload_offset": 0,
+        "bytes": 137488,
+        "feature_set": "0x21",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x407200",
+        "payload_offset": 137488,
+        "bytes": 32720,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0xe0088000",
+        "payload_offset": 170208,
+        "bytes": 736208,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0xe013bc00",
+        "payload_offset": 906416,
+        "bytes": 798672,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0xe01fec00",
+        "payload_offset": 1705088,
+        "bytes": 511952,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x220e800",
+        "payload_offset": 2217040,
+        "bytes": 115664,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x404000",
+        "payload_offset": 2332704,
+        "bytes": 12752,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0xe005c400",
+        "payload_offset": 2345456,
+        "bytes": 146384,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0xe0031800",
+        "payload_offset": 2491840,
+        "bytes": 173776,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      }
+    ],
+    "metadata_gap_bytes": 156,
+    "trailer_crc_hex": "0x1df04002",
+    "trailer_crc_validated": false,
+    "limit": "Metadata and encrypted download flags only; encrypted payload is not disassembled or semantically verified."
+  },
+  "wa": {
+    "bytes": 510064,
+    "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448",
+    "version": "____000000",
+    "build_date": "20260721002917",
+    "chip_id": 0,
+    "eco_code": 0,
+    "format_version": 2,
+    "format_flag": 1,
+    "regions": [
+      {
+        "address": "0x10000000",
+        "payload_offset": 0,
+        "bytes": 106704,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x10200000",
+        "payload_offset": 106704,
+        "bytes": 385168,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0xe0000000",
+        "payload_offset": 491872,
+        "bytes": 18000,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      }
+    ],
+    "metadata_gap_bytes": 36,
+    "trailer_crc_hex": "0x43f3584d",
+    "trailer_crc_validated": false,
+    "limit": "Metadata and encrypted download flags only; encrypted payload is not disassembled or semantically verified."
+  },
+  "dsp": {
+    "bytes": 192688,
+    "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d",
+    "version": "____000000",
+    "build_date": "20260721002848",
+    "chip_id": 0,
+    "eco_code": 0,
+    "format_version": 2,
+    "format_flag": 1,
+    "regions": [
+      {
+        "address": "0x86000000",
+        "payload_offset": 0,
+        "bytes": 58256,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x86200000",
+        "payload_offset": 58256,
+        "bytes": 5840,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x86400000",
+        "payload_offset": 64096,
+        "bytes": 58256,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x86600000",
+        "payload_offset": 122352,
+        "bytes": 5840,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x86800000",
+        "payload_offset": 128192,
+        "bytes": 58256,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      },
+      {
+        "address": "0x86a00000",
+        "payload_offset": 186448,
+        "bytes": 5840,
+        "feature_set": "0x1",
+        "encrypt_flag": true,
+        "decompressed_bytes": 0
+      }
+    ],
+    "metadata_gap_bytes": 124,
+    "trailer_crc_hex": "0x37036578",
+    "trailer_crc_validated": false,
+    "limit": "Metadata and encrypted download flags only; encrypted payload is not disassembled or semantically verified."
+  }
+}
