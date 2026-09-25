@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "scope": "One five-minute iPhone Air MLO download trial on r32 kernel plus bridge-flow-offload 1.0-r3; not full r33 image boot validation",
+  "date": "2026-09-25",
+  "application_receive": {
+    "device": "iPhone Air",
+    "direction": "download",
+    "streams": 4,
+    "duration_seconds": 300,
+    "average_mbps": 1979,
+    "minimum_mbps": 1784,
+    "maximum_mbps": 2035,
+    "source": "User-reported iPerf result",
+    "stall_report": null
+  },
+  "topology": {
+    "server_wired_mbps": 2500,
+    "management_wired_mbps": 1000,
+    "mlo_bands_ghz": [
+      5,
+      6
+    ],
+    "mirroring": false
+  },
+  "recording": {
+    "fast_samples": 500,
+    "slow_samples": 100,
+    "traffic_seconds": 300.8099999999977,
+    "interior_approximately_one_second_intervals": 292,
+    "lan2_aggregate_zero_intervals": 0,
+    "lan2_aggregate_below_500_intervals": 0,
+    "lan2_aggregate_minimum_mbps": 1865.084132040943,
+    "both_links_present_all_samples": true,
+    "same_wcids_before_during_after": true
+  },
+  "aggregate_cpu_busy_percent": 8.453711196432568,
+  "offload": {
+    "interior_snapshots": 52,
+    "four_hardware_flows_eight_bound_entries_in_every_snapshot": true
+  },
+  "link_observation": [
+    {
+      "band_ghz": 5,
+      "sample_count": 53,
+      "ps0_samples": 0,
+      "ps1_samples": 53,
+      "txs_reports_delta": 0,
+      "tx_prepared_delta": 0,
+      "counters_are_not_total_hardware_offloaded_bytes": true
+    },
+    {
+      "band_ghz": 6,
+      "sample_count": 53,
+      "ps0_samples": 52,
+      "ps1_samples": 1,
+      "txs_reports_delta": 58648,
+      "tx_prepared_delta": 68,
+      "counters_are_not_total_hardware_offloaded_bytes": true
+    }
+  ],
+  "npu_wait_range_samples": {
+    "0": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "1": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "2": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 1
+    },
+    "3": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "4": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "5": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "6": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "7": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    }
+  },
+  "wired_checks": {
+    "passed": 552,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "total": 552,
+    "pass_rate_percent": 100
+  },
+  "router_configuration_and_boot_unchanged": true,
+  "kernel_messages_emitted_during_test": 0,
+  "experimental_forced_awake_enabled": false,
+  "ps_trace_enabled": false,
+  "r33_full_image_boot_tested": false,
+  "limits": [
+    "Application values are user-reported; raw iPerf per-second client output was not available.",
+    "The user supplied average/minimum/maximum but no separate explicit stall statement.",
+    "LAN2 counters are aggregate ingress, not client application goodput; the first and last partial intervals are excluded.",
+    "Two associated links do not establish simultaneous aggregation: observed TX status progress was on 6 GHz.",
+    "One NPU fast descriptor wait sample did not coincide with a measured zero interval and does not prove a firmware stall.",
+    "This single trial does not establish sleep/wake, roaming, changed-WCID, or long-term stability.",
+    "Two recorder setup attempts were excluded before the complete trial; neither changed router settings or boot."
+  ]
+}
