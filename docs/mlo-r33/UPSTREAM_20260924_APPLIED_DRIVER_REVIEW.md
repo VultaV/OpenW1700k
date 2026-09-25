@@ -27,3 +27,13 @@ OpenWrt `425d4a2ae929094a9157afd36547c694ec01591e`의 패치와 Linux v6.18.52�
 - 같은 부팅·설정 해시, PS trace OFF, LAN2 2.5Gbps·LAN4 1Gbps 연결을 확인했다.
 
 근거: `applied-source/register-plan.json`, `applied-source/read-registers.sh`, `applied-source/private/registers.txt`. 원시 장치 식별 정보는 공개하지 않는다.
+
+## RX 큐 31 descriptor 추가 관측 — 인덱스만으로 정지 판정 불가
+
+실행 중인 ring base 주소가 System RAM에 속하고 DMA 변환이 없는 장치 매핑임을 확인했다. 공개된 구조체 레이아웃(32바이트, ctrl +4, msg1 +20)에 따라 완료 비트와 분류 메타데이터만 읽었고 패킷 데이터/주소를 수정하지 않았다.
+
+유휴 및 Mac 20초 MLO 시험 끝 구간에서 각각 두 QDMA×16 descriptor×2회, 총 128개 표본을 읽었다. **DONE 비트 0개, 수신 분류 메타데이터 비영(非零) 0개**였다. 각 ring의 0~14는 준비된 길이 `0x680`, 마지막 항목은 0이었다. 따라서 고정된 CPU 15/DMA 2 인덱스로부터 완료된 패킷이 쌓여 있다고 추론하지 않는다. IRQ 비트 누락이라는 소스 결함은 별개로 남지만, 현재 Air 멈춤의 원인이라는 증거는 얻지 못했다.
+
+동시 Mac 시험은 평균 1,920.98Mbps, 네 HW offload 흐름·동일 설정을 유지했다. 관측 파일은 클라이언트 프로세스 실행 구간 안에서 생성·종료됐지만 마지막 읽기까지 실제 payload 전송과 겹쳤는지는 입증하지 않았다. 드문 이벤트, 표본 사이 변화, Air 절전 실패 시점은 이 관측으로 배제하지 않는다.
+
+재검증: `applied-source/check-rx31.py`. 요약 `applied-source/RX31_VALIDATION.json`에 표본 수·해시·한계를 보존한다. 이번 결과만으로 새 드라이버 수정본을 설치하지 않았다.

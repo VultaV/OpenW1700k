@@ -1,0 +1,29 @@
+{
+  "observations": {
+    "idle": {
+      "samples": 2,
+      "descriptors_inspected": 64,
+      "completed": 0,
+      "nonzero_metadata": 0,
+      "span_seconds": 2.1699999999982538,
+      "evidence_sha256": "d60e6c0acbb97ffd12777824a4ab818ab0c6158692fb64052350d81573853fd2"
+    },
+    "traffic": {
+      "samples": 2,
+      "descriptors_inspected": 64,
+      "completed": 0,
+      "nonzero_metadata": 0,
+      "span_seconds": 2.1600000000034925,
+      "evidence_sha256": "2c3b29edefc8b1e4e39a2612d2823496bb3b2e909314493290b64ad7116f5f83"
+    }
+  },
+  "mac_receiver_mbps": 1920.9756029278167,
+  "hw_offload": true,
+  "router_unchanged": true,
+  "inference": "No completed descriptors awaiting reaping were observed. The frozen indices do not prove a stalled queue.",
+  "limits": [
+    "Two snapshots per phase; brief events between samples remain unobserved.",
+    "Mac trial covers normal transfer, not Air sleep/wake failure.",
+    "The traffic snapshot file lies within the client process window near its end; not every read is proven to overlap payload transmission."
+  ]
+}
