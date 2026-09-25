@@ -1,0 +1,35 @@
+{
+  "packets": 513824,
+  "directions": {
+    "client_to_server": 426005,
+    "server_to_client": 87772
+  },
+  "capture_drops": 0,
+  "all_four_data_syns_present": true,
+  "max_original": 65226,
+  "timestamp_backsteps": 72,
+  "max_timestamp_backstep_seconds": 5.0067901611328125e-06,
+  "zero_window_packets": 0,
+  "capture_span_seconds": 20.164134979248047,
+  "phases": {
+    "mac-baseline": {
+      "receiver_mbps": 1978.4273825919092,
+      "min_one_second_mbps": 1897.9990393213816,
+      "server_process_cpu_percent": 5.207244528405622,
+      "retransmits": 146,
+      "wired_passed": 34
+    },
+    "mac-capture": {
+      "receiver_mbps": 1981.0578872646036,
+      "min_one_second_mbps": 1900.9165929602364,
+      "server_process_cpu_percent": 5.72829706025258,
+      "retransmits": 353,
+      "wired_passed": 34
+    }
+  },
+  "limits": [
+    "20-second Mac trials do not establish Air sleep/wake stability.",
+    "veth capture contains GSO packets; this is not a physical-wire capture.",
+    "Initial server sampler exited 129 after traffic; nohup and stdin isolation were verified separately."
+  ]
+}
