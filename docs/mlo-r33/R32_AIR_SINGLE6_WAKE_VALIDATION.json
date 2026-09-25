@@ -1,0 +1,307 @@
+{
+  "status": "WARN",
+  "scope": "Air standalone 6GHz sleep/wake slowdown on r32 kernel plus bridge-flow-offload 1.0-r3",
+  "date": "2026-09-25",
+  "recording_integrity_status": "PASS",
+  "application_receive": {
+    "device": "iPhone Air",
+    "direction": "download",
+    "streams": 4,
+    "duration_seconds": 300,
+    "average_mbps": 1860,
+    "minimum_mbps": 410,
+    "maximum_mbps": 2034,
+    "source": "User-reported iPerf result",
+    "stall_report": "Speed decreased only; no stop observed"
+  },
+  "topology": {
+    "server_wired_mbps": 2500,
+    "management_wired_mbps": 1000,
+    "band_ghz": 6,
+    "channel": 37,
+    "width_mhz": 160,
+    "mirroring": false
+  },
+  "sleep_observation": {
+    "status": "PASS",
+    "scope": "Air single6 user-confirmed screen lock",
+    "observed_seconds": 135.67999999999302,
+    "samples": 25,
+    "ps1_samples": 25,
+    "single_association_unchanged": true,
+    "wired_passed": 135,
+    "router_unchanged": true
+  },
+  "recording": {
+    "fast_samples": 500,
+    "slow_samples": 100,
+    "traffic_seconds": 300.8099999999977,
+    "interior_approximately_one_second_intervals": 292,
+    "lan2_aggregate_zero_intervals": 0,
+    "lan2_aggregate_below_500_intervals": 1,
+    "lan2_aggregate_minimum_mbps": 0.0714352941173617,
+    "same_single_link_wcid_before_during_after": true
+  },
+  "aggregate_cpu_busy_percent": 9.518559986219964,
+  "offload": {
+    "interior_snapshots": 52,
+    "four_hardware_flows_eight_bound_entries_in_every_snapshot": true
+  },
+  "low_intervals": [
+    {
+      "from_start_seconds": 7.1600000000034925,
+      "interval_seconds": 1.0200000000040745,
+      "lan2_aggregate_mbps": 0.0714352941173617,
+      "cpu_busy_percent": 4.679802955665025,
+      "surrounding_offload_snapshots": [
+        {
+          "seconds_from_interval_midpoint": -2.75,
+          "hardware_flows": 4,
+          "missing_or_partial": {},
+          "six_ghz_ps": 0
+        },
+        {
+          "seconds_from_interval_midpoint": 2.960000000006403,
+          "hardware_flows": 4,
+          "missing_or_partial": {},
+          "six_ghz_ps": 0
+        }
+      ]
+    }
+  ],
+  "bins_30_seconds": [
+    {
+      "from_seconds": 0,
+      "covered_seconds": 28.639999999999418,
+      "lan_rx_mbps": 1249.0433377095226,
+      "cpu_busy_percent": 8.947564345769415
+    },
+    {
+      "from_seconds": 30,
+      "covered_seconds": 30.69000000000233,
+      "lan_rx_mbps": 1690.060558357643,
+      "cpu_busy_percent": 9.118471919114626
+    },
+    {
+      "from_seconds": 60,
+      "covered_seconds": 29.669999999998254,
+      "lan_rx_mbps": 2089.89011931256,
+      "cpu_busy_percent": 9.343088813817259
+    },
+    {
+      "from_seconds": 90,
+      "covered_seconds": 29.679999999993015,
+      "lan_rx_mbps": 2071.957650943884,
+      "cpu_busy_percent": 10.14531264779676
+    },
+    {
+      "from_seconds": 120,
+      "covered_seconds": 30.70000000001164,
+      "lan_rx_mbps": 2075.2456435171284,
+      "cpu_busy_percent": 9.630752646447798
+    },
+    {
+      "from_seconds": 150,
+      "covered_seconds": 29.65999999998894,
+      "lan_rx_mbps": 2088.460938638675,
+      "cpu_busy_percent": 9.314311310813192
+    },
+    {
+      "from_seconds": 180,
+      "covered_seconds": 29.669999999998254,
+      "lan_rx_mbps": 2083.595427839691,
+      "cpu_busy_percent": 9.51875893266858
+    },
+    {
+      "from_seconds": 210,
+      "covered_seconds": 30.710000000006403,
+      "lan_rx_mbps": 2084.4797342880706,
+      "cpu_busy_percent": 9.825917922066767
+    },
+    {
+      "from_seconds": 240,
+      "covered_seconds": 29.679999999993015,
+      "lan_rx_mbps": 2043.5273105126103,
+      "cpu_busy_percent": 9.66190278870528
+    },
+    {
+      "from_seconds": 270,
+      "covered_seconds": 29.670000000012806,
+      "lan_rx_mbps": 2010.3721364332407,
+      "cpu_busy_percent": 9.14972986152799
+    }
+  ],
+  "tx_completion_comparison": {
+    "normal_mlo": [
+      {
+        "requested_seconds": [
+          0,
+          40
+        ],
+        "observed_start_seconds": 4.779999999998836,
+        "observed_end_seconds": 38.89999999999418,
+        "six_ghz_raw_txfree_status_deltas": [
+          840619,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "requested_seconds": [
+          60,
+          290
+        ],
+        "observed_start_seconds": 61.629999999990105,
+        "observed_end_seconds": 289.27999999999884,
+        "six_ghz_raw_txfree_status_deltas": [
+          5542246,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "wake_mlo": [
+      {
+        "requested_seconds": [
+          0,
+          40
+        ],
+        "observed_start_seconds": 5.4799999999959255,
+        "observed_end_seconds": 39.44999999999709,
+        "six_ghz_raw_txfree_status_deltas": [
+          582226,
+          626,
+          4865,
+          0
+        ]
+      },
+      {
+        "requested_seconds": [
+          60,
+          290
+        ],
+        "observed_start_seconds": 62.16000000000349,
+        "observed_end_seconds": 289.2700000000041,
+        "six_ghz_raw_txfree_status_deltas": [
+          5556038,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "wake_single6": [
+      {
+        "requested_seconds": [
+          0,
+          40
+        ],
+        "observed_start_seconds": 4.919999999998254,
+        "observed_end_seconds": 39.0,
+        "six_ghz_raw_txfree_status_deltas": [
+          476337,
+          307,
+          1624,
+          0
+        ]
+      },
+      {
+        "requested_seconds": [
+          60,
+          290
+        ],
+        "observed_start_seconds": 61.80000000000291,
+        "observed_end_seconds": 289.0599999999977,
+        "six_ghz_raw_txfree_status_deltas": [
+          5562611,
+          0,
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "npu_wait_range_samples": {
+    "0": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "1": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "2": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "3": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "4": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "5": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "6": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    },
+    "7": {
+      "slow_next_descriptor_wait": 0,
+      "fast_next_descriptor_wait": 0
+    }
+  },
+  "wired_recording_checks": {
+    "passed": 557,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "total": 557,
+    "pass_rate_percent": 100
+  },
+  "wired_switch_and_trial_checks": {
+    "passed": 980,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "total": 980,
+    "pass_rate_percent": 100
+  },
+  "restoration": {
+    "status": "PASS",
+    "original_wireless_and_bridge_config_hashes_match": true,
+    "network_firewall_hashes_unchanged": true,
+    "boot_unchanged": true,
+    "both_mlo_ap_links_ready": true,
+    "server_lan_carrier_mbps": 2500,
+    "management_lan_carrier_mbps": 1000,
+    "forced_awake": false,
+    "ps_trace": false
+  },
+  "kernel_observation": {
+    "messages": 4,
+    "other_station_disconnect_messages": 2,
+    "other_station_fdb_delete_enoent_messages": 2,
+    "first_message_seconds_after_traffic_start": 241.51867000000493,
+    "overlap_with_early_near_zero_interval": false,
+    "air_association_changed": false
+  },
+  "r33_full_image_boot_tested": false,
+  "limits": [
+    "User observed slowdown only, not a stop; raw per-second iPerf client data is unavailable.",
+    "LAN2 aggregate traffic is not application goodput. The 0.071 Mbps interval must not be reported as a literal zero or dismissed because it is nonzero.",
+    "PPE and PS snapshots bracket the low interval by several seconds; transient changes between samples remain possible.",
+    "Raw TXFREE status counts are completion metadata, not packet loss counts or loss rates. Status 2 is not decoded by an authoritative ABI.",
+    "Nonzero TXFREE status increments occur in early MLO and single6 wake windows, but this sequential comparison does not establish a sleep, scan, driver or firmware cause.",
+    "The first TX comparison window begins at the first sample after traffic starts and therefore excludes the initial partial interval.",
+    "No suspect NPU wait PC was sampled; brief waits between samples are not excluded.",
+    "The later FDB ENOENT messages concern another station. Their absence of temporal overlap excludes them as the early dip trigger, not as a separate correctness issue.",
+    "r33 full image was not installed or boot tested."
+  ]
+}
