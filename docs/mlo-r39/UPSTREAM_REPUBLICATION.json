@@ -1,0 +1,38 @@
+{
+  "checked_at_utc": "2026-09-26T14:49:22.451085+00:00",
+  "previous": {
+    "id": 397165454,
+    "tag_name": "kernel73_2026.09.26_r36605-710dd8fa84",
+    "target_commitish": "main",
+    "published_at": "2026-09-26T09:00:09Z",
+    "html_url": "https://github.com/w1700k/builds/releases/tag/kernel73_2026.09.26_r36605-710dd8fa84",
+    "assets": [
+      {
+        "id": 590310852,
+        "name": "openwrt-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+        "size": 23335747,
+        "digest": "sha256:13602070022d59ad4c3201de134cb9b7de109c595100b02030b8ebe44d8d2c2f",
+        "state": "uploaded"
+      }
+    ]
+  },
+  "current": {
+    "id": 397270790,
+    "tag_name": "kernel73_2026.09.26_r36605-710dd8fa84",
+    "target_commitish": "main",
+    "published_at": "2026-09-26T14:46:27Z",
+    "html_url": "https://github.com/w1700k/builds/releases/tag/kernel73_2026.09.26_r36605-710dd8fa84",
+    "assets": [
+      {
+        "id": 590844200,
+        "name": "openwrt-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+        "size": 23335747,
+        "digest": "sha256:fbbb6e650c8a477dc8bc7797ed6b98af1d14875e67e0fd914b219f748b9b2fdd",
+        "state": "uploaded"
+      }
+    ]
+  },
+  "downloaded": false,
+  "installed": false,
+  "limitation": "Release metadata comparison only; changed binary contents and rebuild inputs have not been analyzed."
+}

@@ -8,3 +8,5 @@
 - [BA 회귀 검사 기록](ba-regression-tests.json), [기존 Air TXS 근거](AIR_TXS_EVIDENCE.json)
 
 변경 모듈은 `mt7996e.ko` 하나다. kernel·다른 73개 모듈·vendor firmware는 r38과 같다. 펌웨어 SHA256: `78b54197e6249eaf9d8bbaccb88047098fb64d2a7218d5d9a9d4a6d4d568c8e9`.
+
+- [공개 후 최신 빌드·패치 재조회](UPSTREAM_FOLLOWUP.md): 같은 kernel73 태그의 파일 교체 확인, r39 태그·이미지 유지.
