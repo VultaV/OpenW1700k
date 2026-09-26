@@ -1,6 +1,6 @@
 # r40 — NPU 경로 RED 초기화 후보
 
-2026-09-27. **빌드 9단계, 실제 소스 검사 13개 프로그램과 이미지 검증은 통과했다. 설치·실기기 적용은 빌드 시점에 대기 중이다. Air 절전 복귀 멈춤 해결은 미확정이다.**
+2026-09-27. **빌드 9단계, 실제 소스 검사 13개 프로그램과 이미지 검증은 통과했다. 설치 후 검증 24건을 통과했고 Mac 시험 결과는 아래에 기록했다. Air 절전 복귀 멈춤 해결은 미확정이다.**
 
 [0036 패치](../../package/kernel/mt76/patches/0036-mt7996-initialize-red-for-npu-offload.patch)는 MT7996에서 NPU가 활성화된 경우, MediaTek의 non-WED offload 지원을 근거로 WM RED 설정과 WA enable·토큰 예산 전송을 초기화에 추가한다. source 3 예산은 현재 host `token_size`를 사용한다. MT7996 이외 장치와 NPU가 꺼진 경로는 기존 WA 초기화를 따른다. NPU·WM·WA 펌웨어 바이너리 변경은 후보에 포함하지 않는다.
 
@@ -12,3 +12,5 @@
 - [r39 RED 계약 및 송신 TCP 분석](../mlo-r39/RED_CONTRACT_20260927.md)
 - [r39 Mac 경로 비교](../mlo-r39/MAC_PATH_FOLLOWUP_20260927.md)
 - [후보 빌드 manifest](build-manifest.json)
+
+[설치·Mac 시험 결과](DEVICE_TESTS_20260927.md): 닫힘 5분 평균 1,969Mbps, 열림 반복 저하 지속. r40은 실험 상태를 유지한다.

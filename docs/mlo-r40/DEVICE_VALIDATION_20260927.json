@@ -1,0 +1,368 @@
+{
+  "status": "VALIDATED_WITH_UNRESOLVED_PERFORMANCE_LIMIT",
+  "recorded_at": "2026-09-26T21:19:58.510737+00:00",
+  "build_label": "ubi2-mlo-npu-red-r40-20260927-tailscale",
+  "installation": {
+    "result": "PASS",
+    "installed_checks_passed": true,
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "build_label": "ubi2-mlo-npu-red-r40-20260927-tailscale",
+    "counts": {
+      "passed": 24,
+      "failed": 0,
+      "warnings": 0,
+      "skipped": 0,
+      "pass_rate_percent": 100.0
+    },
+    "checks": [
+      {
+        "name": "expected_board_before_and_after",
+        "passed": true
+      },
+      {
+        "name": "expected_preinstall_build",
+        "passed": true
+      },
+      {
+        "name": "expected_running_r40_kernel_and_release",
+        "passed": true
+      },
+      {
+        "name": "live_manifest_matches_verified_candidate",
+        "passed": true
+      },
+      {
+        "name": "new_boot_id",
+        "passed": true
+      },
+      {
+        "name": "all_collected_uci_settings_unchanged",
+        "passed": true
+      },
+      {
+        "name": "all_module_paths_and_hashes_match_image",
+        "passed": true
+      },
+      {
+        "name": "selected_live_module_hashes_match_verification",
+        "passed": true
+      },
+      {
+        "name": "no_old_module_directory_or_symlink_restored",
+        "passed": true
+      },
+      {
+        "name": "loaded_modules_match_image_inventory",
+        "passed": true
+      },
+      {
+        "name": "no_forced_module_load_taint",
+        "passed": true
+      },
+      {
+        "name": "installed_wpad_matches_verified_image",
+        "passed": true
+      },
+      {
+        "name": "running_wpad_matches_verified_image",
+        "passed": true
+      },
+      {
+        "name": "tailscale_running_and_online",
+        "passed": true
+      },
+      {
+        "name": "tailscale-node_unchanged",
+        "passed": true
+      },
+      {
+        "name": "tailscale-address_unchanged",
+        "passed": true
+      },
+      {
+        "name": "lan2_carrier_and_2500mbps",
+        "passed": true
+      },
+      {
+        "name": "lan4_wired_carrier_up",
+        "passed": true
+      },
+      {
+        "name": "same_mlo_and_2g_ap_inventory",
+        "passed": true
+      },
+      {
+        "name": "hostapd.ap-mld0_enabled",
+        "passed": true
+      },
+      {
+        "name": "hostapd.phy0.0-ap0_enabled",
+        "passed": true
+      },
+      {
+        "name": "no_pending_uci_changes",
+        "passed": true
+      },
+      {
+        "name": "diagnostics_disabled",
+        "passed": true
+      },
+      {
+        "name": "scoped_bridge_acceleration_restored",
+        "passed": true
+      }
+    ],
+    "module_files_checked": 74,
+    "selected_module_files_checked": 12,
+    "limits": [
+      "Module files, loaded-name inventory and fresh boot verified; kernel memory was not hashed.",
+      "No claim of bridge TTL, throughput or iPhone MLO repair.",
+      "Tailscale raw node identity and address are neither recorded nor printed."
+    ],
+    "evidence_archive_sha256": {
+      "before": "9054e265338e6222bbfad73eba1c321440c463b9fd7c346aa125db15ccb1598f",
+      "after": "ce65da31f1ab3372d2df795b6504b55fad44974e36d1f492099ddb6eed311dde"
+    }
+  },
+  "root_files_restored_and_hash_matched": 1443,
+  "red_boot_message": "[   89.155514] mt7996e 0000:01:00.0: NPU RED: WM ACK, WA commands queued (host tokens 16384)",
+  "red_state_readback_verified": false,
+  "fatal_kernel_log_matches": [],
+  "wireless_trials": [
+    {
+      "label": "red-candidate-closed-60",
+      "receiver_mbps": 1786.3333221952275,
+      "min_interval_mbps": 54.72888698392522,
+      "max_interval_mbps": 1997.8023667851714,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "interval_endpoint": "Mac receiver",
+      "average_endpoint": "Mac receiver",
+      "panel": "closed",
+      "iperf_sha256": "b8fabad4ebf816d0bedc92193859c7835263742e5f56a449ec1c2dd0e779d646",
+      "wired_checks_all_normal": true,
+      "router_unchanged": true,
+      "start_end_link_bitmap": "0x6",
+      "sender_retransmits": 3253,
+      "below_500mbps": [
+        {
+          "start": 0,
+          "end": 1.005033,
+          "mbps": 315.0841284754968
+        },
+        {
+          "start": 1.005033,
+          "end": 2.004753,
+          "mbps": 403.814837289199
+        },
+        {
+          "start": 2.004753,
+          "end": 3.005038,
+          "mbps": 212.80027366326988
+        },
+        {
+          "start": 3.005038,
+          "end": 4.00133,
+          "mbps": 54.72888698392522
+        }
+      ],
+      "txfree_status2_deltas": {
+        "1": 0,
+        "2": 750
+      }
+    },
+    {
+      "label": "red-candidate-open-60",
+      "receiver_mbps": 1436.5159297629618,
+      "min_interval_mbps": 57.9330747286537,
+      "max_interval_mbps": 1986.3254981055536,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "interval_endpoint": "Mac receiver",
+      "average_endpoint": "Mac receiver",
+      "panel": "open",
+      "iperf_sha256": "87dfb3463f23a798e7f0b50302579e75e414a2abfc8e98ec9657cadd6679acd4",
+      "wired_checks_all_normal": true,
+      "router_unchanged": true,
+      "start_end_link_bitmap": "0x6",
+      "sender_retransmits": 14861,
+      "below_500mbps": [
+        {
+          "start": 12.003057,
+          "end": 13.002356,
+          "mbps": 349.420755523219
+        },
+        {
+          "start": 13.002356,
+          "end": 14.000231,
+          "mbps": 343.6145414206243
+        },
+        {
+          "start": 15.002762,
+          "end": 16.005038,
+          "mbps": 63.81789007156392
+        },
+        {
+          "start": 30.005028,
+          "end": 31.004548,
+          "mbps": 446.9078900909494
+        },
+        {
+          "start": 31.004548,
+          "end": 32.005031,
+          "mbps": 417.1317583267741
+        },
+        {
+          "start": 32.005031,
+          "end": 33.00009,
+          "mbps": 201.27250073578656
+        },
+        {
+          "start": 45.005036,
+          "end": 46.000524,
+          "mbps": 57.9330747286537
+        },
+        {
+          "start": 46.000524,
+          "end": 47.003094,
+          "mbps": 114.00179561484
+        },
+        {
+          "start": 47.003094,
+          "end": 48.005037,
+          "mbps": 417.57048779492646
+        },
+        {
+          "start": 48.005037,
+          "end": 49.003093,
+          "mbps": 222.7311024858814
+        }
+      ],
+      "txfree_status2_deltas": {
+        "1": 0,
+        "2": 14062
+      }
+    },
+    {
+      "label": "red-candidate-reclosed-300",
+      "receiver_mbps": 1968.8843531919892,
+      "min_interval_mbps": 1842.5155393970201,
+      "max_interval_mbps": 2021.0856902301616,
+      "zero_intervals": 0,
+      "seconds": 300,
+      "upload": false,
+      "wired_checks": 339,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "interval_endpoint": "Mac receiver",
+      "average_endpoint": "Mac receiver",
+      "panel": "closed",
+      "iperf_sha256": "4e8d33c47fccda6f816e0912abe1c95cb03af2f461924e638072569855a10695",
+      "wired_checks_all_normal": true,
+      "router_unchanged": true,
+      "start_end_link_bitmap": "0x6",
+      "sender_retransmits": 8285,
+      "below_500mbps": [],
+      "txfree_status2_deltas": {
+        "1": 0,
+        "2": 323
+      }
+    },
+    {
+      "label": "red-candidate-upload-60",
+      "receiver_mbps": 1771.671655403328,
+      "min_interval_mbps": 1428.3415938291923,
+      "max_interval_mbps": 1831.7903511281274,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": true,
+      "wired_checks": 78,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "interval_endpoint": "Mac sender",
+      "average_endpoint": "server receiver",
+      "panel": "closed",
+      "iperf_sha256": "58f7d64f47b21859f0348dc653c45d37cc0810cc6445b868f53da97f6982e912",
+      "wired_checks_all_normal": true,
+      "router_unchanged": true,
+      "start_end_link_bitmap": "0x6",
+      "sender_retransmits": 5497,
+      "below_500mbps": [],
+      "txfree_status2_deltas": {
+        "1": 0,
+        "2": 0
+      }
+    }
+  ],
+  "wireless_trial_validation_counts": {
+    "pass": 4,
+    "fail": 0,
+    "warn": 0,
+    "skip": 0,
+    "pass_rate_percent": 100,
+    "scope": "Completed trial integrity/path checks only, not performance acceptance or repaired symptom"
+  },
+  "wired_checks": 571,
+  "install_connectivity": {
+    "scope": "Mac wired HTTP reachability during authorized installation and DHCP recovery, not physical-link outage duration",
+    "groups": [
+      {
+        "http_reachable": true,
+        "samples": 20,
+        "first_utc": "2026-09-26T20:55:56.562092+00:00",
+        "last_utc": "2026-09-26T20:56:34.992497+00:00"
+      },
+      {
+        "http_reachable": false,
+        "samples": 98,
+        "first_utc": "2026-09-26T20:56:37.011704+00:00",
+        "last_utc": "2026-09-26T20:59:55.529527+00:00"
+      },
+      {
+        "http_reachable": true,
+        "samples": 43,
+        "first_utc": "2026-09-26T20:59:57.551835+00:00",
+        "last_utc": "2026-09-26T21:01:22.497642+00:00"
+      },
+      {
+        "http_reachable": false,
+        "samples": 3,
+        "first_utc": "2026-09-26T21:01:24.519592+00:00",
+        "last_utc": "2026-09-26T21:01:28.564863+00:00"
+      },
+      {
+        "http_reachable": true,
+        "samples": 14,
+        "first_utc": "2026-09-26T21:01:30.587945+00:00",
+        "last_utc": "2026-09-26T21:01:56.890927+00:00"
+      }
+    ],
+    "dhcp_recovery": "After initial automatic link-local address, used prior management IPv4 temporarily. Confirmed router boot/RED log/DHCP service, then restored DHCP and original service order; address returned to prior lease.",
+    "wireless_results": "Recorded separately after DHCP recovery."
+  },
+  "restoration": {
+    "wired_dhcp": true,
+    "original_network_order": true,
+    "original_hotspot_connection": true,
+    "hotspot_https_200": true
+  },
+  "airportd_scan_query": {
+    "matches": 0,
+    "limit": "No retained matching records from the bounded query; this does not establish absence of scanning."
+  },
+  "limitations": [
+    "MacBook results do not establish Air symptom repair.",
+    "r40 panel-open periodic slowdown remains; historical r39 also showed it, although the latest fresh r39 open baseline did not. No causal improvement or regression conclusion from this single boot pair.",
+    "TXFREE status2 is a pre/post total, deduplicated repeated station blocks, not a per-dip firmware-state measurement.",
+    "No WA RED readback or driver/firmware consumer token-budget mapping proof.",
+    "Long-term reconnect, reset recovery and multi-client resource contention remain unverified."
+  ]
+}
