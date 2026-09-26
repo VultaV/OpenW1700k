@@ -14,3 +14,5 @@
 - [9월 27일 기존 Air BA 기록·kernel73 내부 비교](OFFLINE_EVIDENCE_20260927.md): r29 정상 세션의 timeout0 확인, r32 실패 원인은 미확정.
 
 - [9월 27일 설치·Mac 실기기 비교](DEVICE_TESTS_20260927.md), [검증 수치](DEVICE_VALIDATION_20260927.json): Wi-Fi 설정 화면을 나간 상태에서 5분 평균 1.95Gbps. 화면을 열면 반복 저하가 재현돼 측정 조건에 반영했다.
+
+- [9월 27일 CPU 전달·PPE 가속·유휴 후속 비교](MAC_PATH_FOLLOWUP_20260927.md), [수치와 증거 해시](MAC_PATH_FOLLOWUP_20260927.json): 같은 연결에서 CPU 1.16Gbps / 가속 1.97Gbps. 설정 화면 열림의 급락은 두 경로에서 재현됐다. 공식 UBI2 재게시본의 드라이버·펌웨어 동일 여부도 확인했다.

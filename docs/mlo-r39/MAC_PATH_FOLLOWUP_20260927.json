@@ -1,0 +1,725 @@
+{
+  "scope": "r39 Mac Wi-Fi panel CPU/PPE-forwarding comparison plus Wi-Fi idle/resume. Global NPU remains active in all cases. Read-only analysis of saved evidence.",
+  "cases": {
+    "cpu_panel_closed": {
+      "seconds": 60,
+      "receiver_mbps": 1160.346324,
+      "min_interval_mbps": 1013.288482,
+      "median_interval_mbps": 1157.283109,
+      "max_interval_mbps": 1287.679271,
+      "below_500_intervals": 0,
+      "below_100_intervals": 0,
+      "zero_intervals": 0,
+      "tcp_retransmits": 453,
+      "low_throughput_ranges_seconds": [],
+      "wired_checks": 72,
+      "wired_checks_all_pass": true,
+      "router_boot_config_unchanged": true,
+      "association_unchanged": true,
+      "two_link_mask_retained": true,
+      "path_validation": {
+        "snapshots": 10,
+        "independently_checked_data_tuple_samples": 40,
+        "offloaded_samples": 0,
+        "matching_ppe_bound_samples": 0,
+        "sample_start_seconds": [
+          5.701988,
+          11.260867,
+          16.789999,
+          22.323736,
+          27.901522,
+          33.540392,
+          39.130767,
+          44.71761,
+          50.315095,
+          55.94195
+        ],
+        "read_duration_ms": [
+          140.94,
+          135.952,
+          131.19,
+          140.943,
+          164.113,
+          152.972,
+          134.124,
+          170.334,
+          153.777,
+          126.194
+        ]
+      },
+      "cpu_whole_capture_busy_percent": {
+        "cpu": 49.141296,
+        "cpu0": 71.181667,
+        "cpu1": 18.864971,
+        "cpu2": 57.772863,
+        "cpu3": 48.285413
+      },
+      "cpu_fully_inside_traffic": {
+        "intervals": 10,
+        "relative_window_seconds": [
+          0.184885,
+          56.984885
+        ],
+        "metrics": {
+          "cpu": {
+            "weighted_busy_percent": 63.103826,
+            "peak_interval_busy_percent": 64.852399
+          },
+          "cpu0": {
+            "weighted_busy_percent": 91.488604,
+            "peak_interval_busy_percent": 94.623656
+          },
+          "cpu1": {
+            "weighted_busy_percent": 22.538575,
+            "peak_interval_busy_percent": 27.663551
+          },
+          "cpu2": {
+            "weighted_busy_percent": 75.287671,
+            "peak_interval_busy_percent": 79.857398
+          },
+          "cpu3": {
+            "weighted_busy_percent": 62.120365,
+            "peak_interval_busy_percent": 65.391621
+          }
+        }
+      },
+      "link_counter_deltas": {
+        "1": {
+          "txfree_status": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 0,
+          "txfree_failed_attempts": 0,
+          "txs_reports": 0,
+          "tx_prepared": 0
+        },
+        "2": {
+          "txfree_status": [
+            890747,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 173,
+          "txfree_failed_attempts": 173,
+          "txs_reports": 55953,
+          "tx_prepared": 6014261
+        }
+      },
+      "evidence_sha256": {
+        "iperf": "59c4b5ebacce5edac3d310d01a4d6f8007b1ed9e3de5e197eb2ed49fe92a54ad",
+        "traffic": "f54c7c0abcb86d13609193fd6f2d2382d58f01f4969a2850961d05c992b54007",
+        "run": "501fe3f2487fa190327b76a1b3266d9470737fd51ffef9f9dd3aba0b6196d328",
+        "path_verification": "f6a952b19e74ebd9501e7c1e61e50fa1e702f6844a9efdc9aae25af00e462512",
+        "cpu": "ef198a2fa07632715b293ba6fd34b2a882160c0ee0526b6a87aa7d1a4898509c",
+        "queues_before": "1caeec7e67d9730e1f5c31b01a9d8c2198dc01c487aa370c422250d6a25f3963",
+        "queues_after": "74add6420d1283dbb73c598b363abc2b57e911e5fea27dc4d1ca07ea31ff4688",
+        "station_before": "f4891d8085ad7ca9727393d7b33071fb0ce09edef6e81855625355f4607f0c2d",
+        "station_after": "a5eecc20b9d5e7edabf73e171f09f16076f40771b360a5bfc45b6cbb101b03c1"
+      },
+      "validated_snapshot_sha256": [
+        "73330f020e37e10720857774bebbdc1e9ea651d30d72c8ca56c27600fe88b4f5",
+        "251b1cc36920c88f4c2aba3435c1cdd1b7444d83b8d7b28c4099f493782e2c7c",
+        "1751bff88cb070ae35e23b7004419445ba59330484df41ed65f1f79f6b4f8921",
+        "a883b0acffbf72024c86a9b1743c7e99860c35534396149f4f06d25a68a5c5e8",
+        "faff70f26846542bf11e0d59e1e950bc69cedd00023989053d4d23ed1e4cb1df",
+        "736d387abb0f9f7e8428ae71ef6c330d1bb229e247aa06d33fa81de339ec5f4e",
+        "c95c4471f64cbda4b821d870412db19f9c3bee1aeed991ea0f2dd3b855468c92",
+        "71843f6901353904bf8ba0159b652730f99ba0a12123dbb270ab341227f2c2d9",
+        "a16f8c6f043b55d2dd0b6f84640fc0e55d2460c30c7faba39c0d2b5ab6ff3c73",
+        "689cf4e834b2b29984345e5413fd34739bb2a2e52fd362c7ca32d77817d8bd6b"
+      ]
+    },
+    "cpu_panel_open": {
+      "seconds": 60,
+      "receiver_mbps": 911.530824,
+      "min_interval_mbps": 50.291217,
+      "median_interval_mbps": 1187.181305,
+      "max_interval_mbps": 1320.166249,
+      "below_500_intervals": 17,
+      "below_100_intervals": 4,
+      "zero_intervals": 0,
+      "tcp_retransmits": 654,
+      "low_throughput_ranges_seconds": [
+        [
+          7.004794,
+          11.004665
+        ],
+        [
+          23.002895,
+          28.005023
+        ],
+        [
+          39.004634,
+          43.000615
+        ],
+        [
+          55.00317,
+          59.004827
+        ]
+      ],
+      "wired_checks": 72,
+      "wired_checks_all_pass": true,
+      "router_boot_config_unchanged": true,
+      "association_unchanged": true,
+      "two_link_mask_retained": true,
+      "path_validation": {
+        "snapshots": 10,
+        "independently_checked_data_tuple_samples": 40,
+        "offloaded_samples": 0,
+        "matching_ppe_bound_samples": 0,
+        "sample_start_seconds": [
+          5.77343,
+          11.369963,
+          16.92193,
+          22.486822,
+          27.965171,
+          33.607068,
+          39.281979,
+          44.893693,
+          50.480728,
+          56.210086
+        ],
+        "read_duration_ms": [
+          187.4,
+          111.907,
+          152.257,
+          163.973,
+          177.835,
+          185.982,
+          106.5,
+          140.019,
+          139.527,
+          135.505
+        ]
+      },
+      "cpu_whole_capture_busy_percent": {
+        "cpu": 39.877737,
+        "cpu0": 55.076011,
+        "cpu1": 19.695209,
+        "cpu2": 46.241956,
+        "cpu3": 38.414235
+      },
+      "cpu_fully_inside_traffic": {
+        "intervals": 10,
+        "relative_window_seconds": [
+          0.172554,
+          56.852554
+        ],
+        "metrics": {
+          "cpu": {
+            "weighted_busy_percent": 51.838302,
+            "peak_interval_busy_percent": 65.414215
+          },
+          "cpu0": {
+            "weighted_busy_percent": 72.759857,
+            "peak_interval_busy_percent": 95.061728
+          },
+          "cpu1": {
+            "weighted_busy_percent": 22.260398,
+            "peak_interval_busy_percent": 43.375681
+          },
+          "cpu2": {
+            "weighted_busy_percent": 61.203654,
+            "peak_interval_busy_percent": 78.26087
+          },
+          "cpu3": {
+            "weighted_busy_percent": 50.844657,
+            "peak_interval_busy_percent": 65.938069
+          }
+        }
+      },
+      "link_counter_deltas": {
+        "1": {
+          "txfree_status": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 0,
+          "txfree_failed_attempts": 0,
+          "txs_reports": 0,
+          "tx_prepared": 0
+        },
+        "2": {
+          "txfree_status": [
+            697256,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 642,
+          "txfree_failed_attempts": 642,
+          "txs_reports": 39326,
+          "tx_prepared": 4726971
+        }
+      },
+      "evidence_sha256": {
+        "iperf": "9e6eb164345028e9c11ded7e82398adaaaf28b58c708cb2e8b9574690724cb3c",
+        "traffic": "3c33d678a5e421300be22f2db793dced7a2a655b14c55e28cf746e4cb50b7ad6",
+        "run": "f7db624b2197250f339cb4e5393cc18b7213cff86b9e403e92a48453e236e105",
+        "path_verification": "552e48b06a55eecc1fd07134bd9977f0249c603b27decaf3c4abd55984ffa4f5",
+        "cpu": "af6b6550270b808e70fdd323ea727f73397a55777af15b507a268722f4bb5e5d",
+        "queues_before": "cd4cc2a4ab31036dca7bd49ae65eb35c9fbef11f97d416d0b673f7c9878ceda9",
+        "queues_after": "3fe7ffc6aca0ecae1db272ff1d12e3ba94303ef738d9e9c30a25e5fd8b63c6db",
+        "station_before": "512a5d9514f584cf4b6b3be00a48ef811846b186c670146f7689b5001a1c0207",
+        "station_after": "ec710d5d1b834ad6b36c88a1ca91183753fef13e79f80f236843664e9fab6663"
+      },
+      "validated_snapshot_sha256": [
+        "deddb6e3fae1db6828f6d9dfd6f23aa9ab4de35b6f0f3e1a9ef8f5481f5e56fe",
+        "d236e7c5603368ccc16ecf04cd0844fea23162a0a3898332c28546e0fa2eeb64",
+        "b4a6737e43774d0349eefa170e6be03132c8d072d6d83c357eb788035d062dd5",
+        "dfb289956c357a20b1b31984eccb1e76003a32ffeeb97db40daf3cf3d74e5848",
+        "0c4d8969bb07c885ece4f5bcc5a262106aa97f781851d7f53d5851c5a63123e6",
+        "8ce1b961f9c3b6298bd993198d13d3816b4013536262a84427939803a0a9b7fc",
+        "d85bc182a6641cdfaecd85d9f7cb80ea8dd26e328278476fc467ba456581142e",
+        "6c848e2d139499caa9acd7e1d55036ca485faad9dd17878e104624ba3441eb05",
+        "21e09d72c9f67f2bc396e353428a6156a326cbcb26743f0837d8b23fd741dba3",
+        "6acb1a6e4ceb7d7305a6292ced88b444e93c8684964c5c309758b05f4e03ce08"
+      ]
+    },
+    "hw_panel_open": {
+      "seconds": 60,
+      "receiver_mbps": 1281.060344,
+      "min_interval_mbps": 45.089534,
+      "median_interval_mbps": 1666.560915,
+      "max_interval_mbps": 1976.220794,
+      "below_500_intervals": 15,
+      "below_100_intervals": 4,
+      "zero_intervals": 0,
+      "tcp_retransmits": 12336,
+      "low_throughput_ranges_seconds": [
+        [
+          6.003065,
+          9.002851
+        ],
+        [
+          20.00116,
+          24.005024
+        ],
+        [
+          35.005022,
+          39.005025
+        ],
+        [
+          51.00502,
+          55.004794
+        ]
+      ],
+      "wired_checks": 77,
+      "wired_checks_all_pass": true,
+      "router_boot_config_unchanged": true,
+      "association_unchanged": true,
+      "two_link_mask_retained": true,
+      "path_validation": {
+        "snapshots": 1,
+        "independently_checked_data_tuple_samples": 4,
+        "offloaded_samples": 4,
+        "matching_ppe_bound_samples": 4,
+        "matching_bidirectional_ppe_entries": 8,
+        "sample_elapsed_seconds": 3.0886607500724494,
+        "scope": "Existing single during-traffic registration snapshot; not repeated path verification."
+      },
+      "cpu_whole_capture_busy_percent": {
+        "cpu": 5.367232,
+        "cpu0": 6.798645,
+        "cpu1": 3.295717,
+        "cpu2": 8.877896,
+        "cpu3": 2.51276
+      },
+      "cpu_fully_inside_traffic": {
+        "intervals": 10,
+        "relative_window_seconds": [
+          0.489437,
+          56.269437
+        ],
+        "metrics": {
+          "cpu": {
+            "weighted_busy_percent": 5.804749,
+            "peak_interval_busy_percent": 6.675812
+          },
+          "cpu0": {
+            "weighted_busy_percent": 7.209175,
+            "peak_interval_busy_percent": 12.477396
+          },
+          "cpu1": {
+            "weighted_busy_percent": 3.895871,
+            "peak_interval_busy_percent": 10.554562
+          },
+          "cpu2": {
+            "weighted_busy_percent": 9.398907,
+            "peak_interval_busy_percent": 14.336918
+          },
+          "cpu3": {
+            "weighted_busy_percent": 2.707182,
+            "peak_interval_busy_percent": 3.649635
+          }
+        }
+      },
+      "link_counter_deltas": {
+        "1": {
+          "txfree_status": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 0,
+          "txfree_failed_attempts": 0,
+          "txs_reports": 0,
+          "tx_prepared": 0
+        },
+        "2": {
+          "txfree_status": [
+            957355,
+            0,
+            12015,
+            0
+          ],
+          "txfree_retries": 1163,
+          "txfree_failed_attempts": 13178,
+          "txs_reports": 19521,
+          "tx_prepared": 195
+        }
+      },
+      "counter_window": "Before/final station snapshots include pre/post collection.",
+      "evidence_sha256": {
+        "iperf": "ff20b2a6e7585d968a8774a7a0ff1a6800ebd0bd0c8e8e3dc8e777f28769dab5",
+        "traffic": "5a479b01fb86af5f61b692944f2e9227018716b136a5319dd8a2365300cfae58",
+        "run": "af644c4a75133c556db8069b56a3c2ac75340fb6b5b510bc6c819c119cc698dc",
+        "during": "90f4e067293c24eb99d895e4e022cf5d679f7cab1e1364e598b9b9356f462a06",
+        "cpu": "435eb0f33434e67dde8728e60623dc4a8e8cc34ee72b177b35f5e1a85af2adb3",
+        "queues_before": "7559ca8a41f7d230abe1e7977d415d1cebce232ccfaa7528e3b18c5bc781e045",
+        "queues_after": "53057a35caaa4aa07a44612a55b42817977368355ad9a1f3228a00d252e41ceb",
+        "station_before": "5d9c2672d5ec99593cdca1f8761fbdc5652589193eef68adea82151bc657f774",
+        "station_after": "f5a44b7551f0d5b2dfb9ce5030292de0c8e0aee7482f4570957be6197005cab0"
+      }
+    },
+    "hw_panel_closed": {
+      "seconds": 60,
+      "receiver_mbps": 1970.680137,
+      "min_interval_mbps": 1787.36204,
+      "median_interval_mbps": 1979.843266,
+      "max_interval_mbps": 2010.866182,
+      "below_500_intervals": 0,
+      "below_100_intervals": 0,
+      "zero_intervals": 0,
+      "tcp_retransmits": 1325,
+      "low_throughput_ranges_seconds": [],
+      "wired_checks": 77,
+      "wired_checks_all_pass": true,
+      "router_boot_config_unchanged": true,
+      "association_unchanged": true,
+      "two_link_mask_retained": true,
+      "path_validation": {
+        "snapshots": 1,
+        "independently_checked_data_tuple_samples": 4,
+        "offloaded_samples": 4,
+        "matching_ppe_bound_samples": 4,
+        "matching_bidirectional_ppe_entries": 8,
+        "sample_elapsed_seconds": 3.0818131249397993,
+        "scope": "Existing single during-traffic registration snapshot; not repeated path verification."
+      },
+      "cpu_whole_capture_busy_percent": {
+        "cpu": 5.867446,
+        "cpu0": 2.29721,
+        "cpu1": 2.350976,
+        "cpu2": 8.478119,
+        "cpu3": 10.437402
+      },
+      "cpu_fully_inside_traffic": {
+        "intervals": 10,
+        "relative_window_seconds": [
+          0.463566,
+          56.203566
+        ],
+        "metrics": {
+          "cpu": {
+            "weighted_busy_percent": 6.511057,
+            "peak_interval_busy_percent": 7.17509
+          },
+          "cpu0": {
+            "weighted_busy_percent": 2.379223,
+            "peak_interval_busy_percent": 3.577818
+          },
+          "cpu1": {
+            "weighted_busy_percent": 1.941399,
+            "peak_interval_busy_percent": 10.431655
+          },
+          "cpu2": {
+            "weighted_busy_percent": 10.501281,
+            "peak_interval_busy_percent": 12.115732
+          },
+          "cpu3": {
+            "weighted_busy_percent": 11.358206,
+            "peak_interval_busy_percent": 13.381555
+          }
+        }
+      },
+      "link_counter_deltas": {
+        "1": {
+          "txfree_status": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 0,
+          "txfree_failed_attempts": 0,
+          "txs_reports": 0,
+          "tx_prepared": 0
+        },
+        "2": {
+          "txfree_status": [
+            1460784,
+            0,
+            271,
+            0
+          ],
+          "txfree_retries": 1949,
+          "txfree_failed_attempts": 2220,
+          "txs_reports": 11473,
+          "tx_prepared": 202
+        }
+      },
+      "counter_window": "Before/final station snapshots include pre/post collection.",
+      "evidence_sha256": {
+        "iperf": "4526bed48a81badda5451b7a4f55127087b5bcf475179158008480d9067c1bee",
+        "traffic": "2f9881f33fb0002a9c85e0d78f728fb07ec729d1e61ef2bf1bba3112682c241e",
+        "run": "8381a3d7562f02e1e1ff1efe0084615088dd5f64bee4e0e6919f188821be4ab0",
+        "during": "34170fcbe65aa15c09b29d8cc505f1114debbef65c494454e032dcc0c41c4b85",
+        "cpu": "7caca44d4c5c7037d587decb62eaaa3940d4796c530cfff32a069b9d64bf0a1e",
+        "queues_before": "93330a741b0ff2da6cf351fb2b9cd57e00488f5f5956a9c84fd4cc2440f5bacc",
+        "queues_after": "6d767219c9751ea3de251433822e20b48e5013ed08508530fc469261248d6b0a",
+        "station_before": "85920c8909df8b28fddc25b6100238fbfcf6903c0d494d4cce392219dd8706fb",
+        "station_after": "4dee4e04b0e25bc6851977790d4817f0b7dbd38dc144f3146cd8367ae0b37565"
+      }
+    },
+    "hw_after_wifi_idle": {
+      "seconds": 120,
+      "receiver_mbps": 1951.842977,
+      "min_interval_mbps": 1816.586553,
+      "median_interval_mbps": 1967.847977,
+      "max_interval_mbps": 2018.500619,
+      "below_500_intervals": 0,
+      "below_100_intervals": 0,
+      "zero_intervals": 0,
+      "tcp_retransmits": 4499,
+      "low_throughput_ranges_seconds": [],
+      "wired_checks": 261,
+      "wired_checks_all_pass": true,
+      "router_boot_config_unchanged": true,
+      "association_unchanged": true,
+      "two_link_mask_retained": true,
+      "path_validation": {
+        "snapshots": 1,
+        "independently_checked_data_tuple_samples": 4,
+        "offloaded_samples": 4,
+        "matching_ppe_bound_samples": 4,
+        "matching_bidirectional_ppe_entries": 8,
+        "sample_elapsed_seconds": 3.09793729102239,
+        "scope": "Existing single during-traffic registration snapshot; not repeated path verification."
+      },
+      "cpu_whole_capture_busy_percent": {
+        "cpu": 6.662595,
+        "cpu0": 5.586241,
+        "cpu1": 4.322607,
+        "cpu2": 10.401842,
+        "cpu3": 6.357933
+      },
+      "cpu_fully_inside_traffic": {
+        "intervals": 21,
+        "relative_window_seconds": [
+          0.497807,
+          117.837807
+        ],
+        "metrics": {
+          "cpu": {
+            "weighted_busy_percent": 6.908123,
+            "peak_interval_busy_percent": 8.507795
+          },
+          "cpu0": {
+            "weighted_busy_percent": 5.215282,
+            "peak_interval_busy_percent": 14.669052
+          },
+          "cpu1": {
+            "weighted_busy_percent": 4.846154,
+            "peak_interval_busy_percent": 11.702128
+          },
+          "cpu2": {
+            "weighted_busy_percent": 11.27468,
+            "peak_interval_busy_percent": 21.65493
+          },
+          "cpu3": {
+            "weighted_busy_percent": 6.314682,
+            "peak_interval_busy_percent": 15.145985
+          }
+        }
+      },
+      "link_counter_deltas": {
+        "1": {
+          "txfree_status": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 0,
+          "txfree_failed_attempts": 0,
+          "txs_reports": 0,
+          "tx_prepared": 0
+        },
+        "2": {
+          "txfree_status": [
+            2891458,
+            0,
+            0,
+            0
+          ],
+          "txfree_retries": 5161,
+          "txfree_failed_attempts": 5161,
+          "txs_reports": 22066,
+          "tx_prepared": 291
+        }
+      },
+      "counter_window": "Before/final station snapshots include pre/post collection and preceding Wi-Fi idle period.",
+      "evidence_sha256": {
+        "iperf": "64688d5e7a491a945d6f3dbd88cbbf0ea009ceca8e8abb6590042c3575772443",
+        "traffic": "14441ff5b16e991268a3c233246724a921c423410b5ccc84bcbdaf4f3ec72b62",
+        "run": "cc84eebd40ce6619702858f990936948200c9b930168259c54c6b4c0e7dc0c63",
+        "during": "699eaa3ee499916b75c0f38896adce0877b6066de68bd7822e0b42375c548a6b",
+        "cpu": "66365bd676d15a3e89f976ccc65e9ea424d9c7352baa8b1da30d84bd0b1193d0",
+        "queues_before": "a6b01ca4d9891dae5106e20226e7d3b0a7a2fbe552b5c944c559fcd0f3667728",
+        "queues_after": "3193f340dcc18ab482fae92bc6f61000172d7c288c503f5ce9b5281d02986485",
+        "station_before": "483ea07d213cc90eefa85e9e92c4ab32cb2a800fefb348251cc959c5cac5dc6c",
+        "station_after": "36b2e3b92a762bc77be3804de0331942f14d263e9fea73265a4c8058fc9e5334"
+      },
+      "idle_ps_scope": {
+        "mac_system_sleep": false,
+        "idle_seconds": 120.40248787496239,
+        "idle_target_ps_events": 200,
+        "idle_gate_one_events": 50,
+        "current_window_target_ps_events": 260,
+        "current_window_ps_event_sequence_gaps": 0,
+        "awake_transition_after_process_start_ms": 89.185,
+        "next_both_ps_after_process_start_seconds": 120.401379,
+        "original_controller_exit_code": 1,
+        "original_error": "Duplicate legacy end marker before this guard begin marker",
+        "restoration_verified": true,
+        "current_window_verified": true,
+        "full_capture_sha256": "38bcd15935f86792d438260dccce231b6b42cd54b42c4e2982c1b122cb3a13ef",
+        "current_window_sha256": "77bb8a7f2dbb0eace3e10d232eea91469d646f00ba7ad61f9aad6c4ff0faebd8",
+        "verification_sha256": "fad5e504d1766e0c7eef2ac829b4e62aa407a0718bec5cde256a31e6707505e9",
+        "limit": "MCU state notifications and approximate host/router time alignment; background Wi-Fi traffic allowed. This is not system sleep/wake validation."
+      }
+    }
+  },
+  "interpretation": [
+    "Panel-open throughput dips reproduced with four current data flows sampled without software offload, hardware offload, or matching PPE BND entries.",
+    "Raw TXFREE status 2 did not increase in either CPU-forwarding trial, including the panel-open dips; it is not a necessary observed accompaniment of this Mac symptom.",
+    "This does not exclude the shared NPU host-TX/completion path, prove the client scan mechanism, or resolve the original Air sleep/wake symptom.",
+    "CPU percentages over the whole capture include pre/post traffic. The separately bounded CPU percentages use only full sampling intervals within nominal traffic.",
+    "Periodic PPE/conntrack reads add diagnostic load. Discrete snapshots do not prove every intervening packet path; TX preparation and TXFREE header counts are not TCP packet counts.",
+    "PPE hardware forwarding showed panel-open status-2 increments, while CPU forwarding showed similar periodic throughput troughs without status-2 increments. Neither PPE bound fastpath, raw status 2, nor CPU saturation is necessary for the observed panel-related troughs; this does not identify the firmware meaning of status 2.",
+    "The final panel-closed hardware trial gained 271 raw status-2 headers across surrounding station snapshots although its 60 throughput bins stayed above 1787 Mbps. Counter scope includes setup/drain, so this does not establish when those headers occurred and must not be treated as a time-resolved stall detector."
+  ],
+  "same_client_between_cases": true,
+  "local_validation": {
+    "path_fixtures": 14,
+    "accepted": 4,
+    "expected_rejections": 10,
+    "mlo_only_cli_guard_pass": true,
+    "scope": "Actual validation block extracted and existing registration parser reused against synthetic local snapshots; collection and device behavior not exercised.",
+    "script_sha256": "f778364986e160f5e44833f6bc55150cadba4491251c1d1ba290c32dd542cf78",
+    "stdout_sha256": "fd8b0ba26dd3e3e3c30ccef294e2b3e636546ef64c245e1338f3af216e7d8426",
+    "trial_script_sha256": "a4cc4d3daa98425fc3516f53e9f0157d77ebb2c48b14c783bf7448fcfdb6e71b"
+  },
+  "same_association_between_cases": true,
+  "execution_order": [
+    "hw_after_wifi_idle",
+    "cpu_panel_closed",
+    "cpu_panel_open",
+    "hw_panel_open",
+    "hw_panel_closed"
+  ],
+  "idle_recording_revalidation": {
+    "sha256": "77bb8a7f2dbb0eace3e10d232eea91469d646f00ba7ad61f9aad6c4ff0faebd8",
+    "phase": "r30ps20260924",
+    "records": 262,
+    "first": {
+      "sequence": 1537,
+      "uptime_us": 2656056731,
+      "message": "r29-airwake-kmsg phase=r30ps20260924 event=begin"
+    },
+    "last": {
+      "sequence": 1798,
+      "uptime_us": 2923781607,
+      "message": "r29-airwake-kmsg phase=r30ps20260924 event=end"
+    },
+    "ba_events": [],
+    "suppressed": [],
+    "limits": "Continuity covers emitted records only. Rate-limited events may be absent. TX preparation and MCU success do not prove air delivery.",
+    "full_capture_sha256": "38bcd15935f86792d438260dccce231b6b42cd54b42c4e2982c1b122cb3a13ef",
+    "excluded_historical_prefix_lines": 2892,
+    "original_controller_exit_code": 1,
+    "original_error": "Duplicate legacy end marker before this guard begin marker",
+    "restoration_verified": true,
+    "current_window_verified": true
+  },
+  "guard_startup_corrections": {
+    "failures": [
+      {
+        "stage": "startup_structure_check",
+        "reason": "Blank line emitted between nft objects",
+        "applied_rules": false,
+        "baseline_unchanged": true
+      },
+      {
+        "stage": "post_insert_ownership_check",
+        "reason": "nft canonicalized redundant protocol predicates",
+        "applied_rules": true,
+        "test_traffic_started": false,
+        "cleanup": "Owned handles validated against full canonical contents and baseline, then removed under lock",
+        "restoration": {
+          "status": "MANUALLY_RESTORED",
+          "baseline_sha256": "4330523323fb18b784e016a4067efea691c7de325c77ef7a09b6372a01b297b3",
+          "boot_config_unchanged": true
+        }
+      }
+    ],
+    "local_regression_check": {
+      "passed": 16,
+      "failed": 0,
+      "scope": "Stub only; real successful startup verified separately"
+    }
+  },
+  "restoration": {
+    "time": 1790452227.1722581,
+    "boot_config_unchanged": true,
+    "baseline_restored": true,
+    "ps_trace_off": true,
+    "forced_awake_off": true,
+    "lan2_mbps": 2500,
+    "lan4_mbps": 1000,
+    "wired_management_ok": true,
+    "hotspot_http_rc": 0,
+    "hotspot_http_status": "200",
+    "hotspot_http_error": ""
+  },
+  "router_guard_restored": true,
+  "upstream_republication": {
+    "url": "https://github.com/w1700k/builds/releases/tag/ubi2_2026.09.26_r36602-54e453b074",
+    "image_sha256": "ece027c6843e347ffe5bc5528027bbc7486cbde6ce3e66b3029989df35749a98",
+    "same_firmware_files": 12,
+    "same_module_files": 72,
+    "kernel_changed_bytes": 84,
+    "rootfs_changed_files": 5,
+    "apk_public_key_changed": true,
+    "installed": false,
+    "mt76_head": "be5ce7910521492d4a2e4ce7ee3843680a46c047"
+  }
+}
