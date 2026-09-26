@@ -1,0 +1,66 @@
+Subject: [PATCH] wifi: mt76: mt7996: snapshot the forward-path primary link
+
+Read the primary selector once for both the VIF and station link lookups,
+so a concurrent selector update cannot combine one link's BSS with another
+link's WCID. Reject inactive MLO links while retaining non-MLO behavior,
+where link_valid need not be set. Recheck the selector and MLO validity
+before consuming the path context to reject changes already observed.
+
+Use a callback-local RCU VIF lookup rather than the shared mutex-protected
+helper. Keep the embedded link-zero behavior and bounds check before indexing
+the published link array. This adds no sleeping lock to the RCU callback.
+It does not provide an atomic link/PPE transaction, detect selector ABA, or
+invalidate previously installed PPE entries. A link can still change after
+the final check.
+
+---
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -2597,17 +2597,28 @@
+ 			     struct net_device_path *path)
+ {
+ 	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++	struct mt7996_vif *mvif = (struct mt7996_vif *)vif->drv_priv;
+ 	struct mt7996_dev *dev = mt7996_hw_dev(hw);
+ 	struct mtk_wed_device *wed = &dev->mt76.mmio.wed;
+ 	struct mt7996_sta_link *msta_link;
+ 	struct mt7996_vif_link *link;
+-
+-	link = mt7996_vif_link(dev, vif, msta->deflink_id);
++	u8 link_id = READ_ONCE(msta->deflink_id);
++
++	if (link_id >= IEEE80211_MLD_MAX_NUM_LINKS)
++		return -EIO;
++
++	/* The forward-path callback holds RCU, not dev->mt76.mutex. */
++	if (!link_id)
++		link = &mvif->deflink;
++	else
++		link = (struct mt7996_vif_link *)
++			rcu_dereference(mvif->mt76.link[link_id]);
+ 	if (!link)
+ 		return -EIO;
+ 
+-	msta_link = mt7996_sta_link(msta, msta->deflink_id);
+-	if (!msta_link)
++	msta_link = mt7996_sta_link(msta, link_id);
++	if (!msta_link ||
++	    (sta->mlo && !READ_ONCE(msta_link->wcid.link_valid)))
+ 		return -EIO;
+ 
+ 	if (!msta_link->wcid.sta || msta_link->wcid.idx > MT7996_WTBL_STA)
+@@ -2643,6 +2654,14 @@
+ 		path->mtk_wdma.amsdu = msta_link->wcid.amsdu;
+ 	else
+ 		path->mtk_wdma.amsdu = 0;
++
++	/* Reject a link change observed while assembling this path. This does
++	 * not serialize subsequent PPE publication against link changes.
++	 */
++	if (link_id != READ_ONCE(msta->deflink_id) ||
++	    (sta->mlo && !READ_ONCE(msta_link->wcid.link_valid)))
++		return -EIO;
++
+ 	ctx->dev = NULL;
+ 
+ 	return 0;

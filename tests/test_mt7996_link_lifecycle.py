@@ -92,7 +92,7 @@ struct mt76_vif_link { struct mt76_phy *phy; };
 struct mt7996_vif_link { struct mt76_vif_link mt76; struct mt7996_phy *phy; };
 struct ieee80211_vif { int unused; };
 struct mt7996_dev {
-    struct { unsigned long wcid_mask[1]; struct mt76_wcid *wcid[32]; } mt76;
+    struct { unsigned long wcid_mask[1]; struct mt76_wcid *wcid[32]; int tx_worker; } mt76;
 };
 struct ieee80211_hw { struct mt7996_dev *dev; };
 static struct {
@@ -139,6 +139,9 @@ static void mt7996_mcu_add_sta(struct mt7996_dev *d, struct ieee80211_bss_conf *
     struct ieee80211_link_sta *s, struct mt7996_vif_link *v, struct mt7996_sta_link *l, int state, bool add) {}
 static void mt76_wcid_init(struct mt76_wcid *w, unsigned band) { w->phy_idx = band; }
 static void mt76_wcid_cleanup(void *d, struct mt76_wcid *w) { assert(mutex_depth == 1); }
+/* Queue behavior is covered by test_mt7996_link_transition.py. */
+static void ieee80211_schedule_txq(struct ieee80211_hw *hw, struct ieee80211_txq *txq) {}
+static void mt76_worker_schedule(int *worker) {}
 '''
 
 CASES = r'''

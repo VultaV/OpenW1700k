@@ -1,0 +1,54 @@
+Subject: [PATCH] wifi: mt76: mt7996: rearm station TXQs after successful link changes
+
+mac80211 publishes the new valid-link mask before change_sta_links(). A TX
+worker can then leave a shared TXQ unscheduled while the old sleeping
+primary still owns it. After promotion to an awake link, an awake frame's
+completion need not rearm that TXQ because neither WCID is in power save.
+
+Rearm the station's TXQs once the successful MLO change has selected a
+published active primary. This does not change per-link PS flags or the
+completion hot path. Do not rearm failed changes: mac80211 restores its
+valid-link mask after the callback returns, so that rollback boundary
+requires separate handling. No sleep/wake hardware fix is claimed here.
+
+---
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -1483,10 +1483,11 @@
+ 			    struct ieee80211_sta *sta, u16 old_links,
+ 			    u16 new_links)
+ {
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
+ 	struct mt7996_dev *dev = mt7996_hw_dev(hw);
+ 	unsigned long add = new_links & ~old_links;
+ 	unsigned long rem = old_links & ~new_links;
+-	int ret;
++	int ret, i;
+ 
+ 	mutex_lock(&dev->mt76.mutex);
+ 
+@@ -1493,6 +1494,24 @@
+ 	mt7996_mac_sta_remove_links(dev, vif, sta, rem, false);
+ 	ret = mt7996_mac_sta_add_links(dev, vif, sta, add);
+ 
++	if (!ret && sta->mlo &&
++	    msta->deflink_id < IEEE80211_MLD_MAX_NUM_LINKS &&
++	    (new_links & BIT(msta->deflink_id))) {
++		struct mt7996_sta_link *link;
++
++		link = mt76_dereference(msta->link[msta->deflink_id], &dev->mt76);
++		if (link && link->wcid.link_valid) {
++			/*
++			 * A TXQ gated by the old primary may have left the
++			 * airtime scheduler before the link selectors changed.
++			 */
++			for (i = 0; i < ARRAY_SIZE(sta->txq); i++)
++				if (sta->txq[i])
++					ieee80211_schedule_txq(hw, sta->txq[i]);
++			mt76_worker_schedule(&dev->mt76.tx_worker);
++		}
++	}
++
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+ 	return ret;

@@ -1,0 +1,844 @@
+{
+  "image": "openwrt-ubi2-mlo-link-transition-r35-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "723bb38c9ad64750d87fa15372f866d44f8639f03ac17b073ac6fbcb1976d08a",
+  "bytes": 30290794,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 7.033078541979194
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.378794500022195
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 377.3365034579765
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 14.316105750040151
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 11.620383708039299
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 6.482283874996938
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 10.013129957951605
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 5.592976124957204
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.085878417012282
+    }
+  ],
+  "final_stage_exit_codes": {
+    "defconfig": 0,
+    "kernel": 0,
+    "packages": 0,
+    "package-install": 0,
+    "target-install": 0,
+    "index": 0,
+    "buildinfo": 0,
+    "image-info": 0,
+    "checksum": 0
+  },
+  "build_stage_policy": "All nine make stages executed on each attempt; no prior-success JSON skip.",
+  "build_warnings": {
+    "file": "BUILD_WARNINGS.json",
+    "sha256": "64ac9e1800e470ed8eccd632d38b62d4fba194cf974a5bcf6a709ccacda4be06",
+    "total_diagnostic_occurrences": 387,
+    "unique_normalized_messages": 149,
+    "categories": {
+      "build_tool_or_configuration": 45,
+      "device_tree": 59,
+      "feed_dependency": 126,
+      "firmware_mapping": 138,
+      "modpost_module_description": 1,
+      "source_diagnostic": 18
+    },
+    "major_observations": [
+      "All final nine stage records exited 0; 9 logs contain matched warnings.",
+      "14 missing-dependency messages; 0 involve enabled/installed recipe families requiring review.",
+      "28 empty-kmod names; 0 are installed in the extracted image.",
+      "Known normalized text does not establish harmlessness or identical source location; new text does not establish patch causality.",
+      "Warning inventory counts are separate from regression PASS/FAIL counts."
+    ],
+    "limitations": [
+      "Only the explicit r34 detection pattern is counted, not every diagnostic spelling.",
+      "All bytes of each append-only stage log are counted; earlier attempts, if any, remain included.",
+      "Not observed versus r34 does not mean fixed: incremental builds may not recompile the same components.",
+      "Categories reuse exact r34 normalized matches; unseen messages use documented source-location/tool rules.",
+      "Recipe-family selection is a prefix heuristic, not complete evaluation of all OpenWrt generated subpackages.",
+      "No assertion that warnings are harmless; no source edits, clean-room build, boot or wireless validation."
+    ]
+  },
+  "verifier_sha256": "eb568f66c260200c89eb5539f8a435e45bb737525741f0e85468bacfba13e444",
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-link-transition-r35-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "723bb38c9ad64750d87fa15372f866d44f8639f03ac17b073ac6fbcb1976d08a",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "changed_modules": [
+      "mt7996e.ko"
+    ],
+    "kernel_payload_identical_to_r34": true,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 338,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f8dc3a28bbfe4ed38aae7bf2c645af5872faa7818a2691ab64323a3638997dbe",
+      "airoha_npu.ko": "241d6dfd5efaa1b38b9403bf4161d76299b68b5c242a554ffa4f53c2d052d378",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "243009a786ba418d04595df9c1f01552765858401a60655d6bbad4d128d9bf27",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "ae7305186b3f02e543392342ec63c089ead5d8132da87324d3c064a2e9e52649",
+      "mac80211.ko": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "package_changes": {
+    "kmod-mt76-connac": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r27",
+      "candidate": "6.18.44.2026.09.01~01367e60-r28"
+    },
+    "kmod-mt76-core": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r27",
+      "candidate": "6.18.44.2026.09.01~01367e60-r28"
+    },
+    "kmod-mt7996-firmware": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r27",
+      "candidate": "6.18.44.2026.09.01~01367e60-r28"
+    },
+    "kmod-mt7996-firmware-common": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r27",
+      "candidate": "6.18.44.2026.09.01~01367e60-r28"
+    },
+    "kmod-mt7996e": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r27",
+      "candidate": "6.18.44.2026.09.01~01367e60-r28"
+    }
+  },
+  "checks": [
+    {
+      "name": "transition",
+      "pass": 24,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "forward-path",
+      "pass": 92,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "lifecycle",
+      "pass": 631,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "mlo-ps",
+      "pass": 99,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu-watchdog",
+      "pass": 90,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "bridge_ttl_structure",
+      "pass": 12,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "bridge_ttl_guards",
+      "pass": 2091,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "conntrack",
+      "pass": 7,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "ppe",
+      "pass": 11,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "fdb",
+      "pass": 1026,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "installed_updater_ui",
+      "pass": 9,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    }
+  ],
+  "source_tests": [
+    {
+      "name": "transition",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "link transition: 24 checks, 0 failed\nLimitation retained: failed activation rollback; no Air hardware claim.\n",
+      "test_sha256": "cf35cf8a8af23fe3679814e5505ae9715442de2f533470f57a59ba63a5c236c7"
+    },
+    {
+      "name": "forward-path",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_forward_path.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60"
+      ],
+      "exit_code": 0,
+      "output": "configuration: npu\nboundary writer: after final read, before return\nforward path: 44 checks, 0 failed\nconfiguration: wed\nboundary writer: after final read, before return\nforward path: 48 checks, 0 failed\n",
+      "test_sha256": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc"
+    },
+    {
+      "name": "lifecycle",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "all"
+      ],
+      "exit_code": 0,
+      "output": "link lifecycle: 631 checks, 0 failed\n",
+      "test_sha256": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c"
+    },
+    {
+      "name": "mlo-ps",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_mlo_ps.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "29 checks, 0 failed\ncombined: 99 checks, 0 failed\n",
+      "test_sha256": "b84fecc83baeffaac5663ae121a617ab83ae3c98dde84833ef834b8b35bc8e94"
+    },
+    {
+      "name": "npu-watchdog",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_npu_watchdog.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "EXPECTED FAIL before immediate_irq=0\nEXPECTED FAIL before immediate_irq=1\nPASS immediate_irq=0: success + 44 probe failure boundaries\nPASS immediate_irq=1: success + 44 probe failure boundaries\nPASS patch applicability, kernel helper compatibility and both negative controls\n",
+      "test_sha256": "5d23e202ffac38c0cacbaeea9cf7cf03f3c5e676f9cfcb6cb855208a313949b4"
+    },
+    {
+      "name": "ttl",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_ttl.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"structural_passed\": 12, \"extracted_c\": {\"passed\": 2091, \"failed\": 0, \"scope\": \"extracted source guards and allocation only\"}, \"limitations\": [\"Extracted guards only; not a kernel build or full forwarding test.\", \"IPv4 checksum helper and kernel context are stubs.\", \"Does not prove PPE bit semantics, packet checksums, or module ABI isolation.\"]}\n",
+      "test_sha256": "893df79ddbe3448bf23cb123832faae8b90e2d3821c55e79ce760ef123058d41"
+    },
+    {
+      "name": "conntrack",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_conntrack_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/bridge/netfilter/nf_conntrack_bridge.c"
+      ],
+      "exit_code": 0,
+      "output": "0 ownership failures across 7 cases\nPASS: drop, stolen, accept and conntrack ownership\n",
+      "test_sha256": "9c051073e82d4a90af13ebc8f93950413d26d66f21e09e51fe8aefa6a27c4400"
+    },
+    {
+      "name": "ppe",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_ppe.c",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h"
+      ],
+      "exit_code": 0,
+      "output": "PASS case 0\nPASS case 1\nPASS case 2\nPASS case 3\nPASS case 4\nPASS case 5\nPASS case 6\nPASS case 7\nPASS case 8\nPASS case 9\nPASS case 10\n",
+      "test_sha256": "8b5c21171f79571cdbe8f5fe762debfc68757e415684bbd33fc69b77c9160b7e"
+    },
+    {
+      "name": "fdb",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_fdb_cleanup.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/netfilter/nf_flow_table_core.c"
+      ],
+      "exit_code": 0,
+      "output": "PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races, 3 teardown cases; failures=0\nScope: extracted C with stubs, not kernel locking/GC/hardware acceptance.\n",
+      "test_sha256": "a5b9f758a1934ffd02800d6b35f695c9e55b6ae7e59909b3aaa1f2b30c9aba85"
+    }
+  ],
+  "driver_proposal_tests": {
+    "status": "pass",
+    "scope": "Host ASan/UBSan proposal tests; no runtime source or router changes",
+    "inputs_sha256": {
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/tx.c": "e4117a2482a7a1e1d0731aa7b14a1645efab6251f59ff2ce75b200fb859d79c0",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/mt7996/main.c": "2f8326446990e9eb55d570214dacf4f87cf18d3f53c33a9c669ac982546397b4",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/tx.c": "3adab10af9a41d39a483f360b410eca7a945a56ac2ba9a6ab632e19ee9111436",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/sta_info.c": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60",
+      "publish-mlo-r29/package/kernel/mt76/patches/0032-mt7996-rearm-txqs-after-link-change.patch": "2af4bd209a51be90a5a75247061bfd61bf71daa8e6479061d773f22cc8e9b8e7",
+      "publish-mlo-r29/tests/test_mt7996_link_transition.py": "cf35cf8a8af23fe3679814e5505ae9715442de2f533470f57a59ba63a5c236c7",
+      "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c",
+      "publish-mlo-r29/tests/test_mt76_ps_wake.py": "90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0",
+      "publish-mlo-r29/tests/test_mt7996_mlo_ps.py": "b84fecc83baeffaac5663ae121a617ab83ae3c98dde84833ef834b8b35bc8e94"
+    },
+    "input_hashes_unchanged_after_tests": true,
+    "temporary_candidate_main_sha256": "a9b511e718a7745fb0ea88b32cb6bbca1816fb181fcabe71b727c6e67944ed22",
+    "results": [
+      {
+        "name": "baseline-transition",
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+          "--source-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+        ],
+        "exit_code": 1,
+        "expected_exit": 1,
+        "log": "artifacts/mlo-link-transition-r35-2026-09-26/baseline-transition.log",
+        "counts": [
+          {
+            "checks": 24,
+            "failed": 4
+          }
+        ]
+      },
+      {
+        "name": "candidate-transition",
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+          "--source-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+          "--patch",
+          "publish-mlo-r29/package/kernel/mt76/patches/0032-mt7996-rearm-txqs-after-link-change.patch"
+        ],
+        "exit_code": 0,
+        "expected_exit": 0,
+        "log": "artifacts/mlo-link-transition-r35-2026-09-26/candidate-transition.log",
+        "counts": [
+          {
+            "checks": 24,
+            "failed": 0
+          }
+        ]
+      },
+      {
+        "name": "candidate-lifecycle",
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+          "<temporary-candidate-source>",
+          "all"
+        ],
+        "exit_code": 0,
+        "expected_exit": 0,
+        "log": "artifacts/mlo-link-transition-r35-2026-09-26/candidate-lifecycle.log",
+        "counts": [
+          {
+            "checks": 631,
+            "failed": 0
+          }
+        ]
+      },
+      {
+        "name": "candidate-mlo-ps",
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_mlo_ps.py",
+          "--source-dir",
+          "<temporary-candidate-source>",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+        ],
+        "exit_code": 0,
+        "expected_exit": 0,
+        "log": "artifacts/mlo-link-transition-r35-2026-09-26/candidate-mlo-ps.log",
+        "counts": [
+          {
+            "checks": 29,
+            "failed": 0
+          },
+          {
+            "checks": 99,
+            "failed": 0
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Failed activation rollback occurs after driver callback return and is explicitly not fixed.",
+      "Deterministic interleavings use mocked active-list, lock, RCU, MCU, allocation and old-primary cleanup operations.",
+      "Existing lifecycle suite uses no-op scheduling shims; transition suite checks actual callback scheduling behavior.",
+      "No claim that this fixes or reproduces the Air sleep/wake hardware stall."
+    ]
+  },
+  "forward_proposal_tests": {
+    "status": "pass",
+    "scope": "Recorded rerun of three isolated host proposal inputs; frozen patch/test and live build source were not modified.",
+    "recorded_on": "2026-09-26",
+    "provenance": "New executions captured directly with subprocess.run(capture_output=True) on 2026-09-26 after parent authorization. Exact argv is recorded with only workspace and temporary directory prefixes sanitized. No stdout/stderr was reconstructed from remembered output.",
+    "input_files_sha256": {
+      "publish-mlo-r29/tests/test_mt7996_forward_path.py": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc",
+      "publish-mlo-r29/package/kernel/mt76/patches/0033-mt7996-snapshot-forward-link.patch": "6bfedc11238c3974bdbcb82a6feb37a4c8b7bc1d70533a7a4c5dd1d1564d4051",
+      "artifacts/mlo-link-transition-r35-2026-09-26/before/mt76/mt7996/main.c": "2f8326446990e9eb55d570214dacf4f87cf18d3f53c33a9c669ac982546397b4"
+    },
+    "source_inputs": {
+      "baseline": {
+        "main_c_sha256": "2f8326446990e9eb55d570214dacf4f87cf18d3f53c33a9c669ac982546397b4",
+        "extracted_callback_sha256": "cff8418929b32d1054d9c5cf0de537faa2f019c938a6c78823efcfbfd3969109",
+        "generated_host_harness_sha256": "40fd1b0095f7f42d0688c61cea71b91bff2385417a8a99c7f7924196e02d2e79"
+      },
+      "intermediate_without_rcu_fix": {
+        "main_c_sha256": "97e2e7b7c32231b8a5a9c842fb9d0a4745af3e6f9de361c5ae6d32c80c0b0710",
+        "extracted_callback_sha256": "51b50ae88c3aa7755d7da40eca3c388c84abba677bcd12442f601c0396849ec7",
+        "generated_host_harness_sha256": "5a3f521a67be192f71b2c4eb6ef43c077d9223b2ee1c06e3bbd892ea0bdd63ec"
+      },
+      "candidate": {
+        "main_c_sha256": "c864362764915553bd11c387d7815c8e94bd56b5cba0245b2ce6ff16818f4d3b",
+        "extracted_callback_sha256": "4240207f54808e3a64fa5d9fc69afc43d50065d679768aed2673e98c6cd7256e",
+        "generated_host_harness_sha256": "b0510726bc138f028ee94d2ac6f7b7d41e6549e2abc41287617feb0f55561204"
+      }
+    },
+    "tested_candidate_patch_sha256_before_comment_wrap": "dd219e75e4a6eac84682e32f193c02bdfdbde7b14b419e0b42a59a6f44e15017",
+    "final_patch_note": "The frozen final patch was applied to a temporary copy of the preserved baseline for this rerun; its result is byte-identical to the surviving earlier tested candidate.",
+    "baseline_identity_note": "Baseline came from the preserved artifact, never the live build tree. The intermediate source came from its surviving temporary copy; the candidate was reproduced by applying frozen 0033. Each hash was checked against earlier recorded hashes before execution.",
+    "compiler_commands": [
+      [
+        "cc",
+        "-std=gnu11",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-unused-function",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "<generated-check.c>",
+        "-o",
+        "<temporary-npu-executable>"
+      ],
+      [
+        "cc",
+        "-std=gnu11",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-parameter",
+        "-Wno-unused-function",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-DCONFIG_NET_MEDIATEK_SOC_WED",
+        "<generated-check.c>",
+        "-o",
+        "<temporary-wed-executable>"
+      ]
+    ],
+    "results": [
+      {
+        "name": "baseline",
+        "command": [
+          "python3",
+          "<workspace>/publish-mlo-r29/tests/test_mt7996_forward_path.py",
+          "<temporary-evidence-root>/baseline"
+        ],
+        "cwd": "<workspace>",
+        "started_at_utc": "2026-09-26T12:08:55.683428+00:00",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "counts": [
+          {
+            "configuration": "npu",
+            "checks": 44,
+            "passed": 32,
+            "failed": 12
+          },
+          {
+            "configuration": "wed",
+            "checks": 48,
+            "passed": 36,
+            "failed": 12
+          }
+        ],
+        "stdout": "configuration: npu\nFAIL: RCU-only callback avoids mutex-protected VIF lookup\nFAIL: inactive MLO link rejected\nFAIL: rejection preserves forward-path context\nFAIL: primary change between lookups rejected\nFAIL: rejection preserves forward-path context\nFAIL: BSS and station lookups use one selector\nFAIL: selector ABA never mixes BSS and WCID\nFAIL: selector ABA lookups remain equal\nFAIL: observed late selector change rejected\nFAIL: rejection preserves forward-path context\nFAIL: observed late MLO inactivity rejected\nFAIL: rejection preserves forward-path context\nboundary writer: after callback return\nforward path: 44 checks, 12 failed\nconfiguration: wed\nFAIL: RCU-only callback avoids mutex-protected VIF lookup\nFAIL: inactive MLO link rejected\nFAIL: rejection preserves forward-path context\nFAIL: primary change between lookups rejected\nFAIL: rejection preserves forward-path context\nFAIL: BSS and station lookups use one selector\nFAIL: selector ABA never mixes BSS and WCID\nFAIL: selector ABA lookups remain equal\nFAIL: observed late selector change rejected\nFAIL: rejection preserves forward-path context\nFAIL: observed late MLO inactivity rejected\nFAIL: rejection preserves forward-path context\nboundary writer: after callback return\nforward path: 48 checks, 12 failed\n",
+        "stderr": "",
+        "stdout_sha256": "19e96b5d192895a6e01283fcd33f216d087bb0af6e9707fe54facefce0efd1f0",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compiler_or_sanitizer_diagnostics_observed": false
+      },
+      {
+        "name": "intermediate_without_rcu_fix",
+        "command": [
+          "python3",
+          "<workspace>/publish-mlo-r29/tests/test_mt7996_forward_path.py",
+          "<temporary-evidence-root>/intermediate_without_rcu_fix"
+        ],
+        "cwd": "<workspace>",
+        "started_at_utc": "2026-09-26T12:08:56.636748+00:00",
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "counts": [
+          {
+            "configuration": "npu",
+            "checks": 44,
+            "passed": 43,
+            "failed": 1
+          },
+          {
+            "configuration": "wed",
+            "checks": 48,
+            "passed": 47,
+            "failed": 1
+          }
+        ],
+        "stdout": "configuration: npu\nFAIL: RCU-only callback avoids mutex-protected VIF lookup\nboundary writer: after final read, before return\nforward path: 44 checks, 1 failed\nconfiguration: wed\nFAIL: RCU-only callback avoids mutex-protected VIF lookup\nboundary writer: after final read, before return\nforward path: 48 checks, 1 failed\n",
+        "stderr": "",
+        "stdout_sha256": "ba7791ff355ef06475871ea10576a9507da49805fd7d55c619977ae6010d7a3c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compiler_or_sanitizer_diagnostics_observed": false
+      },
+      {
+        "name": "candidate",
+        "command": [
+          "python3",
+          "<workspace>/publish-mlo-r29/tests/test_mt7996_forward_path.py",
+          "<temporary-evidence-root>/candidate"
+        ],
+        "cwd": "<workspace>",
+        "started_at_utc": "2026-09-26T12:08:57.381082+00:00",
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "counts": [
+          {
+            "configuration": "npu",
+            "checks": 44,
+            "passed": 44,
+            "failed": 0
+          },
+          {
+            "configuration": "wed",
+            "checks": 48,
+            "passed": 48,
+            "failed": 0
+          }
+        ],
+        "stdout": "configuration: npu\nboundary writer: after final read, before return\nforward path: 44 checks, 0 failed\nconfiguration: wed\nboundary writer: after final read, before return\nforward path: 48 checks, 0 failed\n",
+        "stderr": "",
+        "stdout_sha256": "448f12a1e16b3af0a8bd5761476eaf2041ca195311457ec49821ab90ce42068d",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compiler_or_sanitizer_diagnostics_observed": false
+      }
+    ],
+    "summary": {
+      "baseline_negative_control": {
+        "checks": 92,
+        "passed": 68,
+        "expected_failed": 24
+      },
+      "intermediate_negative_control": {
+        "checks": 92,
+        "passed": 90,
+        "expected_failed": 2
+      },
+      "candidate": {
+        "checks": 92,
+        "passed": 92,
+        "failed": 0
+      }
+    },
+    "checks_performed_while_recording": [
+      "Verified frozen test/patch hashes before and after execution.",
+      "Checked and applied final patch only inside the isolated temporary baseline copy.",
+      "Verified the final patch result matches the surviving prior candidate bytes.",
+      "Executed each of the three preserved source states exactly once with the frozen test; each invocation compiles/runs NPU and WED variants.",
+      "Captured command, exit status, stdout and stderr directly; prefixes sanitized only."
+    ],
+    "limitations": [
+      "This is proposal evidence for isolated 0033 applied to the r34 baseline, not an assertion that the completed r35 image was tested.",
+      "RCU, lock requirements and lookup functions are host stubs; these are not kernel lockdep or real RCU grace-period tests.",
+      "Mutation hooks are deterministic interleavings, not concurrent-thread stress tests.",
+      "The actual forward callback is extracted from each input main.c. Helpers and hardware operations are modeled.",
+      "The after-final-read case deliberately accepts a coherent old snapshot while a writer changes the primary before callback return; atomic publication is not claimed.",
+      "Existing PPE entries are not invalidated; selector ABA is not detected.",
+      "No firmware, boot, router or wireless test is represented, and no Air sleep/wake repair is proven.",
+      "The intermediate snapshot was retained from the prior proposal; this file does not include a standalone intermediate patch. Its complete main.c and extracted callback hashes identify it."
+    ],
+    "compiler_version": "Apple clang version 21.0.0 (clang-2100.3.34.2)\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin\n"
+  },
+  "npu_firmware_byte_check": {
+    "status": "PASS",
+    "firmware_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+    "firmware_bytes": 122336,
+    "decoder_ranges": [
+      {
+        "name": "tdma_submit",
+        "start": "0x840091b4",
+        "end_exclusive": "0x840093d4",
+        "matched_decoder_rows": 179
+      },
+      {
+        "name": "software_pool_return_and_allocate",
+        "start": "0x84004d0e",
+        "end_exclusive": "0x84004e1c",
+        "matched_decoder_rows": 92
+      },
+      {
+        "name": "hardware_mutex_helpers",
+        "start": "0x840064b4",
+        "end_exclusive": "0x8400655c",
+        "matched_decoder_rows": 63
+      },
+      {
+        "name": "tdma_caller",
+        "start": "0x8400aedc",
+        "end_exclusive": "0x8400b074",
+        "matched_decoder_rows": 140
+      },
+      {
+        "name": "indication_worker",
+        "start": "0x8400cb1a",
+        "end_exclusive": "0x8400cd1a",
+        "matched_decoder_rows": 162
+      },
+      {
+        "name": "rro_action_dispatch",
+        "start": "0x8400e084",
+        "end_exclusive": "0x8400e292",
+        "matched_decoder_rows": 171
+      }
+    ],
+    "matched_decoder_rows": 807,
+    "raw_byte_anchors": 3,
+    "rro_action3_table_target": "0x8400e1c6",
+    "scope": "Pinned blob identity and selected decoder-row bytes only; not mnemonic, control-flow, execution or defect verification.",
+    "source_image": "r34 verified image; r35 identity will be checked by the image verifier",
+    "script_sha256": "878bc0e5372eb159d01d45be16a8565a5073ac3a1d0b5634a9923c95b9235eed",
+    "negative_controls": [
+      {
+        "case": "firmware-byte",
+        "expected_rejection": true,
+        "reason": "unexpected firmware size or SHA256"
+      },
+      {
+        "case": "decoder-byte",
+        "expected_rejection": true,
+        "reason": "tdma_submit: byte mismatch at 0x840091b4"
+      },
+      {
+        "case": "missing-row",
+        "expected_rejection": true,
+        "reason": "tdma_submit: unexpected decoder row count"
+      },
+      {
+        "case": "noncontiguous-row",
+        "expected_rejection": true,
+        "reason": "tdma_submit: non-contiguous or malformed row at 0x840091b6"
+      }
+    ]
+  },
+  "negative_controls": {
+    "transition": {
+      "checks": 24,
+      "expected_failures": 4
+    },
+    "forward_path_original": {
+      "checks": 92,
+      "expected_failures": 24
+    },
+    "forward_path_before_rcu_fix": {
+      "checks": 92,
+      "expected_failures": 2
+    },
+    "npu_watchdog": {
+      "expected_failing_runs": 2
+    },
+    "note": "Expected baseline failures and NPU checker input rejection are not included in candidate pass counts."
+  },
+  "prepared_source_provenance": {
+    "status": "PASS",
+    "baseline_main_sha256": "2f8326446990e9eb55d570214dacf4f87cf18d3f53c33a9c669ac982546397b4",
+    "prepared_main_sha256": "fa614e74dafd2f7919c161dd7161bbcf9d82620553265938b6b617790eace7f2",
+    "applied_patch_sha256": {
+      "0032-mt7996-rearm-txqs-after-link-change.patch": "2af4bd209a51be90a5a75247061bfd61bf71daa8e6479061d773f22cc8e9b8e7",
+      "0033-mt7996-snapshot-forward-link.patch": "6bfedc11238c3974bdbcb82a6feb37a4c8b7bc1d70533a7a4c5dd1d1564d4051"
+    },
+    "unchanged_baseline_files": {
+      "tx.c": "e4117a2482a7a1e1d0731aa7b14a1645efab6251f59ff2ce75b200fb859d79c0",
+      "mt76.h": "3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741"
+    },
+    "scope": "Actual prepared main.c exactly equals preserved r34 main.c plus 0032 and 0033; no fuzz."
+  },
+  "build_log_sha256": {
+    "defconfig.log": "b377b196b60e697a9f6e638b4095252ba4d0ecb254eefc6c8d16d3c74b8b4c9f",
+    "kernel.log": "6cf4e737d6294d9c5e3bb29c9bac24796df1ba32c2c9891954f8e31a3e499d42",
+    "packages.log": "76d66bffe883debca296ce2a52b553143408e61913322e511688045c888653ea",
+    "package-install.log": "83df2c49f0e90f520231c8ca8d018944659de0e526b0278be0dc95df148915cc",
+    "target-install.log": "82c4a7c2b19a3f9f8f8960809265a0b9d74b0be54cb0572c6767402ea4a457d5",
+    "index.log": "76151689b094f309d5d1e03ff0b54734373bd361b53b9e2f7d1a71a7e9d527be",
+    "buildinfo.log": "2090cbe1da3b9e1080b0b6a4440355976779d5e827929e6f28ae22b30d464e43",
+    "image-info.log": "0fdd87f64b27625303940df5936a377a9553c68c68a4b456c57f7640c6ab5c7c",
+    "checksum.log": "b9c8534e47e1d9dfffc187a27f2e7704c62617a90cf982b108b096a5852f33b2"
+  },
+  "installed": false,
+  "boot_tested": false,
+  "wireless_tested": false,
+  "limitations": [
+    "No additional wireless tests or device installation performed.",
+    "Extracted host checks use lock, RCU, scheduler, MCU and hardware substitutes; not kernel concurrency or hardware acceptance.",
+    "The transition fix covers successful link changes only; post-callback failed activation rollback remains outside its guarantee.",
+    "Forward-path snapshot/RCU reads do not provide atomic PPE publication, complete ABA detection or invalidation of existing bindings.",
+    "NPU bytes/decoder correspondence does not prove instruction semantics, full control flow, firmware execution or absence of defects.",
+    "Air sleep/wake stall causality and resolution remain unproven.",
+    "Kernel and 73 modules match r34; r34 was not boot-tested either.",
+    "Native incremental build with pinned inputs, not clean-room reproducibility."
+  ]
+}

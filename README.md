@@ -1,6 +1,6 @@
 # W1700K MLO investigation fork
 
-현재 수정·검증 기록: [MLO r29 진행 현황](docs/mlo-r29/README.md).
+현재 수정·검증 기록: [MLO r35 진행 현황](docs/mlo-r35/README.md).
 실험용이며 완전 해결 판정 전입니다. 기준 소스와 재현 방법은 위 문서를 참고하세요.
 
 ![OpenWrt logo](include/logo.png)
