@@ -1,0 +1,46 @@
+{
+  "scope": "Host-side bounded instruction verification only; no new firmware image or device test.",
+  "source_base_commit": "2bb230a3938aa89a0b21667b870e8cfb440a203b",
+  "exit_code": 0,
+  "published_copy_matches_original_result": true,
+  "original_firmware_unchanged_after_run": true,
+  "inputs": [
+    {
+      "path": "artifacts/mlo-tx-publish-r36-2026-09-26/verified-image/rootfs/lib/firmware/airoha/en7581_MT7996_npu_rv32.bin",
+      "bytes": 122336,
+      "sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643"
+    },
+    {
+      "path": "artifacts/npu-firmware-audit-2026-09-22/installed-rv32.instructions.json",
+      "bytes": 4438648,
+      "sha256": "ebcbbfdd2eb3a518ca163e7d09e104519ccb8381e2cc5202b330ed5d0c3ff23e"
+    }
+  ],
+  "checker": {
+    "path": "publish-mlo-r29/docs/npu-budget-guard-20260926/check_guard.py",
+    "bytes": 13065,
+    "sha256": "49b6fe6179c679c8c3aaec37cfcc972e56eda00be11c8ea84d9b9e6cce7a5584"
+  },
+  "result": {
+    "path": "publish-mlo-r29/docs/npu-budget-guard-20260926/GUARD_VERIFICATION.json",
+    "bytes": 10961,
+    "sha256": "a1916d9b73d70e41d4fca8900e2de208137eecafbd072181f34f1059fde4896b"
+  },
+  "encoding": {
+    "path": "publish-mlo-r29/docs/npu-budget-guard-20260926/ENCODING_VERIFICATION.json",
+    "bytes": 10852,
+    "sha256": "cfc48e6deae957aa2639e0fffafaa7e92c3f114b6beb0b0e1175eda65a31dad1"
+  },
+  "command": [
+    "python3",
+    "publish-mlo-r29/docs/npu-budget-guard-20260926/check_guard.py",
+    "--blob",
+    "artifacts/mlo-tx-publish-r36-2026-09-26/verified-image/rootfs/lib/firmware/airoha/en7581_MT7996_npu_rv32.bin",
+    "--instructions",
+    "artifacts/npu-firmware-audit-2026-09-22/installed-rv32.instructions.json"
+  ],
+  "normal_positive_cases": 131082,
+  "normal_zero_cases": 2,
+  "negative_controls": 4,
+  "assembler": "UNAVAILABLE, NOT A PASS"
+}

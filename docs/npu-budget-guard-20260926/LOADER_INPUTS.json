@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-26",
+  "scope": "Read-only loader, provenance and license-text analysis for an in-memory guard validation workstream. No modified blob was generated, packaged, distributed or installed. No router access, boot/reboot or new network/wireless tests; r36 release unchanged.",
+  "inputs": [
+    {
+      "id": "package_recipe",
+      "path": "publish-mlo-r29/package/firmware/linux-firmware/Makefile",
+      "bytes": 890,
+      "sha256": "dc5ae1b0323462d55077ea13a326e4e7371b8ece3d3f433769b3ca06d1498721",
+      "source_line_anchors": [
+        10,
+        16
+      ]
+    },
+    {
+      "id": "package_install",
+      "path": "publish-mlo-r29/package/firmware/linux-firmware/airoha.mk",
+      "bytes": 1865,
+      "sha256": "ee61cbc68db899adc836d0ecc6c892ccd50d8941b2633c73bcc88ef2a5f1f750",
+      "source_line_anchors": [
+        32,
+        39
+      ]
+    },
+    {
+      "id": "board_image_recipe",
+      "path": "publish-mlo-r29/target/linux/airoha/image/an7581.mk",
+      "bytes": 6975,
+      "sha256": "a2111f27ee2cafc2c2f45c5f65ba0d3ee3c3b35ba32f78b6647aee3936d9128d",
+      "source_line_anchors": [
+        97,
+        124
+      ]
+    },
+    {
+      "id": "board_dts",
+      "path": "publish-mlo-r29/target/linux/airoha/dts/an7581-w1700k-ubi.dts",
+      "bytes": 7367,
+      "sha256": "74033d7660fa81da3493288ba52ebdce686f9b14894207f19a22108a6ee8f460",
+      "source_line_anchors": [
+        9,
+        10
+      ]
+    },
+    {
+      "id": "npu_dts",
+      "path": "publish-mlo-r29/target/linux/airoha/dts/an7581.dtsi",
+      "bytes": 24805,
+      "sha256": "bef06e37a62cd14ed4bad308799dc42a1f28fde3b128cf76eb165ef04a4f21c1",
+      "source_line_anchors": [
+        28,
+        30,
+        879,
+        900
+      ]
+    },
+    {
+      "id": "npu_firmware_names",
+      "path": "publish-mlo-r29/target/linux/airoha/dts/an7581-npu-mt7996.dtsi",
+      "bytes": 218,
+      "sha256": "a21725acd760ea85c4dbb4153a07ef189c37159a09a9c6f1c29fd7d60f055697",
+      "source_line_anchors": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "license",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-firmware-20260810/LICENSES/LICENSE.airoha",
+      "bytes": 556,
+      "sha256": "ad548ca0ffb91ec655de0f28e13089ef1cd4e0deabb2f15a9289194990e62252",
+      "source_line_anchors": [
+        1,
+        9
+      ]
+    },
+    {
+      "id": "whence",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-firmware-20260810/WHENCE",
+      "bytes": 459996,
+      "sha256": "7b828cc147af7a6cd397a9cd33c23eb95f7725b6bf96fa428261198eb93bbd75",
+      "source_line_anchors": [
+        2085,
+        2091
+      ]
+    },
+    {
+      "id": "source_program",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-firmware-20260810/airoha/en7581_MT7996_npu_rv32.bin",
+      "bytes": 122336,
+      "sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "source_line_anchors": []
+    },
+    {
+      "id": "source_data",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-firmware-20260810/airoha/en7581_MT7996_npu_data.bin",
+      "bytes": 3084,
+      "sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1",
+      "source_line_anchors": []
+    },
+    {
+      "id": "npu_driver",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_npu.c",
+      "bytes": 22738,
+      "sha256": "e001cd6e345db45d6d69eee7a68e26a3a04bcdda090ca96b8f4a58162581c62c",
+      "source_line_anchors": [
+        24,
+        25,
+        225,
+        304,
+        782,
+        866,
+        869,
+        876
+      ]
+    },
+    {
+      "id": "npu_header",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/include/linux/soc/airoha/airoha_offload.h",
+      "bytes": 8750,
+      "sha256": "f5da81e31395bde119bcb564503bd747e1c8c245c720b8cbf5de2f8e4182c5a4",
+      "source_line_anchors": [
+        68,
+        68
+      ]
+    },
+    {
+      "id": "generic_firmware_loader",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/base/firmware_loader/main.c",
+      "bytes": 44652,
+      "sha256": "88711800a378e810bdf1db810e7dac2f3fd08867435cf09b1b2f01f9a91d7a62",
+      "source_line_anchors": [
+        472,
+        477,
+        549,
+        552,
+        827,
+        924,
+        1002,
+        1014
+      ]
+    },
+    {
+      "id": "kernel_file_reader",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/fs/kernel_read_file.c",
+      "bytes": 4456,
+      "sha256": "e5d852941bfc944202ee5cbf05920c02f6ff98fb7a32c24918d0ccdd18b36c11",
+      "source_line_anchors": [
+        48,
+        74,
+        104,
+        110
+      ]
+    },
+    {
+      "id": "security_stubs",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/include/linux/security.h",
+      "bytes": 67040,
+      "sha256": "86bc0a97e816779d2f8e5400eaf326811aeab7d82cedaf238457b14513c8a583",
+      "source_line_anchors": [
+        1307,
+        1318
+      ]
+    },
+    {
+      "id": "kernel_config",
+      "path": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/.config",
+      "bytes": 212571,
+      "sha256": "79ad0d0c870b7d36b97a345761a01eb5e25a7d5462fe2914f5865086833db0e3",
+      "source_line_anchors": []
+    },
+    {
+      "id": "image_program",
+      "path": "artifacts/mlo-tx-publish-r36-2026-09-26/verified-image/rootfs/lib/firmware/airoha/en7581_MT7996_npu_rv32.bin",
+      "bytes": 122336,
+      "sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "source_line_anchors": []
+    },
+    {
+      "id": "image_data",
+      "path": "artifacts/mlo-tx-publish-r36-2026-09-26/verified-image/rootfs/lib/firmware/airoha/en7581_MT7996_npu_data.bin",
+      "bytes": 3084,
+      "sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1",
+      "source_line_anchors": []
+    },
+    {
+      "id": "image_dtb",
+      "path": "artifacts/mlo-tx-publish-r36-2026-09-26/verified-image/dtb",
+      "bytes": 22871,
+      "sha256": "e4425ab34b3e4a37b73ff551b6971e992e4ce8559256114fbdac981718433c63",
+      "source_line_anchors": []
+    },
+    {
+      "id": "image_apk_database",
+      "path": "artifacts/mlo-tx-publish-r36-2026-09-26/verified-image/rootfs/lib/apk/db/installed",
+      "bytes": 320940,
+      "sha256": "11b393398821ede1aad3093151621465a349cbcb6b690a770ef540f2e6cab745",
+      "source_line_anchors": [
+        1,
+        15
+      ]
+    },
+    {
+      "id": "saved_linear_decoder",
+      "path": "artifacts/npu-firmware-audit-2026-09-22/installed-rv32.instructions.json",
+      "bytes": 4438648,
+      "sha256": "ebcbbfdd2eb3a518ca163e7d09e104519ccb8381e2cc5202b330ed5d0c3ff23e",
+      "source_line_anchors": []
+    }
+  ],
+  "actual_r36_dtb_observations": {
+    "program_reserved_memory": {
+      "base": "0x84000000",
+      "size": "0xa00000"
+    },
+    "compatible": [
+      "airoha,en7581-npu"
+    ],
+    "status": [
+      "okay"
+    ],
+    "firmware-name": [
+      "airoha/en7581_MT7996_npu_rv32.bin",
+      "airoha/en7581_MT7996_npu_data.bin"
+    ]
+  },
+  "program_and_data_identical_between_source_and_r36_image": true,
+  "package": {
+    "name": "airoha-en7581-mt7996-npu-firmware",
+    "installed_version": "20260810-r1",
+    "source_archive": "linux-firmware-20260810.tar.xz",
+    "declared_source_archive_sha256": "ac17c34fe73756926a961fbafadf8d8f07a3bd2dd2f4ea31a0fb5d50c714a49a",
+    "archive_hash_note": "Recipe declaration read; archive was not re-downloaded or rehashed in this review.",
+    "install": "Two raw files copied; no NPU-specific signing/compilation step in reviewed recipe."
+  },
+  "license_text_observation": {
+    "file_id": "license",
+    "whence_id": "whence",
+    "short_quote": "permission to use and redistribute",
+    "explicit_modification_grant_found": false,
+    "interpretation_limit": "The text names use and redistribution for Airoha chipset devices and excludes forms requiring the firmware itself to be GPL/LGPL covered. Modification/derivative permission is not explicit. This is a text observation, not a legal conclusion of permission or prohibition. Driver GPL or FDK MIT licensing does not itself establish the vendor blob license."
+  },
+  "host_loader_contract": {
+    "source_id": "npu_driver",
+    "program_max_bytes": 2097152,
+    "data_max_bytes": 65536,
+    "format": "raw bytes copied in full with memcpy_toio; no header-derived entry or relocation parser",
+    "program_destination": "first reserved-memory resource, observed base 0x84000000",
+    "data_destination": "mapped NPU register base + REG_NPU_LOCAL_SRAM (0)",
+    "all_core_boot_bases": "res.start for 8 cores",
+    "enable_writes": {
+      "boot_config": "0xff",
+      "boot_trigger": "0x1"
+    },
+    "npu_specific_integrity_validation_observed": false,
+    "npu_specific_integrity_scope": "No NPU header, checksum, signature, version-compatibility or ABI validation in the reviewed host copy/probe functions.",
+    "generic_read_constraints": "Nonempty regular file, successful full read and configured security hooks; missing file mapped to probe defer by NPU driver.",
+    "version_query_failure_is_probe_failure": false,
+    "coordinated_hot_reload_callback_found": false,
+    "runtime_replacement_limit": "Changing a filesystem file does not reload the running NPU; no remove/shutdown/reset/reload callback or coordinated quiesce path was found in this driver."
+  },
+  "configured_kernel_evidence": [
+    "# CONFIG_MODULE_SIG is not set",
+    "CONFIG_FW_LOADER=y",
+    "CONFIG_EXTRA_FIRMWARE=\"\"",
+    "CONFIG_FW_LOADER_USER_HELPER=y",
+    "# CONFIG_FW_LOADER_USER_HELPER_FALLBACK is not set",
+    "# CONFIG_FW_LOADER_COMPRESS is not set",
+    "# CONFIG_DM_VERITY is not set",
+    "# CONFIG_SECURITY is not set"
+  ],
+  "firmware_lookup_priority": [
+    "firmware_class.path if set",
+    "/lib/firmware/updates/<kernel-release>",
+    "/lib/firmware/updates",
+    "/lib/firmware/<kernel-release>",
+    "/lib/firmware"
+  ],
+  "raw_program_entry_observation": {
+    "first_16_bytes": "01000100010001000100010001000100",
+    "at_offset_0x10": "0f100000",
+    "meaning": "Saved decoder labels initial instructions c.nop and offset 0x10 fence.i. This is not an independent full binary decode or proof that no internal validation exists."
+  },
+  "unknowns": [
+    "Blob-internal self-integrity checks, checksummed fields or signature data were not proven absent.",
+    "ROM/hardware authentication and complete firmware startup control flow were not reconstructed.",
+    "No modified firmware boot/functional result or causal repair of Air sleep/wake stalls was established.",
+    "No safe live unbind/rebind or hot reload protocol was established."
+  ],
+  "future_technical_prerequisites": [
+    "Guard exact original blob SHA and exact original bytes for every intended in-memory replacement; record candidate hash, offsets and branch/register effects.",
+    "Keep program/data pairing, board-selected names and memory/entry layout; length-preserving edits avoid new relocation/layout assumptions but do not prove runtime correctness.",
+    "Validate branch/register preservation, ownership, token cleanup, batch/index publication, other callers and negative/boundary behavior.",
+    "If a future authorized distributable firmware is produced, use distinct package revision, deterministic transformation and final extracted APK/rootfs candidate-byte verification, then recompute/verify outer FIT/image hashes.",
+    "Keep original firmware and a recoverable device path; perform separately authorized boot acceptance before claiming bootability or safety. Driver probe alone is insufficient: verify firmware response and actual core/IRQ/DMA/flow progress.",
+    "Account for higher-priority firmware lookup paths when establishing loaded-image identity. Additional wireless tests remain stopped; static checks do not satisfy Air acceptance."
+  ],
+  "boundary": "These are prerequisites and uncertainties only, not authorization to modify, package, publish, install or run vendor firmware."
+}

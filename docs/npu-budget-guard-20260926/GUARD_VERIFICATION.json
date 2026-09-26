@@ -1,0 +1,467 @@
+{
+  "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+  "program_bytes": 122336,
+  "candidate_memory_only": true,
+  "modified_blob_file_written": false,
+  "candidate_sha256": "389cfecb074fc21c163006c791b65f9628fe790cfb682f2e288b71c14104a736",
+  "guard": {
+    "pc": "0x84009e1a",
+    "before": "9374f50f",
+    "after": "e284e1c5",
+    "target": "0x84009ee4"
+  },
+  "fresh_decoder": "Capstone 5.0.7",
+  "original_selected_instructions": 68,
+  "candidate_selected_instructions": 69,
+  "ranges": [
+    [
+      "0x84009da4",
+      "0x84009e26"
+    ],
+    [
+      "0x84009ee4",
+      "0x84009f14"
+    ]
+  ],
+  "candidate_instructions": [
+    {
+      "pc": "0x84009da4",
+      "bytes": "13172500",
+      "instruction": "slli a4, a0, 2"
+    },
+    {
+      "pc": "0x84009da8",
+      "bytes": "9387413d",
+      "instruction": "addi a5, gp, 0x3d4"
+    },
+    {
+      "pc": "0x84009dac",
+      "bytes": "5971",
+      "instruction": "c.addi16sp sp, -0x70"
+    },
+    {
+      "pc": "0x84009dae",
+      "bytes": "ba97",
+      "instruction": "c.add a5, a4"
+    },
+    {
+      "pc": "0x84009db0",
+      "bytes": "6ede",
+      "instruction": "c.swsp s11, 0x3c(sp)"
+    },
+    {
+      "pc": "0x84009db2",
+      "bytes": "83ad0700",
+      "instruction": "lw s11, 0(a5)"
+    },
+    {
+      "pc": "0x84009db6",
+      "bytes": "97878fba",
+      "instruction": "auipc a5, 0xba8f8"
+    },
+    {
+      "pc": "0x84009dba",
+      "bytes": "93872717",
+      "instruction": "addi a5, a5, 0x172"
+    },
+    {
+      "pc": "0x84009dbe",
+      "bytes": "ba97",
+      "instruction": "c.add a5, a4"
+    },
+    {
+      "pc": "0x84009dc0",
+      "bytes": "3acc",
+      "instruction": "c.swsp a4, 0x18(sp)"
+    },
+    {
+      "pc": "0x84009dc2",
+      "bytes": "13070008",
+      "instruction": "addi a4, zero, 0x80"
+    },
+    {
+      "pc": "0x84009dc6",
+      "bytes": "d2cc",
+      "instruction": "c.swsp s4, 0x58(sp)"
+    },
+    {
+      "pc": "0x84009dc8",
+      "bytes": "3ad6",
+      "instruction": "c.swsp a4, 0x2c(sp)"
+    },
+    {
+      "pc": "0x84009dca",
+      "bytes": "86d6",
+      "instruction": "c.swsp ra, 0x6c(sp)"
+    },
+    {
+      "pc": "0x84009dcc",
+      "bytes": "a2d4",
+      "instruction": "c.swsp s0, 0x68(sp)"
+    },
+    {
+      "pc": "0x84009dce",
+      "bytes": "a6d2",
+      "instruction": "c.swsp s1, 0x64(sp)"
+    },
+    {
+      "pc": "0x84009dd0",
+      "bytes": "cad0",
+      "instruction": "c.swsp s2, 0x60(sp)"
+    },
+    {
+      "pc": "0x84009dd2",
+      "bytes": "cece",
+      "instruction": "c.swsp s3, 0x5c(sp)"
+    },
+    {
+      "pc": "0x84009dd4",
+      "bytes": "d6ca",
+      "instruction": "c.swsp s5, 0x54(sp)"
+    },
+    {
+      "pc": "0x84009dd6",
+      "bytes": "dac8",
+      "instruction": "c.swsp s6, 0x50(sp)"
+    },
+    {
+      "pc": "0x84009dd8",
+      "bytes": "dec6",
+      "instruction": "c.swsp s7, 0x4c(sp)"
+    },
+    {
+      "pc": "0x84009dda",
+      "bytes": "e2c4",
+      "instruction": "c.swsp s8, 0x48(sp)"
+    },
+    {
+      "pc": "0x84009ddc",
+      "bytes": "e6c2",
+      "instruction": "c.swsp s9, 0x44(sp)"
+    },
+    {
+      "pc": "0x84009dde",
+      "bytes": "eac0",
+      "instruction": "c.swsp s10, 0x40(sp)"
+    },
+    {
+      "pc": "0x84009de0",
+      "bytes": "a3050102",
+      "instruction": "sb zero, 0x2b(sp)"
+    },
+    {
+      "pc": "0x84009de4",
+      "bytes": "1307f007",
+      "instruction": "addi a4, zero, 0x7f"
+    },
+    {
+      "pc": "0x84009de8",
+      "bytes": "03aa0700",
+      "instruction": "lw s4, 0(a5)"
+    },
+    {
+      "pc": "0x84009dec",
+      "bytes": "6363b700",
+      "instruction": "bltu a4, a1, 6"
+    },
+    {
+      "pc": "0x84009df0",
+      "bytes": "2ed6",
+      "instruction": "c.swsp a1, 0x2c(sp)"
+    },
+    {
+      "pc": "0x84009df2",
+      "bytes": "137cf50f",
+      "instruction": "andi s8, a0, 0xff"
+    },
+    {
+      "pc": "0x84009df6",
+      "bytes": "b71bb51f",
+      "instruction": "lui s7, 0x1fb51"
+    },
+    {
+      "pc": "0x84009dfa",
+      "bytes": "93174c00",
+      "instruction": "slli a5, s8, 4"
+    },
+    {
+      "pc": "0x84009dfe",
+      "bytes": "938b8b90",
+      "instruction": "addi s7, s7, -0x6f8"
+    },
+    {
+      "pc": "0x84009e02",
+      "bytes": "3ece",
+      "instruction": "c.swsp a5, 0x1c(sp)"
+    },
+    {
+      "pc": "0x84009e04",
+      "bytes": "c16a",
+      "instruction": "c.lui s5, 0x10"
+    },
+    {
+      "pc": "0x84009e06",
+      "bytes": "de97",
+      "instruction": "c.add a5, s7"
+    },
+    {
+      "pc": "0x84009e08",
+      "bytes": "3eca",
+      "instruction": "c.swsp a5, 0x14(sp)"
+    },
+    {
+      "pc": "0x84009e0a",
+      "bytes": "370b0040",
+      "instruction": "lui s6, 0x40000"
+    },
+    {
+      "pc": "0x84009e0e",
+      "bytes": "8569",
+      "instruction": "c.lui s3, 1"
+    },
+    {
+      "pc": "0x84009e10",
+      "bytes": "9387faff",
+      "instruction": "addi a5, s5, -1"
+    },
+    {
+      "pc": "0x84009e14",
+      "bytes": "02c8",
+      "instruction": "c.swsp zero, 0x10(sp)"
+    },
+    {
+      "pc": "0x84009e16",
+      "bytes": "814b",
+      "instruction": "c.li s7, 0"
+    },
+    {
+      "pc": "0x84009e18",
+      "bytes": "0149",
+      "instruction": "c.li s2, 0"
+    },
+    {
+      "pc": "0x84009e1a",
+      "bytes": "e284",
+      "instruction": "c.mv s1, s8"
+    },
+    {
+      "pc": "0x84009e1c",
+      "bytes": "e1c5",
+      "instruction": "c.beqz a1, 0xc8"
+    },
+    {
+      "pc": "0x84009e1e",
+      "bytes": "7d1b",
+      "instruction": "c.addi s6, -1"
+    },
+    {
+      "pc": "0x84009e20",
+      "bytes": "93890980",
+      "instruction": "addi s3, s3, -0x800"
+    },
+    {
+      "pc": "0x84009e24",
+      "bytes": "3ec4",
+      "instruction": "c.swsp a5, 8(sp)"
+    },
+    {
+      "pc": "0x84009ee4",
+      "bytes": "c24c",
+      "instruction": "c.lwsp s9, 0x10(sp)"
+    },
+    {
+      "pc": "0x84009ee6",
+      "bytes": "6247",
+      "instruction": "c.lwsp a4, 0x18(sp)"
+    },
+    {
+      "pc": "0x84009ee8",
+      "bytes": "b650",
+      "instruction": "c.lwsp ra, 0x6c(sp)"
+    },
+    {
+      "pc": "0x84009eea",
+      "bytes": "2654",
+      "instruction": "c.lwsp s0, 0x68(sp)"
+    },
+    {
+      "pc": "0x84009eec",
+      "bytes": "9387413d",
+      "instruction": "addi a5, gp, 0x3d4"
+    },
+    {
+      "pc": "0x84009ef0",
+      "bytes": "338de700",
+      "instruction": "add s10, a5, a4"
+    },
+    {
+      "pc": "0x84009ef4",
+      "bytes": "2320bd01",
+      "instruction": "sw s11, 0(s10)"
+    },
+    {
+      "pc": "0x84009ef8",
+      "bytes": "6685",
+      "instruction": "c.mv a0, s9"
+    },
+    {
+      "pc": "0x84009efa",
+      "bytes": "9654",
+      "instruction": "c.lwsp s1, 0x64(sp)"
+    },
+    {
+      "pc": "0x84009efc",
+      "bytes": "0659",
+      "instruction": "c.lwsp s2, 0x60(sp)"
+    },
+    {
+      "pc": "0x84009efe",
+      "bytes": "f649",
+      "instruction": "c.lwsp s3, 0x5c(sp)"
+    },
+    {
+      "pc": "0x84009f00",
+      "bytes": "664a",
+      "instruction": "c.lwsp s4, 0x58(sp)"
+    },
+    {
+      "pc": "0x84009f02",
+      "bytes": "d64a",
+      "instruction": "c.lwsp s5, 0x54(sp)"
+    },
+    {
+      "pc": "0x84009f04",
+      "bytes": "464b",
+      "instruction": "c.lwsp s6, 0x50(sp)"
+    },
+    {
+      "pc": "0x84009f06",
+      "bytes": "b64b",
+      "instruction": "c.lwsp s7, 0x4c(sp)"
+    },
+    {
+      "pc": "0x84009f08",
+      "bytes": "264c",
+      "instruction": "c.lwsp s8, 0x48(sp)"
+    },
+    {
+      "pc": "0x84009f0a",
+      "bytes": "964c",
+      "instruction": "c.lwsp s9, 0x44(sp)"
+    },
+    {
+      "pc": "0x84009f0c",
+      "bytes": "064d",
+      "instruction": "c.lwsp s10, 0x40(sp)"
+    },
+    {
+      "pc": "0x84009f0e",
+      "bytes": "f25d",
+      "instruction": "c.lwsp s11, 0x3c(sp)"
+    },
+    {
+      "pc": "0x84009f10",
+      "bytes": "6561",
+      "instruction": "c.addi16sp sp, 0x70"
+    },
+    {
+      "pc": "0x84009f12",
+      "bytes": "8280",
+      "instruction": "c.jr ra"
+    }
+  ],
+  "negative_controls_rejected": [
+    "wrong_expected_baseline_word",
+    "wrong_full_program_hash",
+    "zero_sized_saved_instruction",
+    "wrong_candidate_branch_target"
+  ],
+  "budget_sweep": "0..65535 inclusive",
+  "additional_32bit_boundaries": [
+    65536,
+    65537,
+    2147483647,
+    2147483648,
+    4294967294,
+    4294967295
+  ],
+  "results": [
+    {
+      "band": 0,
+      "normal_direct_caller": true,
+      "positive_cases": 65541,
+      "state_checkpoints_per_positive": 2,
+      "positive_failures": 0,
+      "zero_case": {
+        "return": 0,
+        "sp_ra_callee_saved_restored": true,
+        "same_index_store": {
+          "pc": "0x84009ef4",
+          "value": 0
+        },
+        "external_reads": 2,
+        "external_read_addresses": [
+          "0x200003d4",
+          "0x3e901f28"
+        ],
+        "descriptor_allocator_mmio_reached": false,
+        "baseline_no_descriptor_return_contract": "rejected_at_0x84009e26",
+        "baseline_reaches_first_descriptor_boundary_with_budget_zero": true
+      }
+    },
+    {
+      "band": 1,
+      "normal_direct_caller": true,
+      "positive_cases": 65541,
+      "state_checkpoints_per_positive": 2,
+      "positive_failures": 0,
+      "zero_case": {
+        "return": 0,
+        "sp_ra_callee_saved_restored": true,
+        "same_index_store": {
+          "pc": "0x84009ef4",
+          "value": 3
+        },
+        "external_reads": 2,
+        "external_read_addresses": [
+          "0x200003d8",
+          "0x3e901f2c"
+        ],
+        "descriptor_allocator_mmio_reached": false,
+        "baseline_no_descriptor_return_contract": "rejected_at_0x84009e26",
+        "baseline_reaches_first_descriptor_boundary_with_budget_zero": true
+      }
+    },
+    {
+      "band": 255,
+      "normal_direct_caller": false,
+      "positive_cases": 65541,
+      "state_checkpoints_per_positive": 2,
+      "positive_failures": 0,
+      "zero_case": {
+        "return": 0,
+        "sp_ra_callee_saved_restored": true,
+        "same_index_store": {
+          "pc": "0x84009ef4",
+          "value": 765
+        },
+        "external_reads": 2,
+        "external_read_addresses": [
+          "0x200007d0",
+          "0x3e902324"
+        ],
+        "descriptor_allocator_mmio_reached": false,
+        "baseline_no_descriptor_return_contract": "rejected_at_0x84009e26",
+        "baseline_reaches_first_descriptor_boundary_with_budget_zero": true
+      }
+    }
+  ],
+  "limitations": [
+    "Only fixed prefix/epilogue standard instructions execute; all other code/opcodes/accesses fail.",
+    "Synthetic register/stack/index/table fixtures; not actual RAM, MMIO, firmware execution or weak-memory modeling.",
+    "Band 255 is an artificial robustness input, not a supported caller or proven valid hardware table index.",
+    "Same-index store is retained; concurrent reset and unknown indirect/mid-function entries are not proved safe.",
+    "No modified firmware artifact, distribution permission, installation, or Air stall repair is established.",
+    "Earlier clang RV32 assembler attempt failed; it is not counted as successful validation."
+  ]
+}
