@@ -1,0 +1,1463 @@
+{
+  "status": "MAC_SETTINGS_SCAN_CONTRIBUTION_IDENTIFIED",
+  "clock_sample_count": 20,
+  "clock_constant_offset_consistent": true,
+  "clock_intersection_width_ms": 17.333030700683594,
+  "trials": [
+    {
+      "label": "live-scan-open-60",
+      "receiver_mbps": 985.4925582334668,
+      "min_interval_mbps": 58.57131076364968,
+      "max_interval_mbps": 1896.4066464660318,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "panel": "open",
+      "router_unchanged": true,
+      "wired_checks_all_normal": true,
+      "start_end_link_bitmap": "0x6",
+      "data_start_bracket_width_seconds": 0.710430383682251,
+      "source_log_sha256": "361ff684721f66664cc820c5ff8ececb1465e4556f3b9e941e4e88fd2b4070dd",
+      "reader_drop_notice_count": 0,
+      "complete_log_scan_call_pairs": 49,
+      "capture_boundary_unmatched_calls": {
+        "unmatched_enters": 1,
+        "unmatched_exits": 0
+      },
+      "wifi_settings_scan_requests_relative_bounds": [
+        [
+          9.220822811126709,
+          9.932253122329712
+        ],
+        [
+          26.240822792053223,
+          26.952253103256226
+        ],
+        [
+          42.170822620391846,
+          42.88225293159485
+        ],
+        [
+          58.08982276916504,
+          58.80125308036804
+        ]
+      ],
+      "scan_calls_overlapping_traffic": [
+        {
+          "start_bounds": [
+            -1.470177173614502,
+            -0.758746862411499
+          ],
+          "end_bounds": [
+            -0.49217724800109863,
+            0.2192530632019043
+          ],
+          "call_elapsed_seconds": 0.9779999256134033
+        },
+        {
+          "start_bounds": [
+            -0.49217724800109863,
+            0.2192530632019043
+          ],
+          "end_bounds": [
+            -0.09817719459533691,
+            0.613253116607666
+          ],
+          "call_elapsed_seconds": 0.3940000534057617
+        },
+        {
+          "start_bounds": [
+            -0.09817719459533691,
+            0.613253116607666
+          ],
+          "end_bounds": [
+            0.19282269477844238,
+            0.9042530059814453
+          ],
+          "call_elapsed_seconds": 0.2909998893737793
+        },
+        {
+          "start_bounds": [
+            0.19282269477844238,
+            0.9042530059814453
+          ],
+          "end_bounds": [
+            0.5578227043151855,
+            1.2692530155181885
+          ],
+          "call_elapsed_seconds": 0.36500000953674316
+        },
+        {
+          "start_bounds": [
+            0.5578227043151855,
+            1.2692530155181885
+          ],
+          "end_bounds": [
+            0.841822624206543,
+            1.553252935409546
+          ],
+          "call_elapsed_seconds": 0.2839999198913574
+        },
+        {
+          "start_bounds": [
+            0.841822624206543,
+            1.553252935409546
+          ],
+          "end_bounds": [
+            1.0008227825164795,
+            1.7122530937194824
+          ],
+          "call_elapsed_seconds": 0.15900015830993652
+        },
+        {
+          "start_bounds": [
+            1.0018227100372314,
+            1.7132530212402344
+          ],
+          "end_bounds": [
+            1.156822681427002,
+            1.8682529926300049
+          ],
+          "call_elapsed_seconds": 0.1549999713897705
+        },
+        {
+          "start_bounds": [
+            1.156822681427002,
+            1.8682529926300049
+          ],
+          "end_bounds": [
+            1.461822748184204,
+            2.173253059387207
+          ],
+          "call_elapsed_seconds": 0.30500006675720215
+        },
+        {
+          "start_bounds": [
+            1.461822748184204,
+            2.173253059387207
+          ],
+          "end_bounds": [
+            1.847822666168213,
+            2.559252977371216
+          ],
+          "call_elapsed_seconds": 0.3859999179840088
+        },
+        {
+          "start_bounds": [
+            1.847822666168213,
+            2.559252977371216
+          ],
+          "end_bounds": [
+            2.228822708129883,
+            2.9402530193328857
+          ],
+          "call_elapsed_seconds": 0.3810000419616699
+        },
+        {
+          "start_bounds": [
+            2.2298226356506348,
+            2.9412529468536377
+          ],
+          "end_bounds": [
+            2.6138226985931396,
+            3.3252530097961426
+          ],
+          "call_elapsed_seconds": 0.3840000629425049
+        },
+        {
+          "start_bounds": [
+            2.6138226985931396,
+            3.3252530097961426
+          ],
+          "end_bounds": [
+            2.9968228340148926,
+            3.7082531452178955
+          ],
+          "call_elapsed_seconds": 0.38300013542175293
+        },
+        {
+          "start_bounds": [
+            2.9978227615356445,
+            3.7092530727386475
+          ],
+          "end_bounds": [
+            3.537822723388672,
+            4.249253034591675
+          ],
+          "call_elapsed_seconds": 0.5399999618530273
+        },
+        {
+          "start_bounds": [
+            3.538822650909424,
+            4.250252962112427
+          ],
+          "end_bounds": [
+            4.004822731018066,
+            4.716253042221069
+          ],
+          "call_elapsed_seconds": 0.4660000801086426
+        },
+        {
+          "start_bounds": [
+            4.005822658538818,
+            4.717252969741821
+          ],
+          "end_bounds": [
+            4.38782262802124,
+            5.099252939224243
+          ],
+          "call_elapsed_seconds": 0.3819999694824219
+        },
+        {
+          "start_bounds": [
+            4.388822793960571,
+            5.100253105163574
+          ],
+          "end_bounds": [
+            4.766822814941406,
+            5.478253126144409
+          ],
+          "call_elapsed_seconds": 0.37800002098083496
+        },
+        {
+          "start_bounds": [
+            4.766822814941406,
+            5.478253126144409
+          ],
+          "end_bounds": [
+            5.140822649002075,
+            5.852252960205078
+          ],
+          "call_elapsed_seconds": 0.37399983406066895
+        },
+        {
+          "start_bounds": [
+            5.141822814941406,
+            5.853253126144409
+          ],
+          "end_bounds": [
+            5.528822660446167,
+            6.24025297164917
+          ],
+          "call_elapsed_seconds": 0.38699984550476074
+        },
+        {
+          "start_bounds": [
+            5.529822826385498,
+            6.241253137588501
+          ],
+          "end_bounds": [
+            5.913822650909424,
+            6.625252962112427
+          ],
+          "call_elapsed_seconds": 0.3839998245239258
+        },
+        {
+          "start_bounds": [
+            5.914822816848755,
+            6.626253128051758
+          ],
+          "end_bounds": [
+            6.297822713851929,
+            7.009253025054932
+          ],
+          "call_elapsed_seconds": 0.38299989700317383
+        },
+        {
+          "start_bounds": [
+            6.298822641372681,
+            7.010252952575684
+          ],
+          "end_bounds": [
+            6.6838226318359375,
+            7.39525294303894
+          ],
+          "call_elapsed_seconds": 0.38499999046325684
+        },
+        {
+          "start_bounds": [
+            6.6838226318359375,
+            7.39525294303894
+          ],
+          "end_bounds": [
+            7.203822612762451,
+            7.915252923965454
+          ],
+          "call_elapsed_seconds": 0.5199999809265137
+        },
+        {
+          "start_bounds": [
+            7.204822778701782,
+            7.916253089904785
+          ],
+          "end_bounds": [
+            7.725822687149048,
+            8.43725299835205
+          ],
+          "call_elapsed_seconds": 0.5209999084472656
+        },
+        {
+          "start_bounds": [
+            7.7268226146698,
+            8.438252925872803
+          ],
+          "end_bounds": [
+            8.320822715759277,
+            9.03225302696228
+          ],
+          "call_elapsed_seconds": 0.5940001010894775
+        },
+        {
+          "start_bounds": [
+            8.320822715759277,
+            9.03225302696228
+          ],
+          "end_bounds": [
+            8.849822759628296,
+            9.561253070831299
+          ],
+          "call_elapsed_seconds": 0.5290000438690186
+        },
+        {
+          "start_bounds": [
+            8.850822687149048,
+            9.56225299835205
+          ],
+          "end_bounds": [
+            9.224822759628296,
+            9.936253070831299
+          ],
+          "call_elapsed_seconds": 0.37400007247924805
+        },
+        {
+          "start_bounds": [
+            9.225822687149048,
+            9.93725299835205
+          ],
+          "end_bounds": [
+            9.61382269859314,
+            10.325253009796143
+          ],
+          "call_elapsed_seconds": 0.3880000114440918
+        },
+        {
+          "start_bounds": [
+            9.614822626113892,
+            10.326252937316895
+          ],
+          "end_bounds": [
+            10.002822637557983,
+            10.714252948760986
+          ],
+          "call_elapsed_seconds": 0.3880000114440918
+        },
+        {
+          "start_bounds": [
+            10.002822637557983,
+            10.714252948760986
+          ],
+          "end_bounds": [
+            10.386822700500488,
+            11.098253011703491
+          ],
+          "call_elapsed_seconds": 0.3840000629425049
+        },
+        {
+          "start_bounds": [
+            10.38782262802124,
+            11.099252939224243
+          ],
+          "end_bounds": [
+            10.773822784423828,
+            11.485253095626831
+          ],
+          "call_elapsed_seconds": 0.3860001564025879
+        },
+        {
+          "start_bounds": [
+            10.77482271194458,
+            11.486253023147583
+          ],
+          "end_bounds": [
+            11.17382264137268,
+            11.885252952575684
+          ],
+          "call_elapsed_seconds": 0.3989999294281006
+        },
+        {
+          "start_bounds": [
+            11.174822807312012,
+            11.886253118515015
+          ],
+          "end_bounds": [
+            11.553822755813599,
+            12.265253067016602
+          ],
+          "call_elapsed_seconds": 0.3789999485015869
+        },
+        {
+          "start_bounds": [
+            11.553822755813599,
+            12.265253067016602
+          ],
+          "end_bounds": [
+            11.695822715759277,
+            12.40725302696228
+          ],
+          "call_elapsed_seconds": 0.1419999599456787
+        },
+        {
+          "start_bounds": [
+            11.695822715759277,
+            12.40725302696228
+          ],
+          "end_bounds": [
+            11.77482271194458,
+            12.486253023147583
+          ],
+          "call_elapsed_seconds": 0.07899999618530273
+        },
+        {
+          "start_bounds": [
+            11.776822805404663,
+            12.488253116607666
+          ],
+          "end_bounds": [
+            14.2338228225708,
+            14.945253133773804
+          ],
+          "call_elapsed_seconds": 2.4570000171661377
+        },
+        {
+          "start_bounds": [
+            14.236822605133057,
+            14.94825291633606
+          ],
+          "end_bounds": [
+            16.070822715759277,
+            16.78225302696228
+          ],
+          "call_elapsed_seconds": 1.8340001106262207
+        },
+        {
+          "start_bounds": [
+            26.24982261657715,
+            26.96125292778015
+          ],
+          "end_bounds": [
+            27.06582283973694,
+            27.77725315093994
+          ],
+          "call_elapsed_seconds": 0.81600022315979
+        },
+        {
+          "start_bounds": [
+            27.067822694778442,
+            27.779253005981445
+          ],
+          "end_bounds": [
+            29.415822744369507,
+            30.12725305557251
+          ],
+          "call_elapsed_seconds": 2.3480000495910645
+        },
+        {
+          "start_bounds": [
+            29.420822620391846,
+            30.13225293159485
+          ],
+          "end_bounds": [
+            31.474822759628296,
+            32.1862530708313
+          ],
+          "call_elapsed_seconds": 2.05400013923645
+        },
+        {
+          "start_bounds": [
+            42.1788227558136,
+            42.8902530670166
+          ],
+          "end_bounds": [
+            42.96682262420654,
+            43.678252935409546
+          ],
+          "call_elapsed_seconds": 0.7879998683929443
+        },
+        {
+          "start_bounds": [
+            42.967822790145874,
+            43.67925310134888
+          ],
+          "end_bounds": [
+            45.32182264328003,
+            46.03325295448303
+          ],
+          "call_elapsed_seconds": 2.3539998531341553
+        },
+        {
+          "start_bounds": [
+            45.3278226852417,
+            46.0392529964447
+          ],
+          "end_bounds": [
+            47.39382266998291,
+            48.10525298118591
+          ],
+          "call_elapsed_seconds": 2.065999984741211
+        },
+        {
+          "start_bounds": [
+            58.09682273864746,
+            58.808253049850464
+          ],
+          "end_bounds": [
+            58.93382263183594,
+            59.64525294303894
+          ],
+          "call_elapsed_seconds": 0.8369998931884766
+        },
+        {
+          "start_bounds": [
+            58.93582272529602,
+            59.64725303649902
+          ],
+          "end_bounds": [
+            61.68982267379761,
+            62.40125298500061
+          ],
+          "call_elapsed_seconds": 2.753999948501587
+        }
+      ],
+      "receiver_intervals": [
+        {
+          "start": 0,
+          "end": 1.003564,
+          "mbps": 1896.4066464660318,
+          "possible_scan_call_overlap": 7,
+          "possible_target_P_overlap": 20
+        },
+        {
+          "start": 1.003564,
+          "end": 2.005021,
+          "mbps": 1021.9212613128713,
+          "possible_scan_call_overlap": 7,
+          "possible_target_P_overlap": 61
+        },
+        {
+          "start": 2.005021,
+          "end": 3.002572,
+          "mbps": 171.3374894062903,
+          "possible_scan_call_overlap": 6,
+          "possible_target_P_overlap": 52
+        },
+        {
+          "start": 3.002572,
+          "end": 4.003428,
+          "mbps": 271.348897971575,
+          "possible_scan_call_overlap": 4,
+          "possible_target_P_overlap": 58
+        },
+        {
+          "start": 4.003428,
+          "end": 5.003563,
+          "mbps": 492.7642239733007,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 42
+        },
+        {
+          "start": 5.003563,
+          "end": 6.004095,
+          "mbps": 120.52211848963508,
+          "possible_scan_call_overlap": 6,
+          "possible_target_P_overlap": 52
+        },
+        {
+          "start": 6.004095,
+          "end": 7.00503,
+          "mbps": 156.0918845723023,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 56
+        },
+        {
+          "start": 7.00503,
+          "end": 8.00202,
+          "mbps": 372.31656754420277,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 64
+        },
+        {
+          "start": 8.00202,
+          "end": 9.005023,
+          "mbps": 538.399824673387,
+          "possible_scan_call_overlap": 4,
+          "possible_target_P_overlap": 36
+        },
+        {
+          "start": 9.005023,
+          "end": 10.004143,
+          "mbps": 324.29536488602884,
+          "possible_scan_call_overlap": 6,
+          "possible_target_P_overlap": 16
+        },
+        {
+          "start": 10.004143,
+          "end": 11.004175,
+          "mbps": 125.82510012842722,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 48
+        },
+        {
+          "start": 11.004175,
+          "end": 12.001746,
+          "mbps": 183.947610306024,
+          "possible_scan_call_overlap": 7,
+          "possible_target_P_overlap": 64
+        },
+        {
+          "start": 12.001746,
+          "end": 13.002484,
+          "mbps": 206.41713105638098,
+          "possible_scan_call_overlap": 4,
+          "possible_target_P_overlap": 72
+        },
+        {
+          "start": 13.002484,
+          "end": 14.005027,
+          "mbps": 58.57131076364968,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 24
+        },
+        {
+          "start": 14.005027,
+          "end": 15.005092,
+          "mbps": 337.619537175085,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 24
+        },
+        {
+          "start": 15.005092,
+          "end": 16.004542,
+          "mbps": 65.0474862998653,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 60
+        },
+        {
+          "start": 16.004542,
+          "end": 17.004705,
+          "mbps": 184.51930690003346,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 64
+        },
+        {
+          "start": 17.004705,
+          "end": 18.003376,
+          "mbps": 216.29411190526773,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 52
+        },
+        {
+          "start": 18.003376,
+          "end": 19.000063,
+          "mbps": 64.17575058066255,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 12
+        },
+        {
+          "start": 19.000063,
+          "end": 20.005025,
+          "mbps": 171.1173851018705,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 40
+        },
+        {
+          "start": 20.005025,
+          "end": 21.005024,
+          "mbps": 423.625133250435,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 77
+        },
+        {
+          "start": 21.005024,
+          "end": 22.005024,
+          "mbps": 1221.59104,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 23
+        },
+        {
+          "start": 22.005024,
+          "end": 23.004205,
+          "mbps": 1513.2860147462188,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 23.004205,
+          "end": 24.001258,
+          "mbps": 1582.7712639378126,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 24.001258,
+          "end": 25.005024,
+          "mbps": 1655.7574755893156,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 25.005024,
+          "end": 26.00322,
+          "mbps": 1694.4097934037547,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 26.00322,
+          "end": 27.00046,
+          "mbps": 1722.3210822622514,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 27.00046,
+          "end": 28.005023,
+          "mbps": 1300.59113250877,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 53
+        },
+        {
+          "start": 28.005023,
+          "end": 29.001991,
+          "mbps": 78.88237361877043,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 79
+        },
+        {
+          "start": 29.001991,
+          "end": 30.005018,
+          "mbps": 134.8580936373701,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 19
+        },
+        {
+          "start": 30.005018,
+          "end": 31.005022,
+          "mbps": 304.08580750499544,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 2
+        },
+        {
+          "start": 31.005022,
+          "end": 32.000947,
+          "mbps": 271.6395365988003,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 23
+        },
+        {
+          "start": 32.000947,
+          "end": 33.00388,
+          "mbps": 1333.0246050278063,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 9
+        },
+        {
+          "start": 33.00388,
+          "end": 34.005021,
+          "mbps": 1539.6500530228946,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 34.005021,
+          "end": 35.004271,
+          "mbps": 1600.278617356813,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 35.004271,
+          "end": 36.001319,
+          "mbps": 1647.9834054552584,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 36.001319,
+          "end": 37.00502,
+          "mbps": 1688.2506482912634,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 37.00502,
+          "end": 38.004251,
+          "mbps": 1717.8399637890934,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 38.004251,
+          "end": 39.001133,
+          "mbps": 1763.9619475557938,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 39.001133,
+          "end": 40.005021,
+          "mbps": 1756.8740862644127,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 40.005021,
+          "end": 41.000489,
+          "mbps": 1807.5481874407365,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 41.000489,
+          "end": 42.000869,
+          "mbps": 1800.7692050847452,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 42.000869,
+          "end": 43.000616,
+          "mbps": 1820.7886350668691,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 43.000616,
+          "end": 44.002876,
+          "mbps": 1180.1266774534538,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 61
+        },
+        {
+          "start": 44.002876,
+          "end": 45.00503,
+          "mbps": 68.0109449243167,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 96
+        },
+        {
+          "start": 45.00503,
+          "end": 46.00331,
+          "mbps": 259.444519488193,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 36
+        },
+        {
+          "start": 46.00331,
+          "end": 47.005027,
+          "mbps": 408.2436972486553,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 47.005027,
+          "end": 48.004198,
+          "mbps": 95.49958337828406,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 48.004198,
+          "end": 49.004187,
+          "mbps": 1423.9819100481443,
+          "possible_scan_call_overlap": 1,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 49.004187,
+          "end": 50.001227,
+          "mbps": 1541.776113790321,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 50.001227,
+          "end": 51.000976,
+          "mbps": 1622.5543252811021,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 51.000976,
+          "end": 52.00502,
+          "mbps": 1655.2988389001882,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 52.00502,
+          "end": 53.000797,
+          "mbps": 1693.2608299986323,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 53.000797,
+          "end": 54.001623,
+          "mbps": 1731.8656049886772,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 54.001623,
+          "end": 55.005025,
+          "mbps": 1759.815102339709,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 55.005025,
+          "end": 56.005037,
+          "mbps": 1745.8580196280882,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 56.005037,
+          "end": 57.000696,
+          "mbps": 1781.9259437103449,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 57.000696,
+          "end": 58.004635,
+          "mbps": 1806.9189673639812,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 58.004635,
+          "end": 59.000163,
+          "mbps": 1811.652461126382,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 1
+        },
+        {
+          "start": 59.000163,
+          "end": 60.003898,
+          "mbps": 1182.5711921594036,
+          "possible_scan_call_overlap": 2,
+          "possible_target_P_overlap": 45
+        }
+      ],
+      "below_500_bins": 26,
+      "below_500_bins_with_possible_scan_overlap": 22,
+      "target_P_in_guaranteed_traffic": 821,
+      "target_P_gate1": 206,
+      "kernel_emitted_sequence_continuous": true,
+      "kernel_record_count": 1069,
+      "global_event_coverage": {
+        "P": {
+          "observed": 1060,
+          "missing_between_first_last": 508,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "global_P_missing": 508,
+      "sender_retransmits": 14288,
+      "iperf_sha256": "3499d93464c535b8c52d005a75a5fdcca8d203ccfd53821430305a4fccbfd564"
+    },
+    {
+      "label": "live-scan-closed-60",
+      "receiver_mbps": 1958.2436875627366,
+      "min_interval_mbps": 1751.7625668528099,
+      "max_interval_mbps": 2009.5258106574456,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "panel": "closed",
+      "router_unchanged": true,
+      "wired_checks_all_normal": true,
+      "start_end_link_bitmap": "0x6",
+      "data_start_bracket_width_seconds": 0.5635848045349121,
+      "source_log_sha256": "703caec3ec071a944926fcd1f33125b084aea0ec4ed42f0b933ab4623740b70d",
+      "reader_drop_notice_count": 0,
+      "complete_log_scan_call_pairs": 0,
+      "capture_boundary_unmatched_calls": {
+        "unmatched_enters": 0,
+        "unmatched_exits": 0
+      },
+      "wifi_settings_scan_requests_relative_bounds": [],
+      "scan_calls_overlapping_traffic": [],
+      "receiver_intervals": [
+        {
+          "start": 0,
+          "end": 1.00143,
+          "mbps": 1751.7625668528099,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 3
+        },
+        {
+          "start": 1.00143,
+          "end": 2.004826,
+          "mbps": 1953.1555608379365,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 2.004826,
+          "end": 3.00139,
+          "mbps": 1930.771145566214,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 3.00139,
+          "end": 4.001023,
+          "mbps": 1981.4872416763799,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 4.001023,
+          "end": 5.004477,
+          "mbps": 1966.6273601843684,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 5.004477,
+          "end": 6.003334,
+          "mbps": 1974.6284141550261,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 6.003334,
+          "end": 7.001224,
+          "mbps": 1999.659418221037,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 7.001224,
+          "end": 8.004279,
+          "mbps": 2002.9526428190475,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 8.004279,
+          "end": 9.001366,
+          "mbps": 1950.7911310522836,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 9.001366,
+          "end": 10.004567,
+          "mbps": 1962.9423341928575,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 10.004567,
+          "end": 11.005022,
+          "mbps": 1981.9553829787371,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 11.005022,
+          "end": 12.001306,
+          "mbps": 1952.3634468987666,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 12.001306,
+          "end": 13.001299,
+          "mbps": 1955.6078779076074,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 13.001299,
+          "end": 14.000666,
+          "mbps": 1984.1131622656533,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 14.000666,
+          "end": 15.00044,
+          "mbps": 2009.5258106574456,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 15.00044,
+          "end": 16.001448,
+          "mbps": 1960.9575605918183,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 16.001448,
+          "end": 17.002294,
+          "mbps": 1973.8472533086706,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 17.002294,
+          "end": 18.002352,
+          "mbps": 1993.2272593429218,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 18.002352,
+          "end": 19.000054,
+          "mbps": 1974.8124179493955,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 19.000054,
+          "end": 20.003245,
+          "mbps": 1973.4143341817055,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 20.003245,
+          "end": 21.000032,
+          "mbps": 1981.8849573316995,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 21.000032,
+          "end": 22.001579,
+          "mbps": 1961.9962570893222,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 22.001579,
+          "end": 23.002844,
+          "mbps": 1988.729983161888,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 23.002844,
+          "end": 24.000638,
+          "mbps": 1944.1544582141973,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 24.000638,
+          "end": 25.004619,
+          "mbps": 1938.4401370099308,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 25.004619,
+          "end": 26.00503,
+          "mbps": 1932.779706540513,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 26.00503,
+          "end": 27.005021,
+          "mbps": 1932.5429614690463,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 27.005021,
+          "end": 28.001132,
+          "mbps": 1920.0698221146044,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 28.001132,
+          "end": 29.004319,
+          "mbps": 1955.6531445247465,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 29.004319,
+          "end": 30.004413,
+          "mbps": 1955.410321673646,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 30.004413,
+          "end": 31.004842,
+          "mbps": 1947.4186987120868,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 31.004842,
+          "end": 32.005025,
+          "mbps": 1939.5106961925198,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 32.005025,
+          "end": 33.002615,
+          "mbps": 1970.8296889121405,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 33.002615,
+          "end": 34.005022,
+          "mbps": 1945.6682245950794,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 34.005022,
+          "end": 35.000342,
+          "mbps": 1964.7894110095547,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 35.000342,
+          "end": 36.004044,
+          "mbps": 1948.381245949858,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 36.004044,
+          "end": 37.001022,
+          "mbps": 1954.1597081355517,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 37.001022,
+          "end": 38.005022,
+          "mbps": 1977.046284676042,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 38.005022,
+          "end": 39.005022,
+          "mbps": 1965.031424,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 39.005022,
+          "end": 40.000715,
+          "mbps": 1988.2749325159837,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 40.000715,
+          "end": 41.005037,
+          "mbps": 1972.2359576309968,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 41.005037,
+          "end": 42.001323,
+          "mbps": 1983.93414103904,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 42.001323,
+          "end": 43.003973,
+          "mbps": 1952.5171775347874,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 43.003973,
+          "end": 44.003967,
+          "mbps": 1956.6545951959117,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 44.003967,
+          "end": 45.004455,
+          "mbps": 1948.3519048197675,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 45.004455,
+          "end": 46.003938,
+          "mbps": 1966.047891774704,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 46.003938,
+          "end": 47.000552,
+          "mbps": 1962.2384198301763,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 47.000552,
+          "end": 48.003626,
+          "mbps": 1962.1454189736062,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 48.003626,
+          "end": 49.000542,
+          "mbps": 1936.4002820709043,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 49.000542,
+          "end": 50.003903,
+          "mbps": 1975.1701194792415,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 50.003903,
+          "end": 51.004738,
+          "mbps": 1952.9150934316299,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 51.004738,
+          "end": 52.004487,
+          "mbps": 1949.7921723966185,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 52.004487,
+          "end": 53.002997,
+          "mbps": 1928.0583369645606,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 53.002997,
+          "end": 54.005079,
+          "mbps": 1958.8559530203195,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 54.005079,
+          "end": 55.002661,
+          "mbps": 1936.1585878878304,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 55.002661,
+          "end": 56.001283,
+          "mbps": 1945.6924918306756,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 56.001283,
+          "end": 57.003856,
+          "mbps": 1963.1260026744237,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 57.003856,
+          "end": 58.00098,
+          "mbps": 1990.679529909919,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 58.00098,
+          "end": 59.005027,
+          "mbps": 1946.667430495954,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 59.005027,
+          "end": 60.005032,
+          "mbps": 1959.7787317991276,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 5
+        }
+      ],
+      "below_500_bins": 0,
+      "below_500_bins_with_possible_scan_overlap": 0,
+      "target_P_in_guaranteed_traffic": 0,
+      "target_P_gate1": 0,
+      "kernel_emitted_sequence_continuous": true,
+      "kernel_record_count": 258,
+      "global_event_coverage": {
+        "P": {
+          "observed": 256,
+          "missing_between_first_last": 0,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "global_P_missing": 0,
+      "sender_retransmits": 2166,
+      "iperf_sha256": "4734b05490087a7d447310e40ca9f8929e3a2a103cfa7e733a236cb4d877cb3c"
+    }
+  ],
+  "restoration": {
+    "router_config_boot_and_parameters_unchanged": true,
+    "wired_http_200": true,
+    "original_hotspot_cua_verified": true,
+    "hotspot_https_200": true,
+    "system_settings_general_restored": true
+  },
+  "limits": [
+    "Scan enter/exit is an API call interval, not measured RF off-channel dwell.",
+    "The Wi-Fi settings extension scan request is distinct from cached-result lookups; background connect scans also occurred.",
+    "Possible overlap includes data-start and clock uncertainty, not proof that every packet loss occurred inside a scan.",
+    "Rate-limited PS gaps remain. No post-wake NPU/WA stall claim is possible from these logs.",
+    "Closing the Wi-Fi settings pane removes the reproduced scan trigger; it is not an AP firmware repair or proof of the original Air stall fix.",
+    "No firmware changes or new build were made. Existing kernel lacks kprobes/ftrace; host queue debugfs does not expose full NPU internal progress."
+  ]
+}
