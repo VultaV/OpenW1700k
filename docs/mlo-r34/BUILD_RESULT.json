@@ -1,0 +1,546 @@
+{
+  "image": "openwrt-ubi2-mlo-link-lifecycle-r34-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "ae6861d33660b4e5366af77d369e1fe2920cf14940ee091a1e78e307f28c0e62",
+  "bytes": 30290793,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 8.165198541944847
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 149.33709000004455
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 426.98979533300735
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 14.442007375066169
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 11.806747167021967
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 6.627314083976671
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 10.051174332969822
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 5.683505250024609
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.073143083020113
+    }
+  ],
+  "final_stage_exit_codes": {
+    "defconfig": 0,
+    "kernel": 0,
+    "packages": 0,
+    "package-install": 0,
+    "target-install": 0,
+    "index": 0,
+    "buildinfo": 0,
+    "image-info": 0,
+    "checksum": 0
+  },
+  "build_stage_policy": "All nine make stages ran; no prior-success JSON skip.",
+  "build_warnings": {
+    "file": "BUILD_WARNINGS.json",
+    "sha256": "29c095693b7ed850e916cb6f7dd1d40861c4ec7850dde083574a527e89eeb17e",
+    "total_diagnostic_occurrences": 1076,
+    "unique_normalized_messages": 309,
+    "categories": {
+      "feed_dependency": 126,
+      "modpost_module_description": 8,
+      "source_diagnostic": 628,
+      "build_tool_or_configuration": 117,
+      "firmware_mapping": 138,
+      "device_tree": 59
+    },
+    "major_observations": [
+      "All nine build commands exited 0, but all nine logs contain warnings.",
+      "14 unique missing-feed-dependency messages recur across all nine stages (126 occurrences). Their six dependent recipes are not enabled/installed; the GStreamer recipe family also has no enabled packages.",
+      "28 empty-kmod warnings concern packages selected as m for package building but absent from the verified 206-package image; they are not installed-image missing-module findings.",
+      "Other warnings include compiler/autotools/libtool diagnostics, modpost missing MODULE_DESCRIPTION, Broadcom firmware mapping, and DTC warnings including W1700K PCI bridge ranges. They have not all been resolved or individually assessed.",
+      "Warning counts are separate from host regression PASS/FAIL counts and do not change the successful command exit codes or image-content validation."
+    ],
+    "limitations": [
+      "This inventory recognizes the explicit detection pattern, not every possible diagnostic spelling.",
+      "No assertion that every warning is harmless or pre-existing.",
+      "No clean-room build, boot or wireless validation was performed by this inventory."
+    ]
+  },
+  "verifier_sha256": "b2cc47db0803cc38e43b95371a1dec857dff09f8078593a7ff5e083aa66cd50b",
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-link-lifecycle-r34-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "ae6861d33660b4e5366af77d369e1fe2920cf14940ee091a1e78e307f28c0e62",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "changed_modules": [
+      "airoha_npu.ko",
+      "mt7996e.ko"
+    ],
+    "kernel_payload_identical_to_r33": true,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 337,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f8dc3a28bbfe4ed38aae7bf2c645af5872faa7818a2691ab64323a3638997dbe",
+      "airoha_npu.ko": "241d6dfd5efaa1b38b9403bf4161d76299b68b5c242a554ffa4f53c2d052d378",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "243009a786ba418d04595df9c1f01552765858401a60655d6bbad4d128d9bf27",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "d71c1f0e4e201a6507542a87d41fc096a66f1fddd45a00c5586ee51bd4bac7dc",
+      "mac80211.ko": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "package_changes": {
+    "kmod-airoha-npu": {
+      "baseline": "6.18.44-r1",
+      "candidate": "6.18.44-r2"
+    },
+    "kmod-mt76-connac": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r26",
+      "candidate": "6.18.44.2026.09.01~01367e60-r27"
+    },
+    "kmod-mt76-core": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r26",
+      "candidate": "6.18.44.2026.09.01~01367e60-r27"
+    },
+    "kmod-mt7996-firmware": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r26",
+      "candidate": "6.18.44.2026.09.01~01367e60-r27"
+    },
+    "kmod-mt7996-firmware-common": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r26",
+      "candidate": "6.18.44.2026.09.01~01367e60-r27"
+    },
+    "kmod-mt7996e": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r26",
+      "candidate": "6.18.44.2026.09.01~01367e60-r27"
+    },
+    "luci-app-attendedsysupgrade": {
+      "baseline": "26.250.72430~e81743d",
+      "candidate": "26.250.72430~e81743d-r2"
+    }
+  },
+  "checks": [
+    {
+      "name": "mt7996_link_lifecycle",
+      "pass": 631,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "extracted C assertions"
+    },
+    {
+      "name": "mt7996_mlo_ps",
+      "pass": 99,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "extracted C assertions; includes 29 existing PS assertions"
+    },
+    {
+      "name": "npu_watchdog",
+      "pass": 90,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "2 IRQ modes x (success + 44 probe failure boundaries)"
+    },
+    {
+      "name": "installed_updater_ui",
+      "pass": 9,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "view behavior cases with inert RPC and DOM"
+    },
+    {
+      "name": "bridge_ttl_structure",
+      "pass": 12,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "structural assertions"
+    },
+    {
+      "name": "bridge_ttl_guards",
+      "pass": 2091,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "extracted C assertions"
+    },
+    {
+      "name": "bridge_conntrack_ownership",
+      "pass": 7,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "extracted C cases"
+    },
+    {
+      "name": "airoha_ppe_ownership",
+      "pass": 11,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "extracted C cases"
+    },
+    {
+      "name": "bridge_fdb_cleanup",
+      "pass": 1026,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "extracted C cases, including 1000 stub publication races"
+    }
+  ],
+  "negative_controls": {
+    "selectors": {
+      "checks": 464,
+      "expected_failures_observed": 72
+    },
+    "allocation": {
+      "checks": 162,
+      "expected_failures_observed": 54
+    },
+    "npu_watchdog": {
+      "expected_failing_runs_observed": 2
+    },
+    "updater_ui": {
+      "checks": 9,
+      "pass": 6,
+      "expected_failures_observed": 3
+    },
+    "note": "Unfixed baselines intentionally fail. Not included in candidate pass counts."
+  },
+  "driver_tests": {
+    "scope": "Extracted actual prepared-source host tests under ASan/UBSan; hardware, MCU, RCU and locks are stubbed. No live or wireless tests.",
+    "status": "pass",
+    "test_sha256": "c027289f04665c818ea758b90e998c03f3b7476060428b89a371bd309cdc03a6",
+    "results": [
+      {
+        "name": "before-selectors",
+        "command": [
+          "python3",
+          "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+          "artifacts/mlo-link-lifecycle-r34-2026-09-26/before/mt76",
+          "selectors"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "negative_control": true,
+        "expected_result_observed": true,
+        "log": "artifacts/mlo-link-lifecycle-r34-2026-09-26/driver-final-before-selectors.log",
+        "check_count": 464,
+        "failure_count": 72
+      },
+      {
+        "name": "before-allocation",
+        "command": [
+          "python3",
+          "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+          "artifacts/mlo-link-lifecycle-r34-2026-09-26/before/mt76",
+          "allocation"
+        ],
+        "exit_code": 1,
+        "expected_exit_code": 1,
+        "negative_control": true,
+        "expected_result_observed": true,
+        "log": "artifacts/mlo-link-lifecycle-r34-2026-09-26/driver-final-before-allocation.log",
+        "check_count": 162,
+        "failure_count": 54
+      },
+      {
+        "name": "prepared-lifecycle",
+        "command": [
+          "python3",
+          "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "negative_control": false,
+        "expected_result_observed": true,
+        "log": "artifacts/mlo-link-lifecycle-r34-2026-09-26/driver-final-prepared-lifecycle.log",
+        "check_count": 631,
+        "failure_count": 0
+      },
+      {
+        "name": "prepared-mlo-ps",
+        "command": [
+          "python3",
+          "publish-mlo-r29/tests/test_mt7996_mlo_ps.py",
+          "--source-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+        ],
+        "exit_code": 0,
+        "expected_exit_code": 0,
+        "negative_control": false,
+        "expected_result_observed": true,
+        "log": "artifacts/mlo-link-lifecycle-r34-2026-09-26/driver-final-prepared-mlo-ps.log",
+        "check_count": 99,
+        "failure_count": 0
+      }
+    ],
+    "finished_utc": "2026-09-26T11:27:50.194016+00:00",
+    "prepared_sources_before_sha256": {
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/mt7996/main.c": "2f8326446990e9eb55d570214dacf4f87cf18d3f53c33a9c669ac982546397b4",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/tx.c": "e4117a2482a7a1e1d0731aa7b14a1645efab6251f59ff2ce75b200fb859d79c0",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/tx.c": "3adab10af9a41d39a483f360b410eca7a945a56ac2ba9a6ab632e19ee9111436",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/sta_info.c": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60"
+    },
+    "prepared_sources_after_sha256": {
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/mt7996/main.c": "2f8326446990e9eb55d570214dacf4f87cf18d3f53c33a9c669ac982546397b4",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/tx.c": "e4117a2482a7a1e1d0731aa7b14a1645efab6251f59ff2ce75b200fb859d79c0",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/tx.c": "3adab10af9a41d39a483f360b410eca7a945a56ac2ba9a6ab632e19ee9111436",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/sta_info.c": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60"
+    },
+    "prepared_sources_unchanged": true,
+    "all_test_files_sha256": {
+      "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py": "c027289f04665c818ea758b90e998c03f3b7476060428b89a371bd309cdc03a6",
+      "publish-mlo-r29/tests/test_mt7996_mlo_ps.py": "b84fecc83baeffaac5663ae121a617ab83ae3c98dde84833ef834b8b35bc8e94",
+      "publish-mlo-r29/tests/test_mt76_ps_wake.py": "90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0"
+    }
+  },
+  "kernel_tests": [
+    {
+      "name": "npu-watchdog",
+      "command": [
+        "python3",
+        "publish-mlo-r29/tests/test_airoha_npu_watchdog.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "EXPECTED FAIL before immediate_irq=0\nEXPECTED FAIL before immediate_irq=1\nPASS immediate_irq=0: success + 44 probe failure boundaries\nPASS immediate_irq=1: success + 44 probe failure boundaries\nPASS patch applicability, kernel helper compatibility and both negative controls\n"
+    },
+    {
+      "name": "ttl",
+      "command": [
+        "python3",
+        "publish-mlo-r29/tests/test_bridge_ttl.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"structural_passed\": 12, \"extracted_c\": {\"passed\": 2091, \"failed\": 0, \"scope\": \"extracted source guards and allocation only\"}, \"limitations\": [\"Extracted guards only; not a kernel build or full forwarding test.\", \"IPv4 checksum helper and kernel context are stubs.\", \"Does not prove PPE bit semantics, packet checksums, or module ABI isolation.\"]}\n"
+    },
+    {
+      "name": "conntrack",
+      "command": [
+        "python3",
+        "publish-mlo-r29/tests/test_bridge_conntrack_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/bridge/netfilter/nf_conntrack_bridge.c"
+      ],
+      "exit_code": 0,
+      "output": "0 ownership failures across 7 cases\nPASS: drop, stolen, accept and conntrack ownership\n"
+    }
+  ],
+  "forwarding_tests": {
+    "checked_at_utc": "2026-09-26T11:25:51.519528+00:00",
+    "kernel_tree": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44",
+    "tests": [
+      {
+        "name": "airoha_ppe_ownership",
+        "command": [
+          "python3",
+          "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_ppe.c",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "case_groups": {
+          "cases": 11
+        },
+        "counts": {
+          "pass": 11,
+          "fail": 0,
+          "warn": 0,
+          "skip": 0
+        },
+        "stdout": "PASS case 0\nPASS case 1\nPASS case 2\nPASS case 3\nPASS case 4\nPASS case 5\nPASS case 6\nPASS case 7\nPASS case 8\nPASS case 9\nPASS case 10\n",
+        "stderr": "",
+        "input_sha256": {
+          "publish-mlo-r29/tests/test_airoha_ppe_ownership.py": "8b5c21171f79571cdbe8f5fe762debfc68757e415684bbd33fc69b77c9160b7e",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_ppe.c": "bf50f9c2b9b7de4146f9b120e5b35470771da70b969e53f771871dc4d596b3c0",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h": "a1aad782e11e4f58ada68a77c930ebe4c3e3a6bf5ade2ccf2c2144bf88c2749d"
+        },
+        "inputs_unchanged_after_test": true,
+        "sanitizers": [
+          "address",
+          "undefined"
+        ],
+        "scope": "Host-compiled functions extracted from the actual prepared kernel source; kernel/hardware services are stubs."
+      },
+      {
+        "name": "bridge_fdb_cleanup",
+        "command": [
+          "python3",
+          "publish-mlo-r29/tests/test_bridge_fdb_cleanup.py",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/netfilter/nf_flow_table_core.c"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "case_groups": {
+          "matching_cases": 13,
+          "rejected_events": 9,
+          "insertion_failure_cases": 1,
+          "publication_races": 1000,
+          "teardown_cases": 3
+        },
+        "counts": {
+          "pass": 1026,
+          "fail": 0,
+          "warn": 0,
+          "skip": 0
+        },
+        "stdout": "PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races, 3 teardown cases; failures=0\nScope: extracted C with stubs, not kernel locking/GC/hardware acceptance.\n",
+        "stderr": "",
+        "input_sha256": {
+          "publish-mlo-r29/tests/test_bridge_fdb_cleanup.py": "a5b9f758a1934ffd02800d6b35f695c9e55b6ae7e59909b3aaa1f2b30c9aba85",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/netfilter/nf_flow_table_core.c": "d285095bf6d8f778acebe8f1a91ed64f86acb879c59cbe4492e2c9c2cdfbe1f9"
+        },
+        "inputs_unchanged_after_test": true,
+        "sanitizers": [
+          "address",
+          "undefined"
+        ],
+        "scope": "Host-compiled functions extracted from the actual prepared kernel source; kernel/hardware services are stubs."
+      }
+    ],
+    "summary": {
+      "pass": 1037,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100.0
+    },
+    "baseline_negative_controls": {
+      "executed_in_this_run": false,
+      "count": 0,
+      "note": "These two existing regression scripts do not execute an unfixed baseline. No prior baseline failures or other r34 test results are included in the pass counts."
+    },
+    "limitations": [
+      "Extracted host C tests do not prove kernel locking, GC scheduling, DMA/SRAM timing, NPU behavior, device boot, or wireless throughput.",
+      "FDB publication races use pthread/stub coordination, not live kernel concurrency."
+    ],
+    "changes": "Only this result JSON was written; build source and manifests were not modified."
+  },
+  "build_log_sha256": {
+    "defconfig.log": "b377b196b60e697a9f6e638b4095252ba4d0ecb254eefc6c8d16d3c74b8b4c9f",
+    "kernel.log": "60f1b016a5616e78c660150d541d9ff5171d3e8f118c3b3a5203ca0d441fd05b",
+    "packages.log": "1b49c22c791bb2ea4835e34a73ec2301c314ecf5a95599a45fce00167efcecde",
+    "package-install.log": "107b60a74218190c89f9f6e8d1207168d185e0f0ec6dc4f5a0cef91eed14cd7c",
+    "target-install.log": "b1e7dd55fdecd46ca01a37f5ebc1006b9b4eb354be97515ef54b0a880cd92c23",
+    "index.log": "76151689b094f309d5d1e03ff0b54734373bd361b53b9e2f7d1a71a7e9d527be",
+    "buildinfo.log": "2090cbe1da3b9e1080b0b6a4440355976779d5e827929e6f28ae22b30d464e43",
+    "image-info.log": "0fdd87f64b27625303940df5936a377a9553c68c68a4b456c57f7640c6ab5c7c",
+    "checksum.log": "b9c8534e47e1d9dfffc187a27f2e7704c62617a90cf982b108b096a5852f33b2"
+  },
+  "installed": false,
+  "boot_tested": false,
+  "wireless_tested": false,
+  "limitations": [
+    "No further wireless tests or device installation were performed.",
+    "Host C tests use kernel, IRQ, firmware and hardware stubs; they are not hardware acceptance.",
+    "UI tests do not exercise the complete browser dropdown and installation flow.",
+    "Air sleep/wake stall causality and resolution remain unproven.",
+    "The kernel payload and 72 unchanged modules match r33; r33 itself was not boot-tested.",
+    "This is a native incremental build with pinned inputs, not a clean-room reproducibility claim."
+  ]
+}

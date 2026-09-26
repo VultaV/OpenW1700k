@@ -1,0 +1,69 @@
+Subject: [PATCH] wifi: mt76: mt7996: restore selectors after station link changes
+
+A retained link is reactivated without mac_sta_init_link(), so the
+secondary selector reset on removal is otherwise never restored. Reconcile
+selectors with published active WCIDs after additions and error unwind.
+Preserve an active primary, retarget TXQs when selecting a replacement,
+and handle a surviving third link without selecting an unpublished link.
+Non-MLO station setup is unchanged.
+
+---
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -1240,6 +1240,43 @@
+ 	}
+ }
+ 
++static void
++mt7996_sta_update_link_ids(struct mt7996_dev *dev, struct ieee80211_sta *sta)
++{
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++	unsigned long links = 0;
++	unsigned int link_id;
++
++	if (!sta->mlo)
++		return;
++
++	for (link_id = 0; link_id < ARRAY_SIZE(msta->link); link_id++) {
++		struct mt7996_sta_link *link;
++
++		link = mt76_dereference(msta->link[link_id], &dev->mt76);
++		if (link && link->wcid.link_valid)
++			links |= BIT(link_id);
++	}
++	if (!links) {
++		msta->deflink_id = IEEE80211_LINK_UNSPECIFIED;
++		msta->seclink_id = IEEE80211_LINK_UNSPECIFIED;
++		return;
++	}
++
++	if (msta->deflink_id >= IEEE80211_MLD_MAX_NUM_LINKS ||
++	    !(links & BIT(msta->deflink_id))) {
++		struct mt7996_sta_link *link;
++
++		msta->deflink_id = __ffs(links);
++		link = mt76_dereference(msta->link[msta->deflink_id], &dev->mt76);
++		mt7996_sta_init_txq_wcid(sta, link->wcid.idx);
++	}
++	links &= ~BIT(msta->deflink_id);
++	if (msta->seclink_id >= IEEE80211_MLD_MAX_NUM_LINKS ||
++	    !(links & BIT(msta->seclink_id)))
++		msta->seclink_id = links ? __ffs(links) : msta->deflink_id;
++}
++
+ static int
+ mt7996_mac_sta_init_link(struct mt7996_dev *dev,
+ 			 struct ieee80211_bss_conf *link_conf,
+@@ -1429,10 +1466,12 @@
+ 		mphy->num_sta++;
+ 	}
+ 
++	mt7996_sta_update_link_ids(dev, sta);
+ 	return 0;
+ 
+ error_unlink:
+ 	mt7996_mac_sta_remove_links(dev, vif, sta, new_links, true);
++	mt7996_sta_update_link_ids(dev, sta);
+ 
+ 	return err;
+ }

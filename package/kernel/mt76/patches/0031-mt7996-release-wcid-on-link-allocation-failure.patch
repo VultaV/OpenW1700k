@@ -1,0 +1,21 @@
+Subject: [PATCH] wifi: mt76: mt7996: return WCID when link allocation fails
+
+The WCID is reserved before allocating a secondary link. At this point
+no link has been published, so the caller's link cleanup cannot release
+that reservation. Return it directly on the allocation failure path.
+
+---
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -1303,8 +1303,10 @@
+ 		mt7996_sta_init_txq_wcid(sta, idx);
+ 	} else {
+ 		msta_link = kzalloc(sizeof(*msta_link), GFP_KERNEL);
+-		if (!msta_link)
++		if (!msta_link) {
++			mt76_wcid_mask_clear(dev->mt76.wcid_mask, idx);
+ 			return -ENOMEM;
++		}
+ 
+ 		if (msta->seclink_id == msta->deflink_id &&
+ 		    (sta->valid_links & ~BIT(msta->deflink_id)))
