@@ -1,0 +1,104 @@
+{
+  "scope": "Current ignored-error behavior reproduced, not a product correctness pass or runtime failure attribution",
+  "cases": [
+    {
+      "name": "success",
+      "npu_return": 0,
+      "submitted": 1,
+      "mailbox_writes": 4,
+      "wm_calls": 1,
+      "wm_return": 0,
+      "event_frees": 1,
+      "request_frees": 1,
+      "order": "NWF",
+      "descriptor_unchanged": true,
+      "observation_verified": true
+    },
+    {
+      "name": "request_allocation_ENOMEM",
+      "npu_return": -12,
+      "submitted": 0,
+      "mailbox_writes": 0,
+      "wm_calls": 1,
+      "wm_return": 0,
+      "event_frees": 1,
+      "request_frees": 0,
+      "order": "NWF",
+      "descriptor_unchanged": true,
+      "observation_verified": true
+    },
+    {
+      "name": "pending_mailbox_EBUSY",
+      "npu_return": -16,
+      "submitted": 0,
+      "mailbox_writes": 0,
+      "wm_calls": 1,
+      "wm_return": 0,
+      "event_frees": 1,
+      "request_frees": 1,
+      "order": "NWF",
+      "descriptor_unchanged": true,
+      "observation_verified": true
+    },
+    {
+      "name": "WM_positive_status",
+      "npu_return": 0,
+      "submitted": 1,
+      "mailbox_writes": 4,
+      "wm_calls": 1,
+      "wm_return": 1,
+      "event_frees": 1,
+      "request_frees": 1,
+      "order": "NWF",
+      "descriptor_unchanged": true,
+      "observation_verified": true
+    },
+    {
+      "name": "WM_transport_ENOMEM",
+      "npu_return": 0,
+      "submitted": 1,
+      "mailbox_writes": 4,
+      "wm_calls": 1,
+      "wm_return": -12,
+      "event_frees": 1,
+      "request_frees": 1,
+      "order": "NWF",
+      "descriptor_unchanged": true,
+      "observation_verified": true
+    }
+  ],
+  "verified_observations": 5,
+  "failed_checks": 0,
+  "actual_functions_sha256": {
+    "__airoha_npu_send_msg": "ede1458c03ed8ca103251f9603943052d6c210d9a62a4d35fe05f12172e8ea5f",
+    "airoha_npu_send_msg": "8a4d5f82be615aa0cfa550c7548b9e2af3b1a0952c70e503eead5601cdcf6f6e",
+    "airoha_npu_wlan_msg_send": "32b1be2de8d2777b260a6b40321c5c57ff269b52b20d392ed95dc53480cb3319",
+    "airoha_npu_wlan_send_msg": "6b67ed6fbc6e773bb1e8a1940ee6a0f3d4db7c373c4c47e354ea73b2ca829a55",
+    "mt76_npu_send_txrx_addr": "d6cba0e590149189be192a5e7b5887444181b6b1e69c0195f3d902c4cc43815c",
+    "mt7996_mcu_wed_rro_reset_sessions": "e25dcdd375f9d2ebf030402550bac3d1265bd7ae42969b7cd6b171d973ecd143",
+    "mt7996_wed_rro_work": "ccdd3cb5a96d7006950193f97cff014b3f839a2d42df3d843c87190819a1a0c7"
+  },
+  "source_sha256": {
+    "npu.c": "10ded64452ac34ad378b065dcb5617ca62e38ff4d03c3af107b5c47ada6ba2d7",
+    "airoha_offload.h": "163ecaa3da33e43ca7cd4afe7f8ec89987ea44b192175cd035b6c9b865a7d38b",
+    "mt7996/init.c": "a8624f459c825f164e86038407ec74f3cbbaca25ad1b6de2b1a24fe939dda972",
+    "mt7996/mcu.c": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657",
+    "mt7996/mcu.h": "50f56319b429a67e31d62bfa46868f88affdfc1170a06695a99ae67c5f142cd6",
+    "mt7996/mt7996.h": "f25c91f6786ae91a29542ca0c444d94bd9c31e896f4244901e934402acf25f0a",
+    "airoha_npu.c": "f046d7641707b7928615cfb262ab939a06291fbc0c1820d2aa4894f5af3f57d8"
+  },
+  "fixture_sha256": "b8d6359e0eb4ddce560fa3ab7dc601ce22aedc67ecc0e3270fae301d26361fb6",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "production_modified": false,
+  "limits": [
+    "Event parser reachability is source-checked, not executed.",
+    "Mailbox/WM device responses and list/RCU scheduling are bounded host models.",
+    "Neither firmware session reuse nor DMA completion, error incidence or wireless stalls are proved.",
+    "The event is freed; persistent DMA descriptor storage is not freed by this path.",
+    "No proposed retry/guard patch is tested or deployed."
+  ]
+}
