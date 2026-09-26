@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-27",
+  "timezone": "Asia/Seoul",
+  "scope": "r39 installation and this Mac MLO sequence only",
+  "build_label": "ubi2-mlo-npu-ba-r39-20260926-tailscale",
+  "image": {
+    "filename": "openwrt-ubi2-mlo-npu-ba-r39-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "bytes": 30290785,
+    "sha256": "78b54197e6249eaf9d8bbaccb88047098fb64d2a7218d5d9a9d4a6d4d568c8e9",
+    "rebuilt_for_this_followup": false
+  },
+  "installation": {
+    "installed": true,
+    "boot_tested": true,
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "counts": {
+      "passed": 24,
+      "failed": 0,
+      "warnings": 0,
+      "skipped": 0,
+      "pass_rate_percent": 100.0
+    },
+    "checks": [
+      {
+        "name": "expected_board_before_and_after",
+        "passed": true
+      },
+      {
+        "name": "expected_preinstall_build",
+        "passed": true
+      },
+      {
+        "name": "expected_running_r39_kernel_and_release",
+        "passed": true
+      },
+      {
+        "name": "live_manifest_matches_verified_candidate",
+        "passed": true
+      },
+      {
+        "name": "new_boot_id",
+        "passed": true
+      },
+      {
+        "name": "all_collected_uci_settings_unchanged",
+        "passed": true
+      },
+      {
+        "name": "all_module_paths_and_hashes_match_image",
+        "passed": true
+      },
+      {
+        "name": "selected_live_module_hashes_match_verification",
+        "passed": true
+      },
+      {
+        "name": "no_old_module_directory_or_symlink_restored",
+        "passed": true
+      },
+      {
+        "name": "loaded_modules_match_image_inventory",
+        "passed": true
+      },
+      {
+        "name": "no_forced_module_load_taint",
+        "passed": true
+      },
+      {
+        "name": "installed_wpad_matches_verified_image",
+        "passed": true
+      },
+      {
+        "name": "running_wpad_matches_verified_image",
+        "passed": true
+      },
+      {
+        "name": "tailscale_running_and_online",
+        "passed": true
+      },
+      {
+        "name": "tailscale-node_unchanged",
+        "passed": true
+      },
+      {
+        "name": "tailscale-address_unchanged",
+        "passed": true
+      },
+      {
+        "name": "lan2_carrier_and_2500mbps",
+        "passed": true
+      },
+      {
+        "name": "lan4_wired_carrier_up",
+        "passed": true
+      },
+      {
+        "name": "same_mlo_and_2g_ap_inventory",
+        "passed": true
+      },
+      {
+        "name": "hostapd.ap-mld0_enabled",
+        "passed": true
+      },
+      {
+        "name": "hostapd.phy0.0-ap0_enabled",
+        "passed": true
+      },
+      {
+        "name": "no_pending_uci_changes",
+        "passed": true
+      },
+      {
+        "name": "diagnostics_disabled",
+        "passed": true
+      },
+      {
+        "name": "scoped_bridge_acceleration_restored",
+        "passed": true
+      }
+    ],
+    "module_files_checked": 74,
+    "selected_module_files_checked": 12,
+    "root_restore_files_checked": 1443,
+    "root_restore_failures": 0,
+    "source_sha256": {
+      "installation_verification": "4504d0fef18b7445257a9f31cdcff3c8fee791ee4dbb904a40b0907787ae371c",
+      "root_restore_verification": "804ad5442b721292c36870aa9229a45538d106319700ae8aeb971002e9429d44"
+    },
+    "limits": [
+      "Module files, loaded-name inventory and a fresh boot were verified; live kernel memory was not hashed.",
+      "The 24 installation checks are separate from performance measurements."
+    ]
+  },
+  "installation_reachability": {
+    "measurement": "Router HTTP via wired en12; request-start timestamps",
+    "samples": 136,
+    "http_200_samples": 31,
+    "failed_samples": 105,
+    "failure_runs": 1,
+    "last_success_kst": "2026-09-27T03:26:18.363001+09:00",
+    "first_failure_kst": "2026-09-27T03:26:20.388094+09:00",
+    "last_failure_kst": "2026-09-27T03:29:52.166953+09:00",
+    "first_recovery_success_kst": "2026-09-27T03:29:54.184054+09:00",
+    "first_failure_to_first_recovery_seconds": 213.79596,
+    "surrounding_success_start_bracket_seconds": 215.821053,
+    "source_sha256": "f46b99236c5744fde78f36f38b78d7b0a779810f49e2453bad2ff5201e057fbb",
+    "limits": [
+      "Approximately two-second polling plus request duration.",
+      "HTTP unreachability is not a physical Ethernet link-down or total internet outage measurement."
+    ],
+    "hotspot": {
+      "internet_http_status_observed": 200,
+      "evidence_kind": "installation operator direct tool-output observation",
+      "separately_retained_capture": false,
+      "continuous_internet_availability_proven": false
+    }
+  },
+  "test_conditions": {
+    "client": "MacBook",
+    "server": "wired Linux iperf3 server on 2.5Gbps LAN",
+    "protocol": "IPv4 TCP",
+    "parallel_streams": 4,
+    "client_wifi_interface_bound": true,
+    "management": "wired Ethernet",
+    "mlo_valid_links_at_all_trial_boundaries": "0x6",
+    "same_client_same_recorded_association_and_router_boot": true,
+    "continuity_limit": "Matching before/after association timestamps; not continuous link-state capture.",
+    "panel": "macOS System Settings Wi-Fi panel; closed means switched away from that panel",
+    "panel_opened_by_test_operator": true,
+    "router_settings_changed_for_panel_comparison": false,
+    "performance_acceptance_gate": false
+  },
+  "trials": [
+    {
+      "id": "mlo-smoke",
+      "status": "completed",
+      "execution_and_path_checks": "passed",
+      "panel_state": "open",
+      "direction": "download",
+      "requested_seconds": 20,
+      "receiver_average_mbps": 1356.8947862234013,
+      "interval_measurement_point": "Mac receiver",
+      "interval_count": 20,
+      "interval_min_mbps": 51.532398808631896,
+      "interval_max_mbps": 1913.1726462549752,
+      "intervals_below_500_mbps": 5,
+      "zero_intervals": 0,
+      "sender_tcp_retransmissions": 4679,
+      "wired_http_checks": 34,
+      "wired_http_failures": 0,
+      "router_boot_and_four_selected_config_hashes_unchanged": true,
+      "valid_links_before": "0x6",
+      "valid_links_after": "0x6",
+      "offloaded_streams_observed": 4,
+      "bidirectional_ppe_entries_per_stream": 2,
+      "matching_ppe_ttl_decrement_bit_set": false,
+      "source_sha256": {
+        "summary.json": "14f5b17e321a529c573d84c8eed15ef0dad7a6a44f55f9d034a50059aebd1460",
+        "run.json": "20047c8239c54b5faef15e9bf32e6a822b949c547b10d59a69b8ccd03fb5802c",
+        "traffic.json": "231630016399ee9234ebbdb7039c4c32ed45fae83e2a0ab95f0d8cd697145dc6",
+        "iperf.json": "787560ea3c2cc973ab13327d92bb926946af082383584242dcb410c99bc4be2d",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station.before.txt": "947aede6f8fdb7d04b2300f9082bb29d71140cb8414e2612bdc736097c8c090a",
+        "station.after.txt": "8117cf69d29b109bf403f84d3f0be1f01bc3bc5d4b9bd601c58a5b9bd3511f70"
+      }
+    },
+    {
+      "id": "mlo-download-300",
+      "status": "completed",
+      "execution_and_path_checks": "passed",
+      "panel_state": "open",
+      "direction": "download",
+      "requested_seconds": 300,
+      "receiver_average_mbps": 1318.8076274457942,
+      "interval_measurement_point": "Mac receiver",
+      "interval_count": 300,
+      "interval_min_mbps": 29.541989293088164,
+      "interval_max_mbps": 2002.4521840286184,
+      "intervals_below_500_mbps": 67,
+      "zero_intervals": 0,
+      "sender_tcp_retransmissions": 60500,
+      "wired_http_checks": 339,
+      "wired_http_failures": 0,
+      "router_boot_and_four_selected_config_hashes_unchanged": true,
+      "valid_links_before": "0x6",
+      "valid_links_after": "0x6",
+      "offloaded_streams_observed": 4,
+      "bidirectional_ppe_entries_per_stream": 2,
+      "matching_ppe_ttl_decrement_bit_set": false,
+      "source_sha256": {
+        "summary.json": "8563bd72ac50c41542d08345b6e662f8f275e637f9c6cb46956f320ea9729e2a",
+        "run.json": "67222d2ada842ae9c90817650994d702af2139935684a20277f5d64373eb262c",
+        "traffic.json": "daba7c137158a50fc619558cdc6a5e1927c3489235f972367d6024bf2b5a5980",
+        "iperf.json": "189010f35318421e8603b554daa53e0f2c2f8cbf54d7e0c0154f3a970c21740a",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station.before.txt": "90953ba50753eba9b5b32eda47fed7400a0147190813a4e165f8cae190505a2d",
+        "station.after.txt": "83e9a0f03b15ae8cc4dfcc94e72bf0ec322ecfdc3d87a0bbfaa838bd16e69e45"
+      }
+    },
+    {
+      "id": "mlo-panel-closed-300",
+      "status": "completed",
+      "execution_and_path_checks": "passed",
+      "panel_state": "closed",
+      "direction": "download",
+      "requested_seconds": 300,
+      "receiver_average_mbps": 1952.6045034461627,
+      "interval_measurement_point": "Mac receiver",
+      "interval_count": 300,
+      "interval_min_mbps": 1661.7735014748519,
+      "interval_max_mbps": 2004.8933251278972,
+      "intervals_below_500_mbps": 0,
+      "zero_intervals": 0,
+      "sender_tcp_retransmissions": 9445,
+      "wired_http_checks": 339,
+      "wired_http_failures": 0,
+      "router_boot_and_four_selected_config_hashes_unchanged": true,
+      "valid_links_before": "0x6",
+      "valid_links_after": "0x6",
+      "offloaded_streams_observed": 4,
+      "bidirectional_ppe_entries_per_stream": 2,
+      "matching_ppe_ttl_decrement_bit_set": false,
+      "source_sha256": {
+        "summary.json": "f6bf3c19d28b384ad3f62eef813bf50fe48147320ccfd9333704aaaa8e7ad2eb",
+        "run.json": "97e0640e8cb1cfff2db8ebe1b0ec2bab7fbca3c944ebe6ccb2c430833d06282c",
+        "traffic.json": "d1c18bcba04f79e2f11f27357b41193bf7b478d86920efd564854b231188ba26",
+        "iperf.json": "7d510235eb61bfa0329369b677d935ade497298e1ed18c7c388439e34a570bf6",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station.before.txt": "e6593e5cdc95f4b6b9919b3abbb8c0403153f79f32955ea074f182f1a4a52182",
+        "station.after.txt": "4d42b8263c160ff6aece65611782db80b3ace552b0cc2c34257967f0a87be03e"
+      }
+    },
+    {
+      "id": "mlo-panel-reopened-60",
+      "status": "completed",
+      "execution_and_path_checks": "passed",
+      "panel_state": "reopened",
+      "direction": "download",
+      "requested_seconds": 60,
+      "receiver_average_mbps": 1365.5355380878739,
+      "interval_measurement_point": "Mac receiver",
+      "interval_count": 60,
+      "interval_min_mbps": 52.428750000047685,
+      "interval_max_mbps": 1997.9206452329531,
+      "intervals_below_500_mbps": 13,
+      "zero_intervals": 0,
+      "sender_tcp_retransmissions": 25779,
+      "wired_http_checks": 77,
+      "wired_http_failures": 0,
+      "router_boot_and_four_selected_config_hashes_unchanged": true,
+      "valid_links_before": "0x6",
+      "valid_links_after": "0x6",
+      "offloaded_streams_observed": 4,
+      "bidirectional_ppe_entries_per_stream": 2,
+      "matching_ppe_ttl_decrement_bit_set": false,
+      "source_sha256": {
+        "summary.json": "3d66eb213fb1e6f42fabc01795644023e651e62c4ab49be053c12cffbda678c2",
+        "run.json": "951c49d27a4ac1009d25c2ae9feb5f04974179ed6a43bc8a52b63f68307e61c2",
+        "traffic.json": "10f79527cbc70fc2476de584666a9d31f1c00e7a58c8c24e1a78c9fd41e94e5e",
+        "iperf.json": "cd2da233c67049c36a3cbe35e37bc5b55d6814208ef92b7646452f0f2a6147bc",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station.before.txt": "19196c49454c84e2d2fbed2746d25bfcfdbc4c39e32b2b8fecf13062f229dcff",
+        "station.after.txt": "169de1a3b7a3e2dd78844298c8b02a2689c1934e4fc70445119134a77ac8ceea"
+      }
+    },
+    {
+      "id": "mlo-panel-reclosed-60",
+      "status": "completed",
+      "execution_and_path_checks": "passed",
+      "panel_state": "reclosed",
+      "direction": "download",
+      "requested_seconds": 60,
+      "receiver_average_mbps": 1964.1496138766588,
+      "interval_measurement_point": "Mac receiver",
+      "interval_count": 60,
+      "interval_min_mbps": 1866.4750046975287,
+      "interval_max_mbps": 2015.461873730778,
+      "intervals_below_500_mbps": 0,
+      "zero_intervals": 0,
+      "sender_tcp_retransmissions": 1459,
+      "wired_http_checks": 77,
+      "wired_http_failures": 0,
+      "router_boot_and_four_selected_config_hashes_unchanged": true,
+      "valid_links_before": "0x6",
+      "valid_links_after": "0x6",
+      "offloaded_streams_observed": 4,
+      "bidirectional_ppe_entries_per_stream": 2,
+      "matching_ppe_ttl_decrement_bit_set": false,
+      "source_sha256": {
+        "summary.json": "3ed38b6000daa32f33825ccce3efb4e01975141efcf5b7f580ea5d0c94836924",
+        "run.json": "76905aa00a8afeaa54481d1bd3f744d07c22ee516bc1f8539b89e526aa647026",
+        "traffic.json": "48111983b955c6688b08687ed2c411b2eb79c617ab7280c635e4dc9421a1afd3",
+        "iperf.json": "3e2ea03051bfa358df56b2d19fa6ca19ab45a09ffb01c79ac1f7f013fbd94bf8",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station.before.txt": "76f0431929d333d0b992d12ef46ca054f0e5e38536c4d9ef824ead0eb5d0d46f",
+        "station.after.txt": "469910c518ceb9bd6e3b4c258951a38b31339578cc21b7a1829619976336f9ed"
+      }
+    },
+    {
+      "id": "mlo-upload-60",
+      "status": "completed",
+      "execution_and_path_checks": "passed",
+      "panel_state": "closed",
+      "direction": "upload",
+      "requested_seconds": 60,
+      "receiver_average_mbps": 1781.8864434541915,
+      "interval_measurement_point": "Mac sender",
+      "interval_count": 60,
+      "interval_min_mbps": 1671.9660424095746,
+      "interval_max_mbps": 1851.9326078890942,
+      "intervals_below_500_mbps": 0,
+      "zero_intervals": 0,
+      "sender_tcp_retransmissions": 1422,
+      "wired_http_checks": 78,
+      "wired_http_failures": 0,
+      "router_boot_and_four_selected_config_hashes_unchanged": true,
+      "valid_links_before": "0x6",
+      "valid_links_after": "0x6",
+      "offloaded_streams_observed": 4,
+      "bidirectional_ppe_entries_per_stream": 2,
+      "matching_ppe_ttl_decrement_bit_set": false,
+      "source_sha256": {
+        "summary.json": "a6148c5e856c1aa449e1b3dfbaebcbea43cccff0eb3bd7854fb7bf97c34c67b8",
+        "run.json": "ea77acc5956837d63811529b42a3f79e162cadc87f6225141ef91f804692031e",
+        "traffic.json": "06773a3f983a5ee8736a7eaede0416a977fbc44733678fc31efb098831788fde",
+        "iperf.json": "03baea7181a45d0f98a237de8264ae4d589f5852ab072e3f9216205518553edf",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station.before.txt": "e2ff76fb81b9683f8b9060b24d6114407b6b0e79d4616221aa370c979bbe9c1b",
+        "station.after.txt": "f63b9e23450bde0c97e6a2a22347276f9acbb152f6e4bddc1fa68bf92bf81f83"
+      }
+    }
+  ],
+  "ps_diagnostics": {
+    "window_emitted_kmsg_records": 1179,
+    "window_emitted_sequence_contiguous": true,
+    "suppression_notice_count": 5,
+    "suppressed_callback_counts": [
+      60,
+      112,
+      60,
+      68,
+      22
+    ],
+    "suppressed_callbacks_total": 322,
+    "console_printk_before": [
+      7,
+      4,
+      1,
+      7
+    ],
+    "console_printk_after": [
+      7,
+      4,
+      1,
+      7
+    ],
+    "ps_trace_after": "N",
+    "guard_status": "RESTORED",
+    "source_sha256": {
+      "window_verification": "cc9f7f21c11e986e4fa2f5c2c64b30833268424227f0180e3b3d1113a7ac7d63",
+      "kernel_log": "e53b51a753d40f6c81ae86f65c49a06280c27dbda623a4ef55983e46997bf2be",
+      "console_before": "a94937a9bfc8b21ddaaf35262192aa719c7e17f4c37d4b0d5286ca62ce8da73f",
+      "console_after": "a94937a9bfc8b21ddaaf35262192aa719c7e17f4c37d4b0d5286ca62ce8da73f",
+      "trace_after": "28312e346b76a3f91e8283519baab5f103d79547dedff5fb7ccc0dc3c5119bbe",
+      "guard_status": "d76c795987205b838ac2d149a962ce5506c7a1f6da940d73c5b67a3ad69b2dd8"
+    },
+    "limits": [
+      "Continuity applies to the marked diagnostic window and emitted records only; suppressed callbacks cannot be reconstructed.",
+      "Host PS log timing does not establish uninterrupted firmware PS state or successful air delivery."
+    ]
+  },
+  "driver_correlation": {
+    "source": "independent driver review of the same local kernel log and iperf intervals",
+    "reopened_60": {
+      "low_throughput_iperf_seconds": [
+        [
+          7,
+          11
+        ],
+        [
+          23,
+          27
+        ],
+        [
+          39,
+          43
+        ],
+        [
+          55,
+          58
+        ]
+      ],
+      "ps_event_burst_relative_seconds": [
+        [
+          6.792,
+          9.193
+        ],
+        [
+          22.755,
+          24.656
+        ],
+        [
+          38.952,
+          41.22
+        ],
+        [
+          54.671,
+          56.836
+        ]
+      ],
+      "ps_event_sequence_gap_total": 300,
+      "consecutive_sequence_gate_1_to_0_pairs": 128,
+      "host_log_pair_delta_ms": {
+        "min": 1.454,
+        "median": 50.704,
+        "max": 201.597
+      }
+    },
+    "reclosed_60": {
+      "ps_events_near_start": 3,
+      "ps_events_near_end": 1,
+      "repeated_mid_trial_bursts": false,
+      "ps_event_sequence_gap_total": 0,
+      "txfree_status_1_increase": 0,
+      "txfree_status_2_increase": 0
+    },
+    "limits": [
+      "Temporal association; mechanism and scan causality were not isolated.",
+      "Host log gate-pair deltas are not proof of continuous multi-second PS=1.",
+      "The complete diagnostic window separately reported 322 suppressed callbacks."
+    ]
+  },
+  "final_restoration": {
+    "router_checked_at_kst": "2026-09-27T03:57:26.163294+09:00",
+    "same_installed_boot": true,
+    "diagnostics_off": true,
+    "console_restored": true,
+    "no_pending_uci": true,
+    "lan2_2500": true,
+    "lan4_carrier": true,
+    "wired_control_healthy": true,
+    "wired_https_200": true,
+    "mac_checked_at_kst": "2026-09-27T03:58:24.191603+09:00",
+    "mac_original_network_service_order_restored": true,
+    "mac_original_wifi_hotspot_restored": true,
+    "mac_wifi_https_status": 200,
+    "wifi_settings_panel_switched_away": true,
+    "source_sha256": {
+      "router_final_state": "388fc9592f6543722174a23d2d3a00269fb406a6510c6dac58181fba2eefe8a8",
+      "mac_connection_record": "b508092e118b5b687343cd6d3364f49fb060bbde0b32228a50accecaf9993373"
+    }
+  },
+  "publication": {
+    "existing_firmware_tag_and_release_assets_replaced": false,
+    "only_aggregate_device_evidence_added": true,
+    "raw_evidence_public": false
+  },
+  "limits": [
+    "All trials used this Mac; they do not establish an iPhone Air sleep/wake repair.",
+    "No zero approximately one-second iperf bins; shorter pauses are not ruled out.",
+    "Panel sequencing was not randomized; no same-session r32 baseline proves an r39 improvement.",
+    "MLO association and chiefly 6GHz operation do not prove simultaneous dual-link data aggregation.",
+    "Four HW_OFFLOAD registrations and matching PPE entries were sampled; continuous residency was not measured.",
+    "No fresh endpoint packet TTL capture was performed.",
+    "Upload average is server receiver goodput; interval extrema and threshold counts are local Mac sender measurements.",
+    "The Mac upload did not use receive-counter dip triggering.",
+    "WAN, IPv6, UDP, VLAN/QoS, multiple clients and long-term stability were not covered.",
+    "Tailscale running/online and preserved identity were checked; not all external access scenarios."
+  ]
+}
