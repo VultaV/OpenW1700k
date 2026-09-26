@@ -1,0 +1,788 @@
+{
+  "status": "PASS_WITH_OPEN_ISSUE",
+  "build": "r41",
+  "installed_check_counts": {
+    "passed": 24,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100.0
+  },
+  "trials": [
+    {
+      "label": "postinstall-fresh-60",
+      "receiver_mbps": 1730.9665880036516,
+      "min_interval_mbps": 70.4921496286228,
+      "max_interval_mbps": 1977.6582037597232,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "under_500_intervals": 5,
+      "rates": [
+        {
+          "start": 0,
+          "end": 1.001964,
+          "mbps": 394.538289434193
+        },
+        {
+          "start": 1.001964,
+          "end": 2.003082,
+          "mbps": 165.4899993294659
+        },
+        {
+          "start": 2.003082,
+          "end": 3.005036,
+          "mbps": 78.48983404585769
+        },
+        {
+          "start": 3.005036,
+          "end": 4.005045,
+          "mbps": 206.56762514151222
+        },
+        {
+          "start": 4.005045,
+          "end": 5.001675,
+          "mbps": 70.4921496286228
+        },
+        {
+          "start": 5.001675,
+          "end": 6.00409,
+          "mbps": 1012.5762552878526
+        },
+        {
+          "start": 6.00409,
+          "end": 7.001465,
+          "mbps": 1557.0282373041493
+        },
+        {
+          "start": 7.001465,
+          "end": 8.004283,
+          "mbps": 1603.9955431725996
+        },
+        {
+          "start": 8.004283,
+          "end": 9.002103,
+          "mbps": 1648.8101175384256
+        },
+        {
+          "start": 9.002103,
+          "end": 10.001506,
+          "mbps": 1681.871405434351
+        },
+        {
+          "start": 10.001506,
+          "end": 11.003726,
+          "mbps": 1737.82670059708
+        },
+        {
+          "start": 11.003726,
+          "end": 12.000511,
+          "mbps": 1730.4710101413928
+        },
+        {
+          "start": 12.000511,
+          "end": 13.002151,
+          "mbps": 1752.4422849014761
+        },
+        {
+          "start": 13.002151,
+          "end": 14.005039,
+          "mbps": 1735.623740687773
+        },
+        {
+          "start": 14.005039,
+          "end": 15.00504,
+          "mbps": 1738.5373500015812
+        },
+        {
+          "start": 15.00504,
+          "end": 16.00084,
+          "mbps": 1779.5675912985982
+        },
+        {
+          "start": 16.00084,
+          "end": 17.003545,
+          "mbps": 1830.0577341102723
+        },
+        {
+          "start": 17.003545,
+          "end": 18.004438,
+          "mbps": 1853.275974507441
+        },
+        {
+          "start": 18.004438,
+          "end": 19.003861,
+          "mbps": 1869.6411643994272
+        },
+        {
+          "start": 19.003861,
+          "end": 20.002992,
+          "mbps": 1897.4742678198022
+        },
+        {
+          "start": 20.002992,
+          "end": 21.003023,
+          "mbps": 1903.1064543282264
+        },
+        {
+          "start": 21.003023,
+          "end": 22.003043,
+          "mbps": 1913.6128757675256
+        },
+        {
+          "start": 22.003043,
+          "end": 23.001494,
+          "mbps": 1940.7747187299203
+        },
+        {
+          "start": 23.001494,
+          "end": 24.005037,
+          "mbps": 1956.004111691688
+        },
+        {
+          "start": 24.005037,
+          "end": 25.004293,
+          "mbps": 1933.964408851264
+        },
+        {
+          "start": 25.004293,
+          "end": 26.00273,
+          "mbps": 1953.4045559337144
+        },
+        {
+          "start": 26.00273,
+          "end": 27.002958,
+          "mbps": 1932.0849611042443
+        },
+        {
+          "start": 27.002958,
+          "end": 28.003387,
+          "mbps": 1889.7717512259915
+        },
+        {
+          "start": 28.003387,
+          "end": 29.000358,
+          "mbps": 1939.448712502423
+        },
+        {
+          "start": 29.000358,
+          "end": 30.003307,
+          "mbps": 1908.0244370705307
+        },
+        {
+          "start": 30.003307,
+          "end": 31.00444,
+          "mbps": 1931.3859511461092
+        },
+        {
+          "start": 31.00444,
+          "end": 32.005041,
+          "mbps": 1953.371583684775
+        },
+        {
+          "start": 32.005041,
+          "end": 33.002898,
+          "mbps": 1977.6582037597232
+        },
+        {
+          "start": 33.002898,
+          "end": 34.003913,
+          "mbps": 1936.8512209376727
+        },
+        {
+          "start": 34.003913,
+          "end": 35.002864,
+          "mbps": 1947.1510066364692
+        },
+        {
+          "start": 35.002864,
+          "end": 36.005039,
+          "mbps": 1965.9983097990212
+        },
+        {
+          "start": 36.005039,
+          "end": 37.001755,
+          "mbps": 1960.9854962643149
+        },
+        {
+          "start": 37.001755,
+          "end": 38.005035,
+          "mbps": 1962.7876987665966
+        },
+        {
+          "start": 38.005035,
+          "end": 39.002153,
+          "mbps": 1954.93691960012
+        },
+        {
+          "start": 39.002153,
+          "end": 40.002464,
+          "mbps": 1930.8764565267631
+        },
+        {
+          "start": 40.002464,
+          "end": 41.003864,
+          "mbps": 1940.2949269448977
+        },
+        {
+          "start": 41.003864,
+          "end": 42.00376,
+          "mbps": 1927.4831657267093
+        },
+        {
+          "start": 42.00376,
+          "end": 43.002047,
+          "mbps": 1931.6401208110458
+        },
+        {
+          "start": 43.002047,
+          "end": 44.000478,
+          "mbps": 1936.6126370637735
+        },
+        {
+          "start": 44.000478,
+          "end": 45.00503,
+          "mbps": 1942.5574016507926
+        },
+        {
+          "start": 45.00503,
+          "end": 46.001769,
+          "mbps": 1948.3162692586088
+        },
+        {
+          "start": 46.001769,
+          "end": 47.005042,
+          "mbps": 1945.0338203617616
+        },
+        {
+          "start": 47.005042,
+          "end": 48.00258,
+          "mbps": 1952.0115419167832
+        },
+        {
+          "start": 48.00258,
+          "end": 49.000915,
+          "mbps": 1952.5537785183476
+        },
+        {
+          "start": 49.000915,
+          "end": 50.002828,
+          "mbps": 1963.3727392334613
+        },
+        {
+          "start": 50.002828,
+          "end": 51.002528,
+          "mbps": 1947.7899498521158
+        },
+        {
+          "start": 51.002528,
+          "end": 52.002748,
+          "mbps": 1940.48738299434
+        },
+        {
+          "start": 52.002748,
+          "end": 53.000587,
+          "mbps": 1937.7616974118034
+        },
+        {
+          "start": 53.000587,
+          "end": 54.00154,
+          "mbps": 1914.9720380454169
+        },
+        {
+          "start": 54.00154,
+          "end": 55.002892,
+          "mbps": 1888.0300010203662
+        },
+        {
+          "start": 55.002892,
+          "end": 56.004296,
+          "mbps": 1927.7218039605475
+        },
+        {
+          "start": 56.004296,
+          "end": 57.003286,
+          "mbps": 1950.2239355512168
+        },
+        {
+          "start": 57.003286,
+          "end": 58.004744,
+          "mbps": 1930.75900311285
+        },
+        {
+          "start": 58.004744,
+          "end": 59.004901,
+          "mbps": 1936.415857354884
+        },
+        {
+          "start": 59.004901,
+          "end": 60.003209,
+          "mbps": 1910.5924608098098
+        }
+      ],
+      "before_after_valid_links": 6,
+      "router_unchanged": true,
+      "actual_four_flows_hw_bound_at_snapshot": true,
+      "aggregate_cpu": {
+        "cpu": {
+          "ticks": 30712,
+          "busy_percent": 5.616697056525137,
+          "user_percent": 1.1493878614222455,
+          "system_percent": 4.164495962490232,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.3028132326126595,
+          "iowait_percent": 0.0
+        },
+        "cpu0": {
+          "ticks": 7679,
+          "busy_percent": 3.6853756999609324,
+          "user_percent": 0.7943742674827452,
+          "system_percent": 1.9143117593436645,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.9766896731345227,
+          "iowait_percent": 0.0
+        },
+        "cpu1": {
+          "ticks": 7759,
+          "busy_percent": 8.51913906431241,
+          "user_percent": 3.1833999226704472,
+          "system_percent": 5.322850882845728,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.012888258796236628,
+          "iowait_percent": 0.0
+        },
+        "cpu2": {
+          "ticks": 7632,
+          "busy_percent": 7.35062893081761,
+          "user_percent": 0.2358490566037736,
+          "system_percent": 6.9575471698113205,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.15723270440251572,
+          "iowait_percent": 0.0
+        },
+        "cpu3": {
+          "ticks": 7642,
+          "busy_percent": 2.8788275320596703,
+          "user_percent": 0.35331065166186865,
+          "system_percent": 2.4600889819419,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.06542789845590159,
+          "iowait_percent": 0.0
+        }
+      },
+      "cpu_scope": "15 samples at 5-second intervals plus collection time; includes pre/post traffic",
+      "evidence_sha256": {
+        "run.json": "b20388874d6aea7a34949a76a5c2b2b93014628ac22bdc4e12362ff482675356",
+        "iperf.json": "4217a57065866302ee87ff4fbd2447b106ff5fd4e7277a2ab64a67d67ced86ea",
+        "traffic.json": "5785aedc239b93c01032244d27b5d20fc34d717021f93b3f876392dfea0bd1e7",
+        "cpu.json": "e6b9750d99f63146626c1b738c3206f914223f69736ff77c4ff655b777904a13",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12"
+      }
+    },
+    {
+      "label": "postinstall-settled-60",
+      "receiver_mbps": 1923.2777380167263,
+      "min_interval_mbps": 1774.3839802939672,
+      "max_interval_mbps": 1975.4325859675791,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "under_500_intervals": 0,
+      "rates": [
+        {
+          "start": 0,
+          "end": 1.000482,
+          "mbps": 1774.3839802939672
+        },
+        {
+          "start": 1.000482,
+          "end": 2.003788,
+          "mbps": 1867.6308660361665
+        },
+        {
+          "start": 2.003788,
+          "end": 3.002083,
+          "mbps": 1852.8471514652663
+        },
+        {
+          "start": 3.002083,
+          "end": 4.001303,
+          "mbps": 1859.5270777967692
+        },
+        {
+          "start": 4.001303,
+          "end": 5.000433,
+          "mbps": 1890.1297688543448
+        },
+        {
+          "start": 5.000433,
+          "end": 6.003688,
+          "mbps": 1870.8613681905124
+        },
+        {
+          "start": 6.003688,
+          "end": 7.004649,
+          "mbps": 1882.482108191686
+        },
+        {
+          "start": 7.004649,
+          "end": 8.000567,
+          "mbps": 1889.9085723342316
+        },
+        {
+          "start": 8.000567,
+          "end": 9.00502,
+          "mbps": 1850.8833683767841
+        },
+        {
+          "start": 9.00502,
+          "end": 10.001909,
+          "mbps": 1903.8454323344365
+        },
+        {
+          "start": 10.001909,
+          "end": 11.000467,
+          "mbps": 1900.6633453790973
+        },
+        {
+          "start": 11.000467,
+          "end": 12.004602,
+          "mbps": 1913.080619482644
+        },
+        {
+          "start": 12.004602,
+          "end": 13.00423,
+          "mbps": 1915.4122951768527
+        },
+        {
+          "start": 13.00423,
+          "end": 14.00134,
+          "mbps": 1934.97189097591
+        },
+        {
+          "start": 14.00134,
+          "end": 15.003086,
+          "mbps": 1955.3258547413525
+        },
+        {
+          "start": 15.003086,
+          "end": 16.001034,
+          "mbps": 1961.716852844808
+        },
+        {
+          "start": 16.001034,
+          "end": 17.004769,
+          "mbps": 1952.4960761006405
+        },
+        {
+          "start": 17.004769,
+          "end": 18.003936,
+          "mbps": 1975.0652117684708
+        },
+        {
+          "start": 18.003936,
+          "end": 19.004511,
+          "mbps": 1954.470524201357
+        },
+        {
+          "start": 19.004511,
+          "end": 20.005024,
+          "mbps": 1959.8318094316692
+        },
+        {
+          "start": 20.005024,
+          "end": 21.001224,
+          "mbps": 1948.3177345241986
+        },
+        {
+          "start": 21.001224,
+          "end": 22.004846,
+          "mbps": 1954.8052836433587
+        },
+        {
+          "start": 22.004846,
+          "end": 23.002202,
+          "mbps": 1967.0866779715107
+        },
+        {
+          "start": 23.002202,
+          "end": 24.002069,
+          "mbps": 1939.07487822643
+        },
+        {
+          "start": 24.002069,
+          "end": 25.001059,
+          "mbps": 1941.826846485334
+        },
+        {
+          "start": 25.001059,
+          "end": 26.004966,
+          "mbps": 1896.8032715211978
+        },
+        {
+          "start": 26.004966,
+          "end": 27.000075,
+          "mbps": 1884.0688278210355
+        },
+        {
+          "start": 27.000075,
+          "end": 28.005019,
+          "mbps": 1933.4524033815837
+        },
+        {
+          "start": 28.005019,
+          "end": 29.004491,
+          "mbps": 1944.0377370463373
+        },
+        {
+          "start": 29.004491,
+          "end": 30.004656,
+          "mbps": 1937.4487967378734
+        },
+        {
+          "start": 30.004656,
+          "end": 31.005022,
+          "mbps": 1929.7221907090488
+        },
+        {
+          "start": 31.005022,
+          "end": 32.005022,
+          "mbps": 1937.768448
+        },
+        {
+          "start": 32.005022,
+          "end": 33.005023,
+          "mbps": 1847.5891500016803
+        },
+        {
+          "start": 33.005023,
+          "end": 34.004889,
+          "mbps": 1868.8128365520167
+        },
+        {
+          "start": 34.004889,
+          "end": 35.000251,
+          "mbps": 1892.0177048108328
+        },
+        {
+          "start": 35.000251,
+          "end": 36.004407,
+          "mbps": 1922.4387730289484
+        },
+        {
+          "start": 36.004407,
+          "end": 37.00502,
+          "mbps": 1900.9516297584885
+        },
+        {
+          "start": 37.00502,
+          "end": 38.000214,
+          "mbps": 1887.0688350671144
+        },
+        {
+          "start": 38.000214,
+          "end": 39.003457,
+          "mbps": 1881.33568572758
+        },
+        {
+          "start": 39.003457,
+          "end": 40.002395,
+          "mbps": 1921.9837565371943
+        },
+        {
+          "start": 40.002395,
+          "end": 41.001563,
+          "mbps": 1946.7281992032742
+        },
+        {
+          "start": 41.001563,
+          "end": 42.000441,
+          "mbps": 1942.0445697993937
+        },
+        {
+          "start": 42.000441,
+          "end": 43.003893,
+          "mbps": 1943.642017769614
+        },
+        {
+          "start": 43.003893,
+          "end": 44.001328,
+          "mbps": 1926.9825689367146
+        },
+        {
+          "start": 44.001328,
+          "end": 45.003551,
+          "mbps": 1929.2853141324056
+        },
+        {
+          "start": 45.003551,
+          "end": 46.000346,
+          "mbps": 1936.6353348708867
+        },
+        {
+          "start": 46.000346,
+          "end": 47.003511,
+          "mbps": 1947.33376371228
+        },
+        {
+          "start": 47.003511,
+          "end": 48.000144,
+          "mbps": 1946.4192066630594
+        },
+        {
+          "start": 48.000144,
+          "end": 49.000279,
+          "mbps": 1955.3303781068212
+        },
+        {
+          "start": 49.000279,
+          "end": 50.00365,
+          "mbps": 1953.204291766189
+        },
+        {
+          "start": 50.00365,
+          "end": 51.000521,
+          "mbps": 1954.3694405960116
+        },
+        {
+          "start": 51.000521,
+          "end": 52.001929,
+          "mbps": 1964.3627906729662
+        },
+        {
+          "start": 52.001929,
+          "end": 53.005025,
+          "mbps": 1945.377078797298
+        },
+        {
+          "start": 53.005025,
+          "end": 54.003481,
+          "mbps": 1947.0661716734344
+        },
+        {
+          "start": 54.003481,
+          "end": 55.002993,
+          "mbps": 1975.4325859675791
+        },
+        {
+          "start": 55.002993,
+          "end": 56.000135,
+          "mbps": 1973.818291343478
+        },
+        {
+          "start": 56.000135,
+          "end": 57.00502,
+          "mbps": 1951.3050761364746
+        },
+        {
+          "start": 57.00502,
+          "end": 58.004299,
+          "mbps": 1960.1531949052012
+        },
+        {
+          "start": 58.004299,
+          "end": 59.00411,
+          "mbps": 1953.8663811112351
+        },
+        {
+          "start": 59.00411,
+          "end": 60.00009,
+          "mbps": 1941.3784380722313
+        }
+      ],
+      "before_after_valid_links": 6,
+      "router_unchanged": true,
+      "actual_four_flows_hw_bound_at_snapshot": true,
+      "aggregate_cpu": {
+        "cpu": {
+          "ticks": 30849,
+          "busy_percent": 6.087717592142371,
+          "user_percent": 1.2091153684074039,
+          "system_percent": 4.531751434406302,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.3468507893286654,
+          "iowait_percent": 0.0
+        },
+        "cpu0": {
+          "ticks": 7722,
+          "busy_percent": 3.613053613053613,
+          "user_percent": 0.777000777000777,
+          "system_percent": 1.6187516187516187,
+          "irq_percent": 0.0,
+          "softirq_percent": 1.2173012173012172,
+          "iowait_percent": 0.0
+        },
+        "cpu1": {
+          "ticks": 7751,
+          "busy_percent": 5.754096245645723,
+          "user_percent": 1.8707263578893045,
+          "system_percent": 3.857566765578635,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.02580312217778351,
+          "iowait_percent": 0.0
+        },
+        "cpu2": {
+          "ticks": 7714,
+          "busy_percent": 8.944775732434534,
+          "user_percent": 0.5574280528908478,
+          "system_percent": 8.296603577910293,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.09074410163339383,
+          "iowait_percent": 0.0
+        },
+        "cpu3": {
+          "ticks": 7661,
+          "busy_percent": 6.04359744158726,
+          "user_percent": 1.631640777966323,
+          "system_percent": 4.359744158726015,
+          "irq_percent": 0.0,
+          "softirq_percent": 0.05221250489492233,
+          "iowait_percent": 0.0
+        }
+      },
+      "cpu_scope": "15 samples at 5-second intervals plus collection time; includes pre/post traffic",
+      "evidence_sha256": {
+        "run.json": "493f0ad4672b6a3ae36fd67e293ca76c9a3b4cbdeb015149e89ac23efb3bb885",
+        "iperf.json": "e55c0b30c456ba776346d633dde1ade0018cbf53c7889a90b97bdf1050b7a265",
+        "traffic.json": "318c0e9f29d1c32906895b48888f9bb253fb876dc827fe29b4f50a8a3d9b9b7d",
+        "cpu.json": "7b3a61208dae2a86dcaaf136e774b103def8e4cb28896e1fd2c198aab58964ae",
+        "mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12"
+      }
+    }
+  ],
+  "same_station_at_four_endpoints": true,
+  "settled_precheck_connected_seconds": 238,
+  "wired_test_checks": 154,
+  "installation_http_observation": {
+    "first_failure": "2026-09-26T23:29:27.751261+00:00",
+    "first_recovery": "2026-09-26T23:33:00.746613+00:00",
+    "first_failure_to_recovery_seconds": 212.995352,
+    "scope": "HTTP probe start timestamps on wired management, not physical link downtime or precise DHCP duration."
+  },
+  "final_state": {
+    "status": "PASS",
+    "hotspot_https": 200,
+    "wired_management": true,
+    "same_boot": true,
+    "diagnostics_off": true,
+    "final_dmesg_alert_matches": 0,
+    "final_dmesg_sha256": "2c679ddb9981689ee97b1065d7bb8899bf4fd15fed359a60bc69bb806b578f60",
+    "scope": "Observed state after Mac tests; no continuous capture or proof of unlogged faults."
+  },
+  "limits": [
+    "New connection dip persists: this is not performance acceptance or proof that r41 fixes it.",
+    "One sequential fresh/settled pair, not a randomized performance comparison with r40.",
+    "MLO masks are endpoint snapshots; HW binding is one during-traffic snapshot, not continuous link or path capture.",
+    "Failed activation was not injected on the router. Source fixture establishes conditional recovery only.",
+    "No PS event or native scan timeline in these r41 runs; no attribution to scan, fully-awake firmware stall, or rollback execution.",
+    "Original Air intermittent sleep/wake failure remains unproven by Mac testing."
+  ]
+}
