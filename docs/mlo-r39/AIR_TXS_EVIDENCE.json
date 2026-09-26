@@ -1,0 +1,84 @@
+{
+  "source": "air-r32-2026-09-24/private/wake/slow.txt",
+  "source_sha256": "ebff80ad5e15d7659dd20fb29b07acd97dfbc4daf9c7a55c931edeaf7ba7b395",
+  "identity_scope": "Air target selected from existing test metadata; identifiers omitted",
+  "observations": [
+    {
+      "sample": 18,
+      "collection_uptime_window": [
+        87268.31,
+        87268.99
+      ],
+      "format2": 74733,
+      "tx_prepared": 7423,
+      "source_lines": {
+        "format2": 9765,
+        "tx_prepared": 9768
+      }
+    },
+    {
+      "sample": 19,
+      "collection_uptime_window": [
+        87273.99,
+        87274.63
+      ],
+      "format2": 76304,
+      "tx_prepared": 7423,
+      "source_lines": {
+        "format2": 10296,
+        "tx_prepared": 10299
+      }
+    },
+    {
+      "sample": 20,
+      "collection_uptime_window": [
+        87279.64,
+        87280.29
+      ],
+      "format2": 78910,
+      "tx_prepared": 7424,
+      "source_lines": {
+        "format2": 10828,
+        "tx_prepared": 10831
+      }
+    },
+    {
+      "sample": 21,
+      "collection_uptime_window": [
+        87285.29,
+        87285.95
+      ],
+      "format2": 81156,
+      "tx_prepared": 7424,
+      "source_lines": {
+        "format2": 11360,
+        "tx_prepared": 11363
+      }
+    }
+  ],
+  "differences": [
+    {
+      "samples": [
+        18,
+        19
+      ],
+      "format2": 1571,
+      "tx_prepared": 0
+    },
+    {
+      "samples": [
+        20,
+        21
+      ],
+      "format2": 2246,
+      "tx_prepared": 0
+    }
+  ],
+  "finding": "Accepted TXS diagnostics advanced without new host tx_prepared activity; the NPU/WED refresh site is a relevant executed host path",
+  "limits": [
+    "Not proof of pure fastpath TXS PID encoding or per-TID activity",
+    "No captured Air ADDBA timeout or exact app stall timestamp",
+    "Sequential samples do not prove TXS progress at the precise stall instant",
+    "Observed in non-stalling trials too; not a root-cause determination"
+  ]
+}

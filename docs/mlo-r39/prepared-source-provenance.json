@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "baseline_sha256": "7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e",
+  "prepared_sha256": "5fc307c8b90654a16e8dbe204ae119966967a0a83fd49117ef766f17733ef00d",
+  "patch_sha256": "df1a1d50d869d25700cb0fad7ff697c6504d228c5383085d27a011440474a9a6",
+  "scope": "Actual prepared mt7996/mac.c equals r38 source plus only NPU BA inactivity refresh, no fuzz."
+}

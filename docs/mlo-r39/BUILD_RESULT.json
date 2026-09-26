@@ -1,0 +1,657 @@
+{
+  "image": "openwrt-ubi2-mlo-npu-ba-r39-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "78b54197e6249eaf9d8bbaccb88047098fb64d2a7218d5d9a9d4a6d4d568c8e9",
+  "bytes": 30290785,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 6.91919849999249
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.782336249947548
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 369.95621008309536
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 14.171583207906224
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 11.676645667059347
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 6.65827779204119
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 9.970335292047821
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 5.623195249936543
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.424598749959841
+    }
+  ],
+  "final_stage_exit_codes": {
+    "defconfig": 0,
+    "kernel": 0,
+    "packages": 0,
+    "package-install": 0,
+    "target-install": 0,
+    "index": 0,
+    "buildinfo": 0,
+    "image-info": 0,
+    "checksum": 0
+  },
+  "build_stage_policy": "All nine make stages executed; prior-success records never skip dependency checks.",
+  "build_warnings": {
+    "file": "BUILD_WARNINGS.json",
+    "sha256": "73d68456f052e504a66f52b5d020fcaa82a9e642fbe202c5e17441f2aa2377c8",
+    "total_diagnostic_occurrences": 386,
+    "unique_normalized_messages": 149,
+    "categories": {
+      "build_tool_or_configuration": 43,
+      "device_tree": 59,
+      "feed_dependency": 126,
+      "firmware_mapping": 138,
+      "modpost_module_description": 2,
+      "source_diagnostic": 18
+    },
+    "major_observations": [
+      "All final nine stage records exited 0; 9 logs contain matched warnings.",
+      "14 missing-dependency messages; 0 involve enabled/installed recipe families requiring review.",
+      "28 empty-kmod names; 0 are installed in the extracted image.",
+      "Known normalized text does not establish harmlessness or identical source location; new text does not establish patch causality.",
+      "Warning inventory counts are separate from regression PASS/FAIL counts."
+    ],
+    "limitations": [
+      "Only the explicit r38 detection pattern is counted, not every diagnostic spelling.",
+      "All bytes of each append-only stage log are counted; earlier attempts, if any, remain included.",
+      "Not observed versus r38 does not mean fixed: incremental builds may not recompile the same components.",
+      "Categories reuse exact r38 normalized matches; unseen messages use documented source-location/tool rules.",
+      "Recipe-family selection is a prefix heuristic, not complete evaluation of all OpenWrt generated subpackages.",
+      "No assertion that warnings are harmless; no source edits, clean-room build, boot or wireless validation."
+    ]
+  },
+  "verifier_sha256": "90dacb0444aff3f9d99848cc8b8171a399f6b4187e7cf9b18f981f1bd81e1e11",
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-npu-ba-r39-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "78b54197e6249eaf9d8bbaccb88047098fb64d2a7218d5d9a9d4a6d4d568c8e9",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "changed_modules": [
+      "mt7996e.ko"
+    ],
+    "kernel_payload_identical_to_r38": true,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 338,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f947983d646a2ab8dc83edac5303deef41ff95c1406624c744b7b733f437cb6b",
+      "airoha_npu.ko": "e1be1a345b4444ef3b4f68c6fc4bcf6ded66aecf96ee5cc970384f04c2ade999",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "e3cee9061b543675f4a3204d6c23c672d5c42cfb91294c365a4ad1812a97d135",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "9538bb1eebfc11de5dbc1340e4250d300158c0aa67b07755124f0bf0b291d968",
+      "mac80211.ko": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "package_changes": {
+    "kmod-mt76-connac": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r29",
+      "candidate": "6.18.44.2026.09.01~01367e60-r30"
+    },
+    "kmod-mt76-core": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r29",
+      "candidate": "6.18.44.2026.09.01~01367e60-r30"
+    },
+    "kmod-mt7996-firmware": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r29",
+      "candidate": "6.18.44.2026.09.01~01367e60-r30"
+    },
+    "kmod-mt7996-firmware-common": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r29",
+      "candidate": "6.18.44.2026.09.01~01367e60-r30"
+    },
+    "kmod-mt7996e": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r29",
+      "candidate": "6.18.44.2026.09.01~01367e60-r30"
+    }
+  },
+  "checks": [
+    {
+      "name": "npu-ba",
+      "pass": 18,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu-mailbox",
+      "pass": 145,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu_tx_contract_cases",
+      "pass": 8,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu_rx_groups",
+      "pass": 3,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "groups"
+    },
+    {
+      "name": "transition",
+      "pass": 24,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "forward-path",
+      "pass": 92,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "lifecycle",
+      "pass": 631,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "mlo-ps",
+      "pass": 99,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu-watchdog",
+      "pass": 90,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "bridge_ttl_structure",
+      "pass": 12,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "bridge_ttl_guards",
+      "pass": 2091,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "conntrack",
+      "pass": 7,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "ppe",
+      "pass": 16,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "fdb",
+      "pass": 1026,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "installed_updater_ui",
+      "pass": 9,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    }
+  ],
+  "source_tests": [
+    {
+      "name": "npu-ba",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "INPUT mt7996/mac.c sha256=5fc307c8b90654a16e8dbe204ae119966967a0a83fd49117ef766f17733ef00d\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=f161a557205efc669f33981c93758863f4da4b33af1570f6fd310f06104d747c\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nPASS NPU periodic PPDU NO_SKB TXS keeps BA session alive\nPASS NPU-only MPDU NO_SKB TXS keeps BA session alive\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 0 failed, 0 expected failure\n",
+      "test_sha256": "f6751d8b190271967e5465d5c5768c706d73470f60d7e7d085658e2c60b96f51"
+    },
+    {
+      "name": "npu-mailbox",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_npu_mailbox.py",
+        "--source",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_npu.c"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"source\": \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_npu.c\",\n  \"source_sha256\": \"f046d7641707b7928615cfb262ab939a06291fbc0c1820d2aa4894f5af3f57d8\",\n  \"product_patch_sha256\": \"df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8\",\n  \"source_already_applied\": true,\n  \"product_patch_fuzz\": 0,\n  \"whole_source_patch_round_trip_equal\": true,\n  \"compiler\": \"Apple clang version 21.0.0 (clang-2100.3.34.2)\",\n  \"sanitizers\": [\n    \"address\",\n    \"undefined\"\n  ],\n  \"actual_definitions\": [\n    \"#define AIROHA_NPU_MBOX_SIZE\\t\\t\\t256\",\n    \"#define NPU_MBOX_BASE_ADDR\\t\\t0x30c000\",\n    \"#define REG_CR_MBQ0_CTRL(_n)\\t\\t(NPU_MBOX_BASE_ADDR + 0x030 + ((_n) << 2))\",\n    \"#define MBOX_MSG_FUNC_ID\\tGENMASK(14, 11)\",\n    \"#define MBOX_MSG_STATIC_BUF\\tBIT(5)\",\n    \"#define MBOX_MSG_STATUS\\t\\tGENMASK(4, 2)\",\n    \"#define MBOX_MSG_DONE\\t\\tBIT(1)\",\n    \"#define MBOX_MSG_WAIT_RSP\\tBIT(0)\"\n  ],\n  \"production_modified\": false,\n  \"candidate_scope\": \"CTRL3 read and WAIT_RSP&&!DONE guard after lock; shared unlock label only\",\n  \"results\": {\n    \"baseline\": {\n      \"cases\": [\n        {\n          \"name\": \"normal_flags0_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_zero_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_max_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"ctrl3_read_error\",\n          \"pass\": false,\n          \"reason\": \"ctrl3_read_error_must_be_returned\"\n        },\n        {\n          \"name\": \"response_error_status\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_timeout\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_poll_read_error\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"oversize_payload\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"reply_longer_than_request\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"timeout_A_then_B\",\n          \"pass\": false,\n          \"reason\": \"timeout_reuse_must_return_EBUSY\"\n        }\n      ],\n      \"passed\": 79,\n      \"failed\": 66,\n      \"timeout_observation\": {\n        \"B_return\": 0,\n        \"late_A_accepted_as_B\": true,\n        \"B_preserved_A_state\": false,\n        \"B_after_A_done_return\": -999\n      },\n      \"exit_code\": 1,\n      \"function_sha256\": \"bb00bf5475d43280a3830c53cc664e8957e07ea641ba4139e3b6039aa81b0d32\"\n    },\n    \"candidate\": {\n      \"cases\": [\n        {\n          \"name\": \"normal_flags0_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_zero_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_max_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"ctrl3_read_error\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_error_status\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_timeout\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_poll_read_error\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"oversize_payload\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"reply_longer_than_request\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"timeout_A_then_B\",\n          \"pass\": true,\n          \"reason\": \"\"\n        }\n      ],\n      \"passed\": 145,\n      \"failed\": 0,\n      \"timeout_observation\": {\n        \"B_return\": -16,\n        \"late_A_accepted_as_B\": false,\n        \"B_preserved_A_state\": true,\n        \"B_after_A_done_return\": 0\n      },\n      \"exit_code\": 0,\n      \"function_sha256\": \"ede1458c03ed8ca103251f9603943052d6c210d9a62a4d35fe05f12172e8ea5f\"\n    }\n  },\n  \"limitations\": [\n    \"One explicitly ordered device model; not firmware execution, hardware DMA, IRQ concurrency or elapsed timeout modeling.\",\n    \"The model assumes WAIT_RSP&&!DONE remains observable for unfinished work and DONE marks completion; firmware contract is not proved.\",\n    \"Busy return is not cancellation or recovery; permanently unfinished commands can leave subsequent requests EBUSY.\",\n    \"Existing CTRL0..3 write errors, CTRL2 read errors, sequence wrap, negative lengths, lifecycle/reset interleavings and barriers are not changed or verified.\",\n    \"No Air stall attribution or real device repair is established.\"\n  ]\n}\n",
+      "test_sha256": "1e9dfc2110c426c4683cc97bee4226ea01d8e575899dc24bbc6bb572ba0b07b6"
+    },
+    {
+      "name": "npu-dma",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt76_npu_rx.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--applied"
+      ],
+      "exit_code": 0,
+      "output": "patched: ordered ownership, wrap, allocation failure and reserved slot pass\nbaseline: NPU can observe ownership before the replacement address\npatched: partial chain, wrap, allocation failure, count bound and empty ring pass\npatched: fragmented controls, refreshed pointers, normal zero-copy and allocation failure pass\nTX publication: 8 cases, 0 contract failures (wrap, clamp, metadata preserved)\nTX publication: 8 cases, 8 contract failures (wrap, clamp, metadata preserved)\nFour exact-source RX/TX groups passed; missing-barrier controls rejected.\n",
+      "test_sha256": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93"
+    },
+    {
+      "name": "transition",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "link transition: 24 checks, 0 failed\nLimitation retained: failed activation rollback; no Air hardware claim.\n",
+      "test_sha256": "cf35cf8a8af23fe3679814e5505ae9715442de2f533470f57a59ba63a5c236c7"
+    },
+    {
+      "name": "forward-path",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_forward_path.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60"
+      ],
+      "exit_code": 0,
+      "output": "configuration: npu\nboundary writer: after final read, before return\nforward path: 44 checks, 0 failed\nconfiguration: wed\nboundary writer: after final read, before return\nforward path: 48 checks, 0 failed\n",
+      "test_sha256": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc"
+    },
+    {
+      "name": "lifecycle",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "all"
+      ],
+      "exit_code": 0,
+      "output": "link lifecycle: 631 checks, 0 failed\n",
+      "test_sha256": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c"
+    },
+    {
+      "name": "mlo-ps",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_mlo_ps.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "29 checks, 0 failed\ncombined: 99 checks, 0 failed\n",
+      "test_sha256": "b84fecc83baeffaac5663ae121a617ab83ae3c98dde84833ef834b8b35bc8e94"
+    },
+    {
+      "name": "npu-watchdog",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_npu_watchdog.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "EXPECTED FAIL before immediate_irq=0\nEXPECTED FAIL before immediate_irq=1\nPASS immediate_irq=0: success + 44 probe failure boundaries\nPASS immediate_irq=1: success + 44 probe failure boundaries\nPASS patch applicability, kernel helper compatibility and both negative controls\n",
+      "test_sha256": "5d23e202ffac38c0cacbaeea9cf7cf03f3c5e676f9cfcb6cb855208a313949b4"
+    },
+    {
+      "name": "ttl",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_ttl.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"structural_passed\": 12, \"extracted_c\": {\"passed\": 2091, \"failed\": 0, \"scope\": \"extracted source guards and allocation only\"}, \"limitations\": [\"Extracted guards only; not a kernel build or full forwarding test.\", \"IPv4 checksum helper and kernel context are stubs.\", \"Does not prove PPE bit semantics, packet checksums, or module ABI isolation.\"]}\n",
+      "test_sha256": "893df79ddbe3448bf23cb123832faae8b90e2d3821c55e79ce760ef123058d41"
+    },
+    {
+      "name": "conntrack",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_conntrack_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/bridge/netfilter/nf_conntrack_bridge.c"
+      ],
+      "exit_code": 0,
+      "output": "0 ownership failures across 7 cases\nPASS: drop, stolen, accept and conntrack ownership\n",
+      "test_sha256": "9c051073e82d4a90af13ebc8f93950413d26d66f21e09e51fe8aefa6a27c4400"
+    },
+    {
+      "name": "ppe",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_ppe.c",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h"
+      ],
+      "exit_code": 0,
+      "output": "PASS case 0\nPASS case 1\nPASS case 2\nPASS case 3\nPASS case 4\nPASS case 5\nPASS case 6\nPASS case 7\nPASS case 8\nPASS case 9\nPASS case 10\nPASS case 11\nPASS case 12\nPASS case 13\nPASS case 14\nPASS case 15\nTOTAL 16 PASS, 0 EXPECTED_FAIL\n",
+      "test_sha256": "38a03dee81b781b573a97faf7e5a3c2230648fcdc34409c4bcbff6f837bacb47"
+    },
+    {
+      "name": "fdb",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_fdb_cleanup.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/netfilter/nf_flow_table_core.c"
+      ],
+      "exit_code": 0,
+      "output": "PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races, 3 teardown cases; failures=0\nScope: extracted C with stubs, not kernel locking/GC/hardware acceptance.\n",
+      "test_sha256": "a5b9f758a1934ffd02800d6b35f695c9e55b6ae7e59909b3aaa1f2b30c9aba85"
+    }
+  ],
+  "prepared_source_provenance": {
+    "status": "PASS",
+    "baseline_sha256": "7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e",
+    "prepared_sha256": "5fc307c8b90654a16e8dbe204ae119966967a0a83fd49117ef766f17733ef00d",
+    "patch_sha256": "df1a1d50d869d25700cb0fad7ff697c6504d228c5383085d27a011440474a9a6",
+    "scope": "Actual prepared mt7996/mac.c equals r38 source plus only NPU BA inactivity refresh, no fuzz."
+  },
+  "npu_ba_baseline": {
+    "test_sha256": "f6751d8b190271967e5465d5c5768c706d73470f60d7e7d085658e2c60b96f51",
+    "patch_sha256": "df1a1d50d869d25700cb0fad7ff697c6504d228c5383085d27a011440474a9a6",
+    "baseline_mac_sha256": "7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e",
+    "candidate_mac_sha256": "5fc307c8b90654a16e8dbe204ae119966967a0a83fd49117ef766f17733ef00d",
+    "results": {
+      "baseline": {
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+          "--source-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+        ],
+        "exit_code": 1,
+        "output": "INPUT mt7996/mac.c sha256=7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=58c573a0c345341f0355671d9326bcd7c87139826b307f89c331ebd223dfc6c3\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nFAIL NPU periodic PPDU NO_SKB TXS keeps BA session alive\nFAIL NPU-only MPDU NO_SKB TXS keeps BA session alive\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 2 failed, 0 expected failure\n",
+        "counts": {
+          "PASS": 16,
+          "FAIL": 2,
+          "EXPECTED_FAIL": 0
+        }
+      },
+      "baseline-expected": {
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+          "--source-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+          "--expect-missing-npu-refresh"
+        ],
+        "exit_code": 0,
+        "output": "INPUT mt7996/mac.c sha256=7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=58c573a0c345341f0355671d9326bcd7c87139826b307f89c331ebd223dfc6c3\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nEXPECTED_FAIL NPU periodic PPDU NO_SKB TXS keeps BA session alive: accepted TXS, stale last_tx, false-idle stop\nEXPECTED_FAIL NPU-only MPDU NO_SKB TXS keeps BA session alive: accepted TXS, stale last_tx, false-idle stop\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 0 failed, 2 expected failure\n",
+        "counts": {
+          "PASS": 16,
+          "FAIL": 0,
+          "EXPECTED_FAIL": 2
+        }
+      },
+      "candidate": {
+        "command": [
+          "/opt/homebrew/opt/python@3.14/bin/python3.14",
+          "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+          "--source-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+          "--mac80211-dir",
+          "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+          "--patch",
+          "publish-mlo-r29/package/kernel/mt76/patches/0035-mt7996-refresh-npu-tx-aggregation-timer.patch"
+        ],
+        "exit_code": 0,
+        "output": "INPUT mt7996/mac.c sha256=7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\npatching file 'mt7996/mac.c'\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=f161a557205efc669f33981c93758863f4da4b33af1570f6fd310f06104d747c\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nPASS NPU periodic PPDU NO_SKB TXS keeps BA session alive\nPASS NPU-only MPDU NO_SKB TXS keeps BA session alive\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 0 failed, 0 expected failure\n",
+        "counts": {
+          "PASS": 18,
+          "FAIL": 0,
+          "EXPECTED_FAIL": 0
+        }
+      }
+    },
+    "limits": [
+      "Host code extraction, synchronized timer and HZ1000 fixture only",
+      "No firmware TXS generation, Air ADDBA timeout, kernel concurrency or wireless proof"
+    ]
+  },
+  "negative_controls": {
+    "npu_ba_baseline_pass": 16,
+    "npu_ba_baseline_expected_fail": 2,
+    "mailbox_baseline_pass": 79,
+    "mailbox_baseline_expected_fail": 66,
+    "note": "Exact expected failure reasons and late-A-as-B observation checked by the regression script; not candidate failures or hardware acceptance."
+  },
+  "mailbox_firmware_contract": {
+    "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+    "source": "r36 extracted rootfs lib/firmware/airoha/en7581_MT7996_npu_rv32.bin",
+    "fresh_decoder": "5.0.7",
+    "range": [
+      "0x84003cd8",
+      "0x84003db2"
+    ],
+    "range_sha256": "f19715bc18f35d7f92254f02e21d0010d6dcafff3ad39b4892659da7ebe27447",
+    "saved_rows_bytes_matched": 81,
+    "anchors": [
+      {
+        "address": "0x84003d2e",
+        "size": 4,
+        "bytes": "13f71700",
+        "instruction": "andi a4, a5, 1"
+      },
+      {
+        "address": "0x84003d36",
+        "size": 2,
+        "bytes": "19ef",
+        "instruction": "c.bnez a4, 0x1e"
+      },
+      {
+        "address": "0x84003d50",
+        "size": 4,
+        "bytes": "2320f900",
+        "instruction": "sw a5, 0(s2)"
+      },
+      {
+        "address": "0x84003d7e",
+        "size": 2,
+        "bytes": "8297",
+        "instruction": "c.jalr a5"
+      },
+      {
+        "address": "0x84003d84",
+        "size": 4,
+        "bytes": "937734fe",
+        "instruction": "andi a5, s0, -0x1d"
+      },
+      {
+        "address": "0x84003d98",
+        "size": 4,
+        "bytes": "13642400",
+        "instruction": "ori s0, s0, 2"
+      },
+      {
+        "address": "0x84003da0",
+        "size": 4,
+        "bytes": "23208900",
+        "instruction": "sw s0, 0(s2)"
+      },
+      {
+        "address": "0x84003db0",
+        "size": 2,
+        "bytes": "8280",
+        "instruction": "c.jr ra"
+      }
+    ],
+    "wait_path": "WAIT bit 0 skips the early DONE store, calls the handler, preserves WAIT while updating status, then sets DONE bit 1 and stores CTRL3.",
+    "limitations": [
+      "Selected function decoding, not full firmware CFG or execution.",
+      "DONE is mailbox handler completion, not proof that Wi-Fi DMA has quiesced.",
+      "No firmware mutation, install, router access or wireless tests."
+    ]
+  },
+  "build_log_sha256": {
+    "defconfig.log": "b377b196b60e697a9f6e638b4095252ba4d0ecb254eefc6c8d16d3c74b8b4c9f",
+    "kernel.log": "1a1716578ff86639140890bbe215bd716a7b1d78941546a30438f78ed474f3f0",
+    "packages.log": "af062c92904a33297089ffcca2e46a340f92a123e1b0dcbfcd7c675a9f4d0d7a",
+    "package-install.log": "8b8d9f2f3cc66015eaa5b59a2266ff6493206f04d9a1d48550e2a5adb3a053cc",
+    "target-install.log": "085dd20415a48327918fd04359d379162eb682e3bfd28f892aa2b047b0bd3239",
+    "index.log": "76151689b094f309d5d1e03ff0b54734373bd361b53b9e2f7d1a71a7e9d527be",
+    "buildinfo.log": "2090cbe1da3b9e1080b0b6a4440355976779d5e827929e6f28ae22b30d464e43",
+    "image-info.log": "0fdd87f64b27625303940df5936a377a9553c68c68a4b456c57f7640c6ab5c7c",
+    "checksum.log": "b9c8534e47e1d9dfffc187a27f2e7704c62617a90cf982b108b096a5852f33b2"
+  },
+  "installed": false,
+  "boot_tested": false,
+  "wireless_tested": false,
+  "limitations": [
+    "Host fixtures with explicit device ordering; not hardware DMA, concurrency, elapsed timeout or Air causal proof.",
+    "The BA fix requires accepted station TXS and a negotiated nonzero inactivity timeout; Air timeout and stall causality are unverified.",
+    "Pending mailbox rejection is not command cancellation or firmware recovery; permanently incomplete work remains busy.",
+    "NPU stop/reset caller error handling, IRQ lifetime and runtime PPE SRAM delete failure remain separate open issues.",
+    "Only mt7996e.ko changes; kernel and other 73 modules match r38; vendor firmware and wpad/LuCI are unchanged.",
+    "No router access, install, reboot, configuration change or additional wireless tests.",
+    "Native incremental build with pinned inputs, not clean-room reproducibility."
+  ]
+}

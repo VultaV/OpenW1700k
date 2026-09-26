@@ -1,0 +1,24 @@
+Subject: [PATCH] wifi: mt76: mt7996: refresh BA inactivity for NPU TX
+
+NPU forwarding bypasses the mac80211 transmit paths that update the TX
+aggregation last_tx timestamp. The TX-status refresh currently covers WED
+only. A peer-negotiated nonzero BA timeout can therefore expire even while
+NPU-offloaded traffic continues to produce accepted TX status reports.
+
+Refresh the aggregation session for NPU as well as WED, retaining the
+station guard and existing TID extraction. This does not change timeout
+negotiation or keep a session alive without TX status activity.
+
+---
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -1604,7 +1604,8 @@
+ 		}
+ 	}
+ 
+-	if (mtk_wed_device_active(&dev->mt76.mmio.wed) && wcid->sta) {
++	if ((mtk_wed_device_active(&dev->mt76.mmio.wed) ||
++	     mt76_npu_device_active(mdev)) && wcid->sta) {
+ 		struct ieee80211_sta *sta;
+ 		u8 tid;
+ 

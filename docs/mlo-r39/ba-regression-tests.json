@@ -1,0 +1,66 @@
+{
+  "test_sha256": "f6751d8b190271967e5465d5c5768c706d73470f60d7e7d085658e2c60b96f51",
+  "patch_sha256": "df1a1d50d869d25700cb0fad7ff697c6504d228c5383085d27a011440474a9a6",
+  "baseline_mac_sha256": "7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e",
+  "candidate_mac_sha256": "5fc307c8b90654a16e8dbe204ae119966967a0a83fd49117ef766f17733ef00d",
+  "results": {
+    "baseline": {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 1,
+      "output": "INPUT mt7996/mac.c sha256=7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=58c573a0c345341f0355671d9326bcd7c87139826b307f89c331ebd223dfc6c3\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nFAIL NPU periodic PPDU NO_SKB TXS keeps BA session alive\nFAIL NPU-only MPDU NO_SKB TXS keeps BA session alive\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 2 failed, 0 expected failure\n",
+      "counts": {
+        "PASS": 16,
+        "FAIL": 2,
+        "EXPECTED_FAIL": 0
+      }
+    },
+    "baseline-expected": {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+        "--expect-missing-npu-refresh"
+      ],
+      "exit_code": 0,
+      "output": "INPUT mt7996/mac.c sha256=7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=58c573a0c345341f0355671d9326bcd7c87139826b307f89c331ebd223dfc6c3\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nEXPECTED_FAIL NPU periodic PPDU NO_SKB TXS keeps BA session alive: accepted TXS, stale last_tx, false-idle stop\nEXPECTED_FAIL NPU-only MPDU NO_SKB TXS keeps BA session alive: accepted TXS, stale last_tx, false-idle stop\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 0 failed, 2 expected failure\n",
+      "counts": {
+        "PASS": 16,
+        "FAIL": 0,
+        "EXPECTED_FAIL": 2
+      }
+    },
+    "candidate": {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+        "--patch",
+        "publish-mlo-r29/package/kernel/mt76/patches/0035-mt7996-refresh-npu-tx-aggregation-timer.patch"
+      ],
+      "exit_code": 0,
+      "output": "INPUT mt7996/mac.c sha256=7750a9a259fbc3a36abc1f5cb5bf1de24c19e8f2f198d393b5e4cd1778257b0e\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\npatching file 'mt7996/mac.c'\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=f161a557205efc669f33981c93758863f4da4b33af1570f6fd310f06104d747c\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nPASS NPU periodic PPDU NO_SKB TXS keeps BA session alive\nPASS NPU-only MPDU NO_SKB TXS keeps BA session alive\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 0 failed, 0 expected failure\n",
+      "counts": {
+        "PASS": 18,
+        "FAIL": 0,
+        "EXPECTED_FAIL": 0
+      }
+    }
+  },
+  "limits": [
+    "Host code extraction, synchronized timer and HZ1000 fixture only",
+    "No firmware TXS generation, Air ADDBA timeout, kernel concurrency or wireless proof"
+  ]
+}

@@ -1,0 +1,3715 @@
+{
+  "checked_at_utc": "2026-09-26T14:43:36.976803+00:00",
+  "scope": "Diagnostic-line inventory of nine completed r39 stage logs; no source edits or build/tests.",
+  "detection": {
+    "regex": "\\bwarning(?::|\\s+\\([A-Za-z0-9_-]+\\):)",
+    "case_insensitive": true,
+    "unit": "One matching primary warning line; repeated occurrences retained.",
+    "normalization": "Group by text from WARNING/Warning/warning onward; strip diagnostic source-location prefix and make workspace paths relative. Examples preserve relative source locations.",
+    "excluded": "Compiler flags, note lines referring to a warning, and summary lines such as N warnings generated. This is not a count of independent bugs."
+  },
+  "total_diagnostic_occurrences": 386,
+  "unique_normalized_messages": 149,
+  "stages": {
+    "defconfig": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "b377b196b60e697a9f6e638b4095252ba4d0ecb254eefc6c8d16d3c74b8b4c9f"
+    },
+    "kernel": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "1a1716578ff86639140890bbe215bd716a7b1d78941546a30438f78ed474f3f0"
+    },
+    "packages": {
+      "diagnostic_occurrences": 215,
+      "unique_normalized_messages": 124,
+      "log_sha256": "af062c92904a33297089ffcca2e46a340f92a123e1b0dcbfcd7c675a9f4d0d7a"
+    },
+    "package-install": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "8b8d9f2f3cc66015eaa5b59a2266ff6493206f04d9a1d48550e2a5adb3a053cc"
+    },
+    "target-install": {
+      "diagnostic_occurrences": 73,
+      "unique_normalized_messages": 39,
+      "log_sha256": "085dd20415a48327918fd04359d379162eb682e3bfd28f892aa2b047b0bd3239"
+    },
+    "index": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "76151689b094f309d5d1e03ff0b54734373bd361b53b9e2f7d1a71a7e9d527be"
+    },
+    "buildinfo": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "2090cbe1da3b9e1080b0b6a4440355976779d5e827929e6f28ae22b30d464e43"
+    },
+    "image-info": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "0fdd87f64b27625303940df5936a377a9553c68c68a4b456c57f7640c6ab5c7c"
+    },
+    "checksum": {
+      "diagnostic_occurrences": 14,
+      "unique_normalized_messages": 14,
+      "log_sha256": "b9c8534e47e1d9dfffc187a27f2e7704c62617a90cf982b108b096a5852f33b2"
+    }
+  },
+  "categories": {
+    "build_tool_or_configuration": 43,
+    "device_tree": 59,
+    "feed_dependency": 126,
+    "firmware_mapping": 138,
+    "modpost_module_description": 2,
+    "source_diagnostic": 18
+  },
+  "config_sha256": "43a9648c24e82066ddc1b4c9a91e19820269c70f04b96414cc5b9c96960c2410",
+  "inputs": {
+    "baseline_sha256": "33a12cdf9bec7c9f0a1e3e7f66e924fc0bc51f13b75e09ed6955db4e4452f7a4",
+    "build_steps_sha256": "62580e7fe41fc533827fbc5ed48706fb40cda8530ba2e142384e1e08868c6759",
+    "image_verification_sha256": "8c14bee51df46e7f2f2a99384f2e18abc5b93997ab455b0288047b4a3df63175",
+    "apk_database_sha256": "2e075f37a6d80083790a1f41c9a5c8a2ed24d229c887e86f236d71c0fa1eccf5",
+    "stage_record_count": 9,
+    "final_stage_exit_codes": {
+      "defconfig": 0,
+      "kernel": 0,
+      "packages": 0,
+      "package-install": 0,
+      "target-install": 0,
+      "index": 0,
+      "buildinfo": 0,
+      "image-info": 0,
+      "checksum": 0
+    },
+    "installed_package_count": 206
+  },
+  "dependency_warnings": [
+    {
+      "recipe": "package/feeds/luci/luci-app-babeld/Makefile",
+      "dependent_recipe": "luci-app-babeld",
+      "missing_dependency": "babeld",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/luci/luci-app-bmx7/Makefile",
+      "dependent_recipe": "luci-app-bmx7",
+      "missing_dependency": "bmx7",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/luci/luci-app-bmx7/Makefile",
+      "dependent_recipe": "luci-app-bmx7",
+      "missing_dependency": "bmx7-iwinfo",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/luci/luci-app-bmx7/Makefile",
+      "dependent_recipe": "luci-app-bmx7",
+      "missing_dependency": "bmx7-json",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/luci/luci-app-bmx7/Makefile",
+      "dependent_recipe": "luci-app-bmx7",
+      "missing_dependency": "bmx7-tun",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/luci/luci-app-bmx7/Makefile",
+      "dependent_recipe": "luci-app-bmx7",
+      "missing_dependency": "bmx7-uci-config",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/luci/luci-app-dcwapd/Makefile",
+      "dependent_recipe": "luci-app-dcwapd",
+      "missing_dependency": "dcwapd",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/packages/bmx7-dnsupdate/Makefile",
+      "dependent_recipe": "bmx7-dnsupdate",
+      "missing_dependency": "bmx7",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/packages/bmx7-dnsupdate/Makefile",
+      "dependent_recipe": "bmx7-dnsupdate",
+      "missing_dependency": "bmx7-json",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/packages/gst1-plugins-base/Makefile",
+      "dependent_recipe": "gst1-plugins-base",
+      "missing_dependency": "libgraphene",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false,
+      "enabled_gstreamer_family_packages": {},
+      "installed_gstreamer_family_packages": []
+    },
+    {
+      "recipe": "package/feeds/packages/gst1-plugins-base/Makefile",
+      "dependent_recipe": "gst1-plugins-base",
+      "missing_dependency": "libmesa",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false,
+      "enabled_gstreamer_family_packages": {},
+      "installed_gstreamer_family_packages": []
+    },
+    {
+      "recipe": "package/feeds/packages/gst1-plugins-base/Makefile",
+      "dependent_recipe": "gst1-plugins-base",
+      "missing_dependency": "libwayland",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false,
+      "enabled_gstreamer_family_packages": {},
+      "installed_gstreamer_family_packages": []
+    },
+    {
+      "recipe": "package/feeds/packages/prometheus-node-exporter-lua/Makefile",
+      "dependent_recipe": "prometheus-node-exporter-lua",
+      "missing_dependency": "bmx7",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    },
+    {
+      "recipe": "package/feeds/packages/prometheus-node-exporter-lua/Makefile",
+      "dependent_recipe": "prometheus-node-exporter-lua",
+      "missing_dependency": "bmx7-json",
+      "config_selection": "not_enabled",
+      "installed_in_image": false,
+      "occurrences": 9,
+      "enabled_family_packages": {},
+      "installed_family_packages": [],
+      "missing_dependency_installed": false
+    }
+  ],
+  "empty_kmod_warnings": {
+    "kmod-3c59x": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-crypto-hw-hifn-795x": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-crypto-hw-padlock": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-crypto-test": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-dm9000": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-fs-reiserfs": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-i2c-algo-pca": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-i2c-algo-pcf": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-i2c-pxa": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-i2c-smbus": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-iio-ad7405": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-industrialio-backend": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-pse-hasivo-hs104": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-renesas-rzn-pcs": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-snd-hda-scodec-component": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-analog": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-ca0110": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-ca0132": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-cirrus": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-cmedia": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-conexant": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-hdmi": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-idt": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-realtek": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-si3054": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-codec-via": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-sound-hda-core": {
+      "config_selection": "m",
+      "installed_in_image": false
+    },
+    "kmod-thermal": {
+      "config_selection": "m",
+      "installed_in_image": false
+    }
+  },
+  "relation_to_r39_changes": {
+    "direct_new_module_source_diagnostics": 0,
+    "direct_diagnostics": [],
+    "assessment": "Direct file-name matches are evidence locations, not proof of patch causality. Filename matches alone do not establish a new warning caused by this patch."
+  },
+  "comparison_to_r38": {
+    "baseline": "mlo-ppe-init-r38-2026-09-26",
+    "baseline_total_diagnostic_occurrences": 1074,
+    "baseline_unique_normalized_messages": 308,
+    "common_unique_messages": 148,
+    "new_unique_messages": 1,
+    "not_observed_unique_messages": 160,
+    "common_messages": [
+      "WARNING: Firmware file a0g0bsinitvals9.fw not found in the mapping lists",
+      "WARNING: Firmware file a0g0initvals9.fw not found in the mapping lists",
+      "WARNING: Firmware file a0g1bsinitvals13.fw not found in the mapping lists",
+      "WARNING: Firmware file a0g1bsinitvals9.fw not found in the mapping lists",
+      "WARNING: Firmware file a0g1initvals13.fw not found in the mapping lists",
+      "WARNING: Firmware file a0g1initvals9.fw not found in the mapping lists",
+      "WARNING: Firmware file b0g0bsinitvals13.fw not found in the mapping lists",
+      "WARNING: Firmware file b0g0bsinitvals9.fw not found in the mapping lists",
+      "WARNING: Firmware file b0g0initvals9.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn0bsinitvals25.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn0bsinitvals26.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn0initvals25.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn0initvals26.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn1bsinitvals24.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn1bsinitvals25.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn1bsinitvals26.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn1initvals24.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn1initvals25.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn1initvals26.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn2bsinitvals24.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn2bsinitvals25.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn2bsinitvals26.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn2initvals24.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn2initvals25.fw not found in the mapping lists",
+      "WARNING: Firmware file lcn2initvals26.fw not found in the mapping lists",
+      "WARNING: Firmware file lp0bsinitvals16.fw not found in the mapping lists",
+      "WARNING: Firmware file lp0initvals16.fw not found in the mapping lists",
+      "WARNING: Firmware file lp1bsinitvals20.fw not found in the mapping lists",
+      "WARNING: Firmware file lp1bsinitvals22.fw not found in the mapping lists",
+      "WARNING: Firmware file lp1initvals20.fw not found in the mapping lists",
+      "WARNING: Firmware file lp1initvals22.fw not found in the mapping lists",
+      "WARNING: Firmware file lp2bsinitvals19.fw not found in the mapping lists",
+      "WARNING: Firmware file lp2initvals19.fw not found in the mapping lists",
+      "WARNING: Firmware file n0absinitvals11.fw not found in the mapping lists",
+      "WARNING: Firmware file n0bsinitvals17.fw not found in the mapping lists",
+      "WARNING: Firmware file n0initvals17.fw not found in the mapping lists",
+      "WARNING: Firmware file n18bsinitvals32.fw not found in the mapping lists",
+      "WARNING: Firmware file n18initvals32.fw not found in the mapping lists",
+      "WARNING: Firmware file n1bsinitvals20.fw not found in the mapping lists",
+      "WARNING: Firmware file n1initvals20.fw not found in the mapping lists",
+      "WARNING: Firmware file n2bsinitvals19.fw not found in the mapping lists",
+      "WARNING: Firmware file n2initvals19.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn0bsinitvals16.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn0initvals16.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn1bsinitvals20.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn1bsinitvals27.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn1initvals20.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn1initvals27.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn2bsinitvals19.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn2initvals19.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn3bsinitvals21.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn3initvals21.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn4bsinitvals22.fw not found in the mapping lists",
+      "WARNING: Firmware file sslpn4initvals22.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode16_lp.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode16_sslpn.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode16_sslpn_nobt.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode17_mimo.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode19_sslpn.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode19_sslpn_nobt.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode20_sslpn.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode20_sslpn_nobt.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode21_sslpn.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode21_sslpn_nobt.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode22_sslpn.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode24_mimo.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode27_sslpn.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode32_mimo.fw not found in the mapping lists",
+      "WARNING: Firmware file ucode9.fw not found in the mapping lists",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-babeld/Makefile' has a dependency on 'babeld', which does not exist",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7', which does not exist",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-iwinfo', which does not exist",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-json', which does not exist",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-tun', which does not exist",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-uci-config', which does not exist",
+      "WARNING: Makefile 'package/feeds/luci/luci-app-dcwapd/Makefile' has a dependency on 'dcwapd', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7-json', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libgraphene', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libmesa', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libwayland', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7', which does not exist",
+      "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7-json', which does not exist",
+      "WARNING: kmod-3c59x is not available in the kernel config - generating empty package",
+      "WARNING: kmod-crypto-hw-hifn-795x is not available in the kernel config - generating empty package",
+      "WARNING: kmod-crypto-hw-padlock is not available in the kernel config - generating empty package",
+      "WARNING: kmod-crypto-test is not available in the kernel config - generating empty package",
+      "WARNING: kmod-dm9000 is not available in the kernel config - generating empty package",
+      "WARNING: kmod-fs-reiserfs is not available in the kernel config - generating empty package",
+      "WARNING: kmod-i2c-algo-pca is not available in the kernel config - generating empty package",
+      "WARNING: kmod-i2c-algo-pcf is not available in the kernel config - generating empty package",
+      "WARNING: kmod-i2c-pxa is not available in the kernel config - generating empty package",
+      "WARNING: kmod-i2c-smbus is not available in the kernel config - generating empty package",
+      "WARNING: kmod-iio-ad7405 is not available in the kernel config - generating empty package",
+      "WARNING: kmod-industrialio-backend is not available in the kernel config - generating empty package",
+      "WARNING: kmod-pse-hasivo-hs104 is not available in the kernel config - generating empty package",
+      "WARNING: kmod-renesas-rzn-pcs is not available in the kernel config - generating empty package",
+      "WARNING: kmod-snd-hda-scodec-component is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-analog is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-ca0110 is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-ca0132 is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-cirrus is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-cmedia is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-conexant is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-hdmi is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-idt is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-realtek is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-si3054 is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-codec-via is not available in the kernel config - generating empty package",
+      "WARNING: kmod-sound-hda-core is not available in the kernel config - generating empty package",
+      "WARNING: kmod-thermal is not available in the kernel config - generating empty package",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in siit.o",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in trelay.o",
+      "WARNING: skipping trusted-firmware-a-an7581-bl2 -- package not selected",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0: Relying on default #address-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0: Relying on default #size-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1: Relying on default #address-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1: Relying on default #size-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2: Relying on default #address-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2: Relying on default #size-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #address-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #size-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #address-cells value",
+      "Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #size-cells value",
+      "Warning (i2c_bus_reg): Failed prerequisite 'reg_format'",
+      "Warning (pci_bridge): /soc/pcie@1fc00000/pcie@0,0: missing ranges for PCI bridge (or not a bridge)",
+      "Warning (pci_device_bus_num): Failed prerequisite 'pci_bridge'",
+      "Warning (pci_device_bus_num): Failed prerequisite 'reg_format'",
+      "Warning (pci_device_reg): Failed prerequisite 'pci_bridge'",
+      "Warning (pci_device_reg): Failed prerequisite 'reg_format'",
+      "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)",
+      "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)",
+      "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)",
+      "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)",
+      "Warning (reg_format): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)",
+      "Warning (sound_dai_property): /sound/codec: Missing property '#sound-dai-cells' in node /soc/i2c0@1fbf8000/codec@1a or bad phandle (referred from sound-dai[0])",
+      "Warning (sound_dai_property): /sound/platform: Missing property '#sound-dai-cells' in node /soc/afe@1fbe2200 or bad phandle (referred from sound-dai[0])",
+      "Warning (spi_bus_reg): Failed prerequisite 'reg_format'",
+      "Warning (unit_address_format): Failed prerequisite 'pci_bridge'",
+      "warning: '../lib/libcurl.la' has not been installed in '/usr/lib'",
+      "warning: 'libxt_ACCOUNT_cl.la' has not been installed in '/usr/lib'",
+      "warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]",
+      "warning: ignoring old recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'",
+      "warning: override: reassigning to symbol MWIFIEX",
+      "warning: overriding recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'",
+      "warning: remember to run 'libtool --finish /usr/lib'",
+      "warning: remember to run 'libtool --finish /usr/lib/pppd/2.5.3'",
+      "warning: symbol value 'm' invalid for ATH5K_PCI"
+    ],
+    "new_messages": [
+      "Warning: modules_install: missing 'System.map' file. Skipping depmod."
+    ],
+    "not_observed_messages": [
+      "WARNING: *** atmoamd will not be built.  Missing kernel support?",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/dma-buf/dma-shared-buffer.o",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/net/phy/ar8xxx.o",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/net/phy/ip17xx.o",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/net/phy/rtl8306.o",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in drivers/net/phy/swconfig.o",
+      "WARNING: modpost: missing MODULE_DESCRIPTION() in net/netfilter/xt_FLOWOFFLOAD.o",
+      "WARNING: unrecognized options: --disable-nls",
+      "WARNING: unrecognized options: --disable-nls, --with-static-pcap",
+      "WARNING: you should use --build, --host, --target",
+      "Warning: 'make modules_install' requires /bin/true. Please install it.",
+      "Warning: 'make modules_install' requires depmod. Please install it.",
+      "warning: \"IFF_VOLATILE\" redefined",
+      "warning: \"LINUX_VERSION_MAJOR\" redefined",
+      "warning: \"NGROUPS_MAX\" redefined",
+      "warning: \"SIOCGSTAMP\" redefined",
+      "warning: \"SIOCGSTAMPNS\" redefined",
+      "warning: \"_IO\" redefined",
+      "warning: \"_IOC\" redefined",
+      "warning: \"_IOR\" redefined",
+      "warning: \"_IOW\" redefined",
+      "warning: \"_IOWR\" redefined",
+      "warning: #warning \"libmnl required for error support\" [-Wcpp]",
+      "warning: #warning redirecting incorrect #include <sys/poll.h> to <poll.h> [-Wcpp]",
+      "warning: '../../src/lib/libatm.la' has not been installed in '/usr/lib'",
+      "warning: '../bstring/libbstring.la' has not been installed in '/usr/lib'",
+      "warning: '../libiptc/libip4tc.la' has not been installed in '/usr/lib'",
+      "warning: '../libiptc/libip6tc.la' has not been installed in '/usr/lib'",
+      "warning: '../libxtables/libxtables.la' has not been installed in '/usr/lib'",
+      "warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "warning: 'INCLUDES' is the old name for 'AM_CPPFLAGS' (or '*_CPPFLAGS')",
+      "warning: 'RCSid' defined but not used [-Wunused-variable]",
+      "warning: 'atmLecsAddress' defined but not used [-Wunused-variable]",
+      "warning: 'build-volume/source/build_dir/target-aarch64_cortex-a53_musl/coova-chilli-1.8/bstring/libbstring.la' has not been installed in '/usr/lib'",
+      "warning: 'conntrack1_mt4_print' defined but not used [-Wunused-function]",
+      "warning: 'conntrack1_mt4_save' defined but not used [-Wunused-function]",
+      "warning: 'conntrack1_mt6_print' defined but not used [-Wunused-function]",
+      "warning: 'conntrack1_mt6_save' defined but not used [-Wunused-function]",
+      "warning: 'conntrack1_mt_parse' defined but not used [-Wunused-function]",
+      "warning: 'conntrack2_mt6_print' defined but not used [-Wunused-function]",
+      "warning: 'conntrack2_mt6_save' defined but not used [-Wunused-function]",
+      "warning: 'conntrack2_mt_opts' defined but not used [-Wunused-const-variable=]",
+      "warning: 'conntrack2_mt_parse' defined but not used [-Wunused-function]",
+      "warning: 'conntrack2_mt_print' defined but not used [-Wunused-function]",
+      "warning: 'conntrack2_mt_save' defined but not used [-Wunused-function]",
+      "warning: 'conntrack_mt_opts_v0' defined but not used [-Wunused-const-variable=]",
+      "warning: 'conntrack_parse' defined but not used [-Wunused-function]",
+      "warning: 'conntrack_print' defined but not used [-Wunused-function]",
+      "warning: 'conntrack_save' defined but not used [-Wunused-function]",
+      "warning: 'ct_help' defined but not used [-Wunused-function]",
+      "warning: 'ct_opts' defined but not used [-Wunused-const-variable=]",
+      "warning: 'ct_parse' defined but not used [-Wunused-function]",
+      "warning: 'ct_print' defined but not used [-Wunused-function]",
+      "warning: 'ct_save' defined but not used [-Wunused-function]",
+      "warning: 'dummy' may be used uninitialized [-Wmaybe-uninitialized]",
+      "warning: 'hex2num' defined but not used [-Wunused-function]",
+      "warning: 'input' defined but not used [-Wunused-function]",
+      "warning: 'libchilli.la' has not been installed in '/usr/lib'",
+      "warning: 'multiport_help' defined but not used [-Wunused-function]",
+      "warning: 'multiport_parse' defined but not used [-Wunused-function]",
+      "warning: 'multiport_parse6' defined but not used [-Wunused-function]",
+      "warning: 'multiport_print' defined but not used [-Wunused-function]",
+      "warning: 'multiport_print6' defined but not used [-Wunused-function]",
+      "warning: 'multiport_save' defined but not used [-Wunused-function]",
+      "warning: 'multiport_save6' defined but not used [-Wunused-function]",
+      "warning: 'multiport_xlate' defined but not used [-Wunused-function]",
+      "warning: 'multiport_xlate6' defined but not used [-Wunused-function]",
+      "warning: 'notrack_ct0_tg_init' defined but not used [-Wunused-function]",
+      "warning: 'notrack_ct1_tg_init' defined but not used [-Wunused-function]",
+      "warning: 'notrack_ct2_tg_init' defined but not used [-Wunused-function]",
+      "warning: 'result' may be used uninitialized [-Wmaybe-uninitialized]",
+      "warning: 'state_ct1_parse' defined but not used [-Wunused-function]",
+      "warning: 'state_ct23_parse' defined but not used [-Wunused-function]",
+      "warning: 'state_help' defined but not used [-Wunused-function]",
+      "warning: 'state_opts' defined but not used [-Wunused-const-variable=]",
+      "warning: 'state_parse' defined but not used [-Wunused-function]",
+      "warning: 'state_print' defined but not used [-Wunused-function]",
+      "warning: 'state_save' defined but not used [-Wunused-function]",
+      "warning: 'state_xlate' defined but not used [-Wunused-function]",
+      "warning: 'yyunput' defined but not used [-Wunused-function]",
+      "warning: AC_OUTPUT should be used without arguments.",
+      "warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete",
+      "warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.",
+      "warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:",
+      "warning: The macro 'AC_CANONICAL_SYSTEM' is obsolete.",
+      "warning: The macro 'AM_PROG_LIBTOOL' is obsolete.",
+      "warning: argument 6 of type 'uint8_t[20]' {aka 'unsigned char[20]'} with mismatched bound [-Warray-parameter=]",
+      "warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]",
+      "warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]",
+      "warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]",
+      "warning: deprecated feature: target 'q.out.o' overrides 'q.out.o$(EXEEXT)'",
+      "warning: deprecated feature: target 'qd.dump.o' overrides 'qd.dump.o$(EXEEXT)'",
+      "warning: enumeration value 'vt_id' not handled in switch [-Wswitch]",
+      "warning: format '%d' expects argument of type 'int', but argument 2 has type 'long int' [-Wformat=]",
+      "warning: format '%d' expects argument of type 'int', but argument 3 has type 'size_t' {aka 'long unsigned int'} [-Wformat=]",
+      "warning: format '%d' expects argument of type 'int', but argument 3 has type 'ssize_t' {aka 'long int'} [-Wformat=]",
+      "warning: format '%d' expects argument of type 'int', but argument 4 has type 'long unsigned int' [-Wformat=]",
+      "warning: format '%d' expects argument of type 'int', but argument 4 has type 'size_t' {aka 'long unsigned int'} [-Wformat=]",
+      "warning: function 'input' is not needed and will not be emitted [-Wunneeded-internal-declaration]",
+      "warning: function declaration isn't a prototype [-Wstrict-prototypes]",
+      "warning: initialization discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]",
+      "warning: inlining failed in call to 'nft_xt_ctx_get_dreg': call is unlikely and code size would grow [-Winline]",
+      "warning: inlining failed in call to 'nft_xt_ctx_get_sreg': call is unlikely and code size would grow [-Winline]",
+      "warning: inlining failed in call to 'parse_range': call is unlikely and code size would grow [-Winline]",
+      "warning: inlining failed in call to 'xs_has_arg': call is unlikely and code size would grow [-Winline]",
+      "warning: logical not is only applied to the left hand side of comparison [-Wlogical-not-parentheses]",
+      "warning: old-style function definition [-Wold-style-definition]",
+      "warning: pattern recipe did not update peer target 'pca200e.bin2'.",
+      "warning: pattern recipe did not update peer target 'pca200e_ecd.bin'.",
+      "warning: pattern recipe did not update peer target 'sba200e_ecd.bin'.",
+      "warning: pointer 'call' used after 'free' [-Wuse-after-free]",
+      "warning: pointer targets in assignment from 'char *' to 'uint8_t *' {aka 'unsigned char *'} differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in assignment from 'unsigned char *' to 'char *' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in initialization of 'char *' from 'unsigned char *' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'addr_getesi' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'analyze' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'init_lec_params' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'kernel_init' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'parse_config_rsp' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'parse_join_rsp' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'recognize_packet' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'send_to_dataplane' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'send_to_mps' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'strcpy' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 2 of 'create_ingress_svc' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 2 of 'esi_convert' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 2 of 'get_mpc_config' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 2 of 'mac2text' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 2 of 'strncpy' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 3 of 'get_mpc_config' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 4 of 'put_ci' differ in signedness [-Wpointer-sign]",
+      "warning: pointer targets in passing argument 6 of 'recvfrom' differ in signedness [-Wpointer-sign]",
+      "warning: relinking 'libchilli.la'",
+      "warning: self-comparison always evaluates to true [-Wtautological-compare]",
+      "warning: taking address of packed member of 'struct sockaddr_pppox' may result in an unaligned pointer value [-Waddress-of-packed-member]",
+      "warning: the comparison will always evaluate as 'true' for the address of 'prv' will never be NULL [-Waddress]",
+      "warning: this 'if' clause does not guard... [-Wmisleading-indentation]",
+      "warning: unused function 'yyunput' [-Wunused-function]",
+      "warning: unused variable 'cmp' [-Wunused-variable]",
+      "warning: unused variable 'component' [-Wunused-variable]",
+      "warning: unused variable 'elmtLen1' [-Wunused-variable]",
+      "warning: unused variable 'elmtLen2' [-Wunused-variable]",
+      "warning: unused variable 'entry' [-Wunused-variable]",
+      "warning: unused variable 'i' [-Wunused-variable]",
+      "warning: unused variable 'listLen' [-Wunused-variable]",
+      "warning: unused variable 'mandatoryElmtCount1' [-Wunused-variable]",
+      "warning: unused variable 'one' [-Wunused-variable]",
+      "warning: unused variable 'prefix' [-Wunused-variable]",
+      "warning: unused variable 'retLen' [-Wunused-variable]",
+      "warning: unused variable 'seqDone' [-Wunused-variable]",
+      "warning: unused variable 'tagId1' [-Wunused-variable]",
+      "warning: unused variable 'tagId2' [-Wunused-variable]",
+      "warning: unused variable 'tmp' [-Wunused-variable]",
+      "warning: unused variable 'totalElmtsLen2' [-Wunused-variable]",
+      "warning: unused variable 'totalLen' [-Wunused-variable]",
+      "warning: unused variable 'unusedBits' [-Wunused-variable]",
+      "warning: variable 'common' set but not used [-Wunused-but-set-variable]",
+      "warning: variable 'tmp' set but not used [-Wunused-but-set-variable]"
+    ],
+    "changed_occurrences": [
+      {
+        "message": "warning: remember to run 'libtool --finish /usr/lib'",
+        "baseline": 8,
+        "candidate": 3
+      }
+    ]
+  },
+  "major_observations": [
+    "All final nine stage records exited 0; 9 logs contain matched warnings.",
+    "14 missing-dependency messages; 0 involve enabled/installed recipe families requiring review.",
+    "28 empty-kmod names; 0 are installed in the extracted image.",
+    "Known normalized text does not establish harmlessness or identical source location; new text does not establish patch causality.",
+    "Warning inventory counts are separate from regression PASS/FAIL counts."
+  ],
+  "review_required": {
+    "enabled_or_installed_dependency_families": [],
+    "installed_empty_kmods": [],
+    "new_normalized_messages": [
+      "Warning: modules_install: missing 'System.map' file. Skipping depmod."
+    ]
+  },
+  "limitations": [
+    "Only the explicit r38 detection pattern is counted, not every diagnostic spelling.",
+    "All bytes of each append-only stage log are counted; earlier attempts, if any, remain included.",
+    "Not observed versus r38 does not mean fixed: incremental builds may not recompile the same components.",
+    "Categories reuse exact r38 normalized matches; unseen messages use documented source-location/tool rules.",
+    "Recipe-family selection is a prefix heuristic, not complete evaluation of all OpenWrt generated subpackages.",
+    "No assertion that warnings are harmless; no source edits, clean-room build, boot or wireless validation."
+  ],
+  "messages": [
+    {
+      "message": "WARNING: Firmware file a0g0bsinitvals9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50223,
+          "diagnostic": "WARNING: Firmware file a0g0bsinitvals9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52408,
+          "diagnostic": "WARNING: Firmware file a0g0bsinitvals9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file a0g0initvals9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50245,
+          "diagnostic": "WARNING: Firmware file a0g0initvals9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52430,
+          "diagnostic": "WARNING: Firmware file a0g0initvals9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file a0g1bsinitvals13.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50238,
+          "diagnostic": "WARNING: Firmware file a0g1bsinitvals13.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52423,
+          "diagnostic": "WARNING: Firmware file a0g1bsinitvals13.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file a0g1bsinitvals9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50196,
+          "diagnostic": "WARNING: Firmware file a0g1bsinitvals9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52381,
+          "diagnostic": "WARNING: Firmware file a0g1bsinitvals9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file a0g1initvals13.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50248,
+          "diagnostic": "WARNING: Firmware file a0g1initvals13.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52433,
+          "diagnostic": "WARNING: Firmware file a0g1initvals13.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file a0g1initvals9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50198,
+          "diagnostic": "WARNING: Firmware file a0g1initvals9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52383,
+          "diagnostic": "WARNING: Firmware file a0g1initvals9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file b0g0bsinitvals13.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50216,
+          "diagnostic": "WARNING: Firmware file b0g0bsinitvals13.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52401,
+          "diagnostic": "WARNING: Firmware file b0g0bsinitvals13.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file b0g0bsinitvals9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50207,
+          "diagnostic": "WARNING: Firmware file b0g0bsinitvals9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52392,
+          "diagnostic": "WARNING: Firmware file b0g0bsinitvals9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file b0g0initvals9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50227,
+          "diagnostic": "WARNING: Firmware file b0g0initvals9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52412,
+          "diagnostic": "WARNING: Firmware file b0g0initvals9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn0bsinitvals25.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50239,
+          "diagnostic": "WARNING: Firmware file lcn0bsinitvals25.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52424,
+          "diagnostic": "WARNING: Firmware file lcn0bsinitvals25.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn0bsinitvals26.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50190,
+          "diagnostic": "WARNING: Firmware file lcn0bsinitvals26.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52375,
+          "diagnostic": "WARNING: Firmware file lcn0bsinitvals26.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn0initvals25.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50205,
+          "diagnostic": "WARNING: Firmware file lcn0initvals25.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52390,
+          "diagnostic": "WARNING: Firmware file lcn0initvals25.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn0initvals26.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50214,
+          "diagnostic": "WARNING: Firmware file lcn0initvals26.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52399,
+          "diagnostic": "WARNING: Firmware file lcn0initvals26.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn1bsinitvals24.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50241,
+          "diagnostic": "WARNING: Firmware file lcn1bsinitvals24.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52426,
+          "diagnostic": "WARNING: Firmware file lcn1bsinitvals24.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn1bsinitvals25.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50246,
+          "diagnostic": "WARNING: Firmware file lcn1bsinitvals25.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52431,
+          "diagnostic": "WARNING: Firmware file lcn1bsinitvals25.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn1bsinitvals26.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50183,
+          "diagnostic": "WARNING: Firmware file lcn1bsinitvals26.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52368,
+          "diagnostic": "WARNING: Firmware file lcn1bsinitvals26.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn1initvals24.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50203,
+          "diagnostic": "WARNING: Firmware file lcn1initvals24.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52388,
+          "diagnostic": "WARNING: Firmware file lcn1initvals24.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn1initvals25.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50199,
+          "diagnostic": "WARNING: Firmware file lcn1initvals25.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52384,
+          "diagnostic": "WARNING: Firmware file lcn1initvals25.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn1initvals26.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50231,
+          "diagnostic": "WARNING: Firmware file lcn1initvals26.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52416,
+          "diagnostic": "WARNING: Firmware file lcn1initvals26.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn2bsinitvals24.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50215,
+          "diagnostic": "WARNING: Firmware file lcn2bsinitvals24.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52400,
+          "diagnostic": "WARNING: Firmware file lcn2bsinitvals24.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn2bsinitvals25.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50224,
+          "diagnostic": "WARNING: Firmware file lcn2bsinitvals25.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52409,
+          "diagnostic": "WARNING: Firmware file lcn2bsinitvals25.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn2bsinitvals26.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50193,
+          "diagnostic": "WARNING: Firmware file lcn2bsinitvals26.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52378,
+          "diagnostic": "WARNING: Firmware file lcn2bsinitvals26.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn2initvals24.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50228,
+          "diagnostic": "WARNING: Firmware file lcn2initvals24.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52413,
+          "diagnostic": "WARNING: Firmware file lcn2initvals24.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn2initvals25.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50217,
+          "diagnostic": "WARNING: Firmware file lcn2initvals25.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52402,
+          "diagnostic": "WARNING: Firmware file lcn2initvals25.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lcn2initvals26.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50210,
+          "diagnostic": "WARNING: Firmware file lcn2initvals26.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52395,
+          "diagnostic": "WARNING: Firmware file lcn2initvals26.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp0bsinitvals16.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50222,
+          "diagnostic": "WARNING: Firmware file lp0bsinitvals16.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52407,
+          "diagnostic": "WARNING: Firmware file lp0bsinitvals16.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp0initvals16.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50234,
+          "diagnostic": "WARNING: Firmware file lp0initvals16.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52419,
+          "diagnostic": "WARNING: Firmware file lp0initvals16.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp1bsinitvals20.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50194,
+          "diagnostic": "WARNING: Firmware file lp1bsinitvals20.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52379,
+          "diagnostic": "WARNING: Firmware file lp1bsinitvals20.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp1bsinitvals22.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50219,
+          "diagnostic": "WARNING: Firmware file lp1bsinitvals22.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52404,
+          "diagnostic": "WARNING: Firmware file lp1bsinitvals22.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp1initvals20.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50191,
+          "diagnostic": "WARNING: Firmware file lp1initvals20.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52376,
+          "diagnostic": "WARNING: Firmware file lp1initvals20.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp1initvals22.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50244,
+          "diagnostic": "WARNING: Firmware file lp1initvals22.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52429,
+          "diagnostic": "WARNING: Firmware file lp1initvals22.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp2bsinitvals19.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50230,
+          "diagnostic": "WARNING: Firmware file lp2bsinitvals19.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52415,
+          "diagnostic": "WARNING: Firmware file lp2bsinitvals19.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file lp2initvals19.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50192,
+          "diagnostic": "WARNING: Firmware file lp2initvals19.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52377,
+          "diagnostic": "WARNING: Firmware file lp2initvals19.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n0absinitvals11.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50200,
+          "diagnostic": "WARNING: Firmware file n0absinitvals11.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52385,
+          "diagnostic": "WARNING: Firmware file n0absinitvals11.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n0bsinitvals17.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50180,
+          "diagnostic": "WARNING: Firmware file n0bsinitvals17.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52365,
+          "diagnostic": "WARNING: Firmware file n0bsinitvals17.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n0initvals17.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50209,
+          "diagnostic": "WARNING: Firmware file n0initvals17.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52394,
+          "diagnostic": "WARNING: Firmware file n0initvals17.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n18bsinitvals32.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50202,
+          "diagnostic": "WARNING: Firmware file n18bsinitvals32.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52387,
+          "diagnostic": "WARNING: Firmware file n18bsinitvals32.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n18initvals32.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50212,
+          "diagnostic": "WARNING: Firmware file n18initvals32.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52397,
+          "diagnostic": "WARNING: Firmware file n18initvals32.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n1bsinitvals20.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50240,
+          "diagnostic": "WARNING: Firmware file n1bsinitvals20.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52425,
+          "diagnostic": "WARNING: Firmware file n1bsinitvals20.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n1initvals20.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50233,
+          "diagnostic": "WARNING: Firmware file n1initvals20.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52418,
+          "diagnostic": "WARNING: Firmware file n1initvals20.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n2bsinitvals19.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50189,
+          "diagnostic": "WARNING: Firmware file n2bsinitvals19.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52374,
+          "diagnostic": "WARNING: Firmware file n2bsinitvals19.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file n2initvals19.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50236,
+          "diagnostic": "WARNING: Firmware file n2initvals19.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52421,
+          "diagnostic": "WARNING: Firmware file n2initvals19.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn0bsinitvals16.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50182,
+          "diagnostic": "WARNING: Firmware file sslpn0bsinitvals16.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52367,
+          "diagnostic": "WARNING: Firmware file sslpn0bsinitvals16.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn0initvals16.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50201,
+          "diagnostic": "WARNING: Firmware file sslpn0initvals16.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52386,
+          "diagnostic": "WARNING: Firmware file sslpn0initvals16.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn1bsinitvals20.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50242,
+          "diagnostic": "WARNING: Firmware file sslpn1bsinitvals20.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52427,
+          "diagnostic": "WARNING: Firmware file sslpn1bsinitvals20.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn1bsinitvals27.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50186,
+          "diagnostic": "WARNING: Firmware file sslpn1bsinitvals27.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52371,
+          "diagnostic": "WARNING: Firmware file sslpn1bsinitvals27.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn1initvals20.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50221,
+          "diagnostic": "WARNING: Firmware file sslpn1initvals20.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52406,
+          "diagnostic": "WARNING: Firmware file sslpn1initvals20.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn1initvals27.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50204,
+          "diagnostic": "WARNING: Firmware file sslpn1initvals27.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52389,
+          "diagnostic": "WARNING: Firmware file sslpn1initvals27.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn2bsinitvals19.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50187,
+          "diagnostic": "WARNING: Firmware file sslpn2bsinitvals19.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52372,
+          "diagnostic": "WARNING: Firmware file sslpn2bsinitvals19.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn2initvals19.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50243,
+          "diagnostic": "WARNING: Firmware file sslpn2initvals19.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52428,
+          "diagnostic": "WARNING: Firmware file sslpn2initvals19.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn3bsinitvals21.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50226,
+          "diagnostic": "WARNING: Firmware file sslpn3bsinitvals21.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52411,
+          "diagnostic": "WARNING: Firmware file sslpn3bsinitvals21.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn3initvals21.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50195,
+          "diagnostic": "WARNING: Firmware file sslpn3initvals21.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52380,
+          "diagnostic": "WARNING: Firmware file sslpn3initvals21.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn4bsinitvals22.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50197,
+          "diagnostic": "WARNING: Firmware file sslpn4bsinitvals22.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52382,
+          "diagnostic": "WARNING: Firmware file sslpn4bsinitvals22.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file sslpn4initvals22.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50229,
+          "diagnostic": "WARNING: Firmware file sslpn4initvals22.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52414,
+          "diagnostic": "WARNING: Firmware file sslpn4initvals22.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode16_lp.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50237,
+          "diagnostic": "WARNING: Firmware file ucode16_lp.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52422,
+          "diagnostic": "WARNING: Firmware file ucode16_lp.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode16_sslpn.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50232,
+          "diagnostic": "WARNING: Firmware file ucode16_sslpn.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52417,
+          "diagnostic": "WARNING: Firmware file ucode16_sslpn.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode16_sslpn_nobt.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50181,
+          "diagnostic": "WARNING: Firmware file ucode16_sslpn_nobt.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52366,
+          "diagnostic": "WARNING: Firmware file ucode16_sslpn_nobt.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode17_mimo.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50235,
+          "diagnostic": "WARNING: Firmware file ucode17_mimo.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52420,
+          "diagnostic": "WARNING: Firmware file ucode17_mimo.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode19_sslpn.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50211,
+          "diagnostic": "WARNING: Firmware file ucode19_sslpn.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52396,
+          "diagnostic": "WARNING: Firmware file ucode19_sslpn.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode19_sslpn_nobt.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50218,
+          "diagnostic": "WARNING: Firmware file ucode19_sslpn_nobt.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52403,
+          "diagnostic": "WARNING: Firmware file ucode19_sslpn_nobt.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode20_sslpn.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50185,
+          "diagnostic": "WARNING: Firmware file ucode20_sslpn.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52370,
+          "diagnostic": "WARNING: Firmware file ucode20_sslpn.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode20_sslpn_nobt.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50220,
+          "diagnostic": "WARNING: Firmware file ucode20_sslpn_nobt.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52405,
+          "diagnostic": "WARNING: Firmware file ucode20_sslpn_nobt.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode21_sslpn.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50184,
+          "diagnostic": "WARNING: Firmware file ucode21_sslpn.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52369,
+          "diagnostic": "WARNING: Firmware file ucode21_sslpn.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode21_sslpn_nobt.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50208,
+          "diagnostic": "WARNING: Firmware file ucode21_sslpn_nobt.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52393,
+          "diagnostic": "WARNING: Firmware file ucode21_sslpn_nobt.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode22_sslpn.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50225,
+          "diagnostic": "WARNING: Firmware file ucode22_sslpn.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52410,
+          "diagnostic": "WARNING: Firmware file ucode22_sslpn.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode24_mimo.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50188,
+          "diagnostic": "WARNING: Firmware file ucode24_mimo.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52373,
+          "diagnostic": "WARNING: Firmware file ucode24_mimo.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode27_sslpn.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50206,
+          "diagnostic": "WARNING: Firmware file ucode27_sslpn.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52391,
+          "diagnostic": "WARNING: Firmware file ucode27_sslpn.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode32_mimo.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50213,
+          "diagnostic": "WARNING: Firmware file ucode32_mimo.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52398,
+          "diagnostic": "WARNING: Firmware file ucode32_mimo.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Firmware file ucode9.fw not found in the mapping lists",
+      "category": "firmware_mapping",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 50247,
+          "diagnostic": "WARNING: Firmware file ucode9.fw not found in the mapping lists"
+        },
+        {
+          "log": "packages.log",
+          "line": 52432,
+          "diagnostic": "WARNING: Firmware file ucode9.fw not found in the mapping lists"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-babeld/Makefile' has a dependency on 'babeld', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 7,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-babeld/Makefile' has a dependency on 'babeld', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 6,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-babeld/Makefile' has a dependency on 'babeld', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 6,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-babeld/Makefile' has a dependency on 'babeld', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 8,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 7,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 7,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-iwinfo', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 12,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-iwinfo', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 11,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-iwinfo', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 11,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-iwinfo', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-json', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 10,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 9,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 9,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-tun', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 11,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-tun', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 10,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-tun', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 10,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-tun', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-uci-config', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 9,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-uci-config', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 8,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-uci-config', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 8,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-bmx7/Makefile' has a dependency on 'bmx7-uci-config', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/luci/luci-app-dcwapd/Makefile' has a dependency on 'dcwapd', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 13,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-dcwapd/Makefile' has a dependency on 'dcwapd', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 12,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-dcwapd/Makefile' has a dependency on 'dcwapd', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 12,
+          "diagnostic": "WARNING: Makefile 'package/feeds/luci/luci-app-dcwapd/Makefile' has a dependency on 'dcwapd', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 2,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 1,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 1,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7-json', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 3,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 2,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 2,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/bmx7-dnsupdate/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libgraphene', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 6,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libgraphene', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 5,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libgraphene', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 5,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libgraphene', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libmesa', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 4,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libmesa', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 3,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libmesa', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 3,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libmesa', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libwayland', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 5,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libwayland', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 4,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libwayland', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 4,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/gst1-plugins-base/Makefile' has a dependency on 'libwayland', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 14,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 13,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 13,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7-json', which does not exist",
+      "category": "feed_dependency",
+      "occurrences": 9,
+      "stages": {
+        "defconfig": 1,
+        "kernel": 1,
+        "packages": 1,
+        "package-install": 1,
+        "target-install": 1,
+        "index": 1,
+        "buildinfo": 1,
+        "image-info": 1,
+        "checksum": 1
+      },
+      "examples": [
+        {
+          "log": "defconfig.log",
+          "line": 15,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        },
+        {
+          "log": "kernel.log",
+          "line": 14,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        },
+        {
+          "log": "packages.log",
+          "line": 14,
+          "diagnostic": "WARNING: Makefile 'package/feeds/packages/prometheus-node-exporter-lua/Makefile' has a dependency on 'bmx7-json', which does not exist"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-3c59x is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 45032,
+          "diagnostic": "WARNING: kmod-3c59x is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-crypto-hw-hifn-795x is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 43691,
+          "diagnostic": "WARNING: kmod-crypto-hw-hifn-795x is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-crypto-hw-padlock is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 43696,
+          "diagnostic": "WARNING: kmod-crypto-hw-padlock is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-crypto-test is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 43792,
+          "diagnostic": "WARNING: kmod-crypto-test is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-dm9000 is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 45077,
+          "diagnostic": "WARNING: kmod-dm9000 is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-fs-reiserfs is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 43937,
+          "diagnostic": "WARNING: kmod-fs-reiserfs is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-i2c-algo-pca is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 44185,
+          "diagnostic": "WARNING: kmod-i2c-algo-pca is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-i2c-algo-pcf is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 44190,
+          "diagnostic": "WARNING: kmod-i2c-algo-pcf is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-i2c-pxa is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 44239,
+          "diagnostic": "WARNING: kmod-i2c-pxa is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-i2c-smbus is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 44244,
+          "diagnostic": "WARNING: kmod-i2c-smbus is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-iio-ad7405 is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 44278,
+          "diagnostic": "WARNING: kmod-iio-ad7405 is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-industrialio-backend is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 44261,
+          "diagnostic": "WARNING: kmod-industrialio-backend is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-pse-hasivo-hs104 is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46245,
+          "diagnostic": "WARNING: kmod-pse-hasivo-hs104 is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-renesas-rzn-pcs is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 47067,
+          "diagnostic": "WARNING: kmod-renesas-rzn-pcs is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-snd-hda-scodec-component is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46307,
+          "diagnostic": "WARNING: kmod-snd-hda-scodec-component is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-analog is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46322,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-analog is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-ca0110 is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46342,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-ca0110 is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-ca0132 is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46347,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-ca0132 is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-cirrus is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46337,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-cirrus is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-cmedia is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46317,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-cmedia is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-conexant is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46352,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-conexant is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-hdmi is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46362,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-hdmi is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-idt is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46327,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-idt is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-realtek is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46312,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-realtek is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-si3054 is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46332,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-si3054 is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-codec-via is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46357,
+          "diagnostic": "WARNING: kmod-sound-hda-codec-via is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-sound-hda-core is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46302,
+          "diagnostic": "WARNING: kmod-sound-hda-core is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: kmod-thermal is not available in the kernel config - generating empty package",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 46168,
+          "diagnostic": "WARNING: kmod-thermal is not available in the kernel config - generating empty package"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: modpost: missing MODULE_DESCRIPTION() in siit.o",
+      "category": "modpost_module_description",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 146,
+          "diagnostic": "WARNING: modpost: missing MODULE_DESCRIPTION() in siit.o"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: modpost: missing MODULE_DESCRIPTION() in trelay.o",
+      "category": "modpost_module_description",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 261,
+          "diagnostic": "WARNING: modpost: missing MODULE_DESCRIPTION() in trelay.o"
+        }
+      ]
+    },
+    {
+      "message": "WARNING: skipping trusted-firmware-a-an7581-bl2 -- package not selected",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 575,
+          "diagnostic": "WARNING: skipping trusted-firmware-a-an7581-bl2 -- package not selected"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0: Relying on default #address-cells value",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 108,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:395.11-400.6: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0: Relying on default #address-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0: Relying on default #size-cells value",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 111,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:395.11-400.6: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0: Relying on default #size-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1: Relying on default #address-cells value",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 112,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:402.11-407.6: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1: Relying on default #address-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1: Relying on default #size-cells value",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 113,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:402.11-407.6: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1: Relying on default #size-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2: Relying on default #address-cells value",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 114,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:409.11-414.6: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2: Relying on default #address-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2: Relying on default #size-cells value",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 115,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:409.11-414.6: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2: Relying on default #size-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #address-cells value",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 73,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:164.12-169.5: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #address-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 94,
+          "diagnostic": "../dts/an7581-evb.dts:181.12-186.5: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #address-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 95,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:164.12-169.5: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #address-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #size-cells value",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 75,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:164.12-169.5: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #size-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 97,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:164.12-169.5: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #size-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 100,
+          "diagnostic": "../dts/an7581-evb.dts:181.12-186.5: Warning (avoid_default_addr_size): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0: Relying on default #size-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #address-cells value",
+      "category": "device_tree",
+      "occurrences": 3,
+      "stages": {
+        "target-install": 3
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 77,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:180.12-185.5: Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #address-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 98,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:180.12-185.5: Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #address-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 101,
+          "diagnostic": "../dts/an7581-evb.dts:197.12-202.5: Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #address-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #size-cells value",
+      "category": "device_tree",
+      "occurrences": 3,
+      "stages": {
+        "target-install": 3
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 78,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:180.12-185.5: Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #size-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 99,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:180.12-185.5: Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #size-cells value"
+        },
+        {
+          "log": "target-install.log",
+          "line": 102,
+          "diagnostic": "../dts/an7581-evb.dts:197.12-202.5: Warning (avoid_default_addr_size): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0: Relying on default #size-cells value"
+        }
+      ]
+    },
+    {
+      "message": "Warning (i2c_bus_reg): Failed prerequisite 'reg_format'",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 70,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-kite.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 72,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 91,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-eagle.dtb: Warning (i2c_bus_reg): Failed prerequisite 'reg_format'"
+        }
+      ]
+    },
+    {
+      "message": "Warning (pci_bridge): /soc/pcie@1fc00000/pcie@0,0: missing ranges for PCI bridge (or not a bridge)",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 103,
+          "diagnostic": "../dts/an7581-w1700k-ubi.dts:255.11-291.4: Warning (pci_bridge): /soc/pcie@1fc00000/pcie@0,0: missing ranges for PCI bridge (or not a bridge)"
+        }
+      ]
+    },
+    {
+      "message": "Warning (pci_device_bus_num): Failed prerequisite 'pci_bridge'",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 110,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-w1700k-ubi.dtb: Warning (pci_device_bus_num): Failed prerequisite 'pci_bridge'"
+        }
+      ]
+    },
+    {
+      "message": "Warning (pci_device_bus_num): Failed prerequisite 'reg_format'",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 67,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 69,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-kite.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 90,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-eagle.dtb: Warning (pci_device_bus_num): Failed prerequisite 'reg_format'"
+        }
+      ]
+    },
+    {
+      "message": "Warning (pci_device_reg): Failed prerequisite 'pci_bridge'",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 109,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-w1700k-ubi.dtb: Warning (pci_device_reg): Failed prerequisite 'pci_bridge'"
+        }
+      ]
+    },
+    {
+      "message": "Warning (pci_device_reg): Failed prerequisite 'reg_format'",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 66,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 68,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-kite.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 85,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-nokia-valyrian.dtb: Warning (pci_device_reg): Failed prerequisite 'reg_format'"
+        }
+      ]
+    },
+    {
+      "message": "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 80,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:397.5-15: Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@0:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)"
+        }
+      ]
+    },
+    {
+      "message": "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 81,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:404.5-15: Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@1:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)"
+        }
+      ]
+    },
+    {
+      "message": "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 83,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:411.5-15: Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0/band@2:reg: property has invalid length (4 bytes) (#address-cells == 2, #size-cells == 1)"
+        }
+      ]
+    },
+    {
+      "message": "Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 62,
+          "diagnostic": "../dts/an7581-evb.dts:183.4-27: Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)"
+        },
+        {
+          "log": "target-install.log",
+          "line": 64,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:166.4-27: Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)"
+        },
+        {
+          "log": "target-install.log",
+          "line": 76,
+          "diagnostic": "../dts/an7581-nokia-valyrian.dts:387.4-27: Warning (reg_format): /soc/pcie@1fc00000/pcie@0,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)"
+        }
+      ]
+    },
+    {
+      "message": "Warning (reg_format): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)",
+      "category": "device_tree",
+      "occurrences": 3,
+      "stages": {
+        "target-install": 3
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 63,
+          "diagnostic": "../dts/an7581-evb.dts:199.4-27: Warning (reg_format): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)"
+        },
+        {
+          "log": "target-install.log",
+          "line": 65,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:182.4-27: Warning (reg_format): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)"
+        },
+        {
+          "log": "target-install.log",
+          "line": 82,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:182.4-27: Warning (reg_format): /soc/pcie@1fc20000/pcie@1,0/wifi@0,0:reg: property has invalid length (20 bytes) (#address-cells == 2, #size-cells == 1)"
+        }
+      ]
+    },
+    {
+      "message": "Warning (sound_dai_property): /sound/codec: Missing property '#sound-dai-cells' in node /soc/i2c0@1fbf8000/codec@1a or bad phandle (referred from sound-dai[0])",
+      "category": "device_tree",
+      "occurrences": 2,
+      "stages": {
+        "target-install": 2
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 89,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:20.8-22.4: Warning (sound_dai_property): /sound/codec: Missing property '#sound-dai-cells' in node /soc/i2c0@1fbf8000/codec@1a or bad phandle (referred from sound-dai[0])"
+        },
+        {
+          "log": "target-install.log",
+          "line": 118,
+          "diagnostic": "../dts/an7581-evb-emmc.dtsi:20.8-22.4: Warning (sound_dai_property): /sound/codec: Missing property '#sound-dai-cells' in node /soc/i2c0@1fbf8000/codec@1a or bad phandle (referred from sound-dai[0])"
+        }
+      ]
+    },
+    {
+      "message": "Warning (sound_dai_property): /sound/platform: Missing property '#sound-dai-cells' in node /soc/afe@1fbe2200 or bad phandle (referred from sound-dai[0])",
+      "category": "device_tree",
+      "occurrences": 7,
+      "stages": {
+        "target-install": 7
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 84,
+          "diagnostic": "../dts/an7581.dtsi:363.12-365.5: Warning (sound_dai_property): /sound/platform: Missing property '#sound-dai-cells' in node /soc/afe@1fbe2200 or bad phandle (referred from sound-dai[0])"
+        },
+        {
+          "log": "target-install.log",
+          "line": 86,
+          "diagnostic": "../dts/an7581.dtsi:363.12-365.5: Warning (sound_dai_property): /sound/platform: Missing property '#sound-dai-cells' in node /soc/afe@1fbe2200 or bad phandle (referred from sound-dai[0])"
+        },
+        {
+          "log": "target-install.log",
+          "line": 87,
+          "diagnostic": "../dts/an7581.dtsi:363.12-365.5: Warning (sound_dai_property): /sound/platform: Missing property '#sound-dai-cells' in node /soc/afe@1fbe2200 or bad phandle (referred from sound-dai[0])"
+        }
+      ]
+    },
+    {
+      "message": "Warning (spi_bus_reg): Failed prerequisite 'reg_format'",
+      "category": "device_tree",
+      "occurrences": 4,
+      "stages": {
+        "target-install": 4
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 71,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-kite.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 74,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'"
+        },
+        {
+          "log": "target-install.log",
+          "line": 92,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-evb-emmc-eagle.dtb: Warning (spi_bus_reg): Failed prerequisite 'reg_format'"
+        }
+      ]
+    },
+    {
+      "message": "Warning (unit_address_format): Failed prerequisite 'pci_bridge'",
+      "category": "device_tree",
+      "occurrences": 1,
+      "stages": {
+        "target-install": 1
+      },
+      "examples": [
+        {
+          "log": "target-install.log",
+          "line": 105,
+          "diagnostic": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/image-an7581-w1700k-ubi.dtb: Warning (unit_address_format): Failed prerequisite 'pci_bridge'"
+        }
+      ]
+    },
+    {
+      "message": "Warning: modules_install: missing 'System.map' file. Skipping depmod.",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 48316,
+          "diagnostic": "Warning: modules_install: missing 'System.map' file. Skipping depmod."
+        }
+      ]
+    },
+    {
+      "message": "warning: '../lib/libcurl.la' has not been installed in '/usr/lib'",
+      "category": "build_tool_or_configuration",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 3160,
+          "diagnostic": "libtool: warning: '../lib/libcurl.la' has not been installed in '/usr/lib'"
+        }
+      ]
+    },
+    {
+      "message": "warning: 'libxt_ACCOUNT_cl.la' has not been installed in '/usr/lib'",
+      "category": "build_tool_or_configuration",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 48368,
+          "diagnostic": "libtool: warning: 'libxt_ACCOUNT_cl.la' has not been installed in '/usr/lib'"
+        },
+        {
+          "log": "packages.log",
+          "line": 48506,
+          "diagnostic": "libtool: warning: 'libxt_ACCOUNT_cl.la' has not been installed in '/usr/lib'"
+        }
+      ]
+    },
+    {
+      "message": "warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]",
+      "category": "source_diagnostic",
+      "occurrences": 12,
+      "stages": {
+        "packages": 12
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 189,
+          "diagnostic": "contrib/lemon.c:163:6: warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]"
+        },
+        {
+          "log": "packages.log",
+          "line": 195,
+          "diagnostic": "contrib/lemon.c:164:6: warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]"
+        },
+        {
+          "log": "packages.log",
+          "line": 201,
+          "diagnostic": "contrib/lemon.c:165:6: warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]"
+        }
+      ]
+    },
+    {
+      "message": "warning: ignoring old recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'",
+      "category": "source_diagnostic",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 47083,
+          "diagnostic": "broadcom.mk:86: warning: ignoring old recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'"
+        },
+        {
+          "log": "packages.log",
+          "line": 53106,
+          "diagnostic": "broadcom.mk:86: warning: ignoring old recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'"
+        }
+      ]
+    },
+    {
+      "message": "warning: override: reassigning to symbol MWIFIEX",
+      "category": "source_diagnostic",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 47139,
+          "diagnostic": ".config:34:warning: override: reassigning to symbol MWIFIEX"
+        }
+      ]
+    },
+    {
+      "message": "warning: overriding recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'",
+      "category": "source_diagnostic",
+      "occurrences": 2,
+      "stages": {
+        "packages": 2
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 47082,
+          "diagnostic": "broadcom.mk:360: warning: overriding recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'"
+        },
+        {
+          "log": "packages.log",
+          "line": 53105,
+          "diagnostic": "broadcom.mk:360: warning: overriding recipe for target 'build-volume/source/dl/broadcom-wl-5.100.138.tar.bz2'"
+        }
+      ]
+    },
+    {
+      "message": "warning: remember to run 'libtool --finish /usr/lib'",
+      "category": "build_tool_or_configuration",
+      "occurrences": 3,
+      "stages": {
+        "packages": 3
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 3100,
+          "diagnostic": "libtool: warning: remember to run 'libtool --finish /usr/lib'"
+        },
+        {
+          "log": "packages.log",
+          "line": 48363,
+          "diagnostic": "libtool: warning: remember to run 'libtool --finish /usr/lib'"
+        },
+        {
+          "log": "packages.log",
+          "line": 48500,
+          "diagnostic": "libtool: warning: remember to run 'libtool --finish /usr/lib'"
+        }
+      ]
+    },
+    {
+      "message": "warning: remember to run 'libtool --finish /usr/lib/pppd/2.5.3'",
+      "category": "build_tool_or_configuration",
+      "occurrences": 7,
+      "stages": {
+        "packages": 7
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 47690,
+          "diagnostic": "libtool: warning: remember to run 'libtool --finish /usr/lib/pppd/2.5.3'"
+        },
+        {
+          "log": "packages.log",
+          "line": 47709,
+          "diagnostic": "libtool: warning: remember to run 'libtool --finish /usr/lib/pppd/2.5.3'"
+        },
+        {
+          "log": "packages.log",
+          "line": 47726,
+          "diagnostic": "libtool: warning: remember to run 'libtool --finish /usr/lib/pppd/2.5.3'"
+        }
+      ]
+    },
+    {
+      "message": "warning: symbol value 'm' invalid for ATH5K_PCI",
+      "category": "source_diagnostic",
+      "occurrences": 1,
+      "stages": {
+        "packages": 1
+      },
+      "examples": [
+        {
+          "log": "packages.log",
+          "line": 47138,
+          "diagnostic": ".config:16:warning: symbol value 'm' invalid for ATH5K_PCI"
+        }
+      ]
+    }
+  ]
+}

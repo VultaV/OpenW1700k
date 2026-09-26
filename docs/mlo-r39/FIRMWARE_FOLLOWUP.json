@@ -1,0 +1,34 @@
+{
+  "status": "PASS_BOUNDED_INVARIANT",
+  "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+  "program_bytes": 122336,
+  "tested_combinations": 12288,
+  "ring_sizes": [
+    512,
+    1024
+  ],
+  "unpublished_count_range": [
+    0,
+    7
+  ],
+  "assumptions": [
+    "same output band throughout batch",
+    "single producer",
+    "all prior batches doorbelled",
+    "one descriptor published per successful fast packet"
+  ],
+  "assertion": "current P and next P+1 never belong to unpublished set {P-1,...,P-u}; therefore these assumptions do not yield self-wait on this batch",
+  "caller_alternative": {
+    "address": "0x8400ecba",
+    "original_bytes": "9544",
+    "candidate_encoding_only": "9944",
+    "behavior_change": "threshold5->6 also skips slow path at free6 and changes its DMA-refresh delay; rejected as behavior-preserving alternative"
+  },
+  "retained_candidate": "Existing docs/npu-budget-guard-20260926 in-memory callee guard; not regenerated or installed",
+  "firmware_modified": false,
+  "limits": [
+    "Arithmetic only; not instruction execution, hardware progress or MMIO trace",
+    "No proof that mixed-band batches are impossible; hardware metadata contract unverified",
+    "No Air stall causality or safe modified-firmware boot proof"
+  ]
+}
