@@ -6,7 +6,7 @@
 
 공개 r40 이미지와 장치에 복사한 이미지의 SHA256이 일치했고, 설정·기존 `/root` 파일을 로컬 비공개 백업으로 저장했다. 설정 해시와 `sysupgrade -T` 성공 뒤 설정 보존 설치를 실행했다. 설치 동안 Mac은 iPhone 핫스팟을 사용했다.
 
-새 부팅에서 이미지와 모듈 74개의 해시, 설정 34개 유지, Tailscale 신원·온라인 상태, AP와 LAN을 포함한 **24 PASS / 0 FAIL / 0 WARN / 0 SKIP, 100%**를 확인했다. `/root`의 기존 파일 1,443개도 설치 후 원래 해시와 일치했다. 커널은 `6.18.44-w1700k-mlo-r32`다. 부팅 로그의 `NPU RED: WM ACK, WA commands queued (host tokens 16384)`는 한 번 관측됐으며 WA readback 증거는 아니다.
+새 부팅에서 검증 이미지에 포함된 모듈 74개의 해시, 설정 34개 유지, Tailscale 신원·온라인 상태, AP와 LAN을 포함한 **24 PASS / 0 FAIL / 0 WARN / 0 SKIP, 100%**를 확인했다. `/root`의 기존 파일 1,443개도 설치 후 원래 해시와 일치했다. 커널은 `6.18.44-w1700k-mlo-r32`다. 부팅 로그의 `NPU RED: WM ACK, WA commands queued (host tokens 16384)`는 한 번 관측됐으며 WA readback 증거는 아니다.
 
 Mac은 재부팅 중 DHCP 주소를 놓쳐 잠시 link-local 주소를 사용했다. 직전 관리 주소를 임시 고정해 공유기에 접속한 뒤 원래 DHCP로 복원했고 기존 주소를 다시 받았다. 설치 관찰에서 웹 관리 접속이 없던 구간은 약 3분 20초와 DHCP 복원 중 약 6초다. 이는 Mac에서 본 HTTP 가용성으로, 전체 LAN 물리 단절 시간과 동일하지 않다. 무선 시험은 DHCP 복원 후 시작했다.
 
