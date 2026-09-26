@@ -1,0 +1,42 @@
+Subject: [PATCH] net: airoha: npu: preserve a pending mailbox request
+
+The coherent mailbox buffer remains valid after a response timeout, but the
+next caller immediately overwrites it and reuses the control registers. A
+late response can corrupt that request or be mistaken for its completion.
+
+Under the existing core lock, check the current WAIT_RSP/DONE state before
+writing either the payload or request registers. Return -EBUSY while the old
+request is still pending and propagate read errors. A late completion allows
+the next caller to proceed without another busy wait or added software state.
+
+This protects mailbox ownership; it does not cancel a timed out command,
+retry it, reset the firmware, or change callers' recovery policy.
+
+---
+--- a/drivers/net/ethernet/airoha/airoha_npu.c
++++ b/drivers/net/ethernet/airoha/airoha_npu.c
+@@ -191,6 +191,15 @@
+ 	 */
+ 	spin_lock_bh(&core->lock);
+ 
++	/* A timeout does not cancel the previous request or its DMA access. */
++	ret = regmap_read(npu->regmap, REG_CR_MBQ0_CTRL(3) + offset, &val);
++	if (ret)
++		goto unlock;
++	if ((val & (MBOX_MSG_WAIT_RSP | MBOX_MSG_DONE)) == MBOX_MSG_WAIT_RSP) {
++		ret = -EBUSY;
++		goto unlock;
++	}
++
+ 	memcpy(core->buf, data, len);
+ 
+ 	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, core->addr);
+@@ -210,7 +219,7 @@
+ 	/* Copy the trailing reply_len bytes of the response. */
+ 	if (!ret && reply)
+ 		memcpy(reply, core->buf + len - reply_len, reply_len);
+-
++unlock:
+ 	spin_unlock_bh(&core->lock);
+ 
+ 	return ret;

@@ -1,0 +1,67 @@
+{
+  "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+  "source": "r36 extracted rootfs lib/firmware/airoha/en7581_MT7996_npu_rv32.bin",
+  "fresh_decoder": "5.0.7",
+  "range": [
+    "0x84003cd8",
+    "0x84003db2"
+  ],
+  "range_sha256": "f19715bc18f35d7f92254f02e21d0010d6dcafff3ad39b4892659da7ebe27447",
+  "saved_rows_bytes_matched": 81,
+  "anchors": [
+    {
+      "address": "0x84003d2e",
+      "size": 4,
+      "bytes": "13f71700",
+      "instruction": "andi a4, a5, 1"
+    },
+    {
+      "address": "0x84003d36",
+      "size": 2,
+      "bytes": "19ef",
+      "instruction": "c.bnez a4, 0x1e"
+    },
+    {
+      "address": "0x84003d50",
+      "size": 4,
+      "bytes": "2320f900",
+      "instruction": "sw a5, 0(s2)"
+    },
+    {
+      "address": "0x84003d7e",
+      "size": 2,
+      "bytes": "8297",
+      "instruction": "c.jalr a5"
+    },
+    {
+      "address": "0x84003d84",
+      "size": 4,
+      "bytes": "937734fe",
+      "instruction": "andi a5, s0, -0x1d"
+    },
+    {
+      "address": "0x84003d98",
+      "size": 4,
+      "bytes": "13642400",
+      "instruction": "ori s0, s0, 2"
+    },
+    {
+      "address": "0x84003da0",
+      "size": 4,
+      "bytes": "23208900",
+      "instruction": "sw s0, 0(s2)"
+    },
+    {
+      "address": "0x84003db0",
+      "size": 2,
+      "bytes": "8280",
+      "instruction": "c.jr ra"
+    }
+  ],
+  "wait_path": "WAIT bit 0 skips the early DONE store, calls the handler, preserves WAIT while updating status, then sets DONE bit 1 and stores CTRL3.",
+  "limitations": [
+    "Selected function decoding, not full firmware CFG or execution.",
+    "DONE is mailbox handler completion, not proof that Wi-Fi DMA has quiesced.",
+    "No firmware mutation, install, router access or wireless tests."
+  ]
+}

@@ -676,7 +676,7 @@ $(eval $(call KernelPackage,phy-airoha-en8811h))
 define KernelPackage/airoha-npu
   SUBMENU:=$(NETWORK_DEVICES_MENU)
   TITLE:=Airoha Network Processor Unit support
-  VERSION:=$(subst -rc,_rc,$(LINUX_VERSION))-r2
+  VERSION:=$(subst -rc,_rc,$(LINUX_VERSION))-r3
   DEPENDS:=@TARGET_airoha +airoha-en7581-mt7996-npu-firmware
   KCONFIG:=CONFIG_NET_AIROHA_NPU
   FILES:=$(LINUX_DIR)/drivers/net/ethernet/airoha/airoha_npu.ko

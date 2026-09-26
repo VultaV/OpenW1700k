@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "baseline_sha256": "e001cd6e345db45d6d69eee7a68e26a3a04bcdda090ca96b8f4a58162581c62c",
+  "prepared_sha256": "f046d7641707b7928615cfb262ab939a06291fbc0c1820d2aa4894f5af3f57d8",
+  "patch_sha256": "df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8",
+  "scope": "Actual prepared airoha_npu.c equals r36 source plus only the pending-mailbox guard, no fuzz."
+}

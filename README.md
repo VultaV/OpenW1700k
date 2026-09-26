@@ -1,6 +1,6 @@
 # W1700K MLO investigation fork
 
-현재 수정·검증 기록: [MLO r36 진행 현황](docs/mlo-r36/README.md).
+현재 수정·검증 기록: [MLO r37 진행 현황](docs/mlo-r37/README.md).
 
 추가 조사: [NPU zero-budget guard 후보 검증](docs/npu-budget-guard-20260926/README.md) — 설치 이미지가 아닌 메모리 내 명령 검증입니다.
 실험용이며 완전 해결 판정 전입니다. 기준 소스와 재현 방법은 위 문서를 참고하세요.

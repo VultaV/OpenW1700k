@@ -1,0 +1,1512 @@
+{
+  "source": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_npu.c",
+  "source_sha256": "f046d7641707b7928615cfb262ab939a06291fbc0c1820d2aa4894f5af3f57d8",
+  "product_patch_sha256": "df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8",
+  "source_already_applied": true,
+  "product_patch_fuzz": 0,
+  "whole_source_patch_round_trip_equal": true,
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "actual_definitions": [
+    "#define AIROHA_NPU_MBOX_SIZE\t\t\t256",
+    "#define NPU_MBOX_BASE_ADDR\t\t0x30c000",
+    "#define REG_CR_MBQ0_CTRL(_n)\t\t(NPU_MBOX_BASE_ADDR + 0x030 + ((_n) << 2))",
+    "#define MBOX_MSG_FUNC_ID\tGENMASK(14, 11)",
+    "#define MBOX_MSG_STATIC_BUF\tBIT(5)",
+    "#define MBOX_MSG_STATUS\t\tGENMASK(4, 2)",
+    "#define MBOX_MSG_DONE\t\tBIT(1)",
+    "#define MBOX_MSG_WAIT_RSP\tBIT(0)"
+  ],
+  "production_modified": false,
+  "candidate_scope": "CTRL3 read and WAIT_RSP&&!DONE guard after lock; shared unlock label only",
+  "results": {
+    "baseline": {
+      "cases": [
+        {
+          "name": "normal_flags0_status0_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status0_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status0_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status1_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status1_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status1_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status2_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status2_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status2_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status3_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status3_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status3_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status4_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status4_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status4_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status5_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status5_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status5_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status6_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status6_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status6_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status7_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status7_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status7_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status0_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status0_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status0_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status1_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status1_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status1_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status2_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status2_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status2_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status3_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status3_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status3_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status4_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status4_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status4_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status5_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status5_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status5_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status6_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status6_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status6_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status7_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status7_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status7_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status0_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status0_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status0_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status1_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status1_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status1_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status2_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status2_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status2_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status3_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status3_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status3_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status4_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status4_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status4_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status5_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status5_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status5_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status6_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status6_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status6_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status7_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status7_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status7_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_zero_length",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_max_length",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status0_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status0_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status1_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status1_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status2_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status2_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status3_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status3_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status4_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status4_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status5_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status5_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status6_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status6_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status7_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func0_status7_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status0_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status0_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status1_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status1_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status2_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status2_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status3_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status3_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status4_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status4_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status5_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status5_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status6_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status6_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status7_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func1_status7_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status0_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status0_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status1_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status1_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status2_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status2_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status3_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status3_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status4_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status4_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status5_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status5_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status6_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status6_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status7_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func5_status7_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status0_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status0_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status1_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status1_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status2_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status2_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status3_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status3_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status4_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status4_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status5_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status5_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status6_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status6_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status7_static0",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "busy_func15_status7_static1",
+          "pass": false,
+          "reason": "busy_must_not_publish"
+        },
+        {
+          "name": "ctrl3_read_error",
+          "pass": false,
+          "reason": "ctrl3_read_error_must_be_returned"
+        },
+        {
+          "name": "response_error_status",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "response_timeout",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "response_poll_read_error",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "oversize_payload",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "reply_longer_than_request",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "timeout_A_then_B",
+          "pass": false,
+          "reason": "timeout_reuse_must_return_EBUSY"
+        }
+      ],
+      "passed": 79,
+      "failed": 66,
+      "timeout_observation": {
+        "B_return": 0,
+        "late_A_accepted_as_B": true,
+        "B_preserved_A_state": false,
+        "B_after_A_done_return": -999
+      },
+      "exit_code": 1,
+      "function_sha256": "bb00bf5475d43280a3830c53cc664e8957e07ea641ba4139e3b6039aa81b0d32"
+    },
+    "candidate": {
+      "cases": [
+        {
+          "name": "normal_flags0_status0_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status0_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status0_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status1_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status1_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status1_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status2_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status2_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status2_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status3_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status3_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status3_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status4_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status4_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status4_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status5_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status5_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status5_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status6_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status6_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status6_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status7_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status7_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags0_status7_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status0_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status0_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status0_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status1_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status1_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status1_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status2_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status2_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status2_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status3_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status3_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status3_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status4_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status4_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status4_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status5_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status5_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status5_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status6_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status6_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status6_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status7_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status7_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags1_status7_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status0_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status0_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status0_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status1_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status1_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status1_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status2_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status2_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status2_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status3_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status3_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status3_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status4_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status4_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status4_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status5_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status5_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status5_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status6_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status6_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status6_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status7_kind0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status7_kind1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_flags2_status7_kind2",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_zero_length",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "normal_max_length",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status0_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status0_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status1_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status1_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status2_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status2_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status3_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status3_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status4_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status4_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status5_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status5_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status6_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status6_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status7_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func0_status7_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status0_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status0_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status1_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status1_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status2_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status2_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status3_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status3_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status4_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status4_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status5_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status5_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status6_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status6_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status7_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func1_status7_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status0_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status0_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status1_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status1_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status2_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status2_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status3_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status3_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status4_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status4_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status5_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status5_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status6_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status6_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status7_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func5_status7_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status0_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status0_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status1_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status1_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status2_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status2_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status3_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status3_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status4_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status4_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status5_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status5_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status6_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status6_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status7_static0",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "busy_func15_status7_static1",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "ctrl3_read_error",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "response_error_status",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "response_timeout",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "response_poll_read_error",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "oversize_payload",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "reply_longer_than_request",
+          "pass": true,
+          "reason": ""
+        },
+        {
+          "name": "timeout_A_then_B",
+          "pass": true,
+          "reason": ""
+        }
+      ],
+      "passed": 145,
+      "failed": 0,
+      "timeout_observation": {
+        "B_return": -16,
+        "late_A_accepted_as_B": false,
+        "B_preserved_A_state": true,
+        "B_after_A_done_return": 0
+      },
+      "exit_code": 0,
+      "function_sha256": "ede1458c03ed8ca103251f9603943052d6c210d9a62a4d35fe05f12172e8ea5f"
+    }
+  },
+  "limitations": [
+    "One explicitly ordered device model; not firmware execution, hardware DMA, IRQ concurrency or elapsed timeout modeling.",
+    "The model assumes WAIT_RSP&&!DONE remains observable for unfinished work and DONE marks completion; firmware contract is not proved.",
+    "Busy return is not cancellation or recovery; permanently unfinished commands can leave subsequent requests EBUSY.",
+    "Existing CTRL0..3 write errors, CTRL2 read errors, sequence wrap, negative lengths, lifecycle/reset interleavings and barriers are not changed or verified.",
+    "No Air stall attribution or real device repair is established."
+  ]
+}
