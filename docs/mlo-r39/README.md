@@ -10,3 +10,5 @@
 변경 모듈은 `mt7996e.ko` 하나다. kernel·다른 73개 모듈·vendor firmware는 r38과 같다. 펌웨어 SHA256: `78b54197e6249eaf9d8bbaccb88047098fb64d2a7218d5d9a9d4a6d4d568c8e9`.
 
 - [공개 후 최신 빌드·패치 재조회](UPSTREAM_FOLLOWUP.md): 같은 kernel73 태그의 파일 교체 확인, r39 태그·이미지 유지.
+
+- [9월 27일 기존 Air BA 기록·kernel73 내부 비교](OFFLINE_EVIDENCE_20260927.md): r29 정상 세션의 timeout0 확인, r32 실패 원인은 미확정.

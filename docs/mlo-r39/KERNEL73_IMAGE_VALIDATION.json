@@ -1,0 +1,470 @@
+{
+  "tag": "kernel73_2026.09.26_r36605-710dd8fa84",
+  "size": 23335747,
+  "sha256": "fbbb6e650c8a477dc8bc7797ed6b98af1d14875e67e0fd914b219f748b9b2fdd",
+  "metadata": {
+    "metadata_version": "1.1",
+    "compat_version": "2.0",
+    "compat_message": "Partition table has been changed to cooperate with the vendor bootloader with regard to the BMT/BBT partition at the end of flash. A reinstall including corrected chainloader is needed.",
+    "new_supported_devices": [
+      "gemtek,w1700k-ubi"
+    ],
+    "supported_devices": [
+      "gemtek,w1700k-ubi - Image version mismatch: image 2.0, device 1.0. Please wipe config during upgrade (force required) or reinstall. Reason: Partition table has been changed to cooperate with the vendor bootloader with regard to the BMT/BBT partition at the end of flash. A reinstall including corrected chainloader is needed."
+    ],
+    "version": {
+      "dist": "OpenWrt",
+      "version": "kernel73",
+      "revision": "r36605-710dd8fa84",
+      "target": "airoha/an7581",
+      "board": "gemtek_w1700k-ubi"
+    }
+  },
+  "fit": [
+    {
+      "node": "kernel-1",
+      "hashes_valid": true,
+      "sha256": "5885b9c99eeb41ee716ecefbb4fac791822c00adb2d48c3639dc204a0078dcff"
+    },
+    {
+      "node": "fdt-1",
+      "hashes_valid": true,
+      "sha256": "f1b1d7f419da07f9f7141e6c4328707295cfa679fd0649fcda8ccc787ee24dc0"
+    },
+    {
+      "node": "rootfs-1",
+      "hashes_valid": true,
+      "sha256": "f5d72e43a89c3ad1d007d5f1502378e36fb8cb154d7bde3158ee02b0c45a57dd"
+    }
+  ],
+  "kernel": "Linux version 7.3-rc4 (builder@buildhost) (aarch64-openwrt-linux-gnu-gcc (OpenWrt GCC 16.2.0 r36605-710dd8fa84) 16.2.0, GNU ld (GNU Binutils) 2.46.1) #0 SMP PREEMPT Sat Sep 26 02:25:53 2026",
+  "firmware": [
+    {
+      "path": "airoha/en7581_MT7996_npu_data.bin",
+      "sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "airoha/en7581_MT7996_npu_rv32.bin",
+      "sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_dsp.bin",
+      "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_eeprom.bin",
+      "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_eeprom_2i5i6i.bin",
+      "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_rom_patch.bin",
+      "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_wa.bin",
+      "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_wm.bin",
+      "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "regulatory.db",
+      "sha256": "6fb59be8734f9d7dbbae5b49b9798eb576fea860e85496d86c74622005fa8cb1",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "rtl8261n.bin",
+      "sha256": "ae1963b2a84a17eaa2fb9052591bdb5152838feda045d7313f45a8608b918533",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "rtl8264b.bin",
+      "sha256": "7a0bcf605739d6f780e0799bbea0c73acf56c9a4cbba015da5d27589bf4352ca",
+      "same_as_general_ubi2": true
+    },
+    {
+      "path": "rtl_nic/rtl8261c.bin",
+      "sha256": "2d93b7cd7ce7aae460ebca41dc5cca0ad80770d2129806ce46cc4e4064000bdc",
+      "same_as_general_ubi2": true
+    }
+  ],
+  "firmware_all_identical": true,
+  "packages": 220,
+  "package_changes_vs_general_ubi2": {
+    "base-files": {
+      "ubi2": "1707~54e453b074",
+      "kernel73": "1707~710dd8fa84"
+    },
+    "collectd": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-cpu": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-interface": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-iwinfo": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-load": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-memory": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-network": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "collectd-mod-rrdtool": {
+      "ubi2": null,
+      "kernel73": "5.12.0-r57"
+    },
+    "kernel": {
+      "ubi2": "6.18.52~8a2128798a21753379be49e778752d44-r1",
+      "kernel73": "7.3_rc4~da2c9e722640cd12ac4f55d5e12fef0e-r1"
+    },
+    "kmod-airoha-eth": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-airoha-npu": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-cfg80211": {
+      "ubi2": "6.18.52.7.2-r3",
+      "kernel73": "7.3.7.2-r3"
+    },
+    "kmod-crypto-aead": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-authenc": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-ccm": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-cmac": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-ctr": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-des": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-gcm": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-geniv": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-gf128": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-ghash": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-hash": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-hmac": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-hw-eip93": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-manager": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-md5": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-null": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-rng": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-seqiv": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-sha1": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-sha256": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-sha3": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-crypto-sha512": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-dsa": {
+      "ubi2": null,
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-dsa-mt7530": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-dsa-mt7530-mmio": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-fixed-phy": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-gpio-button-hotplug": {
+      "ubi2": "6.18.52-r7",
+      "kernel73": "7.3_rc4-r7"
+    },
+    "kmod-hwmon-core": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-hwmon-nct7802": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-i2c-core": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-leds-gpio": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-lib-crc-ccitt": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-libphy": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-mac80211": {
+      "ubi2": "6.18.52.7.2-r3",
+      "kernel73": "7.3.7.2-r3"
+    },
+    "kmod-mdio-devres": {
+      "ubi2": null,
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-mt76-connac": {
+      "ubi2": "6.18.52.2026.09.01~01367e60-r1",
+      "kernel73": "7.3.2026.09.01~01367e60-r1"
+    },
+    "kmod-mt76-core": {
+      "ubi2": "6.18.52.2026.09.01~01367e60-r1",
+      "kernel73": "7.3.2026.09.01~01367e60-r1"
+    },
+    "kmod-mt7996-firmware": {
+      "ubi2": "6.18.52.2026.09.01~01367e60-r1",
+      "kernel73": "7.3.2026.09.01~01367e60-r1"
+    },
+    "kmod-mt7996-firmware-common": {
+      "ubi2": "6.18.52.2026.09.01~01367e60-r1",
+      "kernel73": "7.3.2026.09.01~01367e60-r1"
+    },
+    "kmod-mt7996e": {
+      "ubi2": "6.18.52.2026.09.01~01367e60-r1",
+      "kernel73": "7.3.2026.09.01~01367e60-r1"
+    },
+    "kmod-net-selftests": {
+      "ubi2": null,
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-conntrack": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-flow": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-log": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-log6": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-nat": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-reject": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nf-reject6": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nfnetlink": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nft-bridge": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nft-core": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nft-fib": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nft-nat": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-nft-offload": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-of-mdio": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-phy-realtek": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-phylink": {
+      "ubi2": null,
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-ppp": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-pppoe": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-pppox": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-regmap-core": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-regmap-i2c": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "kmod-slhc": {
+      "ubi2": "6.18.52-r1",
+      "kernel73": "7.3_rc4-r1"
+    },
+    "libatomic1": {
+      "ubi2": "14.4.0-r5",
+      "kernel73": "16.2.0-r5"
+    },
+    "libc": {
+      "ubi2": "1.2.6-r5",
+      "kernel73": "2.44-r5"
+    },
+    "libcrypt-compat": {
+      "ubi2": null,
+      "kernel73": "4.4.38-r1"
+    },
+    "libgcc1": {
+      "ubi2": "14.4.0-r5",
+      "kernel73": "16.2.0-r5"
+    },
+    "libltdl7": {
+      "ubi2": null,
+      "kernel73": "2.5.4-r1"
+    },
+    "libpthread": {
+      "ubi2": "1.2.6-r5",
+      "kernel73": "2.44-r5"
+    },
+    "librrd1": {
+      "ubi2": null,
+      "kernel73": "1.0.50-r7"
+    },
+    "librt": {
+      "ubi2": "1.2.6-r5",
+      "kernel73": "2.44-r5"
+    },
+    "luci-app-mlo": {
+      "ubi2": "26.269.24898~f271ab9",
+      "kernel73": "26.269.08753~875ac12"
+    },
+    "luci-app-netspeedtest": {
+      "ubi2": "26.269.24898~f271ab9",
+      "kernel73": "26.269.08753~875ac12"
+    },
+    "luci-app-statistics": {
+      "ubi2": null,
+      "kernel73": "26.266.57128~f4f91ae"
+    },
+    "luci-app-w1700k-fancontrol": {
+      "ubi2": "26.269.24898~f271ab9",
+      "kernel73": "26.269.08753~875ac12"
+    },
+    "luci-mod-dashboard": {
+      "ubi2": null,
+      "kernel73": "26.266.57128~f4f91ae"
+    },
+    "rrdtool1": {
+      "ubi2": null,
+      "kernel73": "1.0.50-r7"
+    }
+  },
+  "kernel73_module_count": 71,
+  "installed": false,
+  "comparison_scope": "Compared republished kernel73 with saved Sep26 general UBI2. Original kernel73 bytes not retained; original versus republished binary difference remains unknown."
+}

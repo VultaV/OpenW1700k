@@ -1,0 +1,384 @@
+{
+  "result": "PASS_SELECTED_HISTORICAL_EVENTS",
+  "trials": [
+    {
+      "trial": "iphone-packets-20260920",
+      "source_sha256": "111ecf62d4f62de9b02822e8493f2e783c77e61630d1f6e763f88bbaa82fb9bf",
+      "metadata_sha256": {
+        "IPHONE_RESULT.json": "75c52decd0fd1f1d2e6ec09f9a480dea82f01a08d59122c495105154cadd5100",
+        "RESULT.md": "3b9e5cb15fef0eaded68060dbd3590813f0cc44b75a1531c94b121dada8e2e4c",
+        "KMSG_RESULT.json": "ffc0843f7b0bfecf518d149c2586d920ce9458a8f562cfc9d8c6ac7ae8c62746"
+      },
+      "unique_phase_ba_events": 232,
+      "responses": [
+        {
+          "line": 3061,
+          "sequence": 5670,
+          "uptime_us": 83903943685,
+          "tid": 0,
+          "dialog_token": 129,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 3064,
+              "sequence": 5671,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 5878,
+          "sequence": 6611,
+          "uptime_us": 84091778296,
+          "tid": 7,
+          "dialog_token": 175,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 5884,
+              "sequence": 6613,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 5887,
+              "sequence": 6614,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 5890,
+          "sequence": 6615,
+          "uptime_us": 84091841715,
+          "tid": 0,
+          "dialog_token": 176,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 5893,
+              "sequence": 6616,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 5896,
+              "sequence": 6617,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 5914,
+          "sequence": 6623,
+          "uptime_us": 84091979256,
+          "tid": 6,
+          "dialog_token": 177,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 5917,
+              "sequence": 6624,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 5920,
+              "sequence": 6625,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        }
+      ],
+      "delba": [
+        {
+          "line": 5869,
+          "sequence": 6608,
+          "direction": "AP TX",
+          "tid": 7,
+          "parameter": "0x7000",
+          "initiator": 0,
+          "reason": 38
+        }
+      ]
+    },
+    {
+      "trial": "iphone-server-port-20260920",
+      "source_sha256": "a1a497f5096f56162a27a3af5289086ff2fab505784d26d18757ccc9612f2f6b",
+      "metadata_sha256": {
+        "IPHONE_RESULT.json": "d65f844e0e99c771ce403240a3b57fff8cd98f5e13edb638b10aab14100b8cf7",
+        "RESULT.md": "14dd26d83bdad05ff082192157990aa8f838984dc140569a329813d368dddcb0",
+        "KMSG_RESULT.json": "ca98026c0e6744b0a30afaa0dc8a19326bf60c3779a568d681ae3089d7e42b3f"
+      },
+      "unique_phase_ba_events": 209,
+      "responses": [
+        {
+          "line": 3552,
+          "sequence": 9148,
+          "uptime_us": 85590605904,
+          "tid": 0,
+          "dialog_token": 189,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 3561,
+              "sequence": 9151,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 4344,
+          "sequence": 9412,
+          "uptime_us": 85619334424,
+          "tid": 6,
+          "dialog_token": 190,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 4350,
+              "sequence": 9414,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 4506,
+          "sequence": 9466,
+          "uptime_us": 85621456170,
+          "tid": 0,
+          "dialog_token": 66,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 4509,
+              "sequence": 9467,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 4512,
+              "sequence": 9468,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 6438,
+          "sequence": 10110,
+          "uptime_us": 85684367020,
+          "tid": 6,
+          "dialog_token": 67,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 6441,
+              "sequence": 10111,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 6444,
+              "sequence": 10112,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 9195,
+          "sequence": 11029,
+          "uptime_us": 85791612341,
+          "tid": 0,
+          "dialog_token": 238,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 9201,
+              "sequence": 11031,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 9204,
+              "sequence": 11032,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 9207,
+          "sequence": 11033,
+          "uptime_us": 85791642518,
+          "tid": 7,
+          "dialog_token": 239,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 9210,
+              "sequence": 11034,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 9213,
+              "sequence": 11035,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 9237,
+          "sequence": 11043,
+          "uptime_us": 85792022008,
+          "tid": 6,
+          "dialog_token": 240,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 9240,
+              "sequence": 11044,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 9243,
+              "sequence": 11045,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        }
+      ],
+      "delba": [
+        {
+          "line": 4488,
+          "sequence": 9460,
+          "direction": "AP TX",
+          "tid": 7,
+          "parameter": "0x7000",
+          "initiator": 0,
+          "reason": 38
+        },
+        {
+          "line": 9231,
+          "sequence": 11041,
+          "direction": "AP TX",
+          "tid": 7,
+          "parameter": "0x7000",
+          "initiator": 0,
+          "reason": 38
+        }
+      ]
+    },
+    {
+      "trial": "air-wake-20260920",
+      "source_sha256": "b7882aa39155c10976d7a3d469612fb74f2e32e679efa506ea2c1d6dd1ab7645",
+      "metadata_sha256": {
+        "IPHONE_RESULT.json": "b6d013111d4b8c71c037cb49b341fbb24ec3d5c3a80080f98275d502937382fb",
+        "RESULT.md": "3ed46162b5d9374949207b980b49fb1fc6673263cd02958f3b094f9f3396ff12",
+        "KMSG_RESULT.json": "ad40691729db621f36a205efc96a123e14ad527b84cf3817f146be0a4219b39f"
+      },
+      "unique_phase_ba_events": 165,
+      "responses": [
+        {
+          "line": 3295,
+          "sequence": 13719,
+          "uptime_us": 87831908961,
+          "tid": 6,
+          "dialog_token": 11,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 3310,
+              "sequence": 13724,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 3313,
+              "sequence": 13725,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        },
+        {
+          "line": 3433,
+          "sequence": 13765,
+          "uptime_us": 87835748500,
+          "tid": 0,
+          "dialog_token": 12,
+          "timeout": 0,
+          "status": 0,
+          "exact_target_enable_match": true,
+          "target_enable": [
+            {
+              "line": 3436,
+              "sequence": 13766,
+              "timeout": 0,
+              "return": 0
+            },
+            {
+              "line": 3439,
+              "sequence": 13767,
+              "timeout": 0,
+              "return": 0
+            }
+          ]
+        }
+      ],
+      "delba": [
+        {
+          "line": 3316,
+          "sequence": 13726,
+          "direction": "AP TX",
+          "tid": 7,
+          "parameter": "0x7000",
+          "initiator": 0,
+          "reason": 38
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Selected successful r29 trials only; not the failed r32 session.",
+    "Phase identity uses corrected metadata and adjacent same-TID MLD enables.",
+    "BATRACE is rate-limited; missing events cannot exclude an event.",
+    "No new wireless tests or device access; no peer addresses are emitted."
+  ],
+  "checker_sha256": "00c65bf23a0e118b219b7779fef1cbb22302f3ea28494b4235995415658dc2d2"
+}
