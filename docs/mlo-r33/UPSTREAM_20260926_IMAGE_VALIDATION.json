@@ -1,0 +1,85 @@
+{
+  "tag": "ubi2_2026.09.26_r36602-54e453b074",
+  "size": 22180671,
+  "sha256": "3f474396b2f55781d02d05986767fb61847ab29ed5fd51ae5af835814a0e5e4e",
+  "fit": [
+    {
+      "node": "kernel-1",
+      "hashes_valid": true
+    },
+    {
+      "node": "fdt-1",
+      "hashes_valid": true
+    },
+    {
+      "node": "rootfs-1",
+      "hashes_valid": true
+    }
+  ],
+  "kernel": "Linux version 6.18.52 (builder@buildhost) (aarch64-openwrt-linux-musl-gcc (OpenWrt GCC 14.4.0 r36600-dca177310d) 14.4.0, GNU ld (GNU Binutils) 2.46.1) #0 SMP Sat Sep 26 06:54:58 2026",
+  "comparison_baseline": "ubi2_2026.09.24_r36578-425d4a2ae9",
+  "firmware": [
+    {
+      "path": "airoha/en7581_MT7996_npu_data.bin",
+      "same": true,
+      "sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1"
+    },
+    {
+      "path": "airoha/en7581_MT7996_npu_rv32.bin",
+      "same": true,
+      "sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643"
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_dsp.bin",
+      "same": true,
+      "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d"
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_eeprom.bin",
+      "same": true,
+      "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6"
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_eeprom_2i5i6i.bin",
+      "same": true,
+      "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28"
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_rom_patch.bin",
+      "same": true,
+      "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400"
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_wa.bin",
+      "same": true,
+      "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448"
+    },
+    {
+      "path": "mediatek/mt7996/mt7996_wm.bin",
+      "same": true,
+      "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+    },
+    {
+      "path": "regulatory.db",
+      "same": true,
+      "sha256": "6fb59be8734f9d7dbbae5b49b9798eb576fea860e85496d86c74622005fa8cb1"
+    },
+    {
+      "path": "rtl8261n.bin",
+      "same": true,
+      "sha256": "ae1963b2a84a17eaa2fb9052591bdb5152838feda045d7313f45a8608b918533"
+    },
+    {
+      "path": "rtl8264b.bin",
+      "same": true,
+      "sha256": "7a0bcf605739d6f780e0799bbea0c73acf56c9a4cbba015da5d27589bf4352ca"
+    },
+    {
+      "path": "rtl_nic/rtl8261c.bin",
+      "same": true,
+      "sha256": "2d93b7cd7ce7aae460ebca41dc5cca0ad80770d2129806ce46cc4e4064000bdc"
+    }
+  ],
+  "firmware_all_identical": true,
+  "installed": false
+}

@@ -1,0 +1,464 @@
+{
+  "checked_at": "2026-09-26T11:03:31.560676+00:00",
+  "review_head": "01538019f51d8f712aed65161480a6b39fd07411",
+  "source_checks": [
+    {
+      "tree": "publish-mlo-r29",
+      "path": "include/kernel-defaults.mk",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "include/kernel.mk",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mac80211/patches/subsys/999-mac80211-station-fdb-notify.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/config/bridge-flow-offload/Makefile",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/config/bridge-flow-offload/files/etc/config/bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/config/bridge-flow-offload/files/etc/hotplug.d/net/51-bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/config/bridge-flow-offload/files/etc/uci-defaults/90-bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/config/bridge-flow-offload/files/usr/share/bridge-flow-offload/apply-rules.sh",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/config/netifd/files/usr/libexec/network/packet-steering.uc",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/airoha/an7581/base-files/etc/hotplug.d/iface/51-bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/airoha/an7581/config-6.18",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/airoha/patches-6.18/9998-netfilter-flowtable-preserve-bridge-ttl.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/airoha/patches-6.18/9999-net-airoha-honor-flow-action-keep-ttl.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/airoha/patches-6.18/9999-z1-netfilter-bridge-fdb-cleanup.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/airoha/patches-6.18/9999-z2-net-airoha-ppe-slot-ownership.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "target/linux/generic/pending-6.18/675-03-netfilter-bridge-conntrack-vlan-pppoe-encapsulation.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "tests/test_bridge_flow_offload.py",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0001-wifi-mt76-mt7996-add-token-and-NPU-debugfs-counters.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0003-wifi-mt76-mt7996-replace-direct-WTBL-access-with-MCU-for-station-statistics.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0005-wifi-mt76-mt7996-guard-txfree-overrun.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0008-mt76-wake-ps-txqs-after-aql-return.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0009-mt7996-show-per-link-power-save-state.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0010-enable-firmware-txpower-limit.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0011-refresh-power-limits-on-txpower-changes.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0012-mt7996-resolve-rate-control-phy-from-active-link.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0015-mt7996-use-both-mlo-link-ps-for-shared-txq.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0016-mt7996-trace-ba-failure-and-mld-teardown.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0018-mt7996-trace-station-disconnect-result.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0020-mt7996-test-selected-peer-nstr-on-r17.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0021-mt7996-show-per-link-tx-feedback.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0022-mt7996-count-tx-completion-error-flags.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0023-mt7996-test-awake-link-tx-selection.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0024-mt7996-count-tx-link-selection.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0025-mt7996-trace-failed-test-packet-headers.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0026-mt7996-trace-ba-frames-and-mcu-results.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0027-mt7996-trace-mlo-ps-event-order.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/kernel/mt76/patches/0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/services/hostapd/patches/999-preserve-link-id-for-unknown-station.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/services/hostapd/patches/9999-reset-expired-mld-before-link-setup.patch",
+      "matches": true
+    },
+    {
+      "tree": "publish-mlo-r29",
+      "path": "package/network/services/hostapd/patches/9999-deliver-dfs-state-to-unconfigured-links.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "include/kernel-defaults.mk",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "include/kernel.mk",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mac80211/patches/subsys/999-mac80211-station-fdb-notify.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/config/bridge-flow-offload/Makefile",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/config/bridge-flow-offload/files/etc/config/bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/config/bridge-flow-offload/files/etc/hotplug.d/net/51-bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/config/bridge-flow-offload/files/etc/uci-defaults/90-bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/config/bridge-flow-offload/files/usr/share/bridge-flow-offload/apply-rules.sh",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/config/netifd/files/usr/libexec/network/packet-steering.uc",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/airoha/an7581/base-files/etc/hotplug.d/iface/51-bridge-flow-offload",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/airoha/an7581/config-6.18",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/airoha/patches-6.18/9998-netfilter-flowtable-preserve-bridge-ttl.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/airoha/patches-6.18/9999-net-airoha-honor-flow-action-keep-ttl.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/airoha/patches-6.18/9999-z1-netfilter-bridge-fdb-cleanup.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/airoha/patches-6.18/9999-z2-net-airoha-ppe-slot-ownership.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "target/linux/generic/pending-6.18/675-03-netfilter-bridge-conntrack-vlan-pppoe-encapsulation.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "tests/test_bridge_flow_offload.py",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0001-wifi-mt76-mt7996-add-token-and-NPU-debugfs-counters.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0003-wifi-mt76-mt7996-replace-direct-WTBL-access-with-MCU-for-station-statistics.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0005-wifi-mt76-mt7996-guard-txfree-overrun.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0008-mt76-wake-ps-txqs-after-aql-return.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0009-mt7996-show-per-link-power-save-state.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0010-enable-firmware-txpower-limit.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0011-refresh-power-limits-on-txpower-changes.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0012-mt7996-resolve-rate-control-phy-from-active-link.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0015-mt7996-use-both-mlo-link-ps-for-shared-txq.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0016-mt7996-trace-ba-failure-and-mld-teardown.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0018-mt7996-trace-station-disconnect-result.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0020-mt7996-test-selected-peer-nstr-on-r17.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0021-mt7996-show-per-link-tx-feedback.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0022-mt7996-count-tx-completion-error-flags.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0023-mt7996-test-awake-link-tx-selection.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0024-mt7996-count-tx-link-selection.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0025-mt7996-trace-failed-test-packet-headers.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0026-mt7996-trace-ba-frames-and-mcu-results.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0027-mt7996-trace-mlo-ps-event-order.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/kernel/mt76/patches/0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/services/hostapd/patches/999-preserve-link-id-for-unknown-station.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/services/hostapd/patches/9999-reset-expired-mld-before-link-setup.patch",
+      "matches": true
+    },
+    {
+      "tree": "build-volume/source",
+      "path": "package/network/services/hostapd/patches/9999-deliver-dfs-state-to-unconfigured-links.patch",
+      "matches": true
+    }
+  ],
+  "matched": 82,
+  "total": 82,
+  "bridge_tests": {
+    "pass": 21,
+    "fail": 0,
+    "warn": 0,
+    "skip": 0,
+    "pass_rate": 100
+  },
+  "ui_reproduction": "F05/F06/F07 and F10 still reproduce; command success is not bug fix",
+  "runtime_read_only": {
+    "kernel": "6.18.44-w1700k-mlo-r32",
+    "uptime": "2 days 03:19",
+    "load_average": [
+      0.07,
+      0.09,
+      0.08
+    ],
+    "overlay_used_percent": 34,
+    "overlay_free_mib": 221.8,
+    "memory_available_kib": 1596656,
+    "lan2_mbps": 2500,
+    "lan4_mbps": 1000,
+    "both_carrier": 1
+  },
+  "wireless_tests_performed": 0,
+  "config_changes": 0,
+  "firmware_installs": 0,
+  "limitations": [
+    "No full clean build",
+    "No r33 image boot validation",
+    "No Air failure-cause proof",
+    "No full proprietary WM/WA/DSP implementation audit"
+  ],
+  "upstream_end_tree_changes": 34,
+  "upstream_patches_applied": [
+    {
+      "patch": "995-net-airoha-do-not-decrement-TTL-on-bridge-flows.patch",
+      "returncode": 0,
+      "output": "patching file 'drivers/net/ethernet/airoha/airoha_ppe.c'\n"
+    },
+    {
+      "patch": "996-net-airoha-refuse-HW-programming-on-cross-ingress-L2-collision.patch",
+      "returncode": 0,
+      "output": "patching file 'drivers/net/ethernet/airoha/airoha_eth.h'\npatching file 'drivers/net/ethernet/airoha/airoha_ppe.c'\n"
+    }
+  ],
+  "scope": "Source/image/read-only runtime audit; no new wireless test, no source fix or firmware install"
+}
