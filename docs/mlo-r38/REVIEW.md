@@ -53,7 +53,7 @@ stop helper는 내부 mutex를 잡으므로 SER의 mutex 구간 안으로 단순
 | 단계 | 바이너리에서 확인한 동작 | 판단의 한계 |
 |---|---|---|
 | action 4 (`0x8400e220`) | stop byte를 1로 쓰고 worker gate들을 0으로 만든다. | 이 함수 자체는 DMA idle을 검사하지 않는다. |
-| GET ifindex 3 (`0x8400d80e`) | `word[0x3e9046e8] \u007c !byte[0x3e9046f6] \u007c !byte[0x3e9046f7]`를 반환한다. worker들은 gate 조건에 따라 해당 상태/확인 값을 쓴다. | 반환값 0은 이 worker 확인 조건이며 전역 DMA 중지 비트가 아니다. |
+| GET ifindex 3 (`0x8400d80e`) | `word[0x3e9046e8] OR !byte[0x3e9046f6] OR !byte[0x3e9046f7]`를 반환한다. worker들은 gate 조건에 따라 해당 상태/확인 값을 쓴다. | 반환값 0은 이 worker 확인 조건이며 전역 DMA 중지 비트가 아니다. |
 | action 6 (`0x8400e0a2`) | `0x8400990e`에서 MMIO `0x1fb5080c`와 RAM `0x3e9046c0` 일치를 기다리고, `0x84009960`에서 MMIO `0x1fb50fe4` 하위 16비트가 0이 되기를 기다린 뒤 P/T pool을 초기화한다. | 뒤로 돌아가는 polling 분기에 로컬 timeout이 없다. 외부 호출과 MMIO 진행은 모델링하지 않았다. |
 | SET wrapper (`0x8400fc2c`) | action 함수가 반환한 뒤 성공 응답을 만든다. | 정상 action 6 완료는 위 검사/초기화의 근거지만 모든 WFDMA·RRO·NPU DMA 중지를 입증하지 않는다. |
 
