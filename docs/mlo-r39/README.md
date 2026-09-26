@@ -16,3 +16,5 @@
 - [9월 27일 설치·Mac 실기기 비교](DEVICE_TESTS_20260927.md), [검증 수치](DEVICE_VALIDATION_20260927.json): Wi-Fi 설정 화면을 나간 상태에서 5분 평균 1.95Gbps. 화면을 열면 반복 저하가 재현돼 측정 조건에 반영했다.
 
 - [9월 27일 CPU 전달·PPE 가속·유휴 후속 비교](MAC_PATH_FOLLOWUP_20260927.md), [수치와 증거 해시](MAC_PATH_FOLLOWUP_20260927.json): 같은 연결에서 CPU 1.16Gbps / 가속 1.97Gbps. 설정 화면 열림의 급락은 두 경로에서 재현됐다. 공식 UBI2 재게시본의 드라이버·펌웨어 동일 여부도 확인했다.
+
+- [9월 27일 RED·WM/WA·서버 TCP 재검토](RED_CONTRACT_20260927.md), [검증 자료](RED_CONTRACT_20260927.json): 벤더의 status 2 정의와 non-WED offload용 RED·BA 패치를 확인했다. 기존 Mac 기록 720개 표본의 재전송·cwnd를 검증했으며, RED 초기화 호환성과 Air 원인 확정은 남아 있다.
