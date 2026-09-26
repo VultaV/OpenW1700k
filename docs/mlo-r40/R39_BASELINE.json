@@ -1,0 +1,51 @@
+{
+  "build": "r39",
+  "client": "MacBook",
+  "role": "Fresh pre-r40 comparison; not an r40 result",
+  "records": [
+    {
+      "label": "red-baseline-closed-60",
+      "receiver_mbps": 1824.421372133661,
+      "min_interval_mbps": 96.26241232115396,
+      "max_interval_mbps": 2005.8802716824869,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "panel": "General",
+      "iperf_sha256": "bb39954605d9eec303da856732b6da90d718cb56fdca01d9e7b9f47e1606509d",
+      "sender_retransmits": 1039,
+      "below_500mbps": [
+        {
+          "start": 0,
+          "end": 1.000128,
+          "mbps": 103.79573495140723
+        },
+        {
+          "start": 1.000128,
+          "end": 2.002274,
+          "mbps": 96.26241232115396
+        }
+      ]
+    },
+    {
+      "label": "red-baseline-open-60",
+      "receiver_mbps": 1957.142872941533,
+      "min_interval_mbps": 1856.844451903809,
+      "max_interval_mbps": 2014.4023389034978,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "panel": "Wi-Fi",
+      "iperf_sha256": "dd2b8177e4de8b3b8a56ff20d3ce0a5cb9cbb386e9f0f4a1b5cec939117b0f4b",
+      "sender_retransmits": 1419,
+      "below_500mbps": []
+    }
+  ],
+  "interpretation": "Closed-panel first two seconds were slow; open-panel run did not reproduce the earlier periodic degradation. One boot pair cannot establish repair causality."
+}

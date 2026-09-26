@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "files": {
+    "mt7996/mcu.c": {
+      "baseline_sha256": "944d2053f5bbc96dfaad2625ee28ebdd41c0855d9510f9fe07d4653b50c6b5c9",
+      "prepared_sha256": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657"
+    },
+    "mt7996/mcu.h": {
+      "baseline_sha256": "527482250aad41c6f859fa2501b7bb1ced835a4d893a64ced598abefc3e8003f",
+      "prepared_sha256": "50f56319b429a67e31d62bfa46868f88affdfc1170a06695a99ae67c5f142cd6"
+    }
+  },
+  "scope": "Actual built mcu.c/h byte-equal to baseline plus only fuzz-zero RED patch."
+}

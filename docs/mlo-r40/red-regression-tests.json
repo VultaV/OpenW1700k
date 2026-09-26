@@ -1,0 +1,77 @@
+{
+  "test_sha256": "3358c0395aa1b6d0914ad60567ed5b965eeba01ef4dba2298241e27209ca3ea0",
+  "patch_sha256": "1ab8527a1444515f80decac3d72f9258f0f925675959d532b0db73c892fdbb6f",
+  "results": {
+    "baseline": {
+      "status": "EXPECTED_MISSING_CONTRACT",
+      "passed": 32,
+      "expected_missing_contract": 1,
+      "source_sha256": {
+        "mcu.c": "944d2053f5bbc96dfaad2625ee28ebdd41c0855d9510f9fe07d4653b50c6b5c9",
+        "mcu.h": "527482250aad41c6f859fa2501b7bb1ced835a4d893a64ced598abefc3e8003f"
+      },
+      "extracted_sha256": {
+        "mt7996_mcu_wa_cmd": "7f08ebce5d6f74409a2c9d74b2aacbee1408f0247a34a8088eab4a2da0d965f9",
+        "mt7996_mcu_init_firmware": "180aa8c6e7e79ed17888d01af90696d48c41f888d3db2e816341884890f606a0"
+      },
+      "explicit_endian_source_checks": 0,
+      "compiler": "clang",
+      "compiler_flags": [
+        "-std=gnu11",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-function",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-DHAS_RED_HELPER=0"
+      ],
+      "patch_roundtrip_fuzz0_no_offset": true,
+      "limitations": [
+        "Actual helper, WA wrapper and full firmware-init function; unrelated operations and MCU transport are stubs.",
+        "Native little-endian host payload oracle plus explicit endian conversion checks; no big-endian runtime.",
+        "MT7996_TOKEN_SIZE=16384 is the contract fixture; no full kernel ABI or MCU envelope compilation.",
+        "ASan/UBSan are host checks; no firmware execution, RED readback, token ownership or throughput claim.",
+        "Zero and boundary token values test encoding only, not valid firmware budgets."
+      ]
+    },
+    "candidate": {
+      "status": "PASS",
+      "passed": 50,
+      "expected_missing_contract": 0,
+      "source_sha256": {
+        "mcu.c": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657",
+        "mcu.h": "50f56319b429a67e31d62bfa46868f88affdfc1170a06695a99ae67c5f142cd6"
+      },
+      "extracted_sha256": {
+        "mt7996_mcu_wa_cmd": "7f08ebce5d6f74409a2c9d74b2aacbee1408f0247a34a8088eab4a2da0d965f9",
+        "mt7996_mcu_init_npu_red": "77bad2241c8803d2a2fb25a8e7d438cac0afec2e75d72dbbc63b155f14757dc5",
+        "mt7996_mcu_init_firmware": "9a87d869b9da6d3124b0686a79e2ca5ff2444b1c88e86124cdb4cd5107fb3ef4"
+      },
+      "explicit_endian_source_checks": 9,
+      "compiler": "clang",
+      "compiler_flags": [
+        "-std=gnu11",
+        "-O1",
+        "-g",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-unused-function",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-DHAS_RED_HELPER=1"
+      ],
+      "patch_roundtrip_fuzz0_no_offset": true,
+      "limitations": [
+        "Actual helper, WA wrapper and full firmware-init function; unrelated operations and MCU transport are stubs.",
+        "Native little-endian host payload oracle plus explicit endian conversion checks; no big-endian runtime.",
+        "MT7996_TOKEN_SIZE=16384 is the contract fixture; no full kernel ABI or MCU envelope compilation.",
+        "ASan/UBSan are host checks; no firmware execution, RED readback, token ownership or throughput claim.",
+        "Zero and boundary token values test encoding only, not valid firmware budgets."
+      ]
+    }
+  }
+}
