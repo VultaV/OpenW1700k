@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "baseline_sha256": "bf50f9c2b9b7de4146f9b120e5b35470771da70b969e53f771871dc4d596b3c0",
+  "prepared_sha256": "7f31559480eb28f3025a7a116d25bea1e3b68c0d8b96886f05a983d74bbcecef",
+  "patch_sha256": "32d9299fd17625fc7159bf20073d47e1e4800f88d4e4a5a4509e448095bc70b1",
+  "scope": "Actual prepared airoha_ppe.c equals r37 source plus only the SRAM flush error propagation change, no fuzz."
+}

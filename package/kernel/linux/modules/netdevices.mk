@@ -694,6 +694,7 @@ $(eval $(call KernelPackage,airoha-npu))
 define KernelPackage/airoha-eth
   SUBMENU:=$(NETWORK_DEVICES_MENU)
   TITLE:=Airoha SoC Gigabit Ethernet support
+  VERSION:=$(subst -rc,_rc,$(LINUX_VERSION))-r2
   DEPENDS:=@TARGET_airoha +kmod-airoha-npu +kmod-of-mdio
   KCONFIG:=CONFIG_NET_AIROHA
   FILES:=$(LINUX_DIR)/drivers/net/ethernet/airoha/airoha-eth.ko

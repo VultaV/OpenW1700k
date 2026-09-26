@@ -1,0 +1,24 @@
+{
+  "upstream_commit": "d7d81b00301398fcd38cf5b5869f0fdb674472ef",
+  "url": "https://github.com/torvalds/linux/commit/d7d81b00301398fcd38cf5b5869f0fdb674472ef",
+  "author": "Wayen.Yan",
+  "authored_at": "2026-06-12T09:37:00Z",
+  "committed_at": "2026-06-13T17:29:26Z",
+  "fixes_commit": "620d7b91aadbd4eb930895b07e34f0a155a9d3c1",
+  "local_introducing_patch": "target/linux/airoha/patches-6.18/099-08-v6.19-net-airoha-ppe-Flush-PPE-SRAM-table-during-PPE-setup.patch",
+  "local_introducing_patch_sha256": "2c7eaac7f2ad1bf43c1c9df7e092e57fbedaadaadc1400a166425301105926dd",
+  "official_fix_form": "Remove outer err; return loop-local err immediately on failure, return 0 at end.",
+  "r38_fix_form": "Remove shadowing inner err; break and return outer err on failure. Same intended error propagation, not a verbatim cherry-pick.",
+  "patch_fuzz": 0,
+  "patch_output": "patching file 'drivers/net/ethernet/airoha/airoha_ppe.c'\n",
+  "original_source_sha256": "bf50f9c2b9b7de4146f9b120e5b35470771da70b969e53f771871dc4d596b3c0",
+  "upstream_patched_source_sha256": "412c8d2cc1544d59e71223f0d09f4b20ebc1fdb7a9eecd804f8e4e7950983dba",
+  "test_sha256": "38a03dee81b781b573a97faf7e5a3c2230648fcdc34409c4bcbff6f837bacb47",
+  "upstream_form_test_output": "PASS case 0\nPASS case 1\nPASS case 2\nPASS case 3\nPASS case 4\nPASS case 5\nPASS case 6\nPASS case 7\nPASS case 8\nPASS case 9\nPASS case 10\nPASS case 11\nPASS case 12\nPASS case 13\nPASS case 14\nPASS case 15\nTOTAL 16 PASS, 0 EXPECTED_FAIL\n",
+  "upstream_form_exit_code": 0,
+  "limits": [
+    "16 extracted-source host cases, not all program states or hardware equivalence.",
+    "No build inputs or running build were changed for this comparison.",
+    "This is a June 2026 correction omitted from the local backport, not a newly published September patch."
+  ]
+}

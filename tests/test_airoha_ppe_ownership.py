@@ -2,12 +2,13 @@
 """Run extracted PPE ownership paths with fake hardware under ASan/UBSan.
 
 Usage: test_airoha_ppe_ownership.py /path/to/airoha_ppe.c [/path/to/airoha_eth.h] [case]
+Use --flush-baseline only to verify the old flush's exact false-success bug.
 This checks driver control flow, not SRAM timing, NPU behavior or kernel locking.
 """
+import argparse
 from pathlib import Path
 import re
 import subprocess
-import sys
 import tempfile
 
 
@@ -77,19 +78,31 @@ enum { SLOTS = 16 };
 struct airoha_ppe {
     struct hlist_head foe_flow[SLOTS];
     struct airoha_flow_table_entry *l2_flows;
+    struct airoha_foe_entry *foe;
 };
 struct sk_buff { int unused; };
 static struct airoha_foe_entry hardware[SLOTS];
 static int commits, sram_commits, read_error = -1, write_error;
+static unsigned sram_entries = SLOTS;
+static int flush_error_index = -1;
 static int airoha_l2_flow_table_params;
 static u32 airoha_ppe_get_total_num_entries(struct airoha_ppe *p) { return SLOTS; }
-static u32 airoha_ppe_get_total_sram_num_entries(struct airoha_ppe *p) { return SLOTS; }
+static u32 airoha_ppe_get_total_sram_num_entries(struct airoha_ppe *p) { return sram_entries; }
 static struct airoha_foe_entry *airoha_ppe_foe_get_entry_locked(struct airoha_ppe *p, u32 h) {
     assert(h < SLOTS);
     return (int)h == read_error ? NULL : &hardware[h];
 }
 static int airoha_ppe_foe_commit_sram_entry(struct airoha_ppe *p, u32 h) {
-    assert(h < SLOTS); sram_commits++; return write_error;
+    assert(h < sram_entries);
+    if (p->foe) {
+        /* Flush must clear this shadow entry before committing it, in order. */
+        assert(h == (unsigned)sram_commits);
+        unsigned char *bytes = (unsigned char *)&p->foe[h];
+        for (unsigned i = 0; i < sizeof(p->foe[h]); i++) assert(!bytes[i]);
+        sram_commits++;
+        return (int)h == flush_error_index ? write_error : 0;
+    }
+    sram_commits++; return write_error;
 }
 static int airoha_ppe_foe_commit_entry(struct airoha_ppe *p, struct airoha_foe_entry *e, u32 h, bool rx) {
     assert(h < SLOTS); commits++; hardware[h] = *e; return write_error;
@@ -124,6 +137,7 @@ static void add(struct airoha_ppe *p, struct airoha_flow_table_entry *e) {
 static void reset(void) {
     memset(hardware, 0, sizeof(hardware));
     commits = sram_commits = frees = write_error = 0; read_error = -1;
+    sram_entries = SLOTS; flush_error_index = -1;
 }
 static void duplicate(bool ipv6) {
     struct airoha_ppe p = {};
@@ -244,11 +258,43 @@ static void stale_stats(void) {
     assert(learned.hash == 0xffff);
     airoha_ppe_foe_remove_flow(&p, &learned);
 }
+#ifndef EXPECT_FLUSH_FALSE_SUCCESS
+#define EXPECT_FLUSH_FALSE_SUCCESS 0
+#endif
+static bool flush(unsigned count, int fail_at, int error) {
+    struct airoha_ppe p = {};
+    sram_entries = count; flush_error_index = fail_at; write_error = error;
+    /* Exact-sized allocation lets ASan detect accesses past the last entry. */
+    if (count) {
+        p.foe = malloc(count * sizeof(*p.foe));
+        assert(p.foe);
+        memset(p.foe, 0xa5, count * sizeof(*p.foe));
+    }
+    int ret = airoha_ppe_flush_sram_entries(&p);
+    unsigned touched = fail_at < 0 ? count : (unsigned)fail_at + 1;
+    assert(sram_commits == (int)touched && !commits);
+    for (unsigned i = 0; i < count; i++) {
+        unsigned char *bytes = (unsigned char *)&p.foe[i];
+        for (unsigned j = 0; j < sizeof(p.foe[i]); j++)
+            assert(bytes[j] == (i < touched ? 0 : 0xa5));
+    }
+    free(p.foe);
+    if (EXPECT_FLUSH_FALSE_SUCCESS && fail_at >= 0) {
+        /* Reject crashes, a different errno, or any other failure as proof. */
+        assert(ret == 0 && error < 0);
+        printf("EXPECTED_FAIL flush index %d: expected %d, observed false success 0\n", fail_at, error);
+        return true;
+    }
+    assert(ret == (fail_at < 0 ? 0 : error));
+    return false;
+}
 int main(int argc, char **argv) {
     int which = argc > 1 ? atoi(argv[1]) : -1;
-    for (int i = 0; i < 11; i++) {
+    unsigned passed = 0, expected_failures = 0;
+    for (int i = 0; i < 16; i++) {
         if (which >= 0 && which != i) continue;
         reset();
+        bool expected_failure = false;
         switch (i) {
         case 0: duplicate(false); break;
         case 1: duplicate(true); break;
@@ -261,16 +307,30 @@ int main(int argc, char **argv) {
         case 8: subflow(false); break;
         case 9: subflow(true); break;
         case 10: stale_stats(); break;
+        case 11: expected_failure = flush(0, -1, 0); break;
+        case 12: expected_failure = flush(SLOTS, -1, 0); break;
+        case 13: expected_failure = flush(SLOTS, 0, -EIO); break;
+        case 14: expected_failure = flush(SLOTS, SLOTS / 2, -ETIMEDOUT); break;
+        case 15: expected_failure = flush(SLOTS, SLOTS - 1, -EBUSY); break;
         }
-        printf("PASS case %d\n", i);
+        if (expected_failure) expected_failures++;
+        else { passed++; printf("PASS case %d\n", i); }
     }
+    printf("TOTAL %u PASS, %u EXPECTED_FAIL\n", passed, expected_failures);
 }
 '''
 
 
 def main():
-    source_path = Path(sys.argv[1])
-    header_path = Path(sys.argv[2]) if len(sys.argv) > 2 else source_path.with_name('airoha_eth.h')
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('source', type=Path)
+    parser.add_argument('header', type=Path, nargs='?')
+    parser.add_argument('case', type=int, choices=range(16), nargs='?')
+    parser.add_argument('--flush-baseline', action='store_true',
+                        help='require the old flush to return 0 for each injected SRAM error')
+    args = parser.parse_args()
+    source_path = args.source
+    header_path = args.header or source_path.with_name('airoha_eth.h')
     source, header = source_path.read_text(), header_path.read_text()
     start = header.index('enum {\n\tAIROHA_FOE_STATE_INVALID,')
     end = header.index('\nstruct airoha_flow_data', start)
@@ -283,14 +343,17 @@ def main():
         names.append('airoha_ppe_foe_clear_entry')
     names += ['airoha_ppe_foe_remove_flow', 'airoha_ppe_foe_commit_subflow_entry',
               'airoha_ppe_foe_insert_entry', 'airoha_ppe_foe_flow_l2_entry_update',
-              'airoha_ppe_foe_flow_entry_update']
+              'airoha_ppe_foe_flow_entry_update', 'airoha_ppe_flush_sram_entries']
     code = PREFIX + types + SERVICES + ''.join(function(source, name) for name in names) + CASES
     with tempfile.TemporaryDirectory(prefix='ppe-ownership-') as directory:
         path = Path(directory)
         (path / 'check.c').write_text(code)
         subprocess.run(['cc', '-O1', '-g', '-fsanitize=address,undefined',
+                        '-fno-sanitize-recover=all',
+                        f'-DEXPECT_FLUSH_FALSE_SUCCESS={int(args.flush_baseline)}',
                         str(path / 'check.c'), '-o', str(path / 'check')], check=True)
-        result = subprocess.run([str(path / 'check'), *sys.argv[3:]], timeout=20)
+        result = subprocess.run([str(path / 'check'),
+                                 *([] if args.case is None else [str(args.case)])], timeout=20)
         raise SystemExit(result.returncode)
 
 

@@ -1,0 +1,49 @@
+{
+  "test": "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+  "test_sha256": "38a03dee81b781b573a97faf7e5a3c2230648fcdc34409c4bcbff6f837bacb47",
+  "header": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h",
+  "header_sha256": "a1aad782e11e4f58ada68a77c930ebe4c3e3a6bf5ade2ccf2c2144bf88c2749d",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "sanitizers": [
+    "address",
+    "undefined"
+  ],
+  "existing_ownership_cases": 11,
+  "new_flush_cases": 5,
+  "results": {
+    "baseline": {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+        "artifacts/mlo-ppe-init-r38-2026-09-26/airoha_ppe.before.c",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h",
+        "--flush-baseline"
+      ],
+      "source_sha256": "bf50f9c2b9b7de4146f9b120e5b35470771da70b969e53f771871dc4d596b3c0",
+      "exit_code": 0,
+      "pass": 13,
+      "expected_failure": 3,
+      "unexpected_failure": 0,
+      "log": "artifacts/mlo-ppe-init-r38-2026-09-26/flush-baseline.log"
+    },
+    "candidate": {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+        "artifacts/mlo-ppe-init-r38-2026-09-26/airoha_ppe.candidate.c",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h"
+      ],
+      "source_sha256": "7f31559480eb28f3025a7a116d25bea1e3b68c0d8b96886f05a983d74bbcecef",
+      "exit_code": 0,
+      "pass": 16,
+      "expected_failure": 0,
+      "unexpected_failure": 0,
+      "log": "artifacts/mlo-ppe-init-r38-2026-09-26/flush-candidate.log"
+    }
+  },
+  "limitations": [
+    "Actual extracted flush control flow with a 16-entry host fixture; commit ACK and MMIO are mocked.",
+    "Does not execute the complete probe cleanup, actual QDMA/IRQ concurrency, SRAM timing, firmware or hardware.",
+    "No Air symptom attribution; no production source mutation, build or device access."
+  ]
+}

@@ -1,0 +1,640 @@
+{
+  "status": "PASS",
+  "capstone_version": "5.0.7",
+  "program": {
+    "size": 122336,
+    "sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643"
+  },
+  "data": {
+    "size": 3084,
+    "sha256": "61a75afb052feed2ceb2f3023e16f50317c05c78f9c8e564bf01924ce39c7ec1"
+  },
+  "tables": [
+    {
+      "program_offset": "0x1bd74",
+      "bytes": "bc24ffff",
+      "target": "0x8400e220"
+    },
+    {
+      "program_offset": "0x1bd7c",
+      "bytes": "3e23ffff",
+      "target": "0x8400e0a2"
+    },
+    {
+      "data_offset": "0x148",
+      "bytes": "9cff0084",
+      "target": "0x8400ff9c"
+    },
+    {
+      "data_offset": "0x1d8",
+      "bytes": "2cfc0084",
+      "target": "0x8400fc2c"
+    }
+  ],
+  "ranges": [
+    {
+      "start": "0x8400e084",
+      "end_exclusive": "0x8400e0c0",
+      "instructions": 21,
+      "sha256": "4bfae452e2245521dfb74f937c7e256342cb1242c08e41b7341855e265ef51a2"
+    },
+    {
+      "start": "0x8400e220",
+      "end_exclusive": "0x8400e266",
+      "instructions": 20,
+      "sha256": "f588a23124d6bdbb865163f24a2f9dc274cbabb87905fbc72b9cb250ce84789f"
+    },
+    {
+      "start": "0x8400fc2c",
+      "end_exclusive": "0x8400fc4a",
+      "instructions": 13,
+      "sha256": "f6c8611f77d8162db77950f75b4a181f539c5c8e778d2157b12bcc1dd7b576da"
+    },
+    {
+      "start": "0x8400ff9c",
+      "end_exclusive": "0x8400ffb8",
+      "instructions": 13,
+      "sha256": "6963f285044cb472f767b1bcc9f1d7fe2c53dd6943b4a3b0331ce429f063bede"
+    },
+    {
+      "start": "0x8400d7ca",
+      "end_exclusive": "0x8400d836",
+      "instructions": 35,
+      "sha256": "fd7e8226dced846cfec925cf2c1b559cdebafd8f46313a397ce440c8493493b2"
+    },
+    {
+      "start": "0x8400ce10",
+      "end_exclusive": "0x8400ce18",
+      "instructions": 2,
+      "sha256": "20bf5e717899ad8c9b4d998b9ef518a8716a14e9e1461fdf2e3f1153bec16b8f"
+    },
+    {
+      "start": "0x8400cf10",
+      "end_exclusive": "0x8400cf40",
+      "instructions": 18,
+      "sha256": "9e603cd73ad06c6ffbbb1e88b100a4ded396e271cf6a7e722ce2fc2a0854d988"
+    },
+    {
+      "start": "0x8400d0c0",
+      "end_exclusive": "0x8400d0c8",
+      "instructions": 2,
+      "sha256": "999df66dad851ea896636aa19fd87d14dc0fbb7781c558cfba6599270f213e45"
+    },
+    {
+      "start": "0x8400d140",
+      "end_exclusive": "0x8400d178",
+      "instructions": 18,
+      "sha256": "4044b565507c303829bef26306c141383fe6a2e81e4c70c9e53c615134ccdae6"
+    },
+    {
+      "start": "0x8400ec74",
+      "end_exclusive": "0x8400ec7c",
+      "instructions": 2,
+      "sha256": "2b26f3388edb811466423bf91a4cf8c3815506e397cefce95a324ef40b4f3858"
+    },
+    {
+      "start": "0x8400ecb8",
+      "end_exclusive": "0x8400ecf6",
+      "instructions": 19,
+      "sha256": "9cd12fa68f4ec2b17871883a5ec4e6b67a7b434f0065aa08dbdc71f6fefde8db"
+    },
+    {
+      "start": "0x8400990e",
+      "end_exclusive": "0x8400994a",
+      "instructions": 21,
+      "sha256": "5f44c88ef7f9f08f090064a4caed6c997444554b47d12baa58d0ef858fe3b117"
+    },
+    {
+      "start": "0x84009960",
+      "end_exclusive": "0x840099b4",
+      "instructions": 30,
+      "sha256": "4c44660ff8be1b84d9c7f1a6e9d6fc9c00b88f28a3ca83810334d7037e02d41d"
+    },
+    {
+      "start": "0x84004e1c",
+      "end_exclusive": "0x84004e76",
+      "instructions": 27,
+      "sha256": "8709af64a6c4dd4c7e79cf2c1cbb3c06be85d24f784b21043b1b3abd3a60affd"
+    },
+    {
+      "start": "0x8400a3bc",
+      "end_exclusive": "0x8400a3f6",
+      "instructions": 19,
+      "sha256": "2d9d29d877126d809fa6faf0d00be0ba303925b227a9ff97f8111ed0616ec912"
+    }
+  ],
+  "decoded_instruction_count": 260,
+  "anchors": [
+    [
+      "0x8400e0ae",
+      "efb01f86",
+      "jal -0x47a0"
+    ],
+    [
+      "0x8400e0b2",
+      "efb0ff8a",
+      "jal -0x4752"
+    ],
+    [
+      "0x8400e0bc",
+      "6fc00fb0",
+      "j -0x3d00"
+    ],
+    [
+      "0x8400e232",
+      "a303f74c",
+      "sb a5, 0x4c7(a4)"
+    ],
+    [
+      "0x8400e23a",
+      "23ab074a",
+      "sw zero, 0x4b6(a5)"
+    ],
+    [
+      "0x8400e242",
+      "23a9074a",
+      "sw zero, 0x4b2(a5)"
+    ],
+    [
+      "0x8400e24a",
+      "a389074a",
+      "sb zero, 0x4b3(a5)"
+    ],
+    [
+      "0x8400e256",
+      "2383074a",
+      "sb zero, 0x4a6(a5)"
+    ],
+    [
+      "0x8400e25e",
+      "2380074a",
+      "sb zero, 0x4a0(a5)"
+    ],
+    [
+      "0x8400fc38",
+      "13f5f700",
+      "andi a0, a5, 0xf"
+    ],
+    [
+      "0x8400fc3e",
+      "efe06fc4",
+      "jal -0x1bba"
+    ],
+    [
+      "0x8400fc44",
+      "0545",
+      "c.li a0, 1"
+    ],
+    [
+      "0x8400ffa6",
+      "3d89",
+      "c.andi a0, 0xf"
+    ],
+    [
+      "0x8400ffa8",
+      "efd03f82",
+      "jal -0x27de"
+    ],
+    [
+      "0x8400ffac",
+      "08c4",
+      "c.sw a0, 8(s0)"
+    ],
+    [
+      "0x8400ffb2",
+      "0545",
+      "c.li a0, 1"
+    ],
+    [
+      "0x8400d7d0",
+      "8d47",
+      "c.li a5, 3"
+    ],
+    [
+      "0x8400d7d2",
+      "630ef502",
+      "beq a0, a5, 0x3c"
+    ],
+    [
+      "0x8400d81a",
+      "034515ee",
+      "lbu a0, -0x11f(a0)"
+    ],
+    [
+      "0x8400d81e",
+      "9843",
+      "c.lw a4, 0(a5)"
+    ],
+    [
+      "0x8400d824",
+      "83c767ed",
+      "lbu a5, -0x12a(a5)"
+    ],
+    [
+      "0x8400d828",
+      "93b71700",
+      "seqz a5, a5"
+    ],
+    [
+      "0x8400d82c",
+      "13351500",
+      "seqz a0, a0"
+    ],
+    [
+      "0x8400d830",
+      "5d8d",
+      "c.or a0, a5"
+    ],
+    [
+      "0x8400d832",
+      "598d",
+      "c.or a0, a4"
+    ],
+    [
+      "0x8400cf10",
+      "1c40",
+      "c.lw a5, 0(s0)"
+    ],
+    [
+      "0x8400cf12",
+      "81ef",
+      "c.bnez a5, 0x18"
+    ],
+    [
+      "0x8400cf18",
+      "23aa077c",
+      "sw zero, 0x7d4(a5)"
+    ],
+    [
+      "0x8400cf34",
+      "23ace67a",
+      "sw a4, 0x7b8(a3)"
+    ],
+    [
+      "0x8400d140",
+      "8549",
+      "c.li s3, 1"
+    ],
+    [
+      "0x8400d144",
+      "83470400",
+      "lbu a5, 0(s0)"
+    ],
+    [
+      "0x8400d14c",
+      "99ef",
+      "c.bnez a5, 0x1e"
+    ],
+    [
+      "0x8400d152",
+      "2384375b",
+      "sb s3, 0x5a8(a5)"
+    ],
+    [
+      "0x8400d16e",
+      "23860758",
+      "sb zero, 0x58c(a5)"
+    ],
+    [
+      "0x8400d172",
+      "efd05ff3",
+      "jal -0x20cc"
+    ],
+    [
+      "0x8400ecb8",
+      "8d49",
+      "c.li s3, 3"
+    ],
+    [
+      "0x8400ecc2",
+      "83470900",
+      "lbu a5, 0(s2)"
+    ],
+    [
+      "0x8400ecc6",
+      "6384f902",
+      "beq s3, a5, 0x28"
+    ],
+    [
+      "0x8400ecca",
+      "8547",
+      "c.li a5, 1"
+    ],
+    [
+      "0x8400ecd0",
+      "a305f7a2",
+      "sb a5, -0x5d5(a4)"
+    ],
+    [
+      "0x8400ecf2",
+      "a38407a0",
+      "sb zero, -0x5f7(a5)"
+    ],
+    [
+      "0x8400991e",
+      "03a7c780",
+      "lw a4, -0x7f4(a5)"
+    ],
+    [
+      "0x84009928",
+      "630cf700",
+      "beq a4, a5, 0x18"
+    ],
+    [
+      "0x84009932",
+      "ef901fde",
+      "jal -0x6220"
+    ],
+    [
+      "0x84009936",
+      "83a7c480",
+      "lw a5, -0x7f4(s1)"
+    ],
+    [
+      "0x8400993c",
+      "e31af7fe",
+      "bne a4, a5, -0xc"
+    ],
+    [
+      "0x84009976",
+      "832744fe",
+      "lw a5, -0x1c(s0)"
+    ],
+    [
+      "0x8400997a",
+      "c207",
+      "c.slli a5, 0x10"
+    ],
+    [
+      "0x8400997c",
+      "c183",
+      "c.srli a5, 0x10"
+    ],
+    [
+      "0x8400997e",
+      "81ef",
+      "c.bnez a5, 0x18"
+    ],
+    [
+      "0x84009988",
+      "85c4",
+      "c.beqz s1, 0x28"
+    ],
+    [
+      "0x84009992",
+      "6fb0afc8",
+      "j -0x4b76"
+    ],
+    [
+      "0x8400999e",
+      "832744fe",
+      "lw a5, -0x1c(s0)"
+    ],
+    [
+      "0x840099a6",
+      "e5fb",
+      "c.bnez a5, -0x10"
+    ],
+    [
+      "0x840099b0",
+      "8544",
+      "c.li s1, 1"
+    ],
+    [
+      "0x840099b2",
+      "d1b7",
+      "c.j -0x3c"
+    ],
+    [
+      "0x84004e3e",
+      "9166",
+      "c.lui a3, 4"
+    ],
+    [
+      "0x84004e42",
+      "2310f700",
+      "sh a5, 0(a4)"
+    ],
+    [
+      "0x84004e4a",
+      "e39cd7fe",
+      "bne a5, a3, -8"
+    ],
+    [
+      "0x8400a3d2",
+      "0967",
+      "c.lui a4, 2"
+    ],
+    [
+      "0x8400a3d4",
+      "2310f500",
+      "sh a5, 0(a0)"
+    ],
+    [
+      "0x8400a3dc",
+      "e39ce7fe",
+      "bne a5, a4, -8"
+    ]
+  ],
+  "computed_addresses": [
+    [
+      "0x8400d80e",
+      "0x8400d812",
+      "0x3e9046e8"
+    ],
+    [
+      "0x8400d816",
+      "0x8400d81a",
+      "0x3e9046f7"
+    ],
+    [
+      "0x8400d820",
+      "0x8400d824",
+      "0x3e9046f6"
+    ],
+    [
+      "0x8400ce10",
+      "0x8400ce14",
+      "0x3e9046ec"
+    ],
+    [
+      "0x8400d0c0",
+      "0x8400d0c4",
+      "0x3e9046fa"
+    ],
+    [
+      "0x8400ec74",
+      "0x8400ec78",
+      "0x3e9046f9"
+    ],
+    [
+      "0x8400cf14",
+      "0x8400cf18",
+      "0x3e9046e8"
+    ],
+    [
+      "0x8400d14e",
+      "0x8400d152",
+      "0x3e9046f6"
+    ],
+    [
+      "0x8400eccc",
+      "0x8400ecd0",
+      "0x3e9046f7"
+    ],
+    [
+      "0x8400e22e",
+      "0x8400e232",
+      "0x3e9046f5"
+    ],
+    [
+      "0x8400e236",
+      "0x8400e23a",
+      "0x3e9046ec"
+    ],
+    [
+      "0x8400e23e",
+      "0x8400e242",
+      "0x3e9046f0"
+    ],
+    [
+      "0x8400e246",
+      "0x8400e24a",
+      "0x3e9046f9"
+    ],
+    [
+      "0x8400e252",
+      "0x8400e256",
+      "0x3e9046f8"
+    ],
+    [
+      "0x8400e25a",
+      "0x8400e25e",
+      "0x3e9046fa"
+    ],
+    [
+      "0x84009910",
+      "0x8400991e",
+      "0x1fb5080c"
+    ],
+    [
+      "0x84009916",
+      "0x8400991a",
+      "0x3e9046c0"
+    ],
+    [
+      "0x84009972",
+      "0x84009976",
+      "0x1fb50fe4"
+    ]
+  ],
+  "computed_control_targets": [
+    [
+      "0x8400e0ae",
+      "0x8400990e"
+    ],
+    [
+      "0x8400e0b2",
+      "0x84009960"
+    ],
+    [
+      "0x8400e0bc",
+      "0x8400a3bc"
+    ],
+    [
+      "0x8400fc3e",
+      "0x8400e084"
+    ],
+    [
+      "0x8400ffa8",
+      "0x8400d7ca"
+    ],
+    [
+      "0x8400d7d2",
+      "0x8400d80e"
+    ],
+    [
+      "0x8400d172",
+      "0x8400b0a6"
+    ],
+    [
+      "0x84009928",
+      "0x84009940"
+    ],
+    [
+      "0x84009932",
+      "0x84003712"
+    ],
+    [
+      "0x8400993c",
+      "0x84009930"
+    ],
+    [
+      "0x8400997e",
+      "0x84009996"
+    ],
+    [
+      "0x84009988",
+      "0x840099b0"
+    ],
+    [
+      "0x84009992",
+      "0x84004e1c"
+    ],
+    [
+      "0x8400999a",
+      "0x84003712"
+    ],
+    [
+      "0x840099a6",
+      "0x84009996"
+    ],
+    [
+      "0x840099b2",
+      "0x84009976"
+    ]
+  ],
+  "undecoded_words": [
+    {
+      "address": "0x8400b19a",
+      "bytes": "738029fc",
+      "scope": "TXdone callee reached via d172 -> b0a6; semantics unknown"
+    },
+    {
+      "address": "0x8400b3ba",
+      "bytes": "738029fc",
+      "scope": "TXdone callee reached via d172 -> b0a6; semantics unknown"
+    }
+  ],
+  "negative_controls": [
+    {
+      "case": "changed_program",
+      "rejected": "program identity"
+    },
+    {
+      "case": "changed_action_table",
+      "rejected": "action table word"
+    },
+    {
+      "case": "changed_wrapper_pointer",
+      "rejected": "wrapper pointer"
+    }
+  ],
+  "interpretation": {
+    "get_ifindex3": "word[0x3e9046e8] | !byte[0x3e9046f6] | !byte[0x3e9046f7]",
+    "workers": "cf18: status=0 when gate46ec=0; d152: ack46f6=1 when gate46fa=0; ecd0: ack46f7=1 when gate46f9!=3",
+    "action6": "990e waits MMIO1fb5080c == RAM3e9046c0; 9960 waits low16(MMIO1fb50fe4)==0; then 4e1c P reset and a3bc T reset"
+  },
+  "limitations": [
+    "No firmware execution, emulation, mutation, device access or timing test.",
+    "Byte identity and selected standard instruction decoding are checked; full call graph and ownership are not proved.",
+    "GET zero reports worker acknowledgements, not a global DMA-idle bit or DMA disable.",
+    "Action6 has backward polling branches without local timeout; external callees and MMIO progress are not modeled.",
+    "Successful action6 return supports completion of these checks/resets, not all NPU/WFDMA/RRO DMA quiescence.",
+    "Unsupported SYSTEM/vendor words in TXdone are explicitly undecoded; the old split rows do not supply semantics.",
+    "The two undecoded words are selected dependency boundaries, not an exhaustive unsupported-opcode inventory.",
+    "IRQ activity, inter-hart memory ordering, pending descriptors and reset cancellation contracts remain unverified.",
+    "Host mailbox timeout/EBUSY does not prove firmware cancellation; this checker does not validate host recovery code.",
+    "No attribution of the observed Air stall; FDK reimplementation is not treated as this vendor firmware source."
+  ]
+}

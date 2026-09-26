@@ -1,0 +1,114 @@
+{
+  "build_label": "ubi2-mlo-ppe-init-r38-20260926-tailscale",
+  "base_source": "6d74443bce54df63f6d877040d406cdbcfc16f81",
+  "build_profile": "ubi2",
+  "kernel_source": "6.18.44",
+  "kernel_release": "6.18.44-w1700k-mlo-r32",
+  "base_build": "ubi2-mlo-mailbox-r37-20260926-tailscale",
+  "base_manifest_sha256": "86f4d62ddbba205ea964668aef0c07020aaf7e4da5b7d811c5a3b8061f620d3b",
+  "mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
+  "feeds": {
+    "packages": "d50c9e2ac63808f8ea487ef8bc91632e7a483804",
+    "luci": "289a7260434d4b8212a9cc6cf6160cb1935270c1",
+    "routing": "4b9891b9136259f93294a424507ed24c5e8c1cbd"
+  },
+  "host_build": {
+    "platform": "Darwin arm64",
+    "gnu_make": "4.4.1",
+    "tfa_host_cflags": "-include stdint.h",
+    "path": "/opt/homebrew/opt/make/libexec/gnubin:/opt/homebrew/opt/gnu-getopt/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "go_bootstrap": "1.26.5",
+    "go_compiler": "1.27.1"
+  },
+  "changed_source_sha256": {
+    "include/kernel-defaults.mk": "0950c117cfb423da00f16c630ec85e64e3ee2e72b67d7b5259f3eaa4bea5b949",
+    "include/kernel.mk": "fadf6ec392660517de3f8d901eb50a06b05ea0fe37350ce688df4f04760851df",
+    "package/kernel/mac80211/patches/subsys/999-mac80211-station-fdb-notify.patch": "ed70a59e43cdea312e290ac193b3947672fcb58bf86de9971d1415ca90dfa2c5",
+    "package/network/config/bridge-flow-offload/Makefile": "64b4467b415f33af2d624f907af221aa32f39b1e72261048afdabeb4e4a9cfc8",
+    "package/network/config/bridge-flow-offload/files/etc/config/bridge-flow-offload": "36e8f25848cf9f53c1784473e5012fbabc85400cd9f0c79853a5bf16e31abc0a",
+    "package/network/config/bridge-flow-offload/files/etc/hotplug.d/net/51-bridge-flow-offload": "c6721af7e2fc6cdc3332b0727df8abc3cd0ca02dd28fcd4c0cc88d02637b8362",
+    "package/network/config/bridge-flow-offload/files/etc/uci-defaults/90-bridge-flow-offload": "2c7c2a6b37a9d245f7d2b027d2bf05a0aebe616c3e0b105bc0124e79c089019c",
+    "package/network/config/bridge-flow-offload/files/usr/share/bridge-flow-offload/apply-rules.sh": "a6fb74a051e9c0b65b30c9e8557aaba20d9cca4c284bc55fa8f64ebe9a283eb4",
+    "package/network/config/netifd/files/usr/libexec/network/packet-steering.uc": "fb082ba09e1ce53faf9e899c08aab02f03fea24a587c57c05b7048ef07b61494",
+    "target/linux/airoha/an7581/base-files/etc/hotplug.d/iface/51-bridge-flow-offload": "c737b91f9b31d9ee06dd7f8913e5ba0e5751bf2ab22f6f623b62e47a52fb2413",
+    "target/linux/airoha/an7581/config-6.18": "9989976c82ea2bb1b8aa35102286d15c43a035daf76ec35b9cbc3a7d553eeeca",
+    "target/linux/airoha/patches-6.18/9998-netfilter-flowtable-preserve-bridge-ttl.patch": "4052eea8f8eadabad481e6880a1401510d7d9eaefca7aed1c792b1baa9e9b07e",
+    "target/linux/airoha/patches-6.18/9999-net-airoha-honor-flow-action-keep-ttl.patch": "6a017d18eb71be7cc408a35cec88ecfa69eaac3594918c97b8a7982f1d0b282d",
+    "target/linux/airoha/patches-6.18/9999-z1-netfilter-bridge-fdb-cleanup.patch": "068962034fa8711193e57e20f51c1899f119cb9de2c82cbbd9780ba847cdebcb",
+    "target/linux/airoha/patches-6.18/9999-z2-net-airoha-ppe-slot-ownership.patch": "89204638491fe9214d02ab20b5014a2bc3ef3da131836d4cb1f85622bf8b88ad",
+    "target/linux/generic/pending-6.18/675-03-netfilter-bridge-conntrack-vlan-pppoe-encapsulation.patch": "5c53064572e1f7354f4bd19c219043a0c438c4d8feeb4fec612c9c0ca0c4d433",
+    "tests/test_bridge_flow_offload.py": "022f690c341c59368ec522c43b0f8e944f4337f5b8ec46a39f5089094cc90ccd",
+    "package/kernel/mt76/patches/0030-mt7996-restore-active-link-selectors.patch": "7bdfe20e8849b7640729990e2ce09e6492e55efa83e0ec13d75ad0746b290659",
+    "package/kernel/mt76/patches/0031-mt7996-release-wcid-on-link-allocation-failure.patch": "c279e1ba52c8098edafabb7d222af8fceb9fa01751c335897d4c94abde756dc5",
+    "target/linux/airoha/patches-6.18/9999-z3-net-airoha-npu-fix-watchdog-work-lifetime.patch": "84a4ae9ece77bf27693aa16ca0041d81bc366adb40b437135a5704d9f67237cc",
+    "package/kernel/mt76/Makefile": "2a233db9bb298a514bfb2cdde9097e174fa60aceca3bfb6f3082982829c74c63",
+    "package/kernel/linux/modules/netdevices.mk": "f94fc9c878a789819b8e1255eb188728e80c562938314337a80017f951f31a8b",
+    "tests/test_mt7996_link_lifecycle.py": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c",
+    "tests/test_airoha_npu_watchdog.py": "5d23e202ffac38c0cacbaeea9cf7cf03f3c5e676f9cfcb6cb855208a313949b4",
+    "tests/test_attendedsysupgrade_images.js": "5d2031133d30bcb439581388d847946441cc62dd741f15bbf13287e6607e0f2d",
+    "docs/mlo-r34/feed-patches/0003-luci-attendedsysupgrade-github-update.patch": "e8ac981a9bdd82e1e75236e1f4941cecc541582c70d77efeed63562cc190dfda",
+    "package/kernel/mt76/patches/0032-mt7996-rearm-txqs-after-link-change.patch": "2af4bd209a51be90a5a75247061bfd61bf71daa8e6479061d773f22cc8e9b8e7",
+    "package/kernel/mt76/patches/0033-mt7996-snapshot-forward-link.patch": "6bfedc11238c3974bdbcb82a6feb37a4c8b7bc1d70533a7a4c5dd1d1564d4051",
+    "tests/test_mt7996_link_transition.py": "cf35cf8a8af23fe3679814e5505ae9715442de2f533470f57a59ba63a5c236c7",
+    "tests/test_mt7996_forward_path.py": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc",
+    "tests/check_npu_firmware_paths.py": "878bc0e5372eb159d01d45be16a8565a5073ac3a1d0b5634a9923c95b9235eed",
+    "package/kernel/mt76/patches/0034-wifi-mt76-npu-order-tx-descriptor-publication.patch": "eb9c6f5bea9fd894d10e711db352e43ec12043e9e2b14beabcf16d4e01210c73",
+    "tests/test_mt76_npu_rx.py": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93",
+    "target/linux/airoha/patches-6.18/9999-z4-net-airoha-npu-preserve-pending-mailbox.patch": "df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8",
+    "tests/test_airoha_npu_mailbox.py": "1e9dfc2110c426c4683cc97bee4226ea01d8e575899dc24bbc6bb572ba0b07b6",
+    "target/linux/airoha/patches-6.18/9999-z5-net-airoha-ppe-propagate-sram-flush-error.patch": "32d9299fd17625fc7159bf20073d47e1e4800f88d4e4a5a4509e448095bc70b1",
+    "tests/test_airoha_ppe_ownership.py": "38a03dee81b781b573a97faf7e5a3c2230648fcdc34409c4bcbff6f837bacb47"
+  },
+  "inherited_mt76_patch_sha256": {
+    "0001-wifi-mt76-mt7996-add-token-and-NPU-debugfs-counters.patch": "2dd8badeff8f7c16a4479e998fc916c655756a40f3985eb034ba267cf0c01316",
+    "0003-wifi-mt76-mt7996-replace-direct-WTBL-access-with-MCU-for-station-statistics.patch": "05ecd02087f7e4e67f36535d2edf53dad1c039d5ea8dbf79ba7a1db37471f68b",
+    "0005-wifi-mt76-mt7996-guard-txfree-overrun.patch": "4c83661e2bd54256d3897ce83e8b110eaaba334954beb236c90b36171ca1fdec",
+    "0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch": "865f7c7d47b687fdb5aea7b1d58acf214bb206652529acf4ba4267b501fa0e27",
+    "0008-mt76-wake-ps-txqs-after-aql-return.patch": "1592454eb54ed918105988604fd64236bc736df243e66afdc907c0b37fa603a1",
+    "0009-mt7996-show-per-link-power-save-state.patch": "7c8c887095fa2355c31919e61f3c3ed8669665dec1e94920cc14ba8269b15619",
+    "0010-enable-firmware-txpower-limit.patch": "413a6b8171b1ad9ba64d973d37dbb80cabe4e10e19df33fc6ed65ba19b25e8c9",
+    "0011-refresh-power-limits-on-txpower-changes.patch": "1b1f7dd058079affd700e843b2c76233e206dfcb70b35e1a663ff265f0b5eca3",
+    "0012-mt7996-resolve-rate-control-phy-from-active-link.patch": "e8167cc045bba5fa62b305d462eda17101a0f7032bdfc2d03dc9d3508c2a420f",
+    "0015-mt7996-use-both-mlo-link-ps-for-shared-txq.patch": "8671c465b82e42bc844dabdd71d159e84258e962724795d2782ac6ca1d87f998",
+    "0016-mt7996-trace-ba-failure-and-mld-teardown.patch": "635586fe76c5b72174c964cf49664d12e88691b300e8036823fb67f61aaeda32",
+    "0018-mt7996-trace-station-disconnect-result.patch": "53a4ee361adce084ca2888642e37f2b79ecc9b460c545e2dc97aa18b80a526b0",
+    "0020-mt7996-test-selected-peer-nstr-on-r17.patch": "ca1790fdf10ffbdc50ba01df89cbf47e8eb7662a6e103870bdd4ca4ba77f7ccd",
+    "0021-mt7996-show-per-link-tx-feedback.patch": "c2bd61bf45b4ff22f0d6d7c9d48e782885cbef16818f1fd5875f1deaeb3b30b6",
+    "0022-mt7996-count-tx-completion-error-flags.patch": "ae9a4f95a25af1057271a548f158581f56d654acf97dba5c955ed88613042279",
+    "0023-mt7996-test-awake-link-tx-selection.patch": "c8ba4498a8030fa7ee9e9f47ebbc765c998274f0fda8fd7eaa0b7e88b0b6a797",
+    "0024-mt7996-count-tx-link-selection.patch": "3291b9e6ef516864da15b5e594849bb467fed61ee201227c48142c903d2b3a86",
+    "0025-mt7996-trace-failed-test-packet-headers.patch": "3ea3b395717469a07e3e09c71247fa7d0e62bf2ee9901b10a2e48aaf5b379446",
+    "0026-mt7996-trace-ba-frames-and-mcu-results.patch": "db2ba1f6ce893aa9390b0a93342898439c9b6c4352084adadbf2ce5e83d3a114",
+    "0027-mt7996-trace-mlo-ps-event-order.patch": "04a43d50636a2bfa41225a0b04fa1d0f9cee11a37ddda716051d1b4fa460cae8",
+    "0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch": "e15ff0e359accbbe1932136bd8f6cb9015eaa08d2f7a0b5d631c727e2f292ce4"
+  },
+  "inherited_hostapd_patch_sha256": {
+    "999-preserve-link-id-for-unknown-station.patch": "588ee2b838896ee2aadc0c3ebb9bd40aacedab8f4416cc433a6b511bd15e8bea",
+    "9999-reset-expired-mld-before-link-setup.patch": "00b1bf17fdd9128b92e12aa087335aa7bdbd59e9fac605f4cb4c80f14e3cf99d",
+    "9999-deliver-dfs-state-to-unconfigured-links.patch": "39fcc81774817202a22d1b8844af8966ceeb6af94874d1b2d2849ffb6f6766e5"
+  },
+  "changes": [
+    "Return a failed PPE SRAM initialization commit instead of shadowing the error and continuing with an incompletely cleared table.",
+    "Reuse the existing pre-NAPI, pre-port-registration Ethernet probe cleanup. No new reset, firmware or runtime recovery policy.",
+    "Retain r37 mailbox and all prior repairs. Only airoha-eth.ko is expected to change; Ethernet package r1 advances to r2."
+  ],
+  "status": "Experimental candidate. Not installed or boot-tested; no additional wireless tests. Air intermittent stall causality remains unproven.",
+  "remote_access": {
+    "package": "tailscale",
+    "version": "1.102.2-r1",
+    "state_file": "/etc/tailscale/tailscaled.state",
+    "preserve_settings_required": true,
+    "private_state_embedded": false
+  },
+  "feed_patch_sha256": {
+    "packages/libs/libpfring/patches/0002-use-target-ar-for-bundled-libraries.patch": "ba0ccdc34e3ed16e7ca58f901d37b0ff55b0e199e5c02b02a9dc7823623a398d"
+  },
+  "feed_recipe_overrides_sha256": {
+    "packages/kernel/ovpn-dco/Makefile": "517be1d65bcb43725496b5b7d0c91b09544ebc82e7629809a5fb2aef1143dff5"
+  },
+  "validation_scope": "Snapshot at image build time; later device validation is recorded separately.",
+  "feed_source_sha256": {
+    "luci/applications/luci-app-attendedsysupgrade/Makefile": "f317c6f567e98da2e3389ae7a7a356506a9da5ca1303b7ed533bfdd4bf449c66",
+    "luci/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js": "3ec3f78e3aaebfbfebfc73fe61148e31f43fe4d138168d90941e12d22fb7298f"
+  }
+}
