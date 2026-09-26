@@ -1,0 +1,569 @@
+{
+  "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+  "program_bytes": 122336,
+  "matched_rows": 1153,
+  "ranges": [
+    {
+      "start": "0x84000104",
+      "end_exclusive": "0x840001c0",
+      "rows": 69,
+      "sha256": "9c5b9218c2c7c174fdb9b03bf4c8d63eb04d30abe9754a39cb51de571d64641a"
+    },
+    {
+      "start": "0x84009da4",
+      "end_exclusive": "0x84009fc8",
+      "rows": 186,
+      "sha256": "efa6050378dcba45d1eadd91b63a65f3de449177ce9d20c164c691688e5d0670"
+    },
+    {
+      "start": "0x8400e084",
+      "end_exclusive": "0x8400e278",
+      "rows": 164,
+      "sha256": "4cad91ad3d416a925a8d30ed90f44406939d4d7238b03d6d01bc48552fd77785"
+    },
+    {
+      "start": "0x8400e87a",
+      "end_exclusive": "0x8400ec48",
+      "rows": 318,
+      "sha256": "9b02c0eba552274829b0c3a1beff0e24c304dda9211530276b4e619dc9cde586"
+    },
+    {
+      "start": "0x8400ec48",
+      "end_exclusive": "0x8400ee10",
+      "rows": 155,
+      "sha256": "679b2d7abd8d5213a7d0d468e46e73649a83634be91bda886c2f7b3fc58d3afb"
+    },
+    {
+      "start": "0x8400f1ea",
+      "end_exclusive": "0x8400f508",
+      "rows": 261,
+      "sha256": "443218fd5e9f1c39ce439f0a16763d0d3c083d1411727373f401c59b5dfe5e76"
+    }
+  ],
+  "anchors": [
+    {
+      "pc": "0x84000108",
+      "bytes": "ef40a010",
+      "mnemonic": "jal",
+      "operands": "0x410a",
+      "raw_branch_class": "JAL",
+      "raw_target": "0x84004212"
+    },
+    {
+      "pc": "0x8400013e",
+      "bytes": "8d20",
+      "mnemonic": "c.jal",
+      "operands": "0x62",
+      "raw_branch_class": "CJ",
+      "raw_target": "0x840001a0"
+    },
+    {
+      "pc": "0x840001b4",
+      "bytes": "efe07045",
+      "mnemonic": "jal",
+      "operands": "0xec56",
+      "raw_branch_class": "JAL",
+      "raw_target": "0x8400ee0a"
+    },
+    {
+      "pc": "0x84004212",
+      "bytes": "732540f1",
+      "mnemonic": "csrr",
+      "operands": "a0, mhartid"
+    },
+    {
+      "pc": "0x84009dc2",
+      "bytes": "13070008",
+      "mnemonic": "addi",
+      "operands": "a4, zero, 0x80"
+    },
+    {
+      "pc": "0x84009de4",
+      "bytes": "1307f007",
+      "mnemonic": "addi",
+      "operands": "a4, zero, 0x7f"
+    },
+    {
+      "pc": "0x84009dec",
+      "bytes": "6363b700",
+      "mnemonic": "bltu",
+      "operands": "a4, a1, 6",
+      "raw_branch_class": "B",
+      "raw_target": "0x84009df2"
+    },
+    {
+      "pc": "0x84009df0",
+      "bytes": "2ed6",
+      "mnemonic": "c.swsp",
+      "operands": "a1, 0x2c(sp)"
+    },
+    {
+      "pc": "0x84009e32",
+      "bytes": "63d90c16",
+      "mnemonic": "bgez",
+      "operands": "s9, 0x172",
+      "raw_branch_class": "B",
+      "raw_target": "0x84009fa4"
+    },
+    {
+      "pc": "0x84009e7a",
+      "bytes": "630fc508",
+      "mnemonic": "beq",
+      "operands": "a0, a2, 0x9e",
+      "raw_branch_class": "B",
+      "raw_target": "0x84009f18"
+    },
+    {
+      "pc": "0x84009ebe",
+      "bytes": "6304e50a",
+      "mnemonic": "beq",
+      "operands": "a0, a4, 0xa8",
+      "raw_branch_class": "B",
+      "raw_target": "0x84009f66"
+    },
+    {
+      "pc": "0x84009ed4",
+      "bytes": "63160c00",
+      "mnemonic": "bnez",
+      "operands": "s8, 0xc",
+      "raw_branch_class": "B",
+      "raw_target": "0x84009ee0"
+    },
+    {
+      "pc": "0x84009ed8",
+      "bytes": "b257",
+      "mnemonic": "c.lwsp",
+      "operands": "a5, 0x2c(sp)"
+    },
+    {
+      "pc": "0x84009eda",
+      "bytes": "fd17",
+      "mnemonic": "c.addi",
+      "operands": "a5, -1"
+    },
+    {
+      "pc": "0x84009edc",
+      "bytes": "3ed6",
+      "mnemonic": "c.swsp",
+      "operands": "a5, 0x2c(sp)"
+    },
+    {
+      "pc": "0x84009ede",
+      "bytes": "a1f7",
+      "mnemonic": "c.bnez",
+      "operands": "a5, -0xb8",
+      "raw_branch_class": "CB",
+      "raw_target": "0x84009e26"
+    },
+    {
+      "pc": "0x8400e9be",
+      "bytes": "63cd070a",
+      "mnemonic": "bltz",
+      "operands": "a5, 0xba",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400ea78"
+    },
+    {
+      "pc": "0x8400e9c2",
+      "bytes": "630b0b0a",
+      "mnemonic": "beqz",
+      "operands": "s6, 0xb6",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400ea78"
+    },
+    {
+      "pc": "0x8400e9ce",
+      "bytes": "cde7",
+      "mnemonic": "c.bnez",
+      "operands": "a5, 0xaa",
+      "raw_branch_class": "CB",
+      "raw_target": "0x8400ea78"
+    },
+    {
+      "pc": "0x8400eac6",
+      "bytes": "63c50704",
+      "mnemonic": "bltz",
+      "operands": "a5, 0x4a",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400eb10"
+    },
+    {
+      "pc": "0x8400ead2",
+      "bytes": "9def",
+      "mnemonic": "c.bnez",
+      "operands": "a5, 0x3e",
+      "raw_branch_class": "CB",
+      "raw_target": "0x8400eb10"
+    },
+    {
+      "pc": "0x8400eb7e",
+      "bytes": "23a04401",
+      "mnemonic": "sw",
+      "operands": "s4, 0(s1)"
+    },
+    {
+      "pc": "0x8400ecba",
+      "bytes": "9544",
+      "mnemonic": "c.li",
+      "operands": "s1, 5"
+    },
+    {
+      "pc": "0x8400ed14",
+      "bytes": "63fe840c",
+      "mnemonic": "bgeu",
+      "operands": "s1, s0, 0xdc",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400edf0"
+    },
+    {
+      "pc": "0x8400ed18",
+      "bytes": "7d14",
+      "mnemonic": "c.addi",
+      "operands": "s0, -1"
+    },
+    {
+      "pc": "0x8400ed22",
+      "bytes": "63139406",
+      "mnemonic": "bne",
+      "operands": "s0, s1, 0x66",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400ed88"
+    },
+    {
+      "pc": "0x8400ed5c",
+      "bytes": "63fe8404",
+      "mnemonic": "bgeu",
+      "operands": "s1, s0, 0x5c",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400edb8"
+    },
+    {
+      "pc": "0x8400ed60",
+      "bytes": "7d14",
+      "mnemonic": "c.addi",
+      "operands": "s0, -1"
+    },
+    {
+      "pc": "0x8400ed6a",
+      "bytes": "63149406",
+      "mnemonic": "bne",
+      "operands": "s0, s1, 0x68",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400edd2"
+    },
+    {
+      "pc": "0x8400ed88",
+      "bytes": "9305a4ff",
+      "mnemonic": "addi",
+      "operands": "a1, s0, -6"
+    },
+    {
+      "pc": "0x8400ed8e",
+      "bytes": "efb06f81",
+      "mnemonic": "jal",
+      "operands": "-0x4fea",
+      "raw_branch_class": "JAL",
+      "raw_target": "0x84009da4"
+    },
+    {
+      "pc": "0x8400edd2",
+      "bytes": "9305a4ff",
+      "mnemonic": "addi",
+      "operands": "a1, s0, -6"
+    },
+    {
+      "pc": "0x8400edd8",
+      "bytes": "efa0dffc",
+      "mnemonic": "jal",
+      "operands": "-0x5034",
+      "raw_branch_class": "JAL",
+      "raw_target": "0x84009da4"
+    },
+    {
+      "pc": "0x8400ee0e",
+      "bytes": "2d3d",
+      "mnemonic": "c.jal",
+      "operands": "-0x1c6",
+      "raw_branch_class": "CJ",
+      "raw_target": "0x8400ec48"
+    },
+    {
+      "pc": "0x8400f28e",
+      "bytes": "63ce0706",
+      "mnemonic": "bltz",
+      "operands": "a5, 0x7c",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400f30a"
+    },
+    {
+      "pc": "0x8400f292",
+      "bytes": "630c0b06",
+      "mnemonic": "beqz",
+      "operands": "s6, 0x78",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400f30a"
+    },
+    {
+      "pc": "0x8400f29e",
+      "bytes": "b5e7",
+      "mnemonic": "c.bnez",
+      "operands": "a5, 0x6c",
+      "raw_branch_class": "CB",
+      "raw_target": "0x8400f30a"
+    },
+    {
+      "pc": "0x8400f350",
+      "bytes": "63cb0702",
+      "mnemonic": "bltz",
+      "operands": "a5, 0x36",
+      "raw_branch_class": "B",
+      "raw_target": "0x8400f386"
+    },
+    {
+      "pc": "0x8400f35c",
+      "bytes": "8de7",
+      "mnemonic": "c.bnez",
+      "operands": "a5, 0x2a",
+      "raw_branch_class": "CB",
+      "raw_target": "0x8400f386"
+    },
+    {
+      "pc": "0x8400f3ee",
+      "bytes": "5cc1",
+      "mnemonic": "c.sw",
+      "operands": "a5, 4(a0)"
+    }
+  ],
+  "independent_standard_branch_checks": 26,
+  "jump_tables": [
+    {
+      "table": "0x8401a2e8",
+      "index": 2,
+      "entry_bytes": "565efeff",
+      "target": "0x8400013e"
+    },
+    {
+      "table": "0x8401bd64",
+      "index": 4,
+      "entry_bytes": "bc24ffff",
+      "target": "0x8400e220"
+    },
+    {
+      "table": "0x8401bd64",
+      "index": 7,
+      "entry_bytes": "5c23ffff",
+      "target": "0x8400e0c0"
+    }
+  ],
+  "schema_version": 1,
+  "status": "PASS_EXPECTED_BASELINE_FAILURE_REPRODUCED",
+  "input_program": "en7581_MT7996_npu_rv32.bin",
+  "input_instructions": "installed-rv32.instructions.json",
+  "instructions_sha256": "ebcbbfdd2eb3a518ca163e7d09e104519ccb8381e2cc5202b330ed5d0c3ff23e",
+  "verifier_sha256": "eb9e7595f229529e219a402324765990a7ff6b8cdbd8ced7b5b33eff400c89d3",
+  "correspondence_negative_controls_rejected": 2,
+  "budget": {
+    "valid_boundary_cases": 1536,
+    "ring_arithmetic_checks": 3072,
+    "invalid_ring_limit_controls_rejected": 2,
+    "baseline": {
+      "passed": 1534,
+      "failed": 2,
+      "failures": [
+        {
+          "ring_count": 512,
+          "free": 7,
+          "callee_initial_budget": 0,
+          "after_first_success": 4294967295,
+          "after_128_successes": 4294967168,
+          "arithmetic_successes_until_zero": 4294967296
+        },
+        {
+          "ring_count": 1024,
+          "free": 7,
+          "callee_initial_budget": 0,
+          "after_first_success": 4294967295,
+          "after_128_successes": 4294967168,
+          "arithmetic_successes_until_zero": 4294967296
+        }
+      ]
+    },
+    "safe_model": {
+      "passed": 1536,
+      "failed": 0,
+      "change": "Do not enter the TDM consumer when its argument is zero; no firmware modification."
+    },
+    "examples": [
+      {
+        "ring_count": 512,
+        "free": 0,
+        "baseline_budget": null,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 512,
+        "free": 5,
+        "baseline_budget": null,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 512,
+        "free": 6,
+        "baseline_budget": null,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 512,
+        "free": 7,
+        "baseline_budget": 0,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 512,
+        "free": 8,
+        "baseline_budget": 1,
+        "safe_budget": 1
+      },
+      {
+        "ring_count": 512,
+        "free": 134,
+        "baseline_budget": 127,
+        "safe_budget": 127
+      },
+      {
+        "ring_count": 512,
+        "free": 135,
+        "baseline_budget": 128,
+        "safe_budget": 128
+      },
+      {
+        "ring_count": 512,
+        "free": 511,
+        "baseline_budget": 128,
+        "safe_budget": 128
+      },
+      {
+        "ring_count": 1024,
+        "free": 0,
+        "baseline_budget": null,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 1024,
+        "free": 5,
+        "baseline_budget": null,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 1024,
+        "free": 6,
+        "baseline_budget": null,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 1024,
+        "free": 7,
+        "baseline_budget": 0,
+        "safe_budget": null
+      },
+      {
+        "ring_count": 1024,
+        "free": 8,
+        "baseline_budget": 1,
+        "safe_budget": 1
+      },
+      {
+        "ring_count": 1024,
+        "free": 134,
+        "baseline_budget": 127,
+        "safe_budget": 127
+      },
+      {
+        "ring_count": 1024,
+        "free": 135,
+        "baseline_budget": 128,
+        "safe_budget": 128
+      },
+      {
+        "ring_count": 1024,
+        "free": 1023,
+        "baseline_budget": 128,
+        "safe_budget": 128
+      }
+    ],
+    "scope": "Scalar branch/budget arithmetic only. No packet/DMA/MMIO execution, concurrency or time-to-failure model."
+  },
+  "stop_timeout": {
+    "cases": 16,
+    "publish_continuations_without_both_ready": 7,
+    "publish_continuations_with_current_not_ready": 5,
+    "examples": [
+      {
+        "current_ready": false,
+        "next_ready": false,
+        "stop": true,
+        "current_expired": false,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      },
+      {
+        "current_ready": false,
+        "next_ready": false,
+        "stop": true,
+        "current_expired": true,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      },
+      {
+        "current_ready": false,
+        "next_ready": true,
+        "stop": false,
+        "current_expired": true,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      },
+      {
+        "current_ready": false,
+        "next_ready": true,
+        "stop": true,
+        "current_expired": false,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      },
+      {
+        "current_ready": false,
+        "next_ready": true,
+        "stop": true,
+        "current_expired": true,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      },
+      {
+        "current_ready": true,
+        "next_ready": false,
+        "stop": true,
+        "current_expired": false,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      },
+      {
+        "current_ready": true,
+        "next_ready": false,
+        "stop": true,
+        "current_expired": true,
+        "actual_reaches_publish": true,
+        "safe_ownership_model_publishes": false
+      }
+    ],
+    "scope": "Frozen descriptor/stop observations; no claim that every combination is reachable or erroneous during a coordinated hardware stop."
+  },
+  "runtime_execution": false,
+  "firmware_modified": false,
+  "limitations": [
+    "The full saved disassembly is not independently decoded; only listed standard branch offsets are.",
+    "Vendor custom opcodes, complete CFG, hardware ordering and concurrent actors are not modeled.",
+    "Early RX-empty, allocator/dispatch failure and hardware waits can terminate/block the scalar path first.",
+    "A 2^32 decrement count is arithmetic, not an observed uninterrupted execution.",
+    "No causal attribution to the Air sleep/wake stall; no live test was performed."
+  ]
+}

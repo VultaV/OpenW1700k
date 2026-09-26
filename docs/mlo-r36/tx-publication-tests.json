@@ -1,0 +1,90 @@
+{
+  "scope": "Exact extracted C host contracts under ASan/UBSan; no router, actual DMA, weak-memory occurrence, or firmware response tested. Queue/PHY/skb structures are reduced fixtures, not actual kernel ABI/layout validation.",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "flags": [
+    "-std=gnu11",
+    "-O2",
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all"
+  ],
+  "tx_cases": {
+    "count": 8,
+    "head_indices": [
+      0,
+      3
+    ],
+    "ndesc": 4,
+    "txwi_sizes": [
+      0,
+      64,
+      192,
+      224
+    ],
+    "preserved": [
+      "return slot",
+      "head wrap",
+      "tail",
+      "queued increment",
+      "TXWI clamp and untouched suffix",
+      "ctrl length fields",
+      "reserved descriptor field",
+      "skip_buf0/skip_buf1",
+      "cleared txwi/skb",
+      "wcid=0xffff",
+      "untouched entry fields",
+      "other descriptors and entries"
+    ]
+  },
+  "before": {
+    "command": "python3 publish-mlo-r29/tests/test_mt76_npu_rx.py --source-dir artifacts/mlo-tx-publish-r36-2026-09-26/before/mt76 --applied",
+    "exit_code": 1,
+    "expected": "negative control, baseline TX contract must fail",
+    "tx_contract_failures": 8,
+    "rx_groups_passed": 3,
+    "log": "test-before-applied.log",
+    "tx_function_sha256": "9e1f935cf10a5a59d4711f8879594df258e09602c92ab61e02572c8c5239d1ec"
+  },
+  "candidate": {
+    "command": "python3 publish-mlo-r29/tests/test_mt76_npu_rx.py --source-dir artifacts/mlo-tx-publish-r36-2026-09-26/candidate --applied",
+    "exit_code": 0,
+    "tx_cases_passed": 8,
+    "tx_contract_failures": 0,
+    "rx_groups_passed": 3,
+    "missing_tx_barrier_control_failures": 8,
+    "missing_rx_barrier_control_rejected": true,
+    "log": "test-candidate-applied.log",
+    "tx_function_sha256": "c40850bb0ce7ff7b6cac4fe68cbbfc9cce986ff3769ad9dba8cd2578aaeaedee"
+  },
+  "pristine_then_patches": {
+    "command": "python3 publish-mlo-r29/tests/test_mt76_npu_rx.py --source-dir source-cache/mt76-01367e60-full",
+    "exit_code": 0,
+    "patches": [
+      "0006",
+      "0029",
+      "0034"
+    ],
+    "baseline_tx_contract_failures": 8,
+    "candidate_tx_cases_passed": 8,
+    "candidate_tx_contract_failures": 0,
+    "missing_tx_barrier_control_failures": 8,
+    "log": "test-pristine-patched-final.log"
+  },
+  "pristine_and_before_tx_functions_identical": true,
+  "test_sha256": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93",
+  "patch_sha256": "eb9c6f5bea9fd894d10e711db352e43ec12043e9e2b14beabcf16d4e01210c73",
+  "initial_failed_attempt": {
+    "log": "test-mt76-npu-rx-tx-baseline-patched.log",
+    "cause": "0034 malformed hunk count; corrected by patch owner before successful final run",
+    "status": "superseded, not pass"
+  },
+  "fixture_constants_verified": {
+    "header": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/include/linux/soc/airoha/airoha_offload.h",
+    "header_sha256": "f5da81e31395bde119bcb564503bd747e1c8c245c720b8cbf5de2f8e4182c5a4",
+    "len_mask": "0x7ffc0000",
+    "vend_len_mask": "0x3fffe",
+    "done_mask": 1,
+    "txwi_len": 192,
+    "limitation": "Reduced host queue/PHY/skb types are not actual kernel ABI/layout validation."
+  },
+  "post_review_note": "Two comment-only lines added after build input pinning were removed; executed test logic is unchanged and the published test matches the pinned build input."
+}

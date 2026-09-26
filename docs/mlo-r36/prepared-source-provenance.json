@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "baseline_npu_sha256": "5a70be791b6543c607fdf038fe532e07ed9565e0b67eba93bd99c4e01ef7499c",
+  "prepared_npu_sha256": "10ded64452ac34ad378b065dcb5617ca62e38ff4d03c3af107b5c47ada6ba2d7",
+  "applied_patch_sha256": "eb9c6f5bea9fd894d10e711db352e43ec12043e9e2b14beabcf16d4e01210c73",
+  "unchanged_baseline_files": {
+    "dma.c": "e07630bbc96b237c4696186b1e9ff30776404ac32401f8566c5165c9db61458e",
+    "mt76.h": "3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741"
+  },
+  "scope": "Actual prepared npu.c exactly equals preserved r35 npu.c plus 0034; no fuzz."
+}

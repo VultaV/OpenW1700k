@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Compile the exact pinned mt76 RX functions against ownership fixtures.
+"""Compile the exact pinned mt76 RX/TX functions against ownership fixtures.
 
 Usage: python3 tests/test_mt76_npu_rx.py --source-dir PATH_TO_MT76_01367e60
+Add --applied when the input already contains the tested patches.
 Requires a C compiler and patch; no router, kernel build or network access.
-This proves the conditional code defects, not their incidence on hardware.
+Host models check source contracts, not weak-memory failure rates or firmware
+responses on hardware.
 """
 import argparse
 from pathlib import Path
@@ -12,6 +14,8 @@ import tempfile
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source-dir', type=Path, required=True)
+parser.add_argument('--applied', action='store_true',
+                    help='check an already patched source tree without applying patches')
 args = parser.parse_args()
 patches = Path(__file__).resolve().parents[1] / 'package/kernel/mt76/patches'
 
@@ -217,6 +221,121 @@ int main(void) {
 }
 '''
 
+# Observe the exact function's barrier/publication boundaries. This host model
+# does not execute DMA or prove a weak-memory occurrence or firmware response.
+TX_STUB = r'''
+#include <assert.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+typedef uint16_t u16;
+typedef uint32_t u32;
+#define NPU_TXWI_LEN 192
+#define NPU_TX_DMA_DESC_LEN_MASK 0x7ffc0000u
+#define NPU_TX_DMA_DESC_VEND_LEN_MASK 0x0003fffeu
+#define NPU_TX_DMA_DESC_DONE_MASK 1u
+#define FIELD_PREP(mask, value) (((u32)(value) << __builtin_ctz(mask)) & (mask))
+#define min_t(type, a, b) ((type)(a) < (type)(b) ? (type)(a) : (type)(b))
+struct airoha_npu_tx_dma_desc {
+    u32 ctrl, addr;
+    uint64_t rsv;
+    unsigned char txwi[NPU_TXWI_LEN];
+} __attribute__((packed));
+struct mt76_queue_entry {
+    bool skip_buf0, skip_buf1;
+    void *txwi, *skb;
+    u16 wcid;
+    u32 untouched;
+};
+struct mt76_queue {
+    void *desc;
+    struct mt76_queue_entry *entry;
+    int head, tail, ndesc, queued;
+};
+struct mt76_driver_ops { u16 txwi_size; };
+struct mt76_dev { const struct mt76_driver_ops *drv; };
+struct mt76_phy { struct mt76_dev *dev; };
+struct sk_buff { unsigned int len; };
+struct mt76_queue_buf { u32 addr; };
+static struct airoha_npu_tx_dma_desc *observed;
+static unsigned char expected_txwi[NPU_TXWI_LEN];
+static u32 expected_addr, expected_ctrl;
+static unsigned barriers, publications, bad_publications;
+static bool data_ready(void) {
+    return observed->addr == expected_addr &&
+           !memcmp(observed->txwi, expected_txwi, sizeof(expected_txwi));
+}
+static void publication_barrier(void) {
+    if (!data_ready() || (observed->ctrl & NPU_TX_DMA_DESC_DONE_MASK) ||
+        publications || barriers)
+        bad_publications++;
+    barriers++;
+}
+static void observe_publication(void) {
+    publications++;
+    if (!data_ready() || observed->ctrl != expected_ctrl ||
+        barriers != 1 || publications != 1)
+        bad_publications++;
+}
+#define dma_wmb() publication_barrier()
+#define WRITE_ONCE(v, value) do { (v) = (value); observe_publication(); } while (0)
+'''
+TX_MAIN = r'''
+int main(void) {
+    const u16 sizes[] = {0, 64, NPU_TXWI_LEN, NPU_TXWI_LEN + 32};
+    const int heads[] = {0, 3};
+    unsigned cases = 0, failures = 0;
+    unsigned char txwi[NPU_TXWI_LEN + 32];
+    for (unsigned i = 0; i < sizeof(txwi); i++) txwi[i] = i ^ 0x5a;
+    for (unsigned h = 0; h < 2; h++) for (unsigned n = 0; n < 4; n++) {
+        struct airoha_npu_tx_dma_desc desc[4], before_desc[4];
+        struct mt76_queue_entry entries[4], before_entries[4];
+        struct mt76_queue q = {.desc = desc, .entry = entries, .head = heads[h],
+                               .tail = 2, .ndesc = 4, .queued = 2};
+        struct mt76_driver_ops drv = {.txwi_size = sizes[n]};
+        struct mt76_dev dev = {.drv = &drv};
+        struct mt76_phy phy = {.dev = &dev};
+        struct sk_buff skb = {.len = 1500 + n};
+        struct mt76_queue_buf buf = {.addr = 0x12345600u + n * 256};
+        int old_head = q.head;
+        unsigned length = sizes[n] < NPU_TXWI_LEN ? sizes[n] : NPU_TXWI_LEN;
+        memset(desc, 0xcc, sizeof(desc));
+        memset(entries, 0, sizeof(entries));
+        for (unsigned i = 0; i < 4; i++) {
+            entries[i].txwi = txwi; entries[i].skb = &skb;
+            entries[i].wcid = 42; entries[i].untouched = 0x13579bdf;
+        }
+        desc[old_head].ctrl = 0;
+        memcpy(before_desc, desc, sizeof(desc));
+        memcpy(before_entries, entries, sizeof(entries));
+        memset(expected_txwi, 0xcc, sizeof(expected_txwi));
+        memcpy(expected_txwi, txwi, length);
+        expected_addr = buf.addr;
+        expected_ctrl = (length << 1) | (skb.len << 18) | 1;
+        observed = &desc[old_head];
+        barriers = publications = bad_publications = 0;
+        assert(mt76_npu_dma_add_buf(&phy, &q, &skb, &buf, txwi) == old_head);
+        assert(q.head == (old_head + 1) % 4 && q.tail == 2 && q.queued == 3);
+        assert(data_ready() && observed->ctrl == expected_ctrl);
+        assert(observed->rsv == before_desc[old_head].rsv);
+        assert(entries[old_head].skip_buf0 && entries[old_head].skip_buf1);
+        assert(!entries[old_head].txwi && !entries[old_head].skb);
+        assert(entries[old_head].wcid == 0xffff &&
+               entries[old_head].untouched == 0x13579bdf);
+        for (unsigned i = 0; i < 4; i++) if (i != (unsigned)old_head) {
+            assert(!memcmp(&desc[i], &before_desc[i], sizeof(desc[i])));
+            assert(!memcmp(&entries[i], &before_entries[i], sizeof(entries[i])));
+        }
+        if (barriers != 1 || publications != 1 || bad_publications) failures++;
+        cases++;
+    }
+    printf("TX publication: %u cases, %u contract failures (wrap, clamp, metadata preserved)\n",
+           cases, failures);
+    return failures != 0;
+}
+'''
+
 RX_STUB = r'''
 #include <assert.h>
 #include <stddef.h>
@@ -338,10 +457,11 @@ with tempfile.TemporaryDirectory(prefix='mt76-npu-rx-test-') as tmp:
     (temp / 'mt7996').mkdir()
     for name in ('npu.c', 'mt7996/mac.c'):
         (temp / name).write_text((args.source_dir / name).read_text())
-    for patched in (False, True):
-        if patched:
+    for patched in ((True,) if args.applied else (False, True)):
+        if patched and not args.applied:
             for patch in ('0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch',
-                          '0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch'):
+                          '0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch',
+                          '0034-wifi-mt76-npu-order-tx-descriptor-publication.patch'):
                 subprocess.run(['patch', '-s', '-F', '0', '-p1', '-i', str(patches / patch)],
                                cwd=temp, check=True)
         label = 'patched' if patched else 'baseline'
@@ -364,4 +484,14 @@ with tempfile.TemporaryDirectory(prefix='mt76-npu-rx-test-') as tmp:
                            '\nstatic struct mt7996_msdu_page *')
         compile_and_run(temp, label + '_control', RX_STUB + function + RX_CASES,
                         0 if patched else 1)
-print('Three exact-source regressions reproduced before the patches and passed after them.')
+        function = extract((temp / 'npu.c').read_text(),
+                           'int mt76_npu_dma_add_buf(',
+                           '\nvoid mt76_npu_txdesc_cleanup(')
+        compile_and_run(temp, label + '_tx', TX_STUB + function + TX_MAIN,
+                        0 if patched else 1)
+        if patched:
+            compile_and_run(temp, 'missing_barrier_tx', TX_STUB +
+                            function.replace('dma_wmb();', '') + TX_MAIN, 1)
+print('Four exact-source RX/TX groups passed; missing-barrier controls rejected.' if args.applied
+      else 'Four exact-source RX/TX regressions failed before and passed after the patches; '
+           'missing-barrier controls rejected.')

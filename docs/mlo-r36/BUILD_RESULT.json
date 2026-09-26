@@ -1,0 +1,1798 @@
+{
+  "image": "openwrt-ubi2-mlo-tx-publish-r36-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "6ef5b897f77fac8c76d09a802c401af049b91af716b02b9623fe6274f5cda229",
+  "bytes": 30290789,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 6.817657124949619
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.57280754193198
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 365.0017802088987
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 14.137868250021711
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 11.912345500080846
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 6.842760916100815
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 10.088625208940357
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 5.656682541943155
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.13975199998822
+    }
+  ],
+  "final_stage_exit_codes": {
+    "defconfig": 0,
+    "kernel": 0,
+    "packages": 0,
+    "package-install": 0,
+    "target-install": 0,
+    "index": 0,
+    "buildinfo": 0,
+    "image-info": 0,
+    "checksum": 0
+  },
+  "build_stage_policy": "All nine make stages executed on each attempt; no prior-success JSON skip.",
+  "build_warnings": {
+    "file": "BUILD_WARNINGS.json",
+    "sha256": "3722139856ba69d4cb563a2155a60ab65b7403bdb9200d2f8de5c80569ff2ab3",
+    "total_diagnostic_occurrences": 385,
+    "unique_normalized_messages": 148,
+    "categories": {
+      "build_tool_or_configuration": 43,
+      "device_tree": 59,
+      "feed_dependency": 126,
+      "firmware_mapping": 138,
+      "modpost_module_description": 1,
+      "source_diagnostic": 18
+    },
+    "major_observations": [
+      "All final nine stage records exited 0; 9 logs contain matched warnings.",
+      "14 missing-dependency messages; 0 involve enabled/installed recipe families requiring review.",
+      "28 empty-kmod names; 0 are installed in the extracted image.",
+      "Known normalized text does not establish harmlessness or identical source location; new text does not establish patch causality.",
+      "Warning inventory counts are separate from regression PASS/FAIL counts."
+    ],
+    "limitations": [
+      "Only the explicit r35 detection pattern is counted, not every diagnostic spelling.",
+      "All bytes of each append-only stage log are counted; earlier attempts, if any, remain included.",
+      "Not observed versus r35 does not mean fixed: incremental builds may not recompile the same components.",
+      "Categories reuse exact r35 normalized matches; unseen messages use documented source-location/tool rules.",
+      "Recipe-family selection is a prefix heuristic, not complete evaluation of all OpenWrt generated subpackages.",
+      "No assertion that warnings are harmless; no source edits, clean-room build, boot or wireless validation."
+    ]
+  },
+  "verifier_sha256": "b34533ddc5f0cca5fa6f2e7799ae3471440f89a8efbf7728476f6ad6a4a04c16",
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-tx-publish-r36-20260926-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "6ef5b897f77fac8c76d09a802c401af049b91af716b02b9623fe6274f5cda229",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "changed_modules": [
+      "mt76.ko"
+    ],
+    "kernel_payload_identical_to_r35": true,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 338,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f8dc3a28bbfe4ed38aae7bf2c645af5872faa7818a2691ab64323a3638997dbe",
+      "airoha_npu.ko": "241d6dfd5efaa1b38b9403bf4161d76299b68b5c242a554ffa4f53c2d052d378",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "e3cee9061b543675f4a3204d6c23c672d5c42cfb91294c365a4ad1812a97d135",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "ae7305186b3f02e543392342ec63c089ead5d8132da87324d3c064a2e9e52649",
+      "mac80211.ko": "3d1ed61ed9bd06c52a972e153185dedf1cdbefc8af22e80032a04540c404da79",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "package_changes": {
+    "kmod-mt76-connac": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r28",
+      "candidate": "6.18.44.2026.09.01~01367e60-r29"
+    },
+    "kmod-mt76-core": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r28",
+      "candidate": "6.18.44.2026.09.01~01367e60-r29"
+    },
+    "kmod-mt7996-firmware": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r28",
+      "candidate": "6.18.44.2026.09.01~01367e60-r29"
+    },
+    "kmod-mt7996-firmware-common": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r28",
+      "candidate": "6.18.44.2026.09.01~01367e60-r29"
+    },
+    "kmod-mt7996e": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r28",
+      "candidate": "6.18.44.2026.09.01~01367e60-r29"
+    }
+  },
+  "checks": [
+    {
+      "name": "npu_tx_contract_cases",
+      "pass": 8,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu_rx_groups",
+      "pass": 3,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "groups"
+    },
+    {
+      "name": "transition",
+      "pass": 24,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "forward-path",
+      "pass": 92,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "lifecycle",
+      "pass": 631,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "mlo-ps",
+      "pass": 99,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "npu-watchdog",
+      "pass": 90,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "bridge_ttl_structure",
+      "pass": 12,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "bridge_ttl_guards",
+      "pass": 2091,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "conntrack",
+      "pass": 7,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "ppe",
+      "pass": 11,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "fdb",
+      "pass": 1026,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    },
+    {
+      "name": "installed_updater_ui",
+      "pass": 9,
+      "fail": 0,
+      "warn": 0,
+      "skip": 0,
+      "pass_rate_percent": 100,
+      "unit": "host assertions/cases; kernel and hardware substitutes"
+    }
+  ],
+  "source_tests": [
+    {
+      "name": "npu-dma",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt76_npu_rx.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--applied"
+      ],
+      "exit_code": 0,
+      "output": "patched: ordered ownership, wrap, allocation failure and reserved slot pass\nbaseline: NPU can observe ownership before the replacement address\npatched: partial chain, wrap, allocation failure, count bound and empty ring pass\npatched: fragmented controls, refreshed pointers, normal zero-copy and allocation failure pass\nTX publication: 8 cases, 0 contract failures (wrap, clamp, metadata preserved)\nTX publication: 8 cases, 8 contract failures (wrap, clamp, metadata preserved)\nFour exact-source RX/TX groups passed; missing-barrier controls rejected.\n",
+      "test_sha256": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93"
+    },
+    {
+      "name": "transition",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "link transition: 24 checks, 0 failed\nLimitation retained: failed activation rollback; no Air hardware claim.\n",
+      "test_sha256": "cf35cf8a8af23fe3679814e5505ae9715442de2f533470f57a59ba63a5c236c7"
+    },
+    {
+      "name": "forward-path",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_forward_path.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60"
+      ],
+      "exit_code": 0,
+      "output": "configuration: npu\nboundary writer: after final read, before return\nforward path: 44 checks, 0 failed\nconfiguration: wed\nboundary writer: after final read, before return\nforward path: 48 checks, 0 failed\n",
+      "test_sha256": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc"
+    },
+    {
+      "name": "lifecycle",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "all"
+      ],
+      "exit_code": 0,
+      "output": "link lifecycle: 631 checks, 0 failed\n",
+      "test_sha256": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c"
+    },
+    {
+      "name": "mlo-ps",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_mlo_ps.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "29 checks, 0 failed\ncombined: 99 checks, 0 failed\n",
+      "test_sha256": "b84fecc83baeffaac5663ae121a617ab83ae3c98dde84833ef834b8b35bc8e94"
+    },
+    {
+      "name": "npu-watchdog",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_npu_watchdog.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "EXPECTED FAIL before immediate_irq=0\nEXPECTED FAIL before immediate_irq=1\nPASS immediate_irq=0: success + 44 probe failure boundaries\nPASS immediate_irq=1: success + 44 probe failure boundaries\nPASS patch applicability, kernel helper compatibility and both negative controls\n",
+      "test_sha256": "5d23e202ffac38c0cacbaeea9cf7cf03f3c5e676f9cfcb6cb855208a313949b4"
+    },
+    {
+      "name": "ttl",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_ttl.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"structural_passed\": 12, \"extracted_c\": {\"passed\": 2091, \"failed\": 0, \"scope\": \"extracted source guards and allocation only\"}, \"limitations\": [\"Extracted guards only; not a kernel build or full forwarding test.\", \"IPv4 checksum helper and kernel context are stubs.\", \"Does not prove PPE bit semantics, packet checksums, or module ABI isolation.\"]}\n",
+      "test_sha256": "893df79ddbe3448bf23cb123832faae8b90e2d3821c55e79ce760ef123058d41"
+    },
+    {
+      "name": "conntrack",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_conntrack_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/bridge/netfilter/nf_conntrack_bridge.c"
+      ],
+      "exit_code": 0,
+      "output": "0 ownership failures across 7 cases\nPASS: drop, stolen, accept and conntrack ownership\n",
+      "test_sha256": "9c051073e82d4a90af13ebc8f93950413d26d66f21e09e51fe8aefa6a27c4400"
+    },
+    {
+      "name": "ppe",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_ppe.c",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h"
+      ],
+      "exit_code": 0,
+      "output": "PASS case 0\nPASS case 1\nPASS case 2\nPASS case 3\nPASS case 4\nPASS case 5\nPASS case 6\nPASS case 7\nPASS case 8\nPASS case 9\nPASS case 10\n",
+      "test_sha256": "8b5c21171f79571cdbe8f5fe762debfc68757e415684bbd33fc69b77c9160b7e"
+    },
+    {
+      "name": "fdb",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_fdb_cleanup.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/netfilter/nf_flow_table_core.c"
+      ],
+      "exit_code": 0,
+      "output": "PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races, 3 teardown cases; failures=0\nScope: extracted C with stubs, not kernel locking/GC/hardware acceptance.\n",
+      "test_sha256": "a5b9f758a1934ffd02800d6b35f695c9e55b6ae7e59909b3aaa1f2b30c9aba85"
+    }
+  ],
+  "tx_publication_proposal": {
+    "scope": "Exact extracted C host contracts under ASan/UBSan; no router, actual DMA, weak-memory occurrence, or firmware response tested. Queue/PHY/skb structures are reduced fixtures, not actual kernel ABI/layout validation.",
+    "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "flags": [
+      "-std=gnu11",
+      "-O2",
+      "-fsanitize=address,undefined",
+      "-fno-sanitize-recover=all"
+    ],
+    "tx_cases": {
+      "count": 8,
+      "head_indices": [
+        0,
+        3
+      ],
+      "ndesc": 4,
+      "txwi_sizes": [
+        0,
+        64,
+        192,
+        224
+      ],
+      "preserved": [
+        "return slot",
+        "head wrap",
+        "tail",
+        "queued increment",
+        "TXWI clamp and untouched suffix",
+        "ctrl length fields",
+        "reserved descriptor field",
+        "skip_buf0/skip_buf1",
+        "cleared txwi/skb",
+        "wcid=0xffff",
+        "untouched entry fields",
+        "other descriptors and entries"
+      ]
+    },
+    "before": {
+      "command": "python3 publish-mlo-r29/tests/test_mt76_npu_rx.py --source-dir artifacts/mlo-tx-publish-r36-2026-09-26/before/mt76 --applied",
+      "exit_code": 1,
+      "expected": "negative control, baseline TX contract must fail",
+      "tx_contract_failures": 8,
+      "rx_groups_passed": 3,
+      "log": "test-before-applied.log",
+      "tx_function_sha256": "9e1f935cf10a5a59d4711f8879594df258e09602c92ab61e02572c8c5239d1ec"
+    },
+    "candidate": {
+      "command": "python3 publish-mlo-r29/tests/test_mt76_npu_rx.py --source-dir artifacts/mlo-tx-publish-r36-2026-09-26/candidate --applied",
+      "exit_code": 0,
+      "tx_cases_passed": 8,
+      "tx_contract_failures": 0,
+      "rx_groups_passed": 3,
+      "missing_tx_barrier_control_failures": 8,
+      "missing_rx_barrier_control_rejected": true,
+      "log": "test-candidate-applied.log",
+      "tx_function_sha256": "c40850bb0ce7ff7b6cac4fe68cbbfc9cce986ff3769ad9dba8cd2578aaeaedee"
+    },
+    "pristine_then_patches": {
+      "command": "python3 publish-mlo-r29/tests/test_mt76_npu_rx.py --source-dir source-cache/mt76-01367e60-full",
+      "exit_code": 0,
+      "patches": [
+        "0006",
+        "0029",
+        "0034"
+      ],
+      "baseline_tx_contract_failures": 8,
+      "candidate_tx_cases_passed": 8,
+      "candidate_tx_contract_failures": 0,
+      "missing_tx_barrier_control_failures": 8,
+      "log": "test-pristine-patched-final.log"
+    },
+    "pristine_and_before_tx_functions_identical": true,
+    "test_sha256": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93",
+    "patch_sha256": "eb9c6f5bea9fd894d10e711db352e43ec12043e9e2b14beabcf16d4e01210c73",
+    "initial_failed_attempt": {
+      "log": "test-mt76-npu-rx-tx-baseline-patched.log",
+      "cause": "0034 malformed hunk count; corrected by patch owner before successful final run",
+      "status": "superseded, not pass"
+    },
+    "fixture_constants_verified": {
+      "header": "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/include/linux/soc/airoha/airoha_offload.h",
+      "header_sha256": "f5da81e31395bde119bcb564503bd747e1c8c245c720b8cbf5de2f8e4182c5a4",
+      "len_mask": "0x7ffc0000",
+      "vend_len_mask": "0x3fffe",
+      "done_mask": 1,
+      "txwi_len": 192,
+      "limitation": "Reduced host queue/PHY/skb types are not actual kernel ABI/layout validation."
+    },
+    "post_review_note": "Two comment-only lines added after build input pinning were removed; executed test logic is unchanged and the published test matches the pinned build input."
+  },
+  "prepared_source_provenance": {
+    "status": "PASS",
+    "baseline_npu_sha256": "5a70be791b6543c607fdf038fe532e07ed9565e0b67eba93bd99c4e01ef7499c",
+    "prepared_npu_sha256": "10ded64452ac34ad378b065dcb5617ca62e38ff4d03c3af107b5c47ada6ba2d7",
+    "applied_patch_sha256": "eb9c6f5bea9fd894d10e711db352e43ec12043e9e2b14beabcf16d4e01210c73",
+    "unchanged_baseline_files": {
+      "dma.c": "e07630bbc96b237c4696186b1e9ff30776404ac32401f8566c5165c9db61458e",
+      "mt76.h": "3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741"
+    },
+    "scope": "Actual prepared npu.c exactly equals preserved r35 npu.c plus 0034; no fuzz."
+  },
+  "tx_publication_object": {
+    "status": "PASS",
+    "command": [
+      "build-volume/source/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/bin/aarch64-openwrt-linux-musl-objdump",
+      "-dr",
+      "--disassemble=mt76_npu_dma_add_buf",
+      "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/npu.o"
+    ],
+    "object_sha256": "54228160b7e0276b0d52d3a009f2202d02475c053338809736a8f1eb1cc74746",
+    "baseline_object_sha256": "5786b62b732d9c2d88e38fd1e5907b3f191f4c1595b3c59b4a6b484925599ba4",
+    "baseline_has_barrier": false,
+    "assembly_sha256": "6884446a33c3b03f4f49661d9023b9a847408bcbffcdc7b8f4704e8325af7ebf",
+    "host_anchors": [
+      {
+        "offset": "0xecc",
+        "raw": "94000000",
+        "mnemonic": "bl",
+        "operands": "0 <memcpy>"
+      },
+      {
+        "offset": "0xee0",
+        "raw": "b9000401",
+        "mnemonic": "str",
+        "operands": "w1, [x0, #4]"
+      },
+      {
+        "offset": "0xee4",
+        "raw": "d50332bf",
+        "mnemonic": "dmb",
+        "operands": "oshst"
+      },
+      {
+        "offset": "0xf04",
+        "raw": "32000294",
+        "mnemonic": "orr",
+        "operands": "w20, w20, #0x1"
+      },
+      {
+        "offset": "0xf08",
+        "raw": "b8206ab4",
+        "mnemonic": "str",
+        "operands": "w20, [x21, x0]"
+      }
+    ],
+    "vendor_program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+    "vendor_byte_ranges": [
+      {
+        "start": "0x8400f0c4",
+        "end_exclusive": "0x8400f1ea",
+        "matched_rows": 104
+      },
+      {
+        "start": "0x8400f638",
+        "end_exclusive": "0x8400f8be",
+        "matched_rows": 206
+      }
+    ],
+    "vendor_anchors": [
+      {
+        "address": 2214654328,
+        "size": 2,
+        "bytes": "dc41",
+        "mnemonic": "c.lw",
+        "operands": "a5, 4(a1)"
+      },
+      {
+        "address": 2214654338,
+        "size": 2,
+        "bytes": "c105",
+        "mnemonic": "c.addi",
+        "operands": "a1, 0x10"
+      },
+      {
+        "address": 2214654360,
+        "size": 4,
+        "bytes": "ef60efa0",
+        "mnemonic": "jal",
+        "operands": "-0x9df2"
+      },
+      {
+        "address": 2214655656,
+        "size": 4,
+        "bytes": "2326f90a",
+        "mnemonic": "sw",
+        "operands": "a5, 0xac(s2)"
+      },
+      {
+        "address": 2214655670,
+        "size": 2,
+        "bytes": "9c41",
+        "mnemonic": "c.lw",
+        "operands": "a5, 0(a1)"
+      },
+      {
+        "address": 2214655674,
+        "size": 2,
+        "bytes": "858b",
+        "mnemonic": "c.andi",
+        "operands": "a5, 1"
+      },
+      {
+        "address": 2214655676,
+        "size": 2,
+        "bytes": "a9c7",
+        "mnemonic": "c.beqz",
+        "operands": "a5, 0x4a"
+      },
+      {
+        "address": 2214655692,
+        "size": 4,
+        "bytes": "eff09f9f",
+        "mnemonic": "jal",
+        "operands": "-0x608"
+      },
+      {
+        "address": 2214655846,
+        "size": 4,
+        "bytes": "23aef90a",
+        "mnemonic": "sw",
+        "operands": "a5, 0xbc(s3)"
+      },
+      {
+        "address": 2214655858,
+        "size": 2,
+        "bytes": "9c41",
+        "mnemonic": "c.lw",
+        "operands": "a5, 0(a1)"
+      },
+      {
+        "address": 2214655862,
+        "size": 2,
+        "bytes": "858b",
+        "mnemonic": "c.andi",
+        "operands": "a5, 1"
+      },
+      {
+        "address": 2214655864,
+        "size": 2,
+        "bytes": "d9d7",
+        "mnemonic": "c.beqz",
+        "operands": "a5, -0x72"
+      },
+      {
+        "address": 2214655880,
+        "size": 4,
+        "bytes": "eff0df93",
+        "mnemonic": "jal",
+        "operands": "-0x6c4"
+      }
+    ],
+    "scope": "Pinned actual AArch64 object has TXWI memcpy, address store, dmb oshst, DONE composition and control store in that order. Vendor saved decoder ranges match actual blob bytes; not independent full decoding, hardware execution, weak-memory occurrence or Air causality."
+  },
+  "firmware_analysis": {
+    "tx_budget": {
+      "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "program_bytes": 122336,
+      "matched_rows": 1153,
+      "ranges": [
+        {
+          "start": "0x84000104",
+          "end_exclusive": "0x840001c0",
+          "rows": 69,
+          "sha256": "9c5b9218c2c7c174fdb9b03bf4c8d63eb04d30abe9754a39cb51de571d64641a"
+        },
+        {
+          "start": "0x84009da4",
+          "end_exclusive": "0x84009fc8",
+          "rows": 186,
+          "sha256": "efa6050378dcba45d1eadd91b63a65f3de449177ce9d20c164c691688e5d0670"
+        },
+        {
+          "start": "0x8400e084",
+          "end_exclusive": "0x8400e278",
+          "rows": 164,
+          "sha256": "4cad91ad3d416a925a8d30ed90f44406939d4d7238b03d6d01bc48552fd77785"
+        },
+        {
+          "start": "0x8400e87a",
+          "end_exclusive": "0x8400ec48",
+          "rows": 318,
+          "sha256": "9b02c0eba552274829b0c3a1beff0e24c304dda9211530276b4e619dc9cde586"
+        },
+        {
+          "start": "0x8400ec48",
+          "end_exclusive": "0x8400ee10",
+          "rows": 155,
+          "sha256": "679b2d7abd8d5213a7d0d468e46e73649a83634be91bda886c2f7b3fc58d3afb"
+        },
+        {
+          "start": "0x8400f1ea",
+          "end_exclusive": "0x8400f508",
+          "rows": 261,
+          "sha256": "443218fd5e9f1c39ce439f0a16763d0d3c083d1411727373f401c59b5dfe5e76"
+        }
+      ],
+      "anchors": [
+        {
+          "pc": "0x84000108",
+          "bytes": "ef40a010",
+          "mnemonic": "jal",
+          "operands": "0x410a",
+          "raw_branch_class": "JAL",
+          "raw_target": "0x84004212"
+        },
+        {
+          "pc": "0x8400013e",
+          "bytes": "8d20",
+          "mnemonic": "c.jal",
+          "operands": "0x62",
+          "raw_branch_class": "CJ",
+          "raw_target": "0x840001a0"
+        },
+        {
+          "pc": "0x840001b4",
+          "bytes": "efe07045",
+          "mnemonic": "jal",
+          "operands": "0xec56",
+          "raw_branch_class": "JAL",
+          "raw_target": "0x8400ee0a"
+        },
+        {
+          "pc": "0x84004212",
+          "bytes": "732540f1",
+          "mnemonic": "csrr",
+          "operands": "a0, mhartid"
+        },
+        {
+          "pc": "0x84009dc2",
+          "bytes": "13070008",
+          "mnemonic": "addi",
+          "operands": "a4, zero, 0x80"
+        },
+        {
+          "pc": "0x84009de4",
+          "bytes": "1307f007",
+          "mnemonic": "addi",
+          "operands": "a4, zero, 0x7f"
+        },
+        {
+          "pc": "0x84009dec",
+          "bytes": "6363b700",
+          "mnemonic": "bltu",
+          "operands": "a4, a1, 6",
+          "raw_branch_class": "B",
+          "raw_target": "0x84009df2"
+        },
+        {
+          "pc": "0x84009df0",
+          "bytes": "2ed6",
+          "mnemonic": "c.swsp",
+          "operands": "a1, 0x2c(sp)"
+        },
+        {
+          "pc": "0x84009e32",
+          "bytes": "63d90c16",
+          "mnemonic": "bgez",
+          "operands": "s9, 0x172",
+          "raw_branch_class": "B",
+          "raw_target": "0x84009fa4"
+        },
+        {
+          "pc": "0x84009e7a",
+          "bytes": "630fc508",
+          "mnemonic": "beq",
+          "operands": "a0, a2, 0x9e",
+          "raw_branch_class": "B",
+          "raw_target": "0x84009f18"
+        },
+        {
+          "pc": "0x84009ebe",
+          "bytes": "6304e50a",
+          "mnemonic": "beq",
+          "operands": "a0, a4, 0xa8",
+          "raw_branch_class": "B",
+          "raw_target": "0x84009f66"
+        },
+        {
+          "pc": "0x84009ed4",
+          "bytes": "63160c00",
+          "mnemonic": "bnez",
+          "operands": "s8, 0xc",
+          "raw_branch_class": "B",
+          "raw_target": "0x84009ee0"
+        },
+        {
+          "pc": "0x84009ed8",
+          "bytes": "b257",
+          "mnemonic": "c.lwsp",
+          "operands": "a5, 0x2c(sp)"
+        },
+        {
+          "pc": "0x84009eda",
+          "bytes": "fd17",
+          "mnemonic": "c.addi",
+          "operands": "a5, -1"
+        },
+        {
+          "pc": "0x84009edc",
+          "bytes": "3ed6",
+          "mnemonic": "c.swsp",
+          "operands": "a5, 0x2c(sp)"
+        },
+        {
+          "pc": "0x84009ede",
+          "bytes": "a1f7",
+          "mnemonic": "c.bnez",
+          "operands": "a5, -0xb8",
+          "raw_branch_class": "CB",
+          "raw_target": "0x84009e26"
+        },
+        {
+          "pc": "0x8400e9be",
+          "bytes": "63cd070a",
+          "mnemonic": "bltz",
+          "operands": "a5, 0xba",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400ea78"
+        },
+        {
+          "pc": "0x8400e9c2",
+          "bytes": "630b0b0a",
+          "mnemonic": "beqz",
+          "operands": "s6, 0xb6",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400ea78"
+        },
+        {
+          "pc": "0x8400e9ce",
+          "bytes": "cde7",
+          "mnemonic": "c.bnez",
+          "operands": "a5, 0xaa",
+          "raw_branch_class": "CB",
+          "raw_target": "0x8400ea78"
+        },
+        {
+          "pc": "0x8400eac6",
+          "bytes": "63c50704",
+          "mnemonic": "bltz",
+          "operands": "a5, 0x4a",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400eb10"
+        },
+        {
+          "pc": "0x8400ead2",
+          "bytes": "9def",
+          "mnemonic": "c.bnez",
+          "operands": "a5, 0x3e",
+          "raw_branch_class": "CB",
+          "raw_target": "0x8400eb10"
+        },
+        {
+          "pc": "0x8400eb7e",
+          "bytes": "23a04401",
+          "mnemonic": "sw",
+          "operands": "s4, 0(s1)"
+        },
+        {
+          "pc": "0x8400ecba",
+          "bytes": "9544",
+          "mnemonic": "c.li",
+          "operands": "s1, 5"
+        },
+        {
+          "pc": "0x8400ed14",
+          "bytes": "63fe840c",
+          "mnemonic": "bgeu",
+          "operands": "s1, s0, 0xdc",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400edf0"
+        },
+        {
+          "pc": "0x8400ed18",
+          "bytes": "7d14",
+          "mnemonic": "c.addi",
+          "operands": "s0, -1"
+        },
+        {
+          "pc": "0x8400ed22",
+          "bytes": "63139406",
+          "mnemonic": "bne",
+          "operands": "s0, s1, 0x66",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400ed88"
+        },
+        {
+          "pc": "0x8400ed5c",
+          "bytes": "63fe8404",
+          "mnemonic": "bgeu",
+          "operands": "s1, s0, 0x5c",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400edb8"
+        },
+        {
+          "pc": "0x8400ed60",
+          "bytes": "7d14",
+          "mnemonic": "c.addi",
+          "operands": "s0, -1"
+        },
+        {
+          "pc": "0x8400ed6a",
+          "bytes": "63149406",
+          "mnemonic": "bne",
+          "operands": "s0, s1, 0x68",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400edd2"
+        },
+        {
+          "pc": "0x8400ed88",
+          "bytes": "9305a4ff",
+          "mnemonic": "addi",
+          "operands": "a1, s0, -6"
+        },
+        {
+          "pc": "0x8400ed8e",
+          "bytes": "efb06f81",
+          "mnemonic": "jal",
+          "operands": "-0x4fea",
+          "raw_branch_class": "JAL",
+          "raw_target": "0x84009da4"
+        },
+        {
+          "pc": "0x8400edd2",
+          "bytes": "9305a4ff",
+          "mnemonic": "addi",
+          "operands": "a1, s0, -6"
+        },
+        {
+          "pc": "0x8400edd8",
+          "bytes": "efa0dffc",
+          "mnemonic": "jal",
+          "operands": "-0x5034",
+          "raw_branch_class": "JAL",
+          "raw_target": "0x84009da4"
+        },
+        {
+          "pc": "0x8400ee0e",
+          "bytes": "2d3d",
+          "mnemonic": "c.jal",
+          "operands": "-0x1c6",
+          "raw_branch_class": "CJ",
+          "raw_target": "0x8400ec48"
+        },
+        {
+          "pc": "0x8400f28e",
+          "bytes": "63ce0706",
+          "mnemonic": "bltz",
+          "operands": "a5, 0x7c",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400f30a"
+        },
+        {
+          "pc": "0x8400f292",
+          "bytes": "630c0b06",
+          "mnemonic": "beqz",
+          "operands": "s6, 0x78",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400f30a"
+        },
+        {
+          "pc": "0x8400f29e",
+          "bytes": "b5e7",
+          "mnemonic": "c.bnez",
+          "operands": "a5, 0x6c",
+          "raw_branch_class": "CB",
+          "raw_target": "0x8400f30a"
+        },
+        {
+          "pc": "0x8400f350",
+          "bytes": "63cb0702",
+          "mnemonic": "bltz",
+          "operands": "a5, 0x36",
+          "raw_branch_class": "B",
+          "raw_target": "0x8400f386"
+        },
+        {
+          "pc": "0x8400f35c",
+          "bytes": "8de7",
+          "mnemonic": "c.bnez",
+          "operands": "a5, 0x2a",
+          "raw_branch_class": "CB",
+          "raw_target": "0x8400f386"
+        },
+        {
+          "pc": "0x8400f3ee",
+          "bytes": "5cc1",
+          "mnemonic": "c.sw",
+          "operands": "a5, 4(a0)"
+        }
+      ],
+      "independent_standard_branch_checks": 26,
+      "jump_tables": [
+        {
+          "table": "0x8401a2e8",
+          "index": 2,
+          "entry_bytes": "565efeff",
+          "target": "0x8400013e"
+        },
+        {
+          "table": "0x8401bd64",
+          "index": 4,
+          "entry_bytes": "bc24ffff",
+          "target": "0x8400e220"
+        },
+        {
+          "table": "0x8401bd64",
+          "index": 7,
+          "entry_bytes": "5c23ffff",
+          "target": "0x8400e0c0"
+        }
+      ],
+      "schema_version": 1,
+      "status": "PASS_EXPECTED_BASELINE_FAILURE_REPRODUCED",
+      "input_program": "en7581_MT7996_npu_rv32.bin",
+      "input_instructions": "installed-rv32.instructions.json",
+      "instructions_sha256": "ebcbbfdd2eb3a518ca163e7d09e104519ccb8381e2cc5202b330ed5d0c3ff23e",
+      "verifier_sha256": "eb9e7595f229529e219a402324765990a7ff6b8cdbd8ced7b5b33eff400c89d3",
+      "correspondence_negative_controls_rejected": 2,
+      "budget": {
+        "valid_boundary_cases": 1536,
+        "ring_arithmetic_checks": 3072,
+        "invalid_ring_limit_controls_rejected": 2,
+        "baseline": {
+          "passed": 1534,
+          "failed": 2,
+          "failures": [
+            {
+              "ring_count": 512,
+              "free": 7,
+              "callee_initial_budget": 0,
+              "after_first_success": 4294967295,
+              "after_128_successes": 4294967168,
+              "arithmetic_successes_until_zero": 4294967296
+            },
+            {
+              "ring_count": 1024,
+              "free": 7,
+              "callee_initial_budget": 0,
+              "after_first_success": 4294967295,
+              "after_128_successes": 4294967168,
+              "arithmetic_successes_until_zero": 4294967296
+            }
+          ]
+        },
+        "safe_model": {
+          "passed": 1536,
+          "failed": 0,
+          "change": "Do not enter the TDM consumer when its argument is zero; no firmware modification."
+        },
+        "examples": [
+          {
+            "ring_count": 512,
+            "free": 0,
+            "baseline_budget": null,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 512,
+            "free": 5,
+            "baseline_budget": null,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 512,
+            "free": 6,
+            "baseline_budget": null,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 512,
+            "free": 7,
+            "baseline_budget": 0,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 512,
+            "free": 8,
+            "baseline_budget": 1,
+            "safe_budget": 1
+          },
+          {
+            "ring_count": 512,
+            "free": 134,
+            "baseline_budget": 127,
+            "safe_budget": 127
+          },
+          {
+            "ring_count": 512,
+            "free": 135,
+            "baseline_budget": 128,
+            "safe_budget": 128
+          },
+          {
+            "ring_count": 512,
+            "free": 511,
+            "baseline_budget": 128,
+            "safe_budget": 128
+          },
+          {
+            "ring_count": 1024,
+            "free": 0,
+            "baseline_budget": null,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 1024,
+            "free": 5,
+            "baseline_budget": null,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 1024,
+            "free": 6,
+            "baseline_budget": null,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 1024,
+            "free": 7,
+            "baseline_budget": 0,
+            "safe_budget": null
+          },
+          {
+            "ring_count": 1024,
+            "free": 8,
+            "baseline_budget": 1,
+            "safe_budget": 1
+          },
+          {
+            "ring_count": 1024,
+            "free": 134,
+            "baseline_budget": 127,
+            "safe_budget": 127
+          },
+          {
+            "ring_count": 1024,
+            "free": 135,
+            "baseline_budget": 128,
+            "safe_budget": 128
+          },
+          {
+            "ring_count": 1024,
+            "free": 1023,
+            "baseline_budget": 128,
+            "safe_budget": 128
+          }
+        ],
+        "scope": "Scalar branch/budget arithmetic only. No packet/DMA/MMIO execution, concurrency or time-to-failure model."
+      },
+      "stop_timeout": {
+        "cases": 16,
+        "publish_continuations_without_both_ready": 7,
+        "publish_continuations_with_current_not_ready": 5,
+        "examples": [
+          {
+            "current_ready": false,
+            "next_ready": false,
+            "stop": true,
+            "current_expired": false,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          },
+          {
+            "current_ready": false,
+            "next_ready": false,
+            "stop": true,
+            "current_expired": true,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          },
+          {
+            "current_ready": false,
+            "next_ready": true,
+            "stop": false,
+            "current_expired": true,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          },
+          {
+            "current_ready": false,
+            "next_ready": true,
+            "stop": true,
+            "current_expired": false,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          },
+          {
+            "current_ready": false,
+            "next_ready": true,
+            "stop": true,
+            "current_expired": true,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          },
+          {
+            "current_ready": true,
+            "next_ready": false,
+            "stop": true,
+            "current_expired": false,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          },
+          {
+            "current_ready": true,
+            "next_ready": false,
+            "stop": true,
+            "current_expired": true,
+            "actual_reaches_publish": true,
+            "safe_ownership_model_publishes": false
+          }
+        ],
+        "scope": "Frozen descriptor/stop observations; no claim that every combination is reachable or erroneous during a coordinated hardware stop."
+      },
+      "runtime_execution": false,
+      "firmware_modified": false,
+      "limitations": [
+        "The full saved disassembly is not independently decoded; only listed standard branch offsets are.",
+        "Vendor custom opcodes, complete CFG, hardware ordering and concurrent actors are not modeled.",
+        "Early RX-empty, allocator/dispatch failure and hardware waits can terminate/block the scalar path first.",
+        "A 2^32 decrement count is arithmetic, not an observed uninterrupted execution.",
+        "No causal attribution to the Air sleep/wake stall; no live test was performed."
+      ]
+    },
+    "completion_pools": {
+      "program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+      "program_bytes": 122336,
+      "matched_rows": 1356,
+      "ranges": [
+        {
+          "start": "0x84004b96",
+          "end_exclusive": "0x84004d0e",
+          "rows": 126,
+          "sha256": "80c4a4d811f869cb293218f08b5d39a3123fb63f33b02dce3dc87f731a36cf64"
+        },
+        {
+          "start": "0x84004d0e",
+          "end_exclusive": "0x84004f4a",
+          "rows": 188,
+          "sha256": "08b315048df01d32e2dc030dab1a88a6d386ff593d58d15eba5b9d914b842889"
+        },
+        {
+          "start": "0x84008f6e",
+          "end_exclusive": "0x84009034",
+          "rows": 70,
+          "sha256": "4080b22f3e1eddfd3d2c5331cbe30abe881fdbd3a323bd5690c9b2b283b5ff06"
+        },
+        {
+          "start": "0x840098a2",
+          "end_exclusive": "0x840098d4",
+          "rows": 13,
+          "sha256": "3a83f37512423e3b9bea0b1db390bad1624c03ca287ac8809a369e008026eb32"
+        },
+        {
+          "start": "0x8400990e",
+          "end_exclusive": "0x840099b4",
+          "rows": 58,
+          "sha256": "6ca3f0c0032e64dbfa0f3e56842bfe665b1910f304b1c833682bab57642874ca"
+        },
+        {
+          "start": "0x8400a3f6",
+          "end_exclusive": "0x8400a5fa",
+          "rows": 174,
+          "sha256": "ba76c69f2d6b1a62cfc87af42ec66663251e93582cf34de178d1b0ebc542d693"
+        },
+        {
+          "start": "0x8400b0a6",
+          "end_exclusive": "0x8400b432",
+          "rows": 306,
+          "sha256": "5cfd5cd3d540aa46af5c9903c0e1e4e719895cb6b5ee3bb94378b454edb1e941"
+        },
+        {
+          "start": "0x8400d0ae",
+          "end_exclusive": "0x8400d1a0",
+          "rows": 80,
+          "sha256": "f154d4151eef7256715d06f934b54f2c2d06d4de9e567e419957a1ca3358fdd2"
+        },
+        {
+          "start": "0x8400e084",
+          "end_exclusive": "0x8400e27a",
+          "rows": 165,
+          "sha256": "6e7a3e3b7a55acc243ffd60715190734ed2b769df58841224c71b8a6fb78412d"
+        },
+        {
+          "start": "0x8400e4de",
+          "end_exclusive": "0x8400e514",
+          "rows": 19,
+          "sha256": "7ed7a49dce09d2fe828fd58d2dab20e915e8c7a329d16d5f842ee050e94223a4"
+        },
+        {
+          "start": "0x8400f8be",
+          "end_exclusive": "0x8400fab2",
+          "rows": 157,
+          "sha256": "98c48f8546f6131516ee2e103cd03dfae08cd085245ed023932d1025ca67dfc0"
+        }
+      ],
+      "anchors": [
+        {
+          "pc": "0x84004baa",
+          "size": 4,
+          "bytes": "83d6c17e",
+          "mnemonic": "lhu",
+          "operands": "a3, 0x7ec(gp)"
+        },
+        {
+          "pc": "0x84004bb8",
+          "size": 4,
+          "bytes": "1386c17d",
+          "mnemonic": "addi",
+          "operands": "a2, gp, 0x7dc"
+        },
+        {
+          "pc": "0x84004be8",
+          "size": 4,
+          "bytes": "23908600",
+          "mnemonic": "sh",
+          "operands": "s0, 0(a3)"
+        },
+        {
+          "pc": "0x84004bf8",
+          "size": 4,
+          "bytes": "2396e17e",
+          "mnemonic": "sh",
+          "operands": "a4, 0x7ec(gp)"
+        },
+        {
+          "pc": "0x84004d22",
+          "size": 4,
+          "bytes": "9387017e",
+          "mnemonic": "addi",
+          "operands": "a5, gp, 0x7e0"
+        },
+        {
+          "pc": "0x84004d44",
+          "size": 4,
+          "bytes": "23908600",
+          "mnemonic": "sh",
+          "operands": "s0, 0(a3)"
+        },
+        {
+          "pc": "0x84004d6e",
+          "size": 4,
+          "bytes": "239cf17c",
+          "mnemonic": "sh",
+          "operands": "a5, 0x7d8(gp)"
+        },
+        {
+          "pc": "0x84004dc0",
+          "size": 4,
+          "bytes": "6382e704",
+          "mnemonic": "beq",
+          "operands": "a5, a4, 0x44"
+        },
+        {
+          "pc": "0x84004dea",
+          "size": 4,
+          "bytes": "03940600",
+          "mnemonic": "lh",
+          "operands": "s0, 0(a3)"
+        },
+        {
+          "pc": "0x84004df2",
+          "size": 4,
+          "bytes": "239be7da",
+          "mnemonic": "sh",
+          "operands": "a4, -0x24a(a5)"
+        },
+        {
+          "pc": "0x84004e14",
+          "size": 4,
+          "bytes": "ef108070",
+          "mnemonic": "jal",
+          "operands": "0x1708"
+        },
+        {
+          "pc": "0x84004e18",
+          "size": 2,
+          "bytes": "7d54",
+          "mnemonic": "c.li",
+          "operands": "s0, -1"
+        },
+        {
+          "pc": "0x84004e42",
+          "size": 4,
+          "bytes": "2310f700",
+          "mnemonic": "sh",
+          "operands": "a5, 0(a4)"
+        },
+        {
+          "pc": "0x84004e5a",
+          "size": 4,
+          "bytes": "239707d4",
+          "mnemonic": "sh",
+          "operands": "zero, -0x2b2(a5)"
+        },
+        {
+          "pc": "0x84004e5e",
+          "size": 4,
+          "bytes": "239c017c",
+          "mnemonic": "sh",
+          "operands": "zero, 0x7d8(gp)"
+        },
+        {
+          "pc": "0x84004ed0",
+          "size": 2,
+          "bytes": "1167",
+          "mnemonic": "c.lui",
+          "operands": "a4, 4"
+        },
+        {
+          "pc": "0x84004ef4",
+          "size": 2,
+          "bytes": "1d67",
+          "mnemonic": "c.lui",
+          "operands": "a4, 7"
+        },
+        {
+          "pc": "0x84008f76",
+          "size": 4,
+          "bytes": "83a947fe",
+          "mnemonic": "lw",
+          "operands": "s3, -0x1c(a5)"
+        },
+        {
+          "pc": "0x84008fae",
+          "size": 4,
+          "bytes": "efb01fd6",
+          "mnemonic": "jal",
+          "operands": "-0x42a0"
+        },
+        {
+          "pc": "0x84008fbe",
+          "size": 4,
+          "bytes": "23a054ff",
+          "mnemonic": "sw",
+          "operands": "s5, -0x20(s1)"
+        },
+        {
+          "pc": "0x84008fe2",
+          "size": 4,
+          "bytes": "e34507fc",
+          "mnemonic": "bltz",
+          "operands": "a4, -0x36"
+        },
+        {
+          "pc": "0x84009008",
+          "size": 4,
+          "bytes": "efb07fd0",
+          "mnemonic": "jal",
+          "operands": "-0x42fa"
+        },
+        {
+          "pc": "0x840098a2",
+          "size": 4,
+          "bytes": "1305f005",
+          "mnemonic": "addi",
+          "operands": "a0, zero, 0x5f"
+        },
+        {
+          "pc": "0x840098b4",
+          "size": 4,
+          "bytes": "97f5ffff",
+          "mnemonic": "auipc",
+          "operands": "a1, 0xfffff"
+        },
+        {
+          "pc": "0x840098b8",
+          "size": 4,
+          "bytes": "9385a56b",
+          "mnemonic": "addi",
+          "operands": "a1, a1, 0x6ba"
+        },
+        {
+          "pc": "0x840098d0",
+          "size": 4,
+          "bytes": "ef905f98",
+          "mnemonic": "jal",
+          "operands": "-0x667c"
+        },
+        {
+          "pc": "0x8400993c",
+          "size": 4,
+          "bytes": "e31af7fe",
+          "mnemonic": "bne",
+          "operands": "a4, a5, -0xc"
+        },
+        {
+          "pc": "0x8400997e",
+          "size": 2,
+          "bytes": "81ef",
+          "mnemonic": "c.bnez",
+          "operands": "a5, 0x18"
+        },
+        {
+          "pc": "0x84009992",
+          "size": 4,
+          "bytes": "6fb0afc8",
+          "mnemonic": "j",
+          "operands": "-0x4b76"
+        },
+        {
+          "pc": "0x840099a6",
+          "size": 2,
+          "bytes": "e5fb",
+          "mnemonic": "c.bnez",
+          "operands": "a5, -0x10"
+        },
+        {
+          "pc": "0x8400a570",
+          "size": 4,
+          "bytes": "ef50e034",
+          "mnemonic": "jal",
+          "operands": "0x534e"
+        },
+        {
+          "pc": "0x8400a574",
+          "size": 2,
+          "bytes": "1ded",
+          "mnemonic": "c.bnez",
+          "operands": "a0, 0x3e"
+        },
+        {
+          "pc": "0x8400a58c",
+          "size": 4,
+          "bytes": "efa02ff8",
+          "mnemonic": "jal",
+          "operands": "-0x587e"
+        },
+        {
+          "pc": "0x8400a5b2",
+          "size": 4,
+          "bytes": "6389bc03",
+          "mnemonic": "beq",
+          "operands": "s9, s11, 0x32"
+        },
+        {
+          "pc": "0x8400a5da",
+          "size": 4,
+          "bytes": "83270b00",
+          "mnemonic": "lw",
+          "operands": "a5, 0(s6)"
+        },
+        {
+          "pc": "0x8400b100",
+          "size": 4,
+          "bytes": "ef901fc8",
+          "mnemonic": "jal",
+          "operands": "-0x6380"
+        },
+        {
+          "pc": "0x8400b108",
+          "size": 4,
+          "bytes": "630ef530",
+          "mnemonic": "beq",
+          "operands": "a0, a5, 0x31c"
+        },
+        {
+          "pc": "0x8400b1ae",
+          "size": 4,
+          "bytes": "2390d700",
+          "mnemonic": "sh",
+          "operands": "a3, 0(a5)"
+        },
+        {
+          "pc": "0x8400b1e8",
+          "size": 2,
+          "bytes": "a134",
+          "mnemonic": "c.jal",
+          "operands": "-0x5b8"
+        },
+        {
+          "pc": "0x8400b20c",
+          "size": 2,
+          "bytes": "9cc0",
+          "mnemonic": "c.sw",
+          "operands": "a5, 0(s1)"
+        },
+        {
+          "pc": "0x8400b25e",
+          "size": 4,
+          "bytes": "23a42701",
+          "mnemonic": "sw",
+          "operands": "s2, 8(a5)"
+        },
+        {
+          "pc": "0x8400b308",
+          "size": 4,
+          "bytes": "ef90ff88",
+          "mnemonic": "jal",
+          "operands": "-0x6772"
+        },
+        {
+          "pc": "0x8400b342",
+          "size": 4,
+          "bytes": "ef905f85",
+          "mnemonic": "jal",
+          "operands": "-0x67ac"
+        },
+        {
+          "pc": "0x8400b408",
+          "size": 4,
+          "bytes": "ef907f90",
+          "mnemonic": "jal",
+          "operands": "-0x66fa"
+        },
+        {
+          "pc": "0x8400b42c",
+          "size": 4,
+          "bytes": "ef908fcc",
+          "mnemonic": "jal",
+          "operands": "-0x6b38"
+        },
+        {
+          "pc": "0x8400b430",
+          "size": 2,
+          "bytes": "a5b5",
+          "mnemonic": "c.j",
+          "operands": "-0x198"
+        },
+        {
+          "pc": "0x8400d144",
+          "size": 4,
+          "bytes": "83470400",
+          "mnemonic": "lbu",
+          "operands": "a5, 0(s0)"
+        },
+        {
+          "pc": "0x8400d172",
+          "size": 4,
+          "bytes": "efd05ff3",
+          "mnemonic": "jal",
+          "operands": "-0x20cc"
+        },
+        {
+          "pc": "0x8400d17a",
+          "size": 2,
+          "bytes": "e9f7",
+          "mnemonic": "c.bnez",
+          "operands": "a5, -0x36"
+        },
+        {
+          "pc": "0x8400d19e",
+          "size": 2,
+          "bytes": "5db7",
+          "mnemonic": "c.j",
+          "operands": "-0x5a"
+        },
+        {
+          "pc": "0x8400e0ae",
+          "size": 4,
+          "bytes": "efb01f86",
+          "mnemonic": "jal",
+          "operands": "-0x47a0"
+        },
+        {
+          "pc": "0x8400e0b2",
+          "size": 4,
+          "bytes": "efb0ff8a",
+          "mnemonic": "jal",
+          "operands": "-0x4752"
+        },
+        {
+          "pc": "0x8400e500",
+          "size": 4,
+          "bytes": "efb07fef",
+          "mnemonic": "jal",
+          "operands": "-0x410a"
+        },
+        {
+          "pc": "0x8400e510",
+          "size": 4,
+          "bytes": "efb07fee",
+          "mnemonic": "jal",
+          "operands": "-0x411a"
+        },
+        {
+          "pc": "0x8400f95e",
+          "size": 4,
+          "bytes": "63090610",
+          "mnemonic": "beqz",
+          "operands": "a2, 0x112"
+        },
+        {
+          "pc": "0x8400f98a",
+          "size": 2,
+          "bytes": "7d55",
+          "mnemonic": "c.li",
+          "operands": "a0, -1"
+        },
+        {
+          "pc": "0x8400fa04",
+          "size": 2,
+          "bytes": "1dce",
+          "mnemonic": "c.beqz",
+          "operands": "a2, 0x3e"
+        },
+        {
+          "pc": "0x8400fa2e",
+          "size": 2,
+          "bytes": "7d55",
+          "mnemonic": "c.li",
+          "operands": "a0, -1"
+        }
+      ],
+      "rro_action6": {
+        "entry": "0x8401bd7c",
+        "bytes": "3e23ffff",
+        "target": "0x8400e0a2"
+      },
+      "negative_controls_rejected": 2,
+      "model": {
+        "cases_passed": 5,
+        "initial_packet_allocatable": 16383,
+        "unchanged_failure_retries": 10000,
+        "token_return_rescues_packet_pool": false,
+        "single_packet_return_rescues_next_allocation": true,
+        "first_two_rescued_ids": [
+          16383,
+          0
+        ],
+        "scope": "Exact scalar ring arithmetic with legal releases; not firmware execution. Runtime reachability, aggregate ownership, concurrency, fairness, locks and MMIO are not modeled."
+      },
+      "limitation": "Byte correspondence is not independent instruction decoding, semantic proof, hardware testing or evidence of Air stall attribution. Unsupported custom opcodes in the saved linear decoder remain uninterpreted."
+    },
+    "air_evidence_sha256": "7821d8251d7bbd78ae150299bcfd20128f7730b48c41a7fe50d0b690b773b5ff"
+  },
+  "negative_controls": {
+    "tx_original_contract_failures": 8,
+    "tx_barrier_removed_contract_failures": 8,
+    "rx_barrier_removed_expected_failing_run": 1,
+    "note": "Expected failures are not candidate failures or candidate pass counts. Firmware baseline budget failures are listed separately in firmware_analysis."
+  },
+  "build_log_sha256": {
+    "defconfig.log": "b377b196b60e697a9f6e638b4095252ba4d0ecb254eefc6c8d16d3c74b8b4c9f",
+    "kernel.log": "cfff02fdb6286ef3409b97cc43d66a6e75889a814a40c9bf03f959040c42de4d",
+    "packages.log": "0d6f5617a972315b91c8d2c75dd99f656a7f1e91fc3679a3804f650b296e89bc",
+    "package-install.log": "e4428552df70fe4826a86e82605d654905b0ef3019d9e7aff9387a8f8c1fd523",
+    "target-install.log": "9706bc8c363f98ea631a66c59ea122926dbfa925fb3dd9dad8dee59a5cb56fdc",
+    "index.log": "76151689b094f309d5d1e03ff0b54734373bd361b53b9e2f7d1a71a7e9d527be",
+    "buildinfo.log": "2090cbe1da3b9e1080b0b6a4440355976779d5e827929e6f28ae22b30d464e43",
+    "image-info.log": "0fdd87f64b27625303940df5936a377a9553c68c68a4b456c57f7640c6ab5c7c",
+    "checksum.log": "b9c8534e47e1d9dfffc187a27f2e7704c62617a90cf982b108b096a5852f33b2"
+  },
+  "installed": false,
+  "boot_tested": false,
+  "wireless_tested": false,
+  "limitations": [
+    "No device access, configuration change, installation, reboot or additional wireless tests.",
+    "Host fixtures test exact extracted functions with substitutes, not kernel ABI, weak-memory occurrence, firmware response or hardware acceptance.",
+    "Host TX publication ordering is corrected; causality for Air intermittent sleep/wake stalls remains unproven.",
+    "Vendor zero-budget arithmetic flaw and unsafe-looking stop continuations are recorded but no binary patch is included.",
+    "Firmware byte/branch correspondence and scalar pool/budget models do not prove complete control flow, concurrency, fairness, reachable deadlock or Air causality.",
+    "Existing r35 limitations for failed link activation rollback, selector ABA and PPE binding invalidation remain.",
+    "Kernel and 73 modules match r35, which was not boot-tested either; only mt76.ko changed.",
+    "Native incremental build with pinned inputs, not clean-room reproducibility."
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "status": "PASS",
+  "command": [
+    "build-volume/source/staging_dir/toolchain-aarch64_cortex-a53_gcc-14.4.0_musl/bin/aarch64-openwrt-linux-musl-objdump",
+    "-dr",
+    "--disassemble=mt76_npu_dma_add_buf",
+    "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/npu.o"
+  ],
+  "object_sha256": "54228160b7e0276b0d52d3a009f2202d02475c053338809736a8f1eb1cc74746",
+  "baseline_object_sha256": "5786b62b732d9c2d88e38fd1e5907b3f191f4c1595b3c59b4a6b484925599ba4",
+  "baseline_has_barrier": false,
+  "assembly_sha256": "6884446a33c3b03f4f49661d9023b9a847408bcbffcdc7b8f4704e8325af7ebf",
+  "host_anchors": [
+    {
+      "offset": "0xecc",
+      "raw": "94000000",
+      "mnemonic": "bl",
+      "operands": "0 <memcpy>"
+    },
+    {
+      "offset": "0xee0",
+      "raw": "b9000401",
+      "mnemonic": "str",
+      "operands": "w1, [x0, #4]"
+    },
+    {
+      "offset": "0xee4",
+      "raw": "d50332bf",
+      "mnemonic": "dmb",
+      "operands": "oshst"
+    },
+    {
+      "offset": "0xf04",
+      "raw": "32000294",
+      "mnemonic": "orr",
+      "operands": "w20, w20, #0x1"
+    },
+    {
+      "offset": "0xf08",
+      "raw": "b8206ab4",
+      "mnemonic": "str",
+      "operands": "w20, [x21, x0]"
+    }
+  ],
+  "vendor_program_sha256": "e743d1b59a9ca6d043e38ff71075e8d28702a104b94abb17a4035514efda4643",
+  "vendor_byte_ranges": [
+    {
+      "start": "0x8400f0c4",
+      "end_exclusive": "0x8400f1ea",
+      "matched_rows": 104
+    },
+    {
+      "start": "0x8400f638",
+      "end_exclusive": "0x8400f8be",
+      "matched_rows": 206
+    }
+  ],
+  "vendor_anchors": [
+    {
+      "address": 2214654328,
+      "size": 2,
+      "bytes": "dc41",
+      "mnemonic": "c.lw",
+      "operands": "a5, 4(a1)"
+    },
+    {
+      "address": 2214654338,
+      "size": 2,
+      "bytes": "c105",
+      "mnemonic": "c.addi",
+      "operands": "a1, 0x10"
+    },
+    {
+      "address": 2214654360,
+      "size": 4,
+      "bytes": "ef60efa0",
+      "mnemonic": "jal",
+      "operands": "-0x9df2"
+    },
+    {
+      "address": 2214655656,
+      "size": 4,
+      "bytes": "2326f90a",
+      "mnemonic": "sw",
+      "operands": "a5, 0xac(s2)"
+    },
+    {
+      "address": 2214655670,
+      "size": 2,
+      "bytes": "9c41",
+      "mnemonic": "c.lw",
+      "operands": "a5, 0(a1)"
+    },
+    {
+      "address": 2214655674,
+      "size": 2,
+      "bytes": "858b",
+      "mnemonic": "c.andi",
+      "operands": "a5, 1"
+    },
+    {
+      "address": 2214655676,
+      "size": 2,
+      "bytes": "a9c7",
+      "mnemonic": "c.beqz",
+      "operands": "a5, 0x4a"
+    },
+    {
+      "address": 2214655692,
+      "size": 4,
+      "bytes": "eff09f9f",
+      "mnemonic": "jal",
+      "operands": "-0x608"
+    },
+    {
+      "address": 2214655846,
+      "size": 4,
+      "bytes": "23aef90a",
+      "mnemonic": "sw",
+      "operands": "a5, 0xbc(s3)"
+    },
+    {
+      "address": 2214655858,
+      "size": 2,
+      "bytes": "9c41",
+      "mnemonic": "c.lw",
+      "operands": "a5, 0(a1)"
+    },
+    {
+      "address": 2214655862,
+      "size": 2,
+      "bytes": "858b",
+      "mnemonic": "c.andi",
+      "operands": "a5, 1"
+    },
+    {
+      "address": 2214655864,
+      "size": 2,
+      "bytes": "d9d7",
+      "mnemonic": "c.beqz",
+      "operands": "a5, -0x72"
+    },
+    {
+      "address": 2214655880,
+      "size": 4,
+      "bytes": "eff0df93",
+      "mnemonic": "jal",
+      "operands": "-0x6c4"
+    }
+  ],
+  "scope": "Pinned actual AArch64 object has TXWI memcpy, address store, dmb oshst, DONE composition and control store in that order. Vendor saved decoder ranges match actual blob bytes; not independent full decoding, hardware execution, weak-memory occurrence or Air causality."
+}

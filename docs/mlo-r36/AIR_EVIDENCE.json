@@ -1,0 +1,588 @@
+{
+  "recorded_on": "2026-09-26",
+  "scope": "Read-only re-analysis of three existing iPhone Air r32 trials. No Mac success trial substituted, no router access, no new wireless test, no public source edit.",
+  "clock_alignment": {
+    "router_clock": "/proc/uptime at SAMPLE/END; recorded decimal precision is 0.01 seconds",
+    "field_timestamps": "Fields are sequential reads inside each SAMPLE..END block; the header time is not an atomic PS/PPE/PC timestamp.",
+    "kernel_clock": "/dev/kmsg microsecond uptime timestamps in the same verified boot; host notification time, not on-air event time.",
+    "application_clock": "No exact unlock/start/stall epoch or raw per-second client series; T is inferred from first aggregate LAN interval exceeding 100 Mbps.",
+    "local_wallclock": "Controller run/ready epoch is captured before collector startup, not at iPerf Start. No server-PCAP clock alignment exists in these trials."
+  },
+  "cases": [
+    {
+      "case": "MLO_user_stall",
+      "artifact_path": "artifacts/air-r32-2026-09-24/private/wake",
+      "application_receive": {
+        "average_mbps": 1914,
+        "minimum_mbps": 0,
+        "maximum_mbps": 2041,
+        "stall_report": "Brief stop after sleep/wake"
+      },
+      "T_definition": "first to last >100Mbps interval; exclude both partial boundary intervals",
+      "T_router_uptime_seconds": 87251.5,
+      "traffic_window_seconds": 300.820000000007,
+      "fast_samples": 500,
+      "slow_samples": 100,
+      "fast_intervals_recomputed_match_saved": true,
+      "interior_aggregate_intervals": 292,
+      "interior_aggregate_covered_seconds": 298.79000000000815,
+      "excluded_partial_boundary_seconds": [
+        1.0099999999947613,
+        1.0200000000040745
+      ],
+      "fast_period_seconds": {
+        "min": 1.01,
+        "median": 1.02,
+        "max": 1.03
+      },
+      "fast_acquisition_span_seconds": {
+        "min": 0.01,
+        "median": 0.02,
+        "max": 0.02
+      },
+      "slow_period_seconds": {
+        "min": 5.62,
+        "median": 5.66,
+        "max": 5.72
+      },
+      "slow_acquisition_span_seconds": {
+        "min": 0.62,
+        "median": 0.66,
+        "max": 0.71
+      },
+      "slow_no_collection_gap_seconds": {
+        "min": 5.0,
+        "median": 5.01,
+        "max": 5.01
+      },
+      "active_pc_reads_per_hart": 53,
+      "active_pc_register_words": 424,
+      "active_cpu_counter_window_from_T": [
+        5.4799999999959255,
+        300.6100000000006
+      ],
+      "active_6ghz_ps1_read_windows": [
+        {
+          "read_window_start_from_T": 16.81,
+          "read_window_end_from_T": 17.49
+        },
+        {
+          "read_window_start_from_T": 300.61,
+          "read_window_end_from_T": 301.23
+        }
+      ],
+      "active_target_selector_states": [
+        "valid_links:0x0006 primary:2 secondary:1"
+      ],
+      "hardware_flows_registered_samples": 52,
+      "all_registered": true,
+      "host_sw_token_sample_min_max": [
+        3,
+        11
+      ],
+      "lowest_aggregate_interval": {
+        "from_T": 21.479999999995925,
+        "until_T": 22.50999999999476,
+        "seconds": 1.0299999999988358,
+        "mbps": 184.66132815554852,
+        "cpu_busy_per_cpu_percent": {
+          "cpu": 3.950617,
+          "cpu0": 4.0,
+          "cpu1": 3.960396,
+          "cpu2": 6.796117,
+          "cpu3": 1.0
+        }
+      },
+      "nearest_slow_acquisition_windows_relative_to_low_midpoint": [
+        [
+          -5.185,
+          -4.505
+        ],
+        [
+          0.495,
+          1.135
+        ],
+        [
+          6.145,
+          6.795
+        ]
+      ],
+      "other_peer_counter_comparison": {
+        "slow_header_from_T": [
+          16.80999999999767,
+          22.49000000000524
+        ],
+        "outer_read_window_from_T": [
+          16.80999999999767,
+          23.130000000004657
+        ],
+        "nonzero_rows_without_peer_identifiers": [
+          {
+            "link": 1,
+            "txs_reports_delta": 15,
+            "host_tx_prepared_delta": 17,
+            "raw_txfree_status_delta": [
+              17,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 2,
+            "txs_reports_delta": 54,
+            "host_tx_prepared_delta": 90,
+            "raw_txfree_status_delta": [
+              66,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "not_evidence_of_simultaneous_other_peer_fastpath_during_low_bin": true
+      },
+      "wifi_netdev_deltas_in_low_fast_bin": [
+        {
+          "interface": "ap-mld0",
+          "rx_bytes_delta": 11405,
+          "tx_bytes_delta": 7404,
+          "rx_packets_delta": 24,
+          "tx_packets_delta": 30
+        },
+        {
+          "interface": "phy0.0-ap0",
+          "rx_bytes_delta": 0,
+          "tx_bytes_delta": 78,
+          "rx_packets_delta": 0,
+          "tx_packets_delta": 1
+        }
+      ],
+      "qdisc_collected": false,
+      "pcap_count_in_case_directory": 0,
+      "missing": [
+        "per-client TCP sequence/ACK/retransmit timestamps",
+        "raw client per-second iPerf samples and timestamp of user-observed stall",
+        "qdisc backlog and shared TXQ active-list timeline",
+        "per-peer hardware fastpath byte/packet progress at subsecond resolution",
+        "NPU hardware-token pool occupancy",
+        "RRO session lifetime or firmware execution trace",
+        "individual timestamp for each PC/PS/PPE read"
+      ]
+    },
+    {
+      "case": "single6_user_slowdown",
+      "artifact_path": "artifacts/air-single6-wake-r32-2026-09-25/private/wake",
+      "application_receive": {
+        "average_mbps": 1860,
+        "minimum_mbps": 410,
+        "maximum_mbps": 2034,
+        "stall_report": "Speed decreased only; no stop observed"
+      },
+      "T_definition": "first to last >100Mbps interval; exclude both partial boundary intervals",
+      "T_router_uptime_seconds": 88970.92,
+      "traffic_window_seconds": 300.8099999999977,
+      "fast_samples": 500,
+      "slow_samples": 100,
+      "fast_intervals_recomputed_match_saved": true,
+      "interior_aggregate_intervals": 292,
+      "interior_aggregate_covered_seconds": 298.7700000000041,
+      "excluded_partial_boundary_seconds": [
+        1.0200000000040745,
+        1.0199999999895226
+      ],
+      "fast_period_seconds": {
+        "min": 1.01,
+        "median": 1.02,
+        "max": 1.04
+      },
+      "fast_acquisition_span_seconds": {
+        "min": 0.01,
+        "median": 0.02,
+        "max": 0.03
+      },
+      "slow_period_seconds": {
+        "min": 5.63,
+        "median": 5.68,
+        "max": 5.82
+      },
+      "slow_acquisition_span_seconds": {
+        "min": 0.62,
+        "median": 0.68,
+        "max": 0.81
+      },
+      "slow_no_collection_gap_seconds": {
+        "min": 5.0,
+        "median": 5.01,
+        "max": 5.01
+      },
+      "active_pc_reads_per_hart": 53,
+      "active_pc_register_words": 424,
+      "active_cpu_counter_window_from_T": [
+        4.919999999998254,
+        300.38000000000466
+      ],
+      "active_6ghz_ps1_read_windows": [],
+      "active_target_selector_states": [
+        "valid_links:0x0000 primary:0 secondary:0"
+      ],
+      "hardware_flows_registered_samples": 52,
+      "all_registered": true,
+      "host_sw_token_sample_min_max": [
+        3,
+        30
+      ],
+      "lowest_aggregate_interval": {
+        "from_T": 7.1600000000034925,
+        "until_T": 8.180000000007567,
+        "seconds": 1.0200000000040745,
+        "mbps": 0.0714352941173617,
+        "cpu_busy_per_cpu_percent": {
+          "cpu": 4.679803,
+          "cpu0": 3.960396,
+          "cpu1": 5.882353,
+          "cpu2": 6.796117,
+          "cpu3": 2.020202
+        }
+      },
+      "nearest_slow_acquisition_windows_relative_to_low_midpoint": [
+        [
+          -2.75,
+          -2.05
+        ],
+        [
+          2.96,
+          3.66
+        ]
+      ],
+      "other_peer_counter_comparison": {
+        "slow_header_from_T": [
+          4.919999999998254,
+          10.630000000004657
+        ],
+        "outer_read_window_from_T": [
+          4.919999999998254,
+          11.330000000001746
+        ],
+        "nonzero_rows_without_peer_identifiers": [
+          {
+            "link": 0,
+            "txs_reports_delta": 1,
+            "host_tx_prepared_delta": 1,
+            "raw_txfree_status_delta": [
+              1,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 0,
+            "txs_reports_delta": 31,
+            "host_tx_prepared_delta": 40,
+            "raw_txfree_status_delta": [
+              35,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 0,
+            "txs_reports_delta": 137,
+            "host_tx_prepared_delta": 163,
+            "raw_txfree_status_delta": [
+              145,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 0,
+            "txs_reports_delta": 1,
+            "host_tx_prepared_delta": 1,
+            "raw_txfree_status_delta": [
+              1,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "not_evidence_of_simultaneous_other_peer_fastpath_during_low_bin": true
+      },
+      "wifi_netdev_deltas_in_low_fast_bin": [
+        {
+          "interface": "phy0.0-ap0",
+          "rx_bytes_delta": 42,
+          "tx_bytes_delta": 816,
+          "rx_packets_delta": 1,
+          "tx_packets_delta": 4
+        },
+        {
+          "interface": "phy0.1-ap0",
+          "rx_bytes_delta": 2511,
+          "tx_bytes_delta": 4204,
+          "rx_packets_delta": 10,
+          "tx_packets_delta": 13
+        },
+        {
+          "interface": "phy0.2-ap0",
+          "rx_bytes_delta": 1206,
+          "tx_bytes_delta": 1835,
+          "rx_packets_delta": 7,
+          "tx_packets_delta": 11
+        }
+      ],
+      "qdisc_collected": false,
+      "pcap_count_in_case_directory": 0,
+      "missing": [
+        "per-client TCP sequence/ACK/retransmit timestamps",
+        "raw client per-second iPerf samples and timestamp of user-observed stall",
+        "qdisc backlog and shared TXQ active-list timeline",
+        "per-peer hardware fastpath byte/packet progress at subsecond resolution",
+        "NPU hardware-token pool occupancy",
+        "RRO session lifetime or firmware execution trace",
+        "individual timestamp for each PC/PS/PPE read"
+      ]
+    },
+    {
+      "case": "MLO_PS_trace_no_stall",
+      "artifact_path": "artifacts/air-ps-wake-r32-2026-09-25/private/traffic",
+      "application_receive": {
+        "average_mbps": 1715,
+        "minimum_mbps": 1336,
+        "maximum_mbps": 1987,
+        "stall_report": "No stop observed"
+      },
+      "T_definition": "first to last >100Mbps interval; exclude both partial boundary intervals",
+      "T_router_uptime_seconds": 90646.9,
+      "traffic_window_seconds": 300.99000000000524,
+      "fast_samples": 500,
+      "slow_samples": 100,
+      "fast_intervals_recomputed_match_saved": true,
+      "interior_aggregate_intervals": 292,
+      "interior_aggregate_covered_seconds": 298.9499999999971,
+      "excluded_partial_boundary_seconds": [
+        1.0200000000040745,
+        1.0200000000040745
+      ],
+      "fast_period_seconds": {
+        "min": 1.01,
+        "median": 1.02,
+        "max": 1.03
+      },
+      "fast_acquisition_span_seconds": {
+        "min": 0.01,
+        "median": 0.02,
+        "max": 0.03
+      },
+      "slow_period_seconds": {
+        "min": 5.63,
+        "median": 5.71,
+        "max": 5.8
+      },
+      "slow_acquisition_span_seconds": {
+        "min": 0.62,
+        "median": 0.7,
+        "max": 0.8
+      },
+      "slow_no_collection_gap_seconds": {
+        "min": 5.0,
+        "median": 5.01,
+        "max": 5.01
+      },
+      "active_pc_reads_per_hart": 53,
+      "active_pc_register_words": 424,
+      "active_cpu_counter_window_from_T": [
+        0.8899999999994179,
+        298.08000000000175
+      ],
+      "active_6ghz_ps1_read_windows": [],
+      "active_target_selector_states": [
+        "valid_links:0x0006 primary:2 secondary:1"
+      ],
+      "hardware_flows_registered_samples": 52,
+      "all_registered": true,
+      "host_sw_token_sample_min_max": [
+        3,
+        102
+      ],
+      "lowest_aggregate_interval": {
+        "from_T": 204.7600000000093,
+        "until_T": 205.79000000000815,
+        "seconds": 1.0299999999988358,
+        "mbps": 1352.8598524287136,
+        "cpu_busy_per_cpu_percent": {
+          "cpu": 12.781955,
+          "cpu0": 14.43299,
+          "cpu1": 4.901961,
+          "cpu2": 21.428571,
+          "cpu3": 10.679612
+        }
+      },
+      "nearest_slow_acquisition_windows_relative_to_low_midpoint": [
+        [
+          -4.275,
+          -3.575
+        ],
+        [
+          1.435,
+          2.155
+        ]
+      ],
+      "other_peer_counter_comparison": {
+        "slow_header_from_T": [
+          201.0,
+          206.7100000000064
+        ],
+        "outer_read_window_from_T": [
+          201.0,
+          207.43000000000757
+        ],
+        "nonzero_rows_without_peer_identifiers": [
+          {
+            "link": 1,
+            "txs_reports_delta": 13,
+            "host_tx_prepared_delta": 17,
+            "raw_txfree_status_delta": [
+              15,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 2,
+            "txs_reports_delta": 446,
+            "host_tx_prepared_delta": 18107,
+            "raw_txfree_status_delta": [
+              2744,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 2,
+            "txs_reports_delta": 1,
+            "host_tx_prepared_delta": 2,
+            "raw_txfree_status_delta": [
+              2,
+              0,
+              0,
+              0
+            ]
+          },
+          {
+            "link": 0,
+            "txs_reports_delta": 1,
+            "host_tx_prepared_delta": 1,
+            "raw_txfree_status_delta": [
+              1,
+              0,
+              0,
+              0
+            ]
+          }
+        ],
+        "not_evidence_of_simultaneous_other_peer_fastpath_during_low_bin": true
+      },
+      "wifi_netdev_deltas_in_low_fast_bin": [
+        {
+          "interface": "ap-mld0",
+          "rx_bytes_delta": 11949094,
+          "tx_bytes_delta": 316448,
+          "rx_packets_delta": 8072,
+          "tx_packets_delta": 4159
+        },
+        {
+          "interface": "phy0.0-ap0",
+          "rx_bytes_delta": 0,
+          "tx_bytes_delta": 260,
+          "rx_packets_delta": 0,
+          "tx_packets_delta": 1
+        }
+      ],
+      "qdisc_collected": false,
+      "pcap_count_in_case_directory": 0,
+      "missing": [
+        "per-client TCP sequence/ACK/retransmit timestamps",
+        "raw client per-second iPerf samples and timestamp of user-observed stall",
+        "qdisc backlog and shared TXQ active-list timeline",
+        "per-peer hardware fastpath byte/packet progress at subsecond resolution",
+        "NPU hardware-token pool occupancy",
+        "RRO session lifetime or firmware execution trace",
+        "individual timestamp for each PC/PS/PPE read"
+      ]
+    }
+  ],
+  "PS_trace_coverage": {
+    "historical_kmsg_headers_excluded": 612,
+    "bounded_kernel_headers": 1540,
+    "bounded_sequence_continuous": true,
+    "saved_trace_sha_matches": true,
+    "PS_events_for_Air_during_transfer": 4,
+    "detailed_status1_events": 8,
+    "status1_counter_delta": 31,
+    "status1_counter_events_without_detail": 23,
+    "fraction_with_detail": 0.25806451612903225,
+    "raw_status2_delta": 475,
+    "paired_host_PS_interval_seconds": 0.007538999998359941,
+    "PS_trace_was_not_enabled_in_failed_MLO_run": true
+  },
+  "findings": [
+    "The user-observed MLO stop remains valid but cannot be identified with the aggregate minimum at T+21.48..22.51 seconds.",
+    "MLO nearest slow header at T+22.49 means reads occur during the recorded T+22.49..23.13 block, not at a precise point. On block-header times this starts only 0.02 seconds before the low-bin endpoint; fast counter read offsets and 0.01-second timestamp precision add uncertainty, so exact overlap is not established.",
+    "The single6 near-zero bin at T+7.16..8.18 is wholly inside the T+5.62..10.63 no-collection gap.",
+    "No same-time per-peer fastpath witness distinguishes global NPU worker stall from peer-specific scheduling/ACK behavior. Other-peer counter deltas span larger read windows and may be host/control traffic.",
+    "All three cases have only 53 sequential PC reads per hart during the inferred traffic window; absence of a suspect PC is not continuous firmware liveness.",
+    "PPE entries show registration, not per-flow progress. The observed token_count measures host SW in-flight tokens, not NPU firmware-token-pool occupancy.",
+    "Lowest-bin per-CPU utilization stays below 6.80 percent in both the failed MLO and single6 slowdown trials, excluding sustained CPU saturation at this bin resolution, not sub-bin stalls.",
+    "Status2 increments also appear in the non-stalling PS trace run. Continuous emitted log sequences do not recover rate-limited or ineligible events."
+  ],
+  "input_files_sha256": {
+    "artifacts/air-ps-wake-r32-2026-09-25/R32_AIR_PS_WAKE_VALIDATION.json": "4ef02ff2c59d7c10a6f8641c1575141f5c9ad197241305cad52816ecf93d0a10",
+    "artifacts/air-ps-wake-r32-2026-09-25/TXFREE_COMPARISON.json": "a1a332fd758b3c1d35f96116d5807049ccb6afdc3aff34644ab4e55edb92eb39",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/trace/KMSG_VERIFICATION.json": "f605960a7c990e37968bdeb3d02411de5a9cf2944c8e2a105bf25e127faa57dc",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/trace/kmsg.stream": "0de16a82c66faacf149daa7e507b2dd04f9d7db52842484be16487ea2d680904",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/CPU_ACTIVE.json": "ba0b97617027f262d61192cb679e57d3ecd4b2b91a0f8ce284682a20126ccc1d",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/INTERVALS.json": "5a037543815ae72389df4b7201bfd53005bf01f9f966358c73fa5743f2f69eef",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/LINKS.json": "ac07d6cd4aa3d6f0e656f94b541f292d22debc401986cc526d6b842522bf91ef",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/REGISTRATIONS.json": "5439f28be69e36bc6d526c0bc517af082f270cc8d61835e4c519ea6955a91a3a",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/SUMMARY.json": "a8b811e3b4db5aad09200554bb8c0285f182ad5af0c9dd8c090649528a958413",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/fast.sh": "3d5e05a3b8f0982aff9600d5cf736d15da159164439bcd1d2f9b2890b5f31523",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/fast.txt": "0c51a276da87651a56cd1e5f503c0ab7e18e3127f98e0204ad8523d36fca98f5",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/run.json": "c5f3834ff50a73326836ea36a96876f149902091c9731390ed6eb5190b2003ed",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/slow.sh": "f31be6e1cf14267671516e224dfd0788344a587f1f84b6a7730f7b651718e365",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/slow.txt": "5c9aa244db435f6eee6952fd00324264a994d4e4dc75a7c330e48e7a234a98fa",
+    "artifacts/air-ps-wake-r32-2026-09-25/private/traffic/started.json": "8b3902760811ccdeaa1ddd37ec76fc195341ac3f53d22cd5e981c4c70db929e1",
+    "artifacts/air-r32-2026-09-24/R32_AIR_WAKE_VALIDATION.json": "4a52a6a901a8f48f1e9b2e9ea00225feec967891df270a67528902ece83cff6d",
+    "artifacts/air-r32-2026-09-24/private/wake/CPU_ACTIVE.json": "78ed9394b8bba742880109dd5bd884333767c6525c323e145af918e363b1b830",
+    "artifacts/air-r32-2026-09-24/private/wake/INTERVALS.json": "4386100ccb32dc3217d034a6be8b6f27e236c32eff566fb787cc9056a4ab90ba",
+    "artifacts/air-r32-2026-09-24/private/wake/LINKS.json": "4e058ac5bd505f1f89bc758ea1203204e22bfa52f20e8477cef4601b37431bae",
+    "artifacts/air-r32-2026-09-24/private/wake/REGISTRATIONS.json": "6311e236424a52bcbe3397cbe13a47086307727c371cb438d7dee3d9c05dfb88",
+    "artifacts/air-r32-2026-09-24/private/wake/SUMMARY.json": "82a274e2639b1f897fa1b9f2f69f803f95b2c4e1d8be92348d23718a64036e38",
+    "artifacts/air-r32-2026-09-24/private/wake/fast.sh": "3d5e05a3b8f0982aff9600d5cf736d15da159164439bcd1d2f9b2890b5f31523",
+    "artifacts/air-r32-2026-09-24/private/wake/fast.txt": "dcd0f0d347aac8168a8af391633c126723b7da1e719aeba65c71de5c15f8208d",
+    "artifacts/air-r32-2026-09-24/private/wake/run.json": "6f59680a68408297a922c389003720ce17193238e9690f4d71dedcd407aad227",
+    "artifacts/air-r32-2026-09-24/private/wake/slow.sh": "f31be6e1cf14267671516e224dfd0788344a587f1f84b6a7730f7b651718e365",
+    "artifacts/air-r32-2026-09-24/private/wake/slow.txt": "ebff80ad5e15d7659dd20fb29b07acd97dfbc4daf9c7a55c931edeaf7ba7b395",
+    "artifacts/air-r32-2026-09-24/private/wake/started.json": "c9cbe3eb87c582eda9ae19d1e4b067829c6e6b8a2d5573acef4a2e587693e696",
+    "artifacts/air-single6-wake-r32-2026-09-25/R32_AIR_SINGLE6_WAKE_VALIDATION.json": "72958b1d96fb8a8aa3cb4ccd5266ebe86ebe73003fef8c3035a1dcd995c5a89b",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/CPU_ACTIVE.json": "78868a9bc6294481340170f612dd16bce628869863f709b944037666e133885e",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/INTERVALS.json": "0cd2da528bf69bdb32b18f96426afa9bfc1915303d9901cd4099459c8fcab702",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/LINKS.json": "35b9d0d992ea1c95a485a6f119f3600b581ec6f373e2c2baffc1c5688938d53d",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/REGISTRATIONS.json": "d7022613caf2544f39d4392a75093e2b29fc1044ab9a5d385f1dc8295343b427",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/SUMMARY.json": "55e426b2cd3b9e8a3a1665abfeded263008420fbe489af95bbd76c1346a6cfdd",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/fast.sh": "3d5e05a3b8f0982aff9600d5cf736d15da159164439bcd1d2f9b2890b5f31523",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/fast.txt": "62a1611c870e18c7d52c3b2d843174b7b39edbebeed154ff96a4ee8a82d806cf",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/run.json": "6c6b3f43cd62d478daeba11251642ada36e53bc64c8baf187690056d7b9851ad",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/slow.sh": "965a5494c1f4d281959341d9b63dea9df5775e26f8cb15011334755f82433823",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/slow.txt": "aeba87cacdf736e61b99c06897a2976aba5369a5e2db82194c60fa2b5b2c040a",
+    "artifacts/air-single6-wake-r32-2026-09-25/private/wake/started.json": "d2713ffb61c23c54d2d132f5e0f4d2fb1bbec7d3a03c254fd05e64cf9105dbb9",
+    "artifacts/air-wake-r30-2026-09-24/analyze.py": "033fcc8e68c43f872bc6fbf8353342212d9c6f1744e22082ec7bcc2d83eba38a",
+    "artifacts/air-wake-r30-2026-09-24/record.py": "aefd376e7b42bf4959934bbea10b85241de1dbfec2c7b67308561753363a3797"
+  }
+}

@@ -1,0 +1,28 @@
+Subject: [PATCH] wifi: mt76: order NPU TX data before ownership publication
+
+The NPU host-ring consumer polls DONE before reading the DMA address and
+TXWI. It does not wait for the subsequent CPU-index doorbell. Coherent
+allocation does not order these stores, so the barrier in the later queue
+kick cannot protect the earlier ownership publication.
+
+Order the copied TXWI and address before publishing DONE, as for RX refill.
+Keep descriptor contents, ring accounting and queue metadata unchanged.
+
+--- a/npu.c
++++ b/npu.c
+@@ -231,9 +231,12 @@
+ 	/* TODO: Take into account unlinear skbs */
+ 	memcpy(desc[q->head].txwi, txwi_ptr, txwi_len);
+ 	desc[q->head].addr = buf->addr;
+-	desc[q->head].ctrl = FIELD_PREP(NPU_TX_DMA_DESC_VEND_LEN_MASK, txwi_len) |
+-			     FIELD_PREP(NPU_TX_DMA_DESC_LEN_MASK, skb->len) |
+-			     NPU_TX_DMA_DESC_DONE_MASK;
++	/* The NPU polls DONE without waiting for the CPU-index update. */
++	dma_wmb();
++	WRITE_ONCE(desc[q->head].ctrl,
++		   FIELD_PREP(NPU_TX_DMA_DESC_VEND_LEN_MASK, txwi_len) |
++		   FIELD_PREP(NPU_TX_DMA_DESC_LEN_MASK, skb->len) |
++		   NPU_TX_DMA_DESC_DONE_MASK);
+ 
+ 	ret = q->head;
+ 	q->entry[q->head].skip_buf0 = true;
