@@ -1,0 +1,39 @@
+Subject: wifi: mac80211: rearm station TXQs after failed link activation
+
+A driver can dequeue a shared station TXQ while valid_links temporarily
+includes the new link. On callback failure the old mask is restored only
+after the callback returns, so waking in the callback can be premature.
+Reschedule buffered TXQs after mask and link cleanup, preserving PS/AQL
+checks and the original activation error. Reuse the existing BH/RCU-protected
+schedule-and-wake contract from the aggregation path.
+
+This fixes the conditional rollback path; it does not establish the cause
+of an observed firmware or client power-save stall.
+
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -3495,8 +3495,24 @@
+ 	ret = drv_change_sta_links(sdata->local, sdata, &sta->sta,
+ 				   old_links, new_links);
+ 	if (ret) {
++		int i;
++
+ 		sta->sta.valid_links = old_links;
+ 		sta_remove_link(sta, link_id, false);
++
++		/* A driver may have stopped a shared TXQ while the temporary
++		 * link mask was visible. Rearm after the rollback is complete.
++		 */
++		local_bh_disable();
++		rcu_read_lock();
++		for (i = 0; i < ARRAY_SIZE(sta->sta.txq); i++) {
++			if (!sta->sta.txq[i] || !txq_has_queue(sta->sta.txq[i]))
++				continue;
++			schedule_and_wake_txq(sdata->local,
++					      to_txq_info(sta->sta.txq[i]));
++		}
++		rcu_read_unlock();
++		local_bh_enable();
+ 		return ret;
+ 	}
+ 

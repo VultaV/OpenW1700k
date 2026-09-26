@@ -1,0 +1,8 @@
+{
+  "commit": "fd179f8a05be3ccae366b9b96e176b51fbe54aab",
+  "url": "https://github.com/torvalds/linux/blob/fd179f8a05be3ccae366b9b96e176b51fbe54aab/net/mac80211/sta_info.c",
+  "source_sha256": "6b1fb42444e9ad1d1437255598e613f705662b250cb2b4c4dc14444aae635179",
+  "activation_function_matches_local_baseline": true,
+  "activation_function_sha256": "ddbe766c4ca2c951c5283eca54adeb525f221aab0935ea4a5099f084ec47726b",
+  "scope": "Pinned official master function comparison only, not all pending upstream patches"
+}

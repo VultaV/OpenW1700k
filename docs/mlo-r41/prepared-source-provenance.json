@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "files": {
+    "regular/sta_info.c": {
+      "baseline_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60",
+      "prepared_sha256": "39f0f3577b62f2906f2ab3f0cb99247d1d5bec71ce84db1dec49e0261baad906",
+      "forward_sha256": "39f0f3577b62f2906f2ab3f0cb99247d1d5bec71ce84db1dec49e0261baad906",
+      "reverse_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60",
+      "forward_exact": true,
+      "reverse_exact": true
+    },
+    "smallbuffers/sta_info.c": {
+      "baseline_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60",
+      "prepared_sha256": "39f0f3577b62f2906f2ab3f0cb99247d1d5bec71ce84db1dec49e0261baad906",
+      "forward_sha256": "39f0f3577b62f2906f2ab3f0cb99247d1d5bec71ce84db1dec49e0261baad906",
+      "reverse_sha256": "a9a1307498640561915cbe82bd2ebf6a808b58669fa2b4d79a12fcf7e7e36c60",
+      "forward_exact": true,
+      "reverse_exact": true
+    }
+  },
+  "patch_sha256": "fc93cb83c2c5ae68930201faf2ede6e60071716180d42f8033994544ab8a3544",
+  "build_steps_sha256": "dfee91f9b16d81d713cad3c63e72cb3f0742dd4d70bcd351d08159dda652a4c3",
+  "scope": "Both prepared sta_info.c files equal the preserved baseline plus only the rollback patch, with zero fuzz, no offset, and exact reverse restoration. This is source provenance, not a device or concurrency test."
+}

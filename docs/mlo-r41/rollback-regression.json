@@ -1,0 +1,55 @@
+{
+  "test_sha256": "aa1251d91e7dc0b79280557e87ff99e0fe23fa6971a8ca0dc5c697936a9cc5ae",
+  "inherited_checks": 24,
+  "actual_core_checks": 15,
+  "runs": {
+    "baseline": {
+      "command": [
+        "python3",
+        "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+        "--expect-core-rollback",
+        "baseline"
+      ],
+      "exit": 0,
+      "assertions": 39,
+      "unexpected_failures": 0,
+      "expected_stalled_backlog_negative_control": true,
+      "log": "link-transition-baseline.log",
+      "log_sha256": "6ecb1ac8d0bdcaf4f58b5272cba5f2561affc8d386896375934aff341239a9d0"
+    },
+    "fixed": {
+      "command": [
+        "python3",
+        "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211",
+        "--expect-core-rollback",
+        "fixed",
+        "--core-patch",
+        "publish-mlo-r29/package/kernel/mac80211/patches/subsys/9999-rearm-station-txqs-after-link-activation-rollback.patch"
+      ],
+      "exit": 0,
+      "assertions": 39,
+      "unexpected_failures": 0,
+      "expected_stalled_backlog_negative_control": false,
+      "log": "link-transition-fixed.log",
+      "log_sha256": "c8d994817945713fb9ef6a9d72f1a02d88eaf08a736ee52b2b861196e44d8316"
+    }
+  },
+  "limitations": [
+    "Deterministic callback interleaving, not concurrent kernel execution.",
+    "Active list, lock counters, RCU grace period, allocator, hash/debugfs and hardware remain fixtures.",
+    "FQ backlog/fragment presence represented by host fields; actual queue lookup predicate is extracted.",
+    "The reproduced failed activation is not evidence of Air or NPU fastpath causality."
+  ],
+  "status": "PASS",
+  "baseline_expected_stall": true,
+  "candidate_recovers": true,
+  "patch_sha256": "fc93cb83c2c5ae68930201faf2ede6e60071716180d42f8033994544ab8a3544"
+}
