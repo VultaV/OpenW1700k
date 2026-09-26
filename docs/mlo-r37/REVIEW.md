@@ -45,6 +45,8 @@ IRQ 수명 수정은 정상 remove의 공통 DMA cleanup과 probe 실패의 `mt7
 
 누락 의존성 14개 메시지에 해당하는 활성·설치 recipe family는 0개, 빈 kmod 28종 중 이미지 설치 항목은 0개였다. 수정 파일 `airoha_npu.c`를 직접 가리키는 경고는 없었다. 이 분류는 나머지 경고가 무해하다는 판정이나 전체 패키지 보안 감사가 아니다.
 
+릴리스 후 경고 대조에서 **설치된 `ip-bridge`의 확장 netlink 오류 진단 제한**도 확인했다. iproute2 tctiny variant의 `lib/libnetlink.c:152–157`은 libmnl 없이 `nl_dump_ext_ack()`를 0 반환 stub으로 빌드한다. 따라서 상세 오류 설명이 빠질 수 있으나 forwarding 실패를 뜻하지는 않는다. stripped package와 r37·r36의 `/usr/sbin/bridge` SHA256은 모두 `ab7cf214c20a942fe346fee83cc1de12cc3618e003d2fd10d2a23e6166f64ce8`로 동일하다. 새 바이너리 회귀가 아니라 기존 진단 기능 제한으로 기록한다. PPTP packed-member 경고는 이미지에 없는 `ppp-mod-pptp`에 해당하며, 설치된 기본 PPP와 구분한다. 이 후속 문서는 r37 태그·이미지·첨부 파일을 변경하지 않는다.
+
 ## 최신 공식 패치 재조회
 
 2026-09-26 재조회에서 r33의 앞선 검토 이후 새로 적용할 stop/reset·RRO teardown·MCU timeout 수정은 확인하지 못했다.
