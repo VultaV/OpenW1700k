@@ -1,0 +1,4657 @@
+{
+  "status": "FRESH_CONNECTION_PAIRED_CONTROL_MEASURED",
+  "clock_sample_count": 20,
+  "same_station_and_link_identity_across_four_snapshots": true,
+  "same_associated_at_timestamp_across_four_snapshots": true,
+  "clock_constant_offset_consistent": true,
+  "clock_intersection_width_ms": 16.491174697875977,
+  "trials": [
+    {
+      "label": "fresh-start-closed-60",
+      "receiver_mbps": 1497.212770233853,
+      "min_interval_mbps": 71.54585017335135,
+      "max_interval_mbps": 2001.9534007237937,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "panel": "closed",
+      "router_unchanged": true,
+      "wired_checks_all_normal": true,
+      "start_end_link_bitmap": "0x6",
+      "data_start_bracket_width_seconds": 0.6477138996124268,
+      "association_age_at_precheck_seconds": 18,
+      "arm_to_client_launch_seconds": 5.6595680713653564,
+      "source_log_sha256": "cacd1c529af563fe93cafaf5bf0a7354a72bca119fc421d9b1daa25ed035b944",
+      "reader_drop_notice_count": 0,
+      "complete_log_scan_call_pairs": 46,
+      "capture_boundary_unmatched_calls": {
+        "unmatched_enters": 0,
+        "unmatched_exits": 0
+      },
+      "wifi_settings_scan_requests_relative_bounds": [],
+      "scan_calls_overlapping_traffic": [
+        {
+          "start_bounds": [
+            -0.9828300476074219,
+            -0.33411622047424316
+          ],
+          "end_bounds": [
+            -0.6108300685882568,
+            0.037883758544921875
+          ],
+          "call_elapsed_seconds": 0.37199997901916504
+        },
+        {
+          "start_bounds": [
+            -0.6098299026489258,
+            0.03888392448425293
+          ],
+          "end_bounds": [
+            -0.043829917907714844,
+            0.6048839092254639
+          ],
+          "call_elapsed_seconds": 0.5659999847412109
+        },
+        {
+          "start_bounds": [
+            -0.043829917907714844,
+            0.6048839092254639
+          ],
+          "end_bounds": [
+            0.4851698875427246,
+            1.1338837146759033
+          ],
+          "call_elapsed_seconds": 0.5289998054504395
+        },
+        {
+          "start_bounds": [
+            0.4851698875427246,
+            1.1338837146759033
+          ],
+          "end_bounds": [
+            1.035170078277588,
+            1.6838839054107666
+          ],
+          "call_elapsed_seconds": 0.5500001907348633
+        },
+        {
+          "start_bounds": [
+            1.035170078277588,
+            1.6838839054107666
+          ],
+          "end_bounds": [
+            1.4121699333190918,
+            2.0608837604522705
+          ],
+          "call_elapsed_seconds": 0.3769998550415039
+        },
+        {
+          "start_bounds": [
+            1.4131700992584229,
+            2.0618839263916016
+          ],
+          "end_bounds": [
+            1.7981700897216797,
+            2.4468839168548584
+          ],
+          "call_elapsed_seconds": 0.38499999046325684
+        },
+        {
+          "start_bounds": [
+            1.7981700897216797,
+            2.4468839168548584
+          ],
+          "end_bounds": [
+            2.1781699657440186,
+            2.8268837928771973
+          ],
+          "call_elapsed_seconds": 0.37999987602233887
+        },
+        {
+          "start_bounds": [
+            2.1791698932647705,
+            2.827883720397949
+          ],
+          "end_bounds": [
+            2.5641698837280273,
+            3.212883710861206
+          ],
+          "call_elapsed_seconds": 0.38499999046325684
+        },
+        {
+          "start_bounds": [
+            2.5651700496673584,
+            3.213883876800537
+          ],
+          "end_bounds": [
+            2.9481699466705322,
+            3.596883773803711
+          ],
+          "call_elapsed_seconds": 0.38299989700317383
+        },
+        {
+          "start_bounds": [
+            2.9491701126098633,
+            3.597883939743042
+          ],
+          "end_bounds": [
+            3.326169967651367,
+            3.974883794784546
+          ],
+          "call_elapsed_seconds": 0.3769998550415039
+        },
+        {
+          "start_bounds": [
+            3.327169895172119,
+            3.975883722305298
+          ],
+          "end_bounds": [
+            3.702169895172119,
+            4.350883722305298
+          ],
+          "call_elapsed_seconds": 0.375
+        },
+        {
+          "start_bounds": [
+            3.702169895172119,
+            4.350883722305298
+          ],
+          "end_bounds": [
+            4.081170082092285,
+            4.729883909225464
+          ],
+          "call_elapsed_seconds": 0.379000186920166
+        },
+        {
+          "start_bounds": [
+            4.083169937133789,
+            4.731883764266968
+          ],
+          "end_bounds": [
+            4.462169885635376,
+            5.110883712768555
+          ],
+          "call_elapsed_seconds": 0.3789999485015869
+        },
+        {
+          "start_bounds": [
+            4.463170051574707,
+            5.111883878707886
+          ],
+          "end_bounds": [
+            4.851170063018799,
+            5.4998838901519775
+          ],
+          "call_elapsed_seconds": 0.3880000114440918
+        },
+        {
+          "start_bounds": [
+            4.851170063018799,
+            5.4998838901519775
+          ],
+          "end_bounds": [
+            5.234169960021973,
+            5.882883787155151
+          ],
+          "call_elapsed_seconds": 0.38299989700317383
+        },
+        {
+          "start_bounds": [
+            5.235169887542725,
+            5.883883714675903
+          ],
+          "end_bounds": [
+            5.753170013427734,
+            6.401883840560913
+          ],
+          "call_elapsed_seconds": 0.5180001258850098
+        },
+        {
+          "start_bounds": [
+            5.754169940948486,
+            6.402883768081665
+          ],
+          "end_bounds": [
+            6.287169933319092,
+            6.9358837604522705
+          ],
+          "call_elapsed_seconds": 0.5329999923706055
+        },
+        {
+          "start_bounds": [
+            6.287169933319092,
+            6.9358837604522705
+          ],
+          "end_bounds": [
+            6.862169981002808,
+            7.510883808135986
+          ],
+          "call_elapsed_seconds": 0.5750000476837158
+        },
+        {
+          "start_bounds": [
+            6.86316990852356,
+            7.511883735656738
+          ],
+          "end_bounds": [
+            7.408169984817505,
+            8.056883811950684
+          ],
+          "call_elapsed_seconds": 0.5450000762939453
+        },
+        {
+          "start_bounds": [
+            7.409169912338257,
+            8.057883739471436
+          ],
+          "end_bounds": [
+            7.785170078277588,
+            8.433883905410767
+          ],
+          "call_elapsed_seconds": 0.37600016593933105
+        },
+        {
+          "start_bounds": [
+            7.785170078277588,
+            8.433883905410767
+          ],
+          "end_bounds": [
+            8.168169975280762,
+            8.81688380241394
+          ],
+          "call_elapsed_seconds": 0.38299989700317383
+        },
+        {
+          "start_bounds": [
+            8.169169902801514,
+            8.817883729934692
+          ],
+          "end_bounds": [
+            8.556169986724854,
+            9.204883813858032
+          ],
+          "call_elapsed_seconds": 0.38700008392333984
+        },
+        {
+          "start_bounds": [
+            8.556169986724854,
+            9.204883813858032
+          ],
+          "end_bounds": [
+            8.943170070648193,
+            9.591883897781372
+          ],
+          "call_elapsed_seconds": 0.38700008392333984
+        },
+        {
+          "start_bounds": [
+            8.943170070648193,
+            9.591883897781372
+          ],
+          "end_bounds": [
+            9.095170021057129,
+            9.743883848190308
+          ],
+          "call_elapsed_seconds": 0.15199995040893555
+        }
+      ],
+      "server_tcp_intervals": [
+        {
+          "stream": 5,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 31,
+          "cwnd_bytes": 985088.0
+        },
+        {
+          "stream": 8,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 0,
+          "cwnd_bytes": 367616.0
+        },
+        {
+          "stream": 10,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 3,
+          "cwnd_bytes": 121856.0
+        },
+        {
+          "stream": 12,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 0,
+          "cwnd_bytes": 363520.0
+        },
+        {
+          "stream": 5,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 173,
+          "cwnd_bytes": 733184.0
+        },
+        {
+          "stream": 8,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 17,
+          "cwnd_bytes": 296960.0
+        },
+        {
+          "stream": 10,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 31,
+          "cwnd_bytes": 107520.0
+        },
+        {
+          "stream": 12,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 20,
+          "cwnd_bytes": 716800.0
+        },
+        {
+          "stream": 5,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 807936.0
+        },
+        {
+          "stream": 8,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 301056.0
+        },
+        {
+          "stream": 10,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 122880.0
+        },
+        {
+          "stream": 12,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 790528.0
+        },
+        {
+          "stream": 5,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 7,
+          "cwnd_bytes": 625664.0
+        },
+        {
+          "stream": 8,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 18,
+          "cwnd_bytes": 231424.0
+        },
+        {
+          "stream": 10,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 0,
+          "cwnd_bytes": 136192.0
+        },
+        {
+          "stream": 12,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 4,
+          "cwnd_bytes": 612352.0
+        },
+        {
+          "stream": 5,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 0,
+          "cwnd_bytes": 668672.0
+        },
+        {
+          "stream": 8,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 17,
+          "cwnd_bytes": 186368.0
+        },
+        {
+          "stream": 10,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 0,
+          "cwnd_bytes": 139264.0
+        },
+        {
+          "stream": 12,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 5,
+          "cwnd_bytes": 649216.0
+        },
+        {
+          "stream": 5,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 705536.0
+        },
+        {
+          "stream": 8,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 1,
+          "cwnd_bytes": 285696.0
+        },
+        {
+          "stream": 10,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 143360.0
+        },
+        {
+          "stream": 12,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 658432.0
+        },
+        {
+          "stream": 5,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 42,
+          "cwnd_bytes": 520192.0
+        },
+        {
+          "stream": 8,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 24,
+          "cwnd_bytes": 492544.0
+        },
+        {
+          "stream": 10,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 8,
+          "cwnd_bytes": 119808.0
+        },
+        {
+          "stream": 12,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 27,
+          "cwnd_bytes": 500736.0
+        },
+        {
+          "stream": 5,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 563200.0
+        },
+        {
+          "stream": 8,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 560128.0
+        },
+        {
+          "stream": 10,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 147456.0
+        },
+        {
+          "stream": 12,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 570368.0
+        },
+        {
+          "stream": 5,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 140,
+          "cwnd_bytes": 418816.0
+        },
+        {
+          "stream": 8,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 205,
+          "cwnd_bytes": 192512.0
+        },
+        {
+          "stream": 10,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 30,
+          "cwnd_bytes": 112640.0
+        },
+        {
+          "stream": 12,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 0,
+          "cwnd_bytes": 609280.0
+        },
+        {
+          "stream": 5,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 450560.0
+        },
+        {
+          "stream": 8,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 286720.0
+        },
+        {
+          "stream": 10,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 124928.0
+        },
+        {
+          "stream": 12,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 641024.0
+        },
+        {
+          "stream": 5,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 0,
+          "cwnd_bytes": 471040.0
+        },
+        {
+          "stream": 8,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 34,
+          "cwnd_bytes": 245760.0
+        },
+        {
+          "stream": 10,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 0,
+          "cwnd_bytes": 126976.0
+        },
+        {
+          "stream": 12,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 36,
+          "cwnd_bytes": 392192.0
+        },
+        {
+          "stream": 5,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 0,
+          "cwnd_bytes": 480256.0
+        },
+        {
+          "stream": 8,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 0,
+          "cwnd_bytes": 273408.0
+        },
+        {
+          "stream": 10,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 0,
+          "cwnd_bytes": 153600.0
+        },
+        {
+          "stream": 12,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 0,
+          "cwnd_bytes": 352256.0
+        },
+        {
+          "stream": 5,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 485376.0
+        },
+        {
+          "stream": 8,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 297984.0
+        },
+        {
+          "stream": 10,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 182272.0
+        },
+        {
+          "stream": 12,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 374784.0
+        },
+        {
+          "stream": 5,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 495616.0
+        },
+        {
+          "stream": 8,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 321536.0
+        },
+        {
+          "stream": 10,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 206848.0
+        },
+        {
+          "stream": 12,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 399360.0
+        },
+        {
+          "stream": 5,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 0,
+          "cwnd_bytes": 555008.0
+        },
+        {
+          "stream": 8,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 1,
+          "cwnd_bytes": 285696.0
+        },
+        {
+          "stream": 10,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 0,
+          "cwnd_bytes": 268288.0
+        },
+        {
+          "stream": 12,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 89,
+          "cwnd_bytes": 343040.0
+        },
+        {
+          "stream": 5,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 635904.0
+        },
+        {
+          "stream": 8,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 369664.0
+        },
+        {
+          "stream": 10,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 353280.0
+        },
+        {
+          "stream": 12,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 437248.0
+        },
+        {
+          "stream": 5,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 707584.0
+        },
+        {
+          "stream": 8,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 444416.0
+        },
+        {
+          "stream": 10,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 430080.0
+        },
+        {
+          "stream": 12,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 524288.0
+        },
+        {
+          "stream": 5,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 775168.0
+        },
+        {
+          "stream": 8,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 514048.0
+        },
+        {
+          "stream": 10,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 499712.0
+        },
+        {
+          "stream": 12,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 601088.0
+        },
+        {
+          "stream": 5,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 833536.0
+        },
+        {
+          "stream": 8,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 1,
+          "cwnd_bytes": 574464.0
+        },
+        {
+          "stream": 10,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 562176.0
+        },
+        {
+          "stream": 12,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 674816.0
+        },
+        {
+          "stream": 5,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 888832.0
+        },
+        {
+          "stream": 8,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 631808.0
+        },
+        {
+          "stream": 10,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 622592.0
+        },
+        {
+          "stream": 12,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 741376.0
+        },
+        {
+          "stream": 5,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 1,
+          "cwnd_bytes": 934912.0
+        },
+        {
+          "stream": 8,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 0,
+          "cwnd_bytes": 685056.0
+        },
+        {
+          "stream": 10,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 1,
+          "cwnd_bytes": 674816.0
+        },
+        {
+          "stream": 12,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 4,
+          "cwnd_bytes": 801792.0
+        },
+        {
+          "stream": 5,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 985088.0
+        },
+        {
+          "stream": 8,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 737280.0
+        },
+        {
+          "stream": 10,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 724992.0
+        },
+        {
+          "stream": 12,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 864256.0
+        },
+        {
+          "stream": 5,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 1,
+          "cwnd_bytes": 1027072.0
+        },
+        {
+          "stream": 8,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 784384.0
+        },
+        {
+          "stream": 10,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 773120.0
+        },
+        {
+          "stream": 12,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 922624.0
+        },
+        {
+          "stream": 5,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1069547.52
+        },
+        {
+          "stream": 8,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 831488.0
+        },
+        {
+          "stream": 10,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 1,
+          "cwnd_bytes": 817152.0
+        },
+        {
+          "stream": 12,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 978944.0
+        },
+        {
+          "stream": 5,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1111490.56
+        },
+        {
+          "stream": 8,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 876544.0
+        },
+        {
+          "stream": 10,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 859136.0
+        },
+        {
+          "stream": 12,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1032192.0
+        },
+        {
+          "stream": 5,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1142947.84
+        },
+        {
+          "stream": 8,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 918528.0
+        },
+        {
+          "stream": 10,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 2,
+          "cwnd_bytes": 899072.0
+        },
+        {
+          "stream": 12,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1080033.28
+        },
+        {
+          "stream": 5,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1184890.88
+        },
+        {
+          "stream": 8,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 957440.0
+        },
+        {
+          "stream": 10,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 937984.0
+        },
+        {
+          "stream": 12,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1132462.08
+        },
+        {
+          "stream": 5,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1216348.16
+        },
+        {
+          "stream": 8,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1020928.0
+        },
+        {
+          "stream": 10,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 0,
+          "cwnd_bytes": 976896.0
+        },
+        {
+          "stream": 12,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1184890.88
+        },
+        {
+          "stream": 5,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1247805.44
+        },
+        {
+          "stream": 8,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1184890.88
+        },
+        {
+          "stream": 10,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1011712.0
+        },
+        {
+          "stream": 12,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1226833.92
+        },
+        {
+          "stream": 5,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1289748.48
+        },
+        {
+          "stream": 8,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1394606.08
+        },
+        {
+          "stream": 10,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1046528.0
+        },
+        {
+          "stream": 12,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1279262.72
+        },
+        {
+          "stream": 5,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1394606.08
+        },
+        {
+          "stream": 8,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1635778.56
+        },
+        {
+          "stream": 10,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1080033.28
+        },
+        {
+          "stream": 12,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1405091.84
+        },
+        {
+          "stream": 5,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1551892.48
+        },
+        {
+          "stream": 8,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1908408.32
+        },
+        {
+          "stream": 10,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1111490.56
+        },
+        {
+          "stream": 12,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 31,
+          "cwnd_bytes": 1583349.76
+        },
+        {
+          "stream": 5,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1740636.16
+        },
+        {
+          "stream": 8,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2243952.64
+        },
+        {
+          "stream": 10,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1132462.08
+        },
+        {
+          "stream": 12,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1614807.04
+        },
+        {
+          "stream": 5,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1971322.88
+        },
+        {
+          "stream": 8,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2631925.76
+        },
+        {
+          "stream": 10,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1237319.68
+        },
+        {
+          "stream": 12,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1646264.32
+        },
+        {
+          "stream": 5,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2233466.88
+        },
+        {
+          "stream": 8,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 1,
+          "cwnd_bytes": 2799697.92
+        },
+        {
+          "stream": 10,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1373634.56
+        },
+        {
+          "stream": 12,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1677721.6
+        },
+        {
+          "stream": 5,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2548039.68
+        },
+        {
+          "stream": 8,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2820669.44
+        },
+        {
+          "stream": 10,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1551892.48
+        },
+        {
+          "stream": 12,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1709178.88
+        },
+        {
+          "stream": 5,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2904555.52
+        },
+        {
+          "stream": 8,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2841640.96
+        },
+        {
+          "stream": 10,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1751121.92
+        },
+        {
+          "stream": 12,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1730150.4
+        },
+        {
+          "stream": 5,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3313500.16
+        },
+        {
+          "stream": 8,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2852126.72
+        },
+        {
+          "stream": 10,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2013265.92
+        },
+        {
+          "stream": 12,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1761607.68
+        },
+        {
+          "stream": 5,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3743416.32
+        },
+        {
+          "stream": 8,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2862612.48
+        },
+        {
+          "stream": 10,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2296381.44
+        },
+        {
+          "stream": 12,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1782579.2
+        },
+        {
+          "stream": 5,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4099932.16
+        },
+        {
+          "stream": 8,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2894069.76
+        },
+        {
+          "stream": 10,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2642411.52
+        },
+        {
+          "stream": 12,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1887436.8
+        },
+        {
+          "stream": 5,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 313,
+          "cwnd_bytes": 2967470.08
+        },
+        {
+          "stream": 8,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 205,
+          "cwnd_bytes": 2128609.28
+        },
+        {
+          "stream": 10,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 133,
+          "cwnd_bytes": 2076180.48
+        },
+        {
+          "stream": 12,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 88,
+          "cwnd_bytes": 1436549.12
+        },
+        {
+          "stream": 5,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3229614.08
+        },
+        {
+          "stream": 8,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2327838.72
+        },
+        {
+          "stream": 10,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 12,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1583349.76
+        },
+        {
+          "stream": 5,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3428843.52
+        },
+        {
+          "stream": 8,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2474639.36
+        },
+        {
+          "stream": 10,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2411724.8
+        },
+        {
+          "stream": 12,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1688207.36
+        },
+        {
+          "stream": 5,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3607101.44
+        },
+        {
+          "stream": 8,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2610954.24
+        },
+        {
+          "stream": 10,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2548039.68
+        },
+        {
+          "stream": 12,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1782579.2
+        },
+        {
+          "stream": 5,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 62,
+          "cwnd_bytes": 2621440.0
+        },
+        {
+          "stream": 8,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2715811.84
+        },
+        {
+          "stream": 10,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 18,
+          "cwnd_bytes": 1855979.52
+        },
+        {
+          "stream": 12,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1845493.76
+        },
+        {
+          "stream": 5,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2768240.64
+        },
+        {
+          "stream": 8,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2789212.16
+        },
+        {
+          "stream": 10,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1971322.88
+        },
+        {
+          "stream": 12,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1897922.56
+        },
+        {
+          "stream": 5,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2894069.76
+        },
+        {
+          "stream": 8,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2841640.96
+        },
+        {
+          "stream": 10,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2065694.72
+        },
+        {
+          "stream": 12,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1929379.84
+        },
+        {
+          "stream": 5,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2977955.84
+        },
+        {
+          "stream": 8,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2883584.0
+        },
+        {
+          "stream": 10,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2128609.28
+        },
+        {
+          "stream": 12,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1939865.6
+        },
+        {
+          "stream": 5,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3051356.16
+        },
+        {
+          "stream": 8,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2904555.52
+        },
+        {
+          "stream": 10,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2170552.32
+        },
+        {
+          "stream": 12,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1950351.36
+        },
+        {
+          "stream": 5,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3093299.2
+        },
+        {
+          "stream": 8,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2915041.28
+        },
+        {
+          "stream": 10,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2202009.6
+        },
+        {
+          "stream": 12,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1950351.36
+        },
+        {
+          "stream": 5,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3124756.48
+        },
+        {
+          "stream": 8,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2925527.04
+        },
+        {
+          "stream": 10,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2222981.12
+        },
+        {
+          "stream": 12,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1950351.36
+        },
+        {
+          "stream": 5,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3145728.0
+        },
+        {
+          "stream": 8,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2925527.04
+        },
+        {
+          "stream": 10,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2222981.12
+        },
+        {
+          "stream": 12,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1950351.36
+        },
+        {
+          "stream": 5,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3156213.76
+        },
+        {
+          "stream": 8,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2925527.04
+        },
+        {
+          "stream": 10,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2222981.12
+        },
+        {
+          "stream": 12,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1960837.12
+        },
+        {
+          "stream": 5,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3156213.76
+        },
+        {
+          "stream": 8,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2925527.04
+        },
+        {
+          "stream": 10,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2222981.12
+        },
+        {
+          "stream": 12,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1971322.88
+        },
+        {
+          "stream": 5,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3156213.76
+        },
+        {
+          "stream": 8,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2936012.8
+        },
+        {
+          "stream": 10,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2233466.88
+        },
+        {
+          "stream": 12,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2002780.16
+        },
+        {
+          "stream": 5,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3156213.76
+        },
+        {
+          "stream": 8,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2956984.32
+        },
+        {
+          "stream": 10,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2233466.88
+        },
+        {
+          "stream": 12,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2044723.2
+        },
+        {
+          "stream": 5,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 376,
+          "cwnd_bytes": 2338324.48
+        },
+        {
+          "stream": 8,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 144,
+          "cwnd_bytes": 2202009.6
+        },
+        {
+          "stream": 10,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 135,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 12,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2097152.0
+        },
+        {
+          "stream": 5,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2537553.92
+        },
+        {
+          "stream": 8,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2390753.28
+        },
+        {
+          "stream": 10,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1824522.24
+        },
+        {
+          "stream": 12,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 26,
+          "cwnd_bytes": 2149580.8
+        },
+        {
+          "stream": 5,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2705326.08
+        },
+        {
+          "stream": 8,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2548039.68
+        },
+        {
+          "stream": 10,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1950351.36
+        },
+        {
+          "stream": 12,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2170552.32
+        },
+        {
+          "stream": 5,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2841640.96
+        },
+        {
+          "stream": 8,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2673868.8
+        },
+        {
+          "stream": 10,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2044723.2
+        },
+        {
+          "stream": 12,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2191523.84
+        },
+        {
+          "stream": 5,
+          "start": 60.0,
+          "end": 60.04,
+          "retransmits": 0,
+          "cwnd_bytes": 2841640.96
+        },
+        {
+          "stream": 8,
+          "start": 60.0,
+          "end": 60.04,
+          "retransmits": 0,
+          "cwnd_bytes": 2673868.8
+        },
+        {
+          "stream": 10,
+          "start": 60.0,
+          "end": 60.04,
+          "retransmits": 0,
+          "cwnd_bytes": 2055208.96
+        },
+        {
+          "stream": 12,
+          "start": 60.0,
+          "end": 60.04,
+          "retransmits": 0,
+          "cwnd_bytes": 2202009.6
+        }
+      ],
+      "receiver_intervals": [
+        {
+          "start": 0,
+          "end": 1.004782,
+          "mbps": 421.6085879890251,
+          "possible_scan_call_overlap": 4,
+          "possible_target_P_overlap": 64
+        },
+        {
+          "start": 1.004782,
+          "end": 2.005024,
+          "mbps": 586.0121720677583,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 50
+        },
+        {
+          "start": 2.005024,
+          "end": 3.00503,
+          "mbps": 123.73123050439581,
+          "possible_scan_call_overlap": 6,
+          "possible_target_P_overlap": 52
+        },
+        {
+          "start": 3.00503,
+          "end": 4.002896,
+          "mbps": 156.57195247605347,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 24
+        },
+        {
+          "start": 4.002896,
+          "end": 5.005034,
+          "mbps": 110.91192424211094,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 20
+        },
+        {
+          "start": 5.005034,
+          "end": 6.002146,
+          "mbps": 226.096812989068,
+          "possible_scan_call_overlap": 5,
+          "possible_target_P_overlap": 55
+        },
+        {
+          "start": 6.002146,
+          "end": 7.005024,
+          "mbps": 495.5987153459442,
+          "possible_scan_call_overlap": 4,
+          "possible_target_P_overlap": 64
+        },
+        {
+          "start": 7.005024,
+          "end": 8.002897,
+          "mbps": 532.7612106992432,
+          "possible_scan_call_overlap": 4,
+          "possible_target_P_overlap": 26
+        },
+        {
+          "start": 8.002897,
+          "end": 9.001915,
+          "mbps": 90.2661761684508,
+          "possible_scan_call_overlap": 6,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 9.001915,
+          "end": 10.004399,
+          "mbps": 213.3794770678008,
+          "possible_scan_call_overlap": 3,
+          "possible_target_P_overlap": 32
+        },
+        {
+          "start": 10.004399,
+          "end": 11.001007,
+          "mbps": 71.54585017335135,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 78
+        },
+        {
+          "start": 11.001007,
+          "end": 12.000329,
+          "mbps": 331.57482467091603,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 76
+        },
+        {
+          "start": 12.000329,
+          "end": 13.001891,
+          "mbps": 421.9170937859948,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 22
+        },
+        {
+          "start": 13.001891,
+          "end": 14.001876,
+          "mbps": 312.4803415704992,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 14.001876,
+          "end": 15.002958,
+          "mbps": 870.424905420929,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 15.002958,
+          "end": 16.003917,
+          "mbps": 1444.6008758043033,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 16.003917,
+          "end": 17.001961,
+          "mbps": 1560.1870640905472,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 17.001961,
+          "end": 18.000177,
+          "mbps": 1641.85339817303,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 18.000177,
+          "end": 19.005026,
+          "mbps": 1676.930269129413,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 19.005026,
+          "end": 20.003782,
+          "mbps": 1714.4574076584915,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 20.003782,
+          "end": 21.001835,
+          "mbps": 1715.6649832253686,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 21.001835,
+          "end": 22.005017,
+          "mbps": 1766.4724301045821,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 22.005017,
+          "end": 23.00207,
+          "mbps": 1777.3311867474442,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 23.00207,
+          "end": 24.002294,
+          "mbps": 1814.678578423642,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 24.002294,
+          "end": 25.004607,
+          "mbps": 1818.2195138181316,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 25.004607,
+          "end": 26.001687,
+          "mbps": 1807.7808132536163,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 26.001687,
+          "end": 27.005024,
+          "mbps": 1830.9950744853434,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 27.005024,
+          "end": 28.001468,
+          "mbps": 1848.9228258029411,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 28.001468,
+          "end": 29.00502,
+          "mbps": 1867.1731875407377,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 29.00502,
+          "end": 30.005027,
+          "mbps": 1847.577917341396,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 30.005027,
+          "end": 31.00132,
+          "mbps": 1908.14175359054,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 31.00132,
+          "end": 32.005012,
+          "mbps": 1891.9858657088066,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 32.005012,
+          "end": 33.00084,
+          "mbps": 1927.986266975561,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 33.00084,
+          "end": 34.003741,
+          "mbps": 1938.4365807748409,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 34.003741,
+          "end": 35.001996,
+          "mbps": 1976.8696410179946,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 35.001996,
+          "end": 36.00058,
+          "mbps": 1957.3172791834463,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 36.00058,
+          "end": 37.000687,
+          "mbps": 1938.609495965864,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 37.000687,
+          "end": 38.004678,
+          "mbps": 1931.1099491209948,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 38.004678,
+          "end": 39.002745,
+          "mbps": 1967.786537325181,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 39.002745,
+          "end": 40.002967,
+          "mbps": 1996.0456463444875,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 40.002967,
+          "end": 41.002391,
+          "mbps": 1970.3606937621691,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 41.002391,
+          "end": 42.001813,
+          "mbps": 1961.97111230695,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 42.001813,
+          "end": 43.005025,
+          "mbps": 1975.463500430289,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 43.005025,
+          "end": 44.001711,
+          "mbps": 1985.2420403514225,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 44.001711,
+          "end": 45.004328,
+          "mbps": 1972.4524249790575,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 45.004328,
+          "end": 46.002118,
+          "mbps": 1999.8598603263395,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 46.002118,
+          "end": 47.005021,
+          "mbps": 1979.2087554249329,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 47.005021,
+          "end": 48.005029,
+          "mbps": 1979.69567612629,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 48.005029,
+          "end": 49.000906,
+          "mbps": 1958.4258960901564,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 49.000906,
+          "end": 50.00221,
+          "mbps": 1995.9830334098313,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 50.00221,
+          "end": 51.001703,
+          "mbps": 1979.6665972405146,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 51.001703,
+          "end": 52.000701,
+          "mbps": 1947.0594602213775,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 52.000701,
+          "end": 53.004949,
+          "mbps": 1967.1606402901568,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 53.004949,
+          "end": 54.000648,
+          "mbps": 2001.9534007237937,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 54.000648,
+          "end": 55.00171,
+          "mbps": 1949.3296785620187,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 55.00171,
+          "end": 56.001694,
+          "mbps": 1925.2162894912576,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 56.001694,
+          "end": 57.005023,
+          "mbps": 1895.8056537626192,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 57.005023,
+          "end": 58.004665,
+          "mbps": 1919.5812622512794,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 58.004665,
+          "end": 59.00307,
+          "mbps": 1973.4219520625386,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 59.00307,
+          "end": 60.00266,
+          "mbps": 1963.7394451373727,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 1
+        }
+      ],
+      "below_500_bins": 12,
+      "below_500_bins_with_possible_scan_overlap": 8,
+      "target_P_in_guaranteed_traffic": 314,
+      "target_P_gate1": 79,
+      "kernel_emitted_sequence_continuous": true,
+      "kernel_record_count": 1102,
+      "global_event_coverage": {
+        "P": {
+          "observed": 1094,
+          "missing_between_first_last": 273,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "global_P_missing": 273,
+      "sender_retransmits": 2506,
+      "iperf_sha256": "cb08737c46a185440f3b00061f96721a42ac78f549ce864383474aeb957573ea"
+    },
+    {
+      "label": "fresh-settled-closed-60",
+      "receiver_mbps": 1951.5186880782323,
+      "min_interval_mbps": 1823.7397931964642,
+      "max_interval_mbps": 2014.602606619131,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "upload": false,
+      "wired_checks": 77,
+      "status": "passed",
+      "path": "PPE bound fastpath",
+      "panel": "closed",
+      "router_unchanged": true,
+      "wired_checks_all_normal": true,
+      "start_end_link_bitmap": "0x6",
+      "data_start_bracket_width_seconds": 0.5412859916687012,
+      "association_age_at_precheck_seconds": 231,
+      "arm_to_client_launch_seconds": null,
+      "source_log_sha256": "703caec3ec071a944926fcd1f33125b084aea0ec4ed42f0b933ab4623740b70d",
+      "reader_drop_notice_count": 0,
+      "complete_log_scan_call_pairs": 0,
+      "capture_boundary_unmatched_calls": {
+        "unmatched_enters": 0,
+        "unmatched_exits": 0
+      },
+      "wifi_settings_scan_requests_relative_bounds": [],
+      "scan_calls_overlapping_traffic": [],
+      "server_tcp_intervals": [
+        {
+          "stream": 5,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3995074.56
+        },
+        {
+          "stream": 8,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 0,
+          "cwnd_bytes": 884736.0
+        },
+        {
+          "stream": 10,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 8,
+          "cwnd_bytes": 783360.0
+        },
+        {
+          "stream": 12,
+          "start": 0.0,
+          "end": 1.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 19,
+          "cwnd_bytes": 1551892.48
+        },
+        {
+          "stream": 10,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 0,
+          "cwnd_bytes": 811008.0
+        },
+        {
+          "stream": 12,
+          "start": 1.0,
+          "end": 2.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1572864.0
+        },
+        {
+          "stream": 10,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 839680.0
+        },
+        {
+          "stream": 12,
+          "start": 2.0,
+          "end": 3.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1593835.52
+        },
+        {
+          "stream": 10,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 0,
+          "cwnd_bytes": 866304.0
+        },
+        {
+          "stream": 12,
+          "start": 3.0,
+          "end": 4.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1614807.04
+        },
+        {
+          "stream": 10,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 0,
+          "cwnd_bytes": 892928.0
+        },
+        {
+          "stream": 12,
+          "start": 4.0,
+          "end": 5.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1625292.8
+        },
+        {
+          "stream": 10,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 915456.0
+        },
+        {
+          "stream": 12,
+          "start": 5.0,
+          "end": 6.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 5,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1646264.32
+        },
+        {
+          "stream": 10,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 0,
+          "cwnd_bytes": 943104.0
+        },
+        {
+          "stream": 12,
+          "start": 6.0,
+          "end": 7.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1709178.88
+        },
+        {
+          "stream": 10,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1032192.0
+        },
+        {
+          "stream": 12,
+          "start": 7.0,
+          "end": 8.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1793064.96
+        },
+        {
+          "stream": 10,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1153433.6
+        },
+        {
+          "stream": 12,
+          "start": 8.0,
+          "end": 9.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1908408.32
+        },
+        {
+          "stream": 10,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1310720.0
+        },
+        {
+          "stream": 12,
+          "start": 9.0,
+          "end": 10.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4194304.0
+        },
+        {
+          "stream": 8,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2044723.2
+        },
+        {
+          "stream": 10,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1499463.68
+        },
+        {
+          "stream": 12,
+          "start": 10.0,
+          "end": 11.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 61,
+          "cwnd_bytes": 3093299.2
+        },
+        {
+          "stream": 8,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 9,
+          "cwnd_bytes": 1572864.0
+        },
+        {
+          "stream": 10,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1730150.4
+        },
+        {
+          "stream": 12,
+          "start": 11.0,
+          "end": 12.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3334471.68
+        },
+        {
+          "stream": 8,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1719664.64
+        },
+        {
+          "stream": 10,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1992294.4
+        },
+        {
+          "stream": 12,
+          "start": 12.0,
+          "end": 13.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3523215.36
+        },
+        {
+          "stream": 8,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1845493.76
+        },
+        {
+          "stream": 10,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2306867.2
+        },
+        {
+          "stream": 12,
+          "start": 13.0,
+          "end": 14.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4120903.68
+        },
+        {
+          "stream": 5,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 259,
+          "cwnd_bytes": 2600468.48
+        },
+        {
+          "stream": 8,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 78,
+          "cwnd_bytes": 1363148.8
+        },
+        {
+          "stream": 10,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 94,
+          "cwnd_bytes": 1835008.0
+        },
+        {
+          "stream": 12,
+          "start": 14.0,
+          "end": 15.0,
+          "retransmits": 79,
+          "cwnd_bytes": 2977955.84
+        },
+        {
+          "stream": 5,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2747269.12
+        },
+        {
+          "stream": 8,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1457520.64
+        },
+        {
+          "stream": 10,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 1,
+          "cwnd_bytes": 1971322.88
+        },
+        {
+          "stream": 12,
+          "start": 15.0,
+          "end": 16.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3240099.84
+        },
+        {
+          "stream": 5,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2852126.72
+        },
+        {
+          "stream": 8,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1520435.2
+        },
+        {
+          "stream": 10,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1992294.4
+        },
+        {
+          "stream": 12,
+          "start": 16.0,
+          "end": 17.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3449815.04
+        },
+        {
+          "stream": 5,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2936012.8
+        },
+        {
+          "stream": 8,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1562378.24
+        },
+        {
+          "stream": 10,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2013265.92
+        },
+        {
+          "stream": 12,
+          "start": 17.0,
+          "end": 18.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3596615.68
+        },
+        {
+          "stream": 5,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2998927.36
+        },
+        {
+          "stream": 8,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1583349.76
+        },
+        {
+          "stream": 10,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2034237.44
+        },
+        {
+          "stream": 12,
+          "start": 18.0,
+          "end": 19.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3764387.84
+        },
+        {
+          "stream": 5,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3040870.4
+        },
+        {
+          "stream": 8,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1604321.28
+        },
+        {
+          "stream": 10,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2055208.96
+        },
+        {
+          "stream": 12,
+          "start": 19.0,
+          "end": 20.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3879731.2
+        },
+        {
+          "stream": 5,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3061841.92
+        },
+        {
+          "stream": 8,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1614807.04
+        },
+        {
+          "stream": 10,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2076180.48
+        },
+        {
+          "stream": 12,
+          "start": 20.0,
+          "end": 21.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3942645.76
+        },
+        {
+          "stream": 5,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3082813.44
+        },
+        {
+          "stream": 8,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1614807.04
+        },
+        {
+          "stream": 10,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2097152.0
+        },
+        {
+          "stream": 12,
+          "start": 21.0,
+          "end": 22.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3995074.56
+        },
+        {
+          "stream": 5,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3082813.44
+        },
+        {
+          "stream": 8,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1614807.04
+        },
+        {
+          "stream": 10,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2181038.08
+        },
+        {
+          "stream": 12,
+          "start": 22.0,
+          "end": 23.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3995074.56
+        },
+        {
+          "stream": 5,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3093299.2
+        },
+        {
+          "stream": 8,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1614807.04
+        },
+        {
+          "stream": 10,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2285895.68
+        },
+        {
+          "stream": 12,
+          "start": 23.0,
+          "end": 24.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4047503.36
+        },
+        {
+          "stream": 5,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 126,
+          "cwnd_bytes": 2327838.72
+        },
+        {
+          "stream": 8,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1625292.8
+        },
+        {
+          "stream": 10,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2411724.8
+        },
+        {
+          "stream": 12,
+          "start": 24.0,
+          "end": 25.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4068474.88
+        },
+        {
+          "stream": 5,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2527068.16
+        },
+        {
+          "stream": 8,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1635778.56
+        },
+        {
+          "stream": 10,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2579496.96
+        },
+        {
+          "stream": 12,
+          "start": 25.0,
+          "end": 26.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4068474.88
+        },
+        {
+          "stream": 5,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2673868.8
+        },
+        {
+          "stream": 8,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 10,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2778726.4
+        },
+        {
+          "stream": 12,
+          "start": 26.0,
+          "end": 27.0,
+          "retransmits": 0,
+          "cwnd_bytes": 4068474.88
+        },
+        {
+          "stream": 5,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 13,
+          "cwnd_bytes": 1981808.64
+        },
+        {
+          "stream": 8,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 68,
+          "cwnd_bytes": 1289748.48
+        },
+        {
+          "stream": 10,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3019898.88
+        },
+        {
+          "stream": 12,
+          "start": 27.0,
+          "end": 28.0,
+          "retransmits": 107,
+          "cwnd_bytes": 2998927.36
+        },
+        {
+          "stream": 5,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2086666.24
+        },
+        {
+          "stream": 8,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1415577.6
+        },
+        {
+          "stream": 10,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3303014.4
+        },
+        {
+          "stream": 12,
+          "start": 28.0,
+          "end": 29.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3124756.48
+        },
+        {
+          "stream": 5,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2160066.56
+        },
+        {
+          "stream": 8,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1499463.68
+        },
+        {
+          "stream": 10,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 12,
+          "cwnd_bytes": 2506096.64
+        },
+        {
+          "stream": 12,
+          "start": 29.0,
+          "end": 30.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3229614.08
+        },
+        {
+          "stream": 5,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2212495.36
+        },
+        {
+          "stream": 8,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1562378.24
+        },
+        {
+          "stream": 10,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2747269.12
+        },
+        {
+          "stream": 12,
+          "start": 30.0,
+          "end": 31.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3313500.16
+        },
+        {
+          "stream": 5,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2243952.64
+        },
+        {
+          "stream": 8,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1604321.28
+        },
+        {
+          "stream": 10,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2936012.8
+        },
+        {
+          "stream": 12,
+          "start": 31.0,
+          "end": 32.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3365928.96
+        },
+        {
+          "stream": 5,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 8,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1635778.56
+        },
+        {
+          "stream": 10,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3093299.2
+        },
+        {
+          "stream": 12,
+          "start": 32.0,
+          "end": 33.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3407872.0
+        },
+        {
+          "stream": 5,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2275409.92
+        },
+        {
+          "stream": 8,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1656750.08
+        },
+        {
+          "stream": 10,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3219128.32
+        },
+        {
+          "stream": 12,
+          "start": 33.0,
+          "end": 34.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3439329.28
+        },
+        {
+          "stream": 5,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2275409.92
+        },
+        {
+          "stream": 8,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 10,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 24,
+          "cwnd_bytes": 3240099.84
+        },
+        {
+          "stream": 12,
+          "start": 34.0,
+          "end": 35.0,
+          "retransmits": 231,
+          "cwnd_bytes": 2537553.92
+        },
+        {
+          "stream": 5,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2275409.92
+        },
+        {
+          "stream": 8,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 10,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3250585.6
+        },
+        {
+          "stream": 12,
+          "start": 35.0,
+          "end": 36.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2652897.28
+        },
+        {
+          "stream": 5,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2275409.92
+        },
+        {
+          "stream": 8,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 10,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3261071.36
+        },
+        {
+          "stream": 12,
+          "start": 36.0,
+          "end": 37.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2747269.12
+        },
+        {
+          "stream": 5,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2285895.68
+        },
+        {
+          "stream": 8,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 10,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3282042.88
+        },
+        {
+          "stream": 12,
+          "start": 37.0,
+          "end": 38.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2810183.68
+        },
+        {
+          "stream": 5,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2296381.44
+        },
+        {
+          "stream": 8,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1667235.84
+        },
+        {
+          "stream": 10,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3292528.64
+        },
+        {
+          "stream": 12,
+          "start": 38.0,
+          "end": 39.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2862612.48
+        },
+        {
+          "stream": 5,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2317352.96
+        },
+        {
+          "stream": 8,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1688207.36
+        },
+        {
+          "stream": 10,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3344957.44
+        },
+        {
+          "stream": 12,
+          "start": 39.0,
+          "end": 40.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2894069.76
+        },
+        {
+          "stream": 5,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 35,
+          "cwnd_bytes": 1761607.68
+        },
+        {
+          "stream": 8,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1709178.88
+        },
+        {
+          "stream": 10,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3407872.0
+        },
+        {
+          "stream": 12,
+          "start": 40.0,
+          "end": 41.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2915041.28
+        },
+        {
+          "stream": 5,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1918894.08
+        },
+        {
+          "stream": 8,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1751121.92
+        },
+        {
+          "stream": 10,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3491758.08
+        },
+        {
+          "stream": 12,
+          "start": 41.0,
+          "end": 42.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2915041.28
+        },
+        {
+          "stream": 5,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2044723.2
+        },
+        {
+          "stream": 8,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1814036.48
+        },
+        {
+          "stream": 10,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3638558.72
+        },
+        {
+          "stream": 12,
+          "start": 42.0,
+          "end": 43.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2925527.04
+        },
+        {
+          "stream": 5,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 5,
+          "cwnd_bytes": 1499463.68
+        },
+        {
+          "stream": 8,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1897922.56
+        },
+        {
+          "stream": 10,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 5,
+          "cwnd_bytes": 2663383.04
+        },
+        {
+          "stream": 12,
+          "start": 43.0,
+          "end": 44.0,
+          "retransmits": 5,
+          "cwnd_bytes": 2065694.72
+        },
+        {
+          "stream": 5,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1593835.52
+        },
+        {
+          "stream": 8,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2002780.16
+        },
+        {
+          "stream": 10,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2904555.52
+        },
+        {
+          "stream": 12,
+          "start": 44.0,
+          "end": 45.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2275409.92
+        },
+        {
+          "stream": 5,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1677721.6
+        },
+        {
+          "stream": 8,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2139095.04
+        },
+        {
+          "stream": 10,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3103784.96
+        },
+        {
+          "stream": 12,
+          "start": 45.0,
+          "end": 46.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2443182.08
+        },
+        {
+          "stream": 5,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1730150.4
+        },
+        {
+          "stream": 8,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2306867.2
+        },
+        {
+          "stream": 10,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3282042.88
+        },
+        {
+          "stream": 12,
+          "start": 46.0,
+          "end": 47.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2579496.96
+        },
+        {
+          "stream": 5,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 29,
+          "cwnd_bytes": 1247805.44
+        },
+        {
+          "stream": 8,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2506096.64
+        },
+        {
+          "stream": 10,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3407872.0
+        },
+        {
+          "stream": 12,
+          "start": 47.0,
+          "end": 48.0,
+          "retransmits": 29,
+          "cwnd_bytes": 1897922.56
+        },
+        {
+          "stream": 5,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1342177.28
+        },
+        {
+          "stream": 8,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2757754.88
+        },
+        {
+          "stream": 10,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3512729.6
+        },
+        {
+          "stream": 12,
+          "start": 48.0,
+          "end": 49.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2002780.16
+        },
+        {
+          "stream": 5,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1394606.08
+        },
+        {
+          "stream": 8,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3051356.16
+        },
+        {
+          "stream": 10,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3607101.44
+        },
+        {
+          "stream": 12,
+          "start": 49.0,
+          "end": 50.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2097152.0
+        },
+        {
+          "stream": 5,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1447034.88
+        },
+        {
+          "stream": 8,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3355443.2
+        },
+        {
+          "stream": 10,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3670016.0
+        },
+        {
+          "stream": 12,
+          "start": 50.0,
+          "end": 51.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2160066.56
+        },
+        {
+          "stream": 5,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1468006.4
+        },
+        {
+          "stream": 8,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3764387.84
+        },
+        {
+          "stream": 10,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3711959.04
+        },
+        {
+          "stream": 12,
+          "start": 51.0,
+          "end": 52.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2202009.6
+        },
+        {
+          "stream": 5,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 164,
+          "cwnd_bytes": 1080033.28
+        },
+        {
+          "stream": 8,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 267,
+          "cwnd_bytes": 2841640.96
+        },
+        {
+          "stream": 10,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 231,
+          "cwnd_bytes": 2684354.56
+        },
+        {
+          "stream": 12,
+          "start": 52.0,
+          "end": 53.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2233466.88
+        },
+        {
+          "stream": 5,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1153433.6
+        },
+        {
+          "stream": 8,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3072327.68
+        },
+        {
+          "stream": 10,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2831155.2
+        },
+        {
+          "stream": 12,
+          "start": 53.0,
+          "end": 54.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2254438.4
+        },
+        {
+          "stream": 5,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1195376.64
+        },
+        {
+          "stream": 8,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3271557.12
+        },
+        {
+          "stream": 10,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2936012.8
+        },
+        {
+          "stream": 12,
+          "start": 54.0,
+          "end": 55.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 5,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1226833.92
+        },
+        {
+          "stream": 8,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3428843.52
+        },
+        {
+          "stream": 10,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3019898.88
+        },
+        {
+          "stream": 12,
+          "start": 55.0,
+          "end": 56.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 5,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1247805.44
+        },
+        {
+          "stream": 8,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3554672.64
+        },
+        {
+          "stream": 10,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3072327.68
+        },
+        {
+          "stream": 12,
+          "start": 56.0,
+          "end": 57.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 5,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1258291.2
+        },
+        {
+          "stream": 8,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3659530.24
+        },
+        {
+          "stream": 10,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3114270.72
+        },
+        {
+          "stream": 12,
+          "start": 57.0,
+          "end": 58.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 5,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1258291.2
+        },
+        {
+          "stream": 8,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3732930.56
+        },
+        {
+          "stream": 10,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3145728.0
+        },
+        {
+          "stream": 12,
+          "start": 58.0,
+          "end": 59.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2264924.16
+        },
+        {
+          "stream": 5,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 1258291.2
+        },
+        {
+          "stream": 8,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3785359.36
+        },
+        {
+          "stream": 10,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 3156213.76
+        },
+        {
+          "stream": 12,
+          "start": 59.0,
+          "end": 60.0,
+          "retransmits": 0,
+          "cwnd_bytes": 2285895.68
+        },
+        {
+          "stream": 5,
+          "start": 60.0,
+          "end": 60.05,
+          "retransmits": 0,
+          "cwnd_bytes": 1258291.2
+        },
+        {
+          "stream": 8,
+          "start": 60.0,
+          "end": 60.05,
+          "retransmits": 0,
+          "cwnd_bytes": 3785359.36
+        },
+        {
+          "stream": 10,
+          "start": 60.0,
+          "end": 60.05,
+          "retransmits": 0,
+          "cwnd_bytes": 3156213.76
+        },
+        {
+          "stream": 12,
+          "start": 60.0,
+          "end": 60.05,
+          "retransmits": 0,
+          "cwnd_bytes": 2285895.68
+        }
+      ],
+      "receiver_intervals": [
+        {
+          "start": 0,
+          "end": 1.000429,
+          "mbps": 1823.7397931964642,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 3
+        },
+        {
+          "start": 1.000429,
+          "end": 2.005019,
+          "mbps": 1990.4979776405792,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 2.005019,
+          "end": 3.005026,
+          "mbps": 1978.64899547288,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 3.005026,
+          "end": 4.005023,
+          "mbps": 1989.1546001426673,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 4.005023,
+          "end": 5.003551,
+          "mbps": 1974.2289377062125,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 5.003551,
+          "end": 6.002602,
+          "mbps": 1939.6091859065755,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 6.002602,
+          "end": 7.004186,
+          "mbps": 1979.7212325640935,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 7.004186,
+          "end": 8.002151,
+          "mbps": 1919.654891518011,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 8.002151,
+          "end": 9.001087,
+          "mbps": 1912.5404198145905,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 9.001087,
+          "end": 10.000654,
+          "mbps": 1947.0001610878944,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 10.000654,
+          "end": 11.001351,
+          "mbps": 1962.6148726267022,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 11.001351,
+          "end": 12.001762,
+          "mbps": 1966.3203522071599,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 12.001762,
+          "end": 13.005028,
+          "mbps": 1965.9507063949281,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 13.005028,
+          "end": 14.001264,
+          "mbps": 1961.9303181440773,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 14.001264,
+          "end": 15.001784,
+          "mbps": 1965.05818758318,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 15.001784,
+          "end": 16.003337,
+          "mbps": 1931.6227965569753,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 16.003337,
+          "end": 17.004478,
+          "mbps": 1971.1710202646855,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 17.004478,
+          "end": 18.001293,
+          "mbps": 1969.2061427464728,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 18.001293,
+          "end": 19.004314,
+          "mbps": 1986.2938028149917,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 19.004314,
+          "end": 20.001323,
+          "mbps": 1974.0816711012342,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 20.001323,
+          "end": 21.000423,
+          "mbps": 1883.8893649129593,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 21.000423,
+          "end": 22.005027,
+          "mbps": 1950.8070634495339,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 22.005027,
+          "end": 23.001253,
+          "mbps": 1959.8449419074861,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 23.001253,
+          "end": 24.001537,
+          "mbps": 1968.6667122361753,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 24.001537,
+          "end": 25.000265,
+          "mbps": 1993.7819599600728,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 25.000265,
+          "end": 26.000182,
+          "mbps": 1967.2919188122344,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 26.000182,
+          "end": 27.002492,
+          "mbps": 1967.8257046066976,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 27.002492,
+          "end": 28.00504,
+          "mbps": 1945.3945348880509,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 28.00504,
+          "end": 29.001121,
+          "mbps": 1959.0775715702125,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 29.001121,
+          "end": 30.00498,
+          "mbps": 1953.2992539501292,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 30.00498,
+          "end": 31.004927,
+          "mbps": 1965.1355536426765,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 31.004927,
+          "end": 32.000764,
+          "mbps": 1945.8691534539823,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 32.000764,
+          "end": 33.00308,
+          "mbps": 1960.4909307735827,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 33.00308,
+          "end": 34.002146,
+          "mbps": 1950.075587927565,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 34.002146,
+          "end": 35.000634,
+          "mbps": 1972.2076883222412,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 35.000634,
+          "end": 36.004337,
+          "mbps": 1935.8429052811475,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 36.004337,
+          "end": 37.000568,
+          "mbps": 1965.097807322448,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 37.000568,
+          "end": 38.001726,
+          "mbps": 1956.4743725573446,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 38.001726,
+          "end": 39.004997,
+          "mbps": 1916.81850193202,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 39.004997,
+          "end": 40.001348,
+          "mbps": 1933.288675325849,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 40.001348,
+          "end": 41.004328,
+          "mbps": 1906.9200141422587,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 41.004328,
+          "end": 42.003945,
+          "mbps": 1984.6659576582301,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 42.003945,
+          "end": 43.003993,
+          "mbps": 1960.7429232753373,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 43.003993,
+          "end": 44.000165,
+          "mbps": 1879.9531762699223,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 44.000165,
+          "end": 45.005005,
+          "mbps": 1916.956013523463,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 45.005005,
+          "end": 46.000534,
+          "mbps": 1940.1514167628927,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 46.000534,
+          "end": 47.000436,
+          "mbps": 1955.7858875295485,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 47.000436,
+          "end": 48.00009,
+          "mbps": 1933.1944628784474,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 48.00009,
+          "end": 49.004203,
+          "mbps": 1935.0525364326745,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 49.004203,
+          "end": 50.003124,
+          "mbps": 1941.9610203815441,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 50.003124,
+          "end": 51.002338,
+          "mbps": 1921.4529303979189,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 51.002338,
+          "end": 52.000051,
+          "mbps": 1970.5866738180953,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 52.000051,
+          "end": 53.004188,
+          "mbps": 1942.3159229180733,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 53.004188,
+          "end": 54.000244,
+          "mbps": 1941.230317041362,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 54.000244,
+          "end": 55.002818,
+          "mbps": 1948.4817602879248,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 55.002818,
+          "end": 56.000165,
+          "mbps": 1939.7689322903013,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 56.000165,
+          "end": 57.005013,
+          "mbps": 1968.0731108916457,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 57.005013,
+          "end": 58.003272,
+          "mbps": 1959.0048519107881,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 58.003272,
+          "end": 59.004518,
+          "mbps": 1969.9169877073443,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 0
+        },
+        {
+          "start": 59.004518,
+          "end": 60.003334,
+          "mbps": 2014.602606619131,
+          "possible_scan_call_overlap": 0,
+          "possible_target_P_overlap": 5
+        }
+      ],
+      "below_500_bins": 0,
+      "below_500_bins_with_possible_scan_overlap": 0,
+      "target_P_in_guaranteed_traffic": 0,
+      "target_P_gate1": 0,
+      "kernel_emitted_sequence_continuous": true,
+      "kernel_record_count": 654,
+      "global_event_coverage": {
+        "P": {
+          "observed": 652,
+          "missing_between_first_last": 0,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "global_P_missing": 0,
+      "sender_retransmits": 1964,
+      "iperf_sha256": "f1a6cccec47aebe992a26af82f86d3b99bfc5867ea2fff1330af1a5a5d2c85aa"
+    }
+  ],
+  "restoration": {
+    "epoch": 1790463030.732688,
+    "wired_http_normal": true,
+    "hotspot_https_200": true,
+    "router_boot_unchanged": true,
+    "PS_trace_off": true,
+    "awake_test_off": true,
+    "no_pending_uci_changes": true,
+    "system_settings_page": "General",
+    "diagnostics_restored": true,
+    "Mac_original_hotspot_restored": true
+  },
+  "limits": [
+    "Scan enter/exit is an API call interval, not measured RF off-channel dwell.",
+    "The Wi-Fi settings extension scan request is distinct from cached-result lookups; background connect scans also occurred.",
+    "Possible overlap includes data-start and clock uncertainty, not proof that every packet loss occurred inside a scan.",
+    "Rate-limited PS gaps remain. No post-wake NPU/WA stall claim is possible from these logs.",
+    "This fresh-association replay is not a system sleep/wake test or proof of the original Air stall fix.",
+    "No firmware changes or new build were made. Existing kernel lacks kprobes/ftrace; the PLE queue debugfs snapshot does not expose full NPU internal progress."
+  ]
+}
