@@ -7,3 +7,7 @@ r41 Mac 시험의 저속 구간에서는 선택 가능한 PS 전이가 전역 �
 현재 prepared 소스는 awake 통지 때 TXQ를 다시 예약합니다. 확인된 [AP PS_SYNC 도입](https://github.com/openwrt/mt76/commit/b0af99f238f77f497a5b97a2110136f209922d6b)과 [PS_SYNC 길이 검사](https://github.com/openwrt/mt76/commit/06b69763f2aa9f5e0a9c5cd334813612bd4a2f9c)는 이미 포함됩니다. [스캔 후 큐 복귀 수정](https://github.com/openwrt/mt76/commit/365f006322aaa695ff68225dc611daebf7d70890)도 포함되지만 AP에 연결된 Mac의 스캔과는 다른 자체 STA 경로입니다. 이 좁은 조회에서 직접 적용할 새 수정은 확인하지 못했습니다. MT7996 WM/WA와 NPU 바이너리의 모든 동작을 검증했다는 뜻은 아닙니다.
 
 빌드·설치·시험 상태는 별도 결과 파일과 릴리스 노트에 기록합니다. 소스 한 상수 변경의 확인만으로 부팅이나 증상 해결을 판정하지 않습니다.
+
+설치 후 24개 검증을 통과했고, Mac의 두 차례 시험과 설정·핫스팟 복원을 마쳤습니다. [설치 기록](INSTALL_RESULT.json), [600Mbps 진단 결과](RESULT.md), [로그 OFF 90초 시험](NORMAL_90S.json), [최종 복원](RESTORATION.json)을 참고하세요. 최대 속도 시험의 마지막 30초는 평균 1.962Gbps였지만 초반 저하가 남아 있으며, 이를 해결 완료로 판정하지 않습니다.
+
+[PS 상태와 회복 시점의 분석](WAKE_TIMING.md)은 관측된 시간 관계와 아직 입증하지 못한 부분을 구분합니다.

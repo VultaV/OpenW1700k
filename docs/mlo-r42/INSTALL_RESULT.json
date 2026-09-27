@@ -1,0 +1,143 @@
+{
+  "result": "PASS",
+  "installed_checks_passed": true,
+  "kernel_release": "6.18.44-w1700k-mlo-r32",
+  "build_label": "ubi2-mlo-ps-observe-r42-20260927-tailscale",
+  "postinstall_boot_id": "a62beefa-2df4-4a8f-9f4d-c36d6937ed84",
+  "counts": {
+    "passed": 24,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100.0
+  },
+  "checks": [
+    {
+      "name": "expected_board_before_and_after",
+      "passed": true
+    },
+    {
+      "name": "expected_preinstall_build",
+      "passed": true
+    },
+    {
+      "name": "expected_running_r42_kernel_and_release",
+      "passed": true
+    },
+    {
+      "name": "live_manifest_matches_verified_candidate",
+      "passed": true
+    },
+    {
+      "name": "new_boot_id",
+      "passed": true
+    },
+    {
+      "name": "all_collected_uci_settings_unchanged",
+      "passed": true
+    },
+    {
+      "name": "all_module_paths_and_hashes_match_image",
+      "passed": true
+    },
+    {
+      "name": "selected_live_module_hashes_match_verification",
+      "passed": true
+    },
+    {
+      "name": "no_old_module_directory_or_symlink_restored",
+      "passed": true
+    },
+    {
+      "name": "loaded_modules_match_image_inventory",
+      "passed": true
+    },
+    {
+      "name": "no_forced_module_load_taint",
+      "passed": true
+    },
+    {
+      "name": "installed_wpad_matches_verified_image",
+      "passed": true
+    },
+    {
+      "name": "running_wpad_matches_verified_image",
+      "passed": true
+    },
+    {
+      "name": "tailscale_running_and_online",
+      "passed": true
+    },
+    {
+      "name": "tailscale-node_unchanged",
+      "passed": true
+    },
+    {
+      "name": "tailscale-address_unchanged",
+      "passed": true
+    },
+    {
+      "name": "lan2_carrier_and_2500mbps",
+      "passed": true
+    },
+    {
+      "name": "lan4_wired_carrier_up",
+      "passed": true
+    },
+    {
+      "name": "same_mlo_and_2g_ap_inventory",
+      "passed": true
+    },
+    {
+      "name": "hostapd.ap-mld0_enabled",
+      "passed": true
+    },
+    {
+      "name": "hostapd.phy0.0-ap0_enabled",
+      "passed": true
+    },
+    {
+      "name": "no_pending_uci_changes",
+      "passed": true
+    },
+    {
+      "name": "diagnostics_disabled",
+      "passed": true
+    },
+    {
+      "name": "scoped_bridge_acceleration_restored",
+      "passed": true
+    }
+  ],
+  "module_files_checked": 74,
+  "selected_module_files_checked": 12,
+  "limits": [
+    "Module files, loaded-name inventory and fresh boot verified; kernel memory was not hashed.",
+    "No claim of bridge TTL, throughput or iPhone MLO repair.",
+    "Tailscale raw node identity and address are neither recorded nor printed."
+  ],
+  "evidence_archive_sha256": {
+    "before": "a31760f3059963d0373fe49e2edcc3e7bd16476dd21d15470d43b643ffc60593",
+    "after": "11ccf85e20fb03a93e686a3acf630ea93bf0285dd3c9acaa7cf7e666b110dc1f"
+  },
+  "installation_observer": {
+    "samples": 103,
+    "unreachable_samples": 62,
+    "last_success_before": "2026-09-27T03:19:32.382748+00:00",
+    "first_unreachable": "2026-09-27T03:19:34.400494+00:00",
+    "last_unreachable": "2026-09-27T03:22:21.310562+00:00",
+    "first_success_after": "2026-09-27T03:22:24.330180+00:00",
+    "last_sample_success": true,
+    "limits": "HTTP reachability sampled through wired en12; not exact physical link downtime."
+  },
+  "ap_links": {
+    "link1": {
+      "state": "ENABLED",
+      "frequency_mhz": 5180
+    },
+    "link2": {
+      "state": "ENABLED",
+      "frequency_mhz": 6135
+    }
+  }
+}

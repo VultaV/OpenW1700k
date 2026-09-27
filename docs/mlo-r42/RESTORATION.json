@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "configs_unchanged": 34,
+  "boot_unchanged": true,
+  "taint_unchanged": 4096,
+  "diagnostics_off": [
+    "ps_trace",
+    "ba_trace",
+    "tx_drop_trace",
+    "mlo_tx_awake_test"
+  ],
+  "trace_lock_absent": true,
+  "bridge_offload_present": true,
+  "wired_http_ok": true,
+  "hotspot_http_ok": true,
+  "limits": [
+    "Readback at trial cleanup; not indefinite reachability proof."
+  ],
+  "final_checked_after": "normal-unlimited-90",
+  "checked_at": "2026-09-27T03:34:20.899857+00:00"
+}

@@ -1,0 +1,135 @@
+{
+  "status": "PS_PREDICATE_DUTY_BOUNDED_NO_MULTI_SECOND_POST_GATE_STALL_PROVEN",
+  "global_P_records": 1450,
+  "global_P_interior_missing": 0,
+  "target_P_records": 722,
+  "target_P_inside_guaranteed_traffic": 652,
+  "target_transition_and_snapshot_checks_passed": 722,
+  "target_non_aql_all_zero": true,
+  "data_start_bracket_width_seconds": 1.3021352291107178,
+  "router_clock_offset_intersection_width_ms": 15.844106674194336,
+  "host_gate": {
+    "paired_closed_intervals_inside_guaranteed_traffic": 163,
+    "closed_seconds": 12.625984000000017,
+    "longest_closed_seconds": 0.20231000000001131,
+    "first_close_association_seconds_bounds": [
+      22.22361099999998,
+      22.22461099999998
+    ],
+    "final_reopen_association_seconds_bounds": [
+      37.86043999999996,
+      37.86143999999996
+    ],
+    "final_reopen_tcp_seconds_bounds": [
+      25.273988723754883,
+      26.591968059539795
+    ],
+    "final_reopen_minus_last_scan_api_end_seconds_bounds": [
+      4.544203996658325,
+      4.5600481033325195
+    ],
+    "following_gate0_span_until_next_observed_close_seconds": 14.036519000000055
+  },
+  "receiver": {
+    "mean_mbps": 599.994032211488,
+    "min_mbps": 57.55777354512422,
+    "zero_bins": 0,
+    "low_bins": 14,
+    "low_total_seconds": 14.005510000000001,
+    "host_gate_closed_seconds_over_low_bins_bounds": [
+      10.82106264341736,
+      11.691164800048828
+    ],
+    "host_gate_closed_percent_over_low_bins_bounds": [
+      77.26289612743385,
+      83.4754664417706
+    ],
+    "last_low_bin_end_seconds": 26.000269,
+    "last_low_end_minus_final_reopen_seconds_bounds": [
+      -0.5916990595397955,
+      0.7262802762451166
+    ],
+    "first_bin_entirely_after_final_reopen": {
+      "start": 27.001869,
+      "end": 28.008031,
+      "mbps": 1432.9620201293817
+    }
+  },
+  "server_tcp": {
+    "total_retransmits": 2734,
+    "groups": [
+      {
+        "server_relative_seconds": [
+          0,
+          10
+        ],
+        "retransmits": 0,
+        "cwnd_bytes_range": [
+          539648.0,
+          671744.0
+        ]
+      },
+      {
+        "server_relative_seconds": [
+          10,
+          27
+        ],
+        "retransmits": 2718,
+        "cwnd_bytes_range": [
+          149504.0,
+          1174405.12
+        ]
+      },
+      {
+        "server_relative_seconds": [
+          27,
+          30
+        ],
+        "retransmits": 0,
+        "cwnd_bytes_range": [
+          353280.0,
+          705536.0
+        ]
+      },
+      {
+        "server_relative_seconds": [
+          30,
+          40
+        ],
+        "retransmits": 16,
+        "cwnd_bytes_range": [
+          593920.0,
+          712704.0
+        ]
+      }
+    ]
+  },
+  "source_sha256": {
+    "mt7996/mcu.c": "04b2789fe63a85a24c44bb82f25b4ab13743b0b2294aeeca0a1a94847dd1e239",
+    "mt7996/main.c": "fa614e74dafd2f7919c161dd7161bbcf9d82620553265938b6b617790eace7f2",
+    "tx.c": "e4117a2482a7a1e1d0731aa7b14a1645efab6251f59ff2ce75b200fb859d79c0"
+  },
+  "input_sha256": {
+    "input-01:ANALYSIS.json": "fc8eaa108e0f0f1981c69d0d83b35132bded0e6773455dc9574288d81cde489a",
+    "input-02:kmsg.stream": "2d21011932ab50c1814586875e50111997cc6eb9025b1020b1ec387b84f2fd2f",
+    "input-03:airportd-live.txt": "3fcdf3689c62ce3fef92a5c477bbcb14ce559291a1863078f3cd34d1ce2ee0c6",
+    "input-04:iperf.json": "4c8b699a1975b3b8ef8066a92844be965012d2e54dc61dbb417ed79f1394a329",
+    "input-05:traffic.json": "84050c5f974208c1385be328a101f97e695fa4f30161c0b766aea12b72fe0a95",
+    "input-06:station.before.txt": "946532d53a8c8b0bf56577366bc12db05392cc2e22c728c82238ee08d3e8f1e2",
+    "input-07:mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+    "input-08:clock-closed-before.json": "cf145538b7dfd52177ae5af204e7c6e32ee5b7b36dd7a9d2827dae77c2df1452",
+    "input-09:clock-closed-after.json": "87a2e0d631a13986c0f1e716c1ce62689b1057c9fdf53496dedba6671bf3a53e"
+  },
+  "checker_sha256": "87ecdd8cfbf6369495077d068ed791c778edd2a7772e8670854431c519783992",
+  "limits": [
+    "Intervals use post-callback host log timestamps and continuous eligible P transitions; independent state reads agree in this trace, not atomic firmware or air measurements.",
+    "No extrapolation beyond first/last observed target transition. Duplicate unchanged PS callbacks are not logged; topology-ineligible events remain outside this logger.",
+    "Gate is the host shared-TXQ predicate. Four data flows use PPE/NPU acceleration, which does not execute this predicate for each packet. Duty overlap is not measured blocked packet time.",
+    "Awake notification clears the host PS bit, schedules station TXQs and the worker before P is logged. This proves callback code order, not worker execution, firmware wake, RF return, or delivery.",
+    "Native scan API completion is not RF dwell completion. Continued PS notifications after the API do not distinguish delayed firmware reports from continued client power-save behavior.",
+    "Clock/start uncertainty is one common shift; extrema for different bins cannot be summed independently. Host notification and logging delays are not calibrated.",
+    "Server TCP intervals use a separate relative origin and rounded Cwnd. Retransmissions do not identify RF loss, packet age, ACK/SACK timing, or NPU queue delay.",
+    "One traced paced trial with diagnostic and queue/PPE read load. Not proof that PS alone explains every lost bit, that NPU is correct, or that the original Air stall is fixed."
+  ],
+  "next_smallest_evidence": "No wake patch is supported by this run. To claim a remaining post-wake delay, obtain endpoint TCP ACK/SACK timing and an independently observed first successful post-wake transmission; throughput bins and P notifications alone cannot distinguish the producer, firmware queue and receiver."
+}
