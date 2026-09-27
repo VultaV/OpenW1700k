@@ -1,0 +1,80 @@
+{
+  "version": "r43",
+  "date": "2026-09-27",
+  "result": "LOW_THROUGHPUT_AND_INTERMITTENT_STALL_REPRODUCED",
+  "trial": {
+    "label": "download-repeat-60",
+    "receiver_mbps": 1135.7671053045829,
+    "min_interval_mbps": 0.0,
+    "max_interval_mbps": 1405.1167905625377,
+    "zero_intervals": 1,
+    "seconds": 60,
+    "upload": false,
+    "wired_checks": 77,
+    "status": "passed",
+    "path": "PPE bound fastpath"
+  },
+  "interpretation": "The runner status passed validates execution/path checks, not performance acceptance or repair.",
+  "router_config_boot_unchanged": true,
+  "router_cpu_aggregate_percent": 5.786712717083184,
+  "server_cpu_one_core_percent": {
+    "weighted_mean_percent_one_cpu": 3.1525777591339006,
+    "max_sample_interval_percent_one_cpu": 3.9643864353897453,
+    "intervals": 59
+  },
+  "server_throttle_delta": {
+    "nr_throttled": 0,
+    "throttled_usec": 0
+  },
+  "common_ack_gaps_over_100ms": {
+    "count": 108,
+    "total_seconds": 18.329278,
+    "median_duration_ms": 137.5105,
+    "median_start_spacing_ms": 524.6680000000055,
+    "longest": {
+      "start_seconds": 22.913048,
+      "end_seconds": 24.122492,
+      "duration_ms": 1209.444
+    }
+  },
+  "native_awdl": {
+    "channel_sequence": [
+      36,
+      36,
+      149,
+      149,
+      36,
+      36,
+      36,
+      36,
+      36,
+      36,
+      149,
+      149,
+      36,
+      36,
+      36,
+      36
+    ],
+    "recorded_before_trial": true,
+    "causality": "HYPOTHESIS_ONLY: no RF slot/clock alignment or controlled AWDL comparison",
+    "input_sha256": "ee81b30c50dbfa9cf68cedbacd5c435fb6dc0961cbc43b5080174ddbf37057e4"
+  },
+  "capture_records": 1728003,
+  "capture_drops": 0,
+  "zero_window_records": 0,
+  "independent_review": "TCP parser, rotation, sequence bounds, FIN normalization and anonymous output reviewed; no blocker found.",
+  "limitations": [
+    "Initial r43 and repeat have different associations after the IPv6 check. Association was stable within this repeat.",
+    "One-second application zeros and 100ms packet gaps are different measures. Mac and server clocks were not calibrated in this run.",
+    "Other-station host counters do not cover all hardware-offloaded traffic or measure airtime.",
+    "No guarded-zero execution count or DMA progress at the stall was recorded. r43 regression is not excluded.",
+    "The original Air sleep/wake failure remains unresolved; Mac evidence is separate."
+  ],
+  "input_sha256": {
+    "iperf.json": "3afc37a42d8f6e45f97084aa102938732e727b1a6f363fbd50df0f310350581e",
+    "traffic.json": "5cfe0091fde454637e6b2b7beed9677532b4fe47fdee5714f79c534bf3302340",
+    "run.json": "77537d1a95182c4dbf87339064efb9d14c8e13457e977635bd6e9d7c2c9965a8",
+    "summary.json": "89fe8857941416a57136e93351308c3f3d4b736d174ff11bbcfb88c0d9586789"
+  }
+}
