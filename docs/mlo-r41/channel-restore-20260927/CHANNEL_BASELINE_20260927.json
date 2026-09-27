@@ -1,0 +1,994 @@
+{
+  "records": 180,
+  "excluded_truncated_records": 0,
+  "requests": [
+    {
+      "record": 3,
+      "elapsed_seconds": 0.634379,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 1
+      }
+    },
+    {
+      "record": 11,
+      "elapsed_seconds": 1.704212,
+      "command": "STOP_AP",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 1
+      }
+    },
+    {
+      "record": 14,
+      "elapsed_seconds": 1.768184,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 15,
+      "elapsed_seconds": 1.842866,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 21,
+      "elapsed_seconds": 2.123098,
+      "command": "STOP_AP",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 1
+      }
+    },
+    {
+      "record": 24,
+      "elapsed_seconds": 2.200045,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 1
+      }
+    },
+    {
+      "record": 27,
+      "elapsed_seconds": 2.278896,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 30,
+      "elapsed_seconds": 2.343042,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 33,
+      "elapsed_seconds": 2.510481,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 35,
+      "elapsed_seconds": 2.518249,
+      "command": "SET_WIPHY",
+      "fields": {}
+    },
+    {
+      "record": 37,
+      "elapsed_seconds": 2.523533,
+      "command": "SET_WIPHY",
+      "fields": {}
+    },
+    {
+      "record": 39,
+      "elapsed_seconds": 2.591951,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 42,
+      "elapsed_seconds": 2.623427,
+      "command": "NEW_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 45,
+      "elapsed_seconds": 2.653132,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 47,
+      "elapsed_seconds": 2.68135,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 51,
+      "elapsed_seconds": 2.686044,
+      "command": "SET_WIPHY",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 53,
+      "elapsed_seconds": 2.686516,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 66,
+      "elapsed_seconds": 2.687349,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 86,
+      "elapsed_seconds": 2.731768,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 89,
+      "elapsed_seconds": 2.895901,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 90,
+      "elapsed_seconds": 2.904683,
+      "command": "SET_WIPHY",
+      "fields": {}
+    },
+    {
+      "record": 92,
+      "elapsed_seconds": 2.910456,
+      "command": "SET_WIPHY",
+      "fields": {}
+    },
+    {
+      "record": 94,
+      "elapsed_seconds": 2.962795,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 95,
+      "elapsed_seconds": 2.965948,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 98,
+      "elapsed_seconds": 2.970183,
+      "command": "SET_WIPHY",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 99,
+      "elapsed_seconds": 2.977583,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 104,
+      "elapsed_seconds": 3.022923,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 110,
+      "elapsed_seconds": 3.117205,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "frequency_mhz": 6135,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 6185,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 114,
+      "elapsed_seconds": 3.158073,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 117,
+      "elapsed_seconds": 3.158231,
+      "command": "START_AP",
+      "fields": {
+        "link_id": 2,
+        "frequency_mhz": 6135,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 6185,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 130,
+      "elapsed_seconds": 3.26197,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 132,
+      "elapsed_seconds": 3.262381,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 134,
+      "elapsed_seconds": 3.262752,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 136,
+      "elapsed_seconds": 3.263196,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 144,
+      "elapsed_seconds": 3.267797,
+      "command": "GET_INTERFACE",
+      "fields": {}
+    },
+    {
+      "record": 145,
+      "elapsed_seconds": 3.27232,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "frequency_mhz": 5180,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 5250,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 149,
+      "elapsed_seconds": 3.313212,
+      "command": "START_AP",
+      "fields": {
+        "link_id": 1,
+        "frequency_mhz": 5180,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 5250,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 162,
+      "elapsed_seconds": 3.326461,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 164,
+      "elapsed_seconds": 3.326759,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 166,
+      "elapsed_seconds": 3.327087,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 168,
+      "elapsed_seconds": 3.327314,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      }
+    }
+  ],
+  "events": [
+    {
+      "record": 4,
+      "elapsed_seconds": 0.634428,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 1
+      }
+    },
+    {
+      "record": 16,
+      "elapsed_seconds": 1.899014,
+      "command": "STOP_AP",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 1
+      }
+    },
+    {
+      "record": 28,
+      "elapsed_seconds": 2.278932,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "frequency_mhz": 2412,
+        "channel_width_enum": 1,
+        "center_frequency1_mhz": 2412,
+        "legacy_channel_type_enum": 1,
+        "frequency_offset_khz": 0,
+        "interface_alias": 3
+      }
+    },
+    {
+      "record": 31,
+      "elapsed_seconds": 2.343097,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "frequency_mhz": 2412,
+        "channel_width_enum": 1,
+        "center_frequency1_mhz": 2412,
+        "legacy_channel_type_enum": 1,
+        "frequency_offset_khz": 0,
+        "interface_alias": 3
+      }
+    },
+    {
+      "record": 34,
+      "elapsed_seconds": 2.510537,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "frequency_mhz": 2412,
+        "channel_width_enum": 1,
+        "center_frequency1_mhz": 2412,
+        "legacy_channel_type_enum": 1,
+        "frequency_offset_khz": 0,
+        "interface_alias": 3
+      }
+    },
+    {
+      "record": 40,
+      "elapsed_seconds": 2.592013,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "frequency_mhz": 2412,
+        "channel_width_enum": 1,
+        "center_frequency1_mhz": 2412,
+        "legacy_channel_type_enum": 1,
+        "frequency_offset_khz": 0,
+        "interface_alias": 3
+      }
+    },
+    {
+      "record": 43,
+      "elapsed_seconds": 2.624542,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 48,
+      "elapsed_seconds": 2.681421,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 54,
+      "elapsed_seconds": 2.686573,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 67,
+      "elapsed_seconds": 2.687377,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 96,
+      "elapsed_seconds": 2.966001,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 105,
+      "elapsed_seconds": 3.101546,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 115,
+      "elapsed_seconds": 3.158113,
+      "command": "NEW_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 118,
+      "elapsed_seconds": 3.17476,
+      "command": "START_AP",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      }
+    },
+    {
+      "record": 150,
+      "elapsed_seconds": 3.322792,
+      "command": "START_AP",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      }
+    }
+  ],
+  "matched_responses": [
+    {
+      "request_record": 3,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 1
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 5,
+      "request_elapsed_seconds": 0.634379,
+      "response_elapsed_seconds": 0.634437,
+      "request_to_reply_seconds": 5.8e-05
+    },
+    {
+      "request_record": 11,
+      "command": "STOP_AP",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 1
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 12,
+      "request_elapsed_seconds": 1.704212,
+      "response_elapsed_seconds": 1.705302,
+      "request_to_reply_seconds": 0.00109
+    },
+    {
+      "request_record": 21,
+      "command": "STOP_AP",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 1
+      },
+      "errno": -19,
+      "errno_name": "ENODEV",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 22,
+      "request_elapsed_seconds": 2.123098,
+      "response_elapsed_seconds": 2.123131,
+      "request_to_reply_seconds": 3.3e-05
+    },
+    {
+      "request_record": 24,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 1
+      },
+      "errno": -19,
+      "errno_name": "ENODEV",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 25,
+      "request_elapsed_seconds": 2.200045,
+      "response_elapsed_seconds": 2.200078,
+      "request_to_reply_seconds": 3.3e-05
+    },
+    {
+      "request_record": 35,
+      "command": "SET_WIPHY",
+      "fields": {},
+      "errno": -95,
+      "errno_name": "EOPNOTSUPP",
+      "capped": false,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": true,
+      "response_record": 36,
+      "request_elapsed_seconds": 2.518249,
+      "response_elapsed_seconds": 2.518279,
+      "request_to_reply_seconds": 3e-05
+    },
+    {
+      "request_record": 37,
+      "command": "SET_WIPHY",
+      "fields": {},
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 38,
+      "request_elapsed_seconds": 2.523533,
+      "response_elapsed_seconds": 2.52357,
+      "request_to_reply_seconds": 3.7e-05
+    },
+    {
+      "request_record": 42,
+      "command": "NEW_INTERFACE",
+      "fields": {},
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 44,
+      "request_elapsed_seconds": 2.623427,
+      "response_elapsed_seconds": 2.624567,
+      "request_to_reply_seconds": 0.00114
+    },
+    {
+      "request_record": 47,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 49,
+      "request_elapsed_seconds": 2.68135,
+      "response_elapsed_seconds": 2.681431,
+      "request_to_reply_seconds": 8.1e-05
+    },
+    {
+      "request_record": 51,
+      "command": "SET_WIPHY",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 52,
+      "request_elapsed_seconds": 2.686044,
+      "response_elapsed_seconds": 2.686225,
+      "request_to_reply_seconds": 0.000181
+    },
+    {
+      "request_record": 53,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 55,
+      "request_elapsed_seconds": 2.686516,
+      "response_elapsed_seconds": 2.686583,
+      "request_to_reply_seconds": 6.7e-05
+    },
+    {
+      "request_record": 66,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 68,
+      "request_elapsed_seconds": 2.687349,
+      "response_elapsed_seconds": 2.687383,
+      "request_to_reply_seconds": 3.4e-05
+    },
+    {
+      "request_record": 90,
+      "command": "SET_WIPHY",
+      "fields": {},
+      "errno": -95,
+      "errno_name": "EOPNOTSUPP",
+      "capped": false,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": true,
+      "response_record": 91,
+      "request_elapsed_seconds": 2.904683,
+      "response_elapsed_seconds": 2.904715,
+      "request_to_reply_seconds": 3.2e-05
+    },
+    {
+      "request_record": 92,
+      "command": "SET_WIPHY",
+      "fields": {},
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 93,
+      "request_elapsed_seconds": 2.910456,
+      "response_elapsed_seconds": 2.910503,
+      "request_to_reply_seconds": 4.7e-05
+    },
+    {
+      "request_record": 95,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 97,
+      "request_elapsed_seconds": 2.965948,
+      "response_elapsed_seconds": 2.966009,
+      "request_to_reply_seconds": 6.1e-05
+    },
+    {
+      "request_record": 98,
+      "command": "SET_WIPHY",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 101,
+      "request_elapsed_seconds": 2.970183,
+      "response_elapsed_seconds": 3.021772,
+      "request_to_reply_seconds": 0.051589
+    },
+    {
+      "request_record": 104,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 106,
+      "request_elapsed_seconds": 3.022923,
+      "response_elapsed_seconds": 3.10157,
+      "request_to_reply_seconds": 0.078647
+    },
+    {
+      "request_record": 110,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "frequency_mhz": 6135,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 6185,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 111,
+      "request_elapsed_seconds": 3.117205,
+      "response_elapsed_seconds": 3.117315,
+      "request_to_reply_seconds": 0.00011
+    },
+    {
+      "request_record": 114,
+      "command": "GET_INTERFACE",
+      "fields": {
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 116,
+      "request_elapsed_seconds": 3.158073,
+      "response_elapsed_seconds": 3.15812,
+      "request_to_reply_seconds": 4.7e-05
+    },
+    {
+      "request_record": 117,
+      "command": "START_AP",
+      "fields": {
+        "link_id": 2,
+        "frequency_mhz": 6135,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 6185,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 119,
+      "request_elapsed_seconds": 3.158231,
+      "response_elapsed_seconds": 3.174785,
+      "request_to_reply_seconds": 0.016554
+    },
+    {
+      "request_record": 130,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 131,
+      "request_elapsed_seconds": 3.26197,
+      "response_elapsed_seconds": 3.262219,
+      "request_to_reply_seconds": 0.000249
+    },
+    {
+      "request_record": 132,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 133,
+      "request_elapsed_seconds": 3.262381,
+      "response_elapsed_seconds": 3.262594,
+      "request_to_reply_seconds": 0.000213
+    },
+    {
+      "request_record": 134,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 135,
+      "request_elapsed_seconds": 3.262752,
+      "response_elapsed_seconds": 3.262959,
+      "request_to_reply_seconds": 0.000207
+    },
+    {
+      "request_record": 136,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 2,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 137,
+      "request_elapsed_seconds": 3.263196,
+      "response_elapsed_seconds": 3.2636,
+      "request_to_reply_seconds": 0.000404
+    },
+    {
+      "request_record": 145,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "frequency_mhz": 5180,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 5250,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 146,
+      "request_elapsed_seconds": 3.27232,
+      "response_elapsed_seconds": 3.27238,
+      "request_to_reply_seconds": 6e-05
+    },
+    {
+      "request_record": 149,
+      "command": "START_AP",
+      "fields": {
+        "link_id": 1,
+        "frequency_mhz": 5180,
+        "channel_width_enum": 5,
+        "center_frequency1_mhz": 5250,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 151,
+      "request_elapsed_seconds": 3.313212,
+      "response_elapsed_seconds": 3.322816,
+      "request_to_reply_seconds": 0.009604
+    },
+    {
+      "request_record": 162,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 163,
+      "request_elapsed_seconds": 3.326461,
+      "response_elapsed_seconds": 3.32668,
+      "request_to_reply_seconds": 0.000219
+    },
+    {
+      "request_record": 164,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 165,
+      "request_elapsed_seconds": 3.326759,
+      "response_elapsed_seconds": 3.32702,
+      "request_to_reply_seconds": 0.000261
+    },
+    {
+      "request_record": 166,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 167,
+      "request_elapsed_seconds": 3.327087,
+      "response_elapsed_seconds": 3.327244,
+      "request_to_reply_seconds": 0.000157
+    },
+    {
+      "request_record": 168,
+      "command": "SET_WIPHY",
+      "fields": {
+        "link_id": 1,
+        "interface_alias": 2
+      },
+      "errno": 0,
+      "errno_name": "SUCCESS",
+      "capped": true,
+      "extended_ack": false,
+      "exact_embedded_header_match": true,
+      "original_command_present": false,
+      "response_record": 169,
+      "request_elapsed_seconds": 3.327314,
+      "response_elapsed_seconds": 3.327455,
+      "request_to_reply_seconds": 0.000141
+    }
+  ],
+  "unmatched_capped_ack_headers": 95,
+  "status": "OFFLINE_CHANNEL_CONTROL_DECODED",
+  "input_sha256": "7b9923f3a0217dbf7836c8c4e89c8cae5c1362f2a710955a14c560686403e861",
+  "analyzer_sha256": "4240011c4b71a6654ff7827cf3df428d85dc1d7cc3ef8233807f2cc950fd439a",
+  "errno_source_sha256": {
+    "arm64_errno": "4ee384515a4325315992e61dd957f0fa91f3858fe7c079de59f56edded51de86",
+    "generic_errno": "fb7b5a504015f3a9074c641e7371b250d867d751d90e4a22a8ac17fced3d50af",
+    "base_errno": "2c148e92b8318deeb767fabd60822113e575ee664ff09a1873aed8f7a495793c"
+  },
+  "limitations": [
+    "No selected record or matched response is not proof that no command failed. A live observation path must be independently demonstrated."
+  ]
+}

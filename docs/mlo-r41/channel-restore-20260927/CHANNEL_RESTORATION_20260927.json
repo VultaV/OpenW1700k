@@ -1,0 +1,20 @@
+{
+  "status": "RESTORED_AFTER_MANUAL_AP_START",
+  "automatic_restoration_status": "RESTORE_FAILED",
+  "configuration_files": 34,
+  "configuration_exact": true,
+  "observer_configuration_and_rules_exact": true,
+  "original_bridge_rules_exact": true,
+  "same_boot_and_taint": true,
+  "both_links_enabled": true,
+  "nlmon_absent": true,
+  "diagnostic_options_unchanged": true,
+  "lan2_mbps": 2500,
+  "lan4_mbps": 1000,
+  "all_wired_checks_normal": true,
+  "controller_wired_checks": 27,
+  "recovery_wired_checks": 56,
+  "test_valid_for_timing_comparison": false,
+  "reason": "Unsupported fractional sleep aborted before AP up; both APs restarted once, standard DFS CAC completed, original offload restored",
+  "archive_sha256": "e46692a54f8e18b82534152bd715f0ca1c8aabcff60979e19ca10b1b727dea37"
+}
