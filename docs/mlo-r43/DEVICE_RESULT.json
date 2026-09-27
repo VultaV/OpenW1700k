@@ -1,0 +1,320 @@
+{
+  "status": "R43_INSTALLED_AND_BOUNDED_MAC_TRAFFIC_VERIFIED",
+  "paths_are_sanitized_evidence_labels": true,
+  "firmware": {
+    "build_label": "ubi2-mlo-npu-zero-budget-r43-20260927-tailscale",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "image_sha256": "562c6bae2f23a2bce0403a0a55f483d1ba49af479a3eac7cec824615dcfab4f2",
+    "packaged_firmware_files_unchanged": 11,
+    "runtime_known_program_guard_applied": true
+  },
+  "installation": {
+    "counts": {
+      "passed": 30,
+      "failed": 0,
+      "warnings": 0,
+      "skipped": 0,
+      "pass_rate_percent": 100.0
+    },
+    "checks": [
+      {
+        "name": "expected_board_before_and_after",
+        "passed": true
+      },
+      {
+        "name": "expected_preinstall_build",
+        "passed": true
+      },
+      {
+        "name": "expected_running_r43_kernel_and_release",
+        "passed": true
+      },
+      {
+        "name": "live_manifest_matches_verified_candidate",
+        "passed": true
+      },
+      {
+        "name": "new_boot_id",
+        "passed": true
+      },
+      {
+        "name": "all_collected_uci_settings_unchanged",
+        "passed": true
+      },
+      {
+        "name": "all_module_paths_and_hashes_match_image",
+        "passed": true
+      },
+      {
+        "name": "selected_live_module_hashes_match_verification",
+        "passed": true
+      },
+      {
+        "name": "no_old_module_directory_or_symlink_restored",
+        "passed": true
+      },
+      {
+        "name": "loaded_modules_match_image_inventory",
+        "passed": true
+      },
+      {
+        "name": "no_forced_module_load_taint",
+        "passed": true
+      },
+      {
+        "name": "installed_wpad_matches_verified_image",
+        "passed": true
+      },
+      {
+        "name": "running_wpad_matches_verified_image",
+        "passed": true
+      },
+      {
+        "name": "tailscale_running_and_online",
+        "passed": true
+      },
+      {
+        "name": "tailscale-node_unchanged",
+        "passed": true
+      },
+      {
+        "name": "tailscale-address_unchanged",
+        "passed": true
+      },
+      {
+        "name": "lan2_carrier_and_2500mbps",
+        "passed": true
+      },
+      {
+        "name": "lan4_wired_carrier_up",
+        "passed": true
+      },
+      {
+        "name": "same_mlo_and_2g_ap_inventory",
+        "passed": true
+      },
+      {
+        "name": "hostapd.ap-mld0_enabled",
+        "passed": true
+      },
+      {
+        "name": "hostapd.phy0.0-ap0_enabled",
+        "passed": true
+      },
+      {
+        "name": "no_pending_uci_changes",
+        "passed": true
+      },
+      {
+        "name": "four_diagnostics_disabled_before_and_after",
+        "passed": true
+      },
+      {
+        "name": "mlo_ps_gate_fix_enabled_before_and_after",
+        "passed": true
+      },
+      {
+        "name": "original_npu_program_and_data_files_unchanged",
+        "passed": true
+      },
+      {
+        "name": "npu_budget_guard_applied_exactly_once",
+        "passed": true
+      },
+      {
+        "name": "mt7996_npu_version_success_after_guard_application",
+        "passed": true
+      },
+      {
+        "name": "no_observed_npu_initialization_guard_or_watchdog_error_log",
+        "passed": true
+      },
+      {
+        "name": "no_current_device_coredump",
+        "passed": true
+      },
+      {
+        "name": "scoped_bridge_acceleration_restored",
+        "passed": true
+      }
+    ],
+    "configuration_files_unchanged": 34,
+    "module_files_checked": 74,
+    "selected_module_files_checked": 12,
+    "new_boot_verified": true,
+    "npu_guard_applied_log_count": 1,
+    "version_response_after_guard": true,
+    "boot_validation_limits": [
+      "Module files, loaded-name inventory and fresh boot verified; kernel memory was not hashed.",
+      "Guard applied and version response establish loader/readback and mailbox milestones, not a datapath, PPE flow, TTL, throughput or Mac/Air repair PASS.",
+      "Current devcoredump inventory and captured dmesg contain no observed fault evidence; NPU WDT work emits a devcoredump without an explicit watchdog log, so expired/missing dumps and earlier log loss are not excluded.",
+      "Tailscale raw node identity and address are neither recorded nor printed."
+    ]
+  },
+  "installation_continuity": {
+    "successful_samples": 53,
+    "failed_samples": 62,
+    "observed_failure_span_seconds": 166.061453,
+    "last_good_to_first_recovered_seconds": 171.109898,
+    "continuous_failure_block": true,
+    "final_wired_http_ok": true,
+    "scope": "HTTP reachability sampled during the explicitly authorized installation; interval bounds, not exact physical carrier downtime."
+  },
+  "root_preservation": {
+    "result": "PASS",
+    "regular_files": 1443,
+    "all_paths_and_hashes_equal": true
+  },
+  "trials": [
+    {
+      "label": "download-60",
+      "direction": "download",
+      "status": "BOUNDED_TRAFFIC_CHECK_PASSED",
+      "duration_seconds": 60,
+      "streams": 4,
+      "configured_bitrate_bps": 0,
+      "receiver_mean_mbps": 1129.1518051928613,
+      "receiver_location": "Mac",
+      "interval_observation": "Mac receiver",
+      "interval_count": 60,
+      "minimum_interval_mbps": 406.1362677311207,
+      "maximum_interval_mbps": 1401.5214089477718,
+      "zero_byte_intervals": 0,
+      "sender_reported_retransmits": 8401,
+      "wired_checks": 78,
+      "wired_all_normal": true,
+      "router_unchanged": true,
+      "same_verified_boot": true,
+      "mlo_before_bitmap": 6,
+      "mlo_after_bitmap": 6,
+      "actual_data_flow_count": 4,
+      "all_four_conntrack_present": true,
+      "all_four_hw_offload_flag": true,
+      "ppe_bound_entries_per_flow": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "software_offload_flags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "continuous_per_packet_offload_verified": false,
+      "other_sta_with_5_or_6_link_observed_before_and_after": [
+        true,
+        true
+      ]
+    },
+    {
+      "label": "upload-20",
+      "direction": "upload",
+      "status": "BOUNDED_TRAFFIC_CHECK_PASSED",
+      "duration_seconds": 20,
+      "streams": 4,
+      "configured_bitrate_bps": 0,
+      "receiver_mean_mbps": 1298.1878075270567,
+      "receiver_location": "Linux server",
+      "interval_observation": "Mac sender",
+      "interval_count": 20,
+      "minimum_interval_mbps": 1254.6878488363648,
+      "maximum_interval_mbps": 1379.0782959736243,
+      "zero_byte_intervals": 0,
+      "sender_reported_retransmits": 3252,
+      "wired_checks": 34,
+      "wired_all_normal": true,
+      "router_unchanged": true,
+      "same_verified_boot": true,
+      "mlo_before_bitmap": 6,
+      "mlo_after_bitmap": 6,
+      "actual_data_flow_count": 4,
+      "all_four_conntrack_present": true,
+      "all_four_hw_offload_flag": true,
+      "ppe_bound_entries_per_flow": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "software_offload_flags": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "continuous_per_packet_offload_verified": false,
+      "other_sta_with_5_or_6_link_observed_before_and_after": [
+        true,
+        true
+      ]
+    }
+  ],
+  "total_trial_wired_checks": 112,
+  "limits": [
+    "Evidence applies to the recorded installation and two completed Mac trials, not later router state or a Matter/IPv6 audit.",
+    "Hardware offload/PPE registration is confirmed for the four actual data flows at recorded checks, not continuously for every packet.",
+    "MLO bitmap 0x6 before/after does not establish simultaneous payload transmission over both links.",
+    "Additional stations with 5/6 GHz links were observed. Their traffic and airtime were not controlled; these short trials are not a matched r42/r43 performance comparison.",
+    "The upload mean is the server receiver value, while upload interval extrema are local Mac sender values.",
+    "One-second nonzero byte intervals do not exclude subsecond stalls. TCP sender retransmit reports are not a count of proved wireless losses.",
+    "No synchronized native scan/PS/server packet causal comparison was performed in these two throughput trials.",
+    "The original Air sleep/wake stall remains unresolved. This is not proof of a causal performance fix or of all NPU runtime paths."
+  ],
+  "evidence_sha256": {
+    "postinstall_verification": "977d0543716b66efcf6ec41e0b20fd4faa3788ae707e746adcc7df5d72675040",
+    "install_continuity": "77361ffc917a37d9f471026db649d184d8778151a2d00fac64ee7cf46bd3ca9d",
+    "root_preservation": "6c498e30cb6024be57234842287b2d06b461334c10f05bb76d70c98f64404011",
+    "build_result": "096ba99dee70ab944fc341af550eedcde39bf2eb27d0fa77ae534563c61ae700",
+    "download-60/summary.json": "06ba696c100fc365b878d5382b0d630fa3068f33baf0fd3e951ac7de5459e0fc",
+    "download-60/run.json": "43050f98eba349117a12410a0fe4663d23d70930413214762233bc316e03e9c6",
+    "download-60/traffic.json": "9dcb1cd2e247d13c8c1d711b7b60f530b1895bdee82c79fed66870df8b60439d",
+    "download-60/iperf.json": "0495e3d1b9b4919034218eaa5d9b0744e489419a14b94798fd5c8d3b7bfc1ccc",
+    "download-60/mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+    "download-60/mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+    "download-60/mlo.before.hw-queues.txt": "b81167d212be5ea9da1b9537f5ceb2c5e05edf07c37783b993e8de903edfe2bb",
+    "download-60/mlo.after.hw-queues.txt": "43545aa5fd4070934c579eed08ab72ea23ce2f4e6bde4e33b012c6f6ba5c5640",
+    "upload-20/summary.json": "cd22879c499aebe892cbf97e54cdc74d6a8629ba25334752da74f68e790624aa",
+    "upload-20/run.json": "1adcf6dc34600295b8bcfec22742ddebcb856640b4096f2a3716f95b7000fc5f",
+    "upload-20/traffic.json": "5a9fd195ebdbfc68bbab5de423b8186123a10b098e1a6a0a6f63e3b5601216a5",
+    "upload-20/iperf.json": "7145d35d33013166d433dbfa48e2328c09b9c5b01e1f1f92ef6f419b92fa8365",
+    "upload-20/mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+    "upload-20/mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+    "upload-20/mlo.before.hw-queues.txt": "963b344846b0ea1c7b6e7df369cb0029b903d69b75a0a50a5eb455ea55c8c4ed",
+    "upload-20/mlo.after.hw-queues.txt": "8324c42cfb2c8c2fe2fe6afc699a2422f1e59b2e4cea270b7b01dad9ebbce21b"
+  },
+  "final_state_after_tests": {
+    "result": "PASS",
+    "time": "2026-09-27T06:02:55.284566+00:00",
+    "counts": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0
+    },
+    "checks": {
+      "boot.txt": true,
+      "configs.sha256": true,
+      "modules.sha256": true,
+      "wpad.sha256": true,
+      "tailscale.txt": true,
+      "tailscale-online.txt": true,
+      "tailscale-node.sha256": true,
+      "tailscale-address.sha256": true,
+      "lan2.txt": true,
+      "lan4.txt": true,
+      "uci-changes.txt": true,
+      "diagnostics.txt": true,
+      "ps-gate-fix.txt": true,
+      "npu-firmware.sha256": true,
+      "devcoredump.txt": true,
+      "bridge-enabled.txt": true,
+      "hostapd.ap-mld0.json": true,
+      "hostapd.phy0.0-ap0.json": true,
+      "wired_http": true,
+      "guard_log_once": true,
+      "npu_version": true
+    },
+    "scope": "After bounded Mac smoke and IPv6 tests; byte comparisons to initial post-boot evidence. Historical expired faults not excluded."
+  }
+}

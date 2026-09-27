@@ -1,0 +1,83 @@
+{
+  "result": "LOCAL_IPV6_AND_DISCOVERY_VERIFIED",
+  "time": "2026-09-27T06:03:47.525445+00:00",
+  "checks": {
+    "2g_in_lan_bridge_and_ap_enabled": true,
+    "bridge_ipv6_enabled": true,
+    "ra_slaac_dhcpv6_enabled": true,
+    "local_ra_onlink_autonomous_prefix_observed": true,
+    "mac_2g_ipv6_autoconfigured": true,
+    "mac_2g_router_ipv6_echo_3_of_3": true,
+    "mac_2g_router_ipv6_http_200": true,
+    "mac_2g_nest_ipv6_tcp_http_response": true,
+    "matter_operational_discovery_2g_and_wired": true,
+    "border_router_discovery_2g_and_wired": true,
+    "ipv6_mdns_thread_response_from_2g": true,
+    "no_capture_kernel_drops": true
+  },
+  "counts": {
+    "passed": 12,
+    "failed": 0,
+    "warnings": 2,
+    "skipped": 2
+  },
+  "check_pass_rate_percent": 100,
+  "warnings": [
+    "WAN6 has no delegated/global prefix/default route; router RA lifetime 0 while local autonomous prefix remains valid. Not a local Matter failure.",
+    "Nest Hub ICMP echo did not return within 12s; scoped IPv6 TCP/HTTP returned 404 successfully. An independent tablet ping invocation was invalid and excluded."
+  ],
+  "skipped": [
+    "Matter authenticated application command/commissioning not tested.",
+    "Home Assistant host acceptance of Thread route advertisements and Thread end-device reachability not tested."
+  ],
+  "capture_records": [
+    456,
+    118
+  ],
+  "record_counts_include_bridge_clones": true,
+  "config_changed": false,
+  "evidence_sha256": {
+    "mac-wired.txt": "fd76c4fb27021bc56f057733ac1860af83277a46a5619382c2fac4b96dc03680",
+    "baseline.txt": "8c3e2e4e2ce758b8590df091e27db7bea4c47a322d23c5f4060a7af4b91a3ccc",
+    "bridge.txt": "d265af7cc381192e85f7e40b906dae16466e5664d6cc2358aff1e12ca740c9f5",
+    "firewall.txt": "ee787593b13e0d5b672db8e229f3728bc8e8d8748684af248823c9b8881ca0b9",
+    "router-v6-ping.txt": "84fab2d98222ec0e06aefef3db21212998a87fb5874276c504fe09beb6d6783c",
+    "ipad-v6-ping.stderr": "f24dfc07ae0601fe075088d0ae7f23c58692e5ccf2244254dee6b2765f9b972f",
+    "capture-2g-discovery.stderr": "646bdebf69870e54a9605767f9dc25cf21d84936cdc66227fc3a38d7c2828e6b",
+    "ipad-v6-ping.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mac-2g-ifconfig.txt": "4af71866c2a00998f6fa74513d74684c3c7ed559aa750144eba357bf3d446fbb",
+    "mac-ifaces.txt": "af9a611f1161c1e1172284dd703c57942fe935e5ff95493b0744ff527a1108ca",
+    "browse-en12-_matter._tcp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browse-en0-_meshcop._udp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mdns-retry.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browse-en0-_matterc._udp.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "wifi.txt": "c16f5706e257466b76d5c908a5738114c95f542a81bcba06adfe6a6c1cadbf62",
+    "browse-en0-_matter._tcp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "browse-en0-_meshcop._udp.txt": "e2c26c09be4bf88848a45c5ddfff2fb087fc26cf29dc65110650ceb6f9cd3cb5",
+    "config-facts.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lan-retry.txt": "f836af15ee5bc3f0d62f71d5db0145aec57fb977ef85b05b9a3d663515b53d7e",
+    "browse-en12-_matter._tcp.txt": "4b59025a7464a405322412eb25cf6624ce610fcdb7dc34e2c20d68d24adf6947",
+    "browse-en12-_meshcop._udp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capture-2g-discovery.txt": "5e66755fef53c6a9de737ec11dd0da456f4c22752c5ce4d14cb582b17025cdb2",
+    "capture-2g.txt": "8fa0b6d8fce3c4a7bfc74859297172b4ae8772b66ba0199d225fa8df0286c3bc",
+    "ipv6.txt": "8f39c99f1031e01ff2ef43044593a78e011005e731e45f56f2a53380c9a34cb2",
+    "capture-2g.stderr": "baf0b23ef35c085c075993127608f740387f8e4b55b73a5b2dfdb3891fd7ce27",
+    "browse-en0-_matter._tcp.txt": "0790aa29c8a23a61caacc91256c79ba1c5dd949dadcf0a3c01c29b71561d3457",
+    "lan.txt": "327cdfc63d2292fa26988a601afb504fead39a80b4df0e9b91e02af224aeb83d",
+    "browse-en12-_matterc._udp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "discovery-process-status.json": "99ee214b7967c32c3750c51c587c91ad4a7c3b7fc906798ce58c597df9110daf",
+    "browse-en12-_meshcop._udp.txt": "af120afb1f2ca0d980461a80d5185820a3a7adfbd446ca6852889989fb2e5fc3",
+    "mdns.txt": "1677a8d39ee28601bdeb6a8819d199922f86ed36edeceec15bb5a96674972d42",
+    "browse-en12-_matterc._udp.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capture-2g.rc": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "mdns-retry.txt": "63265266195fd23de6e86ef8fcc4a39f321bd99b737bf4bd77ce959c995d9f04",
+    "browse-en0-_matterc._udp.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "router-v6-http.txt": "f251d4b409f67362acb3e6158eb840c68f9b93c59e6448a2f333f7e6537410a0",
+    "nest-ipv6-http.txt": "f4115c38a4bca35951ab1f0a7db4b54c0dac60c4f288ac95bda5506f552ea86a",
+    "helpers.json": "47f66f39237d6fb4d38588fdd6b0a845324c9df2a90ddbcfaaa4426f06ec4542",
+    "config-facts.txt": "9ac125db82c865c77d3a2e0b4dc15d557a1a637a7ca7bc40bc3c6cbeb67ad183",
+    "nest-ipv6-http.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "lan-retry.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "reference": "https://www.home-assistant.io/integrations/matter/"
+}
