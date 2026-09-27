@@ -1,0 +1,363 @@
+{
+  "status": "OFFLINE_TCP_TIMESTAMP_PHASE_OBSERVATIONS",
+  "self_test": "PASS: wire wrap, repeated values, independent per-flow offsets and three ambiguous/backward rejections",
+  "trials": [
+    {
+      "trial": "low",
+      "receiver_mbps": 1135.7671053045829,
+      "capture_records": 1728003,
+      "dropped_by_kernel": 0,
+      "actual_flows": 4,
+      "common_gap_count": 108,
+      "short_common_gap_count": 103,
+      "long_common_gap_count": 5,
+      "flows": [
+        {
+          "flow": 1,
+          "ack_records_with_timestamp": 370887,
+          "observed_server_seconds_for_ratio": 59.99143600463867,
+          "observed_timestamp_ticks_for_ratio": 59992,
+          "empirical_timestamp_ticks_per_server_second": 1000.0094012645619,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 148.5928227574305,
+          "all_common_gap_boundaries": {
+            "boundaries": 108,
+            "median_server_receive_gap_ms": 137.6814842224121,
+            "median_timestamp_delta_ticks": 2.0,
+            "median_timestamp_delta_ms_at_empirical_ratio": 1.9999811976476423,
+            "median_receive_minus_timestamp_ms": 135.3394915730433,
+            "timestamp_delta_at_most_5_ticks": 95,
+            "receive_minus_timestamp_over_100ms": 98,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 102
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 103,
+            "median_server_receive_gap_ms": 137.51602172851562,
+            "median_timestamp_delta_ticks": 2,
+            "median_timestamp_delta_ms_at_empirical_ratio": 1.9999811976476423,
+            "median_receive_minus_timestamp_ms": 135.46621104783577,
+            "timestamp_delta_at_most_5_ticks": 95,
+            "receive_minus_timestamp_over_100ms": 98,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 100
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 5,
+            "median_server_receive_gap_ms": 856.6639423370361,
+            "median_timestamp_delta_ticks": 915,
+            "median_timestamp_delta_ms_at_empirical_ratio": 914.9913979237963,
+            "median_receive_minus_timestamp_ms": -10.53757040575988,
+            "timestamp_delta_at_most_5_ticks": 0,
+            "receive_minus_timestamp_over_100ms": 0,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 2
+          }
+        },
+        {
+          "flow": 2,
+          "ack_records_with_timestamp": 362861,
+          "observed_server_seconds_for_ratio": 59.99372887611389,
+          "observed_timestamp_ticks_for_ratio": 59992,
+          "empirical_timestamp_ticks_per_server_second": 999.9711823861213,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 148.5638976701181,
+          "all_common_gap_boundaries": {
+            "boundaries": 108,
+            "median_server_receive_gap_ms": 137.80343532562256,
+            "median_timestamp_delta_ticks": 2.0,
+            "median_timestamp_delta_ms_at_empirical_ratio": 2.000057636888715,
+            "median_receive_minus_timestamp_ms": 135.24793095987053,
+            "timestamp_delta_at_most_5_ticks": 91,
+            "receive_minus_timestamp_over_100ms": 96,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 102
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 103,
+            "median_server_receive_gap_ms": 137.52102851867676,
+            "median_timestamp_delta_ticks": 2,
+            "median_timestamp_delta_ms_at_empirical_ratio": 2.000057636888715,
+            "median_receive_minus_timestamp_ms": 135.4230821434697,
+            "timestamp_delta_at_most_5_ticks": 91,
+            "receive_minus_timestamp_over_100ms": 96,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 100
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 5,
+            "median_server_receive_gap_ms": 854.3171882629395,
+            "median_timestamp_delta_ticks": 911,
+            "median_timestamp_delta_ms_at_empirical_ratio": 911.0262536028097,
+            "median_receive_minus_timestamp_ms": -9.318195687784964,
+            "timestamp_delta_at_most_5_ticks": 0,
+            "receive_minus_timestamp_over_100ms": 0,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 2
+          }
+        },
+        {
+          "flow": 3,
+          "ack_records_with_timestamp": 308175,
+          "observed_server_seconds_for_ratio": 59.9912428855896,
+          "observed_timestamp_ticks_for_ratio": 59991,
+          "empirical_timestamp_ticks_per_server_second": 999.9959513159268,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 148.5169787495229,
+          "all_common_gap_boundaries": {
+            "boundaries": 108,
+            "median_server_receive_gap_ms": 137.97008991241455,
+            "median_timestamp_delta_ticks": 3.0,
+            "median_timestamp_delta_ms_at_empirical_ratio": 3.0000121461013953,
+            "median_receive_minus_timestamp_ms": 134.82638789106343,
+            "timestamp_delta_at_most_5_ticks": 88,
+            "receive_minus_timestamp_over_100ms": 97,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 103
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 103,
+            "median_server_receive_gap_ms": 137.64286041259766,
+            "median_timestamp_delta_ticks": 2,
+            "median_timestamp_delta_ms_at_empirical_ratio": 2.0000080974009298,
+            "median_receive_minus_timestamp_ms": 135.03297758985494,
+            "timestamp_delta_at_most_5_ticks": 88,
+            "receive_minus_timestamp_over_100ms": 97,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 101
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 5,
+            "median_server_receive_gap_ms": 867.0010566711426,
+            "median_timestamp_delta_ticks": 920,
+            "median_timestamp_delta_ms_at_empirical_ratio": 920.0037248044279,
+            "median_receive_minus_timestamp_ms": -6.963065703427674,
+            "timestamp_delta_at_most_5_ticks": 0,
+            "receive_minus_timestamp_over_100ms": 0,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 2
+          }
+        },
+        {
+          "flow": 4,
+          "ack_records_with_timestamp": 464358,
+          "observed_server_seconds_for_ratio": 59.99108695983887,
+          "observed_timestamp_ticks_for_ratio": 59992,
+          "empirical_timestamp_ticks_per_server_second": 1000.0152195969002,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 148.52011672718268,
+          "all_common_gap_boundaries": {
+            "boundaries": 108,
+            "median_server_receive_gap_ms": 137.77756690979004,
+            "median_timestamp_delta_ticks": 2.0,
+            "median_timestamp_delta_ms_at_empirical_ratio": 1.9999695612694648,
+            "median_receive_minus_timestamp_ms": 135.031523665105,
+            "timestamp_delta_at_most_5_ticks": 91,
+            "receive_minus_timestamp_over_100ms": 95,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 100
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 103,
+            "median_server_receive_gap_ms": 137.60805130004883,
+            "median_timestamp_delta_ticks": 2,
+            "median_timestamp_delta_ms_at_empirical_ratio": 1.9999695612694648,
+            "median_receive_minus_timestamp_ms": 135.42598720422856,
+            "timestamp_delta_at_most_5_ticks": 91,
+            "receive_minus_timestamp_over_100ms": 95,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 98
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 5,
+            "median_server_receive_gap_ms": 854.1629314422607,
+            "median_timestamp_delta_ticks": 911,
+            "median_timestamp_delta_ms_at_empirical_ratio": 910.9861351582413,
+            "median_receive_minus_timestamp_ms": -6.893618422550389,
+            "timestamp_delta_at_most_5_ticks": 0,
+            "receive_minus_timestamp_over_100ms": 0,
+            "subsequent_timestamp_advance_at_least_100ms_within_20ms": 2
+          }
+        }
+      ],
+      "longest_common_gap": {
+        "start_seconds": 22.913048,
+        "end_seconds": 24.122492,
+        "duration_ms": 1209.444,
+        "flow_boundary_observations": [
+          {
+            "flow": 1,
+            "server_receive_gap_ms": 1209.4509601593018,
+            "timestamp_delta_ticks": 1220,
+            "timestamp_delta_ms_at_empirical_ratio": 1219.9885305650616,
+            "receive_minus_timestamp_ms": -10.53757040575988,
+            "timestamp_advance_ticks_in_next_20ms": 18
+          },
+          {
+            "flow": 2,
+            "server_receive_gap_ms": 1210.716962814331,
+            "timestamp_delta_ticks": 1220,
+            "timestamp_delta_ms_at_empirical_ratio": 1220.035158502116,
+            "receive_minus_timestamp_ms": -9.318195687784964,
+            "timestamp_advance_ticks_in_next_20ms": 18
+          },
+          {
+            "flow": 3,
+            "server_receive_gap_ms": 1210.710048675537,
+            "timestamp_delta_ticks": 1222,
+            "timestamp_delta_ms_at_empirical_ratio": 1222.0049475119683,
+            "receive_minus_timestamp_ms": -11.29489883643123,
+            "timestamp_advance_ticks_in_next_20ms": 18
+          },
+          {
+            "flow": 4,
+            "server_receive_gap_ms": 1210.705041885376,
+            "timestamp_delta_ticks": 1222,
+            "timestamp_delta_ms_at_empirical_ratio": 1221.981401935643,
+            "receive_minus_timestamp_ms": -11.27636005026693,
+            "timestamp_advance_ticks_in_next_20ms": 18
+          }
+        ]
+      },
+      "input_sha256": {
+        "iperf": "3afc37a42d8f6e45f97084aa102938732e727b1a6f363fbd50df0f310350581e",
+        "verified_tcp_report": "a0d6f65a927e24d6e1e2dd44773e599ce28623e9b5a43f405ee042a4d3bc6c15",
+        "tcpdump_log": "c2292ab945015a5eaca2eb0db38120e55e1c6c860b2265600eddaee63b6e6fc4",
+        "capture_segments": [
+          {
+            "name": "test.pcap00",
+            "sha256": "3663169ec08d6a9fbd5ca2c5615abc6ad831c532682074da90f3f17496908e53"
+          },
+          {
+            "name": "test.pcap01",
+            "sha256": "57d3b61814eeaacd3d57cb9174d3109069491ba0854ae01c5ad5dc1b4bf99b59"
+          },
+          {
+            "name": "test.pcap02",
+            "sha256": "52191d803912a54ee59bbabe0e38a64c32ebaaca6facb554606f8e3f3c97daae"
+          }
+        ]
+      }
+    },
+    {
+      "trial": "healthy",
+      "receiver_mbps": 1962.076573657192,
+      "capture_records": 1684407,
+      "dropped_by_kernel": 0,
+      "actual_flows": 4,
+      "common_gap_count": 0,
+      "short_common_gap_count": 0,
+      "long_common_gap_count": 0,
+      "flows": [
+        {
+          "flow": 1,
+          "ack_records_with_timestamp": 382684,
+          "observed_server_seconds_for_ratio": 59.99386787414551,
+          "observed_timestamp_ticks_for_ratio": 59990,
+          "empirical_timestamp_ticks_per_server_second": 999.9355288418207,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 37.830931084377404,
+          "all_common_gap_boundaries": {
+            "boundaries": 0
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 0
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 0
+          }
+        },
+        {
+          "flow": 2,
+          "ack_records_with_timestamp": 362906,
+          "observed_server_seconds_for_ratio": 59.99391508102417,
+          "observed_timestamp_ticks_for_ratio": 59990,
+          "empirical_timestamp_ticks_per_server_second": 999.9347420314397,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 37.714820449442485,
+          "all_common_gap_boundaries": {
+            "boundaries": 0
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 0
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 0
+          }
+        },
+        {
+          "flow": 3,
+          "ack_records_with_timestamp": 340852,
+          "observed_server_seconds_for_ratio": 59.99333596229553,
+          "observed_timestamp_ticks_for_ratio": 59989,
+          "empirical_timestamp_ticks_per_server_second": 999.9277259344561,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 37.70980664221933,
+          "all_common_gap_boundaries": {
+            "boundaries": 0
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 0
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 0
+          }
+        },
+        {
+          "flow": 4,
+          "ack_records_with_timestamp": 363476,
+          "observed_server_seconds_for_ratio": 59.99319100379944,
+          "observed_timestamp_ticks_for_ratio": 59989,
+          "empirical_timestamp_ticks_per_server_second": 999.9301420089628,
+          "timestamp_steps_monotonic_and_below_half_space": true,
+          "total_timestamp_span_below_half_space": true,
+          "maximum_adjacent_receive_minus_timestamp_ms": 37.835932486981996,
+          "all_common_gap_boundaries": {
+            "boundaries": 0
+          },
+          "short_common_gaps_100_to_300ms": {
+            "boundaries": 0
+          },
+          "long_common_gaps_over_300ms": {
+            "boundaries": 0
+          }
+        }
+      ],
+      "longest_common_gap": null,
+      "input_sha256": {
+        "iperf": "75d70c3e5721087e9d8cb1f0dfd123ac85413f1107e6bc17dc06268b1faafb23",
+        "verified_tcp_report": "94a62a24a9d08fd8e8a9a9bb6b1c95a8817670917311303649a216ed3fc08707",
+        "tcpdump_log": "112b403cfc526444a5effebd7196abb3b039eae890c8ee29c130b30f3c4d8f01",
+        "capture_segments": [
+          {
+            "name": "test.pcap00",
+            "sha256": "cb2959d16eac636a95e23ad6cd7ee9844bc73195a19122ee4b1dc4887221aa4d"
+          },
+          {
+            "name": "test.pcap01",
+            "sha256": "32dddb9bd02d044eaee5ef8e2d2530c87d202fa6c6f45eb4771fd564e065ca6c"
+          },
+          {
+            "name": "test.pcap02",
+            "sha256": "1711899be3882b1198679be0b6521e2a10db8fb823a834a53b1ccdd73b7a57b4"
+          }
+        ]
+      }
+    }
+  ],
+  "helper_sha256": {
+    "repeat": "e28ce6ee96e4d318bf5fcb59e16f72364746f592b068e2c92fd9e4a06f519287",
+    "tcp": "c4765c9a47639a052c29a4bd1716b51da2ba7d7bfc32da44eba603c643ee76c0",
+    "clock_tcp": "006f8b8e090e776143c391eba98c2a98b3f8b2784e17ea701743bd9b08778b1c",
+    "server": "02115816b764b58d50444dc38c65edd609f9c54881270a326fa976f24e5a6977",
+    "parser": "3dd256b90fa084ad4619873e569f5334903cce7e5625130d28303e26612caab6"
+  },
+  "checker_sha256": "446371f52d08d1f5fa0364fc11f90f556768fc61f6957f935687fe12e1a0e32e",
+  "limits": [
+    "Only already verified server captures are read. No Mac-side packet, RF timestamp, PS state or new live measurement is supplied.",
+    "Each TCP connection is unwrapped and analyzed independently. Absolute TSval offsets are never compared across flows.",
+    "Backward or ambiguous timestamp steps and a total half-space span are rejected, not silently interpreted as a wrap.",
+    "The per-flow empirical ratio uses first/last ACKs in the 60-second window. It is an arrival-clock ratio influenced by queueing, not a calibrated sender clock or an error bound.",
+    "A small TSval increase over a long server receive gap, followed by a rapid TSval advance, is an observed phase pattern. Timestamp generation, reuse and batching are not independently observed.",
+    "Server arrival gaps minus scaled TSval deltas are not exact one-way delay or RF dwell. The source of any delay cannot be assigned to Mac, AP, NPU or server from this capture alone.",
+    "ACK timestamp observations include nonprogress ACKs; neither these counts nor repeated payload ranges are physical packet-loss counts.",
+    "The 300ms short/long split is an explicit descriptive threshold. The largest common gap is also reported individually; the two patterns need not have one cause.",
+    "No normal run or timestamp pattern proves the original Air stall repaired or excludes an intermittent r43 regression."
+  ]
+}
