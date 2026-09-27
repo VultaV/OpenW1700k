@@ -1,0 +1,825 @@
+{
+  "method": {
+    "firmware": "r42",
+    "trial": "fresh association, four TCP download streams at 150Mbps each for 40 seconds",
+    "device": "Mac",
+    "wifi_settings_panel": "General before responder/start and throughout traffic; Wi-Fi panel opened only after capture completed for hotspot restoration",
+    "ui_observation": "CUA AX confirmed General row16 selected before probes and trial; no Wi-Fi panel actions during traffic",
+    "hotspot_restored": true,
+    "firmware_reinstalled": false,
+    "router_network_settings_changed": false,
+    "server_pcap_snaplen": 96,
+    "server_capture_seconds": 140,
+    "private_transfer_verified": true,
+    "limits": [
+      "One diagnostic-paced fresh-association trial, not maximum throughput or Air sleep/wake repair.",
+      "General panel does not disable OS scan activity; native scan API calls are recorded separately.",
+      "Private 96-byte packet prefixes can include short payload content and are not published."
+    ],
+    "input_sha256": {
+      "run.py": "58a656df4ea35a3274ba1d350238b597ce8b0fe4b07f7dcb89faf97e97661e4e",
+      "clock.py": "cdef187171ec3d3abfa5955e3f2e5d98d5b01a48c44fcb5328cd8960805817b1",
+      "analyze.py": "5335e3cf854a7a964d6cdb025b90f7e11efd60af032ffca5eb9931bb0abeb5db"
+    }
+  },
+  "traffic": {
+    "same_association_and_target": true,
+    "link_bitmap": "0x6",
+    "router_unchanged": true,
+    "wired_checks": 55,
+    "wired_checks_all_normal": true,
+    "four_data_flows_ppe_bound": true,
+    "receiver_mbps": 599.9627592128645,
+    "min_interval_mbps": 62.669399062733326,
+    "below_500_bins": 13,
+    "zero_bins": 0,
+    "sender_retransmits": 3323,
+    "native_timer_records": [
+      {
+        "kind": "cancelled",
+        "association_seconds_bounds": [
+          -0.026200056076049805,
+          -0.0046291351318359375
+        ]
+      },
+      {
+        "kind": "scheduled",
+        "association_seconds_bounds": [
+          0.2537999153137207,
+          0.27537083625793457
+        ],
+        "scheduled_delay_seconds": 20.0
+      },
+      {
+        "kind": "request",
+        "association_seconds_bounds": [
+          20.278799772262573,
+          20.300370693206787
+        ]
+      }
+    ],
+    "wifi_settings_request_association_bounds": [],
+    "reader_drop_notice_count": 0,
+    "kernel_emitted_sequence_continuous": true,
+    "kernel_record_count": 1018,
+    "global_event_coverage": {
+      "P": {
+        "observed": 938,
+        "missing_between_first_last": 0,
+        "reordered": false
+      },
+      "F": {
+        "observed": 0,
+        "missing_between_first_last": 0,
+        "reordered": false
+      }
+    },
+    "suppression_notice_count": 0,
+    "target_P_in_guaranteed_traffic": 648,
+    "diagnostics_restored": true,
+    "configured_load": {
+      "streams": 4,
+      "per_stream_bps": 150000000,
+      "total_target_bps": 600000000
+    },
+    "native_scan_api_pairs": 39
+  },
+  "alignment": {
+    "status": "DIRECT_CLOCK_BOUNDED_PS_ACK_ALIGNMENT",
+    "clock": {
+      "pve_mac_probes": 20,
+      "mac_router_samples": 10,
+      "mac_server_responses_exact": true,
+      "mac_minus_pve_offset_ns": [
+        1149961,
+        1619478
+      ],
+      "pve_mac_width_ns": 469517,
+      "mac_router_width_ms": 19.572973251342773,
+      "combined_width_ms": 20.043657852172853,
+      "router_uptime_quantization_seconds": 0.01,
+      "outward_float_and_packet_allowance_us": 1,
+      "both_host_wall_monotonic_checks_passed": true,
+      "before_after_enclose_all_data": true,
+      "iperf_start_bracket_used": false
+    },
+    "capture": {
+      "records": 395656,
+      "dropped_by_kernel": 0,
+      "actual_flows": 4,
+      "first_to_last_outbound_data_seconds": 40.00880312919617,
+      "timestamp_backsteps": 79
+    },
+    "ps": {
+      "global_coverage": {
+        "P": {
+          "observed": 938,
+          "missing_between_first_last": 0,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "target_state_checks": 722,
+      "all_non_aql_zero": true,
+      "paired_gate_closed_intervals_entirely_in_data": 162,
+      "closed_seconds": 12.667101999998522,
+      "longest_closed_seconds": 0.34002600000030725,
+      "final_reopen_seconds_from_first_outbound_data_bounds": [
+        32.298163652420044,
+        32.31820726394653
+      ],
+      "following_observed_gate0_seconds": 7.9604410000001735,
+      "no_later_observed_close_before_last_outbound_data": true
+    },
+    "flows": [
+      {
+        "flow": 1,
+        "progress_records": 72803,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "first_certain_progress_after_final_reopen": {
+          "delay_ms_bounds": [
+            0.5838871002197266,
+            20.629405975341797
+          ],
+          "ambiguous_progress_records": 51
+        },
+        "cumulative_ack_progress_bytes_in_certain_post_reopen_records": 250008360,
+        "max_progress_gap_entirely_after_reopen_ms": 28.331995010375977,
+        "progress_gaps_entirely_after_reopen_over_100ms": 0
+      },
+      {
+        "flow": 2,
+        "progress_records": 69854,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "first_certain_progress_after_final_reopen": {
+          "delay_ms_bounds": [
+            0.5829334259033203,
+            20.62845230102539
+          ],
+          "ambiguous_progress_records": 52
+        },
+        "cumulative_ack_progress_bytes_in_certain_post_reopen_records": 263558696,
+        "max_progress_gap_entirely_after_reopen_ms": 28.181076049804688,
+        "progress_gaps_entirely_after_reopen_over_100ms": 0
+      },
+      {
+        "flow": 3,
+        "progress_records": 66869,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "first_certain_progress_after_final_reopen": {
+          "delay_ms_bounds": [
+            0.6628036499023438,
+            20.708322525024414
+          ],
+          "ambiguous_progress_records": 90
+        },
+        "cumulative_ack_progress_bytes_in_certain_post_reopen_records": 279436064,
+        "max_progress_gap_entirely_after_reopen_ms": 28.21183204650879,
+        "progress_gaps_entirely_after_reopen_over_100ms": 0
+      },
+      {
+        "flow": 4,
+        "progress_records": 83519,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "first_certain_progress_after_final_reopen": {
+          "delay_ms_bounds": [
+            0.6587505340576172,
+            20.704269409179688
+          ],
+          "ambiguous_progress_records": 83
+        },
+        "cumulative_ack_progress_bytes_in_certain_post_reopen_records": 168813904,
+        "max_progress_gap_entirely_after_reopen_ms": 29.822111129760742,
+        "progress_gaps_entirely_after_reopen_over_100ms": 0
+      }
+    ],
+    "longest_all_four_no_ack_gap": {
+      "seconds_from_first_outbound_data": [
+        23.463073015213013,
+        23.811923027038574
+      ],
+      "duration_ms": 348.8500118255615,
+      "host_gate_closed_overlap_ms_bounds": [
+        310.75001441955055,
+        314.6153422851583
+      ],
+      "overlap_percent_bounds": [
+        89.0778908779625,
+        90.18693861511214
+      ],
+      "same_offset_used_for_all_intervals": true,
+      "related_gate_intervals": [
+        {
+          "close_n": 3903,
+          "reopen_n": 3904,
+          "close_seconds_bounds": [
+            23.247580766677856,
+            23.26762442453003
+          ],
+          "reopen_seconds_bounds": [
+            23.445385694503784,
+            23.465429352355958
+          ],
+          "logged_closed_seconds": 0.1978049999997893
+        },
+        {
+          "close_n": 3907,
+          "reopen_n": 3908,
+          "close_seconds_bounds": [
+            23.448649644851685,
+            23.46869330270386
+          ],
+          "reopen_seconds_bounds": [
+            23.462478637695312,
+            23.482522295547486
+          ],
+          "logged_closed_seconds": 0.01382899999998699
+        },
+        {
+          "close_n": 3911,
+          "reopen_n": 3912,
+          "close_seconds_bounds": [
+            23.494045734405518,
+            23.51408939225769
+          ],
+          "reopen_seconds_bounds": [
+            23.650245666503906,
+            23.67028932435608
+          ],
+          "logged_closed_seconds": 0.15619999999989886
+        },
+        {
+          "close_n": 3915,
+          "reopen_n": 3916,
+          "close_seconds_bounds": [
+            23.653509616851807,
+            23.67355327470398
+          ],
+          "reopen_seconds_bounds": [
+            23.839780807495117,
+            23.85982446534729
+          ],
+          "logged_closed_seconds": 0.18627100000003338
+        }
+      ]
+    },
+    "inputs_sha256": {
+      "input-01:clock.py": "cdef187171ec3d3abfa5955e3f2e5d98d5b01a48c44fcb5328cd8960805817b1",
+      "input-02:check-tcp.py": "006f8b8e090e776143c391eba98c2a98b3f8b2784e17ea701743bd9b08778b1c",
+      "input-03:analyze.py": "c7a856048e0358817b8085a6de41ee717ffcbb23d687cd542911f4c9ef274b25",
+      "input-04:pcap.py": "3dd256b90fa084ad4619873e569f5334903cce7e5625130d28303e26612caab6",
+      "input-05:mac-clock.json": "3a510fa291e5a83ac18c8191b1a06a0411b5257ffe97cc6ac20d9508e24cddcc",
+      "input-06:clock-before.json": "08646b7bf9ff3c65ca9e164bf13bace8c4a8022c5474af0005fa3519602f8604",
+      "input-07:clock-after.json": "8db583cadfc772695bc54aa86d9c7400138a42e854f9279dcaad16568f43e5d9",
+      "input-08:clock-bounds.json": "b1af59e4cd8b5d9c279df28da07a7c5df4682fbe5aec073ca9e3273ae75c6a55",
+      "input-09:clock-closed-before.json": "e9306d55d16fd1608abb5d906fc5789bb13f6554c347f9798171d0f7238977a9",
+      "input-10:clock-closed-after.json": "600304ccf6725b975cd5b846d9127d6e4cd165da348cada409c50241fb21ea67",
+      "input-11:test.pcap00": "064c16d0ec975a2b9ce9adb32bf54a0b3df2cce1cd39803b2262fefc9ce944aa",
+      "input-12:tcpdump.log": "c3277d5f34a306509fa2899219f1bd2c9e8ed70231edf4a5553a55d0e41fd505",
+      "input-13:iperf.json": "c3ad9f4b150a1ceb4d913c67f70d48fa9e222804a1eeeaa886ff2ceadbe2c845",
+      "input-14:kmsg.stream": "6b27b92753266032dbd5887a9a6c00d88c16625b73e597bc7e2c46fd77a9ebb7",
+      "input-15:mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+      "input-16:mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+      "input-17:station.before.txt": "2436a39a5957742a641b25e9bcd300a22c36e8b155f8bf16278140c88ccfaee8",
+      "input-18:station.after.txt": "5a764bdb92ee01860c6c21cb58de397952354e0a22cb56df1b9dc18f233bbcc1"
+    },
+    "checker_sha256": "7ebfbf812e77cfd54b4e10984ca7da89886fe8378f57272b10e8c16dafb9a2b5",
+    "limits": [
+      "Both constant-offset intervals are compatible with before/after measurements, not a proof of zero drift between them. No conflict widening or averaging.",
+      "Mac/router bounds retain 10ms uptime truncation and measured SSH RTT. PVE/Mac bounds use four software API timestamps. Neither is an RF or NIC hardware timestamp.",
+      "P records are post-callback host PS notifications. Gate is a host predicate, not measured per-packet PPE/NPU blocking or physical client wake.",
+      "Eligible global P interior continuity and target state checks do not cover repeated unchanged notifications or unknown boundary/timing delays.",
+      "First certain ACK progress can follow ambiguous records inside the offset range. ACK progress may acknowledge pre-wake transmissions; it does not identify the first successful post-wake air transmission.",
+      "PVE veth capture sees both path directions and GSO. ACK gaps cannot isolate forward/reverse/AP/firmware/RF delay; microsecond backsteps are sorted per flow. Overlap with a host predicate does not prove it blocked accelerated traffic.",
+      "Packet origin is actual first outbound payload, not iperf measurement start. This is one paced Mac trial, not proof of original Air repair."
+    ]
+  },
+  "server": {
+    "status": "SAVED_SERVER_SAMPLES_VERIFIED",
+    "listener_pid_matches_expected": true,
+    "process_name_and_starttime_stable": true,
+    "all_four_actual_data_tuples_verified": true,
+    "server_epoch_timestamps_strictly_increasing": true,
+    "samples_total": 140,
+    "samples_with_four_data_flows": 40,
+    "sampled_data_flow_span_seconds": 39.42511200904846,
+    "max_sampler_step_seconds": 1.0218400955200195,
+    "process_cpu": {
+      "weighted_mean_percent_one_cpu": 3.525671657396892,
+      "max_sample_interval_percent_one_cpu": 5.94455973077093,
+      "intervals": 39
+    },
+    "cgroup_cpu": {
+      "weighted_mean_percent_one_cpu": 4.686865568259923,
+      "max_sample_interval_percent_one_cpu": 7.388950835845024,
+      "intervals": 39
+    },
+    "cpu_quota_unlimited": true,
+    "quota_period_us": 100000,
+    "throttle_delta_during_sampled_data": {
+      "nr_throttled": 0,
+      "throttled_usec": 0
+    },
+    "iperf_remote_cpu_percent": 3.5357830151509133,
+    "per_stream": {
+      "1": {
+        "samples": 40,
+        "min_cwnd_segments": 147,
+        "min_cwnd_bytes": 212856,
+        "max_rto_ms": 413.0,
+        "max_rtt_ms": 154.476,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 396096,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2874920
+      },
+      "2": {
+        "samples": 40,
+        "min_cwnd_segments": 139,
+        "min_cwnd_bytes": 201272,
+        "max_rto_ms": 439.0,
+        "max_rtt_ms": 175.071,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 332352,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2873952
+      },
+      "3": {
+        "samples": 40,
+        "min_cwnd_segments": 104,
+        "min_cwnd_bytes": 150592,
+        "max_rto_ms": 423.0,
+        "max_rtt_ms": 178.477,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 440960,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2873736
+      },
+      "4": {
+        "samples": 40,
+        "min_cwnd_segments": 124,
+        "min_cwnd_bytes": 179552,
+        "max_rto_ms": 466.0,
+        "max_rtt_ms": 190.502,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 404800,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2878832
+      }
+    },
+    "limits": [
+      "The saved selected_pid header is checked against the caller-provided listener PID; ss socket rows independently match the four actual iperf tuples. This offline check does not query a live listener.",
+      "CPU percentages use one CPU as 100%. cgroup usage covers the whole container, not only iperf or host/IRQ CPU.",
+      "Epoch is written before sequential proc/cgroup/ss reads. Samples are not atomic or exactly one second; server clock is not aligned to Mac/router PS time here.",
+      "A one-second sample can miss brief congestion-window collapse, zero windows or backoff. An absent ss field is preserved as null, not invented as zero.",
+      "RTO is a timeout estimate, not evidence that the timer fired. snd_wnd is the server send window advertised by its receiver; rcv_space is not used as a substitute.",
+      "Counters and sender samples do not establish RF loss, physical-wire packet order, AP wake latency or repair of the original Air stall."
+    ],
+    "input_sha256": {
+      "server.txt": "af7a0959745c4154e6f8600f65b4b62d25696831240b7a22f6ff1e00e0b9dfe1",
+      "iperf.json": "c3ad9f4b150a1ceb4d913c67f70d48fa9e222804a1eeeaa886ff2ceadbe2c845",
+      "check-server.py": "02115816b764b58d50444dc38c65edd609f9c54881270a326fa976f24e5a6977"
+    }
+  },
+  "tcp": {
+    "status": "CAPTURE_TCP_OBSERVATIONS_VERIFIED",
+    "inputs_sha256": {
+      "pcap": "064c16d0ec975a2b9ce9adb32bf54a0b3df2cce1cd39803b2262fefc9ce944aa",
+      "iperf": "c3ad9f4b150a1ceb4d913c67f70d48fa9e222804a1eeeaa886ff2ceadbe2c845",
+      "parser": "3dd256b90fa084ad4619873e569f5334903cce7e5625130d28303e26612caab6",
+      "helper": "c4765c9a47639a052c29a4bd1716b51da2ba7d7bfc32da44eba603c643ee76c0",
+      "checker": "006f8b8e090e776143c391eba98c2a98b3f8b2784e17ea701743bd9b08778b1c",
+      "tcpdump_log": "c3277d5f34a306509fa2899219f1bd2c9e8ed70231edf4a5553a55d0e41fd505"
+    },
+    "capture": {
+      "records": 395656,
+      "snaplen": 96,
+      "link_type": "Ethernet",
+      "endpoint_pairs_match": true,
+      "truncated_payload_records": 86850,
+      "max_original_record_bytes": 65226,
+      "captured_by_tcpdump": 395656,
+      "received_by_filter": 395656,
+      "dropped_by_kernel": 0,
+      "full_tcp_options_decoded_records": 395656,
+      "duration_seconds": 40.067348,
+      "timestamp_backsteps": 79,
+      "maximum_timestamp_backstep_us": 7.153,
+      "actual_data_flow_records": 395607,
+      "other_control_flow_records": 49
+    },
+    "iperf": {
+      "receiver_mean_mbps": 599.9627592128645,
+      "receiver_seconds": 40.002162,
+      "sender_retransmits": 3323,
+      "target_mbps_per_stream": 150,
+      "streams": 4
+    },
+    "time_reference": "Server capture seconds from first outbound payload in the four data connections. Clock alignment is a separate analysis.",
+    "summary": {
+      "zero_window_ack_records": 0,
+      "sack_ack_records": 22904,
+      "sack_blocks": 23539,
+      "dsack_candidate_records": 185,
+      "overlapping_sequence_records": 1871,
+      "previously_observed_sequence_bytes": 4811704,
+      "repeated_bytes_equal_iperf_retransmits_times_1448": true,
+      "common_all_four_no_ack_gaps_over_100ms": 56,
+      "common_all_four_no_ack_duration_seconds": 8.873307,
+      "longest_common_all_four_no_ack_gaps": [
+        {
+          "start_seconds": 23.463073,
+          "end_seconds": 23.811923,
+          "duration_ms": 348.85
+        },
+        {
+          "start_seconds": 17.475392,
+          "end_seconds": 17.820992,
+          "duration_ms": 345.6
+        },
+        {
+          "start_seconds": 20.959932,
+          "end_seconds": 21.277976,
+          "duration_ms": 318.044
+        },
+        {
+          "start_seconds": 21.306507,
+          "end_seconds": 21.574141,
+          "duration_ms": 267.634
+        },
+        {
+          "start_seconds": 17.954668,
+          "end_seconds": 18.194891,
+          "duration_ms": 240.223
+        }
+      ],
+      "ack_progress_one_second_bins_under_500_mbps": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        26,
+        27,
+        28,
+        29
+      ],
+      "minimum_full_bin_ack_progress_mbps": 57.51456
+    },
+    "flows": [
+      {
+        "flow": 1,
+        "records": 94279,
+        "data_records": 19657,
+        "ack_records": 74616,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 0.0,
+        "last_data_seconds": 40.007269,
+        "final_ack_seconds": 40.015325,
+        "observed_outbound_payload_bytes": 750728176,
+        "unique_outbound_sequence_bytes": 750256128,
+        "previously_observed_sequence_bytes": 472048,
+        "overlapping_sequence_records": 222,
+        "cumulative_ack_progress_bytes": 750256128,
+        "unacknowledged_sequence_span_at_end": 0,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 16642,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 69184,
+        "minimum_scaled_receive_window_before_final_second": 69184,
+        "maximum_scaled_receive_window_bytes": 1427072,
+        "sack_ack_records": 2120,
+        "sack_blocks": 2204,
+        "dsack_candidate_records": 48,
+        "nonprogress_ack_records": 1813,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 348.947,
+        "any_ack_gaps_over_100ms": 56,
+        "ack_progress_gaps_over_100ms": 56,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 23.462978,
+            "end_seconds": 23.811925,
+            "duration_ms": 348.947,
+            "unacknowledged_sequence_span_at_start": 207064,
+            "outbound_data_records_during_gap": 6,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.473673,
+            "end_seconds": 17.820992,
+            "duration_ms": 347.319,
+            "unacknowledged_sequence_span_at_start": 246160,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 20.959788,
+            "end_seconds": 21.278134,
+            "duration_ms": 318.346,
+            "unacknowledged_sequence_span_at_start": 94120,
+            "outbound_data_records_during_gap": 7,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 21.306468,
+            "end_seconds": 21.574141,
+            "duration_ms": 267.673,
+            "unacknowledged_sequence_span_at_start": 302632,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.954657,
+            "end_seconds": 18.195088,
+            "duration_ms": 240.431,
+            "unacknowledged_sequence_span_at_start": 189688,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0,
+        "verified_final_fin_ack_sequence_normalizations": 1
+      },
+      {
+        "flow": 2,
+        "records": 94157,
+        "data_records": 21786,
+        "ack_records": 72365,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 3.8e-05,
+        "last_data_seconds": 40.008803,
+        "final_ack_seconds": 40.015326,
+        "observed_outbound_payload_bytes": 751889472,
+        "unique_outbound_sequence_bytes": 750256128,
+        "previously_observed_sequence_bytes": 1633344,
+        "overlapping_sequence_records": 646,
+        "cumulative_ack_progress_bytes": 750256128,
+        "unacknowledged_sequence_span_at_end": 0,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 18348,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 96512,
+        "minimum_scaled_receive_window_before_final_second": 96512,
+        "maximum_scaled_receive_window_bytes": 2197376,
+        "sack_ack_records": 3611,
+        "sack_blocks": 3641,
+        "dsack_candidate_records": 19,
+        "nonprogress_ack_records": 2511,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 348.941,
+        "any_ack_gaps_over_100ms": 56,
+        "ack_progress_gaps_over_100ms": 56,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 23.462982,
+            "end_seconds": 23.811923,
+            "duration_ms": 348.941,
+            "unacknowledged_sequence_span_at_start": 196928,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.473672,
+            "end_seconds": 17.820994,
+            "duration_ms": 347.322,
+            "unacknowledged_sequence_span_at_start": 403992,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 20.959903,
+            "end_seconds": 21.277976,
+            "duration_ms": 318.073,
+            "unacknowledged_sequence_span_at_start": 159280,
+            "outbound_data_records_during_gap": 12,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 21.306503,
+            "end_seconds": 21.574142,
+            "duration_ms": 267.639,
+            "unacknowledged_sequence_span_at_start": 299736,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.954661,
+            "end_seconds": 18.194891,
+            "duration_ms": 240.23,
+            "unacknowledged_sequence_span_at_start": 302632,
+            "outbound_data_records_during_gap": 12,
+            "overlapping_sequence_bytes_during_gap": 0
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0,
+        "verified_final_fin_ack_sequence_normalizations": 1
+      },
+      {
+        "flow": 3,
+        "records": 95376,
+        "data_records": 23325,
+        "ack_records": 72045,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 7.3e-05,
+        "last_data_seconds": 40.007283,
+        "final_ack_seconds": 40.014211,
+        "observed_outbound_payload_bytes": 751507200,
+        "unique_outbound_sequence_bytes": 750256128,
+        "previously_observed_sequence_bytes": 1251072,
+        "overlapping_sequence_records": 343,
+        "cumulative_ack_progress_bytes": 750256128,
+        "unacknowledged_sequence_span_at_end": 0,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 20469,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 119104,
+        "minimum_scaled_receive_window_before_final_second": 119104,
+        "maximum_scaled_receive_window_bytes": 2460928,
+        "sack_ack_records": 8062,
+        "sack_blocks": 8175,
+        "dsack_candidate_records": 30,
+        "nonprogress_ack_records": 5176,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 348.967,
+        "any_ack_gaps_over_100ms": 56,
+        "ack_progress_gaps_over_100ms": 56,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 23.462964,
+            "end_seconds": 23.811931,
+            "duration_ms": 348.967,
+            "unacknowledged_sequence_span_at_start": 72400,
+            "outbound_data_records_during_gap": 5,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.473667,
+            "end_seconds": 17.82101,
+            "duration_ms": 347.343,
+            "unacknowledged_sequence_span_at_start": 250504,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 20.959932,
+            "end_seconds": 21.278018,
+            "duration_ms": 318.086,
+            "unacknowledged_sequence_span_at_start": 85432,
+            "outbound_data_records_during_gap": 3,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 21.306507,
+            "end_seconds": 21.574167,
+            "duration_ms": 267.66,
+            "unacknowledged_sequence_span_at_start": 78192,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.954668,
+            "end_seconds": 18.194891,
+            "duration_ms": 240.223,
+            "unacknowledged_sequence_span_at_start": 157832,
+            "outbound_data_records_during_gap": 7,
+            "overlapping_sequence_bytes_during_gap": 1448
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0,
+        "verified_final_fin_ack_sequence_normalizations": 1
+      },
+      {
+        "flow": 4,
+        "records": 111795,
+        "data_records": 22071,
+        "ack_records": 89718,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 0.000116,
+        "last_data_seconds": 40.007289,
+        "final_ack_seconds": 40.014214,
+        "observed_outbound_payload_bytes": 751711368,
+        "unique_outbound_sequence_bytes": 750256128,
+        "previously_observed_sequence_bytes": 1455240,
+        "overlapping_sequence_records": 660,
+        "cumulative_ack_progress_bytes": 750256128,
+        "unacknowledged_sequence_span_at_end": 0,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 18004,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 117696,
+        "minimum_scaled_receive_window_before_final_second": 117696,
+        "maximum_scaled_receive_window_bytes": 3729408,
+        "sack_ack_records": 9111,
+        "sack_blocks": 9519,
+        "dsack_candidate_records": 88,
+        "nonprogress_ack_records": 6199,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 348.855,
+        "any_ack_gaps_over_100ms": 57,
+        "ack_progress_gaps_over_100ms": 57,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 23.463073,
+            "end_seconds": 23.811928,
+            "duration_ms": 348.855,
+            "unacknowledged_sequence_span_at_start": 603816,
+            "outbound_data_records_during_gap": 3,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.475392,
+            "end_seconds": 17.821012,
+            "duration_ms": 345.62,
+            "unacknowledged_sequence_span_at_start": 325800,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 20.959802,
+            "end_seconds": 21.278017,
+            "duration_ms": 318.215,
+            "unacknowledged_sequence_span_at_start": 331592,
+            "outbound_data_records_during_gap": 8,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 21.306471,
+            "end_seconds": 21.574162,
+            "duration_ms": 267.691,
+            "unacknowledged_sequence_span_at_start": 477840,
+            "outbound_data_records_during_gap": 3,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.954667,
+            "end_seconds": 18.194893,
+            "duration_ms": 240.226,
+            "unacknowledged_sequence_span_at_start": 134664,
+            "outbound_data_records_during_gap": 7,
+            "overlapping_sequence_bytes_during_gap": 1448
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0,
+        "verified_final_fin_ack_sequence_normalizations": 1
+      }
+    ],
+    "limits": [
+      "Only TCP headers/options are analyzed; 96-byte capture may include short payload prefixes.",
+      "GSO sequence overlap is descriptive, not a wire loss or RTO count. Equality to iperf retransmits times 1448 is reported, not required.",
+      "ACK gaps cannot distinguish forward data delay from reverse ACK delay or AP/NPU/RF cause.",
+      "Unacknowledged span includes SACKed bytes, not exact outstanding bytes or congestion window.",
+      "Capture timestamps are sorted per flow; microsecond backsteps are reported. RST/tail data may be test teardown.",
+      "A final FIN consumes one sequence byte. Verified ACKs of that byte are normalized only for payload-progress calculations; raw input/timing are unchanged.",
+      "This report does not align the PVE clock to router PS events; use the separate before/after clock bounds.",
+      "The General-panel condition must be evidenced independently; this decoder cannot identify UI or RF scan state."
+    ]
+  },
+  "restoration": {
+    "configuration_hashes_passed": 34,
+    "diagnostics_off": true,
+    "mlo_ps_gate_fix_on": true,
+    "wired_management_good": true,
+    "wired_route_en12": true,
+    "boot_unchanged": true,
+    "hotspot_ui_connected": true,
+    "hotspot_http": "200",
+    "hotspot_curl_exit": 0,
+    "server_capture_processes_absent": true,
+    "server_transfer_hash_match": true,
+    "server_transfer_exit": 0
+  }
+}
