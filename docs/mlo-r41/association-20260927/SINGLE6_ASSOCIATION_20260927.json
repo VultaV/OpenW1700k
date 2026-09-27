@@ -1,0 +1,2733 @@
+{
+  "status": "EARLY_ASSOCIATION_OBSERVED",
+  "timing_discriminating_start_upper_below_20s": true,
+  "data_start_association_seconds_bounds": [
+    10.995718955993652,
+    11.214325189590454
+  ],
+  "data_start_bracket_width_seconds": 0.20085787773132324,
+  "precheck_association_age_seconds": 6,
+  "same_association_and_target": true,
+  "link_bitmap": "0x0-before-only",
+  "router_unchanged": true,
+  "wired_checks": 55,
+  "wired_checks_all_normal": true,
+  "four_data_flows_ppe_bound": true,
+  "native_join": {
+    "method": "networksetup existing configured network",
+    "returncode": 0,
+    "elapsed_seconds": 10.914196014404297
+  },
+  "clock": {
+    "sample_count": 10,
+    "constant_offset_consistent": true,
+    "intersection_width_ms": 16.74818992614746
+  },
+  "receiver_mbps": 1382.719183083369,
+  "min_interval_mbps": 133.4464532936817,
+  "below_500_bins": 7,
+  "zero_bins": 0,
+  "sender_retransmits": 8793,
+  "native_scan_calls": [
+    {
+      "association_start_bounds": [
+        -10.187612295150757,
+        -10.168864011764526
+      ],
+      "association_end_bounds": [
+        -9.354612112045288,
+        -9.335863828659058
+      ],
+      "tcp_start_bounds": [
+        -21.384189128875732,
+        -21.182331323623657
+      ],
+      "tcp_end_bounds": [
+        -20.551188945770264,
+        -20.34933114051819
+      ],
+      "call_elapsed_seconds": 0.8330001831054688
+    },
+    {
+      "association_start_bounds": [
+        -9.353612184524536,
+        -9.334863901138306
+      ],
+      "association_end_bounds": [
+        -7.276612281799316,
+        -7.257863998413086
+      ],
+      "tcp_start_bounds": [
+        -20.55018901824951,
+        -20.348331212997437
+      ],
+      "tcp_end_bounds": [
+        -18.473189115524292,
+        -18.271331310272217
+      ],
+      "call_elapsed_seconds": 2.0769999027252197
+    },
+    {
+      "association_start_bounds": [
+        -7.275612115859985,
+        -7.256863832473755
+      ],
+      "association_end_bounds": [
+        -0.4336121082305908,
+        -0.41486382484436035
+      ],
+      "tcp_start_bounds": [
+        -18.47218894958496,
+        -18.270331144332886
+      ],
+      "tcp_end_bounds": [
+        -11.630188941955566,
+        -11.428331136703491
+      ],
+      "call_elapsed_seconds": 6.8420000076293945
+    },
+    {
+      "association_start_bounds": [
+        0.3693878650665283,
+        0.3881361484527588
+      ],
+      "association_end_bounds": [
+        0.7563877105712891,
+        0.7751359939575195
+      ],
+      "tcp_start_bounds": [
+        -10.827188968658447,
+        -10.625331163406372
+      ],
+      "tcp_end_bounds": [
+        -10.440189123153687,
+        -10.238331317901611
+      ],
+      "call_elapsed_seconds": 0.38699984550476074
+    },
+    {
+      "association_start_bounds": [
+        0.8073878288269043,
+        0.8261361122131348
+      ],
+      "association_end_bounds": [
+        1.5463876724243164,
+        1.5651359558105469
+      ],
+      "tcp_start_bounds": [
+        -10.389189004898071,
+        -10.187331199645996
+      ],
+      "tcp_end_bounds": [
+        -9.65018916130066,
+        -9.448331356048584
+      ],
+      "call_elapsed_seconds": 0.7389998435974121
+    },
+    {
+      "association_start_bounds": [
+        1.5473878383636475,
+        1.566136121749878
+      ],
+      "association_end_bounds": [
+        2.0443878173828125,
+        2.063136100769043
+      ],
+      "tcp_start_bounds": [
+        -9.649188995361328,
+        -9.447331190109253
+      ],
+      "tcp_end_bounds": [
+        -9.152189016342163,
+        -8.950331211090088
+      ],
+      "call_elapsed_seconds": 0.49699997901916504
+    },
+    {
+      "association_start_bounds": [
+        20.285387754440308,
+        20.304136037826538
+      ],
+      "association_end_bounds": [
+        20.651387691497803,
+        20.670135974884033
+      ],
+      "tcp_start_bounds": [
+        9.088810920715332,
+        9.290668725967407
+      ],
+      "tcp_end_bounds": [
+        9.454810857772827,
+        9.656668663024902
+      ],
+      "call_elapsed_seconds": 0.3659999370574951
+    },
+    {
+      "association_start_bounds": [
+        20.651387691497803,
+        20.670135974884033
+      ],
+      "association_end_bounds": [
+        21.00638771057129,
+        21.02513599395752
+      ],
+      "tcp_start_bounds": [
+        9.454810857772827,
+        9.656668663024902
+      ],
+      "tcp_end_bounds": [
+        9.809810876846313,
+        10.011668682098389
+      ],
+      "call_elapsed_seconds": 0.35500001907348633
+    },
+    {
+      "association_start_bounds": [
+        21.00738787651062,
+        21.02613615989685
+      ],
+      "association_end_bounds": [
+        21.324387788772583,
+        21.343136072158813
+      ],
+      "tcp_start_bounds": [
+        9.810811042785645,
+        10.01266884803772
+      ],
+      "tcp_end_bounds": [
+        10.127810955047607,
+        10.329668760299683
+      ],
+      "call_elapsed_seconds": 0.3169999122619629
+    },
+    {
+      "association_start_bounds": [
+        21.32838773727417,
+        21.3471360206604
+      ],
+      "association_end_bounds": [
+        21.628387689590454,
+        21.647135972976685
+      ],
+      "tcp_start_bounds": [
+        10.131810903549194,
+        10.33366870880127
+      ],
+      "tcp_end_bounds": [
+        10.431810855865479,
+        10.633668661117554
+      ],
+      "call_elapsed_seconds": 0.2999999523162842
+    },
+    {
+      "association_start_bounds": [
+        21.634387731552124,
+        21.653136014938354
+      ],
+      "association_end_bounds": [
+        21.909387826919556,
+        21.928136110305786
+      ],
+      "tcp_start_bounds": [
+        10.437810897827148,
+        10.639668703079224
+      ],
+      "tcp_end_bounds": [
+        10.71281099319458,
+        10.914668798446655
+      ],
+      "call_elapsed_seconds": 0.27500009536743164
+    },
+    {
+      "association_start_bounds": [
+        21.910387754440308,
+        21.929136037826538
+      ],
+      "association_end_bounds": [
+        22.083387851715088,
+        22.10213613510132
+      ],
+      "tcp_start_bounds": [
+        10.713810920715332,
+        10.915668725967407
+      ],
+      "tcp_end_bounds": [
+        10.886811017990112,
+        11.088668823242188
+      ],
+      "call_elapsed_seconds": 0.17300009727478027
+    },
+    {
+      "association_start_bounds": [
+        22.087387800216675,
+        22.106136083602905
+      ],
+      "association_end_bounds": [
+        22.26938772201538,
+        22.28813600540161
+      ],
+      "tcp_start_bounds": [
+        10.8908109664917,
+        11.092668771743774
+      ],
+      "tcp_end_bounds": [
+        11.072810888290405,
+        11.27466869354248
+      ],
+      "call_elapsed_seconds": 0.18199992179870605
+    },
+    {
+      "association_start_bounds": [
+        22.270387887954712,
+        22.289136171340942
+      ],
+      "association_end_bounds": [
+        22.587387800216675,
+        22.606136083602905
+      ],
+      "tcp_start_bounds": [
+        11.073811054229736,
+        11.275668859481812
+      ],
+      "tcp_end_bounds": [
+        11.3908109664917,
+        11.592668771743774
+      ],
+      "call_elapsed_seconds": 0.3169999122619629
+    },
+    {
+      "association_start_bounds": [
+        22.588387727737427,
+        22.607136011123657
+      ],
+      "association_end_bounds": [
+        22.9783878326416,
+        22.997136116027832
+      ],
+      "tcp_start_bounds": [
+        11.391810894012451,
+        11.593668699264526
+      ],
+      "tcp_end_bounds": [
+        11.781810998916626,
+        11.983668804168701
+      ],
+      "call_elapsed_seconds": 0.3900001049041748
+    },
+    {
+      "association_start_bounds": [
+        22.980387687683105,
+        22.999135971069336
+      ],
+      "association_end_bounds": [
+        23.368387699127197,
+        23.387135982513428
+      ],
+      "tcp_start_bounds": [
+        11.78381085395813,
+        11.985668659210205
+      ],
+      "tcp_end_bounds": [
+        12.171810865402222,
+        12.373668670654297
+      ],
+      "call_elapsed_seconds": 0.3880000114440918
+    },
+    {
+      "association_start_bounds": [
+        23.36938786506653,
+        23.38813614845276
+      ],
+      "association_end_bounds": [
+        23.752387762069702,
+        23.771136045455933
+      ],
+      "tcp_start_bounds": [
+        12.172811031341553,
+        12.374668836593628
+      ],
+      "tcp_end_bounds": [
+        12.555810928344727,
+        12.757668733596802
+      ],
+      "call_elapsed_seconds": 0.38299989700317383
+    },
+    {
+      "association_start_bounds": [
+        23.754387855529785,
+        23.773136138916016
+      ],
+      "association_end_bounds": [
+        24.145387887954712,
+        24.164136171340942
+      ],
+      "tcp_start_bounds": [
+        12.55781102180481,
+        12.759668827056885
+      ],
+      "tcp_end_bounds": [
+        12.948811054229736,
+        13.150668859481812
+      ],
+      "call_elapsed_seconds": 0.39100003242492676
+    },
+    {
+      "association_start_bounds": [
+        24.145387887954712,
+        24.164136171340942
+      ],
+      "association_end_bounds": [
+        24.621387720108032,
+        24.640136003494263
+      ],
+      "tcp_start_bounds": [
+        12.948811054229736,
+        13.150668859481812
+      ],
+      "tcp_end_bounds": [
+        13.424810886383057,
+        13.626668691635132
+      ],
+      "call_elapsed_seconds": 0.4759998321533203
+    },
+    {
+      "association_start_bounds": [
+        24.621387720108032,
+        24.640136003494263
+      ],
+      "association_end_bounds": [
+        25.110387802124023,
+        25.129136085510254
+      ],
+      "tcp_start_bounds": [
+        13.424810886383057,
+        13.626668691635132
+      ],
+      "tcp_end_bounds": [
+        13.913810968399048,
+        14.115668773651123
+      ],
+      "call_elapsed_seconds": 0.4890000820159912
+    },
+    {
+      "association_start_bounds": [
+        25.111387729644775,
+        25.130136013031006
+      ],
+      "association_end_bounds": [
+        25.65038776397705,
+        25.66913604736328
+      ],
+      "tcp_start_bounds": [
+        13.9148108959198,
+        14.116668701171875
+      ],
+      "tcp_end_bounds": [
+        14.453810930252075,
+        14.65566873550415
+      ],
+      "call_elapsed_seconds": 0.5390000343322754
+    },
+    {
+      "association_start_bounds": [
+        25.65638780593872,
+        25.67513608932495
+      ],
+      "association_end_bounds": [
+        26.194387674331665,
+        26.213135957717896
+      ],
+      "tcp_start_bounds": [
+        14.459810972213745,
+        14.66166877746582
+      ],
+      "tcp_end_bounds": [
+        14.99781084060669,
+        15.199668645858765
+      ],
+      "call_elapsed_seconds": 0.5379998683929443
+    },
+    {
+      "association_start_bounds": [
+        26.208387851715088,
+        26.22713613510132
+      ],
+      "association_end_bounds": [
+        26.729387760162354,
+        26.748136043548584
+      ],
+      "tcp_start_bounds": [
+        15.011811017990112,
+        15.213668823242188
+      ],
+      "tcp_end_bounds": [
+        15.532810926437378,
+        15.734668731689453
+      ],
+      "call_elapsed_seconds": 0.5209999084472656
+    },
+    {
+      "association_start_bounds": [
+        26.730387687683105,
+        26.749135971069336
+      ],
+      "association_end_bounds": [
+        27.13138771057129,
+        27.15013599395752
+      ],
+      "tcp_start_bounds": [
+        15.53381085395813,
+        15.735668659210205
+      ],
+      "tcp_end_bounds": [
+        15.934810876846313,
+        16.13666868209839
+      ],
+      "call_elapsed_seconds": 0.4010000228881836
+    },
+    {
+      "association_start_bounds": [
+        27.135387897491455,
+        27.154136180877686
+      ],
+      "association_end_bounds": [
+        27.535387754440308,
+        27.554136037826538
+      ],
+      "tcp_start_bounds": [
+        15.93881106376648,
+        16.140668869018555
+      ],
+      "tcp_end_bounds": [
+        16.338810920715332,
+        16.540668725967407
+      ],
+      "call_elapsed_seconds": 0.39999985694885254
+    },
+    {
+      "association_start_bounds": [
+        27.53638768196106,
+        27.55513596534729
+      ],
+      "association_end_bounds": [
+        28.092387676239014,
+        28.111135959625244
+      ],
+      "tcp_start_bounds": [
+        16.339810848236084,
+        16.54166865348816
+      ],
+      "tcp_end_bounds": [
+        16.895810842514038,
+        17.097668647766113
+      ],
+      "call_elapsed_seconds": 0.5559999942779541
+    },
+    {
+      "association_start_bounds": [
+        28.1033878326416,
+        28.122136116027832
+      ],
+      "association_end_bounds": [
+        28.700387716293335,
+        28.719135999679565
+      ],
+      "tcp_start_bounds": [
+        16.906810998916626,
+        17.1086688041687
+      ],
+      "tcp_end_bounds": [
+        17.50381088256836,
+        17.705668687820435
+      ],
+      "call_elapsed_seconds": 0.5969998836517334
+    },
+    {
+      "association_start_bounds": [
+        28.712387800216675,
+        28.731136083602905
+      ],
+      "association_end_bounds": [
+        29.303387880325317,
+        29.322136163711548
+      ],
+      "tcp_start_bounds": [
+        17.5158109664917,
+        17.717668771743774
+      ],
+      "tcp_end_bounds": [
+        18.106811046600342,
+        18.308668851852417
+      ],
+      "call_elapsed_seconds": 0.5910000801086426
+    },
+    {
+      "association_start_bounds": [
+        29.30438780784607,
+        29.3231360912323
+      ],
+      "association_end_bounds": [
+        29.838387727737427,
+        29.857136011123657
+      ],
+      "tcp_start_bounds": [
+        18.107810974121094,
+        18.30966877937317
+      ],
+      "tcp_end_bounds": [
+        18.64181089401245,
+        18.843668699264526
+      ],
+      "call_elapsed_seconds": 0.5339999198913574
+    },
+    {
+      "association_start_bounds": [
+        29.838387727737427,
+        29.857136011123657
+      ],
+      "association_end_bounds": [
+        30.25738787651062,
+        30.27613615989685
+      ],
+      "tcp_start_bounds": [
+        18.64181089401245,
+        18.843668699264526
+      ],
+      "tcp_end_bounds": [
+        19.060811042785645,
+        19.26266884803772
+      ],
+      "call_elapsed_seconds": 0.41900014877319336
+    },
+    {
+      "association_start_bounds": [
+        30.258387804031372,
+        30.277136087417603
+      ],
+      "association_end_bounds": [
+        30.642387866973877,
+        30.661136150360107
+      ],
+      "tcp_start_bounds": [
+        19.061810970306396,
+        19.26366877555847
+      ],
+      "tcp_end_bounds": [
+        19.4458110332489,
+        19.647668838500977
+      ],
+      "call_elapsed_seconds": 0.3840000629425049
+    },
+    {
+      "association_start_bounds": [
+        30.646387815475464,
+        30.665136098861694
+      ],
+      "association_end_bounds": [
+        31.05438780784607,
+        31.0731360912323
+      ],
+      "tcp_start_bounds": [
+        19.44981098175049,
+        19.651668787002563
+      ],
+      "tcp_end_bounds": [
+        19.857810974121094,
+        20.05966877937317
+      ],
+      "call_elapsed_seconds": 0.40799999237060547
+    },
+    {
+      "association_start_bounds": [
+        31.056387662887573,
+        31.075135946273804
+      ],
+      "association_end_bounds": [
+        31.46538782119751,
+        31.48413610458374
+      ],
+      "tcp_start_bounds": [
+        19.859810829162598,
+        20.061668634414673
+      ],
+      "tcp_end_bounds": [
+        20.268810987472534,
+        20.47066879272461
+      ],
+      "call_elapsed_seconds": 0.4090001583099365
+    },
+    {
+      "association_start_bounds": [
+        31.467387676239014,
+        31.486135959625244
+      ],
+      "association_end_bounds": [
+        31.865387678146362,
+        31.884135961532593
+      ],
+      "tcp_start_bounds": [
+        20.270810842514038,
+        20.472668647766113
+      ],
+      "tcp_end_bounds": [
+        20.668810844421387,
+        20.870668649673462
+      ],
+      "call_elapsed_seconds": 0.39800000190734863
+    },
+    {
+      "association_start_bounds": [
+        31.866387844085693,
+        31.885136127471924
+      ],
+      "association_end_bounds": [
+        32.26238775253296,
+        32.28113603591919
+      ],
+      "tcp_start_bounds": [
+        20.669811010360718,
+        20.871668815612793
+      ],
+      "tcp_end_bounds": [
+        21.065810918807983,
+        21.26766872406006
+      ],
+      "call_elapsed_seconds": 0.3959999084472656
+    },
+    {
+      "association_start_bounds": [
+        32.26338768005371,
+        32.28213596343994
+      ],
+      "association_end_bounds": [
+        32.658387899398804,
+        32.677136182785034
+      ],
+      "tcp_start_bounds": [
+        21.066810846328735,
+        21.26866865158081
+      ],
+      "tcp_end_bounds": [
+        21.461811065673828,
+        21.663668870925903
+      ],
+      "call_elapsed_seconds": 0.3950002193450928
+    },
+    {
+      "association_start_bounds": [
+        32.659387826919556,
+        32.678136110305786
+      ],
+      "association_end_bounds": [
+        33.051387786865234,
+        33.070136070251465
+      ],
+      "tcp_start_bounds": [
+        21.46281099319458,
+        21.664668798446655
+      ],
+      "tcp_end_bounds": [
+        21.85481095314026,
+        22.056668758392334
+      ],
+      "call_elapsed_seconds": 0.3919999599456787
+    },
+    {
+      "association_start_bounds": [
+        33.052387714385986,
+        33.07113599777222
+      ],
+      "association_end_bounds": [
+        33.44338774681091,
+        33.462136030197144
+      ],
+      "tcp_start_bounds": [
+        21.85581088066101,
+        22.057668685913086
+      ],
+      "tcp_end_bounds": [
+        22.246810913085938,
+        22.448668718338013
+      ],
+      "call_elapsed_seconds": 0.39100003242492676
+    },
+    {
+      "association_start_bounds": [
+        33.445387840270996,
+        33.46413612365723
+      ],
+      "association_end_bounds": [
+        33.605387687683105,
+        33.624135971069336
+      ],
+      "tcp_start_bounds": [
+        22.24881100654602,
+        22.450668811798096
+      ],
+      "tcp_end_bounds": [
+        22.40881085395813,
+        22.610668659210205
+      ],
+      "call_elapsed_seconds": 0.15999984741210938
+    }
+  ],
+  "native_timer_records": [
+    {
+      "kind": "cancelled",
+      "association_seconds_bounds": [
+        -0.1326122283935547,
+        -0.11386394500732422
+      ]
+    },
+    {
+      "kind": "scheduled",
+      "association_seconds_bounds": [
+        0.24838781356811523,
+        0.2671360969543457
+      ],
+      "scheduled_delay_seconds": 20.0
+    },
+    {
+      "kind": "request",
+      "association_seconds_bounds": [
+        20.252387762069702,
+        20.271136045455933
+      ]
+    }
+  ],
+  "wifi_settings_request_association_bounds": [],
+  "native_capture_boundary_unmatched_calls": {
+    "unmatched_enters": 0,
+    "unmatched_exits": 0
+  },
+  "reader_drop_notice_count": 0,
+  "kernel_emitted_sequence_continuous": true,
+  "kernel_record_count": 31,
+  "global_event_coverage": {
+    "P": {
+      "observed": 0,
+      "missing_between_first_last": 0,
+      "reordered": false
+    },
+    "F": {
+      "observed": 0,
+      "missing_between_first_last": 0,
+      "reordered": false
+    }
+  },
+  "suppression_notice_count": 0,
+  "global_event_gaps": {
+    "P": [],
+    "F": []
+  },
+  "target_P_in_guaranteed_traffic": null,
+  "target_P_gate1_in_guaranteed_traffic": null,
+  "target_host_events": [],
+  "target_observed_BA_messages": [
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "R",
+      "act": 0,
+      "link": 0,
+      "tid": 6,
+      "timeout": 0,
+      "ssn": 3485,
+      "result": -1,
+      "cap": 539,
+      "seq": 34352,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        0.29973200000015277,
+        0.30073200000015277
+      ],
+      "tcp_seconds_bounds": [
+        -10.913593053817749,
+        -10.695986986160278
+      ]
+    },
+    {
+      "kind": "BAMCU",
+      "match": "station address",
+      "link": 0,
+      "tx": 0,
+      "en": 1,
+      "tid": 6,
+      "ssn": 3485,
+      "size": 8,
+      "timeout": 0,
+      "rro": 1,
+      "ret": 0,
+      "us": 231,
+      "association_seconds_bounds": [
+        0.30011799999986033,
+        0.30111799999986033
+      ],
+      "tcp_seconds_bounds": [
+        -10.913207054138184,
+        -10.695600986480713
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "T",
+      "act": 1,
+      "link": 0,
+      "tid": 6,
+      "timeout": 0,
+      "ssn": -1,
+      "result": 0,
+      "cap": 539,
+      "seq": 1744,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        0.3002060000000929,
+        0.3012060000000929
+      ],
+      "tcp_seconds_bounds": [
+        -10.913119077682495,
+        -10.695513010025024
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "T",
+      "act": 0,
+      "link": 0,
+      "tid": 0,
+      "timeout": 0,
+      "ssn": 0,
+      "result": -1,
+      "cap": 3,
+      "seq": 1920,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        0.3534269999997596,
+        0.3544269999997596
+      ],
+      "tcp_seconds_bounds": [
+        -10.859898090362549,
+        -10.642292022705078
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "R",
+      "act": 1,
+      "link": 0,
+      "tid": 0,
+      "timeout": 0,
+      "ssn": -1,
+      "result": 0,
+      "cap": 16387,
+      "seq": 34368,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        0.3577659999998323,
+        0.3587659999998323
+      ],
+      "tcp_seconds_bounds": [
+        -10.85555911064148,
+        -10.637953042984009
+      ]
+    },
+    {
+      "kind": "BAMCU",
+      "match": "station address",
+      "link": 0,
+      "tx": 1,
+      "en": 1,
+      "tid": 0,
+      "ssn": 0,
+      "size": 256,
+      "timeout": 0,
+      "rro": 0,
+      "ret": 0,
+      "us": 213,
+      "association_seconds_bounds": [
+        0.3581240000000653,
+        0.3591240000000653
+      ],
+      "tcp_seconds_bounds": [
+        -10.855201005935669,
+        -10.637594938278198
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "T",
+      "act": 0,
+      "link": 0,
+      "tid": 7,
+      "timeout": 0,
+      "ssn": 2,
+      "result": -1,
+      "cap": 31,
+      "seq": 4096,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        3.97339200000008,
+        3.97439200000008
+      ],
+      "tcp_seconds_bounds": [
+        -7.239933013916016,
+        -7.022326946258545
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "R",
+      "act": 1,
+      "link": 0,
+      "tid": 7,
+      "timeout": 0,
+      "ssn": -1,
+      "result": 0,
+      "cap": 543,
+      "seq": 34384,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        3.977827999999794,
+        3.978827999999794
+      ],
+      "tcp_seconds_bounds": [
+        -7.235497236251831,
+        -7.01789116859436
+      ]
+    },
+    {
+      "kind": "BAMCU",
+      "match": "station address",
+      "link": 0,
+      "tx": 1,
+      "en": 1,
+      "tid": 7,
+      "ssn": 0,
+      "size": 8,
+      "timeout": 0,
+      "rro": 0,
+      "ret": 0,
+      "us": 142,
+      "association_seconds_bounds": [
+        3.9780899999998147,
+        3.9790899999998146
+      ],
+      "tcp_seconds_bounds": [
+        -7.235235214233398,
+        -7.017629146575928
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "R",
+      "act": 0,
+      "link": 0,
+      "tid": 0,
+      "timeout": 0,
+      "ssn": 3349,
+      "result": -1,
+      "cap": 4099,
+      "seq": 34400,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        5.634691999999835,
+        5.635691999999835
+      ],
+      "tcp_seconds_bounds": [
+        -5.578633069992065,
+        -5.361027002334595
+      ]
+    },
+    {
+      "kind": "BAMCU",
+      "match": "station address",
+      "link": 0,
+      "tx": 0,
+      "en": 1,
+      "tid": 0,
+      "ssn": 3349,
+      "size": 64,
+      "timeout": 0,
+      "rro": 1,
+      "ret": 0,
+      "us": 235,
+      "association_seconds_bounds": [
+        5.635070000000018,
+        5.636070000000018
+      ],
+      "tcp_seconds_bounds": [
+        -5.5782551765441895,
+        -5.360649108886719
+      ]
+    },
+    {
+      "kind": "BATRACE",
+      "match": "frame address",
+      "direction": "T",
+      "act": 1,
+      "link": 0,
+      "tid": 0,
+      "timeout": 0,
+      "ssn": -1,
+      "result": 0,
+      "cap": 4099,
+      "seq": 5248,
+      "fc": 16592,
+      "association_seconds_bounds": [
+        5.635173999999755,
+        5.636173999999755
+      ],
+      "tcp_seconds_bounds": [
+        -5.578151226043701,
+        -5.3605451583862305
+      ]
+    }
+  ],
+  "receiver_intervals": [
+    {
+      "start": 0,
+      "end": 1.0042,
+      "mbps": 1679.058194328295,
+      "association_seconds_bounds": [
+        10.995718955993652,
+        12.218525171279907
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 1.0042,
+      "end": 2.008817,
+      "mbps": 1878.762598577914,
+      "association_seconds_bounds": [
+        11.999918937683105,
+        13.223142147064209
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 2.008817,
+      "end": 3.006414,
+      "mbps": 1916.1586171256545,
+      "association_seconds_bounds": [
+        13.004535913467407,
+        14.220739126205444
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 3.006414,
+      "end": 4.003868,
+      "mbps": 1927.9970884975264,
+      "association_seconds_bounds": [
+        14.002132892608643,
+        15.218193292617798
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 4.003868,
+      "end": 5.004195,
+      "mbps": 1919.3150570942448,
+      "association_seconds_bounds": [
+        14.999587059020996,
+        16.218520164489746
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 5.004195,
+      "end": 6.007657,
+      "mbps": 1921.67849572256,
+      "association_seconds_bounds": [
+        15.999913930892944,
+        17.22198224067688
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 6.007657,
+      "end": 7.005558,
+      "mbps": 1933.438083161352,
+      "association_seconds_bounds": [
+        17.003376007080078,
+        18.21988320350647
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 7.005558,
+      "end": 8.006324,
+      "mbps": 1899.6131104725848,
+      "association_seconds_bounds": [
+        18.001276969909668,
+        19.220649242401123
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 8.006324,
+      "end": 9.003786,
+      "mbps": 1933.2378707800333,
+      "association_seconds_bounds": [
+        19.00204300880432,
+        20.218111276626587
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 9.003786,
+      "end": 10.00385,
+      "mbps": 1927.159320147441,
+      "association_seconds_bounds": [
+        19.999505043029785,
+        21.218175172805786
+      ],
+      "possible_scan_call_overlap": 3,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 10.00385,
+      "end": 11.010021,
+      "mbps": 1510.0680122918,
+      "association_seconds_bounds": [
+        20.999568939208984,
+        22.224346160888672
+      ],
+      "possible_scan_call_overlap": 6,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 11.010021,
+      "end": 12.00709,
+      "mbps": 312.34254763298367,
+      "association_seconds_bounds": [
+        22.00573992729187,
+        23.221415281295776
+      ],
+      "possible_scan_call_overlap": 5,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 12.00709,
+      "end": 13.005012,
+      "mbps": 133.4464532936817,
+      "association_seconds_bounds": [
+        23.002809047698975,
+        24.219337224960327
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 13.005012,
+      "end": 14.006373,
+      "mbps": 535.0940663091226,
+      "association_seconds_bounds": [
+        24.000730991363525,
+        25.22069811820984
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 14.006373,
+      "end": 15.005687,
+      "mbps": 618.0352298988062,
+      "association_seconds_bounds": [
+        25.002091884613037,
+        26.220012187957764
+      ],
+      "possible_scan_call_overlap": 3,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 15.005687,
+      "end": 16.010018,
+      "mbps": 346.62599733636716,
+      "association_seconds_bounds": [
+        26.001405954360962,
+        27.224343299865723
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 16.010018,
+      "end": 17.009052,
+      "mbps": 333.7695935921452,
+      "association_seconds_bounds": [
+        27.00573706626892,
+        28.223377227783203
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 17.009052,
+      "end": 18.009043,
+      "mbps": 651.1715567402484,
+      "association_seconds_bounds": [
+        28.0047709941864,
+        29.223368167877197
+      ],
+      "possible_scan_call_overlap": 3,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 18.009043,
+      "end": 19.00119,
+      "mbps": 575.9972097028661,
+      "association_seconds_bounds": [
+        29.004761934280396,
+        30.21551513671875
+      ],
+      "possible_scan_call_overlap": 3,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 19.00119,
+      "end": 20.01002,
+      "mbps": 219.31301278069134,
+      "association_seconds_bounds": [
+        29.99690890312195,
+        31.224345207214355
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 20.01002,
+      "end": 21.0043,
+      "mbps": 201.43020064344435,
+      "association_seconds_bounds": [
+        31.005738973617554,
+        32.21862530708313
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 21.0043,
+      "end": 22.003749,
+      "mbps": 171.01211316668517,
+      "association_seconds_bounds": [
+        32.00001907348633,
+        33.21807408332825
+      ],
+      "possible_scan_call_overlap": 4,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 22.003749,
+      "end": 23.000974,
+      "mbps": 809.6503104988465,
+      "association_seconds_bounds": [
+        32.999467849731445,
+        34.215299129486084
+      ],
+      "possible_scan_call_overlap": 3,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 23.000974,
+      "end": 24.005488,
+      "mbps": 1567.8837577089082,
+      "association_seconds_bounds": [
+        33.99669289588928,
+        35.219813108444214
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 24.005488,
+      "end": 25.002736,
+      "mbps": 1589.8221120770993,
+      "association_seconds_bounds": [
+        35.00120687484741,
+        36.217061281204224
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 25.002736,
+      "end": 26.003556,
+      "mbps": 1638.6291214236069,
+      "association_seconds_bounds": [
+        35.99845504760742,
+        37.217881202697754
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 26.003556,
+      "end": 27.002565,
+      "mbps": 1672.038536158613,
+      "association_seconds_bounds": [
+        36.99927496910095,
+        38.21689009666443
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 27.002565,
+      "end": 28.00846,
+      "mbps": 1716.8836112163444,
+      "association_seconds_bounds": [
+        37.99828386306763,
+        39.222785234451294
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 28.00846,
+      "end": 29.005791,
+      "mbps": 1728.4721961629205,
+      "association_seconds_bounds": [
+        39.00417900085449,
+        40.22011613845825
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 29.005791,
+      "end": 30.003918,
+      "mbps": 1753.3574111114185,
+      "association_seconds_bounds": [
+        40.00150990486145,
+        41.21824312210083
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 30.003918,
+      "end": 31.00544,
+      "mbps": 1772.54145739217,
+      "association_seconds_bounds": [
+        40.99963688850403,
+        42.219765186309814
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 31.00544,
+      "end": 32.006186,
+      "mbps": 1794.8716926562383,
+      "association_seconds_bounds": [
+        42.00115895271301,
+        43.22051119804382
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 32.006186,
+      "end": 33.003636,
+      "mbps": 1785.03389498673,
+      "association_seconds_bounds": [
+        43.00190496444702,
+        44.21796107292175
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 33.003636,
+      "end": 34.005817,
+      "mbps": 1820.551520350645,
+      "association_seconds_bounds": [
+        43.99935483932495,
+        45.220142126083374
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 34.005817,
+      "end": 35.008861,
+      "mbps": 1802.2589312169514,
+      "association_seconds_bounds": [
+        45.00153589248657,
+        46.22318625450134
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 35.008861,
+      "end": 36.003581,
+      "mbps": 1790.987067691515,
+      "association_seconds_bounds": [
+        46.00458002090454,
+        47.21790623664856
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 36.003581,
+      "end": 37.010024,
+      "mbps": 1828.470004460094,
+      "association_seconds_bounds": [
+        46.99930000305176,
+        48.2243492603302
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 37.010024,
+      "end": 38.007741,
+      "mbps": 1884.3988073322969,
+      "association_seconds_bounds": [
+        48.0057430267334,
+        49.222066164016724
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 38.007741,
+      "end": 39.007893,
+      "mbps": 1884.0047186483741,
+      "association_seconds_bounds": [
+        49.00345993041992,
+        50.22221827507019
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    },
+    {
+      "start": 39.007893,
+      "end": 40.005649,
+      "mbps": 1913.7513457265766,
+      "association_seconds_bounds": [
+        50.00361204147339,
+        51.21997427940369
+      ],
+      "possible_scan_call_overlap": 0,
+      "possible_target_P_overlap": null
+    }
+  ],
+  "server_tcp_intervals": [
+    {
+      "stream": 1,
+      "start": 0.0,
+      "end": 1.0,
+      "retransmits": 24,
+      "cwnd_bytes": 305152.0
+    },
+    {
+      "stream": 2,
+      "start": 0.0,
+      "end": 1.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3344957.44
+    },
+    {
+      "stream": 3,
+      "start": 0.0,
+      "end": 1.0,
+      "retransmits": 43,
+      "cwnd_bytes": 1541406.72
+    },
+    {
+      "stream": 4,
+      "start": 0.0,
+      "end": 1.0,
+      "retransmits": 3,
+      "cwnd_bytes": 345088.0
+    },
+    {
+      "stream": 1,
+      "start": 1.0,
+      "end": 2.0,
+      "retransmits": 0,
+      "cwnd_bytes": 350208.0
+    },
+    {
+      "stream": 2,
+      "start": 1.0,
+      "end": 2.0,
+      "retransmits": 24,
+      "cwnd_bytes": 3911188.48
+    },
+    {
+      "stream": 3,
+      "start": 1.0,
+      "end": 2.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1583349.76
+    },
+    {
+      "stream": 4,
+      "start": 1.0,
+      "end": 2.0,
+      "retransmits": 0,
+      "cwnd_bytes": 388096.0
+    },
+    {
+      "stream": 1,
+      "start": 2.0,
+      "end": 3.0,
+      "retransmits": 0,
+      "cwnd_bytes": 392192.0
+    },
+    {
+      "stream": 2,
+      "start": 2.0,
+      "end": 3.0,
+      "retransmits": 1,
+      "cwnd_bytes": 3921674.24
+    },
+    {
+      "stream": 3,
+      "start": 2.0,
+      "end": 3.0,
+      "retransmits": 41,
+      "cwnd_bytes": 1614807.04
+    },
+    {
+      "stream": 4,
+      "start": 2.0,
+      "end": 3.0,
+      "retransmits": 0,
+      "cwnd_bytes": 431104.0
+    },
+    {
+      "stream": 1,
+      "start": 3.0,
+      "end": 4.0,
+      "retransmits": 0,
+      "cwnd_bytes": 436224.0
+    },
+    {
+      "stream": 2,
+      "start": 3.0,
+      "end": 4.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3921674.24
+    },
+    {
+      "stream": 3,
+      "start": 3.0,
+      "end": 4.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1646264.32
+    },
+    {
+      "stream": 4,
+      "start": 3.0,
+      "end": 4.0,
+      "retransmits": 0,
+      "cwnd_bytes": 473088.0
+    },
+    {
+      "stream": 1,
+      "start": 4.0,
+      "end": 5.0,
+      "retransmits": 0,
+      "cwnd_bytes": 476160.0
+    },
+    {
+      "stream": 2,
+      "start": 4.0,
+      "end": 5.0,
+      "retransmits": 35,
+      "cwnd_bytes": 3921674.24
+    },
+    {
+      "stream": 3,
+      "start": 4.0,
+      "end": 5.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1677721.6
+    },
+    {
+      "stream": 4,
+      "start": 4.0,
+      "end": 5.0,
+      "retransmits": 0,
+      "cwnd_bytes": 514048.0
+    },
+    {
+      "stream": 1,
+      "start": 5.0,
+      "end": 6.0,
+      "retransmits": 6,
+      "cwnd_bytes": 517120.0
+    },
+    {
+      "stream": 2,
+      "start": 5.0,
+      "end": 6.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3932160.0
+    },
+    {
+      "stream": 3,
+      "start": 5.0,
+      "end": 6.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1709178.88
+    },
+    {
+      "stream": 4,
+      "start": 5.0,
+      "end": 6.0,
+      "retransmits": 0,
+      "cwnd_bytes": 555008.0
+    },
+    {
+      "stream": 1,
+      "start": 6.0,
+      "end": 7.0,
+      "retransmits": 0,
+      "cwnd_bytes": 555008.0
+    },
+    {
+      "stream": 2,
+      "start": 6.0,
+      "end": 7.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3932160.0
+    },
+    {
+      "stream": 3,
+      "start": 6.0,
+      "end": 7.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1740636.16
+    },
+    {
+      "stream": 4,
+      "start": 6.0,
+      "end": 7.0,
+      "retransmits": 0,
+      "cwnd_bytes": 591872.0
+    },
+    {
+      "stream": 1,
+      "start": 7.0,
+      "end": 8.0,
+      "retransmits": 3,
+      "cwnd_bytes": 591872.0
+    },
+    {
+      "stream": 2,
+      "start": 7.0,
+      "end": 8.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3942645.76
+    },
+    {
+      "stream": 3,
+      "start": 7.0,
+      "end": 8.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1761607.68
+    },
+    {
+      "stream": 4,
+      "start": 7.0,
+      "end": 8.0,
+      "retransmits": 0,
+      "cwnd_bytes": 631808.0
+    },
+    {
+      "stream": 1,
+      "start": 8.0,
+      "end": 9.0,
+      "retransmits": 0,
+      "cwnd_bytes": 628736.0
+    },
+    {
+      "stream": 2,
+      "start": 8.0,
+      "end": 9.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3942645.76
+    },
+    {
+      "stream": 3,
+      "start": 8.0,
+      "end": 9.0,
+      "retransmits": 23,
+      "cwnd_bytes": 1793064.96
+    },
+    {
+      "stream": 4,
+      "start": 8.0,
+      "end": 9.0,
+      "retransmits": 0,
+      "cwnd_bytes": 691200.0
+    },
+    {
+      "stream": 1,
+      "start": 9.0,
+      "end": 10.0,
+      "retransmits": 0,
+      "cwnd_bytes": 664576.0
+    },
+    {
+      "stream": 2,
+      "start": 9.0,
+      "end": 10.0,
+      "retransmits": 0,
+      "cwnd_bytes": 3953131.52
+    },
+    {
+      "stream": 3,
+      "start": 9.0,
+      "end": 10.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1824522.24
+    },
+    {
+      "stream": 4,
+      "start": 9.0,
+      "end": 10.0,
+      "retransmits": 0,
+      "cwnd_bytes": 843776.0
+    },
+    {
+      "stream": 1,
+      "start": 10.0,
+      "end": 11.0,
+      "retransmits": 84,
+      "cwnd_bytes": 495616.0
+    },
+    {
+      "stream": 2,
+      "start": 10.0,
+      "end": 11.0,
+      "retransmits": 557,
+      "cwnd_bytes": 2852126.72
+    },
+    {
+      "stream": 3,
+      "start": 10.0,
+      "end": 11.0,
+      "retransmits": 650,
+      "cwnd_bytes": 1310720.0
+    },
+    {
+      "stream": 4,
+      "start": 10.0,
+      "end": 11.0,
+      "retransmits": 281,
+      "cwnd_bytes": 698368.0
+    },
+    {
+      "stream": 1,
+      "start": 11.0,
+      "end": 12.0,
+      "retransmits": 185,
+      "cwnd_bytes": 185344.0
+    },
+    {
+      "stream": 2,
+      "start": 11.0,
+      "end": 12.0,
+      "retransmits": 2703,
+      "cwnd_bytes": 713728.0
+    },
+    {
+      "stream": 3,
+      "start": 11.0,
+      "end": 12.0,
+      "retransmits": 928,
+      "cwnd_bytes": 483328.0
+    },
+    {
+      "stream": 4,
+      "start": 11.0,
+      "end": 12.0,
+      "retransmits": 373,
+      "cwnd_bytes": 182272.0
+    },
+    {
+      "stream": 1,
+      "start": 12.0,
+      "end": 13.0,
+      "retransmits": 0,
+      "cwnd_bytes": 198656.0
+    },
+    {
+      "stream": 2,
+      "start": 12.0,
+      "end": 13.0,
+      "retransmits": 0,
+      "cwnd_bytes": 770048.0
+    },
+    {
+      "stream": 3,
+      "start": 12.0,
+      "end": 13.0,
+      "retransmits": 0,
+      "cwnd_bytes": 518144.0
+    },
+    {
+      "stream": 4,
+      "start": 12.0,
+      "end": 13.0,
+      "retransmits": 1,
+      "cwnd_bytes": 305152.0
+    },
+    {
+      "stream": 1,
+      "start": 13.0,
+      "end": 14.0,
+      "retransmits": 0,
+      "cwnd_bytes": 212992.0
+    },
+    {
+      "stream": 2,
+      "start": 13.0,
+      "end": 14.0,
+      "retransmits": 10,
+      "cwnd_bytes": 574464.0
+    },
+    {
+      "stream": 3,
+      "start": 13.0,
+      "end": 14.0,
+      "retransmits": 7,
+      "cwnd_bytes": 396288.0
+    },
+    {
+      "stream": 4,
+      "start": 13.0,
+      "end": 14.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1436549.12
+    },
+    {
+      "stream": 1,
+      "start": 14.0,
+      "end": 15.0,
+      "retransmits": 1,
+      "cwnd_bytes": 179200.0
+    },
+    {
+      "stream": 2,
+      "start": 14.0,
+      "end": 15.0,
+      "retransmits": 3,
+      "cwnd_bytes": 453632.0
+    },
+    {
+      "stream": 3,
+      "start": 14.0,
+      "end": 15.0,
+      "retransmits": 1,
+      "cwnd_bytes": 305152.0
+    },
+    {
+      "stream": 4,
+      "start": 14.0,
+      "end": 15.0,
+      "retransmits": 951,
+      "cwnd_bytes": 968704.0
+    },
+    {
+      "stream": 1,
+      "start": 15.0,
+      "end": 16.0,
+      "retransmits": 12,
+      "cwnd_bytes": 142336.0
+    },
+    {
+      "stream": 2,
+      "start": 15.0,
+      "end": 16.0,
+      "retransmits": 132,
+      "cwnd_bytes": 353280.0
+    },
+    {
+      "stream": 3,
+      "start": 15.0,
+      "end": 16.0,
+      "retransmits": 45,
+      "cwnd_bytes": 230400.0
+    },
+    {
+      "stream": 4,
+      "start": 15.0,
+      "end": 16.0,
+      "retransmits": 333,
+      "cwnd_bytes": 817152.0
+    },
+    {
+      "stream": 1,
+      "start": 16.0,
+      "end": 17.0,
+      "retransmits": 1,
+      "cwnd_bytes": 505856.0
+    },
+    {
+      "stream": 2,
+      "start": 16.0,
+      "end": 17.0,
+      "retransmits": 0,
+      "cwnd_bytes": 388096.0
+    },
+    {
+      "stream": 3,
+      "start": 16.0,
+      "end": 17.0,
+      "retransmits": 0,
+      "cwnd_bytes": 256000.0
+    },
+    {
+      "stream": 4,
+      "start": 16.0,
+      "end": 17.0,
+      "retransmits": 25,
+      "cwnd_bytes": 626688.0
+    },
+    {
+      "stream": 1,
+      "start": 17.0,
+      "end": 18.0,
+      "retransmits": 0,
+      "cwnd_bytes": 2160066.56
+    },
+    {
+      "stream": 2,
+      "start": 17.0,
+      "end": 18.0,
+      "retransmits": 0,
+      "cwnd_bytes": 404480.0
+    },
+    {
+      "stream": 3,
+      "start": 17.0,
+      "end": 18.0,
+      "retransmits": 0,
+      "cwnd_bytes": 272384.0
+    },
+    {
+      "stream": 4,
+      "start": 17.0,
+      "end": 18.0,
+      "retransmits": 1,
+      "cwnd_bytes": 663552.0
+    },
+    {
+      "stream": 1,
+      "start": 18.0,
+      "end": 19.0,
+      "retransmits": 184,
+      "cwnd_bytes": 2548039.68
+    },
+    {
+      "stream": 2,
+      "start": 18.0,
+      "end": 19.0,
+      "retransmits": 55,
+      "cwnd_bytes": 300032.0
+    },
+    {
+      "stream": 3,
+      "start": 18.0,
+      "end": 19.0,
+      "retransmits": 40,
+      "cwnd_bytes": 214016.0
+    },
+    {
+      "stream": 4,
+      "start": 18.0,
+      "end": 19.0,
+      "retransmits": 87,
+      "cwnd_bytes": 500736.0
+    },
+    {
+      "stream": 1,
+      "start": 19.0,
+      "end": 20.0,
+      "retransmits": 837,
+      "cwnd_bytes": 764928.0
+    },
+    {
+      "stream": 2,
+      "start": 19.0,
+      "end": 20.0,
+      "retransmits": 0,
+      "cwnd_bytes": 328704.0
+    },
+    {
+      "stream": 3,
+      "start": 19.0,
+      "end": 20.0,
+      "retransmits": 0,
+      "cwnd_bytes": 250880.0
+    },
+    {
+      "stream": 4,
+      "start": 19.0,
+      "end": 20.0,
+      "retransmits": 0,
+      "cwnd_bytes": 570368.0
+    },
+    {
+      "stream": 1,
+      "start": 20.0,
+      "end": 21.0,
+      "retransmits": 38,
+      "cwnd_bytes": 547840.0
+    },
+    {
+      "stream": 2,
+      "start": 20.0,
+      "end": 21.0,
+      "retransmits": 24,
+      "cwnd_bytes": 238592.0
+    },
+    {
+      "stream": 3,
+      "start": 20.0,
+      "end": 21.0,
+      "retransmits": 1,
+      "cwnd_bytes": 188416.0
+    },
+    {
+      "stream": 4,
+      "start": 20.0,
+      "end": 21.0,
+      "retransmits": 7,
+      "cwnd_bytes": 429056.0
+    },
+    {
+      "stream": 1,
+      "start": 21.0,
+      "end": 22.0,
+      "retransmits": 0,
+      "cwnd_bytes": 631808.0
+    },
+    {
+      "stream": 2,
+      "start": 21.0,
+      "end": 22.0,
+      "retransmits": 0,
+      "cwnd_bytes": 266240.0
+    },
+    {
+      "stream": 3,
+      "start": 21.0,
+      "end": 22.0,
+      "retransmits": 0,
+      "cwnd_bytes": 210944.0
+    },
+    {
+      "stream": 4,
+      "start": 21.0,
+      "end": 22.0,
+      "retransmits": 0,
+      "cwnd_bytes": 471040.0
+    },
+    {
+      "stream": 1,
+      "start": 22.0,
+      "end": 23.0,
+      "retransmits": 0,
+      "cwnd_bytes": 692224.0
+    },
+    {
+      "stream": 2,
+      "start": 22.0,
+      "end": 23.0,
+      "retransmits": 0,
+      "cwnd_bytes": 297984.0
+    },
+    {
+      "stream": 3,
+      "start": 22.0,
+      "end": 23.0,
+      "retransmits": 0,
+      "cwnd_bytes": 243712.0
+    },
+    {
+      "stream": 4,
+      "start": 22.0,
+      "end": 23.0,
+      "retransmits": 0,
+      "cwnd_bytes": 496640.0
+    },
+    {
+      "stream": 1,
+      "start": 23.0,
+      "end": 24.0,
+      "retransmits": 0,
+      "cwnd_bytes": 730112.0
+    },
+    {
+      "stream": 2,
+      "start": 23.0,
+      "end": 24.0,
+      "retransmits": 0,
+      "cwnd_bytes": 387072.0
+    },
+    {
+      "stream": 3,
+      "start": 23.0,
+      "end": 24.0,
+      "retransmits": 0,
+      "cwnd_bytes": 324608.0
+    },
+    {
+      "stream": 4,
+      "start": 23.0,
+      "end": 24.0,
+      "retransmits": 0,
+      "cwnd_bytes": 566272.0
+    },
+    {
+      "stream": 1,
+      "start": 24.0,
+      "end": 25.0,
+      "retransmits": 0,
+      "cwnd_bytes": 754688.0
+    },
+    {
+      "stream": 2,
+      "start": 24.0,
+      "end": 25.0,
+      "retransmits": 0,
+      "cwnd_bytes": 462848.0
+    },
+    {
+      "stream": 3,
+      "start": 24.0,
+      "end": 25.0,
+      "retransmits": 0,
+      "cwnd_bytes": 396288.0
+    },
+    {
+      "stream": 4,
+      "start": 24.0,
+      "end": 25.0,
+      "retransmits": 0,
+      "cwnd_bytes": 640000.0
+    },
+    {
+      "stream": 1,
+      "start": 25.0,
+      "end": 26.0,
+      "retransmits": 0,
+      "cwnd_bytes": 794624.0
+    },
+    {
+      "stream": 2,
+      "start": 25.0,
+      "end": 26.0,
+      "retransmits": 0,
+      "cwnd_bytes": 538624.0
+    },
+    {
+      "stream": 3,
+      "start": 25.0,
+      "end": 26.0,
+      "retransmits": 0,
+      "cwnd_bytes": 461824.0
+    },
+    {
+      "stream": 4,
+      "start": 25.0,
+      "end": 26.0,
+      "retransmits": 0,
+      "cwnd_bytes": 709632.0
+    },
+    {
+      "stream": 1,
+      "start": 26.0,
+      "end": 27.0,
+      "retransmits": 0,
+      "cwnd_bytes": 852992.0
+    },
+    {
+      "stream": 2,
+      "start": 26.0,
+      "end": 27.0,
+      "retransmits": 0,
+      "cwnd_bytes": 604160.0
+    },
+    {
+      "stream": 3,
+      "start": 26.0,
+      "end": 27.0,
+      "retransmits": 0,
+      "cwnd_bytes": 521216.0
+    },
+    {
+      "stream": 4,
+      "start": 26.0,
+      "end": 27.0,
+      "retransmits": 0,
+      "cwnd_bytes": 773120.0
+    },
+    {
+      "stream": 1,
+      "start": 27.0,
+      "end": 28.0,
+      "retransmits": 0,
+      "cwnd_bytes": 903168.0
+    },
+    {
+      "stream": 2,
+      "start": 27.0,
+      "end": 28.0,
+      "retransmits": 0,
+      "cwnd_bytes": 667648.0
+    },
+    {
+      "stream": 3,
+      "start": 27.0,
+      "end": 28.0,
+      "retransmits": 0,
+      "cwnd_bytes": 577536.0
+    },
+    {
+      "stream": 4,
+      "start": 27.0,
+      "end": 28.0,
+      "retransmits": 0,
+      "cwnd_bytes": 832512.0
+    },
+    {
+      "stream": 1,
+      "start": 28.0,
+      "end": 29.0,
+      "retransmits": 0,
+      "cwnd_bytes": 952320.0
+    },
+    {
+      "stream": 2,
+      "start": 28.0,
+      "end": 29.0,
+      "retransmits": 0,
+      "cwnd_bytes": 727040.0
+    },
+    {
+      "stream": 3,
+      "start": 28.0,
+      "end": 29.0,
+      "retransmits": 0,
+      "cwnd_bytes": 631808.0
+    },
+    {
+      "stream": 4,
+      "start": 28.0,
+      "end": 29.0,
+      "retransmits": 1,
+      "cwnd_bytes": 885760.0
+    },
+    {
+      "stream": 1,
+      "start": 29.0,
+      "end": 30.0,
+      "retransmits": 0,
+      "cwnd_bytes": 996352.0
+    },
+    {
+      "stream": 2,
+      "start": 29.0,
+      "end": 30.0,
+      "retransmits": 0,
+      "cwnd_bytes": 783360.0
+    },
+    {
+      "stream": 3,
+      "start": 29.0,
+      "end": 30.0,
+      "retransmits": 0,
+      "cwnd_bytes": 680960.0
+    },
+    {
+      "stream": 4,
+      "start": 29.0,
+      "end": 30.0,
+      "retransmits": 0,
+      "cwnd_bytes": 941056.0
+    },
+    {
+      "stream": 1,
+      "start": 30.0,
+      "end": 31.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1038336.0
+    },
+    {
+      "stream": 2,
+      "start": 30.0,
+      "end": 31.0,
+      "retransmits": 0,
+      "cwnd_bytes": 836608.0
+    },
+    {
+      "stream": 3,
+      "start": 30.0,
+      "end": 31.0,
+      "retransmits": 0,
+      "cwnd_bytes": 728064.0
+    },
+    {
+      "stream": 4,
+      "start": 30.0,
+      "end": 31.0,
+      "retransmits": 0,
+      "cwnd_bytes": 993280.0
+    },
+    {
+      "stream": 1,
+      "start": 31.0,
+      "end": 32.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1080033.28
+    },
+    {
+      "stream": 2,
+      "start": 31.0,
+      "end": 32.0,
+      "retransmits": 0,
+      "cwnd_bytes": 887808.0
+    },
+    {
+      "stream": 3,
+      "start": 31.0,
+      "end": 32.0,
+      "retransmits": 0,
+      "cwnd_bytes": 773120.0
+    },
+    {
+      "stream": 4,
+      "start": 31.0,
+      "end": 32.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1042432.0
+    },
+    {
+      "stream": 1,
+      "start": 32.0,
+      "end": 33.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1121976.32
+    },
+    {
+      "stream": 2,
+      "start": 32.0,
+      "end": 33.0,
+      "retransmits": 0,
+      "cwnd_bytes": 934912.0
+    },
+    {
+      "stream": 3,
+      "start": 32.0,
+      "end": 33.0,
+      "retransmits": 0,
+      "cwnd_bytes": 815104.0
+    },
+    {
+      "stream": 4,
+      "start": 32.0,
+      "end": 33.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1090519.04
+    },
+    {
+      "stream": 1,
+      "start": 33.0,
+      "end": 34.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1163919.36
+    },
+    {
+      "stream": 2,
+      "start": 33.0,
+      "end": 34.0,
+      "retransmits": 0,
+      "cwnd_bytes": 983040.0
+    },
+    {
+      "stream": 3,
+      "start": 33.0,
+      "end": 34.0,
+      "retransmits": 0,
+      "cwnd_bytes": 856064.0
+    },
+    {
+      "stream": 4,
+      "start": 33.0,
+      "end": 34.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1132462.08
+    },
+    {
+      "stream": 1,
+      "start": 34.0,
+      "end": 35.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1195376.64
+    },
+    {
+      "stream": 2,
+      "start": 34.0,
+      "end": 35.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1028096.0
+    },
+    {
+      "stream": 3,
+      "start": 34.0,
+      "end": 35.0,
+      "retransmits": 0,
+      "cwnd_bytes": 892928.0
+    },
+    {
+      "stream": 4,
+      "start": 34.0,
+      "end": 35.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1174405.12
+    },
+    {
+      "stream": 1,
+      "start": 35.0,
+      "end": 36.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1226833.92
+    },
+    {
+      "stream": 2,
+      "start": 35.0,
+      "end": 36.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1069547.52
+    },
+    {
+      "stream": 3,
+      "start": 35.0,
+      "end": 36.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1007616.0
+    },
+    {
+      "stream": 4,
+      "start": 35.0,
+      "end": 36.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1216348.16
+    },
+    {
+      "stream": 1,
+      "start": 36.0,
+      "end": 37.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1258291.2
+    },
+    {
+      "stream": 2,
+      "start": 36.0,
+      "end": 37.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1216348.16
+    },
+    {
+      "stream": 3,
+      "start": 36.0,
+      "end": 37.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1237319.68
+    },
+    {
+      "stream": 4,
+      "start": 36.0,
+      "end": 37.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1258291.2
+    },
+    {
+      "stream": 1,
+      "start": 37.0,
+      "end": 38.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1310720.0
+    },
+    {
+      "stream": 2,
+      "start": 37.0,
+      "end": 38.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1478492.16
+    },
+    {
+      "stream": 3,
+      "start": 37.0,
+      "end": 38.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1509949.44
+    },
+    {
+      "stream": 4,
+      "start": 37.0,
+      "end": 38.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1394606.08
+    },
+    {
+      "stream": 1,
+      "start": 38.0,
+      "end": 39.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1499463.68
+    },
+    {
+      "stream": 2,
+      "start": 38.0,
+      "end": 39.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1782579.2
+    },
+    {
+      "stream": 3,
+      "start": 38.0,
+      "end": 39.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1835008.0
+    },
+    {
+      "stream": 4,
+      "start": 38.0,
+      "end": 39.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1572864.0
+    },
+    {
+      "stream": 1,
+      "start": 39.0,
+      "end": 40.0,
+      "retransmits": 0,
+      "cwnd_bytes": 1719664.64
+    },
+    {
+      "stream": 2,
+      "start": 39.0,
+      "end": 40.0,
+      "retransmits": 0,
+      "cwnd_bytes": 2139095.04
+    },
+    {
+      "stream": 3,
+      "start": 39.0,
+      "end": 40.0,
+      "retransmits": 0,
+      "cwnd_bytes": 2191523.84
+    },
+    {
+      "stream": 4,
+      "start": 39.0,
+      "end": 40.0,
+      "retransmits": 32,
+      "cwnd_bytes": 1740636.16
+    },
+    {
+      "stream": 1,
+      "start": 40.0,
+      "end": 40.12,
+      "retransmits": 0,
+      "cwnd_bytes": 1740636.16
+    },
+    {
+      "stream": 2,
+      "start": 40.0,
+      "end": 40.12,
+      "retransmits": 0,
+      "cwnd_bytes": 2170552.32
+    },
+    {
+      "stream": 3,
+      "start": 40.0,
+      "end": 40.12,
+      "retransmits": 0,
+      "cwnd_bytes": 2233466.88
+    },
+    {
+      "stream": 4,
+      "start": 40.0,
+      "end": 40.12,
+      "retransmits": 0,
+      "cwnd_bytes": 1740636.16
+    }
+  ],
+  "input_sha256": {
+    "input-01:clock-closed-before.json": "ddb48eb7740f06bd9908de566f98a5c4911fd453e318660866ba37b1fa8871c4",
+    "input-02:clock-closed-after.json": "eab5e8bb9c2516eb793acadc1de5e6ef372fbdbc91e02b33b5bcf39d1bfcca41",
+    "input-03:native-join.json": "9ed29ac109eed1ed89cc38842d66b965e15aac817bdaba34e3636eba32be663c",
+    "input-04:airportd-live.txt": "bfcf55aaf56370ac265690d4389822cff47bc08511a49a2ef147556e5863a0bd",
+    "input-05:kmsg.stream": "0e152b787c5b8215f764188319322c544f7a8bd302bb42746ca2f036d0da7d28",
+    "input-06:iperf.json": "e8719cf5df11a41a021c6752b4e1eab4cbacdbc80845c7de8681e0d570575ae9",
+    "input-07:traffic.json": "9f1697dc9b3ef7a5b27b49c7585b9994d21297c69c2dc9149cb430462c83b194",
+    "input-08:run.json": "87b47b64406961ebb0674750957b8dce57d7b17f5b985f4277dbee854703e29f",
+    "input-09:station.before.txt": "698e7396d14a999e9c4157fe19b6de1b64c8b194b0ad59821788de557aa033df",
+    "input-10:station.after.txt": "dd26c1896ad36247e223c06835efacc66a0a7a6d523f3f2fe572c9b6e2b332f3",
+    "input-11:single6.before.hw-queues.txt": "d27438b8af04c0ce4c77212a3fcd2b65faf13b780a6ef6f4d33763eca5b6628b",
+    "input-12:ap.before.txt": "40dda1a55530e61ca2d352a2d0e7549a6b54edb660f5cd65d820982e7f8642dc",
+    "input-13:dip-1.txt": "aa279d8409d058678f702e5d32111f7ca859e6c487c8d959f26a6ddf2ce8dac3"
+  },
+  "limits": [
+    "Single association, not a paired experiment or proof of Air sleep/wake repair.",
+    "Scan requests and API call intervals do not measure RF dwell; zero observed records do not prove absence.",
+    "PS events are host notifications. Emitted kernel continuity does not restore rate-limited events or prove final wake latency.",
+    "Global P/F sequence gaps exclude other peers before target filtering; unobserved boundary events remain unknown.",
+    "BATRACE is observed frame/preparation logging and BAMCU is command return; neither proves delivery or operational BA. No aggregate-status inference is made.",
+    "Server TCP and client intervals have separate relative starts and rounding; retransmits are not a wire-loss counter.",
+    "Single-6GHz AP/SSID, frequency and non-MLO mask are verified before traffic; the same target/AP association persists in station.after and router configuration is unchanged. No after queue/WCID/mask or AP-info snapshot exists.",
+    "MLO-only P/F tracing does not cover this non-MLO station. Queue PS snapshots are instantaneous host state, not transition durations or a wake-latency measurement.",
+    "Queue snapshots follow their uptime read non-atomically; displayed timestamp bounds bracket the uptime read, not the later queue read."
+  ],
+  "single6_identity": {
+    "before_frequency_mhz": 6135,
+    "before_valid_links": "0x0",
+    "after_queue_snapshot_available": false,
+    "after_ap_info_available": false,
+    "after_wcid_and_mask_verified": false,
+    "queue_counter_deltas_available": false
+  },
+  "ps_observability": "NOT_OBSERVABLE: mt7996_trace_mlo_ps excludes non-MLO stations; zero target P records cannot establish no PS transitions.",
+  "target_queue_ps_snapshots": [
+    {
+      "primary_ps": 1,
+      "uptime_read_association_seconds_bounds": [
+        23.46200000000019,
+        23.47300000000041
+      ],
+      "uptime_read_tcp_seconds_bounds": [
+        12.248674869537354,
+        12.476280927658081
+      ],
+      "scope": "One non-atomic queue snapshot after the recorded uptime; repeated radio copies deduplicated."
+    }
+  ]
+}
