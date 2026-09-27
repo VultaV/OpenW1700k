@@ -1,0 +1,455 @@
+{
+  "image": "openwrt-ubi2-mlo-ps-observe-r42-20260927-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "a1f28cdeb3bc1498e6e9c2b2948ff93a2738dab16b28c88c73388f09c59cb93b",
+  "bytes": 30290789,
+  "build_stages": [
+    {
+      "step": "defconfig",
+      "command": [
+        "make",
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 7.233497916953638
+    },
+    {
+      "step": "kernel",
+      "command": [
+        "make",
+        "-j8",
+        "target/linux/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 15.657726584002376
+    },
+    {
+      "step": "packages",
+      "command": [
+        "make",
+        "-j8",
+        "package/compile",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 380.0848738749046
+    },
+    {
+      "step": "package-install",
+      "command": [
+        "make",
+        "package/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 13.967957957996987
+    },
+    {
+      "step": "target-install",
+      "command": [
+        "make",
+        "-j8",
+        "target/install",
+        "V=s"
+      ],
+      "exit_code": 0,
+      "seconds": 11.586006124969572
+    },
+    {
+      "step": "index",
+      "command": [
+        "make",
+        "package/index"
+      ],
+      "exit_code": 0,
+      "seconds": 6.1208391659893095
+    },
+    {
+      "step": "buildinfo",
+      "command": [
+        "make",
+        "buildinfo"
+      ],
+      "exit_code": 0,
+      "seconds": 10.021123209036887
+    },
+    {
+      "step": "image-info",
+      "command": [
+        "make",
+        "json_overview_image_info"
+      ],
+      "exit_code": 0,
+      "seconds": 5.6222585829673335
+    },
+    {
+      "step": "checksum",
+      "command": [
+        "make",
+        "checksum"
+      ],
+      "exit_code": 0,
+      "seconds": 8.452691874932498
+    }
+  ],
+  "image_verification": {
+    "result": "PASS",
+    "image": "openwrt-ubi2-mlo-ps-observe-r42-20260927-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "a1f28cdeb3bc1498e6e9c2b2948ff93a2738dab16b28c88c73388f09c59cb93b",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "kernel_package": "6.18.44~73da9a4281bd33ef609e81ecc0cb78e7-r1",
+    "module_vermagic": [
+      "6.18.44-w1700k-mlo-r32 SMP mod_unload aarch64"
+    ],
+    "module_count": 74,
+    "changed_modules": [
+      "mt7996e.ko"
+    ],
+    "kernel_payload_identical_to_r41": true,
+    "kmod_package_count": 64,
+    "package_count": 206,
+    "firmware_files_unchanged": 11,
+    "firmware_packages": [
+      "airoha-en7581-mt7996-npu-firmware",
+      "kmod-mt7996-firmware",
+      "kmod-mt7996-firmware-common",
+      "rtl826x-firmware",
+      "wireless-regdb"
+    ],
+    "preserved_wpad_luci_files": 338,
+    "selected_module_sha256": {
+      "airoha-eth.ko": "f947983d646a2ab8dc83edac5303deef41ff95c1406624c744b7b733f437cb6b",
+      "airoha_npu.ko": "e1be1a345b4444ef3b4f68c6fc4bcf6ded66aecf96ee5cc970384f04c2ade999",
+      "nf_flow_table.ko": "f3f79781c33709a1bb4a794d5be6ad1326672743ac522dff0077378764a96c70",
+      "nf_flow_table_inet.ko": "2fd28af904e2301b69d502c9b05134191bf4561b126b84d2a3ba02b7bb950d18",
+      "nft_flow_offload.ko": "5d10dfddfa14e64aa85b211b3cb188d0470b0f83cbaadb854e1417c781c5f964",
+      "nf_conntrack_bridge.ko": "b910d43731fad0dfab672072d2e3399c1fe23c6a8ab69ce95c309e6108c3aed8",
+      "mt76.ko": "e3cee9061b543675f4a3204d6c23c672d5c42cfb91294c365a4ad1812a97d135",
+      "mt76-connac-lib.ko": "5da57de6a3f763cc6f964adbe4a221db2ff53a0d2355011e191bfd454a0e6a01",
+      "mt7996e.ko": "d2636a59570b0141d263e274f1ddec98b6780f4e5c1a159c762d89df8e8b9f39",
+      "mac80211.ko": "061243ed6b2eea3c3b7be9442b4ae6b4a1480688553ef73ec6cc37c32c7d9e08",
+      "cfg80211.ko": "a32e034c8a46f79bd1177b55fc2d1b671d8e094f183464b969aba5de7cf8c8cb",
+      "tun.ko": "08d5c0b9e5677445aeee26a1636e18fb921d96221c3b4e299f2fed391ae22c04"
+    },
+    "limits": [
+      "Image contents only; boot, wired continuity, TTL/hop-limit and MLO remain untested."
+    ]
+  },
+  "package_changes": {
+    "kmod-mt76-connac": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r31",
+      "candidate": "6.18.44.2026.09.01~01367e60-r32"
+    },
+    "kmod-mt76-core": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r31",
+      "candidate": "6.18.44.2026.09.01~01367e60-r32"
+    },
+    "kmod-mt7996-firmware": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r31",
+      "candidate": "6.18.44.2026.09.01~01367e60-r32"
+    },
+    "kmod-mt7996-firmware-common": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r31",
+      "candidate": "6.18.44.2026.09.01~01367e60-r32"
+    },
+    "kmod-mt7996e": {
+      "baseline": "6.18.44.2026.09.01~01367e60-r31",
+      "candidate": "6.18.44.2026.09.01~01367e60-r32"
+    }
+  },
+  "source_check_groups": {
+    "passed": 13,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100
+  },
+  "installed_ui_checks": {
+    "passed": 9,
+    "failed": 0,
+    "warnings": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100
+  },
+  "source_tests": [
+    {
+      "name": "npu-red",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_npu_red.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--patch",
+        "publish-mlo-r29/package/kernel/mt76/patches/0036-mt7996-initialize-red-for-npu-offload.patch"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"status\": \"PASS\",\n  \"passed\": 50,\n  \"expected_missing_contract\": 0,\n  \"source_sha256\": {\n    \"mcu.c\": \"04b2789fe63a85a24c44bb82f25b4ab13743b0b2294aeeca0a1a94847dd1e239\",\n    \"mcu.h\": \"50f56319b429a67e31d62bfa46868f88affdfc1170a06695a99ae67c5f142cd6\"\n  },\n  \"extracted_sha256\": {\n    \"mt7996_mcu_wa_cmd\": \"7f08ebce5d6f74409a2c9d74b2aacbee1408f0247a34a8088eab4a2da0d965f9\",\n    \"mt7996_mcu_init_npu_red\": \"77bad2241c8803d2a2fb25a8e7d438cac0afec2e75d72dbbc63b155f14757dc5\",\n    \"mt7996_mcu_init_firmware\": \"9a87d869b9da6d3124b0686a79e2ca5ff2444b1c88e86124cdb4cd5107fb3ef4\"\n  },\n  \"explicit_endian_source_checks\": 9,\n  \"compiler\": \"clang\",\n  \"compiler_flags\": [\n    \"-std=gnu11\",\n    \"-O1\",\n    \"-g\",\n    \"-Wall\",\n    \"-Wextra\",\n    \"-Werror\",\n    \"-Wno-unused-function\",\n    \"-fsanitize=address,undefined\",\n    \"-fno-omit-frame-pointer\",\n    \"-DHAS_RED_HELPER=1\"\n  ],\n  \"patch_roundtrip_fuzz0_no_offset\": true,\n  \"limitations\": [\n    \"Actual helper, WA wrapper and full firmware-init function; unrelated operations and MCU transport are stubs.\",\n    \"Native little-endian host payload oracle plus explicit endian conversion checks; no big-endian runtime.\",\n    \"MT7996_TOKEN_SIZE=16384 is the contract fixture; no full kernel ABI or MCU envelope compilation.\",\n    \"ASan/UBSan are host checks; no firmware execution, RED readback, token ownership or throughput claim.\",\n    \"Zero and boundary token values test encoding only, not valid firmware budgets.\"\n  ]\n}\n",
+      "test_sha256": "3358c0395aa1b6d0914ad60567ed5b965eeba01ef4dba2298241e27209ca3ea0"
+    },
+    {
+      "name": "npu-ba",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_npu_aggregation.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "INPUT mt7996/mac.c sha256=5fc307c8b90654a16e8dbe204ae119966967a0a83fd49117ef766f17733ef00d\nINPUT mt76.h sha256=3a257daa2ae37125a75f886ee5de8135cd1d9d0b76dda15c4634ae0a72383741\nINPUT mt76_connac3_mac.h sha256=65f970c7a5cd1868b047ce536710f0b103ea31d5f7dd7c9456b109fda204ecd2\nINPUT agg-tx.c sha256=b6c90cdd1229b6e490c9b8b9e6e5ee354563481d8da9e57295944c57fabcd0d9\nINPUT ieee80211.h sha256=b5988ee98c651d2fbb964d7800e6f13404ae09913fbd37e3a804f0f650862a61\nINPUT test_mt76_ps_wake.py sha256=90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\nEXTRACT gate/dispatcher/refresh/timer/negotiated-timeout sha256=f161a557205efc669f33981c93758863f4da4b33af1570f6fd310f06104d747c\nPASS peer-negotiated nonzero timeout arms the real timer\nPASS NPU periodic PID=NO_SKB TXS reaches actual dispatcher\nPASS NPU periodic PPDU NO_SKB TXS keeps BA session alive\nPASS NPU-only MPDU NO_SKB TXS keeps BA session alive\nPASS existing WED refresh is retained\nPASS both engines and MPDU NO_SKB preserve refresh\nPASS neither offload engine adds a refresh\nPASS non-station WCID does not refresh a session\nPASS no BA session is a safe no-op\nPASS TXS refreshes its TID without retaining another idle TID\nPASS activity moves timer expiry using the actual callback\nPASS genuine silence still expires the session at its deadline\nPASS negotiated timeout zero never arms an inactivity timer\nPASS PID zero is rejected by the real outer dispatcher\nPASS tracked PID also reaches refresh\nPASS missing WCID is rejected under RCU\nPASS already stopping session is not stopped twice\nPASS tested TIDs and lock fixture contracts stayed valid\n18 checks, 0 failed, 0 expected failure\n",
+      "test_sha256": "f6751d8b190271967e5465d5c5768c706d73470f60d7e7d085658e2c60b96f51"
+    },
+    {
+      "name": "npu-mailbox",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_npu_mailbox.py",
+        "--source",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_npu.c"
+      ],
+      "exit_code": 0,
+      "output": "{\n  \"source\": \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_npu.c\",\n  \"source_sha256\": \"f046d7641707b7928615cfb262ab939a06291fbc0c1820d2aa4894f5af3f57d8\",\n  \"product_patch_sha256\": \"df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8\",\n  \"source_already_applied\": true,\n  \"product_patch_fuzz\": 0,\n  \"whole_source_patch_round_trip_equal\": true,\n  \"compiler\": \"Apple clang version 21.0.0 (clang-2100.3.34.2)\",\n  \"sanitizers\": [\n    \"address\",\n    \"undefined\"\n  ],\n  \"actual_definitions\": [\n    \"#define AIROHA_NPU_MBOX_SIZE\\t\\t\\t256\",\n    \"#define NPU_MBOX_BASE_ADDR\\t\\t0x30c000\",\n    \"#define REG_CR_MBQ0_CTRL(_n)\\t\\t(NPU_MBOX_BASE_ADDR + 0x030 + ((_n) << 2))\",\n    \"#define MBOX_MSG_FUNC_ID\\tGENMASK(14, 11)\",\n    \"#define MBOX_MSG_STATIC_BUF\\tBIT(5)\",\n    \"#define MBOX_MSG_STATUS\\t\\tGENMASK(4, 2)\",\n    \"#define MBOX_MSG_DONE\\t\\tBIT(1)\",\n    \"#define MBOX_MSG_WAIT_RSP\\tBIT(0)\"\n  ],\n  \"production_modified\": false,\n  \"candidate_scope\": \"CTRL3 read and WAIT_RSP&&!DONE guard after lock; shared unlock label only\",\n  \"results\": {\n    \"baseline\": {\n      \"cases\": [\n        {\n          \"name\": \"normal_flags0_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_zero_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_max_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static0\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static1\",\n          \"pass\": false,\n          \"reason\": \"busy_must_not_publish\"\n        },\n        {\n          \"name\": \"ctrl3_read_error\",\n          \"pass\": false,\n          \"reason\": \"ctrl3_read_error_must_be_returned\"\n        },\n        {\n          \"name\": \"response_error_status\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_timeout\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_poll_read_error\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"oversize_payload\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"reply_longer_than_request\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"timeout_A_then_B\",\n          \"pass\": false,\n          \"reason\": \"timeout_reuse_must_return_EBUSY\"\n        }\n      ],\n      \"passed\": 79,\n      \"failed\": 66,\n      \"timeout_observation\": {\n        \"B_return\": 0,\n        \"late_A_accepted_as_B\": true,\n        \"B_preserved_A_state\": false,\n        \"B_after_A_done_return\": -999\n      },\n      \"exit_code\": 1,\n      \"function_sha256\": \"bb00bf5475d43280a3830c53cc664e8957e07ea641ba4139e3b6039aa81b0d32\"\n    },\n    \"candidate\": {\n      \"cases\": [\n        {\n          \"name\": \"normal_flags0_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags0_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags1_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status0_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status1_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status2_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status3_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status4_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status5_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status6_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_flags2_status7_kind2\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_zero_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"normal_max_length\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func0_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func1_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func5_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status0_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status1_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status2_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status3_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status4_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status5_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status6_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static0\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"busy_func15_status7_static1\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"ctrl3_read_error\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_error_status\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_timeout\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"response_poll_read_error\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"oversize_payload\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"reply_longer_than_request\",\n          \"pass\": true,\n          \"reason\": \"\"\n        },\n        {\n          \"name\": \"timeout_A_then_B\",\n          \"pass\": true,\n          \"reason\": \"\"\n        }\n      ],\n      \"passed\": 145,\n      \"failed\": 0,\n      \"timeout_observation\": {\n        \"B_return\": -16,\n        \"late_A_accepted_as_B\": false,\n        \"B_preserved_A_state\": true,\n        \"B_after_A_done_return\": 0\n      },\n      \"exit_code\": 0,\n      \"function_sha256\": \"ede1458c03ed8ca103251f9603943052d6c210d9a62a4d35fe05f12172e8ea5f\"\n    }\n  },\n  \"limitations\": [\n    \"One explicitly ordered device model; not firmware execution, hardware DMA, IRQ concurrency or elapsed timeout modeling.\",\n    \"The model assumes WAIT_RSP&&!DONE remains observable for unfinished work and DONE marks completion; firmware contract is not proved.\",\n    \"Busy return is not cancellation or recovery; permanently unfinished commands can leave subsequent requests EBUSY.\",\n    \"Existing CTRL0..3 write errors, CTRL2 read errors, sequence wrap, negative lengths, lifecycle/reset interleavings and barriers are not changed or verified.\",\n    \"No Air stall attribution or real device repair is established.\"\n  ]\n}\n",
+      "test_sha256": "1e9dfc2110c426c4683cc97bee4226ea01d8e575899dc24bbc6bb572ba0b07b6"
+    },
+    {
+      "name": "npu-dma",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt76_npu_rx.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--applied"
+      ],
+      "exit_code": 0,
+      "output": "patched: ordered ownership, wrap, allocation failure and reserved slot pass\nbaseline: NPU can observe ownership before the replacement address\npatched: partial chain, wrap, allocation failure, count bound and empty ring pass\npatched: fragmented controls, refreshed pointers, normal zero-copy and allocation failure pass\nTX publication: 8 cases, 0 contract failures (wrap, clamp, metadata preserved)\nTX publication: 8 cases, 8 contract failures (wrap, clamp, metadata preserved)\nFour exact-source RX/TX groups passed; missing-barrier controls rejected.\n",
+      "test_sha256": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93"
+    },
+    {
+      "name": "transition",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_transition.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "INPUT {\"core_mode\": \"fixed\", \"sha256\": {\"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/tx.c\": \"e4117a2482a7a1e1d0731aa7b14a1645efab6251f59ff2ce75b200fb859d79c0\", \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60/mt7996/main.c\": \"fa614e74dafd2f7919c161dd7161bbcf9d82620553265938b6b617790eace7f2\", \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/sta_info.c\": \"39f0f3577b62f2906f2ab3f0cb99247d1d5bec71ce84db1dec49e0261baad906\", \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/tx.c\": \"3adab10af9a41d39a483f360b410eca7a945a56ac2ba9a6ab632e19ee9111436\", \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/driver-ops.c\": \"16ac7ab30c3dab6ad55464dd194c0957c9dba9977d2acb4e77c88098b41077c1\", \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/driver-ops.h\": \"24a7ceef92637ce81faa196f18a8372714ef77fd8899019aba0d0976939e2009\", \"build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211/ieee80211_i.h\": \"28904162905ef1ae924abea12ba199c55ebf26958ddd9ee424a80b804b0f5bf8\", \"/Users/volta/Documents/ChatGPT/openwrt/publish-mlo-r29/tests/test_mt76_ps_wake.py\": \"90dbdfed344844967074801bd9fa42856601f1a51a5bd3434b6acc11edcb86e0\", \"/Users/volta/Documents/ChatGPT/openwrt/publish-mlo-r29/tests/test_mt7996_link_lifecycle.py\": \"ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c\"}, \"extracted_core_sha256\": \"39f0f3577b62f2906f2ab3f0cb99247d1d5bec71ce84db1dec49e0261baad906\", \"core_patch_sha256\": null}\nCORE fixed: restored-link backlog drained\nlink transition: 39 checks, 0 failed\nDriver-only rollback limitation reproduced; actual core rollback checked separately. No Air hardware claim.\n",
+      "test_sha256": "aa1251d91e7dc0b79280557e87ff99e0fe23fa6971a8ca0dc5c697936a9cc5ae"
+    },
+    {
+      "name": "forward-path",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_forward_path.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60"
+      ],
+      "exit_code": 0,
+      "output": "configuration: npu\nboundary writer: after final read, before return\nforward path: 44 checks, 0 failed\nconfiguration: wed\nboundary writer: after final read, before return\nforward path: 48 checks, 0 failed\n",
+      "test_sha256": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc"
+    },
+    {
+      "name": "lifecycle",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_link_lifecycle.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "all"
+      ],
+      "exit_code": 0,
+      "output": "link lifecycle: 631 checks, 0 failed\n",
+      "test_sha256": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c"
+    },
+    {
+      "name": "mlo-ps",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_mt7996_mlo_ps.py",
+        "--source-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mt76-2026.09.01~01367e60",
+        "--mac80211-dir",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/mac80211-regular/backports-7.2/net/mac80211"
+      ],
+      "exit_code": 0,
+      "output": "29 checks, 0 failed\ncombined: 99 checks, 0 failed\n",
+      "test_sha256": "b84fecc83baeffaac5663ae121a617ab83ae3c98dde84833ef834b8b35bc8e94"
+    },
+    {
+      "name": "npu-watchdog",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_npu_watchdog.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "EXPECTED FAIL before immediate_irq=0\nEXPECTED FAIL before immediate_irq=1\nPASS immediate_irq=0: success + 44 probe failure boundaries\nPASS immediate_irq=1: success + 44 probe failure boundaries\nPASS patch applicability, kernel helper compatibility and both negative controls\n",
+      "test_sha256": "5d23e202ffac38c0cacbaeea9cf7cf03f3c5e676f9cfcb6cb855208a313949b4"
+    },
+    {
+      "name": "ttl",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_ttl.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44"
+      ],
+      "exit_code": 0,
+      "output": "{\"status\": \"PASS\", \"structural_passed\": 12, \"extracted_c\": {\"passed\": 2091, \"failed\": 0, \"scope\": \"extracted source guards and allocation only\"}, \"limitations\": [\"Extracted guards only; not a kernel build or full forwarding test.\", \"IPv4 checksum helper and kernel context are stubs.\", \"Does not prove PPE bit semantics, packet checksums, or module ABI isolation.\"]}\n",
+      "test_sha256": "893df79ddbe3448bf23cb123832faae8b90e2d3821c55e79ce760ef123058d41"
+    },
+    {
+      "name": "conntrack",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_conntrack_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/bridge/netfilter/nf_conntrack_bridge.c"
+      ],
+      "exit_code": 0,
+      "output": "0 ownership failures across 7 cases\nPASS: drop, stolen, accept and conntrack ownership\n",
+      "test_sha256": "9c051073e82d4a90af13ebc8f93950413d26d66f21e09e51fe8aefa6a27c4400"
+    },
+    {
+      "name": "ppe",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_airoha_ppe_ownership.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_ppe.c",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/drivers/net/ethernet/airoha/airoha_eth.h"
+      ],
+      "exit_code": 0,
+      "output": "PASS case 0\nPASS case 1\nPASS case 2\nPASS case 3\nPASS case 4\nPASS case 5\nPASS case 6\nPASS case 7\nPASS case 8\nPASS case 9\nPASS case 10\nPASS case 11\nPASS case 12\nPASS case 13\nPASS case 14\nPASS case 15\nTOTAL 16 PASS, 0 EXPECTED_FAIL\n",
+      "test_sha256": "38a03dee81b781b573a97faf7e5a3c2230648fcdc34409c4bcbff6f837bacb47"
+    },
+    {
+      "name": "fdb",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "publish-mlo-r29/tests/test_bridge_fdb_cleanup.py",
+        "build-volume/source/build_dir/target-aarch64_cortex-a53_musl/linux-airoha_an7581/linux-6.18.44/net/netfilter/nf_flow_table_core.c"
+      ],
+      "exit_code": 0,
+      "output": "PASS: 13 matching cases, 9 rejected events, 1 insertion failure, 1000 publication races, 3 teardown cases; failures=0\nScope: extracted C with stubs, not kernel locking/GC/hardware acceptance.\n",
+      "test_sha256": "a5b9f758a1934ffd02800d6b35f695c9e55b6ae7e59909b3aaa1f2b30c9aba85"
+    }
+  ],
+  "source_change_proof": {
+    "status": "PASS",
+    "change": "Only the optional two-link MLO P-transition budget changes from 128 to 1024 per five seconds; mt76 package release 31 to 32.",
+    "baseline_commit": "14e7a578f804bf2b5abcd10cace047911942af68",
+    "input_sha256": {
+      "prepared_mcu.c_before": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657",
+      "prepared_mcu.c_after_check": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657",
+      "patch_0037": "d7efcd6bb6434b21f247f02eaf117efa5b53c128434056e33759be210c587e00",
+      "Makefile_before": "f50e965cd05af26ceaa5b1174d9da1db6eb724d424538901a5ba5c8022a5f36d",
+      "Makefile_after": "ecef1bd634378f8508e05f80edfc5db59c0fb77c1f2be6cf3be79afb8d4f9ee7"
+    },
+    "candidate_mcu.c_sha256": "04b2789fe63a85a24c44bb82f25b4ab13743b0b2294aeeca0a1a94847dd1e239",
+    "checks": {
+      "one_source_constant_change": true,
+      "only_package_release_changed": true,
+      "default_trace_off_unchanged": true,
+      "F_budget_8_per_5_seconds_unchanged": true,
+      "eligible_two_link_MLO_filter_unchanged": true,
+      "sequence_before_rate_limit_unchanged": true,
+      "log_format_unchanged": true,
+      "prepared_source_unchanged": true,
+      "reverse_restores_baseline_byte_for_byte": true
+    },
+    "patch_checks": [
+      {
+        "direction": "forward",
+        "argv": [
+          "patch",
+          "--batch",
+          "--fuzz=0",
+          "-p1",
+          "--input",
+          "0037-mt7996-expand-bounded-ps-transition-trace.patch"
+        ],
+        "exit_code": 0,
+        "stdout": "patching file 'mt7996/mcu.c'\n",
+        "stderr": "",
+        "exact_expected_bytes": true,
+        "offset_or_fuzz": false
+      },
+      {
+        "direction": "reverse",
+        "argv": [
+          "patch",
+          "--batch",
+          "--fuzz=0",
+          "-p1",
+          "--input",
+          "0037-mt7996-expand-bounded-ps-transition-trace.patch",
+          "--reverse"
+        ],
+        "exit_code": 0,
+        "stdout": "patching file 'mt7996/mcu.c'\n",
+        "stderr": "",
+        "exact_expected_bytes": true,
+        "offset_or_fuzz": false
+      }
+    ],
+    "limits": [
+      "This is a diagnostic capacity change, not a PS scheduler or firmware fix.",
+      "P records cover eligible two-link MLO host PS changes; repeated same-state notifications are not logged.",
+      "A finite budget still permits gaps. Zero gaps does not prove worker execution, RF wake, or firmware buffering.",
+      "No build, device, network or throughput test was performed for this source check."
+    ]
+  },
+  "prepared_mcu_sha256": "04b2789fe63a85a24c44bb82f25b4ab13743b0b2294aeeca0a1a94847dd1e239",
+  "prepared_matches_checked_one_constant_change": true,
+  "build_warnings": {
+    "total_diagnostic_occurrences": 383,
+    "unique_normalized_messages": 147,
+    "categories": {
+      "build_tool_or_configuration": 41,
+      "device_tree": 59,
+      "feed_dependency": 126,
+      "firmware_mapping": 138,
+      "modpost_module_description": 1,
+      "source_diagnostic": 18
+    },
+    "major_observations": [
+      "All final nine stage records exited 0; 9 logs contain matched warnings.",
+      "14 missing-dependency messages; 0 involve enabled/installed recipe families requiring review.",
+      "28 empty-kmod names; 0 are installed in the extracted image.",
+      "Known normalized text does not establish harmlessness or identical source location; new text does not establish patch causality.",
+      "Warning inventory counts are separate from regression PASS/FAIL counts."
+    ],
+    "limitations": [
+      "Only the explicit r40 detection pattern is counted, not every diagnostic spelling.",
+      "All bytes of each append-only stage log are counted; earlier attempts, if any, remain included.",
+      "Not observed versus r41 does not mean fixed: incremental builds may not recompile the same components.",
+      "Categories reuse exact r41 normalized matches; unseen messages use documented source-location/tool rules.",
+      "Recipe-family selection is a prefix heuristic, not complete evaluation of all OpenWrt generated subpackages.",
+      "No assertion that warnings are harmless; no source edits, clean-room build, boot or wireless validation."
+    ]
+  },
+  "verifier_sha256": "a64afa365f99190924e02e468f68796a42b16d1a663be43f547ffb1f8d6a0d65",
+  "build_log_sha256": {
+    "defconfig.log": "b377b196b60e697a9f6e638b4095252ba4d0ecb254eefc6c8d16d3c74b8b4c9f",
+    "kernel.log": "8eadf47ef88d33e697cd3982f0ce1028ef7e97216afc78f75916420ca47bdac2",
+    "packages.log": "7ee48cde39fc4f570dd0f07f81b2fabd02fec227de1ecd27ed3287a4d6ca057e",
+    "package-install.log": "6792daef7fdee65266a663995ce09e4d359c5757bce0364bf5c2951e364dac47",
+    "target-install.log": "f7c822e945640536b6350833aaf77a600f15cf21fef7d9c5504e692602d5e3c9",
+    "index.log": "76151689b094f309d5d1e03ff0b54734373bd361b53b9e2f7d1a71a7e9d527be",
+    "buildinfo.log": "2090cbe1da3b9e1080b0b6a4440355976779d5e827929e6f28ae22b30d464e43",
+    "image-info.log": "0fdd87f64b27625303940df5936a377a9553c68c68a4b456c57f7640c6ab5c7c",
+    "checksum.log": "b9c8534e47e1d9dfffc187a27f2e7704c62617a90cf982b108b096a5852f33b2"
+  },
+  "installed": false,
+  "boot_tested": false,
+  "wireless_tested": false,
+  "limitations": [
+    "Build-time record before installation; follow-up device evidence is separate.",
+    "Diagnostic only: PS P transition budget 128 to 1024 per five seconds; optional tracing stays off by default.",
+    "Host test substitutes are not hardware concurrency or throughput proof; expected baseline failures are separate from candidate results.",
+    "P covers changed PS states of exactly two-link MLO peers; not repeated notifications, worker execution, RF residence or firmware buffering.",
+    "Finite logging budget may still omit events and diagnostic logging adds load.",
+    "Kernel, other 73 modules, eleven firmware files and wpad/LuCI remain unchanged.",
+    "Native incremental build with pinned inputs, not clean-room reproducibility.",
+    "Original Air sleep/wake stall remains unresolved; Mac evidence is not Air acceptance."
+  ]
+}

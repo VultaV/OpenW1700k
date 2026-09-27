@@ -1,0 +1,19 @@
+Subject: mt7996: expand the bounded PS transition trace budget
+
+Raise only the optional P-event limit from 128 to 1024 records per five
+seconds so a short two-link MLO observation can identify remaining gaps.
+Keep tracing off by default, the F-event limit at eight, and all eligibility,
+sequence and log-format behavior unchanged. This is diagnostic capacity,
+not a PS scheduling fix or proof of firmware/RF wake or the original stall.
+
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -1107,7 +1107,7 @@
+ void mt7996_trace_mlo_ps(struct mt7996_dev *dev, struct mt76_wcid *wcid,
+ 			 char kind, u32 detail)
+ {
+-	static DEFINE_RATELIMIT_STATE(ps_limit, 5 * HZ, 128);
++	static DEFINE_RATELIMIT_STATE(ps_limit, 5 * HZ, 1024);
+ 	static DEFINE_RATELIMIT_STATE(free_limit, 5 * HZ, 8);
+ 	static atomic_t ps_seq = ATOMIC_INIT(0), free_seq = ATOMIC_INIT(0);
+ 	struct mt7996_sta_link *primary, *secondary;

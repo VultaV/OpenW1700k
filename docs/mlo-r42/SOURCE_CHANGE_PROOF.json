@@ -1,0 +1,65 @@
+{
+  "status": "PASS",
+  "change": "Only the optional two-link MLO P-transition budget changes from 128 to 1024 per five seconds; mt76 package release 31 to 32.",
+  "baseline_commit": "14e7a578f804bf2b5abcd10cace047911942af68",
+  "input_sha256": {
+    "prepared_mcu.c_before": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657",
+    "prepared_mcu.c_after_check": "439e667de7abaef9fdc924ff04566c3c68094c12f178e0c69a081b8523cbc657",
+    "patch_0037": "d7efcd6bb6434b21f247f02eaf117efa5b53c128434056e33759be210c587e00",
+    "Makefile_before": "f50e965cd05af26ceaa5b1174d9da1db6eb724d424538901a5ba5c8022a5f36d",
+    "Makefile_after": "ecef1bd634378f8508e05f80edfc5db59c0fb77c1f2be6cf3be79afb8d4f9ee7"
+  },
+  "candidate_mcu.c_sha256": "04b2789fe63a85a24c44bb82f25b4ab13743b0b2294aeeca0a1a94847dd1e239",
+  "checks": {
+    "one_source_constant_change": true,
+    "only_package_release_changed": true,
+    "default_trace_off_unchanged": true,
+    "F_budget_8_per_5_seconds_unchanged": true,
+    "eligible_two_link_MLO_filter_unchanged": true,
+    "sequence_before_rate_limit_unchanged": true,
+    "log_format_unchanged": true,
+    "prepared_source_unchanged": true,
+    "reverse_restores_baseline_byte_for_byte": true
+  },
+  "patch_checks": [
+    {
+      "direction": "forward",
+      "argv": [
+        "patch",
+        "--batch",
+        "--fuzz=0",
+        "-p1",
+        "--input",
+        "0037-mt7996-expand-bounded-ps-transition-trace.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "patching file 'mt7996/mcu.c'\n",
+      "stderr": "",
+      "exact_expected_bytes": true,
+      "offset_or_fuzz": false
+    },
+    {
+      "direction": "reverse",
+      "argv": [
+        "patch",
+        "--batch",
+        "--fuzz=0",
+        "-p1",
+        "--input",
+        "0037-mt7996-expand-bounded-ps-transition-trace.patch",
+        "--reverse"
+      ],
+      "exit_code": 0,
+      "stdout": "patching file 'mt7996/mcu.c'\n",
+      "stderr": "",
+      "exact_expected_bytes": true,
+      "offset_or_fuzz": false
+    }
+  ],
+  "limits": [
+    "This is a diagnostic capacity change, not a PS scheduler or firmware fix.",
+    "P records cover eligible two-link MLO host PS changes; repeated same-state notifications are not logged.",
+    "A finite budget still permits gaps. Zero gaps does not prove worker execution, RF wake, or firmware buffering.",
+    "No build, device, network or throughput test was performed for this source check."
+  ]
+}
