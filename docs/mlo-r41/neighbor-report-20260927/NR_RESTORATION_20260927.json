@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "same_boot": true,
+  "four_original_configuration_hashes_match": true,
+  "original_bridge_rules_exact": true,
+  "nr_link1_and_link2": "FAIL (original disabled state)",
+  "hostapd_level": "INFO 0",
+  "ps_ba_awake_test": "N",
+  "controller_wired_checks": 131,
+  "restoration_wired_checks": 7,
+  "controller_wired_all_normal": true,
+  "trial_wired_checks": 56,
+  "hotspot_ui_connected": true,
+  "hotspot_en0_https": 200,
+  "wifi_settings_panel_closed": true,
+  "raw_readback_sha256": "ca7b652de2001728c7c7d9dd725ccd6fa049eccd3ace93c43c950d4f3514ad2b"
+}

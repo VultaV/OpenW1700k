@@ -1,6 +1,8 @@
 # W1700K MLO investigation fork
 
-현재 수정·검증 기록: [MLO r39 진행 현황](docs/mlo-r39/README.md).
+현재 수정·검증 기록: [MLO r41 진행 현황](docs/mlo-r41/README.md).
+
+후속 진단: [Neighbor Report 구성 후 초기 전송 비교](docs/mlo-r41/neighbor-report-20260927/NR_CONFIG_COMPARISON_20260927.md). 설정은 확인했지만 Mac의 실제 수신·사용은 미검증이며, 연결 초기 저하와 원래 Air 절전 복귀 문제는 미해결입니다.
 
 추가 조사: [NPU zero-budget guard 후보 검증](docs/npu-budget-guard-20260926/README.md) — 설치 이미지가 아닌 메모리 내 명령 검증입니다.
 실험용이며 완전 해결 판정 전입니다. 기준 소스와 재현 방법은 위 문서를 참고하세요.
