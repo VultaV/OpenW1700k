@@ -1,0 +1,1460 @@
+{
+  "status": "HEALTHY_RUN_OBSERVED_CAUSE_UNRESOLVED",
+  "firmware": "r43",
+  "same_boot_and_association_as_prior_low_run": true,
+  "mac_test_only_air_acceptance_unresolved": true,
+  "ps_trace_test": {
+    "label": "ps-repeat-unlimited-60",
+    "receiver_mbps": 1962.076573657192,
+    "min_interval_mbps": 1883.7455103193145,
+    "max_interval_mbps": 1997.5261926928101,
+    "zero_intervals": 0,
+    "seconds": 60,
+    "upload": false,
+    "wired_checks": 78,
+    "status": "passed",
+    "path": "PPE bound fastpath"
+  },
+  "post_trace_test": {
+    "label": "download-post-trace-20",
+    "receiver_mbps": 1918.9057108594473,
+    "min_interval_mbps": 1795.8981279855077,
+    "max_interval_mbps": 1955.276358420313,
+    "zero_intervals": 0,
+    "seconds": 20,
+    "upload": false,
+    "wired_checks": 34,
+    "status": "passed",
+    "path": "PPE bound fastpath"
+  },
+  "final_state": {
+    "diagnostic_flags_restored": true,
+    "wired_ok": true,
+    "same_r43_boot": true,
+    "mlo_path_verified": true,
+    "post_trace_router_configs_unchanged": true,
+    "post_trace_summary": {
+      "label": "download-post-trace-20",
+      "receiver_mbps": 1918.9057108594473,
+      "min_interval_mbps": 1795.8981279855077,
+      "max_interval_mbps": 1955.276358420313,
+      "zero_intervals": 0,
+      "seconds": 20,
+      "upload": false,
+      "wired_checks": 34,
+      "status": "passed",
+      "path": "PPE bound fastpath"
+    }
+  },
+  "capture": {
+    "segments": [
+      {
+        "name": "test.pcap00",
+        "sha256": "cb2959d16eac636a95e23ad6cd7ee9844bc73195a19122ee4b1dc4887221aa4d",
+        "bytes": 64000040,
+        "records": 740645,
+        "snaplen": 96,
+        "link_type": "Ethernet",
+        "endpoint_pairs_match": true,
+        "truncated_payload_records": 97975,
+        "max_original_record_bytes": 65226
+      },
+      {
+        "name": "test.pcap01",
+        "sha256": "32dddb9bd02d044eaee5ef8e2d2530c87d202fa6c6f45eb4771fd564e065ca6c",
+        "bytes": 64000074,
+        "records": 738140,
+        "snaplen": 96,
+        "link_type": "Ethernet",
+        "endpoint_pairs_match": true,
+        "truncated_payload_records": 106905,
+        "max_original_record_bytes": 65226
+      },
+      {
+        "name": "test.pcap02",
+        "sha256": "1711899be3882b1198679be0b6521e2a10db8fb823a834a53b1ccdd73b7a57b4",
+        "bytes": 17754961,
+        "records": 205622,
+        "snaplen": 96,
+        "link_type": "Ethernet",
+        "endpoint_pairs_match": true,
+        "truncated_payload_records": 29551,
+        "max_original_record_bytes": 65226
+      }
+    ],
+    "total_records": 1684407,
+    "received_by_filter": 1684407,
+    "dropped_by_kernel": 0,
+    "timestamp_backsteps": 604,
+    "maximum_timestamp_backstep_us": 6.199
+  },
+  "prior_comparison": {
+    "receiver_mbps": 1135.7671053045829,
+    "zero_one_second_intervals": 1,
+    "longest_common_no_ack_gap_ms": 1209.444,
+    "common_no_ack_gaps_over_100ms": 108
+  },
+  "current_common_no_ack_gaps_over_100ms": 0,
+  "pve_mac_clock": {
+    "status": "CONSISTENT_OFFSET_BOUNDS",
+    "samples": 20,
+    "same_responder_session": true,
+    "before_after_host_monotonic_guards_passed": true,
+    "wall_step_tolerance_ns": 5000000,
+    "mac_minus_pve_offset_ns": [
+      -439961,
+      20978
+    ],
+    "intersection_width_ns": 460939,
+    "request_rtt_ns_range": [
+      501150,
+      1020289
+    ],
+    "limits": [
+      "Software API timestamp bounds; not RF, NIC or physical-wire timestamps.",
+      "A consistent intersection does not prove physically constant clocks. No averaging or conflict widening is applied.",
+      "Combine only with the contemporaneous Mac/router interval, retaining its uptime rounding uncertainty."
+    ]
+  },
+  "limits": [
+    "No firmware, radio, bridge or AWDL setting change was used between these three trials. Recording load and elapsed time differ; this is not a randomized controlled comparison.",
+    "A healthy later run does not erase the earlier stall or establish a repair. Mac results do not establish original Air sleep/wake acceptance.",
+    "Host PS notifications and server TCP capture do not identify actual RF dwell time or whether the NPU consumed a specific packet."
+  ],
+  "alignment": {
+    "status": "DIRECT_CLOCK_BOUNDED_PS_ACK_ALIGNMENT",
+    "scope": "One settled r43 MLO 60-second download; no new trial",
+    "clock": {
+      "pve_mac_probes": 20,
+      "mac_router_samples": 10,
+      "exact_mac_responses": true,
+      "mac_minus_pve_offset_ns": [
+        -439961,
+        20978
+      ],
+      "pve_mac_width_ns": 460939,
+      "mac_router_width_ms": 18.725156784057617,
+      "combined_width_ms": 19.18892724609375,
+      "router_uptime_quantization_seconds": 0.01,
+      "outward_allowance_us": 1,
+      "before_after_enclose_data": true,
+      "both_host_wall_monotonic_checks_passed": true,
+      "iperf_start_bracket_used": false
+    },
+    "capture": {
+      "segments": 3,
+      "records": 1684407,
+      "dropped_by_kernel": 0,
+      "actual_data_flows": 4,
+      "window_seconds": 60
+    },
+    "ps": {
+      "kernel_records": 255,
+      "suppression_notices": 0,
+      "global_coverage": {
+        "P": {
+          "observed": 208,
+          "missing_between_first_last": 0,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "target_state_checks": 40,
+      "same_association_and_valid_links_0x6": true,
+      "target_states_bracket_full_window": true,
+      "target_P_guaranteed_in_window": 0,
+      "target_P_possibly_in_window": 1,
+      "complete_closed_pairs_in_phase": 9,
+      "closed_pairs_possibly_overlapping_window": 0,
+      "host_gate_closed_time_in_window_ms_bounds": [
+        0,
+        0
+      ],
+      "intervals": []
+    },
+    "flows": [
+      {
+        "flow": 1,
+        "ack_records": 382682,
+        "first_ack_seconds": 0.00510716438293457,
+        "final_ack_seconds": 60.057831048965454,
+        "gaps_over_100ms": 0,
+        "max_interior_ack_gap_ms": 38.83099555969238
+      },
+      {
+        "flow": 2,
+        "ack_records": 362904,
+        "first_ack_seconds": 0.0052089691162109375,
+        "final_ack_seconds": 60.05793809890747,
+        "gaps_over_100ms": 0,
+        "max_interior_ack_gap_ms": 41.33105278015137
+      },
+      {
+        "flow": 3,
+        "ack_records": 340850,
+        "first_ack_seconds": 0.005789041519165039,
+        "final_ack_seconds": 60.05957508087158,
+        "gaps_over_100ms": 0,
+        "max_interior_ack_gap_ms": 38.732051849365234
+      },
+      {
+        "flow": 4,
+        "ack_records": 363474,
+        "first_ack_seconds": 0.005828142166137695,
+        "final_ack_seconds": 60.063486099243164,
+        "gaps_over_100ms": 0,
+        "max_interior_ack_gap_ms": 38.836002349853516
+      }
+    ],
+    "common_all_four_no_ack_gaps_over_100ms": [],
+    "limits": [
+      "Global P continuity is checked before target filtering; emitted host notifications and a consistent state chain are not direct RF or NPU blocking measurements.",
+      "The capture and target PS records bracket the full 60-second window. Interior sequence continuity cannot prove all firmware notifications were emitted; unchanged notifications and diagnostic gating are outside this observation.",
+      "Compatible constant-offset intervals retain uptime truncation and software timestamp uncertainty; they do not prove zero clock drift between probes.",
+      "ACK times include duplicate/nonprogress ACKs. A no-ACK gap differs from a no-cumulative-progress gap. Byte/progress accounting is left to the separately verified TCP report.",
+      "ACK gaps cannot isolate forward/reverse delay, RF dwell or a firmware cause. GSO capture is not wire packet timing. Temporal host-PS overlap is not causation.",
+      "No common gap or observed gate closure is a healthy observation in this one trial, not proof of no subthreshold pause or repair of the original Air sleep/wake stall."
+    ],
+    "inputs_sha256": {
+      "input-01:responder.json": "04d52e781f7b3287b9fe413cf711737fb263cee635e4c6d8eb2e5e039a5f7227",
+      "input-02:clock-before.json": "e83099406d24257f7bd75490a035ef5be7a6ea68633a18d7b85619169fceb1a8",
+      "input-03:clock-after.json": "8c05fda96d45e6ae9ff8a4a533cd5810af22512a88796af04220fe7524f2d360",
+      "input-04:PVE_MAC_CLOCK.json": "dbe9924376edfd123930fbf9638368e45d219c30ddce5ca50ceea6bdb7e15f9b",
+      "input-05:clock-closed-before.json": "7c2302932abd943360b3be3c74cd2fea9fcc3f10ea51bfcc805e01900aa15c48",
+      "input-06:clock-closed-after.json": "db2aa66b56e30ef05a10cf73974ab60dc4785c3c3b520c4d9bfa5450738ad5ce",
+      "input-07:TCP_SERVER.json": "94a62a24a9d08fd8e8a9a9bb6b1c95a8817670917311303649a216ed3fc08707",
+      "input-08:check-repeat.py": "e28ce6ee96e4d318bf5fcb59e16f72364746f592b068e2c92fd9e4a06f519287",
+      "input-09:iperf.json": "75d70c3e5721087e9d8cb1f0dfd123ac85413f1107e6bc17dc06268b1faafb23",
+      "input-10:tcpdump.log": "112b403cfc526444a5effebd7196abb3b039eae890c8ee29c130b30f3c4d8f01",
+      "input-11:server.txt": "ce2a6bd479d13dbe8da5e0a513cb857f571f76194d2b53df442d0d21cd76243d",
+      "input-12:test.pcap00": "cb2959d16eac636a95e23ad6cd7ee9844bc73195a19122ee4b1dc4887221aa4d",
+      "input-13:test.pcap01": "32dddb9bd02d044eaee5ef8e2d2530c87d202fa6c6f45eb4771fd564e065ca6c",
+      "input-14:test.pcap02": "1711899be3882b1198679be0b6521e2a10db8fb823a834a53b1ccdd73b7a57b4",
+      "input-15:kmsg.stream": "ceecd126adc376def7d0e01fd4cd500944cefe0504b67e30548e3b633889b1fd",
+      "input-16:phase.json": "72d229c6107e881706c17675ddc3ddb140156fff3cb50866d5859779332055d9",
+      "input-17:mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+      "input-18:mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+      "input-19:station.before.txt": "b2a419f60e98008cd8410f17e84399064120d8b0b9dc87df4a64e54ea994bac2",
+      "input-20:station.after.txt": "d3adbaf811fc9987ded02d7e6290e0ae15497d0a211124b5e985e1cd3f638726"
+    },
+    "helper_sha256": {
+      "alignment": "7ebfbf812e77cfd54b4e10984ca7da89886fe8378f57272b10e8c16dafb9a2b5",
+      "clock": "cdef187171ec3d3abfa5955e3f2e5d98d5b01a48c44fcb5328cd8960805817b1",
+      "timer": "c7a856048e0358817b8085a6de41ee717ffcbb23d687cd542911f4c9ef274b25",
+      "ps": "ddbf5c37a4aa5c7aac3dd02e2a3e07f018bdeb78a8320fdb0187900c4de89bb1",
+      "router_clock": "d4410f00fd7f1acedc6f921503f6fe89a12cceb5c61d8fac14d81bab21850e4b"
+    },
+    "checker_sha256": "67a8d7305b888fc8c49f50946c63ce99f95b7212a8d2b835a812a6ac8ce2ab17"
+  },
+  "trace_and_native": {
+    "status": "COMPLETE_HEALTHY_SETTLED_MAC_OBSERVATION",
+    "scope": "Existing saved evidence only; no additional device calls, settings or firmware changes.",
+    "throughput": {
+      "receiver_mbps": 1962.076573657192,
+      "min_interval_mbps": 1883.7455103193145,
+      "max_interval_mbps": 1997.5261926928101,
+      "zero_intervals": 0,
+      "seconds": 60,
+      "wired_checks": 78
+    },
+    "same_target_association": true,
+    "precheck_association_age_seconds": 2127,
+    "link_bitmap": "0x6",
+    "four_hw_offloaded_flows": true,
+    "wired_checks_all_normal": true,
+    "clock": {
+      "sample_count": 10,
+      "intersection_width_ms": 18.725156784057617,
+      "traffic_start_bracket_width_seconds": 0.5192039012908936,
+      "constant_offset_intersection": true
+    },
+    "trace": {
+      "all_60_seconds_contained": true,
+      "begin_margin_lower_seconds": 5.39525294303894,
+      "end_margin_after_process_exit_lower_seconds": 14.865527868270874,
+      "kernel_records": 255,
+      "kernel_emitted_sequence_continuous": true,
+      "suppression_notices": 0,
+      "global_event_coverage": {
+        "P": {
+          "observed": 208,
+          "missing_between_first_last": 0,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "target_P": 40,
+      "other_P": 168,
+      "target_P_wholly_inside_traffic": 0,
+      "target_state_checks": 40,
+      "all_target_non_aql_zero": true,
+      "target_constant_host_snapshot_interval": {
+        "guaranteed_tcp_seconds": [
+          0.06484794616699219,
+          59.83281397819519
+        ],
+        "elapsed_host_seconds": 60.305894999999964,
+        "link1_ps": 1,
+        "link2_ps": 0,
+        "gate": 0
+      },
+      "target_events": [
+        {
+          "n": 1,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -5.699104070663452,
+            -5.161175012588501
+          ]
+        },
+        {
+          "n": 2,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -5.699052095413208,
+            -5.161123037338257
+          ]
+        },
+        {
+          "n": 3,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -5.631821155548096,
+            -5.0938920974731445
+          ]
+        },
+        {
+          "n": 4,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -5.482398986816406,
+            -4.944469928741455
+          ]
+        },
+        {
+          "n": 9,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -0.529231071472168,
+            0.008697986602783203
+          ]
+        },
+        {
+          "n": 10,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -0.5291590690612793,
+            0.008769989013671875
+          ]
+        },
+        {
+          "n": 11,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            -0.473081111907959,
+            0.06484794616699219
+          ]
+        },
+        {
+          "n": 144,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            59.83281397819519,
+            60.37074303627014
+          ]
+        },
+        {
+          "n": 145,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            59.98664689064026,
+            60.52457594871521
+          ]
+        },
+        {
+          "n": 146,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            59.98670196533203,
+            60.52463102340698
+          ]
+        },
+        {
+          "n": 147,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            60.00956892967224,
+            60.54749798774719
+          ]
+        },
+        {
+          "n": 148,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            60.00962996482849,
+            60.54755902290344
+          ]
+        },
+        {
+          "n": 149,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            60.397477865219116,
+            60.93540692329407
+          ]
+        },
+        {
+          "n": 150,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            60.397549867630005,
+            60.935478925704956
+          ]
+        },
+        {
+          "n": 151,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            60.41918587684631,
+            60.957114934921265
+          ]
+        },
+        {
+          "n": 152,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            60.419240951538086,
+            60.95717000961304
+          ]
+        },
+        {
+          "n": 173,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            68.94706892967224,
+            69.48499798774719
+          ]
+        },
+        {
+          "n": 174,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            68.9471378326416,
+            69.48506689071655
+          ]
+        },
+        {
+          "n": 175,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            69.00862002372742,
+            69.54654908180237
+          ]
+        },
+        {
+          "n": 176,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            69.00867795944214,
+            69.54660701751709
+          ]
+        },
+        {
+          "n": 177,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            69.94398880004883,
+            70.48191785812378
+          ]
+        },
+        {
+          "n": 178,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            69.94405889511108,
+            70.48198795318604
+          ]
+        },
+        {
+          "n": 179,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            70.00522184371948,
+            70.54315090179443
+          ]
+        },
+        {
+          "n": 180,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            70.00528693199158,
+            70.54321599006653
+          ]
+        },
+        {
+          "n": 181,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            70.36518597602844,
+            70.9031150341034
+          ]
+        },
+        {
+          "n": 182,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            70.36525797843933,
+            70.90318703651428
+          ]
+        },
+        {
+          "n": 183,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            70.43488383293152,
+            70.97281289100647
+          ]
+        },
+        {
+          "n": 184,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            70.49326181411743,
+            71.03119087219238
+          ]
+        },
+        {
+          "n": 185,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            71.36682081222534,
+            71.9047498703003
+          ]
+        },
+        {
+          "n": 186,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            71.36689400672913,
+            71.90482306480408
+          ]
+        },
+        {
+          "n": 187,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            71.42737293243408,
+            71.96530199050903
+          ]
+        },
+        {
+          "n": 188,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            71.42744088172913,
+            71.96536993980408
+          ]
+        },
+        {
+          "n": 196,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            72.37132287025452,
+            72.90925192832947
+          ]
+        },
+        {
+          "n": 197,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            72.37138199806213,
+            72.90931105613708
+          ]
+        },
+        {
+          "n": 199,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            72.43275094032288,
+            72.97067999839783
+          ]
+        },
+        {
+          "n": 200,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            72.43281984329224,
+            72.97074890136719
+          ]
+        },
+        {
+          "n": 205,
+          "link": 2,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            74.3388090133667,
+            74.87673807144165
+          ]
+        },
+        {
+          "n": 206,
+          "link": 1,
+          "old_ps": 1,
+          "new_ps": 0,
+          "link1_ps": 0,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            74.33887982368469,
+            74.87680888175964
+          ]
+        },
+        {
+          "n": 207,
+          "link": 1,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 0,
+          "gate": 0,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            74.37967681884766,
+            74.91760587692261
+          ]
+        },
+        {
+          "n": 208,
+          "link": 2,
+          "old_ps": 0,
+          "new_ps": 1,
+          "link1_ps": 1,
+          "link2_ps": 1,
+          "gate": 1,
+          "non_aql": 0,
+          "tcp_seconds_bounds": [
+            74.55583095550537,
+            75.09376001358032
+          ]
+        }
+      ],
+      "target_BA_observed": []
+    },
+    "native": {
+      "capture_covers_traffic": true,
+      "stderr_empty": true,
+      "log_reader_drop_notices": 0,
+      "scan_pairs": [
+        {
+          "requester": "locationd",
+          "start_bounds": [
+            22.698725938796997,
+            23.218929767608643
+          ],
+          "end_bounds": [
+            23.058725833892822,
+            23.578929662704468
+          ],
+          "api_call_seconds": 0.3599998950958252,
+          "reported_channels": [
+            {
+              "channel": 1,
+              "band_ghz": 2
+            },
+            {
+              "channel": 6,
+              "band_ghz": 2
+            },
+            {
+              "channel": 11,
+              "band_ghz": 2
+            }
+          ]
+        },
+        {
+          "requester": "locationd",
+          "start_bounds": [
+            23.137725830078125,
+            23.65792965888977
+          ],
+          "end_bounds": [
+            23.820725917816162,
+            24.340929746627808
+          ],
+          "api_call_seconds": 0.6830000877380371,
+          "reported_channels": [
+            {
+              "channel": 2,
+              "band_ghz": 2
+            },
+            {
+              "channel": 3,
+              "band_ghz": 2
+            },
+            {
+              "channel": 4,
+              "band_ghz": 2
+            },
+            {
+              "channel": 5,
+              "band_ghz": 2
+            },
+            {
+              "channel": 7,
+              "band_ghz": 2
+            },
+            {
+              "channel": 8,
+              "band_ghz": 2
+            }
+          ]
+        },
+        {
+          "requester": "locationd",
+          "start_bounds": [
+            23.821725845336914,
+            24.34192967414856
+          ],
+          "end_bounds": [
+            24.28472590446472,
+            24.804929733276367
+          ],
+          "api_call_seconds": 0.4630000591278076,
+          "reported_channels": [
+            {
+              "channel": 9,
+              "band_ghz": 2
+            },
+            {
+              "channel": 10,
+              "band_ghz": 2
+            },
+            {
+              "channel": 12,
+              "band_ghz": 2
+            },
+            {
+              "channel": 13,
+              "band_ghz": 2
+            }
+          ]
+        }
+      ],
+      "scan_boundary_unmatched": {
+        "unmatched_enters": 0,
+        "unmatched_exits": 0
+      },
+      "wifi_settings_scan_requests": 0,
+      "best_connected_mentions": 0,
+      "awdl_realtime_inactive_reports": 3,
+      "wifip2pd_records": 1,
+      "awdl_AF_last_60_seconds": {
+        "received": 40,
+        "dropped": 0,
+        "state_guard_rejected": 0,
+        "already_posted": 37,
+        "post_succeeded": 3,
+        "post_failed": 0
+      },
+      "awdl_channel_sequence_updates": 0,
+      "scan_overlap_min_mbps": 1963.2785093444857
+    },
+    "target_txfree_status_delta_by_link": {
+      "1": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "2": [
+        1453992,
+        0,
+        0,
+        0
+      ]
+    },
+    "receiver_intervals": [
+      {
+        "start": 0,
+        "end": 1.005018,
+        "mbps": 1900.9664303711572,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 1.005018,
+        "end": 2.005016,
+        "mbps": 1951.4038906330143,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 2.005016,
+        "end": 3.005038,
+        "mbps": 1981.764934713864,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 3.005038,
+        "end": 4.005024,
+        "mbps": 1991.273715953185,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 4.005024,
+        "end": 5.002619,
+        "mbps": 1942.439992507604,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 5.002619,
+        "end": 6.001784,
+        "mbps": 1957.2285286959611,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 6.001784,
+        "end": 7.00174,
+        "mbps": 1973.506843068665,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 7.00174,
+        "end": 8.002938,
+        "mbps": 1967.9166348634308,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 8.002938,
+        "end": 9.00145,
+        "mbps": 1948.007056746262,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 9.00145,
+        "end": 10.001183,
+        "mbps": 1883.7455103193145,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 10.001183,
+        "end": 11.005131,
+        "mbps": 1884.1923629506864,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 11.005131,
+        "end": 12.001355,
+        "mbps": 1930.3775162392985,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 12.001355,
+        "end": 13.000147,
+        "mbps": 1935.9127407920798,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 13.000147,
+        "end": 14.004826,
+        "mbps": 1938.1371568244572,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 14.004826,
+        "end": 15.000051,
+        "mbps": 1973.4058365921019,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 15.000051,
+        "end": 16.001422,
+        "mbps": 1965.482424416685,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 16.001422,
+        "end": 17.004779,
+        "mbps": 1961.5919841312523,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 17.004779,
+        "end": 18.003911,
+        "mbps": 1966.7385972396842,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 18.003911,
+        "end": 19.000131,
+        "mbps": 1925.122481152211,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 19.000131,
+        "end": 20.004518,
+        "mbps": 1953.3164555633048,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 20.004518,
+        "end": 21.000922,
+        "mbps": 1956.3377899991142,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 21.000922,
+        "end": 22.001057,
+        "mbps": 1989.9287172368613,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 22.001057,
+        "end": 23.004543,
+        "mbps": 1971.7891814557536,
+        "possible_scan_overlap": true
+      },
+      {
+        "start": 23.004543,
+        "end": 24.000629,
+        "mbps": 1963.2785093444857,
+        "possible_scan_overlap": true
+      },
+      {
+        "start": 24.000629,
+        "end": 25.001235,
+        "mbps": 1970.1290983610236,
+        "possible_scan_overlap": true
+      },
+      {
+        "start": 25.001235,
+        "end": 26.000668,
+        "mbps": 1985.0313424584795,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 26.000668,
+        "end": 27.001846,
+        "mbps": 1971.098026882863,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 27.001846,
+        "end": 28.004653,
+        "mbps": 1969.9873877549655,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 28.004653,
+        "end": 29.000659,
+        "mbps": 1922.3777296550477,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 29.000659,
+        "end": 30.003459,
+        "mbps": 1984.6402794441224,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 30.003459,
+        "end": 31.001589,
+        "mbps": 1949.80314209539,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 31.001589,
+        "end": 32.00132,
+        "mbps": 1968.7067257655985,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 32.00132,
+        "end": 33.001316,
+        "mbps": 1979.7193940315728,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 33.001316,
+        "end": 34.000719,
+        "mbps": 1968.3036535214237,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 34.000719,
+        "end": 35.002416,
+        "mbps": 1950.187728174084,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 35.002416,
+        "end": 36.005023,
+        "mbps": 1986.068168211267,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 36.005023,
+        "end": 37.004484,
+        "mbps": 1974.4842885143726,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 37.004484,
+        "end": 38.000925,
+        "mbps": 1985.730112243596,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 38.000925,
+        "end": 39.001534,
+        "mbps": 1979.5544356512034,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 39.001534,
+        "end": 40.004262,
+        "mbps": 1986.8742361278119,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 40.004262,
+        "end": 41.001989,
+        "mbps": 1958.9985129286024,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 41.001989,
+        "end": 42.000133,
+        "mbps": 1968.685361188509,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 42.000133,
+        "end": 43.004863,
+        "mbps": 1997.5261926928101,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 43.004863,
+        "end": 44.003431,
+        "mbps": 1977.3001048955587,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 44.003431,
+        "end": 45.001624,
+        "mbps": 1976.9924066896508,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 45.001624,
+        "end": 46.004449,
+        "mbps": 1981.4538697337161,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 46.004449,
+        "end": 47.004483,
+        "mbps": 1986.9840129185293,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 47.004483,
+        "end": 48.003423,
+        "mbps": 1981.8122268020425,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 48.003423,
+        "end": 49.000058,
+        "mbps": 1947.4673651644214,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 49.000058,
+        "end": 50.004397,
+        "mbps": 1956.5420278178783,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 50.004397,
+        "end": 51.001516,
+        "mbps": 1944.418876320848,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 51.001516,
+        "end": 52.002389,
+        "mbps": 1964.3651688704922,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 52.002389,
+        "end": 53.005019,
+        "mbps": 1967.1977351118576,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 53.005019,
+        "end": 54.000807,
+        "mbps": 1961.7600642111634,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 54.000807,
+        "end": 55.005019,
+        "mbps": 1981.8496539981447,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 55.005019,
+        "end": 56.004461,
+        "mbps": 1982.9151436997388,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 56.004461,
+        "end": 57.00312,
+        "mbps": 1978.169880727312,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 57.00312,
+        "end": 58.00246,
+        "mbps": 1968.427742702923,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 58.00246,
+        "end": 59.001613,
+        "mbps": 1935.213234780391,
+        "possible_scan_overlap": false
+      },
+      {
+        "start": 59.001613,
+        "end": 60.004317,
+        "mbps": 1959.7322603174462,
+        "possible_scan_overlap": false
+      }
+    ],
+    "prior_bad_native_comparison": {
+      "prior_collection": "post-hoc log show",
+      "current_collection": "live log stream with scan/AWDL/channel predicate",
+      "prior_logged_awdl_sequence_updates": 15,
+      "prior_last_sequence": {
+        "tcp_seconds_bounds": [
+          -6.581409931182861,
+          -6.1010191440582275
+        ],
+        "slots": [
+          36,
+          36,
+          149,
+          149,
+          36,
+          36,
+          36,
+          36,
+          36,
+          36,
+          149,
+          149,
+          36,
+          36,
+          36,
+          36
+        ]
+      },
+      "prior_sequence_updates_wholly_inside_traffic": 0,
+      "current_sequence_updates": 0,
+      "actual_schedule_difference": "UNVERIFIED",
+      "awdl_enabled_difference": "UNVERIFIED"
+    },
+    "restoration": {
+      "diagnostics_off": true,
+      "same_association": true,
+      "router_boot_and_configs_unchanged": true,
+      "console_exactly_restored": true
+    },
+    "post_trace_diagnostics_off_control": {
+      "receiver_mbps": 1918.9057108594473,
+      "min_interval_mbps": 1795.8981279855077,
+      "max_interval_mbps": 1955.276358420313,
+      "zero_intervals": 0,
+      "seconds": 20,
+      "wired_checks": 34
+    },
+    "input_sha256": {
+      "iperf": "75d70c3e5721087e9d8cb1f0dfd123ac85413f1107e6bc17dc06268b1faafb23",
+      "traffic": "8b0d3c8ddc12da12d14fe577cd4263b24e38fe291156278dcc9f4a9b5a887bdb",
+      "run": "afda91f915f50aae407f5823a223d863133e452874a797c438020a82c5c70a88",
+      "station_before": "b2a419f60e98008cd8410f17e84399064120d8b0b9dc87df4a64e54ea994bac2",
+      "station_after": "d3adbaf811fc9987ded02d7e6290e0ae15497d0a211124b5e985e1cd3f638726",
+      "hw_before": "d9f700c86d44322c2f9ce05efbd544c250d3966f697d2c7ea2fc0b9abd03f541",
+      "hw_after": "a1274b09a8ab6f1b1fa15f13f2d99a47968f97f41f96acf94e16a496898ea243",
+      "kernel_trace": "ceecd126adc376def7d0e01fd4cd500944cefe0504b67e30548e3b633889b1fd",
+      "native_stream": "b1f6a85035e9cd5410516bd3d51fa8adac1d60b575ebfc951176fa22e07cf964",
+      "native_capture": "ace090a3a6581172e059dc52134c90f743df4deff36623ac2fa87bdb7526e56a",
+      "clock_before": "7c2302932abd943360b3be3c74cd2fea9fcc3f10ea51bfcc805e01900aa15c48",
+      "clock_after": "db2aa66b56e30ef05a10cf73974ab60dc4785c3c3b520c4d9bfa5450738ad5ce",
+      "restoration": "bd5ef19980ec708d9e16d45eda053b25a1f9a005237799a61edd3e9e6ba3afe6",
+      "final_state": "1caf5dd267b44c1276fb50f8ef8f390c30c855483f7e0f0be07960a95175ba7f",
+      "prior_bad_native_log": "ee81b30c50dbfa9cf68cedbacd5c435fb6dc0961cbc43b5080174ddbf37057e4",
+      "prior_bad_traffic": "5cfe0091fde454637e6b2b7beed9677532b4fe47fdee5714f79c534bf3302340",
+      "prior_bad_iperf": "3afc37a42d8f6e45f97084aa102938732e727b1a6f363fbd50df0f310350581e"
+    },
+    "parser_sha256": {
+      "clock_and_gaps": "d4410f00fd7f1acedc6f921503f6fe89a12cceb5c61d8fac14d81bab21850e4b",
+      "P_decoder": "ddbf5c37a4aa5c7aac3dd02e2a3e07f018bdeb78a8320fdb0187900c4de89bb1",
+      "kmsg": "b5b8110a9eaefb2f8935754a07b4fb965acabab57fd9644fcd17e2af59434e22",
+      "scan_pairs": "75b4213b0475b86b4523cdb8441e0684e7aaa1488ec63783bd133003c6ab87a2",
+      "BA_decoder": "c7a856048e0358817b8085a6de41ee717ffcbb23d687cd542911f4c9ef274b25"
+    },
+    "limits": [
+      "Continuous kernel/P sequence and consistent snapshots concern emitted eligible host events only; repeated same-state notifications, physical RF wake and firmware queues are not measured.",
+      "Traffic-start uncertainty is 0.519 s plus the 18.725 ms router-Mac clock interval. Events at the start/end boundary cannot be assigned strictly inside or outside the 60 s transfer.",
+      "Scan enter/exit measures API call duration, not RF off-channel dwell. Cache-assisted success does not prove which channel was physically visited.",
+      "AWDL REALTIME inactive is not AWDL disabled. One AF counter line and no channel-sequence update do not prove no AWDL scheduling or state change.",
+      "Prior log show and current filtered log stream have different visibility. The prior 16-slot sequence was printed before traffic; its persistence or absence now is not proven.",
+      "TXFREE counters are pre/post, include surrounding traffic and do not measure air packet loss. BA MCU return and preparation are not proof of over-air delivery.",
+      "No PVE/router PS alignment is derived here. The endpoint-clock alignment is a separate analysis.",
+      "This settled Mac observation and post-trace control do not prove an r43 regression repair, the original Air sleep/wake fix, or an NPU cause."
+    ]
+  },
+  "input_sha256": {
+    "run.py": "90675d18678631b11afb3aed539dc1cfe156c0737893ee079640c788c272344b",
+    "check-alignment.py": "67a8d7305b888fc8c49f50946c63ce99f95b7212a8d2b835a812a6ac8ce2ab17",
+    "ALIGNMENT.json": "3210395f0e308edd8e506f2d5675e4ecbb4b7cb6c7f55cee67fa2ec44e4cadeb",
+    "TRACE_ANALYSIS.json": "e0eb0ac55417629252e11f4718da125ee4968aa6259739a84114c796c274d53a",
+    "TCP_SERVER.json": "94a62a24a9d08fd8e8a9a9bb6b1c95a8817670917311303649a216ed3fc08707",
+    "FINAL_STATE.json": "1caf5dd267b44c1276fb50f8ef8f390c30c855483f7e0f0be07960a95175ba7f"
+  }
+}
