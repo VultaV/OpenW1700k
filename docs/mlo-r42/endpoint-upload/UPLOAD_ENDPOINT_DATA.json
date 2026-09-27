@@ -1,0 +1,1267 @@
+{
+  "method": {
+    "firmware": "r42",
+    "device": "Mac",
+    "trial": "Fresh MLO association, four TCP upload streams at 150 Mbps each for 40 seconds",
+    "wifi_settings": "General before and during traffic. Wi-Fi panel opened after traffic and clock probes for hotspot restoration.",
+    "server_capture_seconds": 140,
+    "server_snaplen": 96,
+    "original_archive_bytes": 33641325,
+    "original_archive_sha256": "6f4815dfc05e26787846a53e25a592e476186683dc7712c708540d63bf38cd38",
+    "private_transfer_verified": true,
+    "firmware_and_router_config_unchanged": true,
+    "checks": {
+      "offline_analyzer_groups_passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    "source_sha256": {
+      "run.py": "1ca2c406f536178dd2d9d91ef2bfeb9f137c9017a36acde80852290d3de02033",
+      "check-tcp.py": "0e774cbe22fcdc879e1b0213779c31366108fac0d09f00e7e7e30b6fc7e39309",
+      "check-alignment.py": "af865bbceab60fbfe59f9f18bbdcc0325e5e8ee57468230e45b6e4ca0274fb00",
+      "check-server.py": "cd49376eb052e96fb65291b2a719a20754c7910795d59f0e09788ab6dd3c7538"
+    }
+  },
+  "tcp": {
+    "status": "UPLOAD_RECEIVER_CAPTURE_VERIFIED",
+    "direction": "Mac sender -> PVE receiver; PVE outgoing ACKs",
+    "capture": {
+      "records": 1142181,
+      "files": 2,
+      "snaplen": 96,
+      "link_type": "Ethernet",
+      "endpoint_pairs_match": true,
+      "truncated_payload_records": 575521,
+      "max_original_record_bytes": 65226,
+      "captured": 1142181,
+      "dropped_by_kernel": 0,
+      "timestamp_backsteps": 7,
+      "maximum_timestamp_backstep_us": 2.1457672119140625,
+      "first_to_last_benchmark_arrival_seconds": 40.00202298164368
+    },
+    "iperf": {
+      "server_receiver_mean_mbps": 599.9641679150714,
+      "client_sender_mean_mbps": 600.0633659267577,
+      "client_sender_interval_min_mbps": 70.3572433936394,
+      "client_sender_interval_max_mbps": 1490.4930729474481,
+      "client_sender_zero_bins": 0,
+      "client_sender_below_500_bins": 12,
+      "client_sender_retransmits": 2294
+    },
+    "client_sender_intervals": [
+      {
+        "start": 0,
+        "end": 1.005027,
+        "mbps": 600.9587230018163,
+        "bytes": 75497472
+      },
+      {
+        "start": 1.005027,
+        "end": 2.003977,
+        "mbps": 600.4159059527645,
+        "bytes": 74973184
+      },
+      {
+        "start": 2.003977,
+        "end": 3.003885,
+        "mbps": 599.8406750803159,
+        "bytes": 74973184
+      },
+      {
+        "start": 3.003885,
+        "end": 4.004043,
+        "mbps": 599.6907494616436,
+        "bytes": 74973184
+      },
+      {
+        "start": 4.004043,
+        "end": 5.005027,
+        "mbps": 599.195891120156,
+        "bytes": 74973184
+      },
+      {
+        "start": 5.005027,
+        "end": 6.003451,
+        "mbps": 600.732229846437,
+        "bytes": 74973184
+      },
+      {
+        "start": 6.003451,
+        "end": 7.004463,
+        "mbps": 599.1791221064823,
+        "bytes": 74973184
+      },
+      {
+        "start": 7.004463,
+        "end": 8.000936,
+        "mbps": 601.9083942663596,
+        "bytes": 74973184
+      },
+      {
+        "start": 8.000936,
+        "end": 9.003476,
+        "mbps": 598.2658812488564,
+        "bytes": 74973184
+      },
+      {
+        "start": 9.003476,
+        "end": 10.003462,
+        "mbps": 599.7938733676788,
+        "bytes": 74973184
+      },
+      {
+        "start": 10.003462,
+        "end": 11.001074,
+        "mbps": 601.221188491683,
+        "bytes": 74973184
+      },
+      {
+        "start": 11.001074,
+        "end": 12.000056,
+        "mbps": 600.396668440476,
+        "bytes": 74973184
+      },
+      {
+        "start": 12.000056,
+        "end": 13.000227,
+        "mbps": 599.682958524281,
+        "bytes": 74973184
+      },
+      {
+        "start": 13.000227,
+        "end": 14.003971,
+        "mbps": 601.7269067563191,
+        "bytes": 75497472
+      },
+      {
+        "start": 14.003971,
+        "end": 15.000238,
+        "mbps": 440.9995863260219,
+        "bytes": 54919168
+      },
+      {
+        "start": 15.000238,
+        "end": 16.005027,
+        "mbps": 479.00244379269935,
+        "bytes": 60162048
+      },
+      {
+        "start": 16.005027,
+        "end": 17.004954,
+        "mbps": 515.9370635006106,
+        "bytes": 64487424
+      },
+      {
+        "start": 17.004954,
+        "end": 18.003936,
+        "mbps": 494.38257139067156,
+        "bytes": 61734912
+      },
+      {
+        "start": 18.003936,
+        "end": 19.002477,
+        "mbps": 70.3572433936394,
+        "bytes": 8781824
+      },
+      {
+        "start": 19.002477,
+        "end": 20.000496,
+        "mbps": 171.25715183844034,
+        "bytes": 21364736
+      },
+      {
+        "start": 20.000496,
+        "end": 21.003933,
+        "mbps": 137.93793349658043,
+        "bytes": 17301504
+      },
+      {
+        "start": 21.003933,
+        "end": 22.001872,
+        "mbps": 150.25604712659307,
+        "bytes": 18743296
+      },
+      {
+        "start": 22.001872,
+        "end": 23.00383,
+        "mbps": 419.65728176265435,
+        "bytes": 52559872
+      },
+      {
+        "start": 23.00383,
+        "end": 24.001868,
+        "mbps": 152.3424167497439,
+        "bytes": 19005440
+      },
+      {
+        "start": 24.001868,
+        "end": 25.005018,
+        "mbps": 503.8265851757018,
+        "bytes": 63176704
+      },
+      {
+        "start": 25.005018,
+        "end": 26.004884,
+        "mbps": 642.863226041743,
+        "bytes": 80347136
+      },
+      {
+        "start": 26.004884,
+        "end": 27.005027,
+        "mbps": 435.0967989036602,
+        "bytes": 54394880
+      },
+      {
+        "start": 27.005027,
+        "end": 28.002586,
+        "mbps": 74.6310696213089,
+        "bytes": 9306112
+      },
+      {
+        "start": 28.002586,
+        "end": 29.003865,
+        "mbps": 411.5639791245123,
+        "bytes": 51511296
+      },
+      {
+        "start": 29.003865,
+        "end": 30.005028,
+        "mbps": 564.525917067909,
+        "bytes": 70647808
+      },
+      {
+        "start": 30.005028,
+        "end": 31.002964,
+        "mbps": 1153.7177093988557,
+        "bytes": 143917056
+      },
+      {
+        "start": 31.002964,
+        "end": 32.00348,
+        "mbps": 1286.9871692437848,
+        "bytes": 160956416
+      },
+      {
+        "start": 32.00348,
+        "end": 33.001086,
+        "mbps": 1321.2230671837538,
+        "bytes": 164757504
+      },
+      {
+        "start": 33.001086,
+        "end": 34.002921,
+        "mbps": 1444.3844510069716,
+        "bytes": 180879360
+      },
+      {
+        "start": 34.002921,
+        "end": 35.004015,
+        "mbps": 1490.4930729474481,
+        "bytes": 186515456
+      },
+      {
+        "start": 35.004015,
+        "end": 36.004814,
+        "mbps": 835.0479182662434,
+        "bytes": 104464384
+      },
+      {
+        "start": 36.004814,
+        "end": 37.004552,
+        "mbps": 599.942670189387,
+        "bytes": 74973184
+      },
+      {
+        "start": 37.004552,
+        "end": 38.003462,
+        "mbps": 600.439945619792,
+        "bytes": 74973184
+      },
+      {
+        "start": 38.003462,
+        "end": 39.004518,
+        "mbps": 599.152793081029,
+        "bytes": 74973184
+      },
+      {
+        "start": 39.004518,
+        "end": 40.002445,
+        "mbps": 601.031404054616,
+        "bytes": 74973184
+      }
+    ],
+    "flows": [
+      {
+        "flow": 1,
+        "cookie_sequence_bytes_excluded": 37,
+        "cookie_records": 1,
+        "client_syn_base_and_server_ack_direction_verified": true,
+        "data_records": 62892,
+        "ack_records": 59566,
+        "observed_arrival_payload_bytes": 750135192,
+        "unique_arrival_sequence_bytes": 750125056,
+        "duplicate_arrival_sequence_bytes": 10136,
+        "final_contiguous_arrival_bytes": 750125056,
+        "final_cumulative_ack_payload_bytes": 750125056,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "unacknowledged_observed_sequence_span_at_end": 0,
+        "receiver_mss": 1460,
+        "receiver_window_scale": 10,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 40960,
+        "sack_ack_records": 309,
+        "maximum_arrival_payload_bytes": 63712,
+        "arrival_records_larger_than_receiver_mss": 48617,
+        "client_rst_records": 0,
+        "server_rst_records": 0,
+        "iperf_sender_bytes": 750125056,
+        "iperf_receiver_bytes": 750125056,
+        "cookie_excluded_unique_and_ack_bytes_equal_iperf": true,
+        "first_arrival_seconds": 0.0004699230194091797,
+        "last_arrival_seconds": 40.0010199546814,
+        "last_payload_ack_seconds": 40.001025915145874
+      },
+      {
+        "flow": 2,
+        "cookie_sequence_bytes_excluded": 37,
+        "cookie_records": 1,
+        "client_syn_base_and_server_ack_direction_verified": true,
+        "data_records": 70483,
+        "ack_records": 66759,
+        "observed_arrival_payload_bytes": 750136640,
+        "unique_arrival_sequence_bytes": 750125056,
+        "duplicate_arrival_sequence_bytes": 11584,
+        "final_contiguous_arrival_bytes": 750125056,
+        "final_cumulative_ack_payload_bytes": 750125056,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "unacknowledged_observed_sequence_span_at_end": 0,
+        "receiver_mss": 1460,
+        "receiver_window_scale": 10,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 54272,
+        "sack_ack_records": 404,
+        "maximum_arrival_payload_bytes": 65160,
+        "arrival_records_larger_than_receiver_mss": 52527,
+        "client_rst_records": 0,
+        "server_rst_records": 0,
+        "iperf_sender_bytes": 750125056,
+        "iperf_receiver_bytes": 750125056,
+        "cookie_excluded_unique_and_ack_bytes_equal_iperf": true,
+        "first_arrival_seconds": 0.0,
+        "last_arrival_seconds": 40.0014009475708,
+        "last_payload_ack_seconds": 40.00140595436096
+      },
+      {
+        "flow": 3,
+        "cookie_sequence_bytes_excluded": 37,
+        "cookie_records": 1,
+        "client_syn_base_and_server_ack_direction_verified": true,
+        "data_records": 222905,
+        "ack_records": 222098,
+        "observed_arrival_payload_bytes": 751660832,
+        "unique_arrival_sequence_bytes": 750125056,
+        "duplicate_arrival_sequence_bytes": 1535776,
+        "final_contiguous_arrival_bytes": 750125056,
+        "final_cumulative_ack_payload_bytes": 750125056,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "unacknowledged_observed_sequence_span_at_end": 0,
+        "receiver_mss": 1460,
+        "receiver_window_scale": 10,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 57344,
+        "sack_ack_records": 958,
+        "maximum_arrival_payload_bytes": 65160,
+        "arrival_records_larger_than_receiver_mss": 45216,
+        "client_rst_records": 0,
+        "server_rst_records": 0,
+        "iperf_sender_bytes": 750125056,
+        "iperf_receiver_bytes": 750125056,
+        "cookie_excluded_unique_and_ack_bytes_equal_iperf": true,
+        "first_arrival_seconds": 0.00034689903259277344,
+        "last_arrival_seconds": 40.00202298164368,
+        "last_payload_ack_seconds": 40.00202798843384
+      },
+      {
+        "flow": 4,
+        "cookie_sequence_bytes_excluded": 37,
+        "cookie_records": 1,
+        "client_syn_base_and_server_ack_direction_verified": true,
+        "data_records": 219232,
+        "ack_records": 218172,
+        "observed_arrival_payload_bytes": 751724456,
+        "unique_arrival_sequence_bytes": 750125056,
+        "duplicate_arrival_sequence_bytes": 1599400,
+        "final_contiguous_arrival_bytes": 750125056,
+        "final_cumulative_ack_payload_bytes": 750125056,
+        "terminal_fin_ack_byte_adjustments": 1,
+        "unacknowledged_observed_sequence_span_at_end": 0,
+        "receiver_mss": 1460,
+        "receiver_window_scale": 10,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 53248,
+        "sack_ack_records": 1144,
+        "maximum_arrival_payload_bytes": 65160,
+        "arrival_records_larger_than_receiver_mss": 45594,
+        "client_rst_records": 0,
+        "server_rst_records": 0,
+        "iperf_sender_bytes": 750125056,
+        "iperf_receiver_bytes": 750125056,
+        "cookie_excluded_unique_and_ack_bytes_equal_iperf": true,
+        "first_arrival_seconds": 6.008148193359375e-05,
+        "last_arrival_seconds": 40.001648902893066,
+        "last_payload_ack_seconds": 40.00165605545044
+      }
+    ],
+    "common_all_four_no_outgoing_ack_gaps_over_100ms": 54,
+    "longest_common_no_outgoing_ack_gaps": [
+      {
+        "start_seconds": 23.978899002075195,
+        "end_seconds": 24.19292902946472,
+        "duration_ms": 214.03002738952637
+      },
+      {
+        "start_seconds": 21.515006065368652,
+        "end_seconds": 21.719172954559326,
+        "duration_ms": 204.16688919067383
+      },
+      {
+        "start_seconds": 23.56488609313965,
+        "end_seconds": 23.767246961593628,
+        "duration_ms": 202.3608684539795
+      },
+      {
+        "start_seconds": 22.95143699645996,
+        "end_seconds": 23.152731895446777,
+        "duration_ms": 201.2948989868164
+      },
+      {
+        "start_seconds": 19.880937099456787,
+        "end_seconds": 20.08100700378418,
+        "duration_ms": 200.06990432739258
+      }
+    ],
+    "cumulative_ack_progress_mbps_bins_from_first_benchmark_arrival": [
+      600.063488,
+      601.08288,
+      601.355776,
+      598.32544,
+      601.245056,
+      600.782144,
+      599.837824,
+      599.785472,
+      599.785472,
+      599.785472,
+      599.785472,
+      599.785472,
+      599.785472,
+      579.230976,
+      370.703168,
+      483.784064,
+      504.28128,
+      475.122624,
+      146.907392,
+      147.479808,
+      144.358656,
+      177.206848,
+      433.670208,
+      145.540544,
+      499.061888,
+      630.829888,
+      434.74752,
+      86.567232,
+      410.282112,
+      573.512256,
+      1145.032384,
+      1310.759872,
+      1312.566016,
+      1438.159744,
+      1498.987328,
+      850.468352,
+      599.785472,
+      599.785472,
+      599.80864,
+      599.785472
+    ],
+    "inputs_sha256": {
+      "pcaps": {
+        "test.pcap00": "b316f45273baa0a58d9f687a5938bc2aa02886992fba223b36f96a9ccee0ad13",
+        "test.pcap01": "a047832918c623f127a72866eda3f7341a2e7ca11d171f534d49cbf770139f4a"
+      },
+      "iperf": "2bbe1997eb77b8d9bfefbc83857333540e5ef628e64a990c10e2b4c87c7cef14",
+      "parser": "3dd256b90fa084ad4619873e569f5334903cce7e5625130d28303e26612caab6",
+      "helper": "006f8b8e090e776143c391eba98c2a98b3f8b2784e17ea701743bd9b08778b1c",
+      "tcpdump_log": "84634db7a7c8220fba48de96d8f42969f7767e1518f170e813335af536c61122",
+      "checker": "0e774cbe22fcdc879e1b0213779c31366108fac0d09f00e7e7e30b6fc7e39309"
+    },
+    "limits": [
+      "The initial 37 sequence bytes of each stream are observed cookie records and excluded. Cookie content is not published or claimed fully captured.",
+      "Origin is first benchmark arrival at the PVE veth, not Mac send time, iperf start or RF transmission time.",
+      "Client intervals describe socket sending; the server average describes reception. Neither is substituted for the other.",
+      "Server ACK emission does not prove ACK reception by Mac. GSO/GRO and repeated arrival sequence bytes do not count wire packets or sender retransmissions.",
+      "96-byte capture may contain payload prefixes; only headers/options are analyzed. No RF or AP-internal queue observations."
+    ]
+  },
+  "alignment": {
+    "status": "UPLOAD_DIRECT_CLOCK_PS_RECEIVER_ALIGNMENT",
+    "direction": "Mac upload; PVE packet times are receiver arrivals and outgoing ACKs",
+    "same_association_and_target": true,
+    "link_bitmap": "0x6",
+    "router_unchanged": true,
+    "wired_checks": 56,
+    "wired_checks_all_normal": true,
+    "four_data_flows_ppe_bound": true,
+    "first_benchmark_arrival_association_seconds_bounds": [
+      7.493713586257941,
+      7.513048306060798
+    ],
+    "early_arrival_upper_below_20_seconds": true,
+    "clock": {
+      "mac_server_responses_exact": true,
+      "pve_mac_probes": 20,
+      "mac_router_samples": 10,
+      "mac_minus_pve_offset_ns": [
+        -95285,
+        340441
+      ],
+      "pve_mac_width_ns": 435726,
+      "combined_width_ms": 18.333719802856447,
+      "router_uptime_quantization_seconds": 0.01,
+      "all_data_inside_before_after_probes": true,
+      "iperf_start_bracket_used": false
+    },
+    "ps": {
+      "global_coverage": {
+        "P": {
+          "observed": 880,
+          "missing_between_first_last": 0,
+          "reordered": false
+        },
+        "F": {
+          "observed": 0,
+          "missing_between_first_last": 0,
+          "reordered": false
+        }
+      },
+      "target_state_checks": 738,
+      "all_non_aql_zero": true,
+      "paired_gate_closed_intervals_entirely_in_arrival_window": 165,
+      "closed_seconds": 12.937747000000854,
+      "longest_closed_seconds": 0.20265500000004977,
+      "final_reopen_seconds_from_first_arrival_bounds": [
+        30.40860080718994,
+        30.426934480667114
+      ],
+      "next_observed_close_seconds_from_first_arrival_bounds": [
+        40.2314727306366,
+        40.24980640411377
+      ],
+      "no_later_observed_close_before_last_arrival": true,
+      "final_reopen_claim_scope": "Last fully contained gate pair; continued gate0 requires the separate next-close check."
+    },
+    "native_scan_calls": [
+      {
+        "start_seconds_bounds": [
+          -17.766351507736207,
+          -17.764913751052855
+        ],
+        "end_seconds_bounds": [
+          -17.034351395202638,
+          -17.032913638519286
+        ],
+        "api_seconds": 0.7320001125335693
+      },
+      {
+        "start_seconds_bounds": [
+          -17.033351467681886,
+          -17.031913710998534
+        ],
+        "end_seconds_bounds": [
+          -14.917351530624389,
+          -14.91591377394104
+        ],
+        "api_seconds": 2.115999937057495
+      },
+      {
+        "start_seconds_bounds": [
+          -14.916351364685058,
+          -14.91491360800171
+        ],
+        "end_seconds_bounds": [
+          -7.9333515630493165,
+          -7.931913806365967
+        ],
+        "api_seconds": 6.982999801635742
+      },
+      {
+        "start_seconds_bounds": [
+          12.799648477005006,
+          12.801086233688354
+        ],
+        "end_seconds_bounds": [
+          13.142648650573731,
+          13.14408640725708
+        ],
+        "api_seconds": 0.3430001735687256
+      },
+      {
+        "start_seconds_bounds": [
+          13.143648578094483,
+          13.145086334777831
+        ],
+        "end_seconds_bounds": [
+          13.48164863722229,
+          13.483086393905639
+        ],
+        "api_seconds": 0.3380000591278076
+      },
+      {
+        "start_seconds_bounds": [
+          13.48164863722229,
+          13.483086393905639
+        ],
+        "end_seconds_bounds": [
+          13.759648515151978,
+          13.761086271835326
+        ],
+        "api_seconds": 0.2779998779296875
+      },
+      {
+        "start_seconds_bounds": [
+          13.76064844267273,
+          13.762086199356078
+        ],
+        "end_seconds_bounds": [
+          13.930648518966676,
+          13.932086275650024
+        ],
+        "api_seconds": 0.1700000762939453
+      },
+      {
+        "start_seconds_bounds": [
+          13.930648518966676,
+          13.932086275650024
+        ],
+        "end_seconds_bounds": [
+          14.162648631500245,
+          14.164086388183593
+        ],
+        "api_seconds": 0.23200011253356934
+      },
+      {
+        "start_seconds_bounds": [
+          14.162648631500245,
+          14.164086388183593
+        ],
+        "end_seconds_bounds": [
+          14.309648467468262,
+          14.31108622415161
+        ],
+        "api_seconds": 0.14699983596801758
+      },
+      {
+        "start_seconds_bounds": [
+          14.310648633407594,
+          14.312086390090942
+        ],
+        "end_seconds_bounds": [
+          14.471648646759034,
+          14.473086403442382
+        ],
+        "api_seconds": 0.16100001335144043
+      },
+      {
+        "start_seconds_bounds": [
+          14.471648646759034,
+          14.473086403442382
+        ],
+        "end_seconds_bounds": [
+          14.767648650573731,
+          14.76908640725708
+        ],
+        "api_seconds": 0.29600000381469727
+      },
+      {
+        "start_seconds_bounds": [
+          14.769648505615235,
+          14.771086262298583
+        ],
+        "end_seconds_bounds": [
+          15.152648641036988,
+          15.154086397720336
+        ],
+        "api_seconds": 0.38300013542175293
+      },
+      {
+        "start_seconds_bounds": [
+          15.15364856855774,
+          15.155086325241088
+        ],
+        "end_seconds_bounds": [
+          15.63564844267273,
+          15.637086199356078
+        ],
+        "api_seconds": 0.48199987411499023
+      },
+      {
+        "start_seconds_bounds": [
+          15.63564844267273,
+          15.637086199356078
+        ],
+        "end_seconds_bounds": [
+          16.164648486541747,
+          16.1660862432251
+        ],
+        "api_seconds": 0.5290000438690186
+      },
+      {
+        "start_seconds_bounds": [
+          16.165648652481078,
+          16.16708640916443
+        ],
+        "end_seconds_bounds": [
+          16.563648654388427,
+          16.56508641107178
+        ],
+        "api_seconds": 0.39800000190734863
+      },
+      {
+        "start_seconds_bounds": [
+          16.56464858190918,
+          16.56608633859253
+        ],
+        "end_seconds_bounds": [
+          17.162648631500243,
+          17.164086388183595
+        ],
+        "api_seconds": 0.5980000495910645
+      },
+      {
+        "start_seconds_bounds": [
+          17.163648559020995,
+          17.165086315704347
+        ],
+        "end_seconds_bounds": [
+          17.533648444580077,
+          17.53508620126343
+        ],
+        "api_seconds": 0.36999988555908203
+      },
+      {
+        "start_seconds_bounds": [
+          17.539648486541747,
+          17.5410862432251
+        ],
+        "end_seconds_bounds": [
+          17.929648591445922,
+          17.931086348129273
+        ],
+        "api_seconds": 0.3900001049041748
+      },
+      {
+        "start_seconds_bounds": [
+          17.930648518966674,
+          17.932086275650025
+        ],
+        "end_seconds_bounds": [
+          18.31564850942993,
+          18.317086266113282
+        ],
+        "api_seconds": 0.38499999046325684
+      },
+      {
+        "start_seconds_bounds": [
+          18.31564850942993,
+          18.317086266113282
+        ],
+        "end_seconds_bounds": [
+          18.718648625778197,
+          18.72008638246155
+        ],
+        "api_seconds": 0.4030001163482666
+      },
+      {
+        "start_seconds_bounds": [
+          18.71964855329895,
+          18.7210863099823
+        ],
+        "end_seconds_bounds": [
+          19.103648616241454,
+          19.105086372924806
+        ],
+        "api_seconds": 0.3840000629425049
+      },
+      {
+        "start_seconds_bounds": [
+          19.103648616241454,
+          19.105086372924806
+        ],
+        "end_seconds_bounds": [
+          19.48864860670471,
+          19.490086363388063
+        ],
+        "api_seconds": 0.38499999046325684
+      },
+      {
+        "start_seconds_bounds": [
+          19.48864860670471,
+          19.490086363388063
+        ],
+        "end_seconds_bounds": [
+          19.864648534225463,
+          19.866086290908815
+        ],
+        "api_seconds": 0.37599992752075195
+      },
+      {
+        "start_seconds_bounds": [
+          19.864648534225463,
+          19.866086290908815
+        ],
+        "end_seconds_bounds": [
+          20.242648555206298,
+          20.24408631188965
+        ],
+        "api_seconds": 0.37800002098083496
+      },
+      {
+        "start_seconds_bounds": [
+          20.24364848272705,
+          20.2450862394104
+        ],
+        "end_seconds_bounds": [
+          20.63564844267273,
+          20.63708619935608
+        ],
+        "api_seconds": 0.3919999599456787
+      },
+      {
+        "start_seconds_bounds": [
+          20.63564844267273,
+          20.63708619935608
+        ],
+        "end_seconds_bounds": [
+          21.02264852659607,
+          21.02408628327942
+        ],
+        "api_seconds": 0.38700008392333984
+      },
+      {
+        "start_seconds_bounds": [
+          21.02264852659607,
+          21.02408628327942
+        ],
+        "end_seconds_bounds": [
+          21.409648610519408,
+          21.41108636720276
+        ],
+        "api_seconds": 0.38700008392333984
+      },
+      {
+        "start_seconds_bounds": [
+          21.41064853804016,
+          21.41208629472351
+        ],
+        "end_seconds_bounds": [
+          21.793648435043334,
+          21.795086191726686
+        ],
+        "api_seconds": 0.38299989700317383
+      },
+      {
+        "start_seconds_bounds": [
+          21.794648600982665,
+          21.796086357666017
+        ],
+        "end_seconds_bounds": [
+          22.198648644851684,
+          22.200086401535035
+        ],
+        "api_seconds": 0.40400004386901855
+      },
+      {
+        "start_seconds_bounds": [
+          22.198648644851684,
+          22.200086401535035
+        ],
+        "end_seconds_bounds": [
+          22.795648528503417,
+          22.79708628518677
+        ],
+        "api_seconds": 0.5969998836517334
+      },
+      {
+        "start_seconds_bounds": [
+          22.79664845602417,
+          22.79808621270752
+        ],
+        "end_seconds_bounds": [
+          23.179648591445922,
+          23.181086348129273
+        ],
+        "api_seconds": 0.38300013542175293
+      },
+      {
+        "start_seconds_bounds": [
+          23.180648518966674,
+          23.182086275650025
+        ],
+        "end_seconds_bounds": [
+          23.551648570465087,
+          23.55308632714844
+        ],
+        "api_seconds": 0.3710000514984131
+      },
+      {
+        "start_seconds_bounds": [
+          23.551648570465087,
+          23.55308632714844
+        ],
+        "end_seconds_bounds": [
+          23.92764849798584,
+          23.92908625466919
+        ],
+        "api_seconds": 0.37599992752075195
+      },
+      {
+        "start_seconds_bounds": [
+          23.92864842550659,
+          23.930086182189942
+        ],
+        "end_seconds_bounds": [
+          24.412648631500243,
+          24.414086388183595
+        ],
+        "api_seconds": 0.48400020599365234
+      },
+      {
+        "start_seconds_bounds": [
+          24.412648631500243,
+          24.414086388183595
+        ],
+        "end_seconds_bounds": [
+          24.95264859335327,
+          24.954086350036622
+        ],
+        "api_seconds": 0.5399999618530273
+      },
+      {
+        "start_seconds_bounds": [
+          24.953648520874022,
+          24.955086277557374
+        ],
+        "end_seconds_bounds": [
+          25.192648602890014,
+          25.194086359573365
+        ],
+        "api_seconds": 0.2390000820159912
+      }
+    ],
+    "native_timer_records": [
+      {
+        "kind": "cancelled",
+        "seconds_from_first_arrival_bounds": [
+          -7.278351353240967,
+          -7.276913596557617
+        ],
+        "association_seconds_bounds": [
+          0.2157990621795727,
+          0.23569788034058345
+        ]
+      },
+      {
+        "kind": "scheduled",
+        "seconds_from_first_arrival_bounds": [
+          -7.230351494384766,
+          -7.228913737701416
+        ],
+        "association_seconds_bounds": [
+          0.2637989210357739,
+          0.2836977391967846
+        ]
+      },
+      {
+        "kind": "request",
+        "seconds_from_first_arrival_bounds": [
+          12.776648475097657,
+          12.778086231781005
+        ],
+        "association_seconds_bounds": [
+          20.270798890518194,
+          20.290697708679208
+        ]
+      }
+    ],
+    "native_capture_boundary_unmatched_calls": {
+      "unmatched_enters": 0,
+      "unmatched_exits": 0
+    },
+    "wifi_settings_request_seconds_bounds": [],
+    "post_final_reopen": [
+      {
+        "flow": 1,
+        "receiver_contiguous_arrival": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.0286102294921875,
+              18.36419105529785
+            ],
+            "ambiguous_progress_records": 204
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 30.66706657409668,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 1.0030269622802734
+        },
+        "receiver_outgoing_ack": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.037670135498046875,
+              18.37325096130371
+            ],
+            "ambiguous_progress_records": 199
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 30.668020248413086,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.9970664978027344
+        }
+      },
+      {
+        "flow": 2,
+        "receiver_contiguous_arrival": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.0286102294921875,
+              18.36419105529785
+            ],
+            "ambiguous_progress_records": 202
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 30.581951141357422,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.6220340728759766
+        },
+        "receiver_outgoing_ack": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.03647804260253906,
+              18.372058868408203
+            ],
+            "ambiguous_progress_records": 189
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 30.584096908569336,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.6170272827148438
+        }
+      },
+      {
+        "flow": 3,
+        "receiver_contiguous_arrival": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.0054836273193359375,
+              18.341064453125
+            ],
+            "ambiguous_progress_records": 199
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 24.81698989868164,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.18405914306640625
+        },
+        "receiver_outgoing_ack": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.019550323486328125,
+              18.355131149291992
+            ],
+            "ambiguous_progress_records": 199
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 24.806976318359375,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.17905235290527344
+        }
+      },
+      {
+        "flow": 4,
+        "receiver_contiguous_arrival": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.000476837158203125,
+              18.336057662963867
+            ],
+            "ambiguous_progress_records": 195
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 24.816036224365234,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.37407875061035156
+        },
+        "receiver_outgoing_ack": {
+          "certain_progress_observed_before_last_arrival": true,
+          "first_certain_progress": {
+            "delay_ms_bounds": [
+              0.015497207641601562,
+              18.351078033447266
+            ],
+            "ambiguous_progress_records": 195
+          },
+          "maximum_progress_gap_entirely_after_event_ms": 24.80483055114746,
+          "progress_gaps_entirely_after_event_over_100ms": 0,
+          "tail_after_last_certain_progress_until_last_arrival_ms": 0.3669261932373047
+        }
+      }
+    ],
+    "inputs_sha256": {
+      "input-01:check-alignment.py": "af865bbceab60fbfe59f9f18bbdcc0325e5e8ee57468230e45b6e4ca0274fb00",
+      "input-02:check-tcp.py": "0e774cbe22fcdc879e1b0213779c31366108fac0d09f00e7e7e30b6fc7e39309",
+      "input-03:check-alignment.py": "7ebfbf812e77cfd54b4e10984ca7da89886fe8378f57272b10e8c16dafb9a2b5",
+      "input-04:clock.py": "cdef187171ec3d3abfa5955e3f2e5d98d5b01a48c44fcb5328cd8960805817b1",
+      "input-05:airportd-live.txt": "bfdc128a6331932e5dc4d00c516a08fa9817a80c6b94b382399c1b9f359c4bed",
+      "input-06:test.pcap00": "b316f45273baa0a58d9f687a5938bc2aa02886992fba223b36f96a9ccee0ad13",
+      "input-07:test.pcap01": "a047832918c623f127a72866eda3f7341a2e7ca11d171f534d49cbf770139f4a",
+      "input-08:iperf.json": "2bbe1997eb77b8d9bfefbc83857333540e5ef628e64a990c10e2b4c87c7cef14",
+      "input-09:kmsg.stream": "6de2d08edebfe0f87b54313a0eea9f69b74aca2c65eedf1b66bce44fcc4704e9",
+      "input-10:clock-closed-before.json": "56eed7fddae6cdfa4467236add242687c0afb3ae16c5c3397f0c983d2941a369",
+      "input-11:clock-closed-after.json": "e84695ab71c1ea8b09e2e79c7b6021fd9d598ef500fb23e541dcb8184b1dce00",
+      "input-12:clock-mac.json": "6b42d00c0dd54fdd5c3e8413616722e94aa3f3ac0d2de238d833d05b8c2150d5",
+      "input-13:clock-before.json": "88fd64e18658a80542c0b014c4c78319a79518f40ccbb205c7d741ad63436662",
+      "input-14:clock-after.json": "09ea236e67ae723842b136109d948e4fd227b7fec9d20ebde8e4e71614b2d57a",
+      "input-15:clock-bounds.json": "4b35868ca2d739b833c73437d8bf335e27c228c25fb976ad9e86dcb15f3ec359",
+      "input-16:run.json": "e3c7237214053a3dc6ef60dc083d7e0dbfa5a70ae09f0563f6f8c905b5a4ee57",
+      "input-17:traffic.json": "af365291696cfc6717d90d5def1ce0e4d71960bd107089e4dfe7c4557d99fcea",
+      "input-18:mlo.before.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+      "input-19:mlo.after.json": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+      "input-20:station.before.txt": "d49022cf52e1f8a6b9c4758ba10cdf37aa0232591e3ffec99f1dbe92ea5b2d39",
+      "input-21:station.after.txt": "18db5561cb697b16f77715485147f148461dfec23b083042eb77682c38f3c638"
+    },
+    "limits": [
+      "A PVE upload capture records incoming data and emitted ACKs. It does not observe Mac sender dequeue time or ACK arrival at Mac.",
+      "Post-reopen packet statistics alone do not establish continuous gate0; the next observed close must lie wholly beyond the last data arrival.",
+      "Clock intersections retain RTT, 10ms router uptime truncation, timestamp precision and a constant-offset assumption. No iperf start bracket is used.",
+      "Native scan API completion is not RF return. Comparable scan requests and PS duty must be checked before comparing upload with download.",
+      "Host PS gate is a post-callback predicate, not proof of NPU/RF packet blocking. Arrival after wake may contain data transmitted earlier.",
+      "No matched scan/PS condition means no directional causal comparison; no Air sleep/wake repair claim.",
+      "Eligible global P interior sequence completeness does not cover repeated unchanged reports, unlogged eligibility changes or boundary events."
+    ]
+  },
+  "server": {
+    "status": "SAVED_UPLOAD_RECEIVER_SAMPLES_VERIFIED",
+    "direction": "upload",
+    "listener_pid_matches_expected": true,
+    "process_name_and_starttime_stable": true,
+    "all_four_actual_data_tuples_verified": true,
+    "samples_total": 140,
+    "samples_with_four_data_flows": 40,
+    "sampled_data_flow_span_seconds": 39.444096326828,
+    "max_sampler_step_seconds": 1.019639492034912,
+    "process_cpu": {
+      "weighted_mean_percent_one_cpu": 5.019762611859606,
+      "max_sample_interval_percent_one_cpu": 14.792962906706457,
+      "intervals": 39
+    },
+    "cgroup_cpu": {
+      "weighted_mean_percent_one_cpu": 6.390809359943362,
+      "max_sample_interval_percent_one_cpu": 17.066246826456393,
+      "intervals": 39
+    },
+    "cpu_quota_unlimited": true,
+    "quota_period_us": 100000,
+    "throttle_delta_during_sampled_data": {
+      "nr_throttled": 0,
+      "throttled_usec": 0
+    },
+    "iperf_remote_cpu_percent": 5.03738552470155,
+    "per_stream": {
+      "1": {
+        "samples": 40,
+        "received_counter_delta_bytes": 739508224,
+        "max_recv_queue_bytes": 5792,
+        "rcv_space": {
+          "reported_samples": 40,
+          "min": 271024,
+          "max": 2532552
+        },
+        "rcv_ssthresh": {
+          "reported_samples": 40,
+          "min": 540332,
+          "max": 5715548
+        }
+      },
+      "2": {
+        "samples": 40,
+        "received_counter_delta_bytes": 739508224,
+        "max_recv_queue_bytes": 18824,
+        "rcv_space": {
+          "reported_samples": 40,
+          "min": 205000,
+          "max": 2316800
+        },
+        "rcv_ssthresh": {
+          "reported_samples": 40,
+          "min": 408096,
+          "max": 5216624
+        }
+      },
+      "3": {
+        "samples": 40,
+        "received_counter_delta_bytes": 739574832,
+        "max_recv_queue_bytes": 23168,
+        "rcv_space": {
+          "reported_samples": 40,
+          "min": 266488,
+          "max": 3454928
+        },
+        "rcv_ssthresh": {
+          "reported_samples": 40,
+          "min": 530298,
+          "max": 6907834
+        }
+      },
+      "4": {
+        "samples": 40,
+        "received_counter_delta_bytes": 739508224,
+        "max_recv_queue_bytes": 131072,
+        "rcv_space": {
+          "reported_samples": 40,
+          "min": 237888,
+          "max": 3473752
+        },
+        "rcv_ssthresh": {
+          "reported_samples": 40,
+          "min": 474060,
+          "max": 6945788
+        }
+      }
+    },
+    "limits": [
+      "This offline check matches the saved selected process and all four actual sockets; it does not query a live listener.",
+      "Server is the TCP receiver. Sender cwnd, snd_wnd, bytes_sent and bytes_acked are neither required nor used as upload receive-window evidence.",
+      "rcv_space and rcv_ssthresh are host receive accounting fields, not the advertised TCP window. Window closure requires packet evidence.",
+      "bytes_received includes TCP payload such as the initial iperf cookie. Sampled deltas omit traffic before the first or after the last socket sample.",
+      "Process CPU uses one CPU as 100%; cgroup usage covers the container, not host CPU or IRQ work. Sequential one-second samples can miss brief pressure.",
+      "Epoch precedes sequential proc/cgroup/ss reads; this file does not align them to router PS time or establish RF loss, wake latency or an Air repair."
+    ],
+    "input_sha256": {
+      "server.txt": "a3347e7b32b88a73ac82800f634f59dcebb325083a45c52879dc2a0ceff09407",
+      "iperf.json": "2bbe1997eb77b8d9bfefbc83857333540e5ef628e64a990c10e2b4c87c7cef14",
+      "check-server.py": "cd49376eb052e96fb65291b2a719a20754c7910795d59f0e09788ab6dd3c7538",
+      "reused-check-server.py": "02115816b764b58d50444dc38c65edd609f9c54881270a326fa976f24e5a6977"
+    }
+  },
+  "restoration": {
+    "configuration_hashes_passed": 34,
+    "diagnostics_off": true,
+    "mlo_ps_gate_fix_on": true,
+    "wired_management_good": true,
+    "wired_route_en12": true,
+    "boot_unchanged": true,
+    "hotspot_ui_connected": true,
+    "hotspot_http": "200",
+    "hotspot_curl_exit": 0,
+    "server_capture_processes_absent": true,
+    "server_transfer_hash_match": true
+  }
+}
