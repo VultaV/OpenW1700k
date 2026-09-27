@@ -211,13 +211,27 @@ def main():
         root = Path(tmp)
         path = root / relative
         path.parent.mkdir(parents=True)
-        path.write_text(source)
+        # The later budget guard adds this include inside z3's leading context.
+        # Normalize only the temporary patch input, not the actual fixed probe.
+        crypto_include = '#include <crypto/sha2.h>\n'
+        patch_source = source
+        if crypto_include in source:
+            assert source.count(crypto_include) == 1
+            patch_source = source.replace(crypto_include, '', 1)
+        for name in ('airoha_npu_probe', 'airoha_npu_wdt_handler', 'airoha_npu_wdt_work'):
+            assert function(patch_source, name) == function(source, name)
+        path.write_text(patch_source)
         already_fixed = 'devm_work_autocancel(dev, &core->wdt_work,' in source
         direction = ['-R'] if already_fixed else []
         command = ['patch', '-p1', '--batch', '--fuzz=0', *direction, '-i', str(patch)]
         subprocess.run(command + ['--dry-run'], cwd=root, check=True, capture_output=True)
         subprocess.run(command, cwd=root, check=True, capture_output=True)
         before, after = (path.read_text(), source) if already_fixed else (source, path.read_text())
+        opposite = [] if already_fixed else ['-R']
+        restore = ['patch', '-p1', '--batch', '--fuzz=0', *opposite, '-i', str(patch)]
+        subprocess.run(restore + ['--dry-run'], cwd=root, check=True, capture_output=True)
+        subprocess.run(restore, cwd=root, check=True, capture_output=True)
+        assert path.read_text() == patch_source, 'Watchdog patch roundtrip changed the temporary input'
         for label, text in [('before', before), ('after', after)]:
             c = root / (label + '.c')
             c.write_text(harness(text, helpers))
@@ -235,7 +249,7 @@ def main():
                 else:
                     assert result.returncode == 0, result.stderr
                     print(result.stdout.strip())
-    print('PASS patch applicability, kernel helper compatibility and both negative controls')
+    print('PASS patch applicability/byte-exact roundtrip, unchanged watchdog bodies, kernel helper compatibility and both negative controls')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,190 @@
+--- a/drivers/net/ethernet/airoha/airoha_npu.c
++++ b/drivers/net/ethernet/airoha/airoha_npu.c
+@@ -4,6 +4,7 @@
+  * Author: Lorenzo Bianconi <lorenzo@kernel.org>
+  */
+ 
++#include <crypto/sha2.h>
+ #include <linux/devcoredump.h>
+ #include <linux/devm-helpers.h>
+ #include <linux/firmware.h>
+@@ -231,27 +232,94 @@
+ 	return __airoha_npu_send_msg(npu, func_id, data, len, data, len);
+ }
+ 
++/* Only this exact program/data pair has the reviewed zero-budget guard.
++ * The files remain unchanged; patch the DRAM copy before starting the cores.
++ */
+ static int airoha_npu_load_firmware(struct device *dev, void __iomem *addr,
+-				    const char *fw_name, int fw_max_size)
+-{
+-	const struct firmware *fw;
+-	int ret;
+-
+-	ret = request_firmware_direct(&fw, fw_name, dev);
+-	if (ret)
+-		return dev_err_probe(dev, ret == -ENOENT ? -EPROBE_DEFER : ret,
+-				     "failed to load %s\n", fw_name);
+-
+-	if (fw->size > fw_max_size) {
+-		dev_err(dev, "%s: fw size too overlimit (%zu)\n",
+-			fw_name, fw->size);
+-		ret = -E2BIG;
+-		goto out;
+-	}
+-
+-	memcpy_toio(addr, fw->data, fw->size);
++				    void __iomem *base,
++				    const struct airoha_npu_fw *program,
++				    const struct airoha_npu_fw *data)
++{
++	static const u8 program_sha256[SHA256_DIGEST_SIZE] = {
++		0xe7, 0x43, 0xd1, 0xb5, 0x9a, 0x9c, 0xa6, 0xd0,
++		0x43, 0xe3, 0x8f, 0xf7, 0x10, 0x75, 0xe8, 0xd2,
++		0x87, 0x02, 0xa1, 0x04, 0xb9, 0x4a, 0xbb, 0x17,
++		0xa4, 0x03, 0x55, 0x14, 0xef, 0xda, 0x46, 0x43,
++	};
++	static const u8 data_sha256[SHA256_DIGEST_SIZE] = {
++		0x61, 0xa7, 0x5a, 0xfb, 0x05, 0x2f, 0xee, 0xd2,
++		0xce, 0xb2, 0xf3, 0x02, 0x3e, 0x16, 0xf5, 0x03,
++		0x17, 0xc0, 0x5c, 0x78, 0xf9, 0xc8, 0xe5, 0x64,
++		0xbf, 0x01, 0x92, 0x4c, 0xe3, 0x9c, 0x7e, 0xc1,
++	};
++	static const u8 guarded_sha256[SHA256_DIGEST_SIZE] = {
++		0x38, 0x9c, 0xfe, 0xcb, 0x07, 0x4f, 0xc2, 0x1c,
++		0x16, 0x30, 0x06, 0xc7, 0x91, 0xb6, 0x5f, 0x96,
++		0x28, 0xfe, 0x79, 0x0c, 0xfb, 0x68, 0x2f, 0x2e,
++		0x28, 0x8b, 0x71, 0xc1, 0x41, 0x04, 0xa7, 0x36,
++	};
++	static const u8 old_insn[] = { 0x93, 0x74, 0xf5, 0x0f };
++	static const u8 new_insn[] = { 0xe2, 0x84, 0xe1, 0xc5 };
++	const struct airoha_npu_fw *images[] = { program, data };
++	const struct firmware *fw[2] = {};
++	u8 digest[SHA256_DIGEST_SIZE], buffer[256];
++	struct sha256_ctx hash;
++	bool guard = false;
++	size_t offset, count;
++	int i, ret;
++
++	/* Request both roles before copying either image. */
++	for (i = 0; i < ARRAY_SIZE(fw); i++) {
++		ret = request_firmware_direct(&fw[i], images[i]->name, dev);
++		if (ret) {
++			ret = dev_err_probe(dev,
++					    ret == -ENOENT ? -EPROBE_DEFER : ret,
++					    "failed to load %s\n", images[i]->name);
++			goto out;
++		}
++
++		if (fw[i]->size > images[i]->max_size) {
++			dev_err(dev, "%s: fw size too overlimit (%zu)\n",
++				images[i]->name, fw[i]->size);
++			ret = -E2BIG;
++			goto out;
++		}
++	}
++
++	if (fw[0]->size == 122336 && fw[1]->size == 3084 &&
++	    !memcmp(fw[0]->data + 0x9e1a, old_insn, sizeof(old_insn))) {
++		sha256(fw[0]->data, fw[0]->size, digest);
++		if (!memcmp(digest, program_sha256, sizeof(digest))) {
++			sha256(fw[1]->data, fw[1]->size, digest);
++			guard = !memcmp(digest, data_sha256, sizeof(digest));
++		}
++	}
++
++	memcpy_toio(addr, fw[0]->data, fw[0]->size);
++	memcpy_toio(base + REG_NPU_LOCAL_SRAM, fw[1]->data, fw[1]->size);
++	if (guard) {
++		/* The instruction offset is only 2-byte aligned. */
++		memcpy_toio(addr + 0x9e1a, new_insn, sizeof(new_insn));
++		wmb();
++		sha256_init(&hash);
++		for (offset = 0; offset < fw[0]->size; offset += count) {
++			count = min_t(size_t, sizeof(buffer), fw[0]->size - offset);
++			memcpy_fromio(buffer, addr + offset, count);
++			sha256_update(&hash, buffer, count);
++		}
++		sha256_final(&hash, digest);
++		if (memcmp(digest, guarded_sha256, sizeof(digest))) {
++			dev_err(dev, "NPU TX budget guard readback failed\n");
++			ret = -EIO;
++			goto out;
++		}
++	}
++
++	dev_info(dev, "NPU TX budget guard %s\n",
++		 guard ? "applied" : "not applicable");
+ out:
+-	release_firmware(fw);
++	for (i = 0; i < ARRAY_SIZE(fw); i++)
++		release_firmware(fw[i]);
+ 
+ 	return ret;
+ }
+@@ -260,6 +328,10 @@
+ airoha_npu_load_firmware_from_dts(struct device *dev, void __iomem *addr,
+ 				  void __iomem *base)
+ {
++	struct airoha_npu_fw fw[] = {
++		{ .max_size = NPU_EN7581_FIRMWARE_RV32_MAX_SIZE },
++		{ .max_size = NPU_EN7581_FIRMWARE_DATA_MAX_SIZE },
++	};
+ 	const char *fw_names[2];
+ 	int ret;
+ 
+@@ -269,14 +341,9 @@
+ 		return dev_err_probe(dev, -EINVAL,
+ 				     "invalid firmware-name property\n");
+ 
+-	ret = airoha_npu_load_firmware(dev, addr, fw_names[0],
+-				       NPU_EN7581_FIRMWARE_RV32_MAX_SIZE);
+-	if (ret)
+-		return ret;
+-
+-	return airoha_npu_load_firmware(dev, base + REG_NPU_LOCAL_SRAM,
+-					fw_names[1],
+-					NPU_EN7581_FIRMWARE_DATA_MAX_SIZE);
++	fw[0].name = fw_names[0];
++	fw[1].name = fw_names[1];
++	return airoha_npu_load_firmware(dev, addr, base, &fw[0], &fw[1]);
+ }
+ 
+ static int airoha_npu_run_firmware(struct device *dev, void __iomem *base,
+@@ -284,7 +351,6 @@
+ {
+ 	const struct airoha_npu_soc_data *soc;
+ 	void __iomem *addr;
+-	int ret;
+ 
+ 	soc = of_device_get_match_data(dev);
+ 	if (!soc)
+@@ -300,16 +366,8 @@
+ 	if (of_find_property(dev->of_node, "firmware-name", NULL))
+ 		return airoha_npu_load_firmware_from_dts(dev, addr, base);
+ 
+-	/* Load rv32 npu firmware */
+-	ret = airoha_npu_load_firmware(dev, addr, soc->fw_rv32.name,
+-				       soc->fw_rv32.max_size);
+-	if (ret)
+-		return ret;
+-
+-	/* Load data npu firmware */
+-	return airoha_npu_load_firmware(dev, base + REG_NPU_LOCAL_SRAM,
+-					soc->fw_data.name,
+-					soc->fw_data.max_size);
++	return airoha_npu_load_firmware(dev, addr, base, &soc->fw_rv32,
++					&soc->fw_data);
+ }
+ 
+ static irqreturn_t airoha_npu_mbox_handler(int irq, void *npu_instance)
+--- a/drivers/net/ethernet/airoha/Kconfig
++++ b/drivers/net/ethernet/airoha/Kconfig
+@@ -9,6 +9,7 @@
+ 
+ config NET_AIROHA_NPU
+ 	tristate "Airoha NPU support"
++	select CRYPTO_LIB_SHA256
+ 	select WANT_DEV_COREDUMP
+ 	select REGMAP_MMIO
+ 	help

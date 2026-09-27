@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "new_warning_scope": "Seven new normalized libtool staging/relink messages for coova-chilli/iptables libraries.",
+  "coova_chilli_installed": false,
+  "related_installed_payloads": [],
+  "limitation": "The affected coova-chilli/iptables library package families are absent from this image; this does not prove every build warning harmless or replace runtime testing."
+}
