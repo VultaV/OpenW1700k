@@ -1,0 +1,160 @@
+{
+  "status": "PASS",
+  "trials": {
+    "hw": {
+      "status": "PASS",
+      "queue_snapshots": {
+        "before": {
+          "repeated_copies": 3,
+          "primary_ps": 0,
+          "secondary_ps": 1,
+          "target_status2": 0
+        },
+        "dip": {
+          "repeated_copies": 3,
+          "primary_ps": 1,
+          "secondary_ps": 1,
+          "target_status2": 671
+        },
+        "after": {
+          "repeated_copies": 3,
+          "primary_ps": 0,
+          "secondary_ps": 1,
+          "target_status2": 3248
+        }
+      },
+      "data_start_association_seconds_bounds": [
+        7.385108947753906,
+        7.731287717819214
+      ],
+      "tid0_initial_response_association_seconds_bounds": [
+        0.40299399999978414,
+        0.40399399999978414
+      ],
+      "tid0_two_link_enable_completed_by_association_seconds": 0.4045899999996436,
+      "tid0_response_and_enable_before_data": true,
+      "negotiated_timeout": 0,
+      "scan_request_association_seconds_bounds": [
+        20.282702922821045,
+        20.30182671546936
+      ],
+      "scan_calls_possibly_during_traffic": 33,
+      "first_low_bin_association_seconds_bounds": [
+        21.39208984375,
+        22.74133563041687
+      ],
+      "below_500_bins": 13,
+      "min_receiver_mbps": 69.78291030177962,
+      "receiver_mbps": 599.9851824470826,
+      "first_observed_gate1_after_scan_request_association_seconds_bounds": [
+        21.72908499999969,
+        21.73008499999969
+      ],
+      "sampled_gate_matches_two_link_ps": true,
+      "global_P_missing": 111,
+      "input_sha256": {
+        "mlo-before": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo-after": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station-before": "2e94cded25a8b0cd3afe989e0904bd00c5d2caaeb4acc292a92b336cd1699e55",
+        "station-after": "9237524789062261ec0a0b77e0df039a8d82ee1bc2401fba1afe80c5c5a2fe88",
+        "clock-before": "6da315fa09072d69af09356c50ef5c81f421211ee0797c22df2bc1c8ef5fe26c",
+        "clock-after": "d688aa726c9ba72f41dcb956018920de9ab271bc05af827a5c541886d8b0b06c",
+        "iperf": "fd63142a15faa730d2ec0e48535808c887d42e7d1258a595254461b44c0d5c92",
+        "traffic": "c011e0d884de42bb22b7af67eb2da34723bf6f82259243f030bbdbf99332394c",
+        "queue-before": "cdd15c3b968750593653e2ec1ca44a39c6b77647339848dc57a06b60d26bac84",
+        "queue-dip": "ded58680443cabb2a09d25079e83336bdf95229ae3658e26fc5ded4d59797784",
+        "queue-after": "9e3a14feb2378f38f1419c3409245c348f5e733841ffdd5be0c65e614867a5a8",
+        "kernel-stream": "a4f01da3eb4a0595ee12f1af53476ab7a5384f68e8be869c579a0ac6c6b172f2",
+        "phase": "65052d1e9963f6f16feff152dfae5c8bbfd58ba0a1bd625c8249ecf27a6debdb",
+        "native-log": "81600c85c8ca773d41548110b4fd91b0b071dfdf42c132214d19075f6652bd53",
+        "analysis": "0eb2aa1e18d1e2e5986d35185ff19e490f0271902ac928356a2e0343080646cf"
+      }
+    },
+    "noft": {
+      "status": "PASS",
+      "queue_snapshots": {
+        "before": {
+          "repeated_copies": 3,
+          "primary_ps": 0,
+          "secondary_ps": 1,
+          "target_status2": 0
+        },
+        "dip": {
+          "repeated_copies": 3,
+          "primary_ps": 1,
+          "secondary_ps": 1,
+          "target_status2": 0
+        },
+        "after": {
+          "repeated_copies": 3,
+          "primary_ps": 0,
+          "secondary_ps": 0,
+          "target_status2": 0
+        }
+      },
+      "data_start_association_seconds_bounds": [
+        8.123387813568115,
+        8.967420101165771
+      ],
+      "tid0_initial_response_association_seconds_bounds": [
+        0.4383039999999928,
+        0.4393039999999928
+      ],
+      "tid0_two_link_enable_completed_by_association_seconds": 0.4398609999998371,
+      "tid0_response_and_enable_before_data": true,
+      "negotiated_timeout": 0,
+      "scan_request_association_seconds_bounds": [
+        20.314775943756104,
+        20.33513879776001
+      ],
+      "scan_calls_possibly_during_traffic": 33,
+      "first_low_bin_association_seconds_bounds": [
+        22.12709379196167,
+        23.96961498260498
+      ],
+      "below_500_bins": 14,
+      "min_receiver_mbps": 46.20707096874832,
+      "receiver_mbps": 599.9746230697943,
+      "first_observed_gate1_after_scan_request_association_seconds_bounds": [
+        21.758814000000005,
+        21.759814000000006
+      ],
+      "sampled_gate_matches_two_link_ps": true,
+      "global_P_missing": 184,
+      "input_sha256": {
+        "mlo-before": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "mlo-after": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+        "station-before": "0dcf45cd5ffea564ea52be2d71e27e30d3b7af8b93e14a463d01f4bb5d3b53dd",
+        "station-after": "71242b90034a03577fe32818dfdfbaf5fd30520f019d179bd40fac4a2432e9dd",
+        "clock-before": "ffdd5bccad7526d74e69524d9a01b822fb2604446df97a53b0eb9d7e9f91bdb8",
+        "clock-after": "7111b36369941857c09bac89ae042d6922ea8378793d3834dd992c012aabbbf4",
+        "iperf": "09a14a542765e648c13d77cd91c928d1438b8bb5933b381d4c035aab5210e8b3",
+        "traffic": "9c69d68d58ebad16a2a2f6c20b119e644242f1e669e9a50cd11266da68900855",
+        "queue-before": "57870cef12ed37058255086a1458df6b9c5c9c9edc66150a1d3777ea2614db8c",
+        "queue-dip": "43c05fd384015ac0688fae4b3113b3b416e8346973afc568d330e26d54211062",
+        "queue-after": "28752c69dd39573f96b2e661d197ca713b80e882936886e7d585971274b919c4",
+        "kernel-stream": "a5d60100d6240fdd33d8afd652d256bc0ea2a0b30fa5bf924ba8c961fd11cac3",
+        "phase": "8d0d63a124aaaca7efa8f954820f362b9f1483bfb4a7734038d2bd2d79618b3a",
+        "native-log": "7bda94769a3d22b7c072e8d06b400e12d1776daeb01341c790f1b641ed251a86",
+        "analysis": "9968be0444a9a1ee38dc089a1fcee9f10507c7584b2afa3f00d87d25bb9b5e29"
+      }
+    }
+  },
+  "noft_slow_bins_with_zero_target_status2": true,
+  "code_sha256": {
+    "association_analyzer": "c7a856048e0358817b8085a6de41ee717ffcbb23d687cd542911f4c9ef274b25",
+    "clock_tcp_helpers": "d4410f00fd7f1acedc6f921503f6fe89a12cceb5c61d8fac14d81bab21850e4b",
+    "event_decoder": "ddbf5c37a4aa5c7aac3dd02e2a3e07f018bdeb78a8320fdb0187900c4de89bb1",
+    "fresh_start_helpers": "75b4213b0475b86b4523cdb8441e0684e7aaa1488ec63783bd133003c6ab87a2",
+    "kernel_inspector": "b5b8110a9eaefb2f8935754a07b4fb965acabab57fd9644fcd17e2af59434e22",
+    "checker": "054b3ba26878aeb690bfcb834527d756c75ab124d03ab4f5c95ba7f910728bf7"
+  },
+  "limits": [
+    "Status2 is the reported RED-drop HEADER counter, not a TCP packet-loss count. Snapshots are non-atomic; no exact drop timestamp is inferred.",
+    "BA response and successful enable-command returns precede traffic; this does not certify every later aggregate delivery or firmware state.",
+    "PS notifications have sequence gaps. Sampled gates match both-link PS; no continuous sleep duration or final wake latency is inferred.",
+    "Native API calls do not measure RF dwell. Clock and traffic start uncertainty are retained as bounds.",
+    "Equal configured TCP rate does not equal instantaneous offered traffic; later catch-up exceeds the target.",
+    "Separate path verification establishes only scoped flow bypass; global NPU stays active. This check cannot exonerate the complete NPU or prove the original Air issue fixed."
+  ]
+}

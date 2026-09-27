@@ -1,0 +1,235 @@
+{
+  "status": "MATCHED_CONFIGURED_RATE_OBSERVATIONS",
+  "both_start_upper_below_20s": true,
+  "target_bps": 600000000,
+  "trials": {
+    "hw": {
+      "start_age_bounds": [
+        7.385108947753906,
+        7.731287717819214
+      ],
+      "early_start": true,
+      "receiver_mbps": 599.9851824470826,
+      "min_mbps": 69.78291030177962,
+      "max_mbps": 1664.5712112362073,
+      "below_500_bins": 13,
+      "zero_bins": 0,
+      "sender_retransmits": 3422,
+      "native_complete_calls": 39,
+      "calls_possibly_during_traffic": 33,
+      "low_bins_possibly_overlapping_scan": 10,
+      "low_association_bounds": [
+        [
+          21.39208984375,
+          22.74133563041687
+        ],
+        [
+          22.395156860351562,
+          23.738183736801147
+        ],
+        [
+          23.39200496673584,
+          24.7374746799469
+        ],
+        [
+          24.391295909881592,
+          25.739803791046143
+        ],
+        [
+          27.386961936950684,
+          28.733036756515503
+        ],
+        [
+          28.386857986450195,
+          29.739816665649414
+        ],
+        [
+          29.393637895584106,
+          30.737956762313843
+        ],
+        [
+          30.391777992248535,
+          31.735276699066162
+        ],
+        [
+          31.389097929000854,
+          32.7381546497345
+        ],
+        [
+          32.39197587966919,
+          33.74130964279175
+        ],
+        [
+          33.39513087272644,
+          34.73304271697998
+        ],
+        [
+          34.38686394691467,
+          35.7362916469574
+        ],
+        [
+          35.39011287689209,
+          36.73167562484741
+        ]
+      ],
+      "receiver_before_first_possible_scan": {
+        "bins": 12,
+        "end_seconds": 12.006242,
+        "mbps": 600.1723281798868
+      },
+      "server_relative_windows": {
+        "0-10": {
+          "rows": 40,
+          "retransmits": 0,
+          "min_cwnd_bytes": 209920.0,
+          "sender_mbps": 600.95987712
+        },
+        "10-20": {
+          "rows": 40,
+          "retransmits": 2053,
+          "min_cwnd_bytes": 243712.0,
+          "sender_mbps": 477.40406988800004
+        },
+        "20-30": {
+          "rows": 40,
+          "retransmits": 1334,
+          "min_cwnd_bytes": 153600.0,
+          "sender_mbps": 232.414773248
+        },
+        "30-40": {
+          "rows": 40,
+          "retransmits": 35,
+          "min_cwnd_bytes": 387072.0,
+          "sender_mbps": 1090.68681216
+        }
+      },
+      "target_P_guaranteed": 469,
+      "target_gate1_guaranteed": 118,
+      "global_missing": {
+        "P": 111,
+        "F": 0
+      },
+      "analysis_sha256": "0eb2aa1e18d1e2e5986d35185ff19e490f0271902ac928356a2e0343080646cf"
+    },
+    "noft": {
+      "start_age_bounds": [
+        8.123387813568115,
+        8.967420101165771
+      ],
+      "early_start": true,
+      "receiver_mbps": 599.9746230697943,
+      "min_mbps": 46.20707096874832,
+      "max_mbps": 1304.9204982164338,
+      "below_500_bins": 14,
+      "zero_bins": 0,
+      "sender_retransmits": 3078,
+      "native_complete_calls": 36,
+      "calls_possibly_during_traffic": 33,
+      "low_bins_possibly_overlapping_scan": 11,
+      "low_association_bounds": [
+        [
+          22.12709379196167,
+          23.96961498260498
+        ],
+        [
+          23.125582695007324,
+          24.967931985855103
+        ],
+        [
+          24.123899698257446,
+          25.971270084381104
+        ],
+        [
+          25.127237796783447,
+          26.967835187911987
+        ],
+        [
+          26.12380290031433,
+          27.972448110580444
+        ],
+        [
+          27.128415822982788,
+          28.970113039016724
+        ],
+        [
+          28.126080751419067,
+          29.972450017929077
+        ],
+        [
+          29.12841773033142,
+          30.970081090927124
+        ],
+        [
+          30.126048803329468,
+          31.969664096832275
+        ],
+        [
+          31.12563180923462,
+          32.96780610084534
+        ],
+        [
+          32.12377381324768,
+          33.97246503829956
+        ],
+        [
+          33.128432750701904,
+          34.97089099884033
+        ],
+        [
+          34.126858711242676,
+          35.96988010406494
+        ],
+        [
+          35.125847816467285,
+          36.96837115287781
+        ]
+      ],
+      "receiver_before_first_possible_scan": {
+        "bins": 11,
+        "end_seconds": 11.000068,
+        "mbps": 599.8770850179828
+      },
+      "server_relative_windows": {
+        "0-10": {
+          "rows": 40,
+          "retransmits": 0,
+          "min_cwnd_bytes": 325632.0,
+          "sender_mbps": 600.95987712
+        },
+        "10-20": {
+          "rows": 40,
+          "retransmits": 2835,
+          "min_cwnd_bytes": 339968.0,
+          "sender_mbps": 361.41478707199997
+        },
+        "20-30": {
+          "rows": 40,
+          "retransmits": 202,
+          "min_cwnd_bytes": 256000.0,
+          "sender_mbps": 268.435456
+        },
+        "30-40": {
+          "rows": 40,
+          "retransmits": 41,
+          "min_cwnd_bytes": 320512.0,
+          "sender_mbps": 1170.54636032
+        }
+      },
+      "target_P_guaranteed": 384,
+      "target_gate1_guaranteed": 96,
+      "global_missing": {
+        "P": 184,
+        "F": 0
+      },
+      "analysis_sha256": "9968be0444a9a1ee38dc089a1fcee9f10507c7584b2afa3f00d87d25bb9b5e29"
+    }
+  },
+  "limits": [
+    "Different fresh associations: configured TCP rate matches; instantaneous offered traffic, scan/PS/RF exposure and repeatability do not.",
+    "TCP pacing allows catch-up bursts above 600 Mbps. Sender-text window rates are rounded application writes, not wire arrival rates.",
+    "API calls are not RF dwell. P/F gaps prevent complete PS/wake reconstruction. No fixed channel/call count is assumed.",
+    "Only new data flows bypass acceleration; global NPU remains enabled. Additional noft path sampling adds CPU load.",
+    "Sender TCP intervals have their own relative start; cwnd and retransmits do not identify wireless loss or its cause.",
+    "This comparison cannot establish repair of the original Air sleep/wake stall."
+  ]
+}

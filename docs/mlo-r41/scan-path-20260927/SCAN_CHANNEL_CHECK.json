@@ -1,0 +1,26 @@
+{
+  "hw": {
+    "requests": 33,
+    "channel_entries": 97,
+    "bands": {
+      "2": 13,
+      "5": 25,
+      "6": 59
+    },
+    "sum_api_seconds": 12.3326,
+    "source_sha256": "81600c85c8ca773d41548110b4fd91b0b071dfdf42c132214d19075f6652bd53"
+  },
+  "noft": {
+    "requests": 33,
+    "channel_entries": 97,
+    "bands": {
+      "2": 13,
+      "5": 25,
+      "6": 59
+    },
+    "sum_api_seconds": 12.2119,
+    "source_sha256": "7bda94769a3d22b7c072e8d06b400e12d1776daeb01341c790f1b641ed251a86"
+  },
+  "same_ordered_requested_channels": true,
+  "scope": "Logged cache-assisted background requests only; not RF dwell or proof of Neighbor Report use."
+}

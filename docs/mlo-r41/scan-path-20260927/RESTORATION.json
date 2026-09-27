@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "same_boot": true,
+  "four_configuration_hashes_unchanged": true,
+  "original_bridge_rules_exact": true,
+  "ps_trace": "N",
+  "ba_trace": "N",
+  "mlo_tx_awake_test": "N",
+  "hotspot_en0_https_status": 200,
+  "hotspot_ui_connected": true,
+  "mac_wifi_settings_panel_closed": true,
+  "raw_sha256": "f7e76aaa2b09fe29e4480abbcb9d3e56d74a511191d0e5ba0fd158180b92b9e0",
+  "scope": "Final wired HTTP and en0 HTTPS and UI observations after both trials; configuration and diagnostic state verified from saved router readback.",
+  "wired_http_status": 200
+}
