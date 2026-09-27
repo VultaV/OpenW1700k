@@ -1,0 +1,745 @@
+{
+  "method": {
+    "wifi_settings_panel": "Open throughout native join and traffic; verified by UI observations before and after trial",
+    "deviation_from_prior_r42_readme": "Prior procedure requested closing Wi-Fi panel or navigating to General. This trial did not do so.",
+    "status": "VALID_PACKET_OBSERVATION_WITH_UNCONTROLLED_UI_SCAN_CONFOUND",
+    "not_valid_as": "Matched repetition of previous closed-panel r42 trial",
+    "planned_control": "Navigate to General before native join; additionally bracket PVE clock before and after capture."
+  },
+  "ps_timing": {
+    "status": "NO_MULTI_SECOND_POST_HOST_GATE_STALL_PROVEN",
+    "global_P": {
+      "observed": 1943,
+      "missing_between_first_last": 0,
+      "reordered": false
+    },
+    "target_state_checks": 1118,
+    "target_P_in_guaranteed_traffic": 988,
+    "all_target_non_aql_zero": true,
+    "paired_closed_intervals": 247,
+    "total_closed_seconds": 20.053610999997773,
+    "longest_closed_seconds": 0.2031369999999697,
+    "final_paired_reopen_inside_guaranteed_traffic_association_seconds_bounds": [
+      43.980495,
+      43.981494999999995
+    ],
+    "final_paired_reopen_inside_guaranteed_traffic_tcp_seconds_bounds": [
+      35.30304789543152,
+      36.486928939819336
+    ],
+    "following_close_tcp_seconds_bounds": [
+      39.232691049575806,
+      40.41657209396362
+    ],
+    "following_continuous_gate0_seconds": 3.929642999999942,
+    "last_low_bin_end_seconds": 36.004872,
+    "last_low_end_minus_final_reopen_seconds_bounds": [
+      -0.48205693981933706,
+      0.7018241045684803
+    ],
+    "first_whole_bin_after_reopen": {
+      "start": 37.002584,
+      "end": 38.00208,
+      "mbps": 1472.9430921761693
+    },
+    "receiver_mbps": 481.4650663397212,
+    "min_interval_mbps": 38.80301546332386,
+    "zero_bins": 0,
+    "below_500_bins": 23,
+    "sender_retransmits": 3935,
+    "input_sha256": {
+      "analysis": "6e0c8ffee73567937a3c9556d951a3a6b6c832be51d9b0ef8231d518d7c12f2d",
+      "kernel_trace": "6f419ba6c0d1ae0d1f5df74a5497ccc044f845562d50cc66e554eb89ea671b57",
+      "checker": "410ed39049252ecc4649f3e4b3f8e288c56b05fbd2b6387d331a75dfbadadb1e"
+    },
+    "limits": [
+      "Host post-callback PS predicate is not firmware queue occupancy, RF dwell or per-packet PPE blocking.",
+      "No interior eligible P gap does not cover repeated same-state reports, boundary events or all clients.",
+      "TCP start/clock bounds remain about 1.2 seconds; no precise post-wake delivery latency is claimed.",
+      "PVE endpoint clock is independent. Do not subtract its packet timestamps from router PS timestamps.",
+      "One traced Mac fresh association at a paced target of 600Mbps; not peak capacity or Air sleep/wake repair."
+    ]
+  },
+  "server": {
+    "status": "SAVED_SERVER_SAMPLES_VERIFIED",
+    "listener_pid_matches_expected": true,
+    "process_name_and_starttime_stable": true,
+    "all_four_actual_data_tuples_verified": true,
+    "server_epoch_timestamps_strictly_increasing": true,
+    "samples_total": 140,
+    "samples_with_four_data_flows": 40,
+    "sampled_data_flow_span_seconds": 39.422489166259766,
+    "max_sampler_step_seconds": 1.0201609134674072,
+    "process_cpu": {
+      "weighted_mean_percent_one_cpu": 2.130763474770448,
+      "max_sample_interval_percent_one_cpu": 5.931105739680002,
+      "intervals": 39
+    },
+    "cgroup_cpu": {
+      "weighted_mean_percent_one_cpu": 3.318565183650787,
+      "max_sample_interval_percent_one_cpu": 6.722605250374414,
+      "intervals": 39
+    },
+    "cpu_quota_unlimited": true,
+    "quota_period_us": 100000,
+    "throttle_delta_during_sampled_data": {
+      "nr_throttled": 0,
+      "throttled_usec": 0
+    },
+    "iperf_remote_cpu_percent": 2.182638899725056,
+    "per_stream": {
+      "1": {
+        "samples": 40,
+        "min_cwnd_segments": 136,
+        "min_cwnd_bytes": 196928,
+        "max_rto_ms": 679.0,
+        "max_rtt_ms": 236.778,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 416384,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2866064
+      },
+      "2": {
+        "samples": 40,
+        "min_cwnd_segments": 133,
+        "min_cwnd_bytes": 192584,
+        "max_rto_ms": 736.0,
+        "max_rtt_ms": 250.3,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 352640,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2865400
+      },
+      "3": {
+        "samples": 40,
+        "min_cwnd_segments": 122,
+        "min_cwnd_bytes": 176656,
+        "max_rto_ms": 701.0,
+        "max_rtt_ms": 248.771,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 816000,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2867488
+      },
+      "4": {
+        "samples": 40,
+        "min_cwnd_segments": 137,
+        "min_cwnd_bytes": 198376,
+        "max_rto_ms": 688.0,
+        "max_rtt_ms": 235.366,
+        "backoff_field_samples": 0,
+        "max_reported_backoff": null,
+        "min_snd_wnd_bytes": 897088,
+        "zero_snd_wnd_samples": 0,
+        "max_send_queue_bytes": 2868072
+      }
+    },
+    "limits": [
+      "The saved selected_pid header is checked against the caller-provided listener PID; ss socket rows independently match the four actual iperf tuples. This offline check does not query a live listener.",
+      "CPU percentages use one CPU as 100%. cgroup usage covers the whole container, not only iperf or host/IRQ CPU.",
+      "Epoch is written before sequential proc/cgroup/ss reads. Samples are not atomic or exactly one second; server clock is not aligned to Mac/router PS time here.",
+      "A one-second sample can miss brief congestion-window collapse, zero windows or backoff. An absent ss field is preserved as null, not invented as zero.",
+      "RTO is a timeout estimate, not evidence that the timer fired. snd_wnd is the server send window advertised by its receiver; rcv_space is not used as a substitute.",
+      "Counters and sender samples do not establish RF loss, physical-wire packet order, AP wake latency or repair of the original Air stall."
+    ],
+    "input_sha256": {
+      "server.txt": "ae4d5acfd4b1adb9d871dca1542c04230d30cf6df009918a44a547e600e8f0c3",
+      "iperf.json": "fc6195ccf9e9cf2d7460fb18387779dd74f8a422dc000c90e6c719ca2fad615e",
+      "check-server.py": "02115816b764b58d50444dc38c65edd609f9c54881270a326fa976f24e5a6977"
+    },
+    "published_scope": "Summary only; all 40 anonymous per-flow snapshots remain in local SERVER.json."
+  },
+  "tcp": {
+    "status": "CAPTURE_TCP_OBSERVATIONS_VERIFIED",
+    "inputs_sha256": {
+      "pcap": "34672c5f8a14560d9124e620950689344aad52083f3fb2361f1052c9c84783a1",
+      "iperf": "fc6195ccf9e9cf2d7460fb18387779dd74f8a422dc000c90e6c719ca2fad615e",
+      "parser": "3dd256b90fa084ad4619873e569f5334903cce7e5625130d28303e26612caab6",
+      "tcpdump_log": "1998006bb1153911820670218bcb3ea422ae7f6bbafa882c8620e19fa16c1cd2",
+      "checker": "c4765c9a47639a052c29a4bd1716b51da2ba7d7bfc32da44eba603c643ee76c0"
+    },
+    "capture": {
+      "records": 361503,
+      "snaplen": 96,
+      "link_type": "Ethernet",
+      "endpoint_pairs_match": true,
+      "truncated_payload_records": 85106,
+      "max_original_record_bytes": 65226,
+      "captured_by_tcpdump": 361503,
+      "received_by_filter": 361503,
+      "dropped_by_kernel": 0,
+      "full_tcp_options_decoded_records": 361503,
+      "duration_seconds": 40.103399,
+      "timestamp_backsteps": 68,
+      "maximum_timestamp_backstep_us": 6.199,
+      "actual_data_flow_records": 361455,
+      "other_control_flow_records": 48
+    },
+    "iperf": {
+      "receiver_mean_mbps": 481.4650663397212,
+      "receiver_seconds": 40.003409,
+      "sender_retransmits": 3935,
+      "target_mbps_per_stream": 150.0,
+      "streams": 4
+    },
+    "time_reference": "Server capture seconds from first outbound payload in the four iperf data connections; not a PS or RF clock alignment.",
+    "summary": {
+      "zero_window_ack_records": 0,
+      "sack_ack_records": 20095,
+      "sack_blocks": 20382,
+      "dsack_candidate_records": 64,
+      "overlapping_sequence_records": 2546,
+      "previously_observed_sequence_bytes": 5697880,
+      "repeated_bytes_equal_iperf_retransmits_times_1448": true,
+      "common_all_four_no_ack_gaps_over_100ms": 103,
+      "common_all_four_no_ack_duration_seconds": 15.416518,
+      "longest_common_all_four_no_ack_gaps": [
+        {
+          "start_seconds": 18.241516,
+          "end_seconds": 18.596099,
+          "duration_ms": 354.583
+        },
+        {
+          "start_seconds": 18.628118,
+          "end_seconds": 18.982512,
+          "duration_ms": 354.394
+        },
+        {
+          "start_seconds": 24.451973,
+          "end_seconds": 24.737995,
+          "duration_ms": 286.022
+        },
+        {
+          "start_seconds": 17.503963,
+          "end_seconds": 17.775891,
+          "duration_ms": 271.928
+        },
+        {
+          "start_seconds": 26.515901,
+          "end_seconds": 26.785825,
+          "duration_ms": 269.924
+        }
+      ],
+      "ack_progress_one_second_bins_under_500_mbps": [
+        11,
+        12,
+        13,
+        14,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35
+      ],
+      "minimum_full_bin_ack_progress_mbps": 45.015424,
+      "first_11_full_bins_mean_ack_progress_mbps": 599.785472,
+      "last_3_full_bins_mean_ack_progress_mbps": 1563.6044586666667
+    },
+    "flows": [
+      {
+        "flow": 1,
+        "records": 89077,
+        "data_records": 21133,
+        "ack_records": 67938,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 0.0,
+        "last_data_seconds": 40.050062,
+        "final_ack_seconds": 40.053089,
+        "observed_outbound_payload_bytes": 585795864,
+        "unique_outbound_sequence_bytes": 584553480,
+        "previously_observed_sequence_bytes": 1242384,
+        "overlapping_sequence_records": 527,
+        "cumulative_ack_progress_bytes": 584553480,
+        "unacknowledged_sequence_span_at_end": 0,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 18887,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 256,
+        "minimum_scaled_receive_window_before_final_second": 112384,
+        "minimum_scaled_receive_window_seconds_11_to_36": 494592,
+        "maximum_scaled_receive_window_bytes": 1629760,
+        "sack_ack_records": 5526,
+        "sack_blocks": 5572,
+        "dsack_candidate_records": 4,
+        "nonprogress_ack_records": 3608,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 354.786,
+        "any_ack_gaps_over_100ms": 103,
+        "ack_progress_gaps_over_100ms": 102,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 18.241318,
+            "end_seconds": 18.596104,
+            "duration_ms": 354.786,
+            "unacknowledged_sequence_span_at_start": 376480,
+            "outbound_data_records_during_gap": 3,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 18.628118,
+            "end_seconds": 18.982533,
+            "duration_ms": 354.415,
+            "unacknowledged_sequence_span_at_start": 392408,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 24.451891,
+            "end_seconds": 24.737995,
+            "duration_ms": 286.104,
+            "unacknowledged_sequence_span_at_start": 159280,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.502447,
+            "end_seconds": 17.775923,
+            "duration_ms": 273.476,
+            "unacknowledged_sequence_span_at_start": 389512,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 26.515901,
+            "end_seconds": 26.785855,
+            "duration_ms": 269.954,
+            "unacknowledged_sequence_span_at_start": 263536,
+            "outbound_data_records_during_gap": 1,
+            "overlapping_sequence_bytes_during_gap": 0
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0
+      },
+      {
+        "flow": 2,
+        "records": 83217,
+        "data_records": 21822,
+        "ack_records": 61389,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 4.3e-05,
+        "last_data_seconds": 40.046197,
+        "final_ack_seconds": 40.051101,
+        "observed_outbound_payload_bytes": 628324456,
+        "unique_outbound_sequence_bytes": 627206600,
+        "previously_observed_sequence_bytes": 1117856,
+        "overlapping_sequence_records": 633,
+        "cumulative_ack_progress_bytes": 627205472,
+        "unacknowledged_sequence_span_at_end": 1128,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 19760,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 1472,
+        "minimum_scaled_receive_window_before_final_second": 126784,
+        "minimum_scaled_receive_window_seconds_11_to_36": 410688,
+        "maximum_scaled_receive_window_bytes": 2208960,
+        "sack_ack_records": 5659,
+        "sack_blocks": 5709,
+        "dsack_candidate_records": 20,
+        "nonprogress_ack_records": 4044,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 354.679,
+        "any_ack_gaps_over_100ms": 102,
+        "ack_progress_gaps_over_100ms": 103,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 18.628108,
+            "end_seconds": 18.982787,
+            "duration_ms": 354.679,
+            "unacknowledged_sequence_span_at_start": 263536,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 18.241516,
+            "end_seconds": 18.596103,
+            "duration_ms": 354.587,
+            "unacknowledged_sequence_span_at_start": 264984,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 25.762329,
+            "end_seconds": 26.106675,
+            "duration_ms": 344.346,
+            "unacknowledged_sequence_span_at_start": 165072,
+            "outbound_data_records_during_gap": 8,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 24.451891,
+            "end_seconds": 24.73817,
+            "duration_ms": 286.279,
+            "unacknowledged_sequence_span_at_start": 217200,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.502448,
+            "end_seconds": 17.775921,
+            "duration_ms": 273.473,
+            "unacknowledged_sequence_span_at_start": 224440,
+            "outbound_data_records_during_gap": 6,
+            "overlapping_sequence_bytes_during_gap": 1448
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0
+      },
+      {
+        "flow": 3,
+        "records": 87603,
+        "data_records": 21207,
+        "ack_records": 66390,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 8e-05,
+        "last_data_seconds": 40.044676,
+        "final_ack_seconds": 40.049355,
+        "observed_outbound_payload_bytes": 589036040,
+        "unique_outbound_sequence_bytes": 587102960,
+        "previously_observed_sequence_bytes": 1933080,
+        "overlapping_sequence_records": 823,
+        "cumulative_ack_progress_bytes": 587101704,
+        "unacknowledged_sequence_span_at_end": 1256,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 18117,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 1600,
+        "minimum_scaled_receive_window_before_final_second": 128192,
+        "minimum_scaled_receive_window_seconds_11_to_36": 999936,
+        "maximum_scaled_receive_window_bytes": 1951232,
+        "sack_ack_records": 4466,
+        "sack_blocks": 4532,
+        "dsack_candidate_records": 32,
+        "nonprogress_ack_records": 3164,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 354.683,
+        "any_ack_gaps_over_100ms": 102,
+        "ack_progress_gaps_over_100ms": 103,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 18.241416,
+            "end_seconds": 18.596099,
+            "duration_ms": 354.683,
+            "unacknowledged_sequence_span_at_start": 243264,
+            "outbound_data_records_during_gap": 3,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 18.628094,
+            "end_seconds": 18.982514,
+            "duration_ms": 354.42,
+            "unacknowledged_sequence_span_at_start": 299736,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 24.451973,
+            "end_seconds": 24.738002,
+            "duration_ms": 286.029,
+            "unacknowledged_sequence_span_at_start": 312768,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.503963,
+            "end_seconds": 17.775892,
+            "duration_ms": 271.929,
+            "unacknowledged_sequence_span_at_start": 254848,
+            "outbound_data_records_during_gap": 4,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 26.515894,
+            "end_seconds": 26.786073,
+            "duration_ms": 270.179,
+            "unacknowledged_sequence_span_at_start": 373584,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0
+      },
+      {
+        "flow": 4,
+        "records": 101558,
+        "data_records": 20933,
+        "ack_records": 80619,
+        "syn_and_synack_verified": true,
+        "client_mss": 1460,
+        "server_mss": 1460,
+        "client_window_scale": 6,
+        "sack_permitted_both": true,
+        "first_data_seconds": 0.000127,
+        "last_data_seconds": 40.049409,
+        "final_ack_seconds": 40.053282,
+        "observed_outbound_payload_bytes": 618656256,
+        "unique_outbound_sequence_bytes": 617251696,
+        "previously_observed_sequence_bytes": 1404560,
+        "overlapping_sequence_records": 563,
+        "cumulative_ack_progress_bytes": 617250376,
+        "unacknowledged_sequence_span_at_end": 1320,
+        "maximum_capture_payload_bytes": 65160,
+        "data_records_larger_than_client_mss": 18213,
+        "zero_window_ack_records": 0,
+        "minimum_scaled_receive_window_bytes": 1664,
+        "minimum_scaled_receive_window_before_final_second": 126784,
+        "minimum_scaled_receive_window_seconds_11_to_36": 920512,
+        "maximum_scaled_receive_window_bytes": 2084480,
+        "sack_ack_records": 4444,
+        "sack_blocks": 4569,
+        "dsack_candidate_records": 8,
+        "nonprogress_ack_records": 3476,
+        "regressive_ack_records": 0,
+        "maximum_any_ack_gap_ms": 354.683,
+        "any_ack_gaps_over_100ms": 103,
+        "ack_progress_gaps_over_100ms": 104,
+        "largest_ack_progress_gaps": [
+          {
+            "start_seconds": 18.241417,
+            "end_seconds": 18.5961,
+            "duration_ms": 354.683,
+            "unacknowledged_sequence_span_at_start": 285256,
+            "outbound_data_records_during_gap": 3,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 18.628097,
+            "end_seconds": 18.982512,
+            "duration_ms": 354.415,
+            "unacknowledged_sequence_span_at_start": 301184,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 24.451972,
+            "end_seconds": 24.738004,
+            "duration_ms": 286.032,
+            "unacknowledged_sequence_span_at_start": 298288,
+            "outbound_data_records_during_gap": 2,
+            "overlapping_sequence_bytes_during_gap": 0
+          },
+          {
+            "start_seconds": 17.501113,
+            "end_seconds": 17.775891,
+            "duration_ms": 274.778,
+            "unacknowledged_sequence_span_at_start": 130320,
+            "outbound_data_records_during_gap": 7,
+            "overlapping_sequence_bytes_during_gap": 1448
+          },
+          {
+            "start_seconds": 26.515895,
+            "end_seconds": 26.785825,
+            "duration_ms": 269.93,
+            "unacknowledged_sequence_span_at_start": 285256,
+            "outbound_data_records_during_gap": 1,
+            "overlapping_sequence_bytes_during_gap": 0
+          }
+        ],
+        "client_rst_records": 1,
+        "server_rst_records": 0
+      }
+    ],
+    "self_check": "Half-open interval overlap/merge plus intersection: disjoint, partial overlap, contained repeat, adjacency.",
+    "limits": [
+      "96-byte prefix capture may contain short payload prefixes; only headers/options are analyzed. Every TCP header and option is complete.",
+      "veth GSO records exceed the negotiated MSS. Record counts and sequence overlap are not wire packet or loss counts.",
+      "Repeated previously observed sequence bytes are retransmission candidates; payload identity and air delivery are not observed.",
+      "ACK-progress gaps count cumulative progress only; SACK or duplicate ACKs can arrive within a gap.",
+      "Unacknowledged span includes SACKed bytes and is not a sender congestion window or exact outstanding-byte count.",
+      "RTO, RACK/TLP, forward versus ACK return-path loss, and AP/NPU/RF cause are not proved by these packet timings.",
+      "Per-flow processing sorts capture timestamps; observed microsecond timestamp backsteps are separately reported.",
+      "No PVE-to-router/Mac clock synchronization is assumed. One-second bins are not iperf or PS sample boundaries.",
+      "Client RST records near test teardown and unacknowledged tail bytes are preserved, not labeled mid-test network failures."
+    ]
+  },
+  "association": {
+    "association_frame_sha256": "98dba329824f9e4f30050f020553bf6ba67f4dccfab4323c356c3212e31ec3fc",
+    "mle": [
+      {
+        "control": "0x100",
+        "eml_present": false,
+        "mld": 4000,
+        "emlsr": false,
+        "emlmr": false,
+        "max_simul_links_encoded": 0,
+        "profiles": [
+          {
+            "control": "0x231",
+            "link_id": 1,
+            "complete": true,
+            "nstr_bitmap": 4
+          }
+        ]
+      }
+    ],
+    "scope": "Association capabilities only; not active EML operating mode."
+  },
+  "restoration": {
+    "checked_epoch": 1790481374.635042,
+    "configuration_hashes_passed": 34,
+    "diagnostics_off": true,
+    "mlo_ps_gate_fix_on": true,
+    "wired_management_good": true,
+    "wired_route_en12": true,
+    "boot_unchanged": true,
+    "hotspot_ui_connected": true,
+    "hotspot_http": "200",
+    "hotspot_curl_exit": 0,
+    "server_capture_processes_absent": true,
+    "server_observer_samples": 140,
+    "server_transfer_exit": 0
+  },
+  "upstream_refresh": {
+    "checked_at_utc": "2026-09-27T04:03:14Z",
+    "checked_at_kst": "2026-09-27T13:03:14+09:00",
+    "scope": "Read-only official release metadata and pinned source-tree comparison; no firmware download, installation or device commands",
+    "installed_r42": {
+      "build_label": "ubi2-mlo-ps-observe-r42-20260927-tailscale",
+      "base_source": "6d74443bce54df63f6d877040d406cdbcfc16f81",
+      "kernel_source": "6.18.44",
+      "kernel_release": "6.18.44-w1700k-mlo-r32",
+      "mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
+      "hostapd_source": "831364bf02710ad09c2f27d3efa92abeeb5634c0",
+      "source_package_versions": {
+        "libpcap": "1.10.6",
+        "tcpdump": "4.99.6"
+      },
+      "note": "Independent local patch stack; not the newly published general UBI2 image"
+    },
+    "new_general_ubi2_release": {
+      "tag": "ubi2_2026.09.27_r36617-2af23e846e",
+      "url": "https://github.com/w1700k/builds/releases/tag/ubi2_2026.09.27_r36617-2af23e846e",
+      "published_at": "2026-09-27T02:58:23Z",
+      "source_repo": "OpenWRT-fanboy/OpenW1700k",
+      "source_commit": "2af23e846eb82d18a066f7242a9902c0bee85fbc",
+      "source_url": "https://github.com/OpenWRT-fanboy/OpenW1700k/commit/2af23e846eb82d18a066f7242a9902c0bee85fbc",
+      "asset_name": "openwrt-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+      "asset_id": 591998246,
+      "asset_size_bytes": 22180671,
+      "github_reported_sha256": "024f5925392d59c73b5dccb6fea330540d105704a040cda034b143abe7192664",
+      "downloaded_or_extracted": false
+    },
+    "source_tree_comparison": {
+      "old_commit": "54e453b074fc243c33f6b6cc36f6b4e8a176aa45",
+      "new_commit": "2af23e846eb82d18a066f7242a9902c0bee85fbc",
+      "method": "GitHub recursive tree endpoints, non-truncated; compare blob path and Git object SHA directly between both complete trees",
+      "old_file_count": 10720,
+      "new_file_count": 10740,
+      "changed_file_count": 39,
+      "commit_graph": "diverged; merge-base compare output was not treated as the direct before/after file diff",
+      "unchanged_scopes": [
+        "target/linux/airoha/",
+        "target/linux/generic/",
+        "package/kernel/mt76/",
+        "package/network/services/hostapd/",
+        "package/firmware/"
+      ],
+      "new_mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
+      "new_hostapd_source": "831364bf02710ad09c2f27d3efa92abeeb5634c0",
+      "changed_scope_counts": {
+        "libpcap_and_tcpdump": 7,
+        "elfutils": 2,
+        "mtd_trx": 2,
+        "bmips": 26,
+        "mercusys_uboot_and_dts": 2
+      }
+    },
+    "new_changes_not_ported_to_r42": [
+      {
+        "commit": "b36d01c69682adf3eaf00f9e9414e99a6d0a0d41",
+        "url": "https://github.com/OpenWRT-fanboy/OpenW1700k/commit/b36d01c69682adf3eaf00f9e9414e99a6d0a0d41",
+        "upstream_pr": "https://github.com/openwrt/openwrt/pull/25384",
+        "date": "2026-09-26T19:55:40Z",
+        "change": "libpcap 1.10.6 to 1.10.7; BPF interpreter and pcap_offline_filter bounds/opcode/division/loop safety, plus rpcap fixes",
+        "relevance": "Relevant to diagnostic tooling security; not evidence of a PS, MLO or NPU stall fix, nor a demonstrated change to the live cooked-netlink BPF length contract"
+      },
+      {
+        "commit": "b6bb254a85fe375cf923bc9da3eeceefd1526889",
+        "url": "https://github.com/OpenWRT-fanboy/OpenW1700k/commit/b6bb254a85fe375cf923bc9da3eeceefd1526889",
+        "upstream_pr": "https://github.com/openwrt/openwrt/pull/25385",
+        "date": "2026-09-26T19:58:04Z",
+        "change": "tcpdump 4.99.6 to 4.99.7",
+        "relevance": "Diagnostic tooling update; no verified MLO/NPU behavior change"
+      },
+      {
+        "commits": [
+          "83c18c360eaf0ba35c267536d4294195a13598ba",
+          "e056c32ed0042b54d567059420454a4864b2222e"
+        ],
+        "url": "https://github.com/openwrt/openwrt/pull/25284",
+        "advisory": "https://github.com/openwrt/openwrt/security/advisories/GHSA-wch3-f5gc-mw2h",
+        "change": "mtd trx_fixup error cleanup and header length validation",
+        "relevance": "TRX flash-processing path; not the normal W1700K Wi-Fi transmit or sleep/wake path"
+      }
+    ],
+    "official_heads": [
+      {
+        "repository": "openwrt/mt76",
+        "head": "be5ce7910521492d4a2e4ce7ee3843680a46c047",
+        "date": "2026-09-01T11:25:05Z",
+        "url": "https://github.com/openwrt/mt76/commit/be5ce7910521492d4a2e4ce7ee3843680a46c047",
+        "change_since_prior_check": false
+      },
+      {
+        "repository": "w1700k/fastbuild",
+        "head": "bb2e64fe333236fa72489743bb8c60a4d6f001cc",
+        "date": "2026-07-02T05:20:08Z",
+        "url": "https://github.com/w1700k/fastbuild/commit/bb2e64fe333236fa72489743bb8c60a4d6f001cc",
+        "change_since_prior_check": false
+      },
+      {
+        "repository": "torvalds/linux",
+        "path": "drivers/net/ethernet/airoha",
+        "latest_path_commit": "4bdee8060d1e4581624e68fbd369b1afb14df4bc",
+        "date": "2026-09-24T02:16:30Z",
+        "url": "https://github.com/torvalds/linux/commit/4bdee8060d1e4581624e68fbd369b1afb14df4bc",
+        "change": "Cancel NPU wdt_work after releasing WDT IRQ",
+        "r42_status": "Already included through the r34 watchdog lifetime backport",
+        "change_since_prior_check": false
+      }
+    ],
+    "prior_r41_upstream_reference": {
+      "commit": "fd179f8a05be3ccae366b9b96e176b51fbe54aab",
+      "url": "https://github.com/torvalds/linux/blob/fd179f8a05be3ccae366b9b96e176b51fbe54aab/net/mac80211/sta_info.c",
+      "scope": "Previously pinned station link-activation function comparison, not an assertion that every pending upstream patch was audited"
+    },
+    "conclusion": "New general UBI2 release confirmed, but the directly compared new source tree adds no mt76, hostapd, Airoha or firmware-recipe change relevant to the observed PS/scan throughput dip. Capture-tool updates remain unported.",
+    "limits": [
+      "Remote asset digest is GitHub metadata, not a locally verified image hash.",
+      "No new image extraction, runtime verification or firmware-byte equivalence claim.",
+      "No broad pending-PR or forum refresh in this bounded check.",
+      "Unchanged upstream heads do not prove the current firmware or local patch stack defect-free."
+    ]
+  }
+}

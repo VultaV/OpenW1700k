@@ -1,0 +1,116 @@
+{
+  "checked_at_utc": "2026-09-27T04:03:14Z",
+  "checked_at_kst": "2026-09-27T13:03:14+09:00",
+  "scope": "Read-only official release metadata and pinned source-tree comparison; no firmware download, installation or device commands",
+  "installed_r42": {
+    "build_label": "ubi2-mlo-ps-observe-r42-20260927-tailscale",
+    "base_source": "6d74443bce54df63f6d877040d406cdbcfc16f81",
+    "kernel_source": "6.18.44",
+    "kernel_release": "6.18.44-w1700k-mlo-r32",
+    "mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
+    "hostapd_source": "831364bf02710ad09c2f27d3efa92abeeb5634c0",
+    "source_package_versions": {"libpcap": "1.10.6", "tcpdump": "4.99.6"},
+    "note": "Independent local patch stack; not the newly published general UBI2 image"
+  },
+  "new_general_ubi2_release": {
+    "tag": "ubi2_2026.09.27_r36617-2af23e846e",
+    "url": "https://github.com/w1700k/builds/releases/tag/ubi2_2026.09.27_r36617-2af23e846e",
+    "published_at": "2026-09-27T02:58:23Z",
+    "source_repo": "OpenWRT-fanboy/OpenW1700k",
+    "source_commit": "2af23e846eb82d18a066f7242a9902c0bee85fbc",
+    "source_url": "https://github.com/OpenWRT-fanboy/OpenW1700k/commit/2af23e846eb82d18a066f7242a9902c0bee85fbc",
+    "asset_name": "openwrt-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "asset_id": 591998246,
+    "asset_size_bytes": 22180671,
+    "github_reported_sha256": "024f5925392d59c73b5dccb6fea330540d105704a040cda034b143abe7192664",
+    "downloaded_or_extracted": false
+  },
+  "source_tree_comparison": {
+    "old_commit": "54e453b074fc243c33f6b6cc36f6b4e8a176aa45",
+    "new_commit": "2af23e846eb82d18a066f7242a9902c0bee85fbc",
+    "method": "GitHub recursive tree endpoints, non-truncated; compare blob path and Git object SHA directly between both complete trees",
+    "old_file_count": 10720,
+    "new_file_count": 10740,
+    "changed_file_count": 39,
+    "commit_graph": "diverged; merge-base compare output was not treated as the direct before/after file diff",
+    "unchanged_scopes": [
+      "target/linux/airoha/",
+      "target/linux/generic/",
+      "package/kernel/mt76/",
+      "package/network/services/hostapd/",
+      "package/firmware/"
+    ],
+    "new_mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
+    "new_hostapd_source": "831364bf02710ad09c2f27d3efa92abeeb5634c0",
+    "changed_scope_counts": {
+      "libpcap_and_tcpdump": 7,
+      "elfutils": 2,
+      "mtd_trx": 2,
+      "bmips": 26,
+      "mercusys_uboot_and_dts": 2
+    }
+  },
+  "new_changes_not_ported_to_r42": [
+    {
+      "commit": "b36d01c69682adf3eaf00f9e9414e99a6d0a0d41",
+      "url": "https://github.com/OpenWRT-fanboy/OpenW1700k/commit/b36d01c69682adf3eaf00f9e9414e99a6d0a0d41",
+      "upstream_pr": "https://github.com/openwrt/openwrt/pull/25384",
+      "date": "2026-09-26T19:55:40Z",
+      "change": "libpcap 1.10.6 to 1.10.7; BPF interpreter and pcap_offline_filter bounds/opcode/division/loop safety, plus rpcap fixes",
+      "relevance": "Relevant to diagnostic tooling security; not evidence of a PS, MLO or NPU stall fix, nor a demonstrated change to the live cooked-netlink BPF length contract"
+    },
+    {
+      "commit": "b6bb254a85fe375cf923bc9da3eeceefd1526889",
+      "url": "https://github.com/OpenWRT-fanboy/OpenW1700k/commit/b6bb254a85fe375cf923bc9da3eeceefd1526889",
+      "upstream_pr": "https://github.com/openwrt/openwrt/pull/25385",
+      "date": "2026-09-26T19:58:04Z",
+      "change": "tcpdump 4.99.6 to 4.99.7",
+      "relevance": "Diagnostic tooling update; no verified MLO/NPU behavior change"
+    },
+    {
+      "commits": ["83c18c360eaf0ba35c267536d4294195a13598ba", "e056c32ed0042b54d567059420454a4864b2222e"],
+      "url": "https://github.com/openwrt/openwrt/pull/25284",
+      "advisory": "https://github.com/openwrt/openwrt/security/advisories/GHSA-wch3-f5gc-mw2h",
+      "change": "mtd trx_fixup error cleanup and header length validation",
+      "relevance": "TRX flash-processing path; not the normal W1700K Wi-Fi transmit or sleep/wake path"
+    }
+  ],
+  "official_heads": [
+    {
+      "repository": "openwrt/mt76",
+      "head": "be5ce7910521492d4a2e4ce7ee3843680a46c047",
+      "date": "2026-09-01T11:25:05Z",
+      "url": "https://github.com/openwrt/mt76/commit/be5ce7910521492d4a2e4ce7ee3843680a46c047",
+      "change_since_prior_check": false
+    },
+    {
+      "repository": "w1700k/fastbuild",
+      "head": "bb2e64fe333236fa72489743bb8c60a4d6f001cc",
+      "date": "2026-07-02T05:20:08Z",
+      "url": "https://github.com/w1700k/fastbuild/commit/bb2e64fe333236fa72489743bb8c60a4d6f001cc",
+      "change_since_prior_check": false
+    },
+    {
+      "repository": "torvalds/linux",
+      "path": "drivers/net/ethernet/airoha",
+      "latest_path_commit": "4bdee8060d1e4581624e68fbd369b1afb14df4bc",
+      "date": "2026-09-24T02:16:30Z",
+      "url": "https://github.com/torvalds/linux/commit/4bdee8060d1e4581624e68fbd369b1afb14df4bc",
+      "change": "Cancel NPU wdt_work after releasing WDT IRQ",
+      "r42_status": "Already included through the r34 watchdog lifetime backport",
+      "change_since_prior_check": false
+    }
+  ],
+  "prior_r41_upstream_reference": {
+    "commit": "fd179f8a05be3ccae366b9b96e176b51fbe54aab",
+    "url": "https://github.com/torvalds/linux/blob/fd179f8a05be3ccae366b9b96e176b51fbe54aab/net/mac80211/sta_info.c",
+    "scope": "Previously pinned station link-activation function comparison, not an assertion that every pending upstream patch was audited"
+  },
+  "conclusion": "New general UBI2 release confirmed, but the directly compared new source tree adds no mt76, hostapd, Airoha or firmware-recipe change relevant to the observed PS/scan throughput dip. Capture-tool updates remain unported.",
+  "limits": [
+    "Remote asset digest is GitHub metadata, not a locally verified image hash.",
+    "No new image extraction, runtime verification or firmware-byte equivalence claim.",
+    "No broad pending-PR or forum refresh in this bounded check.",
+    "Unchanged upstream heads do not prove the current firmware or local patch stack defect-free."
+  ]
+}
