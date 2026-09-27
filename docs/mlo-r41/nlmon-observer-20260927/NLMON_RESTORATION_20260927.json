@@ -1,0 +1,29 @@
+{
+  "status": "RESTORATION_CONFIRMED_CAPTURE_CAPPED",
+  "first_attempt": {
+    "cause": "Missing stat utility, after module load and before interface creation",
+    "configuration_and_rules_unchanged": true,
+    "unused_owned_module_removed": true
+  },
+  "second_attempt": {
+    "guard_status": "PROBE_FAILED_RESTORED",
+    "reason": "PACKET_LIMIT_REACHED",
+    "wired_observations": 8,
+    "wired_all_normal": true,
+    "all_configuration_hashes_match": true,
+    "stateless_ruleset_exact": true,
+    "remaining_nlmon_interfaces": 0,
+    "live_module_absence_confirmed": true,
+    "same_boot_confirmed": true,
+    "kernel_taint_unchanged": true
+  },
+  "mac_en0_https_after_probe": 200,
+  "firmware_changed": false,
+  "wireless_configuration_changed": false,
+  "scope": "Restoration only. Packet exchange proof has separate PROBE_VERIFICATION.json.",
+  "input_sha256": {
+    "private/capture.tar.gz": "3f4e58b4ca535ca04f417b0d6f96b14f0afdfb70380b4ea70607e4fa222cdd23",
+    "private/control.json": "e8b51a3075af841ba198802903ede92c04f5cfea9ff9b3d205f431a89cd0745d",
+    "private-attempt1/RECOVERY.json": "af00f845f2d2f54756626c518dd108f5efc755ebddf42c67cf8b51dede016ef4"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "analyzer_sha256": "c883f749e15dd50a4991eacaf7e1bedb7212ac38810e69b414283828b52c8530",
+  "archive_member_sha256": {
+    "config.after": "a45511021eafd9d0f71cd52b94a685e0c8892721914fe18081c48fe6683caf11",
+    "config.before": "a45511021eafd9d0f71cd52b94a685e0c8892721914fe18081c48fe6683caf11",
+    "config.paths.after": "5e4dfb7041eb520efd8a64815ab6fbe9bec9254c1ada9f0c8b28c5bf47f0607a",
+    "config.paths.before": "5e4dfb7041eb520efd8a64815ab6fbe9bec9254c1ada9f0c8b28c5bf47f0607a",
+    "config.raw.after": "a5b2524ab85d1957d4cd679d14241e6759f13974a4de099e588d4c16b3194d53",
+    "config.raw.before": "a5b2524ab85d1957d4cd679d14241e6759f13974a4de099e588d4c16b3194d53",
+    "helpers.sha256": "3b9e057f3521883ac4033ae3d9c0626db28da966a2dfb8b351634c71bf930f43",
+    "identity": "ea00f82c8b426ce486dd726558a7896a152ebdbbae1a641fa7eda7d786f9a7b7",
+    "inode-command.preflight": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "iw-info.txt": "3ec57d6088daf3e01817f11bb4af20ae9fd21908542a52b1a2390c34a7ca9e0e",
+    "iw.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "iw.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "netlink.pcap": "86964c729da27d3d474ded86cd5cdd708db3ff21b64c5f71fd487251946dbf21",
+    "nft.after": "5ac1d942b01275e3002d45c9b71994fa0f63452131d415c6f48900bb73d7aba6",
+    "nft.before": "5ac1d942b01275e3002d45c9b71994fa0f63452131d415c6f48900bb73d7aba6",
+    "nlmon.remaining": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "owned.identity": "6896e16a14f89b8877ef42a714e2552b63a756c2ccac15b33db7dd7b70cf2bc7",
+    "pcap.bytes": "220b2a3c21db72e955f939f795c57609f25468fe1074e3e609662970b1ddef9b",
+    "pins": "e3d61fdac5eeaf51a2189f2d37f5b2f048e544cf3c97f02782b7eb4136f4f1f3",
+    "reader.identity": "6bdf0c5562c2665824b2ff6616c31fa5638e0f9659359da7e94f7856c665d8ca",
+    "reason": "01d842e1809449add094359dff072eb3b41a0f9915f6a05ea06dcaefe14fd337",
+    "status": "48a8eb2f307077495ac58d58c7d3f5c36245d117cf9b309ed5cf5e8cb3bb97da",
+    "stop": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tcpdump.stderr": "6729c174b7f8a03db364f83bec8ec94100146e01b61a083aa77e7fd21f0c205d",
+    "tcpdump.version": "fd781659d0bfb2d314a7726a45cb7d093e1d50d80627614960c4f277ced69102",
+    "uptime.begin": "d6022a744e741e0fb42ce023777140fb83528558b3c64f612bd8c5eda6a5f9b3",
+    "uptime.end": "63acfaa29407486a97e8a5d7baf2b2d418da3c405cb948804dc9000c5f65629f"
+  },
+  "configuration_and_stateless_ruleset_unchanged": true,
+  "controller_status": "PROBE_FAILED_RESTORED",
+  "counts": {
+    "capture_span_seconds": 5.423481,
+    "generic_messages": 97,
+    "generic_packets": 118,
+    "kernel_capture_drops": 0,
+    "matched_family_resolutions": 1,
+    "matched_interface_exchanges": 1,
+    "pcap_records": 128,
+    "received_by_filter": 136,
+    "snaplen_truncated_records": 3,
+    "wired_checks": 8
+  },
+  "full_capture_pass": false,
+  "guard_uptime_seconds": 7,
+  "input_sha256": {
+    "capture.tar.gz": "3f4e58b4ca535ca04f417b0d6f96b14f0afdfb70380b4ea70607e4fa222cdd23",
+    "control.json": "e8b51a3075af841ba198802903ede92c04f5cfea9ff9b3d205f431a89cd0745d",
+    "tainted.after": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+    "tainted.before": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91"
+  },
+  "kernel_taint_unchanged": true,
+  "limitations": [
+    "Positive query proves this tap/decoder path, not complete future management capture.",
+    "No NR request, response, ACK, client adoption, or throughput claim.",
+    "Capture stopped at the packet cap; full requested duration was not recorded.",
+    "Snaplen-truncated records are counted and wholly excluded from exchange matching."
+  ],
+  "observation": "idle netlink query only; NR exchange not tested",
+  "source_sha256": {
+    "genetlink_header": "1f2469ec331c8975e3c9643be7e23f085e1b95bef12b1b5df413d46ade3fc778",
+    "libnl_control": "bbe833614979b49ef051b8ed66604e366bc98bc5b3c3e91d134e56f00b6aef32",
+    "nl80211_header": "5b67257da9911fbffa2d5a3689c629f69e628dbf3147ddf30c65606b251f493b"
+  },
+  "status": "OBSERVER_EXCHANGE_VERIFIED_CAPTURE_LIMITED"
+}
