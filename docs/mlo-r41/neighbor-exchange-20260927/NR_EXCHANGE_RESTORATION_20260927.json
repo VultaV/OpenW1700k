@@ -1,0 +1,35 @@
+{
+  "status": "RESTORED_AFTER_MANUAL_RADIO1_RECOVERY",
+  "original_configuration_files": 34,
+  "original_four_hashes": {
+    "wireless": "6db14cc2925cd49ad99ac9aec5ba4ed3473b14ff407bfd7d2337197b4eac2014",
+    "bridge-flow-offload": "2c65ed8bc12a6ddb659275d88bc4c2eb9fd91011e475a0f5cce862cc30376479",
+    "network": "41d1236d105d0d9fab80522737ff44f9ac99b72e3067ae9e55dc7e1c1e6a7fa7",
+    "firewall": "daff2da865ddf32366fb558aa7b4395735b0441300ca4ea466d6a8f943c624e7"
+  },
+  "configuration_set_exact": true,
+  "stateless_ruleset_ignoring_recreated_handles_exact": true,
+  "boot_unchanged": true,
+  "kernel_taint_unchanged": true,
+  "ps_trace_restored": "N",
+  "ba_trace_restored": "N",
+  "both_links_enabled": true,
+  "nr_disabled_on_both_links": true,
+  "nlmon_module_absent": true,
+  "hotspot_ui_verified": true,
+  "wired_final_good": true,
+  "nr_controller_auto_status": "RESTORE_FAILED",
+  "nr_controller_wired_checks": 212,
+  "nr_controller_wired_all_normal": true,
+  "recovery_wired_checks": 63,
+  "recovery_wired_all_normal": true,
+  "notes": [
+    "Automatic NR/AP restoration failed; state is verified only after manual radio1 recovery.",
+    "radio1 recovery repeated interface creation without network reload; DFS CAC completed after60seconds."
+  ],
+  "input_sha256": {
+    "CONTROL_RESULT.json": "9bd134d6fcc54fbfd185c04ca8e3ab20301f02547ff737829be12c0894ed18d1",
+    "RECOVERY.attempt2.json": "f8c29f1f7381b5fa08cb47d9068ec01557471dbffc47bc9443e5592b30b17bde",
+    "RECOVERY.json": "f993b81fd7c1a4956ab49c984ab365b4bad66df77ca60b6b5ba3be2157f51948"
+  }
+}

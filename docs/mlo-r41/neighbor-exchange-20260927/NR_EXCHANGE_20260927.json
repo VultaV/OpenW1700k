@@ -1,0 +1,81 @@
+{
+  "analyzer_sha256": "889da5fd86f1f19946820802bc5486542844ba154353e7768f86fb3ddf3aaee9",
+  "archive_member_sha256": {
+    "config.after": "6a885776e5cc8e74ea2f8d42d47bd79a55de22a4f46b09b02ad76eae75a2bc39",
+    "config.before": "6a885776e5cc8e74ea2f8d42d47bd79a55de22a4f46b09b02ad76eae75a2bc39",
+    "config.paths.after": "5e4dfb7041eb520efd8a64815ab6fbe9bec9254c1ada9f0c8b28c5bf47f0607a",
+    "config.paths.before": "5e4dfb7041eb520efd8a64815ab6fbe9bec9254c1ada9f0c8b28c5bf47f0607a",
+    "config.raw.after": "f95e19b2acf93fd4f355796e99ea301d8d0c032aa6c6da22266f9a985d852ce7",
+    "config.raw.before": "f95e19b2acf93fd4f355796e99ea301d8d0c032aa6c6da22266f9a985d852ce7",
+    "helpers.sha256": "3b9e057f3521883ac4033ae3d9c0626db28da966a2dfb8b351634c71bf930f43",
+    "identity": "71da0da6305aafc364aa0102958cd7028f9370d12976b768c9f675b9b6f28f60",
+    "inode-command.preflight": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "iw-info.txt": "36993b43287df8728eb187e15c499b8fe62acca52c3c86573771ec9ba88be9eb",
+    "iw.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "iw.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "netlink.pcap": "6b8b3f9fa606760da08b9c61f8012334c2f1fbfd4d129baf40203d0b1820e32c",
+    "nft.after": "21a7f879a11449fd434de80a8023fd446af92b565ac22dd3c4608659e7584374",
+    "nft.before": "21a7f879a11449fd434de80a8023fd446af92b565ac22dd3c4608659e7584374",
+    "nlmon.remaining": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "owned.identity": "8a7c390778e69d51efc708ff6a7730194efdbeb5fcc88097b5d65481581a6f27",
+    "pcap.bytes": "3a59d982fee1a90cc46aaa473b3a220a5a136e96ba21f5d71bf12b2356bdde59",
+    "pins": "e3d61fdac5eeaf51a2189f2d37f5b2f048e544cf3c97f02782b7eb4136f4f1f3",
+    "reader.identity": "9efc80881e204c931d2a49745e5b07eb3aeb07dba579c7ae1391d8d5b5aa7e4a",
+    "status": "d76c795987205b838ac2d149a962ce5506c7a1f6da940d73c5b67a3ad69b2dd8",
+    "stop": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "tcpdump.stderr": "3312a4a4e2ee5d9e87c74d8f99ab0df915451cdcfa848a8765a5fe434f2be2c7",
+    "tcpdump.version": "fd781659d0bfb2d314a7726a45cb7d093e1d50d80627614960c4f277ced69102",
+    "uptime.begin": "25499513246d1803bd105fb3926be39a8b9978b624c1d3d6eb2b5c78466e54cf",
+    "uptime.end": "7a6acc838e8e75b6e08688b5cc6a9771cda6d0c46ace8a7065d7e3fecde235e0"
+  },
+  "capture_limited": false,
+  "configuration_and_stateless_ruleset_unchanged": true,
+  "counts": {
+    "capture_span_seconds": 75.569973,
+    "captured": 1126,
+    "complete_acknowledged_exchanges": 1,
+    "cookie_replies": 64,
+    "dropped": 0,
+    "frame_messages": 1000,
+    "frame_messages_without_ifindex": 98,
+    "generic_messages": 1126,
+    "matched_interface_exchanges": 31,
+    "nr_rx_requests_target": 1,
+    "nr_tx_responses_target": 1,
+    "observed_link_id_attributes": 2,
+    "pcap_records": 1126,
+    "protected_nr_host_frames": 1,
+    "received": 1136,
+    "response_contains_both_expected_reports": 1,
+    "snaplen_truncated_records": 0,
+    "target_responses_without_matched_request": 0,
+    "tx_status_messages": 64
+  },
+  "input_sha256": {
+    "capture.tar.gz": "08a52902f6e6005b94e7257205a9ff15df7ff0890ab3cc8df6c880a963e5325f",
+    "control.json": "ee1eeb0192bc413657faffac537bba6559929e05940fbad86541eb6cdb2b1437",
+    "filter_contract": "632852602d07438ac36e7f5ef708d73212a083354aceec03bde60a1265606427",
+    "peer_reports": "ee6d0803ea70b561de5383940f409dc7a0e3dea0a275e9ab253389ce95dc9ca3",
+    "reused_decoder": "c883f749e15dd50a4991eacaf7e1bedb7212ac38810e69b414283828b52c8530",
+    "tainted.after": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+    "tainted.before": "25ac87b7309b7946b51c32e824793ff48b56b735efa16875cf33e4ba67523d91",
+    "target_record": "04be3627e032cc9ffb9816f397510f7e8b6dfa5df39d5eaab9ac95825121ec12",
+    "traffic_record": "d7673d32a79befb3b11909b865a1e2e5107ffef11685860a6976126f688d3c18"
+  },
+  "kernel_taint_unchanged": true,
+  "limitations": [
+    "Only complete selected netlink records are decoded; snaplen-truncated records are excluded in full.",
+    "Missing NR records do not prove the client sent no request. Logging/capture timing and delivery can limit observation.",
+    "Matched ACK proves a MAC acknowledgement of this response, not that the client adopted the reports or suppressed scanning.",
+    "RX frames are the post-decryption host representation; TX status uses the saved pre-encryption frame copy. This is not an over-the-air capture.",
+    "MLO frame addresses may be MLD addresses; report bodies preserve the real per-link BSSIDs. No link ID is inferred when the attribute is absent."
+  ],
+  "matched_exchange_relative_timing": [
+    {
+      "request_to_tx_seconds": 0.000227,
+      "tx_to_ack_event_seconds": 0.001525
+    }
+  ],
+  "observer_controller_status": "RESTORED",
+  "status": "NR_EXCHANGE_ACK_VERIFIED"
+}

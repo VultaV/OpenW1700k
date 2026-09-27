@@ -1,0 +1,2455 @@
+{
+  "status": "NR_EXCHANGE_AND_TRAFFIC_OBSERVED",
+  "trials": {
+    "baseline_hw600": {
+      "start_age_bounds": [
+        7.385108947753906,
+        7.731287717819214
+      ],
+      "early_start": true,
+      "receiver_mbps": 599.9851824470826,
+      "min_mbps": 69.78291030177962,
+      "max_mbps": 1664.5712112362073,
+      "below_500_bins": 13,
+      "zero_bins": 0,
+      "sender_retransmits": 3422,
+      "native_complete_calls": 39,
+      "calls_possibly_during_traffic": 33,
+      "low_bins_possibly_overlapping_scan": 10,
+      "low_association_bounds": [
+        [
+          21.39208984375,
+          22.74133563041687
+        ],
+        [
+          22.395156860351562,
+          23.738183736801147
+        ],
+        [
+          23.39200496673584,
+          24.7374746799469
+        ],
+        [
+          24.391295909881592,
+          25.739803791046143
+        ],
+        [
+          27.386961936950684,
+          28.733036756515503
+        ],
+        [
+          28.386857986450195,
+          29.739816665649414
+        ],
+        [
+          29.393637895584106,
+          30.737956762313843
+        ],
+        [
+          30.391777992248535,
+          31.735276699066162
+        ],
+        [
+          31.389097929000854,
+          32.7381546497345
+        ],
+        [
+          32.39197587966919,
+          33.74130964279175
+        ],
+        [
+          33.39513087272644,
+          34.73304271697998
+        ],
+        [
+          34.38686394691467,
+          35.7362916469574
+        ],
+        [
+          35.39011287689209,
+          36.73167562484741
+        ]
+      ],
+      "receiver_before_first_possible_scan": {
+        "bins": 12,
+        "end_seconds": 12.006242,
+        "mbps": 600.1723281798868
+      },
+      "server_relative_windows": {
+        "0-10": {
+          "rows": 40,
+          "retransmits": 0,
+          "min_cwnd_bytes": 209920.0,
+          "sender_mbps": 600.95987712
+        },
+        "10-20": {
+          "rows": 40,
+          "retransmits": 2053,
+          "min_cwnd_bytes": 243712.0,
+          "sender_mbps": 477.40406988800004
+        },
+        "20-30": {
+          "rows": 40,
+          "retransmits": 1334,
+          "min_cwnd_bytes": 153600.0,
+          "sender_mbps": 232.414773248
+        },
+        "30-40": {
+          "rows": 40,
+          "retransmits": 35,
+          "min_cwnd_bytes": 387072.0,
+          "sender_mbps": 1090.68681216
+        }
+      },
+      "target_P_guaranteed": 469,
+      "target_gate1_guaranteed": 118,
+      "global_missing": {
+        "P": 111,
+        "F": 0
+      },
+      "native_timer_records": [
+        {
+          "kind": "cancelled",
+          "association_seconds_bounds": [
+            -0.021296977996826172,
+            -0.002173185348510742
+          ]
+        },
+        {
+          "kind": "scheduled",
+          "association_seconds_bounds": [
+            0.278702974319458,
+            0.29782676696777344
+          ],
+          "scheduled_delay_seconds": 20.0
+        },
+        {
+          "kind": "request",
+          "association_seconds_bounds": [
+            20.282702922821045,
+            20.30182671546936
+          ]
+        }
+      ],
+      "wifi_settings_parent_request_count": 0
+    },
+    "prior_nr600": {
+      "start_age_bounds": [
+        7.454736232757568,
+        7.715160131454468
+      ],
+      "early_start": true,
+      "receiver_mbps": 600.032871120078,
+      "min_mbps": 67.4311846911269,
+      "max_mbps": 1608.5559953683762,
+      "below_500_bins": 13,
+      "zero_bins": 0,
+      "sender_retransmits": 1587,
+      "native_complete_calls": 41,
+      "calls_possibly_during_traffic": 33,
+      "low_bins_possibly_overlapping_scan": 10,
+      "low_association_bounds": [
+        [
+          21.45967721939087,
+          22.725183248519897
+        ],
+        [
+          22.464759349822998,
+          23.720316171646118
+        ],
+        [
+          23.45989227294922,
+          24.716448068618774
+        ],
+        [
+          24.456024169921875,
+          25.719593048095703
+        ],
+        [
+          25.459169149398804,
+          26.725186109542847
+        ],
+        [
+          26.464762210845947,
+          27.725182056427002
+        ],
+        [
+          29.457082271575928,
+          30.71747922897339
+        ],
+        [
+          30.45705533027649,
+          31.725181102752686
+        ],
+        [
+          31.464757204055786,
+          32.72283220291138
+        ],
+        [
+          32.46240830421448,
+          33.72047424316406
+        ],
+        [
+          33.46005034446716,
+          34.72298312187195
+        ],
+        [
+          34.46255922317505,
+          35.71560215950012
+        ],
+        [
+          36.46475124359131,
+          37.7203950881958
+        ]
+      ],
+      "receiver_before_first_possible_scan": {
+        "bins": 12,
+        "end_seconds": 12.000949,
+        "mbps": 600.0875421360046
+      },
+      "server_relative_windows": {
+        "0-10": {
+          "rows": 40,
+          "retransmits": 0,
+          "min_cwnd_bytes": 357376.0,
+          "sender_mbps": 600.95987712
+        },
+        "10-20": {
+          "rows": 40,
+          "retransmits": 1136,
+          "min_cwnd_bytes": 270336.0,
+          "sender_mbps": 364.24174796799997
+        },
+        "20-30": {
+          "rows": 40,
+          "retransmits": 367,
+          "min_cwnd_bytes": 268288.0,
+          "sender_mbps": 395.19571148800003
+        },
+        "30-40": {
+          "rows": 40,
+          "retransmits": 84,
+          "min_cwnd_bytes": 329728.0,
+          "sender_mbps": 1041.1101388799998
+        }
+      },
+      "target_P_guaranteed": 449,
+      "target_gate1_guaranteed": 112,
+      "global_missing": {
+        "P": 251,
+        "F": 0
+      },
+      "native_timer_records": [
+        {
+          "kind": "cancelled",
+          "association_seconds_bounds": [
+            -0.09446287155151367,
+            -0.07582497596740723
+          ]
+        },
+        {
+          "kind": "scheduled",
+          "association_seconds_bounds": [
+            0.2685370445251465,
+            0.28717494010925293
+          ],
+          "scheduled_delay_seconds": 20.0
+        },
+        {
+          "kind": "request",
+          "association_seconds_bounds": [
+            20.27753710746765,
+            20.296175003051758
+          ]
+        }
+      ],
+      "wifi_settings_parent_request_count": 0
+    },
+    "observed_nr600": {
+      "start_age_bounds": [
+        7.462234258651733,
+        8.536433935165405
+      ],
+      "early_start": true,
+      "receiver_mbps": 600.0246217050517,
+      "min_mbps": 62.856728208561705,
+      "max_mbps": 1597.598375191354,
+      "below_500_bins": 14,
+      "zero_bins": 0,
+      "sender_retransmits": 1420,
+      "native_complete_calls": 39,
+      "calls_possibly_during_traffic": 33,
+      "low_bins_possibly_overlapping_scan": 10,
+      "low_association_bounds": [
+        [
+          22.462425231933594,
+          24.541352033615112
+        ],
+        [
+          24.463202238082886,
+          26.54133105278015
+        ],
+        [
+          25.46713137626648,
+          27.54146385192871
+        ],
+        [
+          26.46726417541504,
+          28.538084983825684
+        ],
+        [
+          27.46388530731201,
+          29.5387179851532
+        ],
+        [
+          28.464518308639526,
+          30.540060997009277
+        ],
+        [
+          29.465861320495605,
+          31.53942584991455
+        ],
+        [
+          30.46522617340088,
+          32.541455030441284
+        ],
+        [
+          31.467255353927612,
+          33.541455030441284
+        ],
+        [
+          32.46725535392761,
+          34.53847694396973
+        ],
+        [
+          33.464277267456055,
+          35.537741899490356
+        ],
+        [
+          34.463542222976685,
+          36.53866195678711
+        ],
+        [
+          35.46446228027344,
+          37.541451930999756
+        ],
+        [
+          36.467252254486084,
+          38.53872299194336
+        ]
+      ],
+      "receiver_before_first_possible_scan": {
+        "bins": 11,
+        "end_seconds": 11.00238,
+        "mbps": 600.0369422216422
+      },
+      "server_relative_windows": {
+        "0-10": {
+          "rows": 40,
+          "retransmits": 0,
+          "min_cwnd_bytes": 235520.0,
+          "sender_mbps": 600.95987712
+        },
+        "10-20": {
+          "rows": 40,
+          "retransmits": 835,
+          "min_cwnd_bytes": 244736.0,
+          "sender_mbps": 464.56111103999996
+        },
+        "20-30": {
+          "rows": 40,
+          "retransmits": 585,
+          "min_cwnd_bytes": 136192.0,
+          "sender_mbps": 229.94013388800002
+        },
+        "30-40": {
+          "rows": 40,
+          "retransmits": 0,
+          "min_cwnd_bytes": 248832.0,
+          "sender_mbps": 1105.78630656
+        }
+      },
+      "target_P_guaranteed": 451,
+      "target_gate1_guaranteed": 112,
+      "global_missing": {
+        "P": 209,
+        "F": 0
+      },
+      "native_timer_records": [
+        {
+          "kind": "cancelled",
+          "association_seconds_bounds": [
+            -0.2869589328765869,
+            -0.26705217361450195
+          ]
+        },
+        {
+          "kind": "scheduled",
+          "association_seconds_bounds": [
+            0.2930409908294678,
+            0.31294775009155273
+          ],
+          "scheduled_delay_seconds": 20.0
+        },
+        {
+          "kind": "request",
+          "association_seconds_bounds": [
+            20.298041105270386,
+            20.31794786453247
+          ]
+        }
+      ],
+      "wifi_settings_parent_request_count": 0
+    }
+  },
+  "channel_requests": {
+    "baseline_hw600": {
+      "requests": 33,
+      "channel_entries": 97,
+      "bands": {
+        "2": 13,
+        "5": 25,
+        "6": 59
+      },
+      "batches": [
+        [
+          {
+            "channel": 1,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 6,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 11,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 2,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 3,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 4,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 5,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 7,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 8,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 9,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 10,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 12,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 13,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 36,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 40,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 44,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 48,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 149,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 153,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 157,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 161,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 165,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 52,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 56,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 60,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 64,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 100,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 104,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 108,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 112,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 116,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 120,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 124,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 128,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 132,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 136,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 140,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 144,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 5,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 21,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 37,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 53,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 69,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 85,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 101,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 117,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 133,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 149,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 165,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 181,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 197,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 213,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 229,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 1,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 9,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 13,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 17,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 25,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 29,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 33,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 41,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 45,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 49,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 57,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 61,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 65,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 73,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 77,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 81,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 89,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 93,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 97,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 105,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 109,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 113,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 121,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 125,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 129,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 137,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 141,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 145,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 153,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 157,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 161,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 169,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 173,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 177,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 185,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 189,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 193,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 201,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 205,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 209,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 217,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 221,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 225,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 233,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ]
+      ],
+      "source_sha256": "81600c85c8ca773d41548110b4fd91b0b071dfdf42c132214d19075f6652bd53"
+    },
+    "prior_nr600": {
+      "requests": 33,
+      "channel_entries": 97,
+      "bands": {
+        "2": 13,
+        "5": 25,
+        "6": 59
+      },
+      "batches": [
+        [
+          {
+            "channel": 1,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 6,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 11,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 2,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 3,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 4,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 5,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 7,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 8,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 9,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 10,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 12,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 13,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 36,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 40,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 44,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 48,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 149,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 153,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 157,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 161,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 165,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 52,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 56,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 60,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 64,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 100,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 104,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 108,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 112,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 116,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 120,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 124,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 128,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 132,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 136,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 140,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 144,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 5,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 21,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 37,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 53,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 69,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 85,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 101,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 117,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 133,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 149,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 165,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 181,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 197,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 213,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 229,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 1,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 9,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 13,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 17,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 25,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 29,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 33,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 41,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 45,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 49,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 57,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 61,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 65,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 73,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 77,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 81,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 89,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 93,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 97,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 105,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 109,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 113,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 121,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 125,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 129,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 137,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 141,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 145,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 153,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 157,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 161,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 169,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 173,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 177,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 185,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 189,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 193,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 201,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 205,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 209,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 217,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 221,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 225,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 233,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ]
+      ],
+      "source_sha256": "8ae661d8fe89131b5326aa6c71864ff5ee742aaefab79d8091d42e76af24207f"
+    },
+    "observed_nr600": {
+      "requests": 33,
+      "channel_entries": 97,
+      "bands": {
+        "2": 13,
+        "5": 25,
+        "6": 59
+      },
+      "batches": [
+        [
+          {
+            "channel": 1,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 6,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 11,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 2,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 3,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 4,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 5,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 7,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 8,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 9,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 10,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 12,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 13,
+            "band_ghz": 2,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 36,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 40,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 44,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 48,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 149,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 153,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 157,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 161,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          }
+        ],
+        [
+          {
+            "channel": 165,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": true
+          },
+          {
+            "channel": 52,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 56,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 60,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 64,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 100,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 104,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 108,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 112,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 116,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 120,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 124,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 128,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 132,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 136,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 140,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 144,
+            "band_ghz": 5,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 5,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 21,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 37,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 53,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 69,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 85,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 101,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 117,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 133,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 149,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 165,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 181,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 197,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 213,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 229,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 1,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 9,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 13,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 17,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 25,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 29,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 33,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 41,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 45,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 49,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 57,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 61,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 65,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 73,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 77,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 81,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 89,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 93,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 97,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 105,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 109,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 113,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 121,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 125,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 129,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 137,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 141,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 145,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 153,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 157,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 161,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 169,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 173,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 177,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 185,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 189,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 193,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 201,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 205,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 209,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 217,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 221,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          },
+          {
+            "channel": 225,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ],
+        [
+          {
+            "channel": 233,
+            "band_ghz": 6,
+            "width_mhz": 20,
+            "active": false
+          }
+        ]
+      ],
+      "source_sha256": "dddbb1dd9db73a9853c1697166e391f4529dad9d5ea2823dd8c778691874d396"
+    }
+  },
+  "same_ordered_requested_channels": true,
+  "current_queue_snapshots": {
+    "mlo.before.hw-queues.txt": {
+      "repeated_copies": 3,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "target_status2": 0
+    },
+    "dip-1.txt": {
+      "repeated_copies": 3,
+      "primary_ps": 1,
+      "secondary_ps": 1,
+      "target_status2": 444
+    },
+    "mlo.after.hw-queues.txt": {
+      "repeated_copies": 3,
+      "primary_ps": 0,
+      "secondary_ps": 1,
+      "target_status2": 1362
+    }
+  },
+  "nr_status": "NR_EXCHANGE_ACK_VERIFIED",
+  "nr_counts": {
+    "capture_span_seconds": 75.569973,
+    "captured": 1126,
+    "complete_acknowledged_exchanges": 1,
+    "cookie_replies": 64,
+    "dropped": 0,
+    "frame_messages": 1000,
+    "frame_messages_without_ifindex": 98,
+    "generic_messages": 1126,
+    "matched_interface_exchanges": 31,
+    "nr_rx_requests_target": 1,
+    "nr_tx_responses_target": 1,
+    "observed_link_id_attributes": 2,
+    "pcap_records": 1126,
+    "protected_nr_host_frames": 1,
+    "received": 1136,
+    "response_contains_both_expected_reports": 1,
+    "snaplen_truncated_records": 0,
+    "target_responses_without_matched_request": 0,
+    "tx_status_messages": 64
+  },
+  "observer_restored": true,
+  "traffic_interval_router_config_unchanged": true,
+  "current_wired_checks": 56,
+  "input_sha256": {
+    "nr_exchange": "65928acbd0f530da2e479ee33729977aba12ecac3e8c80748e9f45d9e9ffbc41",
+    "previous_nr_analyzer": "ab2ec40297081b9c894ca9267208b6b163406a491be91a4d2bca2c527b41e81d",
+    "reused_scan_analyzer": "266834f94ad6f2b4e25985c81ca7f8ab22d9a3599ee816de201730b8e9a86307",
+    "reused_association_analyzer": "c7a856048e0358817b8085a6de41ee717ffcbb23d687cd542911f4c9ef274b25",
+    "queue_parser": "054b3ba26878aeb690bfcb834527d756c75ab124d03ab4f5c95ba7f910728bf7",
+    "baseline_hw600_analysis": "0eb2aa1e18d1e2e5986d35185ff19e490f0271902ac928356a2e0343080646cf",
+    "prior_nr600_analysis": "e95fc7a0f28e2cac35154da2174327ce9b7f615df9fdc85b12e07711e8199fdd",
+    "mlo.before.hw-queues.txt": "8a683e336dc1b5954b3be4ea724808af801cb50df79e91bd084e77e07b16de83",
+    "dip-1.txt": "03ef842d899eb2e7843fac103a1f6f08bdce9b025e58baf33b51d0e361950168",
+    "mlo.after.hw-queues.txt": "56d999b3e265b966167f384d924df8a4a4032c3deef7033e7eec7d4f5a5bc15f",
+    "current_analysis": "5e3fda62012e819da183e5c4a5168eda1de5155aac72beb7f00679f04446248c"
+  },
+  "limitations": [
+    "Final NR/AP restoration is a separate procedure and is not certified by this analysis. The unchanged-router assertion covers the traffic interval only.",
+    "Separate associations and observer overhead; this is not a randomized or identical-RF comparison.",
+    "ACK establishes receipt at the MAC layer, not client use/adoption. A surviving dip does not prove all NR options ineffective.",
+    "Native scan API/request intervals are not measured RF dwell. P/F gaps prevent complete PS-duration or wake-latency inference.",
+    "TXFREE status2 is a reported RED-drop HEADER count, not a TCP packet count; queue snapshots are non-atomic.",
+    "The configured TCP rate allows catch-up above 600Mbps; matching means do not exclude short troughs.",
+    "This follow-up does not establish a new driver fix, full NPU correctness, or repair of the earlier Air stall."
+  ]
+}
