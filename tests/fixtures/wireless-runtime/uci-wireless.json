@@ -1,0 +1,29 @@
+{
+  "radio0": {
+    ".name": "radio0", ".type": "wifi-device", ".anonymous": false,
+    "type": "mac80211", "band": "2g", "channel": "1"
+  },
+  "default_radio0": {
+    ".name": "default_radio0", ".type": "wifi-iface", ".anonymous": false,
+    "device": "radio0", "mode": "ap", "network": "lan",
+    "ssid": "Test", "encryption": "none"
+  },
+  "radio1": {
+    ".name": "radio1", ".type": "wifi-device", ".anonymous": false,
+    "type": "mac80211", "band": "5g", "channel": "36"
+  },
+  "default_radio1": {
+    ".name": "default_radio1", ".type": "wifi-iface", ".anonymous": false,
+    "device": ["radio1", "radio2"], "mode": "ap", "network": "lan",
+    "ssid": "Test", "encryption": "none", "mlo": "1"
+  },
+  "radio2": {
+    ".name": "radio2", ".type": "wifi-device", ".anonymous": false,
+    "type": "mac80211", "band": "6g", "channel": "1"
+  },
+  "default_radio2": {
+    ".name": "default_radio2", ".type": "wifi-iface", ".anonymous": false,
+    "device": ["radio2"], "mode": "ap", "network": "lan",
+    "ssid": "Test", "encryption": "none", "mlo": "0", "disabled": "1"
+  }
+}

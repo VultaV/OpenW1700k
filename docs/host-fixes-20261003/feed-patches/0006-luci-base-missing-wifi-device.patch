@@ -1,20 +1,20 @@
 From: W1700K MLO maintenance
-Subject: [PATCH] luci-base: avoid constructing a wireless device without a name
+Subject: [PATCH] luci-base: resolve single-radio lists before creating devices
 
 Against LuCI 289a7260434d4b8212a9cc6cf6160cb1935270c1.
-A wifi-iface with a list-valued device has no synthetic netid in this
-version. If its runtime section exists without an interface name,
-WifiNetwork.getDevice() constructs Device(undefined). Rendering the
-wireless signal badge calls isUp(), then Device.getType(), which throws
-at this.device.indexOf('.'). This path predates the 0004 view guards.
+The disabled default_radio2 section uses list device 'radio2', which
+uci show prints like an option. The scalar-only netid lookup leaves
+its ID undefined, so the Wireless badge constructs Device(undefined)
+and Device.getType() throws at this.device.indexOf('.').
 
-Return null when there is no device name, as the existing WifiNetwork
-isUp() null check expects. Keep scalar network IDs and runtime MLO names
-unchanged. This does not implement multi-radio synthetic IDs.
+Normalize a one-element device list for synthetic ID lookup, preserving
+the existing scalar/list counting and reverse lookup. Return the scalar
+radio name as well as radio2.network1 to the lookup callers.
+Do not assign single-radio IDs to multi-radio MLO sections.
 
-The captured r44 status includes ap-mld0 and does not reproduce the error;
-the host regression deliberately removes the runtime interface name.
-Do not treat this hardening as proof of the live incident's root cause.
+Keep the null-device guard for unresolved multi-radio runtime names.
+The guard alone fixes rendering but leaves the disabled singleton with
+no ID and passes undefined to iwinfo.assoclist during status polling.
 Pin the package version/revision so the working-tree patch is visible.
 
 --- a/modules/luci-base/Makefile
@@ -24,13 +24,31 @@ Pin the package version/revision so the working-tree patch is visible.
  
  PKG_NAME:=luci-base
 +PKG_VERSION:=26.253.65031~289a726
-+PKG_RELEASE:=2
++PKG_RELEASE:=3
  PKG_BUILD_FLAGS:=no-lto
  
  LUCI_TYPE:=mod
 --- a/modules/luci-base/htdocs/luci-static/resources/network.js
 +++ b/modules/luci-base/htdocs/luci-static/resources/network.js
-@@ -4480,12 +4480,14 @@ WifiNetwork = baseclass.extend(/** @lends LuCI.network.WifiNetwork.prototype */ {
+@@ -211,7 +211,7 @@
+ function getWifiNetidBySid(sid) {
+ 	const s = uci.get('wireless', sid);
+ 	if (s != null && s['.type'] == 'wifi-iface') {
+-		const radioname = s.device;
++		const radioname = Array.isArray(s.device) && s.device.length == 1 ? s.device[0] : s.device;
+ 		if (typeof(radioname) == 'string') {
+ 			const sections = uci.sections('wireless', 'wifi-iface');
+ 			let n = 0;
+@@ -224,7 +224,7 @@
+ 				if (sec['.name'] != s['.name'])
+ 					continue;
+ 
+-				return [ '%s.network%d'.format(s.device, n), s.device ];
++				return [ '%s.network%d'.format(radioname, n), radioname ];
+ 			}
+ 
+ 		}
+@@ -4480,12 +4480,14 @@
  	/**
  	 * Get the associated Linux network device.
  	 *

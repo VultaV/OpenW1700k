@@ -1,0 +1,26 @@
+{
+  "radio0": {
+    "up": true,
+    "interfaces": [{
+      "section": "default_radio0", "ifname": "phy0.0-ap0",
+      "config": {"device": ["radio0"], "network": ["lan"], "mode": "ap", "ssid": "Test"},
+      "iwinfo": {"mode": "Master", "channel": 1, "frequency": 2412}, "vlans": []
+    }]
+  },
+  "radio1": {
+    "up": true,
+    "interfaces": [{
+      "section": "default_radio1", "ifname": "ap-mld0",
+      "config": {"device": ["radio1", "radio2"], "network": ["lan"], "mode": "ap", "ssid": "Test"},
+      "iwinfo": {"mode": "Master", "channel": 36, "frequency": 5180}, "vlans": []
+    }]
+  },
+  "radio2": {
+    "up": true,
+    "interfaces": [{
+      "section": "default_radio1", "ifname": "ap-mld0",
+      "config": {"device": ["radio1", "radio2"], "network": ["lan"], "mode": "ap", "ssid": "Test"},
+      "iwinfo": {"mode": "Master", "channel": 1, "frequency": 5955}, "vlans": []
+    }]
+  }
+}

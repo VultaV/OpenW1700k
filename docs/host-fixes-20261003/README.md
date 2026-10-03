@@ -121,69 +121,101 @@ node tests/test_wireless_mlo_guard.js \
 
 패치 파일 SHA256 `f8ad6c3fc8306c3c5a58145f038fe4e160503790b21eda952854644e0a776634`.
 
-### Wireless 초기 렌더의 장치 이름 누락 보호 (LuCI 피드 패치 0006)
+### Wireless 단일 원소 device 목록 및 장치 이름 누락 보호 (LuCI 피드 패치 0006)
 
-r44 설치 뒤 보고된 `Cannot read properties of undefined (reading 'indexOf')`를 조사했다.
-**제공된 UCI·RPC 스냅샷 그대로는 r43·r44 양쪽 모두 호스트 렌더가 성공한다.** 따라서
-이 스냅샷으로 실제 브라우저 오류의 원인을 확정하거나 0004의 회귀라고 할 수 없다.
+후속 실기기 브라우저 스택으로 r44의 `Cannot read properties of undefined (reading
+'indexOf')` 원인을 재현했다. `default_radio2`는 비활성(`disabled: "1"`, `mlo: "0"`)이며
+`device`가 문자열이 아닌 **`["radio2"]`**다. `uci show`는 단일 원소 목록을 스칼라처럼
+출력한다. 이전 검사에서 이 출력을 문자열로 읽은 것이 재현 실패의 원인이었다.
+`default_radio0`의 `device: "radio0"`, `ifname: "phy0.0-ap0"`와 활성 MLO
+`default_radio1`의 `device: ["radio1", "radio2"]`, `ifname: "ap-mld0"`는 그대로 둔다.
 
-고정 LuCI `289a7260`의 비압축 소스 기준 경로:
+고정 LuCI `289a7260`과 장치에서 캡처한 압축 파일의 실행 경로:
 
-1. `wireless.js:891`의 섹션 load → `network.js:1385`의 `getWifiDevices()` → 각
-   `WifiDevice.getWifiNetworks()`(`3620`) → 전체 `getWifiNetworks()`(`1428`).
-2. `lookupWifiNetwork()`(`1690`)는 `getWifiStateBySid()`로 실행 상태를 찾는다.
-   MLO 섹션의 UCI `device`는 배열이라 `getWifiNetidBySid()`(`211`)는 null을 반환하고
-   `getID()`는 undefined다. 정렬은 `Intl.Collator`라 이 값 자체로 예외가 나지 않는다.
-3. 제공된 RPC에는 MLO의 최상위 `ifname`이 있고, 첫 일치 상태가 radio1에 있으므로
-   `getWifiDeviceName()`은 radio1, `getIfname()`(`3863`)은 실행 중 인터페이스 이름이다.
-   비활성 단일 라디오 섹션은 `radio2.network1`이라는 유효한 대체 ID를 얻는다.
-4. **상태 항목은 유지하면서 MLO의 `ifname`만 제거한 파생 입력**은 양쪽 버전에서
-   같은 예외를 낸다. `wireless.js:2579`의 `_badge.textvalue` →
-   `render_network_badge()`(`117`) → `WifiNetwork.isUp()`(`network.js:3930`) →
-   `getDevice()`(`4487`)가 `Device(undefined)` 생성 → `Device.isUp()`(`3131`) →
-   `Device.getType():2992`의 `this.device.indexOf('.')` 순서다. `iwinfo.ifname`도 없고,
-   `config.ifname`은 `getIfname()`이 읽지 않는다. 이는 실기기에서 관측한 입력이라고 주장하지 않는다.
+1. `getWifiNetidBySid()`는 문자열만 받아 비활성 단일 원소 목록의 ID를 만들지 못한다.
+   이 섹션은 런타임 인터페이스도 없어 `getIfname()`에 사용할 이름이 없다.
+2. `wireless.js`의 `_badge.textvalue` → `render_network_badge()` → `WifiNetwork.isUp()` →
+   `WifiNetwork.getDevice()` → `Device(undefined)` → `Device.isUp()` → `Device.getType()`의
+   `this.device.indexOf('.')`에서 예외가 난다. 압축 소스의 스택은 실기기와 동일한
+   `network.js:301 ← 312 ← 341 ← wireless.js:13 ← 167`이다.
+3. 캡처한 **실제 `form.js` 전체**로도 `renderTextValue → renderChildren → renderOptions →
+   renderUCISection → render`를 포함한 같은 실패를 확인했다.
 
-0004의 동작 버튼 보호는 클릭 때, 안내문은 `m.render()`가 성공한 뒤 실행되므로 위 예외를
-만들지 않는다. MLO 상태 항목 전체가 없으면 배열과 라디오 문자열의 비교가 실패해 개요에서
-그 행이 빠지는 별도 한계가 있다. 0006은 다중 라디오 ID·표시 방식을 재설계하지 않는다.
+기존 0006의 null 장치 보호만으로 개요의 전체 form 렌더와 상태 폴링은 완료된다. 하지만
+비활성 섹션의 ID는 여전히 undefined이며 `iwinfo.assoclist(undefined)`가 호출된다.
+따라서 null 보호만으로 이 섹션의 모델이 올바르게 복구됐다고 볼 수 없다.
 
-최소 수정은 `WifiNetwork.getDevice()`에서 이름이 null/undefined면 null을 반환하는 것이다.
-기존 `isUp()`의 null 검사가 false를 반환하고 배지는 비활성 상태로 그려진다. 기존 ID와
-실행 중 인터페이스 이름은 유지한다. `luci-base` 버전은 `26.253.65031~289a726-r2`로 명시한다.
-0004와 문자열을 `E()` 배열 자식으로 넣는 규칙은 그대로다.
+수정한 0006은 기존 null 보호를 유지하고, `getWifiNetidBySid()`의 두 줄만 추가로 고친다.
+단일 원소 `device` 목록을 지역 문자열로 정규화하고, 반환할 ID와 라디오 이름에 이 문자열을
+쓴다. UCI 데이터는 바꾸지 않는다. 기존 느슨한 비교는 문자열/단일 원소 목록을 같은 순서로
+세고 역방향 조회도 지원하므로 그대로 둔다. 비활성 섹션은 `radio2.network1`과 `radio2`를
+얻으며 장치 종류는 `wifi`, `isUp()`은 false다. 다중 라디오 MLO의 실행 이름과 ID 정책은
+그대로다. `luci-base`는 `26.253.65031~289a726-r3`으로 구분한다. wireless.js 추가 수정은 없다.
 
-호스트 검사는 실제 `network.js`와 `wireless.js` 전체를 실행하며 RPC·UCI·DOM·form을 가짜로
-제공한다. 일반 실행은 장치 식별자가 없는 합성 입력을, 마지막 인수는 로컬 증거 디렉터리의
-`uci-wireless.txt`, `getWirelessDevices.json`을 사용한다. 모델이 실제로 호출하는 RPC는
-`luci-rpc.getWirelessDevices`다. 별도 진단 하네스에 원본 `wireless-status.json`을 넣은 경우에도
-r43·r44 개요 렌더는 성공했다. 이 응답에도 MLO 최상위 `ifname`이 있다.
+`tests/fixtures/wireless-runtime/`에는 식별정보를 제거한 위 타입·상태의 JSON을 보존한다.
+외부 증거 디렉터리도 `uci-wireless.json`과 `getWirelessDevices.json`을 요구하며,
+`uci-wireless.txt`로 타입을 추측하지 않는다. 로컬 `.device/uci-wireless.json`은 기존 캡처에
+브라우저에서 확인한 `default_radio2.device` 목록 타입을 반영한 비공개 보조 파일이다.
 
 ```sh
+# 깨끗한 고정 피드에 적용. 이전 0006 위에 중복 적용하지 않는다.
 git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0006-luci-base-missing-wifi-device.patch"
 node tests/test_wireless_runtime.js \
-    feeds/luci/modules/luci-base/htdocs/luci-static/resources/network.js \
-    feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
-# 같은 검사에 로컬 실기기 스냅샷을 공급하려면 마지막 인수로 .device를 추가한다.
+    .device/network.singleton.min.js .device/wireless.r44.min.js
+# 로컬 typed UCI + 원본 RPC 입력
+node tests/test_wireless_runtime.js \
+    .device/network.singleton.min.js .device/wireless.r44.min.js .device
+# 원본 압축 모델에 브라우저용 monkeypatch만 적용
+node tests/test_wireless_runtime.js \
+    .device/network.before.min.js .device/wireless.r44.min.js - .device/runtime-check.js
 ```
 
 검증 결과(각 실행별 PASS / FAIL / SKIP):
 
-| 입력 | 수정 전 | 0006 적용 뒤 |
-| --- | --- | --- |
-| 실기기 RPC 입력 + r43 압축 뷰 | 3 / 2 / 0 | 5 / 0 / 0 |
-| 실기기 RPC 입력 + r44 압축 뷰 | 3 / 2 / 0 | 5 / 0 / 0 |
-| 합성 입력 + r44 뷰 | 3 / 2 / 0 | 5 / 0 / 0 (압축·비압축 각각) |
+| 입력 / 모델 | 수정 전 | 기존 0006 null 보호만 | 수정한 0006 |
+| --- | --- | --- | --- |
+| 타입 보존 실기기 입력 + r44 압축 뷰 | 1 / 7 / 0 | 5 / 3 / 0 | 8 / 0 / 0 |
+| 식별정보 제거 입력 + r44 압축 뷰 | 1 / 7 / 0 | 5 / 3 / 0 | 8 / 0 / 0 |
 
-수정 전 2 FAIL은 이름 누락 파생 입력의 예외와 상태 항목 전체가 없을 때 잘못 생성한 장치
-객체를 검출한다. 원본 활성 스냅샷은 수정 전에도 PASS다. 기존 0004 동작·안내문 검사도
-5 PASS / 0 FAIL / 0 SKIP이다. 고정 LuCI의 `jsmin.c`로 다시 압축한 core·r43 뷰·0004 적용
-r44 뷰는 제공된 장치 파일과 각각 바이트 단위로 일치했고, 같은 도구로 압축한 수정 core도
-위 검사를 통과했다. `git apply --check`와 실제 적용을 고정 피드 소스에서 확인했다.
+8개 검사는 실입력 형태, iwinfo 이름 대체, MLO 이름/상태 누락, 단일 원소 목록·문자열,
+혼합 목록/문자열의 순서별 ID·역조회, 장치 이름·종류, UCI 미변경을 확인한다. 실제 등록된
+상태 poll 콜백을 실행해 모든 행의 배지·상태와 비활성 네트워크의 모달 상태도 갱신한다.
+원본 압축 모델 + `.device/runtime-check.js`도 8 PASS / 0 FAIL / 0 SKIP이다.
+기존 0004 동작·안내문 검사는 5 PASS / 0 FAIL / 0 SKIP이다. `git apply --check`와 실제
+적용을 고정 소스에 확인했다. 같은 `jsmin`으로 압축한 원본이 장치 파일과 바이트 단위로
+일치하며, 수정 압축본도 원본의 위 세 표현식(정규화·반환·null 보호)만 바꾼 결과와 일치한다.
 
-실제 브라우저의 form·DOM 및 주기적 폴링은 이 검사 범위 밖이다. 실패 시점의 전체 브라우저
-스택과 `luci-rpc.getWirelessDevices` 응답을 함께 확인해야 실기기 원인을 확정할 수 있다.
-이 변경으로 펌웨어를 빌드하거나 장치에 설치·재부팅하거나 배포하지 않았다.
+별도 `tests/test_wireless_form_runtime.js`는 linkedom과 캡처한 LuCI Class/DOM 구현을 이용해
+실제 form/network/wireless 소스를 실행한다. 원본은 위 스택으로 실패한다. 기존 null 보호는
+전체 렌더와 3회 폴링을 통과하되 이름 누락을 유지하고, 수정 모델과 런타임 monkeypatch는
+6개 행의 전체 렌더·3회 폴링 및 `radio2.network1`을 확인한다. 브라우저 엔진/실기기 RPC를
+대신하는 호스트 검사이며 실제 브라우저에서 실행했다는 뜻은 아니다.
+
+```sh
+# linkedom이 설치된 환경에서 실행 (외부 설치 위치는 NODE_PATH로 지정 가능)
+node tests/test_wireless_form_runtime.js \
+    .device/network.singleton.min.js .device/wireless.r44.min.js .device normalized
+node tests/test_wireless_form_runtime.js \
+    .device/network.before.min.js .device/wireless.r44.min.js .device normalized .device/runtime-check.js
+# 기존 null 보호만으로도 렌더/폴링이 끝나지만 ID가 빠지는지 확인
+node tests/test_wireless_form_runtime.js \
+    .device/network.fixed.min.js .device/wireless.r44.min.js .device guard
+```
+
+`.device/runtime-check.js`는 클래스 메서드를 런타임 교체한다. private helper 자체는 외부에
+노출되지 않으므로 동기 조회·장치 생성 동안만 UCI 읽기 결과를 복사해 단일 원소를 정규화하고,
+즉시 원래 읽기 함수를 복원한다. 비동기 `network.getDevice(sid)`도 같은 결과로 보완한다.
+이 스니펫의 동등성 검증 범위는 위 모델 조회·Wireless 렌더·상태 poll 경로이며, 모듈 전체의
+private helper를 교체하는 영구 패치가 아니다. 설정 쓰기와 장치 파일 변경은 없고 페이지
+새로고침으로 해제된다. 콘솔에서 파일 내용을 실행한 뒤 다음을 실행한다.
+
+```js
+const V = await L.require('view.network.wireless');
+await V.render(await V.load());
+```
+
+MLO 상태 항목이 통째로 사라질 때 개요에서 해당 행을 생략하는 기존 한계는 남는다.
+이 변경으로 펌웨어를 빌드하거나 장치에 설치·재부팅하거나 새 r 버전을 배포하지 않았다.
 
 ## 3. 수정본 이미지
 
