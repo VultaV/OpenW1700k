@@ -24,15 +24,33 @@ Apple clang 21은 생성한 의존성 파일 맨 앞에 `SDKSettings.json`을 �
 | 무선·NPU·PHY 펌웨어 | 11/11 일치 |
 | wpad/hostapd, DTB | 일치 |
 | 커널 | 크기 같음. 다른 444바이트는 툴체인 표기(`r0+1-73c3ab3081` 대 `r36182-6d74443bce`), 빌드 시각, 이를 반영한 build-id·vDSO 주석뿐 |
-| LuCI `status/channel_analysis.js` | **r43 이미지에 공개되지 않은 로컬 수정이 있다**(iwinfo `scan` RPC, 무선 네트워크 ifname 매핑, 대역 필터). upstream `e81743d`·`289a726`의 파일(sha `30dc22f`)과 공개 패치 어디에도 없다 |
-| LuCI 패키지 버전 | r43 이미지는 `26.250.72430~e81743d`, 재빌드는 `26.253.65031~289a726`. 실제 r43 빌드의 LuCI 피드 HEAD가 manifest의 `289a7260`이 아니라 `e81743d`였다. 설치된 파일 내용은 위 파일 하나를 빼고 같다 |
+| LuCI `status/channel_analysis.js` | r43 이미지에는 공개되지 않은 패키지 패치 `998-single-wiphy.patch`가 들어 있었다(아래 "채널 분석 패치"). 이 브랜치에 넣은 뒤 같은 파일이 바이트 단위로 재현된다 |
+| LuCI 패키지 버전 | r43 이미지는 `26.250.72430~e81743d`, 재빌드는 `26.253.65031~289a726`. 옛 빌드 트리의 피드 HEAD도 manifest와 같은 `289a726`이었다. LuCI는 패키지 폴더를 마지막으로 바꾼 커밋으로 버전을 만들므로, 피드 클론 깊이가 다르면 같은 커밋에서도 버전 문자열이 달라진다. 파일 내용에는 영향이 없다 |
 | CA 번들 | r43은 같은 121개 인증서를 두 번씩 담았다(해시 링크 `*.1` 240개). 신뢰 범위는 같다. 원인은 아래 2절의 ca-certificates 재빌드 결함이며, 같은 트리에서 `make`를 다시 돌려 재현했다 |
 | fastfetch | 8 KB 차이, 빌드 환경에 따른 기능 감지 차이 |
 | 그 밖의 바이너리·디버그 스크립트 | 빌드 메타데이터, 공백 차이뿐 |
 
-따라서 공개 소스로 r43의 커널·모듈·펌웨어·무선 데몬은 재현되지만, 채널 분석 화면은
-재현되지 않는다(검토 문서 F09와 같은 종류). 원본 소스는 마운트하지 않은 옛 빌드 디스크
-(`w1700k-build.sparsebundle` + `build.shadow`)의 LuCI 피드에 있을 것으로 보인다.
+### 채널 분석 패치
+
+옛 빌드 디스크(`w1700k-build.sparsebundle` + `build.shadow`)를 읽기 전용으로 붙여 확인했다.
+붙이기 전후 shadow의 크기·수정 시각·앞뒤 1 MB 해시와 sparsebundle 상태가 같았다.
+LuCI 피드의 추적되지 않은 폴더 `modules/luci-mod-status/patches/`에
+`998-single-wiphy.patch`(작성 Gilly1970, 2026-06-19, 파일 생성 9월 8일)가 있었다.
+MT7996처럼 라디오 여러 개가 한 wiphy를 쓰면 iwinfo가 `radio0/1/2`를 모두 첫 netdev로
+해석해 5 GHz 탭이 "No data"가 되는 문제를 고친다. upstream LuCI master에는 아직 없다.
+
+이 패치를 고정 피드 `289a7260`에 넣어 빌드한 `channel_analysis.js`는 r43 이미지의 파일과
+바이트 단위로 같다(sha `a059125323f9c969…`). 원본 그대로 `feed-patches/998-single-wiphy.patch`에
+보관했다(SHA256 `6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9`).
+적용 방법은 r43 때와 같다. `./scripts/feeds update -a` 뒤, 빌드 전에:
+
+```sh
+mkdir -p feeds/luci/modules/luci-mod-status/patches
+cp docs/host-fixes-20261003/feed-patches/998-single-wiphy.patch \
+   feeds/luci/modules/luci-mod-status/patches/
+```
+
+OpenWrt가 패키지 준비 단계에서 이 폴더의 패치를 적용한다.
 
 ## 2. 수정한 결함
 
@@ -68,9 +86,13 @@ LuCI `E()`는 배열이 아닌 문자열 자식을 `innerHTML`로 넣는다(r43 
 같은 빌드 트리에서 이 브랜치로 다시 만든 이미지(파일 이름의 `r43` 표기는 config의
 `VERSION_NUMBER`를 바꾸지 않아서 남은 것이다. r43으로 배포하면 안 된다):
 
-- sysupgrade SHA256 `090cb848ec7734ea76c203f783295d28fe93c0f6da3121bb7274d4bf478e18f7`, 30,274,410바이트
-- 위 1절의 r43 재빌드와 rootfs 비교: 파일 1,799개로 같고 추가·삭제 없음. 내용이 다른 파일은 21개로,
-  수정한 앱의 화면·백엔드·ACL·init·설정 18개와 apk DB 2개, `os-release`다. CA 번들은 121개로 중복 없음.
+- sysupgrade SHA256 `4935f90a62acb4e567855649f662c1090b943ec9b2bba83ad2e891fd76f4206f`, 30,274,410바이트
+  (채널 분석 패치 포함)
+- 위 1절의 r43 재빌드와 rootfs 비교: 파일 1,799개로 같고 추가·삭제 없음. 내용이 다른 파일은 22개로,
+  수정한 앱의 화면·백엔드·ACL·init·설정 18개, 채널 분석 화면, apk DB 2개, `os-release`다.
+  CA 번들은 121개로 중복 없음.
+- 설치·검증된 r43과 비교: r43에만 있는 파일은 중복 인증서 240개뿐이다. 나머지 차이는 이 브랜치의 수정,
+  메타데이터(서명 키·버전 문자열·apk DB·공백만 다른 디버그 스크립트), 빌드 환경에 따른 바이너리 7개다.
 - 커널 모듈은 바뀌지 않았다(검증된 r43과 74/74 일치). DTB 일치. 커널 차이는 빌드 시각 메타데이터뿐이다.
 - 호스트 시험(이 브랜치): `test_board_luci_apps.py`, `test_wifi7_ui.js`, `test_mlo_ui.js`,
   `test_board_luci_views.js`, `test_attendedsysupgrade_images.js`(r3 적용 원본 뷰),
@@ -114,6 +136,7 @@ LuCI 보안·UI (실제 브라우저)
   'NPU Bypass Detected' 경고가 여전히 뜨는지. 장치에서
   `echo '{"a":1,"a":"x"}' | jsonfilter -e '@.a'`가 `x`인지(json-c 중복 키 동작).
 - netspeedtest: admin에서 aarch64 다운로드·측정(인터넷 필요).
+- 상태 → 채널 분석: 2.4·5·6 GHz 탭이 각자 자기 대역만 보여 주고 5·6 GHz 스캔 결과가 나오는지.
 - 팬 커브: `fan.custom.pointN_*`에 따옴표·`abc`·빈 값·`08`을 넣은 뒤 `getAllCurves`가 유효한 JSON이고
   커브 미리보기가 그려지는지. busybox ash에서 `printf %d`에 숫자 아닌 값을 줘도 응답이 이어지는지.
 - FlowSense 대상: `fe80::1%br-lan` 같은 링크로컬 게이트웨이가 유지되고 busybox ping이 응답하는지,
@@ -128,9 +151,6 @@ MLO 원인 조사 (인계서 10절)
 
 ## 6. 결정이 필요한 항목
 
-- `channel_analysis.js` 로컬 수정의 원본 복구: 옛 빌드 디스크를 shadow와 함께 마운트해야 한다.
-  복구 전까지 공개 소스 이미지는 r43과 채널 분석 화면이 다르다.
-- LuCI 피드 고정값: r43 manifest의 `289a7260`과 실제 빌드 `e81743d` 중 어느 쪽으로 맞출지.
 - 다음 r 버전으로 공개할지. 공개하려면 manifest·검증 JSON 재생성, GitHub prerelease가 필요하다.
 - netspeedtest의 Ookla 다운로드는 사용자가 설정한 프록시(`netspeedtest.config.proxy_*`)를 따르고
   실행 비트만 확인한 뒤 root로 실행한다. 다운로드 권한(이 브랜치에서 write로 옮김)과 프록시 설정을
