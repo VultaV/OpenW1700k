@@ -12,7 +12,7 @@ retains upstream error-detail formatting, upload mode `0o600`, translations and
 EFI detection. GitHub upgrade RPC errors reject instead of scheduling a
 successful reconnect. The unused local `file.exec` declaration is omitted.
 
-The package version is explicitly `26.250.72430~e81743d-r2`; an uncommitted feed
+The package version is explicitly `26.250.72430~e81743d-r3`; an uncommitted feed
 patch alone would not update LuCI's Git-derived package version.
 
 Apply to a clean, pinned LuCI feed (paths below are placeholders):
@@ -27,7 +27,7 @@ Do not apply over or discard an existing local feed diff. The earlier packages
 feed patches documented under `docs/mlo-r29/` and `docs/mlo-r30/` are separate.
 Record this patch and both patched files in the new build manifest:
 
-| File relative to LuCI feed | SHA256 after patch |
+| File relative to LuCI feed | SHA256 after the r2 patch (r34-r43 builds) |
 | --- | --- |
 | `applications/luci-app-attendedsysupgrade/Makefile` | `f317c6f567e98da2e3389ae7a7a356506a9da5ca1303b7ed533bfdd4bf449c66` |
 | `applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js` | `3ec3f78e3aaebfbfebfc73fe61148e31f43fe4d138168d90941e12d22fb7298f` |
@@ -37,6 +37,12 @@ FAIL / 0 SKIP**; a fresh pinned copy plus this patch produced **9 PASS / 0 FAIL 
 0 SKIP**. The three failures covered the missing fallback and undefined image
 access in the main/rebuilder paths. Patch application recreated the expected
 view and Makefile byte-for-byte.
+
+Revision r3 lists GitHub release tags as text: Git allows `<` and `>` in tag
+names, and LuCI `E()` assigns a lone string child to `innerHTML`. Both hashes
+above describe r2; recompute them after applying r3 to the pinned feed. With
+the r43 image's `overview.js` the test gives **9 PASS / 1 FAIL / 0 SKIP**; the
+same file with the r3 change gives **10 PASS / 0 FAIL / 0 SKIP**.
 
 The test executes the full view with inert RPC, HTTP and DOM substitutes and
 accepts an extracted image's `overview.js` as its first argument. It checks image

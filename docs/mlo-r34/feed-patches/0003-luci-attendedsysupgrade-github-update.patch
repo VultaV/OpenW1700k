@@ -15,7 +15,7 @@ by the unchanged Git-derived LuCI package version.
  PKG_LICENSE:=GPL-2.0
  
 +PKG_VERSION:=26.250.72430~e81743d
-+PKG_RELEASE:=2
++PKG_RELEASE:=3
 +
  LUCI_DEFAULT:=y if (BUILDBOT && PACKAGE_luci)
  
@@ -104,7 +104,7 @@ by the unchanged Git-derived LuCI package version.
 +				// Populate the dropdown with available releases
 +				releases.forEach((release, index) => {
 +					let optionText = release.tag ? `${release.tag} (${release.version})` : release.version;
-+					releaseSelect.appendChild(E('option', { 'value': index }, optionText));
++					releaseSelect.appendChild(E('option', { 'value': index }, [optionText]));
 +				});
 +
 +				let keep = E('input', { type: 'checkbox' });

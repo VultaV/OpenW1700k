@@ -32,7 +32,10 @@ const ui = {
     createHandlerFn: (self, fn, ...args) => fn.bind(self, ...args),
     awaitReconnect: () => assert.fail('No live reconnect may run')
 };
-const E = (tag, attrs, children) => ({tag, attrs, children});
+const E = (tag, attrs, children) => ({tag, attrs, children, kids: [],
+    appendChild(child) { this.kids.push(child); }, addEventListener() {}});
+const nodes = n => Array.isArray(n) ? n.flatMap(nodes)
+    : n && n.tag ? [n, ...nodes(n.children), ...nodes(n.kids)] : [];
 const v = Function('view', 'rpc', 'poll', 'ui', 'request', 'uci', 'fs', 'form',
     'E', '_', 'document', 'fetch', 'setTimeout', code)(
     {extend: x => x}, rpc, {remove() {}}, ui,
@@ -108,6 +111,19 @@ async function check(name, fn) {
         await v.handleGithubInstall('test-release', false);
         assert.equal(timers.length, 0);
         assert.equal(modals.at(-1).title, 'Download Error');
+    });
+    await check('GitHub release tags are listed as text, not markup', async () => {
+        // github_check passes tag_name through; Git allows '<' and '>' in tags
+        const tag = '<img/src/onerror=alert(1)>';
+        modals.length = 0;
+        download = {json: async () => [{tag, version: 'gemtek_w1700k-ubi'}]};
+        v.handleGithubFirmware(firmware);
+        for (let i = 0; i < 5; i++) await new Promise(setImmediate);
+        assert.equal(modals.at(-1).title, 'Available GitHub Releases');
+        const option = nodes(modals.at(-1).body).find(n => n.tag === 'option');
+        // LuCI E() assigns a lone string child to innerHTML; array items become text
+        assert(Array.isArray(option.children), 'release tag assigned to innerHTML');
+        assert(option.children.join('').includes(tag), 'release tag not shown');
     });
     console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);
     process.exitCode = failed ? 1 : 0;
