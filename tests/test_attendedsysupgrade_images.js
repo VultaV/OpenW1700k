@@ -94,9 +94,17 @@ async function check(name, fn) {
         assert.equal(calls[0].url, '/cgi-bin/github_fetch');
         assert.equal(calls[0].options.method, 'POST');
         assert.deepEqual(JSON.parse(calls[0].options.body),
-            {tag: 'test-release', sessionid: 'offline-session'});
+            {tag: 'test-release', keep: true, sessionid: 'offline-session'});
         assert.equal(calls[1].spec.method, 'upgrade_start');
         assert.deepEqual(calls[1].args, [true]);
+        assert.equal(timers.length, 1);
+    });
+    await check('discard settings reaches both validation CGI and upgrade RPC', async () => {
+        calls.length = 0; timers.length = 0;
+        download = {ok: true, json: async () => ({success: true})};
+        await v.handleGithubInstall('test-release', false);
+        assert.equal(JSON.parse(calls[0].options.body).keep, false);
+        assert.deepEqual(calls[1].args, [false]);
         assert.equal(timers.length, 1);
     });
     await check('GitHub download denial cannot start upgrade', async () => {

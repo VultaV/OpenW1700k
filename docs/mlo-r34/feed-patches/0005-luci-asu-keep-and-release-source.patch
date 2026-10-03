@@ -1,11 +1,13 @@
 From: W1700K MLO maintenance
-Subject: [PATCH] luci-app-attendedsysupgrade: link releases of VultaV/OpenW1700k
+Subject: [PATCH] luci-app-attendedsysupgrade: link VultaV/OpenW1700k releases and send keep
 
 Against LuCI 289a7260434d4b8212a9cc6cf6160cb1935270c1 after
 0003-luci-attendedsysupgrade-github-update.patch (r3).
 Link releases on VultaV/OpenW1700k, where the W1700K images are published
-and where github_check and github_fetch now look. Bump PKG_RELEASE so the
-changed view gets a new package version.
+and where github_check and github_fetch look. Send the "Keep settings"
+choice to github_fetch so it validates the image in the same sysupgrade
+mode that upgrade_start will use. Bump PKG_RELEASE so the changed view
+gets a new package version.
 
 --- a/applications/luci-app-attendedsysupgrade/Makefile
 +++ b/applications/luci-app-attendedsysupgrade/Makefile
@@ -29,3 +31,12 @@ changed view gets a new package version.
  					}
  				};
  
+@@ -937,7 +937,7 @@ return view.extend({
+ 		return fetch('/cgi-bin/github_fetch', {
+ 			method: 'POST',
+ 			headers: { 'Content-Type': 'application/json' },
+-			body: JSON.stringify({ tag: tag, sessionid: rpc.getSessionID() }),
++			body: JSON.stringify({ tag: tag, keep: keep, sessionid: rpc.getSessionID() }),
+ 		})
+ 			.then(async response => {
+ 				const data = await response.json();

@@ -26,6 +26,10 @@ done
 
 tag=$(printf '%s' "$body" | jq -er '.tag | strings | select(length > 0 and length <= 128)') ||
     fail '400 Bad Request' 'Invalid release tag'
+# sysupgrade --test must run in the mode upgrade_start will use: -n skips the
+# fwtool config-compatibility refusal that only applies when keeping settings.
+keep=$(printf '%s' "$body" | jq -er 'if .keep == true then "1" elif .keep == false then "0" else error("keep must be boolean") end') ||
+    fail '400 Bad Request' 'Keep settings must be true or false'
 encoded_tag=$(printf '%s' "$tag" | jq -sRr @uri)
 workdir=$(mktemp -d /tmp/github_firmware.XXXXXX) || fail '500 Internal Server Error' 'Cannot create staging directory'
 trap 'rm -rf "$workdir"' 0
@@ -62,7 +66,9 @@ download "$url" "$workdir/firmware.bin" || fail '502 Bad Gateway' 'Could not dow
 actual=$(sha256sum "$workdir/firmware.bin") || fail '500 Internal Server Error' 'Could not compute SHA256 checksum'
 [ "${actual%% *}" = "$sha256" ] || fail '422 Unprocessable Content' 'Firmware SHA256 checksum mismatch'
 # Test the actual image against this device before replacing any prepared image.
-sysupgrade --test "$workdir/firmware.bin" >"$workdir/validation.log" 2>&1 ||
+set -- --test
+[ "$keep" = 0 ] && set -- "$@" -n
+sysupgrade "$@" "$workdir/firmware.bin" >"$workdir/validation.log" 2>&1 ||
     fail '422 Unprocessable Content' 'Firmware is not compatible with this device'
 [ ! -d /tmp/firmware.bin ] && mv -f "$workdir/firmware.bin" /tmp/firmware.bin ||
     fail '500 Internal Server Error' 'Could not prepare firmware for installation'

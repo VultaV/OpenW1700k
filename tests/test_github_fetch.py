@@ -165,8 +165,24 @@ class Fetch(unittest.TestCase):
         self.assertEqual(fixture.staged(), 'previous image')
         self.assertEqual(fixture.calls('sysupgrade'), [])
 
+    def test_keep_choice_selects_sysupgrade_test_mode(self):
+        for keep, flags in ((True, ['--test']), (False, ['--test', '-n'])):
+            with self.subTest(keep=keep):
+                fixture, status, data = self.fetch(body={'keep': keep})
+                self.assertEqual(status, '200', data)
+                self.assertEqual([args[:-1] for args in fixture.calls('sysupgrade')], [flags])
+                self.assertEqual(fixture.staged(), FIRMWARE)
+
+    def test_keep_must_be_boolean(self):
+        for keep in ('missing', None, 'false', 0, 1, [], {}):
+            with self.subTest(keep=keep):
+                fixture, status, data = self.fetch(body={'keep': keep})
+                self.assertEqual(status, '400', data)
+                self.assertEqual(fixture.calls('curl'), [])
+
     def test_failed_validation_does_not_stage(self):
-        fixture, status, data = self.fetch(lambda case: case.update(incompatible=True))
+        fixture, status, data = self.fetch(lambda case: case.update(incompatible=True),
+                                           {'keep': False})
         self.assertEqual(status, '422', data)
         self.assertEqual(fixture.staged(), 'previous image')
 
