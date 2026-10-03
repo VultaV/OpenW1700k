@@ -1,0 +1,250 @@
+{
+ "image": "openwrt-ubi2-mlo-host-hardening-r44-20261003-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "034f9788811c3a58994f4e8acf5e487f2e70ec97636c65323027f163fbd505d6",
+ "bytes": 30294889,
+ "build": {
+  "tree": "case-sensitive APFS volume, incremental on a clean r43 rebuild of the same tree",
+  "command": "make -j15",
+  "exit_code": 0,
+  "seconds": 482,
+  "previous_attempt": "First final run stalled for about an hour in package packaging with a hung fakeroot daemon and was stopped; the daemon was killed and the same make was rerun.",
+  "build_log_sha256": "2939f391c248d3bd20846920e00b0b6c07f1079d60e0f0c47da7f40ed564f821"
+ },
+ "image_verification": {
+  "compared_with": "verified r43 image 562c6bae2f23a2bce0403a0a55f483d1ba49af479a3eac7cec824615dcfab4f2",
+  "modules_total": 74,
+  "modules_identical": 74,
+  "firmware_total": 11,
+  "firmware_identical": 11,
+  "wpad_identical": true,
+  "files_only_in_r43": 240,
+  "files_only_in_r43_non_cert": [],
+  "files_only_in_r44": [
+   "lib/apk/packages/libfdt.list",
+   "lib/apk/packages/w1700k-fit-check.list",
+   "usr/bin/w1700k-fit-check",
+   "usr/lib/libfdt.so",
+   "usr/lib/libfdt.so.1",
+   "usr/lib/libfdt.so.1.8.1"
+  ],
+  "package_count": 208,
+  "packages_added": {
+   "libfdt": "1.8.1-r1",
+   "w1700k-fit-check": "1"
+  },
+  "packages_removed": [],
+  "ca_bundle_certs": 121,
+  "distfeeds_remote_urls": [],
+  "openwrt_release": [
+   "DISTRIB_RELEASE='ubi2-mlo-host-hardening-r44-20261003-tailscale'",
+   "DISTRIB_REVISION='r36182-6d74443bce'"
+  ]
+ },
+ "files_changed_vs_r43": [
+  "etc/apk/keys/public-key.pem",
+  "etc/apk/repositories.d/distfeeds.list",
+  "etc/apk/world",
+  "etc/banner",
+  "etc/build.config",
+  "etc/config/npu-monitor",
+  "etc/fe_debug_reg.sh",
+  "etc/fe_reg.sh",
+  "etc/gsw_status.sh",
+  "etc/init.d/fan",
+  "etc/md.sh",
+  "etc/openwrt_release",
+  "etc/ssl/certs/40193066.0",
+  "etc/ssl/certs/Certum_Trusted_Network_CA_2.crt",
+  "etc/ssl/certs/ca-certificates.crt",
+  "etc/testgpio.sh",
+  "etc/w1700k-mlo-repair",
+  "etc/xsi_mac_dbg.sh",
+  "lib/apk/db/installed",
+  "lib/apk/db/scripts.tar.gz",
+  "lib/apk/packages/ca-certificates.list",
+  "lib/upgrade/platform.sh",
+  "usr/bin/fastfetch",
+  "usr/bin/iperf3",
+  "usr/bin/jq",
+  "usr/bin/librespeed-go",
+  "usr/lib/libcrypto.so.3",
+  "usr/lib/libiperf.so.0.0.0",
+  "usr/lib/os-release",
+  "usr/libexec/npu-jitter-daemon",
+  "usr/libexec/rpcd/luci.airoha_flowsense",
+  "usr/libexec/rpcd/luci.airoha_npu",
+  "usr/libexec/rpcd/luci.fan",
+  "usr/libexec/rpcd/luci.netspeedtest",
+  "usr/sbin/tailscaled",
+  "usr/share/luci/menu.d/luci-app-wifi7.json",
+  "usr/share/rpcd/acl.d/luci-app-airoha-npu.json",
+  "usr/share/rpcd/acl.d/luci-app-netspeedtest.json",
+  "usr/share/rpcd/acl.d/luci-app-wifi7.json",
+  "usr/share/ucode/luci/template/header.ut",
+  "usr/share/ucode/luci/template/themes/bootstrap/header.ut",
+  "usr/share/ucode/luci/version.uc",
+  "www/cgi-bin/github_check",
+  "www/cgi-bin/github_fetch",
+  "www/luci-static/resources/fs-version.js",
+  "www/luci-static/resources/view/airoha_flowsense/status.js",
+  "www/luci-static/resources/view/airoha_npu/status.js",
+  "www/luci-static/resources/view/attendedsysupgrade/overview.js",
+  "www/luci-static/resources/view/fan/settings.js",
+  "www/luci-static/resources/view/fan/status.js",
+  "www/luci-static/resources/view/mlo.js",
+  "www/luci-static/resources/view/network/wireless.js",
+  "www/luci-static/resources/view/wifi7/index.js"
+ ],
+ "packages_changed_vs_r43": {
+  "base-files": [
+   "1707~6d74443bce",
+   "1708~6d74443bce"
+  ],
+  "ca-bundle": [
+   "20260816-r1",
+   "20260816-r2"
+  ],
+  "ca-certificates": [
+   "20260816-r1",
+   "20260816-r2"
+  ],
+  "luci": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-app-airoha-flowsense": [
+   "1.1.9-r5",
+   "1.1.9-r6"
+  ],
+  "luci-app-airoha-npu": [
+   "1.0.3-r1",
+   "1.0.3-r2"
+  ],
+  "luci-app-attendedsysupgrade": [
+   "26.250.72430~e81743d-r2",
+   "26.250.72430~e81743d-r4"
+  ],
+  "luci-app-filemanager": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-app-firewall": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-app-irqbalance": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-app-mlo": [
+   "26.253.30422~6d74443-r2",
+   "26.276.20662~1aca531-r3"
+  ],
+  "luci-app-netspeedtest": [
+   "26.253.30422~6d74443",
+   "26.276.17113~d22beb3"
+  ],
+  "luci-app-package-manager": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-app-ttyd": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-app-w1700k-fancontrol": [
+   "26.253.30422~6d74443",
+   "26.276.20652~b836ac1"
+  ],
+  "luci-app-wifi7": [
+   "1.0.0-r20260908",
+   "1.0.0-r20261003"
+  ],
+  "luci-base": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-lib-uqr": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-light": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-mod-admin-full": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-mod-network": [
+   "26.250.72430~e81743d",
+   "26.250.72430~e81743d-r2"
+  ],
+  "luci-mod-status": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-mod-system": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-proto-ipv6": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-proto-ppp": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-proto-relay": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-theme-bootstrap": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ],
+  "luci-theme-footstrap": [
+   "26.250.72430~e81743d",
+   "26.253.65031~289a726"
+  ]
+ },
+ "fit_checks_on_host": {
+  "fit_check_sign (u-boot 2026.07 tools, host build)": {
+   "r44": 0,
+   "r43 562c6bae": 0,
+   "local W1700K sysupgrade images": "60/60 accepted"
+  },
+  "w1700k-fit-check (host build, dtc 1.8.1 libfdt)": {
+   "r44": 0,
+   "r43 562c6bae": 0,
+   "r44 chainload-uboot.itb": 74,
+   "local W1700K sysupgrade images": "58/58 accepted (reviewer run)"
+  }
+ },
+ "host_tests": [
+  "test_board_luci_apps.py OK",
+  "test_wifi7_ui.js 41/0",
+  "test_mlo_ui.js PASS",
+  "test_board_luci_views.js 4/0",
+  "test_wireless_mlo_guard.js 5/0 on the patched feed",
+  "test_attendedsysupgrade_images.js 12/0 on the patched feed",
+  "test_github_fetch.py 9/9 with jq 1.8.2 built --without-oniguruma",
+  "test_package_feeds.py PASS",
+  "test_w1700k_fit.py 39 cases + 400 mutations + 4 dispatch",
+  "test_image_metadata.py PASS",
+  "test_bridge_flow_offload.py OK",
+  "hostapd reassoc 1536 / DFS 216",
+  "driver tests on the prepared r43 sources (mlo_ps 99/0, active_link 0, link_lifecycle 631/0, forward_path 48/0, npu_aggregation 18/0, npu_red 50, npu watchdog/mailbox/budget, ppe_ownership 16/0)"
+ ],
+ "kernel_payload_note": "Kernel code identical to r43; FIT kernel bytes differ only in build timestamp and toolchain label metadata.",
+ "installed": false,
+ "boot_tested": false,
+ "wireless_tested": false,
+ "limitations": [
+  "Not installed or booted on a device.",
+  "w1700k-fit-check makes sysupgrade fail closed; a wrong rejection on the device would block later upgrades even with -F (r43 can still be installed from r44).",
+  "Browser checks used headless Chrome with the image luci.js; no full LuCI session against a real router.",
+  "No MLO, throughput or Air sleep/wake claims."
+ ]
+}
