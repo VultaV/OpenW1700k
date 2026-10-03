@@ -7,7 +7,7 @@
             "path": "wifi7/index"
         },
         "depends": {
-            "acl": [ "luci-mod-network-config" ]
+            "acl": [ "luci-app-wifi7" ]
         }
     }
 }
