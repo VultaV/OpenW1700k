@@ -39,10 +39,15 @@ access in the main/rebuilder paths. Patch application recreated the expected
 view and Makefile byte-for-byte.
 
 Revision r3 lists GitHub release tags as text: Git allows `<` and `>` in tag
-names, and LuCI `E()` assigns a lone string child to `innerHTML`. Both hashes
-above describe r2; recompute them after applying r3 to the pinned feed. With
-the r43 image's `overview.js` the test gives **9 PASS / 1 FAIL / 0 SKIP**; the
-same file with the r3 change gives **10 PASS / 0 FAIL / 0 SKIP**.
+names, and LuCI `E()` assigns a lone string child to `innerHTML`. With the r43
+image's `overview.js` the test gives **9 PASS / 1 FAIL / 0 SKIP**; the same file
+with the r3 change gives **10 PASS / 0 FAIL / 0 SKIP**. Reverting r2 and applying
+r3 to the pinned feed `289a7260` also gives 10 / 0 / 0 on the unminified view:
+
+| File relative to LuCI feed | SHA256 after the r3 patch |
+| --- | --- |
+| `applications/luci-app-attendedsysupgrade/Makefile` | `89bc0867d445cf93339d397c8a9651c2c1cdff94841ee2bdbef62957b2f9573c` |
+| `applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js` | `501ae68d9e3caeecb62e2b1984fbde5092bcba996a8d7501500eb9ddf44e5c7d` |
 
 The test executes the full view with inert RPC, HTTP and DOM substitutes and
 accepts an extracted image's `overview.js` as its first argument. It checks image
