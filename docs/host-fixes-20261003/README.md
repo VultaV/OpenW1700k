@@ -71,6 +71,7 @@ OpenWrt가 패키지 준비 단계에서 이 폴더의 패치를 적용한다.
 | wifi7 (F08) | MLD netdev를 UCI 이름에서 추정(`ap-mld-1`) | 상태·적용 확인이 존재하지 않는 대상을 조회 |
 | wifi7 (W01, 포팅) | MLD config 탭의 Discard에 동작이 없음. 저장 뒤에도 기준값이 로드 시점 값. 후보의 Discard를 그대로 쓰면 목록에 없는 암호화(MLO 페이지의 `psk2` 등)에서 선택 상자가 비고, 저장하면 rpcd가 `encryption`을 지운다 | 편집 취소 불가. 후보 그대로면 개방 AP |
 | wifi7 (W03, 독립 검증 전) | 암호화 선택 상자가 목록에 없는 저장값을 첫 항목으로 보이고 저장한다. Networks 탭(2.4·5 GHz)은 첫 항목이 Open이라 표준 Wireless의 `psk2+ccmp`·`wpa2` 등이 `none`이 되고, MLD 탭은 `wpa3-192` 등이 `sae`가 된다. 저장값을 그대로 선택 항목에 넣는다 | Networks 탭 저장만으로 개방 AP |
+| wifi7 (W04, 독립 검증 전) | Networks 탭이 `lan`·`wan`·`guest`·`iot` 밖의 네트워크(`guest2` 등)를 `lan`으로 선택해 로드한다. 사용자 지정 입력란은 보이지만 저장은 `lan`을 쓴다. Discard는 이미 `custom`을 고른다 | 저장만으로 손님 SSID가 LAN 브리지로 |
 | wifi7 (W02, 포팅) | Save & apply가 로드 시점의 netdev로 hostapd를 폴링. MLO를 끈 프로필은 `hostapd.undefined`, 로드 때 꺼져 있던 MLD는 추정 이름 | Wi-Fi가 떠도 3분 뒤 재부팅 권고 |
 | mlo (F06) | 비활성 MLO 프로필도 활성 라디오 2개를 요구해 저장 거절 | 저장 불가 |
 | wifi7·mlo·fan·flowsense | SSID·암호화·장치·모드·ifname·프리셋·대상 문자열이 `innerHTML`로 | UCI 쓰기 위임 계정의 관리자 세션 XSS |
@@ -175,6 +176,8 @@ LuCI 보안·UI (실제 브라우저)
   암호화 상자가 `psk2`를 보이고 Save & apply 뒤 `wireless.<sid>.encryption`이 `psk2`로 남는지.
 - W03: 표준 Wireless에서 `psk2+ccmp`로 둔 2.4 GHz 네트워크를 Networks 탭에서 저장한 뒤
   `encryption`이 `psk2+ccmp`이고 개방 AP가 아닌지.
+- W04: `network`가 `guest2`인 네트워크를 Networks 탭에서 열면 `custom`과 `guest2`가 보이고 저장 뒤에도
+  `guest2`인지.
 - F06: 비활성 MLO 프로필 저장 허용, 활성화 시 2라디오 재검증.
 - 팬: 정수 커브 저장·재부팅 뒤 `pwm1_enable=2`, auto point 값(밀리도). 장치 busybox에서
   `40.5`·`08` 입력의 수정 전 중단·수정 후 자동 복귀.

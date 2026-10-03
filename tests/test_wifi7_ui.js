@@ -432,6 +432,15 @@ async function check(name, fn) {
                 ['psk2+ccmp', 'legacy-passphrase']);
         });
     }
+    // A network outside lan/wan/guest/iot loaded as lan with the custom field
+    // still shown, so Save moved e.g. a guest SSID onto the LAN bridge.
+    await check('W04 Networks save keeps a custom network', async () => {
+        const env = makeEnv(fixture({default_radio0: {...legacy, network: 'guest2'}}, {}, {}));
+        const {content} = await open(env, 'legacy');
+        button(content, 'Save & apply').fire('click');
+        await settle(env);
+        assert.equal(sets(env)[0].values.network, 'guest2');
+    });
     await check('X01 MLD tab shows an unlisted encryption as text, not markup', async () => {
         const payload = '<img src=x onerror=alert(1)>';
         const env = makeEnv(fixture({mlo0: mld('Xss', {encryption: payload, encryption_rsno: payload})}, {}, {}));

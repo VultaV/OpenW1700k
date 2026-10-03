@@ -1745,9 +1745,11 @@ return view.extend({
                 var netSel = E('select', { 'style':
                     'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
                     'color:#fff;padding:4px 8px;font-size:12px;width:160px' });
+                var curNet = s['network'] || 'lan';
+                if (['lan','wan','guest','iot'].indexOf(curNet) < 0) curNet = 'custom';
                 ['lan','wan','guest','iot','custom'].forEach(function(n) {
                     var opt = E('option', { 'value': n }, n);
-                    if ((s['network'] || 'lan') === n) opt.selected = true;
+                    if (curNet === n) opt.selected = true;
                     netSel.appendChild(opt);
                 });
                 // Custom network input -- shown when 'custom' selected
