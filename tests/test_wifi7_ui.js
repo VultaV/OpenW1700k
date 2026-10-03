@@ -18,6 +18,8 @@ class Text {
     constructor(text) { this.text = String(text); this.parentNode = null; }
     get textContent() { return this.text; }
 }
+// Markup that LuCI dom.append() assigned to innerHTML
+class Html extends Text {}
 class Element {
     constructor(tagName) {
         Object.assign(this, {tagName, attrs: {}, style: {}, children: [],
@@ -69,7 +71,8 @@ class Element {
     }
 }
 
-// LuCI E(): attributes, then children appended like dom.append(), which skips null
+// LuCI E(): attributes, then children appended like dom.append(), which skips
+// null, makes array items text nodes and assigns a lone string to innerHTML
 function makeE(byId) {
     return function E(tag, attrs, children) {
         const el = new Element(tag);
@@ -83,7 +86,9 @@ function makeE(byId) {
             if (key === 'type') el.type = value;
             if (key === 'id') byId[value] = el;
         }
-        for (const child of Array.isArray(children) ? children : [children])
+        if (children != null && !Array.isArray(children) && !(children instanceof Element))
+            el.appendChild(new Html(children));
+        else for (const child of Array.isArray(children) ? children : [children])
             if (child != null) el.appendChild(child instanceof Element ? child : new Text(child));
         return el;
     };
@@ -336,6 +341,16 @@ async function check(name, fn) {
         button(content, 'Save & apply').fire('click');
         await settle(env);
         assert.equal(sets(env)[0].section, 'mlo1');
+    });
+    await check('F07 profile selector shows SSIDs as text, not markup', async () => {
+        const payload = '<img src=x onerror=alert(1)>';
+        const env = makeEnv(fixture({mlo0: mld(payload), mlo1: mld('Second')}, {}, {}));
+        const {content} = await open(env, 'mld');
+        const select = all(content, e => e.tagName === 'select' && e.options.some(o => o.value === 'mlo1'))[0];
+        assert(select, 'no profile selector');
+        assert(select.textContent.includes(payload), 'SSID not shown');
+        assert(!all(content, e => e.children.some(c => c instanceof Html && c.text.includes(payload))).length,
+            'SSID assigned to innerHTML');
     });
     await check('F07 sole profile with MLO switched off stays selected', async () => {
         const env = makeEnv(mloSwitchedOff);

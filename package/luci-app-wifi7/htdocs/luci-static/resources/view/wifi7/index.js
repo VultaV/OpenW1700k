@@ -671,7 +671,7 @@ return view.extend({
             'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
             'color:#fff;padding:4px 8px;font-size:12px;width:220px' });
         profiles.forEach(function(sid) {
-            var opt = E('option', { 'value': sid }, sid + ' (' + (uciData[sid]['ssid'] || '') + ')');
+            var opt = E('option', { 'value': sid }, [ sid + ' (' + (uciData[sid]['ssid'] || '') + ')' ]);
             if (sid === mldSID) opt.selected = true;
             profileSel.appendChild(opt);
         });
