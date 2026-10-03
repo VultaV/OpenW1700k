@@ -542,6 +542,8 @@ return view.extend({
 			let values = uniqueValues(value);
 			let mloOption = this.section.children.find(opt => opt.option == 'mlo');
 			let mloEnabled = mloOption ? mloOption.formvalue(section_id) : optionValue(section_id, 'mlo');
+			let disabledOption = this.section.children.find(opt => opt.option == 'disabled');
+			let sectionDisabled = disabledOption ? disabledOption.formvalue(section_id) : optionValue(section_id, 'disabled');
 
 			if (!values.length)
 				return _('Select at least one radio device');
@@ -549,7 +551,11 @@ return view.extend({
 			if (values.some(device => !radiosByName[device]))
 				return _('Select a configured radio device');
 
-			if (mloEnabled == '1' && values.filter(device => radiosByName[device].disabled != '1').length < 2)
+			if (mloEnabled == '1' && values.length < 2)
+				return _('MLO requires at least two radio devices');
+
+			if (mloEnabled == '1' && sectionDisabled != '1' &&
+				values.filter(device => radiosByName[device].disabled != '1').length < 2)
 				return _('MLO requires at least two enabled radio devices');
 
 			return true;

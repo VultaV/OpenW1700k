@@ -23,15 +23,28 @@ async function checkDefaults(radios, expected) {
     });
     await create('ap');
     assert.deepEqual(values.device, expected);
-    const validation = bind('return ' + validate, {
+    // stored: the UCI section; form: {option: formvalue} of the open modal.
+    const validator = (stored, form = {}) => bind('return ' + validate, {
         uniqueValues: value => [...new Set(value)], _: text => text,
         radiosByName: Object.fromEntries(radios.map(r => [r['.name'], r])),
-        optionValue: () => '1'
-    }).bind({section: {children: []}});
+        optionValue: (_sid, option) => stored[option]
+    }).bind({section: {children: Object.entries(form).map(([option, v]) => ({option, formvalue: () => v}))}});
+    const validation = validator({mlo: '1', disabled: '0'});
     assert.notEqual(validation('mlo0', ['radio1', 'missing']), true);
     if (expected) assert.equal(validation('mlo0', expected), true);
     const disabled = radios.find(r => r.disabled === '1');
-    if (disabled) assert.notEqual(validation('mlo0', ['radio1', disabled['.name']]), true);
+    if (disabled) {
+        const pair = ['radio1', disabled['.name']];
+        assert.notEqual(validation('mlo0', pair), true);
+        assert.equal(validator({mlo: '1', disabled: '1'})('mlo0', pair), true,
+                     'A disabled MLO profile must save while one of its radios is disabled');
+        assert.equal(validator({mlo: '1', disabled: '0'}, {mlo: '1', disabled: '1'})('mlo0', pair), true,
+                     'Unticking Enabled in the form must allow the save');
+        assert.notEqual(validator({mlo: '1', disabled: '1'}, {mlo: '1', disabled: '0'})('mlo0', pair), true,
+                        'Re-enabling the profile must still need two enabled radios');
+        assert.notEqual(validator({mlo: '1', disabled: '1'})('mlo0', ['radio1']), true,
+                        'A disabled MLO profile still needs two radio devices');
+    }
     const radioDefaults = wifi7.slice(wifi7.indexOf('var radioChoices ='), wifi7.indexOf('var radioChecks ='));
     const wifiDefaults = bind(radioDefaults + 'return defaultRadios;', {
         uciData: Object.fromEntries(radios.map(r => [r['.name'], {...r, '.type':'wifi-device'}]))
