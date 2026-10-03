@@ -53,3 +53,38 @@ The test executes the full view with inert RPC, HTTP and DOM substitutes and
 accepts an extracted image's `overview.js` as its first argument. It checks image
 selection and upgrade error handling without fetching or flashing anything.
 These checks do not establish a full browser flow, clean image build or boot.
+
+## 0005: release repository and keep choice
+
+`0005-luci-asu-keep-and-release-source.patch` applies on top of 0003 r3 and
+must ship with the `github_check` and `github_fetch` from
+`docs/mlo-r30/overlay` of the same commit. It points the "View on GitHub" link
+at `VultaV/OpenW1700k`, where the W1700K releases are published, and sends the
+dialog's "Keep settings" choice to `github_fetch`, which runs
+`sysupgrade --test` with `-n` when settings are discarded. The CGI refuses
+requests without a boolean `keep`, so a view without 0005 cannot download
+through it. 0005 leaves the r3 text-only release list unchanged and sets
+`PKG_RELEASE:=4`.
+
+```sh
+git -C /path/to/luci-feed apply --check /path/to/0003-luci-attendedsysupgrade-github-update.patch
+git -C /path/to/luci-feed apply /path/to/0003-luci-attendedsysupgrade-github-update.patch
+git -C /path/to/luci-feed apply --check /path/to/0005-luci-asu-keep-and-release-source.patch
+git -C /path/to/luci-feed apply /path/to/0005-luci-asu-keep-and-release-source.patch
+node tests/test_attendedsysupgrade_images.js /path/to/luci-feed/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js
+python3 tests/test_github_fetch.py
+```
+
+On the pinned feed `289a7260` the view test gives **9 PASS / 3 FAIL / 0
+SKIP** with 0003 r3 alone (the two keep checks and the release link) and
+**12 PASS / 0 FAIL / 0 SKIP** with 0003 r3 and 0005.
+`tests/test_github_fetch.py` runs both CGIs with stubbed `curl`, `ubus` and
+`sysupgrade` against the r43 release's asset names and passes 9 of 9.
+
+| File relative to LuCI feed | SHA256 after 0003 r3 and 0005 |
+| --- | --- |
+| `applications/luci-app-attendedsysupgrade/Makefile` | `0c595cc0826d5c990b06fac7427ee26d716bc19c6a67c872b87715e1219df42c` |
+| `applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js` | `676ac4e553693c37da1ba3f772276949f9211f75857fb6a1369e233117b6a6cb` |
+
+These checks do not download or flash anything and do not cover a real
+GitHub response, a browser or `sysupgrade` on the device.
