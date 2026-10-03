@@ -1392,7 +1392,7 @@ function renderCompassCards(cs, bypass, jitter, wan, wifi, bridge, mode) {
 		return E('div', { 'class': 'compass-card' }, [
 			E('div', { 'class': 'compass-card-title' }, title),
 			E('div', { 'class': 'compass-card-value', 'style': 'color:'+color }, val),
-			E('div', { 'class': 'compass-card-sub' }, sub)
+			E('div', { 'class': 'compass-card-sub' }, [ sub ])
 		]);
 	}
 

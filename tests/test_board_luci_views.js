@@ -47,5 +47,15 @@ check('fan status shows the UCI curve preset as text', () => {
     assert(shown(page, payload), 'preset not shown');
 });
 
+// The jitter daemon copies UCI npu-monitor.jitter.target into getJitterResult.
+check('FlowSense latency card shows the ping target as text', () => {
+    const data = Array(16).fill(null);
+    data[9] = {target: payload, available: true};
+    const page = renderView('luci-app-airoha-flowsense/htdocs/luci-static/resources/view/airoha_flowsense/status.js',
+        data);
+    assert(!markup(page, payload), 'target assigned to innerHTML');
+    assert(shown(page, payload), 'target not shown');
+});
+
 console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);
 process.exitCode = failed ? 1 : 0;
