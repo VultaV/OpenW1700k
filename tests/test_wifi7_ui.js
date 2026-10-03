@@ -60,14 +60,24 @@ class Element {
     querySelector(sel) { return this.querySelectorAll(sel)[0] || null; }
     closest(sel) { let e = this; while (e && !e.matches(sel)) e = e.parentNode; return e; }
     get options() { return this.children.filter(c => c.tagName === 'option'); }
+    // HTMLSelectElement: the first option shows until value is set to one the
+    // select does not list, which selects nothing and reads as ''
+    get selectedIndex() {
+        const i = this.options.findIndex(o => o.selected);
+        return i < 0 && !this._none && this.options.length ? 0 : i;
+    }
+    set selectedIndex(i) {
+        this._none = i < 0;
+        this.options.forEach((o, j) => { o.selected = j === i; });
+    }
     get value() {
         if (this.tagName !== 'select') return this._value ?? '';
-        const option = this.options.find(o => o.selected) || this.options[0];
+        const option = this.options[this.selectedIndex];
         return option ? option.value : '';
     }
     set value(value) {
         if (this.tagName !== 'select') this._value = String(value);
-        else this.options.forEach(o => { o.selected = o.value === String(value); });
+        else this.selectedIndex = this.options.findIndex(o => o.value === String(value));
     }
 }
 
@@ -393,6 +403,18 @@ async function check(name, fn) {
         ssid().value = 'edited again';
         button(content, 'Discard').fire('click');
         assert.equal(ssid().value, 'Saved', 'Discard went back past the save');
+    });
+    // The MLO page also offers psk2 and others the MLD tab does not list. Saving
+    // an empty select would make rpcd delete the encryption option (open AP).
+    await check('W01 MLD Discard on an unlisted encryption saves what the load showed', async () => {
+        const env = makeEnv(fixture({mlo0: mld('Psk', {encryption: 'psk2', encryption_rsno: 'x'})},
+            {mlo0: 'ap-mld0'}, {'ap-mld0': []}));
+        const {content} = await open(env, 'mld');
+        button(content, 'Discard').fire('click');
+        button(content, 'Save & apply').fire('click');
+        await settle(env);
+        const {encryption, encryption_rsno} = sets(env)[0].values;
+        assert.deepEqual([encryption, encryption_rsno], ['sae', 'sae'], 'Discard emptied a select');
     });
     // Apply polled a netdev fixed at page load: none for a profile with MLO
     // off, a guess for an MLD that was not running yet.

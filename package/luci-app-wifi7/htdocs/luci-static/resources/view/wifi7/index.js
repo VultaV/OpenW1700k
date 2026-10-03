@@ -784,6 +784,10 @@ return view.extend({
             keyInput.value  = s['key']             || '';
             encSel.value    = s['encryption']      || 'sae';
             rsnoSel.value   = s['encryption_rsno'] || 'sae';
+            // An unlisted value empties the select and saving '' would delete
+            // the option; show the first entry as the page load does
+            if (encSel.selectedIndex < 0)  encSel.selectedIndex  = 0;
+            if (rsnoSel.selectedIndex < 0) rsnoSel.selectedIndex = 0;
         });
 
         applyBtn.addEventListener('click', function() {
