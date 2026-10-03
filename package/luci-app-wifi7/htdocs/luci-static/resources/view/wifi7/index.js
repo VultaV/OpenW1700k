@@ -1588,6 +1588,8 @@ return view.extend({
                 var s    = ifc.s;
                 var meta = ifc.meta;
                 var is6g = s['device'] === 'radio2';
+                // rpcd returns a list option (luci-app-mlo writes one) as an array
+                var savedNet = [].concat(s['network'] || 'lan').join(' ');
 
                 var ssidInp = E('input', { 'type':'text', 'value':s['ssid']||'',
                     'style':inputStyle });
@@ -1648,7 +1650,7 @@ return view.extend({
                     disChk.checked = s['disabled']==='1';
                     Array.prototype.forEach.call(encSel.options, function(o) {
                         o.selected = o.value === (s['encryption']||'none'); });
-                    var origNet = s['network']||'lan';
+                    var origNet = savedNet;
                     var knownNets = ['lan','wan','guest','iot'];
                     netSel.value = knownNets.indexOf(origNet) >= 0 ? origNet : 'custom';
                     netCustom.value = knownNets.indexOf(origNet) < 0 ? origNet : '';
@@ -1745,7 +1747,7 @@ return view.extend({
                 var netSel = E('select', { 'style':
                     'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
                     'color:#fff;padding:4px 8px;font-size:12px;width:160px' });
-                var curNet = s['network'] || 'lan';
+                var curNet = savedNet;
                 if (['lan','wan','guest','iot'].indexOf(curNet) < 0) curNet = 'custom';
                 ['lan','wan','guest','iot','custom'].forEach(function(n) {
                     var opt = E('option', { 'value': n }, n);
@@ -1755,12 +1757,12 @@ return view.extend({
                 // Custom network input -- shown when 'custom' selected
                 var netCustom = E('input', { 'type':'text',
                     'placeholder': 'network name',
-                    'value': ['lan','wan','guest','iot'].indexOf(s['network']||'lan') < 0
-                        ? (s['network']||'') : '',
+                    'value': ['lan','wan','guest','iot'].indexOf(savedNet) < 0
+                        ? savedNet : '',
                     'style': 'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
                         'color:#fff;padding:4px 8px;font-size:12px;width:120px;' +
                         'margin-left:6px;display:' +
-                        (['lan','wan','guest','iot'].indexOf(s['network']||'lan') < 0
+                        (['lan','wan','guest','iot'].indexOf(savedNet) < 0
                             ? 'inline-block' : 'none') });
                 netSel.addEventListener('change', function() {
                     netCustom.style.display = netSel.value === 'custom' ? 'inline-block' : 'none';

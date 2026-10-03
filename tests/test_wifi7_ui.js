@@ -91,7 +91,8 @@ function makeE(byId) {
         for (const [key, value] of Object.entries(attrs)) {
             if (value == null) continue;
             el.attrs[key] = value;
-            if (key === 'value') el.value = value;
+            // dom.attr() writes an object as JSON
+            if (key === 'value') el.value = typeof value === 'object' ? JSON.stringify(value) : value;
             if (key === 'checked') el.checked = !!value;
             if (key === 'type') el.type = value;
             if (key === 'id') byId[value] = el;
@@ -441,6 +442,18 @@ async function check(name, fn) {
         await settle(env);
         assert.equal(sets(env)[0].values.network, 'guest2');
     });
+    // luci-app-mlo stores network as a list, which rpcd returns as an array; a
+    // profile whose MLO was switched off is edited here.
+    for (const discard of [false, true]) {
+        await check(`W04 Networks save ${discard ? 'after Discard ' : ''}keeps a list network`, async () => {
+            const env = makeEnv(fixture({default_radio0: {...legacy, network: ['lan', 'guest']}}, {}, {}));
+            const {content} = await open(env, 'legacy');
+            if (discard) button(content, 'Discard').fire('click');
+            button(content, 'Save & apply').fire('click');
+            await settle(env);
+            assert.equal(sets(env)[0].values.network, 'lan guest');
+        });
+    }
     await check('X01 MLD tab shows an unlisted encryption as text, not markup', async () => {
         const payload = '<img src=x onerror=alert(1)>';
         const env = makeEnv(fixture({mlo0: mld('Xss', {encryption: payload, encryption_rsno: payload})}, {}, {}));
