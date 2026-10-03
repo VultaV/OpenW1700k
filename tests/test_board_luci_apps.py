@@ -219,6 +219,23 @@ class FanControl(unittest.TestCase):
         self.assertEqual([status['fan_mode_desc'], status['uci_mode'], status['uci_preset']],
                          ['Full Speed', 'auto', 'balanced'])
 
+    def test_rpc_curves_report_only_integer_points(self):
+        # Curve points are printed into JSON unquoted. A quote can close the
+        # quiet array and replace it, a non-integer or zero-padded one leaves
+        # invalid JSON.
+        forged = '255}],"quiet":"<img src=x onerror=alert(1)>","z":[{"a":0'
+        for value in [forged, 'abc', '', '08']:
+            with self.subTest(value=value):
+                # The first point5_temp '85' and point5_pwm '255' belong to 'quiet'
+                fx, _ = self.fixture('nct7802', 2, **{"point5_temp '85'": f"point5_temp '{value}'",
+                                                        "point5_pwm '255'": f"point5_pwm '{value}'"})
+                curves = json.loads(fx.run(self.RPC, ['call', 'getAllCurves']).stdout)
+                self.assertEqual(list(curves), ['quiet', 'balanced', 'performance', 'custom'])
+                self.assertEqual(curves['quiet'][3:], [{'temp': 75, 'pwm': 199}, {'temp': 0, 'pwm': 0}])
+                self.assertEqual(curves['balanced'][4], {'temp': 80, 'pwm': 255})
+                result = fx.run(self.RPC, ['call', 'getCurve'], json.dumps({'preset': 'quiet'}))
+                self.assertEqual(json.loads(result.stdout)['points'][4], {'temp': 0, 'pwm': 0})
+
     def test_ui_accepts_only_integers(self):
         view = (self.APP/'htdocs/luci-static/resources/view/fan/settings.js').read_text()
         self.assertEqual(re.findall(r"datatype = '([^']+)'", view), [

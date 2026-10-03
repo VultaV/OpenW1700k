@@ -139,6 +139,9 @@ get_curve() {
 	for i in 1 2 3 4 5; do
 		local temp=$(uci -q get fan.${preset}.point${i}_temp || echo 0)
 		local pwm=$(uci -q get fan.${preset}.point${i}_pwm || echo 0)
+		# Printed into JSON unquoted: only integers, as the init script applies
+		case "$temp" in ''|*[!0-9]*|0?*) temp=0 ;; esac
+		case "$pwm" in ''|*[!0-9]*|0?*) pwm=0 ;; esac
 
 		[ $first -eq 0 ] && points="${points},"
 		first=0
@@ -162,6 +165,8 @@ get_all_curves() {
 		for i in 1 2 3 4 5; do
 			local temp=$(uci -q get fan.${preset}.point${i}_temp || echo 0)
 			local pwm=$(uci -q get fan.${preset}.point${i}_pwm || echo 0)
+			case "$temp" in ''|*[!0-9]*|0?*) temp=0 ;; esac
+			case "$pwm" in ''|*[!0-9]*|0?*) pwm=0 ;; esac
 
 			[ $pfirst -eq 0 ] && points="${points},"
 			pfirst=0
