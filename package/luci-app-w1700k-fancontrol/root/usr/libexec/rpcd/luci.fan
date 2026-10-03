@@ -193,7 +193,8 @@ set_manual_pwm() {
 	local pwm="$1"
 
 	# Validate PWM range
-	if [ "$pwm" -ge 0 ] && [ "$pwm" -le 255 ] 2>/dev/null; then
+	case "$pwm" in *[!0-9]*|0?*) pwm= ;; esac
+	if [ -n "$pwm" ] && [ "$pwm" -le 255 ]; then
 		uci set fan.settings.manual_pwm="$pwm"
 		uci commit fan
 		/etc/init.d/fan reload
@@ -231,7 +232,9 @@ set_custom_curve() {
 			local temp=$(echo "$json" | jsonfilter -e "@.points[${idx}].temp" 2>/dev/null)
 			local pwm=$(echo "$json" | jsonfilter -e "@.points[${idx}].pwm" 2>/dev/null)
 
-			if [ -n "$temp" ] && [ -n "$pwm" ]; then
+			case "$temp" in ''|*[!0-9]*|0?*) continue ;; esac
+			case "$pwm" in ''|*[!0-9]*|0?*) continue ;; esac
+			if [ "$temp" -le 100 ] && [ "$pwm" -le 255 ]; then
 				uci set fan.custom.point${i}_temp="$temp"
 				uci set fan.custom.point${i}_pwm="$pwm"
 			fi

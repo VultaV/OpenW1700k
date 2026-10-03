@@ -144,5 +144,76 @@ class NetSpeedTest(unittest.TestCase):
         self.assertFalse((self.APP/'.prepare.sh').exists())
 
 
+class FanControl(unittest.TestCase):
+    APP = PKG/'luci-app-w1700k-fancontrol'
+    INIT = APP/'root/etc/init.d/fan'
+    RPC = APP/'root/usr/libexec/rpcd/luci.fan'
+
+    def fixture(self, hwmon_name, hwmon_index, **changes):
+        fx = Fixture(self, ['uci', 'jsonfilter'])
+        hwmon = fx.base/'hwmon'/f'hwmon{hwmon_index}'
+        hwmon.mkdir(parents=True)
+        (hwmon/'name').write_text(hwmon_name + '\n')
+        config = (self.APP/'root/etc/config/fan').read_text()
+        for old, new in changes.items():
+            old, new = f"option {old}", f"option {new}"
+            self.assertIn(old, config)
+            config = config.replace(old, new, 1)
+        (fx.base/'config'/'fan').write_text(config)
+        return fx, hwmon
+
+    def apply_settings(self, fx):
+        return fx.run(self.INIT, subs={'/sys/class/hwmon': str(fx.base/'hwmon')},
+                      call='apply_settings; echo "rc=$?"')
+
+    def test_init_skips_bad_curve_points_and_returns_to_auto(self):
+        # The first point2_temp/point4_temp options belong to 'balanced'.
+        fx, nct = self.fixture('nct7802', 2, **{"point2_temp '50'": "point2_temp '40.5'",
+                                                "point4_temp '70'": "point4_temp '08'"})
+        (nct/'pwm1_enable').write_text('2\n')
+        result = self.apply_settings(fx)
+        self.assertEqual((nct/'pwm1_enable').read_text(), '2\n', result.stderr)
+        written = {p.name: p.read_text() for p in nct.glob('pwm1_auto_point*_temp')}
+        self.assertEqual(written, {'pwm1_auto_point1_temp': '40000\n', 'pwm1_auto_point3_temp': '60000\n',
+                                   'pwm1_auto_point5_temp': '80000\n'})
+
+    def test_init_does_not_write_non_integer_manual_pwm(self):
+        fx, nct = self.fixture('nct7802', 2, **{"mode 'auto'": "mode 'manual'",
+                                                "manual_pwm '127'": "manual_pwm '12.5'"})
+        self.apply_settings(fx)
+        self.assertEqual((nct/'pwm1_enable').read_text(), '1\n')
+        self.assertFalse((nct/'pwm1').exists())
+
+    def test_init_leaves_other_hwmon5_alone_without_nct7802(self):
+        fx, other = self.fixture('mt7996_phy0.1', 5)
+        result = self.apply_settings(fx)
+        self.assertIn('rc=1', result.stdout)
+        self.assertEqual([p.name for p in other.iterdir()], ['name'])
+
+    def test_rpc_stores_only_integer_points_in_range(self):
+        fx, _ = self.fixture('nct7802', 2)
+        points = [{'temp': 40.5, 'pwm': 54}, {'temp': 50, 'pwm': 69}, {'temp': 60, 'pwm': 300},
+                  {'temp': '08', 'pwm': 1}, {'temp': 80, 'pwm': 255}]
+        fx.run(self.RPC, ['call', 'setCustomCurve'], json.dumps({'points': points}),
+               {'/sys/class/hwmon': str(fx.base/'hwmon'), '/etc/init.d/fan': 'true'})
+        self.assertEqual([args[1] for args in fx.calls('uci') if args[0] == 'set'], [
+            'fan.custom.point2_temp=50', 'fan.custom.point2_pwm=69',
+            'fan.custom.point5_temp=80', 'fan.custom.point5_pwm=255', 'fan.settings.curve_preset=custom'])
+
+    def test_rpc_rejects_non_integer_manual_pwm(self):
+        for pwm, stored in [('12.5', None), ('08', None), ('-1', None), ('', None), ('255', '255')]:
+            with self.subTest(pwm=pwm):
+                fx, _ = self.fixture('nct7802', 2)
+                fx.run(self.RPC, ['call', 'setManualPwm'], json.dumps({'pwm': pwm}),
+                       {'/sys/class/hwmon': str(fx.base/'hwmon'), '/etc/init.d/fan': 'true'})
+                sets = [args[1] for args in fx.calls('uci') if args[0] == 'set']
+                self.assertEqual(sets, [f'fan.settings.manual_pwm={stored}'] if stored else [])
+
+    def test_ui_accepts_only_integers(self):
+        view = (self.APP/'htdocs/luci-static/resources/view/fan/settings.js').read_text()
+        self.assertEqual(re.findall(r"datatype = '([^']+)'", view), [
+            'and(uinteger,range(0,255))', 'and(uinteger,range(0,100))', 'and(uinteger,range(0,255))'])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

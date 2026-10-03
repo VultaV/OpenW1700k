@@ -11,7 +11,6 @@ find_nct7802() {
 			return
 		fi
 	done
-	echo "/sys/class/hwmon/hwmon5"  # fallback
 }
 
 HWMON=$(find_nct7802)
@@ -25,6 +24,10 @@ apply_curve() {
 	for i in 1 2 3 4 5; do
 		temp=$(uci -q get fan.${preset}.point${i}_temp)
 		pwm=$(uci -q get fan.${preset}.point${i}_pwm)
+		# Non-integers and leading zeros (octal) would abort $(( )) while
+		# the fan is in manual mode
+		case "$temp" in *[!0-9]*|0?*) temp= ;; esac
+		case "$pwm" in *[!0-9]*|0?*) pwm= ;; esac
 
 		if [ -n "$temp" ]; then
 			# Temperature in milli-celsius
@@ -46,6 +49,7 @@ apply_settings() {
 	mode=$(uci -q get fan.settings.mode)
 	preset=$(uci -q get fan.settings.curve_preset)
 	manual_pwm=$(uci -q get fan.settings.manual_pwm)
+	case "$manual_pwm" in *[!0-9]*|0?*) manual_pwm= ;; esac
 
 	# Disable auto mode temporarily to write settings
 	echo 1 > ${HWMON}/pwm1_enable 2>/dev/null

@@ -153,7 +153,7 @@ return view.extend({
 		// Manual PWM (only shown when mode is manual)
 		o = s.option(form.Value, 'manual_pwm', _('Manual Fan Speed (PWM)'),
 			_('Set a fixed PWM value (0-255). 0 = Off, 255 = Full Speed'));
-		o.datatype = 'range(0,255)';
+		o.datatype = 'and(uinteger,range(0,255))';
 		o.default = '127';
 		o.depends('mode', 'manual');
 		o.rmempty = false;
@@ -196,11 +196,11 @@ return view.extend({
 
 		for (var i = 1; i <= 5; i++) {
 			o = s.taboption('points', form.Value, 'point' + i + '_temp', _('Point %d Temperature (\u00B0C)').format(i));
-			o.datatype = 'range(0,100)';
+			o.datatype = 'and(uinteger,range(0,100))';
 			o.rmempty = false;
 
 			o = s.taboption('points', form.Value, 'point' + i + '_pwm', _('Point %d PWM (0-255)').format(i));
-			o.datatype = 'range(0,255)';
+			o.datatype = 'and(uinteger,range(0,255))';
 			o.rmempty = false;
 		}
 
