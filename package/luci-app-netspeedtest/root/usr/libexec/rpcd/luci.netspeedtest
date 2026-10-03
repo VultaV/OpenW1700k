@@ -52,6 +52,7 @@ case "$1" in
 				read -t 1 -r input
 				ARCH=$(echo "$input" | jsonfilter -qe '@.arch')
 
+				case "$ARCH" in i386|x86_64|armel|armhf|aarch64) ;; *) ARCH= ;; esac
 				if [ -z "$ARCH" ]; then
 					json_init
 					json_add_boolean "result" 0

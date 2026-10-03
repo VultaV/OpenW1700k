@@ -8,11 +8,14 @@
       },
       "ubus": {
         "service": [ "list" ],
-        "luci.netspeedtest": [ "*" ]
+        "luci.netspeedtest": [ "ookla_verify" ]
       },
       "uci": [ "netspeedtest", "librespeed-go" ]
     },
     "write": {
+      "ubus": {
+        "luci.netspeedtest": [ "download_ookla", "speedtest" ]
+      },
       "uci": [ "netspeedtest", "librespeed-go" ]
     }
   }

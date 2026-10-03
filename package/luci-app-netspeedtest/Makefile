@@ -14,8 +14,6 @@ LUCI_DESCRIPTION:=Test Net speed
 PKG_MAINTAINER:=Anya Lin <hukk1996@gmail.com>
 PKG_LICENSE:=MIT
 
-PKG_UNPACK=$(CURDIR)/.prepare.sh $(PKG_NAME) $(CURDIR) $(PKG_BUILD_DIR)
-
 define Package/$(LUCI_NAME)/conffiles
 /etc/config/netspeedtest
 endef
