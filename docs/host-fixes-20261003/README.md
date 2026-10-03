@@ -81,6 +81,39 @@ LuCI `E()`는 배열이 아닌 문자열 자식을 `innerHTML`로 넣는다(r43 
 새 시험: `tests/test_board_luci_apps.py`, `tests/test_wifi7_ui.js`,
 `tests/test_board_luci_views.js`. 확장: `tests/test_mlo_ui.js`.
 
+### 표준 Wireless 다중 라디오 보호 (LuCI 피드 패치 0004)
+
+10월 1일 Codex 후보 `9ddf8eb185`의 `0004`를 옮겼다. 3절 이미지에는 들어 있지 않다.
+고정 LuCI `289a7260`의 Network > Wireless는 wifi-iface `device`를 라디오 하나로만 다룬다.
+MLO 섹션(`device` 목록)의 Enable/Disable은 목록을 UCI 섹션 이름으로 넘기고, Edit는 라디오
+하나의 옵션으로 모달을 만든다. 단일 라디오 네트워크를 끌 때도 `==` 비교 때문에 MLO 섹션이
+아직 쓰는 라디오를 쓰지 않는 것으로 보고 라디오까지 끈다.
+
+패치는 목록 포함 여부로 라디오 사용을 판단하고, 다중 라디오 섹션의 Enable/Disable·Edit 대신
+MLO 페이지로 안내하며, 페이지 위에 그 섹션 이름과 MLO 링크를 보여 준다. Codex 원본과 달리
+알림 문자열을 배열 자식으로 넘겨 `innerHTML`을 쓰지 않는다. 원본의 `PKG_RELEASE:=2`만으로는
+LuCI 패키지 버전이 바뀌지 않으므로 0003처럼 `PKG_VERSION`을 r43 값으로 명시했다
+(`26.250.72430~e81743d-r2`). Codex 기록의 Wireless 페이지 전체 공백은 원인을 모르며
+이 패치로 고친 것이 아니다.
+
+`./scripts/feeds update -a` 뒤, 빌드 전에 고정 피드에 적용한다:
+
+```sh
+git -C feeds/luci apply docs/host-fixes-20261003/feed-patches/0004-luci-wireless-multi-radio-guards.patch
+node tests/test_wireless_mlo_guard.js \
+    feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
+```
+
+시험 결과: 고정 원본 1 PASS / 4 FAIL, Codex 원본 3 / 2(알림 `innerHTML`), 이 패치 5 / 0.
+`289a7260` 압축본(SHA256 `bd1427266c57ab8c…`)을 새로 풀어 `git apply`·`patch -p1`로 적용했다.
+
+| 파일 (LuCI 피드 기준) | 패치 적용 후 SHA256 |
+| --- | --- |
+| `modules/luci-mod-network/Makefile` | `f5b4e36e9157deb5b7f0aa2aa8b9552ed49159ba10eec81ce40d96c408dc6fb5` |
+| `modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js` | `db180b224bfef20081c3b840610342657edf7a3d6a0f3965a07078808bf46c45` |
+
+패치 파일 SHA256 `f8ad6c3fc8306c3c5a58145f038fe4e160503790b21eda952854644e0a776634`.
+
 ## 3. 수정본 이미지
 
 같은 빌드 트리에서 이 브랜치로 다시 만든 이미지(파일 이름의 `r43` 표기는 config의
@@ -121,6 +154,10 @@ LuCI `E()`는 배열이 아닌 문자열 자식을 `innerHTML`로 넣는다(r43 
   snapshot 피드가 없는지.
 
 LuCI 보안·UI (실제 브라우저)
+- 0004: Network > Wireless가 MLO 섹션이 있어도 그려지고, 위쪽 알림에 섹션 이름과 MLO 링크가 보이는지.
+  MLO 섹션의 Disable·Edit는 알림만 띄우고 설정을 바꾸지 않는지. MLO가 쓰는 라디오의 단일 라디오
+  네트워크를 Disable해도 라디오(`wireless.radioN.disabled`)가 켜진 채로 MLO가 유지되는지.
+  apk에서 `luci-mod-network`가 `26.250.72430~e81743d-r2`로 올라가는지.
 - wifi7 Overview·Networks·Stations·Diagnostics, MLO 페이지, Fan Status, FlowSense,
   ASU GitHub 목록이 정상 값을 텍스트로 그대로 보여 주는지.
 - `ubus call luci-rpc getWirelessDevices`에 MLD 섹션의 `section`·`ifname`이 있는지(F08 전제).

@@ -1,0 +1,86 @@
+From: W1700K MLO maintenance
+Subject: [PATCH] luci-mod-network: guard scalar wireless actions for multi-radio sections
+
+Against LuCI 289a7260434d4b8212a9cc6cf6160cb1935270c1.
+The pinned Network > Wireless view treats wifi-iface 'device' as one radio.
+For an MLO section with a device list, Enable/Disable passed the list as a
+UCI section name and the Edit modal built one radio's options for it.
+Disabling a single-radio network also compared that scalar with ==, so a
+radio still listed by an MLO section counted as unused and went down.
+Leave multi-radio sections to the MLO page, check list membership, and name
+those sections in a notice as text, never through innerHTML.
+Set an explicit package revision so a feed working-tree patch is not hidden
+by the unchanged Git-derived LuCI package version.
+Ported from the 2026-10-01 local hardening candidate 9ddf8eb185.
+
+--- a/modules/luci-mod-network/Makefile
++++ b/modules/luci-mod-network/Makefile
+@@ -6,6 +6,9 @@
+ 
+ include $(TOPDIR)/rules.mk
+ 
++PKG_VERSION:=26.250.72430~e81743d
++PKG_RELEASE:=2
++
+ LUCI_TITLE:=LuCI Network Administration
+ LUCI_DEPENDS:=+luci-base +rpcd-mod-iwinfo +luci-lib-uqr
+ 
+--- a/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
++++ b/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
+@@ -246,7 +246,14 @@ function radio_restart(id, ev) {
+ }
+ 
+ function network_updown(id, map, ev) {
+-	const radio = uci.get('wireless', id, 'device');
++	const devices = L.toArray(uci.get('wireless', id, 'device'));
++	if (devices.length > 1) {
++		ui.addNotification(null, E('p', [ _('Manage multi-radio networks on the MLO page.') ]));
++		return Promise.resolve();
++	}
++	const radio = devices[0];
++	if (!radio)
++		return Promise.reject(new Error(_('No radio is configured for this network.')));
+ 	const disabled = (uci.get('wireless', id, 'disabled') == '1') ||
+ 	               (uci.get('wireless', radio, 'disabled') == '1');
+ 
+@@ -261,7 +268,7 @@ function network_updown(id, map, ev) {
+ 		const wifi_ifaces = uci.sections('wireless', 'wifi-iface');
+ 
+ 		wifi_ifaces.forEach(wifi_iface => {
+-			if (wifi_iface.device == radio && wifi_iface.disabled != '1')
++			if (L.toArray(wifi_iface.device).includes(radio) && wifi_iface.disabled != '1')
+ 				all_networks_disabled = false;
+ 		});
+ 
+@@ -991,6 +998,16 @@ return view.extend({
+ 			return E('td', { 'class': 'td middle cbi-section-actions' }, E('div', btns));
+ 		};
+ 
++		const renderWirelessModal = s.renderMoreOptionsModal;
++		s.renderMoreOptionsModal = function(section_id, ev) {
++			const devices = L.toArray(uci.get('wireless', section_id, 'device'));
++			if (devices.length > 1) {
++				ui.addNotification(null, E('p', [ _('Manage multi-radio networks on the MLO page.') ]));
++				return Promise.resolve();
++			}
++			return renderWirelessModal.call(this, section_id, ev);
++		};
++
+ 		s.addModalOptions = function(s) {
+ 			return network.getWifiNetwork(s.section).then(function(radioNet) {
+ 				const hwtype = uci.get('wireless', radioNet.getWifiDeviceName(), 'type');
+@@ -2602,6 +2619,14 @@ return view.extend({
+ 		};
+ 
+ 		return m.render().then(L.bind(function(m, nodes) {
++			const multi = uci.sections('wireless', 'wifi-iface').filter(function(iface) {
++				return L.toArray(iface.device).length > 1;
++			});
++			if (multi.length)
++				nodes.prepend(E('div', { 'class': 'alert-message notice' }, [
++					E('p', [ _('Multi-radio networks are managed separately: '), multi.map(iface => iface['.name']).join(', ') ]),
++					E('a', { href: L.url('admin/network/mlo') }, [ _('Open MLO configuration') ])
++				]));
+ 			poll.add(L.bind(function() {
+ 				const tasks = [ network.getHostHints(), network.getWifiDevices() ];
+ 
