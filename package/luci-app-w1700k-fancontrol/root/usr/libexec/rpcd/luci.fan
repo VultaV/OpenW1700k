@@ -108,6 +108,9 @@ get_status() {
 	local uci_mode=$(uci -q get fan.settings.mode || echo "auto")
 	local uci_preset=$(uci -q get fan.settings.curve_preset || echo "balanced")
 	local uci_manual_pwm=$(uci -q get fan.settings.manual_pwm || echo "127")
+	# Printed into JSON below: accept only what setMode/setPreset store
+	case "$uci_mode" in manual|auto) ;; *) uci_mode=auto ;; esac
+	case "$uci_preset" in quiet|balanced|performance|custom) ;; *) uci_preset=balanced ;; esac
 
 	# Mode description
 	local mode_desc="Unknown"

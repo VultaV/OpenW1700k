@@ -101,7 +101,7 @@ return view.extend({
 					E('div', { 'class': 'cbi-value' }, [
 						E('label', { 'class': 'cbi-value-title', 'style': 'width: 150px;' }, _('Control Mode')),
 						E('div', { 'class': 'cbi-value-field' }, [
-							E('span', { 'id': 'fan-mode', 'class': modeClass }, modeText)
+							E('span', { 'id': 'fan-mode', 'class': modeClass }, [ modeText ])
 						])
 					]),
 					E('div', { 'class': 'cbi-value' }, [

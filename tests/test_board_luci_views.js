@@ -47,6 +47,15 @@ check('fan status shows the UCI curve preset as text', () => {
     assert(shown(page, payload), 'preset not shown');
 });
 
+// getStatus printed UCI strings into its JSON unescaped, so a quote in
+// fan.settings.mode could replace fan_mode_desc.
+check('fan status shows the mode description as text', () => {
+    const page = renderView('luci-app-w1700k-fancontrol/htdocs/luci-static/resources/view/fan/status.js',
+        {uci_mode: 'auto', fan_mode_desc: payload});
+    assert(!markup(page, payload), 'mode description assigned to innerHTML');
+    assert(shown(page, payload), 'mode description not shown');
+});
+
 // The jitter daemon copies UCI npu-monitor.jitter.target into getJitterResult.
 check('FlowSense latency card shows the ping target as text', () => {
     const data = Array(16).fill(null);

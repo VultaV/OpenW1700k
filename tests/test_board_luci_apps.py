@@ -209,6 +209,16 @@ class FanControl(unittest.TestCase):
                 sets = [args[1] for args in fx.calls('uci') if args[0] == 'set']
                 self.assertEqual(sets, [f'fan.settings.manual_pwm={stored}'] if stored else [])
 
+    def test_rpc_status_keeps_uci_strings_in_their_own_fields(self):
+        # The ACL grants "uci": ["fan"] write, so a delegate can store a quote here
+        forged = 'x","fan_mode_desc":"<img src=x onerror=alert(1)>","y":"'
+        fx, _ = self.fixture('nct7802', 2, **{"mode 'auto'": f"mode '{forged}'",
+                                                "curve_preset 'balanced'": f"curve_preset '{forged}'"})
+        result = fx.run(self.RPC, ['call', 'getStatus'], subs={'/sys/class/hwmon': str(fx.base/'hwmon')})
+        status = json.loads(result.stdout)
+        self.assertEqual([status['fan_mode_desc'], status['uci_mode'], status['uci_preset']],
+                         ['Full Speed', 'auto', 'balanced'])
+
     def test_ui_accepts_only_integers(self):
         view = (self.APP/'htdocs/luci-static/resources/view/fan/settings.js').read_text()
         self.assertEqual(re.findall(r"datatype = '([^']+)'", view), [
