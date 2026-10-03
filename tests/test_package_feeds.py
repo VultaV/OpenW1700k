@@ -4,12 +4,13 @@
 Router side: evaluate the APK branch of Package/base-files/install with the
 real rules.mk, version.mk and feeds.mk and docs/mlo-r43/r43.config, and check
 that the generated /etc/apk/repositories.d/distfeeds.list enables no remote
-feed.
+feed. Build side: feeds.conf.release pins the feeds recorded for r43.
 
 Usage: python3 tests/test_package_feeds.py [SOURCE_ROOT]
 SOURCE_ROOT defaults to this checkout. Needs GNU make and GNU sed, like the
 build itself.
 """
+import json
 import re
 import shutil
 import subprocess
@@ -64,4 +65,11 @@ feeds = [line for line in distfeeds.splitlines()
          if line.strip() and not line.lstrip().startswith('#')]
 assert not feeds, f'image enables remote feeds built for another kernel ABI: {feeds}'
 
+pins = {}
+for line in (root / 'feeds.conf.release').read_text().splitlines():
+    name, commit = re.fullmatch(r'src-git (\w+) https://github\.com/openwrt/\1\.git\^([0-9a-f]{40})',
+                                line).groups()
+    pins[name] = commit
+manifest = json.loads((root / 'docs/mlo-r43/build-manifest.json').read_text())['feeds']
+assert pins == manifest, f'feeds.conf.release {pins} != r43 manifest {manifest}'
 print('package feeds: PASS')
