@@ -405,16 +405,40 @@ async function check(name, fn) {
         assert.equal(ssid().value, 'Saved', 'Discard went back past the save');
     });
     // The MLO page also offers psk2 and others the MLD tab does not list. Saving
-    // an empty select would make rpcd delete the encryption option (open AP).
-    await check('W01 MLD Discard on an unlisted encryption saves what the load showed', async () => {
-        const env = makeEnv(fixture({mlo0: mld('Psk', {encryption: 'psk2', encryption_rsno: 'x'})},
-            {mlo0: 'ap-mld0'}, {'ap-mld0': []}));
+    // an empty select would make rpcd delete the encryption option (open AP);
+    // saving the first entry would turn e.g. wpa3-192 into sae.
+    for (const discard of [false, true]) {
+        await check(`W01 MLD save ${discard ? 'after Discard ' : ''}keeps an unlisted encryption`, async () => {
+            const env = makeEnv(fixture({mlo0: mld('Psk', {encryption: 'wpa3-192', encryption_rsno: 'x'})},
+                {mlo0: 'ap-mld0'}, {'ap-mld0': []}));
+            const {content} = await open(env, 'mld');
+            if (discard) button(content, 'Discard').fire('click');
+            button(content, 'Save & apply').fire('click');
+            await settle(env);
+            const {encryption, encryption_rsno} = sets(env)[0].values;
+            assert.deepEqual([encryption, encryption_rsno], ['wpa3-192', 'x']);
+        });
+    }
+    // Standard LuCI Wireless writes e.g. psk2+ccmp or wpa2; the Networks tab
+    // showed its first entry, Open, and Save made the network open.
+    for (const discard of [false, true]) {
+        await check(`W03 Networks save ${discard ? 'after Discard ' : ''}keeps an unlisted encryption`, async () => {
+            const env = makeEnv(fixture({default_radio0: {...legacy, encryption: 'psk2+ccmp'}}, {}, {}));
+            const {content} = await open(env, 'legacy');
+            if (discard) button(content, 'Discard').fire('click');
+            button(content, 'Save & apply').fire('click');
+            await settle(env);
+            assert.deepEqual([sets(env)[0].values.encryption, sets(env)[0].values.key],
+                ['psk2+ccmp', 'legacy-passphrase']);
+        });
+    }
+    await check('X01 MLD tab shows an unlisted encryption as text, not markup', async () => {
+        const payload = '<img src=x onerror=alert(1)>';
+        const env = makeEnv(fixture({mlo0: mld('Xss', {encryption: payload, encryption_rsno: payload})}, {}, {}));
         const {content} = await open(env, 'mld');
-        button(content, 'Discard').fire('click');
-        button(content, 'Save & apply').fire('click');
-        await settle(env);
-        const {encryption, encryption_rsno} = sets(env)[0].values;
-        assert.deepEqual([encryption, encryption_rsno], ['sae', 'sae'], 'Discard emptied a select');
+        assert(content.textContent.includes(payload), 'not shown');
+        assert(!all(content, e => e.children.some(c => c instanceof Html && c.text.includes(payload))).length,
+            'assigned to innerHTML');
     });
     // Apply polled a netdev fixed at page load: none for a profile with MLO
     // off, a guess for an MLD that was not running yet.

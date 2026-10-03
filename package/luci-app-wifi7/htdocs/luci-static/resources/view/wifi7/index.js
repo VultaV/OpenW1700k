@@ -61,6 +61,13 @@ function sectionUp(sid) {
     });
 }
 
+// [value, label] options plus the saved value when they lack it: a select
+// shows its first entry for an unlisted value, or nothing once set to it,
+// and Save would write that instead (rpcd deletes an option set to '')
+function withSaved(opts, saved) {
+    return opts.some(function(o) { return o[0] === saved; }) ? opts : opts.concat([[saved, saved]]);
+}
+
 function parseStat(raw) {
     var out = {};
     if (!raw) return out;
@@ -722,10 +729,10 @@ return view.extend({
         var encSel = E('select', { 'style':
             'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
             'color:#fff;padding:4px 8px;font-size:12px;width:220px' });
-        [['sae',       'WPA3-SAE (recommended)'],
-         ['sae-mixed', 'WPA2/WPA3 mixed'],
-         ['owe',       'Enhanced Open (OWE)']].forEach(function(o) {
-            var opt = E('option', { 'value': o[0] }, o[1]);
+        withSaved([['sae',       'WPA3-SAE (recommended)'],
+                   ['sae-mixed', 'WPA2/WPA3 mixed'],
+                   ['owe',       'Enhanced Open (OWE)']], mldEnc).forEach(function(o) {
+            var opt = E('option', { 'value': o[0] }, [ o[1] ]);
             if (mldEnc === o[0]) opt.selected = true;
             encSel.appendChild(opt);
         });
@@ -733,10 +740,10 @@ return view.extend({
         var rsnoSel = E('select', { 'style':
             'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
             'color:#fff;padding:4px 8px;font-size:12px;width:220px' });
-        [['sae',     'sae (default)'],
-         ['sae-ext', 'sae-ext'],
-         ['none',    'none']].forEach(function(o) {
-            var opt = E('option', { 'value': o[0] }, o[1]);
+        withSaved([['sae',     'sae (default)'],
+                   ['sae-ext', 'sae-ext'],
+                   ['none',    'none']], mldRsno).forEach(function(o) {
+            var opt = E('option', { 'value': o[0] }, [ o[1] ]);
             if (mldRsno === o[0]) opt.selected = true;
             rsnoSel.appendChild(opt);
         });
@@ -784,10 +791,6 @@ return view.extend({
             keyInput.value  = s['key']             || '';
             encSel.value    = s['encryption']      || 'sae';
             rsnoSel.value   = s['encryption_rsno'] || 'sae';
-            // An unlisted value empties the select and saving '' would delete
-            // the option; show the first entry as the page load does
-            if (encSel.selectedIndex < 0)  encSel.selectedIndex  = 0;
-            if (rsnoSel.selectedIndex < 0) rsnoSel.selectedIndex = 0;
         });
 
         applyBtn.addEventListener('click', function() {
@@ -1602,13 +1605,14 @@ return view.extend({
                 var keyWrap = E('div', {});
                 keyWrap.appendChild(fieldRow('Password', keyInpWrap));
 
-                var encOpts = is6g
+                var encOpts = withSaved(is6g
                     ? [['sae','WPA3-SAE (required on 6 GHz)'],['sae-mixed','WPA2/WPA3 mixed'],
                        ['owe','Enhanced Open (OWE)']]
                     : [['none','Open (no password)'],['psk2','WPA2-PSK'],
                        ['psk-mixed','WPA/WPA2 mixed'],['sae-mixed','WPA2/WPA3 mixed'],
                        ['sae','WPA3-SAE'],['owe','Enhanced Open (OWE)'],
-                       ['owe-transition','OWE Transition (Open+OWE simultaneously)']];
+                       ['owe-transition','OWE Transition (Open+OWE simultaneously)']],
+                    s['encryption']||'none');
                 var encSel = E('select', { 'style':inputStyle });
                 encOpts.forEach(function(o) {
                     var opt = E('option',{'value':o[0]}); opt.textContent = o[1];
