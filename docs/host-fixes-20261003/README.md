@@ -69,6 +69,8 @@ OpenWrt가 패키지 준비 단계에서 이 폴더의 패치를 적용한다.
 | wifi7 (F05) | UCI set/commit 실패를 삼키고 Wi-Fi 재시작 | 실패를 성공으로 표시, 불필요한 중단 |
 | wifi7 (F07) | 편집은 마지막 MLD 프로필, 표시는 첫 프로필 | 다른 프로필을 덮어씀 |
 | wifi7 (F08) | MLD netdev를 UCI 이름에서 추정(`ap-mld-1`) | 상태·적용 확인이 존재하지 않는 대상을 조회 |
+| wifi7 (W01, 포팅·독립 검증 전) | MLD config 탭의 Discard에 동작이 없음. 저장 뒤에도 기준값이 로드 시점 값 | 편집 취소 불가 |
+| wifi7 (W02, 포팅·독립 검증 전) | Save & apply가 로드 시점의 netdev로 hostapd를 폴링. MLO를 끈 프로필은 `hostapd.undefined`, 로드 때 꺼져 있던 MLD는 추정 이름 | Wi-Fi가 떠도 3분 뒤 재부팅 권고 |
 | mlo (F06) | 비활성 MLO 프로필도 활성 라디오 2개를 요구해 저장 거절 | 저장 불가 |
 | wifi7·mlo·fan·flowsense | SSID·암호화·장치·모드·ifname·프리셋·대상 문자열이 `innerHTML`로 | UCI 쓰기 위임 계정의 관리자 세션 XSS |
 | LuCI 피드 패치 0003 → r3 | GitHub 릴리스 태그 이름이 `innerHTML`로 | 릴리스 저장소 쓰기 권한자의 관리자 세션 XSS |
@@ -81,7 +83,7 @@ LuCI `E()`는 배열이 아닌 문자열 자식을 `innerHTML`로 넣는다(r43 
 새 시험: `tests/test_board_luci_apps.py`, `tests/test_wifi7_ui.js`,
 `tests/test_board_luci_views.js`. 확장: `tests/test_mlo_ui.js`.
 
-### 표준 Wireless 다중 라디오 보호 (LuCI 피드 패치 0004)
+### 표준 Wireless 다중 라디오 보호 (LuCI 피드 패치 0004, 독립 검증 전)
 
 10월 1일 Codex 후보 `9ddf8eb185`의 `0004`를 옮겼다. 3절 이미지에는 들어 있지 않다.
 고정 LuCI `289a7260`의 Network > Wireless는 wifi-iface `device`를 라디오 하나로만 다룬다.
@@ -166,6 +168,9 @@ LuCI 보안·UI (실제 브라우저)
   netspeedtest read 계정은 다운로드·측정 거부. 배포 전 `/etc/config/rpcd`에
   `luci-mod-network-config`로 wifi7 메뉴를 쓰던 non-root 계정이 있는지 확인.
 - F05 실패 경로: commit 거부 시 `Failed: …` 표시, Wi-Fi 재시작 없음.
+- W01·W02: MLD config에서 SSID를 바꾼 뒤 Discard가 저장값으로 되돌리는지, 저장 뒤 Discard가 새 값을
+  유지하는지. MLO를 끈 프로필(`mlo=0`)과 로드 때 내려가 있던 MLD에서 Save & apply가
+  `Done -- WiFi active`로 끝나는지(라디오별 netdev가 모두 ENABLED일 때).
 - F06: 비활성 MLO 프로필 저장 허용, 활성화 시 2라디오 재검증.
 - 팬: 정수 커브 저장·재부팅 뒤 `pwm1_enable=2`, auto point 값(밀리도). 장치 busybox에서
   `40.5`·`08` 입력의 수정 전 중단·수정 후 자동 복귀.
