@@ -1,0 +1,15 @@
+wireless.radio0=wifi-device
+wireless.radio0.band='2g'
+wireless.default_radio0=wifi-iface
+wireless.default_radio0.device='radio0'
+wireless.radio1=wifi-device
+wireless.radio1.band='5g'
+wireless.default_radio1=wifi-iface
+wireless.default_radio1.mlo='1'
+wireless.default_radio1.device='radio1' 'radio2'
+wireless.radio2=wifi-device
+wireless.radio2.band='6g'
+wireless.default_radio2=wifi-iface
+wireless.default_radio2.mlo='0'
+wireless.default_radio2.disabled='1'
+wireless.default_radio2.device='radio2'

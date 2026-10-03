@@ -79,6 +79,61 @@ function parseStat(raw) {
     return out;
 }
 
+// iw exposes each MLD link's frequency even when hostapd_cli is not packaged.
+// Link IDs can change when radios are disabled; they are not band numbers.
+function parseIwInfo(raw) {
+    var links = [], current = {}, addr = '';
+    raw.split('\n').forEach(function(line) {
+        var m;
+        if ((m = line.match(/^\s*addr\s+(\S+)/))) addr = m[1];
+        if ((m = line.match(/^\s*- link ID\s+(\d+)\s+link addr\s+(\S+)/))) {
+            current = { link_id: m[1], link_addr: m[2] };
+        }
+        if ((m = line.match(/channel (\d+) \((\d+) MHz\), width: ([^,]+), center1: (\d+) MHz/))) {
+            current.channel = m[1];
+            current.freq = m[2];
+            current.width = m[3];
+            current.center1 = m[4];
+            current.state = 'ENABLED';
+            current['mld_addr[0]'] = addr;
+            links.push(current);
+        }
+        if ((m = line.match(/^\s*txpower\s+(-?\d+(?:\.\d+)?) dBm/)))
+            current.max_txpower = m[1];
+    });
+    return links;
+}
+
+function frequencyBand(freq) {
+    freq = Number(freq);
+    if (freq >= 2400 && freq < 2500) return '2g';
+    if (freq >= 4900 && freq < 5925) return '5g';
+    if (freq >= 5925 && freq <= 7125) return '6g';
+    return '';
+}
+
+function overviewLinks(stats, info) {
+    var links = info.map(function(link) { return Object.assign({}, link); });
+    stats.forEach(function(stat, id) {
+        if (!Object.keys(stat).length) return;
+        var link = links.filter(function(l) { return String(l.link_id) === String(id); })[0];
+        if (!link) { link = { link_id: String(id) }; links.push(link); }
+        // Keep hostapd as the first source, including an explicit disabled state.
+        Object.assign(link, stat);
+    });
+    links.forEach(function(link) {
+        if (!link.num_links) link.num_links = String(links.length);
+    });
+    return links.sort(function(a, b) { return Number(a.freq || 0) - Number(b.freq || 0); });
+}
+
+function skuValue(result) {
+    // A missing/unreadable debugfs node says nothing about regulatory state.
+    if (!result || (result.code != null && result.code !== 0)) return '';
+    var value = (result.stdout || '').trim();
+    return value === '0' || value === '1' ? value : '';
+}
+
 var bwMap = {
     '0': '20 MHz', '1': '40 MHz', '2': '80 MHz',
     '3': '160 MHz', '4': '320 MHz',
@@ -89,7 +144,7 @@ var bwMap = {
 function freqLabel(stat) {
     var ch = stat['channel'] || '?';
     var fr = stat['freq']    || '?';
-    var bw = bwMap[stat['eht_oper_chwidth']] || stat['eht_oper_chwidth'] || '?';
+    var bw = bwMap[stat['eht_oper_chwidth']] || stat['eht_oper_chwidth'] || stat.width || '?';
     return 'CH ' + ch + '  /  ' + fr + ' MHz  /  ' + bw;
 }
 
@@ -105,7 +160,9 @@ function badge(text, bg, fg) {
         'border-radius:3px;background:' + bg + ';color:' + fg }, [ text ]);
 }
 
-function skuBanner(skuOff, skuIdx) {
+function skuBanner(skuRaw, skuIdx) {
+    if (skuRaw === '') return null;
+    var skuOff = skuRaw === '1';
     // SKU is truly active only when sku_disable=0 AND sku_idx is set (non-empty, non-zero)
     var skuIdxSet = skuIdx && skuIdx !== '' && skuIdx !== '0';
     var active    = !skuOff && skuIdxSet;
@@ -120,7 +177,7 @@ function skuBanner(skuOff, skuIdx) {
               : partial ? 'sku_disable=0 but sku_idx not set. TX power limits may not be applied. Set sku_idx on the Radio tab.'
               :           'TX power limited by country + sku_idx=' + skuIdx + ' regulatory table.';
     return E('div', { 'style': 'border-radius:6px;padding:9px 13px;margin-bottom:14px;' + style }, [
-        E('strong', {}, label), msg
+        E('strong', {}, [ label ]), msg
     ]);
 }
 
@@ -353,6 +410,11 @@ return view.extend({
         var mldIfnames = mldSIDs.map(function(sid) {
             return (ifnames[sid] || [])[0] || uciData[sid]['ifname'] || self._mldIfname(sid);
         });
+        var legacyIfnames = legacySIDs.map(function(sid) {
+            var s = uciData[sid];
+            // An unresolved secondary AP must not borrow the primary AP's data.
+            return s.disabled === '1' ? '' : (ifnames[sid] || [])[0] || s['ifname'] || '';
+        });
         var mldDebug = '/sys/kernel/debug/ieee80211/phy0/netdev:' + (mldIfnames[0] || 'ap-mld-1');
 
         // Build dynamic Promise.all
@@ -361,7 +423,7 @@ return view.extend({
             mldIfnames.length ? L.resolveDefault(callHostapdStatus(mldIfnames[0]), {}) : {}, // [1] hostapd status
             L.resolveDefault(callExec('/bin/cat', [            // [2] sku_disable
                 '/sys/kernel/debug/ieee80211/phy0/mt76/sku_disable'
-            ]), { stdout: '1' }),
+            ]), { stdout: '' }),
         ];
 
         // [3..] MLD hostapd stat per link (0,1,2) per MLD network
@@ -383,14 +445,9 @@ return view.extend({
 
         // [mldStaBase + mldSIDs.length ..] Legacy station dumps
         var legacyStaBase = mldStaBase + mldSIDs.length;
-        legacySIDs.forEach(function(sid) {
-            var s = uciData[sid];
-            var dev = s['device'] || 'radio0';
-            // Legacy ifname: phy0.0-ap0 etc -- derive from device
-            var devIdx = {'radio0':0,'radio1':1,'radio2':2}[dev];
-            var ifn = devIdx !== undefined ? ('phy0.' + devIdx + '-ap0') : (dev + '-ap0');
-            calls.push(L.resolveDefault(callExec('/usr/sbin/iw',
-                ['dev', ifn, 'station', 'dump']), { stdout: '' }));
+        legacyIfnames.forEach(function(ifn) {
+            calls.push(ifn ? L.resolveDefault(callExec('/usr/sbin/iw',
+                ['dev', ifn, 'station', 'dump']), { stdout: '' }) : { stdout: '' });
         });
 
         // Fixed diagnostics calls at the end
@@ -413,6 +470,18 @@ return view.extend({
             calls.push(L.resolveDefault(callExec(c[0], c[1]), { stdout: '' }));
         });
 
+        // Append fallback reads so existing diagnostics/editor offsets stay stable.
+        var infoBase = calls.length;
+        mldIfnames.concat(legacyIfnames).forEach(function(ifn) {
+            calls.push(ifn ? L.resolveDefault(callExec('/usr/sbin/iw',
+                ['dev', ifn, 'info']), { stdout: '' }) : { stdout: '' });
+        });
+        var legacyStatBase = calls.length;
+        legacyIfnames.forEach(function(ifn) {
+            calls.push(ifn ? L.resolveDefault(callExec('/usr/sbin/hostapd_cli',
+                ['-i', ifn, 'stat']), { stdout: '' }) : { stdout: '' });
+        });
+
         return Promise.all(calls).then(function(data) {
             // Attach index metadata for render functions
             data._mldSIDs     = mldSIDs;
@@ -422,7 +491,27 @@ return view.extend({
             data._mldStaBase  = mldStaBase;
             data._legacyStaBase = legacyStaBase;
             data._diagBase    = diagBase;
-            return data;
+            data._legacyLinks = legacySIDs.map(function(sid, idx) {
+                var info = parseIwInfo(data[infoBase + mldSIDs.length + idx].stdout || '')[0] || {};
+                return Object.assign(info, parseStat(data[legacyStatBase + idx].stdout || ''));
+            });
+            return Promise.all(mldSIDs.map(function(sid, idx) {
+                var stats = [0, 1, 2].map(function(id) {
+                    return parseStat(data[3 + idx * 3 + id].stdout || '');
+                });
+                var info = parseIwInfo(data[infoBase + idx].stdout || '');
+                // Probe discovered IDs outside the original 0..2 range as well,
+                // so hostapd remains preferred after link renumbering.
+                return Promise.all(info.filter(function(link) { return Number(link.link_id) > 2; })
+                    .map(function(link) {
+                        return L.resolveDefault(callExec('/usr/sbin/hostapd_cli',
+                            ['-i', mldIfnames[idx], '-l', link.link_id, 'stat']), { stdout: '' })
+                            .then(function(result) { stats[Number(link.link_id)] = parseStat(result.stdout || ''); });
+                    })).then(function() { return overviewLinks(stats, info); });
+            })).then(function(links) {
+                data._mldLinks = links;
+                return data;
+            });
         });
         }); // end phase 1
     },
@@ -521,29 +610,15 @@ return view.extend({
     renderOverview: function(data) {
         var uciData   = data[0];
         var hapdSt    = data[1];
-        var skuRaw    = data[2].stdout ? data[2].stdout.trim() : '1';
+        var skuRaw    = skuValue(data[2]);
         var mldSIDs   = data._mldSIDs || ['ap_mld_1'];
         var diagBase  = data._diagBase || 10;
         var wlStatus  = data[diagBase + 12] || {};
-
-        // Get hostapd stat for first MLD network (primary)
-        var statBase = data._mldStatBase || 3;
-        var stat0 = parseStat(data[statBase]     ? (data[statBase].stdout || '')     : '');
-        var stat1 = parseStat(data[statBase + 1] ? (data[statBase + 1].stdout || '') : '');
-        var stat2 = parseStat(data[statBase + 2] ? (data[statBase + 2].stdout || '') : '');
 
         var skuOff  = skuRaw === '1';
         // Extract sku_idx from radio0 UCI (applies to all radios)
         var skuIdx  = (uciData['radio0'] && uciData['radio0']['sku_idx']) || '';
         var hapdOK  = hapdSt && hapdSt.status === 'ENABLED';
-
-        // Derive radio up/down from hostapd_cli stat data
-        // If stat has a valid channel, the radio is up
-        var radioUp = {
-            'radio0': hapdOK && !!(stat0['channel'] && stat0['channel'] !== '0'),
-            'radio1': hapdOK && !!(stat1['channel'] && stat1['channel'] !== '0'),
-            'radio2': hapdOK && !!(stat2['channel'] && stat2['channel'] !== '0')
-        };
 
         // Collect ALL MLD networks from UCI
         var self = this;
@@ -558,48 +633,53 @@ return view.extend({
             };
         });
 
-        function linkCard(label, bg, fg, stat, radioName) {
+        function linkCard(label, bg, fg, stat, disabled) {
             var txp     = stat['max_txpower'];
             var txpCol  = skuOff ? '#e24b4a' : '#1d9e75';
-            var txpNote = skuOff ? ' (no SKU limit)' : ' (regulated)';
-            var up      = radioName ? radioUp[radioName] : null;
-            var upEl    = up === null ? null :
-                E('span', { 'style':
+            var txpNote = skuOff ? ' (no SKU limit)' : skuRaw === '0' ? ' (regulated)' : '';
+            var up      = !disabled && stat.state === 'ENABLED' && Number(stat.channel) > 0;
+            var upEl    = E('span', { 'style':
                     'font-size:10px;padding:1px 6px;border-radius:3px;margin-left:6px;' +
                     'background:' + (up ? '#0a2a0a' : '#2a0a0a') + ';' +
                     'color:' + (up ? '#1d9e75' : '#e24b4a') },
-                    up ? 'UP' : 'DOWN');
+                    [ up ? 'UP' : 'DOWN' ]);
             return E('div', { 'style':
                 'border:1px solid #333;border-radius:6px;padding:10px 12px;' +
                 'background:#1a1a2e;flex:1;min-width:0' }, [
                 E('div', { 'style': 'display:flex;align-items:center' }, [
                     badge(label, bg, fg),
-                    upEl || E('span', {})
+                    upEl
                 ]),
                 E('div', { 'style':
                     'font-size:14px;font-weight:bold;color:#fff;margin-top:6px' },
-                    freqLabel(stat)),
+                    [ freqLabel(stat) ]),
                 E('div', { 'style': 'font-size:12px;color:#aaa;margin-top:3px' },
-                    'EHT  |  util: ' + chanUtil(stat) +
-                    '  |  num_links: ' + (stat['num_links'] || '?')),
+                    [ 'EHT  |  util: ' + chanUtil(stat) +
+                    '  |  num_links: ' + (stat['num_links'] || '?') ]),
                 E('div', { 'style':
                     'font-size:12px;color:' + txpCol + ';margin-top:4px' },
-                    'Tx: ' + (txp || '?') + ' dBm' + txpNote)
+                    [ 'Tx: ' + (txp || '?') + ' dBm' + txpNote ])
             ]);
         }
 
-        // Build link body for a MLD network given its hostapd stats
-        function mldLinkBody(s0, s1, s2, netHapdOK) {
+        var bands = {
+            '2g': ['2.4 GHz', '#0a2a1a', '#5dcaa5'],
+            '5g': ['5 GHz', '#0a1a3a', '#85b7eb'],
+            '6g': ['6 GHz', '#1a0a3a', '#afa9ec']
+        };
+        function mldLinkBody(links, clients, disabled) {
+            var primary = links[0] || {};
             return E('div', {}, [
-                E('div', { 'style': 'display:flex;gap:8px;margin-bottom:10px' }, [
-                    linkCard('2.4 GHz -- Link 0', '#0a2a1a', '#5dcaa5', s0, 'radio0'),
-                    linkCard('5 GHz -- Link 1',   '#0a1a3a', '#85b7eb', s1, 'radio1'),
-                    linkCard('6 GHz -- Link 2',   '#1a0a3a', '#afa9ec', s2, 'radio2')
-                ]),
+                E('div', { 'style': 'display:flex;gap:8px;margin-bottom:10px' },
+                    links.length ? links.map(function(link) {
+                        var band = bands[frequencyBand(link.freq)] || ['Unknown band', '#222', '#aaa'];
+                        return linkCard(band[0] + ' -- Link ' + link.link_id,
+                            band[1], band[2], link, disabled);
+                    }) : [ E('span', {}, [ 'Link status unavailable' ]) ]),
                 E('div', { 'style': 'font-size:12px;color:#888' },
-                    'type: ' + (s0['ap_mld_type'] || 'STR') +
-                    '  |  clients: ' + (s0['num_sta[0]'] || '0') +
-                    '  |  MLD MAC: ' + (s0['mld_addr[0]'] || '?'))
+                    [ 'type: ' + (primary['ap_mld_type'] || '?') +
+                    '  |  clients: ' + clients +
+                    '  |  MLD MAC: ' + (primary['mld_addr[0]'] || '?') ])
             ]);
         }
 
@@ -612,15 +692,26 @@ return view.extend({
         Object.keys(uciData).sort().forEach(function(sid) {
             var s = uciData[sid];
             if (s['.type'] === 'wifi-iface' && s['mlo'] !== '1' && s['mode'] === 'ap') {
-                var bi  = bandInfo[s['device']] || [s['device'], '#222', '#aaa'];
+                var idx = data._legacySIDs.indexOf(sid);
+                var stat = data._legacyLinks[idx] || {};
+                var bi  = bands[frequencyBand(stat.freq)] || bandInfo[s['device']] || [s['device'], '#222', '#aaa'];
                 var enc = s['encryption'] || 'none';
+                var up = s.disabled !== '1' && stat.state === 'ENABLED' && Number(stat.channel) > 0;
+                var state = s.disabled === '1' ? 'DOWN' : stat.state ? (up ? 'UP' : 'DOWN') : 'UNKNOWN';
+                var clients = stat['num_sta[0]'] || (stat.channel ? String(parseStationDump(
+                    data[data._legacyStaBase + idx].stdout || '').length) : '?');
                 legacyRows.push(E('div', { 'style':
-                    'display:flex;align-items:center;gap:8px;padding:5px 0;' +
+                    'display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:5px 0;' +
                     'border-bottom:1px solid #2a2a3a;font-size:12px' }, [
                     badge(bi[0], bi[1], bi[2]),
                     E('span', { 'style': 'font-family:monospace' }, [ s['ssid'] || sid ]),
                     E('span', { 'style': 'color:#888;margin-left:4px' },
                         [ enc === 'none' ? 'open' : enc ]),
+                    E('span', { 'style': 'color:#aaa' }, [
+                        state + '  |  ' + freqLabel(stat) +
+                        '  |  Tx: ' + (stat.max_txpower || '?') + ' dBm' +
+                        '  |  clients: ' + clients + '  |  num_links: ' + (stat.channel ? '1' : '?')
+                    ]),
                     E('span', { 'style':
                         'margin-left:auto;font-size:10px;padding:2px 6px;' +
                         'border-radius:3px;background:#2a2a1a;color:#666;' +
@@ -632,12 +723,13 @@ return view.extend({
 
         // Build MLD network boxes -- one per MLD UCI section, each with its own data
         var mldBoxes = mldNets.map(function(net, idx) {
-            var base = statBase + idx * 3;
-            var s0 = parseStat(data[base]     ? (data[base].stdout     || '') : '');
-            var s1 = parseStat(data[base + 1] ? (data[base + 1].stdout || '') : '');
-            var s2 = parseStat(data[base + 2] ? (data[base + 2].stdout || '') : '');
-            var netOK = !!(s0['state'] === 'ENABLED' || s1['state'] === 'ENABLED' || s2['state'] === 'ENABLED');
-            var body = mldLinkBody(s0, s1, s2, netOK);
+            var links = data._mldLinks[idx];
+            var disabled = uciData[net.sid].disabled === '1';
+            var netOK = !disabled && links.some(function(link) { return link.state === 'ENABLED'; });
+            var reported = links.filter(function(link) { return link['num_sta[0]'] != null; })[0];
+            var clients = reported ? reported['num_sta[0]'] : String(parseStationDump(
+                data[data._mldStaBase + idx].stdout || '').length);
+            var body = mldLinkBody(links, clients, disabled);
             return sectionBox('MLD network -- ' + net.sid,
                 netOK ? '#1d9e75' : '#444',
                 'SSID: ' + net.ssid + '  |  ' + net.enc,
@@ -645,7 +737,7 @@ return view.extend({
         });
 
         var overviewItems = [
-            skuBanner(skuOff, skuIdx),
+            skuBanner(skuRaw, skuIdx),
             E('div', { 'style': 'font-size:12px;margin-bottom:14px;color:#aaa' }, [
                 'hostapd ' + (data._mldIfnames[0] || 'ap-mld') + ': ',
                 E('strong', { 'style': 'color:' + (hapdOK ? '#1d9e75' : '#e24b4a') },
@@ -1979,7 +2071,7 @@ return view.extend({
         renderDiagnostics: function(data) {
         var uciData  = data[0] || {};
         var diagBase = data._diagBase || 10;
-        var skuRaw   = data[2].stdout  ? data[2].stdout.trim()  : '?';
+        var skuRaw   = skuValue(data[2]);
         var fwRaw    = data[diagBase + 0] ? (data[diagBase + 0].stdout || '').trim() : '?';
         var tp0      = data[diagBase + 1] ? (data[diagBase + 1].stdout || '') : '';
         var tp1      = data[diagBase + 2] ? (data[diagBase + 2].stdout || '') : '';
@@ -2036,6 +2128,7 @@ return view.extend({
                     (function() {
                         var skuIdxVal = (uciData['radio0'] && uciData['radio0']['sku_idx']) || '';
                         var idxSet = skuIdxVal && skuIdxVal !== '0';
+                        if (skuRaw === '') return 'unknown -- sku_disable not available';
                         if (skuBad)   return skuRaw + ' -- regulation INACTIVE';
                         if (!idxSet)  return skuRaw + ' -- sku_idx not set (partial)';
                         return skuRaw + ' -- active (sku_idx=' + skuIdxVal + ')';

@@ -1,0 +1,77 @@
+From: W1700K MLO maintenance
+Subject: [PATCH] luci-mod-status: explain unavailable MLO-only band scans
+
+Against LuCI 289a7260434d4b8212a9cc6cf6160cb1935270c1 after
+998-single-wiphy.patch, applied from the luci-mod-status package directory.
+
+On MT7996 the shared ap-mld0 interface cannot scan the individual 5/6 GHz
+bands, while scanning UCI radio names falls back to unrelated 2.4 GHz data.
+Use only enabled non-MLO per-radio netdevs, skipping LuCI's synthetic
+network IDs. Explicit mlo=0 multi-radio sections may have such netdevs. Keep unavailable band tabs with an explanatory text
+notice instead of an empty graph, and skip both polling and manual scans
+on those tabs. An available legacy per-radio interface still scans normally.
+
+--- a/htdocs/luci-static/resources/view/status/channel_analysis.js
++++ b/htdocs/luci-static/resources/view/status/channel_analysis.js
+@@ -205,6 +205,9 @@
+ 			return;
+ 
+ 		const radio = this.radios[this.active_tab];
++		if (!radio || !radio.ifname)
++			return;
++
+ 		let q;
+ 
+ 		return Promise.all([
+@@ -420,7 +423,7 @@
+ 				const tasks = [], ret = [];
+ 
+ 				for (let d of data) {
+-					ret[d.getName()] = { dev : d, ifname : d.getName() };
++					ret[d.getName()] = { dev : d, ifname : null };
+ 
+ 					tasks.push(this.callFrequencyList(d.getName())
+ 					.then(L.bind(function(radio, data) {
+@@ -436,10 +439,17 @@
+ 					tasks.push(d.getWifiNetworks().then(L.bind(function(radio, nets) {
+ 						for (let n of nets) {
+ 							const ifname = n.getIfname();
+-							if (ifname) {
+-								ret[radio.getName()].ifname = ifname;
+-								break;
+-							}
++							/* MLD scans cannot select this radio's band. Disabled
++							   networks and LuCI's synthetic network ID are not
++							   usable per-radio scan interfaces either. */
++							if (!ifname || ifname == n.getID() || n.isDisabled() ||
++							    n.get('mlo') == '1' ||
++							    (n.get('mlo') != '0' && L.toArray(n.get('device')).length > 1) ||
++							    /(?:^|-)mld-?\d+(?:$|[.-])/.test(ifname))
++								continue;
++
++							ret[radio.getName()].ifname = ifname;
++							break;
+ 						}
+ 					}, this, d)));
+ 				}
+@@ -485,6 +495,20 @@
+ 				const devBand = wifiDevs[ifname].dev.get('band');
+ 				if (devBand && (band + 'g') != devBand)
+ 					continue;
++
++				if (!wifiDevs[ifname].ifname) {
++					const tab = E('div', { 'data-tab': ifname+band, 'data-tab-title': ifname+' ('+bands[band].title+')' }, [
++						E('p', { 'class': 'alert-message notice' }, [
++							_('Scanning this band is not available while the radio only carries an MLO network')
++						])
++					]);
++					this.radios[ifname+band] = { ifname: null };
++					tab.addEventListener('cbi-tab-active', L.bind(function(ev) {
++						this.active_tab = ev.detail.tab;
++					}, this));
++					tabs.firstElementChild.appendChild(tab);
++					continue;
++				}
+ 
+ 				const csvg = svg.cloneNode(true);
+ 				const table = E('table', { 'class': 'table' }, [

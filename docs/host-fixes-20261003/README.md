@@ -39,7 +39,8 @@ Apple clang 21은 생성한 의존성 파일 맨 앞에 `SDKSettings.json`을 �
 LuCI 피드의 추적되지 않은 폴더 `modules/luci-mod-status/patches/`에
 `998-single-wiphy.patch`(작성 Gilly1970, 2026-06-19, 파일 생성 9월 8일)가 있었다.
 MT7996처럼 라디오 여러 개가 한 wiphy를 쓰면 iwinfo가 `radio0/1/2`를 모두 첫 netdev로
-해석해 5 GHz 탭이 "No data"가 되는 문제를 고친다. upstream LuCI master에는 아직 없다.
+해석하는 문제를 라디오별 netdev 선택으로 보완한다. 별도 netdev가 없는 MLO 전용 라디오의
+드라이버 스캔 제약은 해결하지 않는다. 복구 당시 upstream LuCI master에는 없었다.
 
 이 패치를 고정 피드 `289a7260`에 넣어 빌드한 `channel_analysis.js`는 r43 이미지의 파일과
 바이트 단위로 같다(sha `a059125323f9c969…`). 원본 그대로 `feed-patches/998-single-wiphy.patch`에
@@ -49,10 +50,12 @@ MT7996처럼 라디오 여러 개가 한 wiphy를 쓰면 iwinfo가 `radio0/1/2`�
 ```sh
 mkdir -p feeds/luci/modules/luci-mod-status/patches
 cp docs/host-fixes-20261003/feed-patches/998-single-wiphy.patch \
+   docs/host-fixes-20261003/feed-patches/999-mlo-scan-notice.patch \
    feeds/luci/modules/luci-mod-status/patches/
 ```
 
-OpenWrt가 패키지 준비 단계에서 이 폴더의 패치를 적용한다.
+OpenWrt가 패키지 준비 단계에서 998 → 999 순서로 적용한다. 998 원본은 바꾸지 않았다.
+후속 999는 아래 MLO 전용 라디오의 스캔 불가 안내를 추가한다.
 
 ## 2. 수정한 결함
 
@@ -86,6 +89,49 @@ LuCI `E()`는 배열이 아닌 문자열 자식을 `innerHTML`로 넣는다(r43 
 
 새 시험: `tests/test_board_luci_apps.py`, `tests/test_wifi7_ui.js`,
 `tests/test_board_luci_views.js`. 확장: `tests/test_mlo_ui.js`.
+
+### r44 설치 후 발견한 WiFi 7 상태·채널 분석 표시 수정
+
+다음은 설치된 r44에서 수집한 입력을 바탕으로 한 후속 소스 수정이다. 이 변경으로 펌웨어를
+빌드·배포하거나 장치에 설치하지 않았으며, 실제 브라우저 표시·폴링 확인은 남아 있다.
+
+- WiFi 7 링크 카드는 `hostapd_cli stat` 결과를 먼저 사용하고, 명령이 없거나 출력이 비면
+  `iw dev <ifname> info`와 `station dump`로 상태·채널·주파수·폭·송신 출력·클라이언트 수·링크 수를
+  채운다. MLO 링크 ID를 고정된 대역 번호로 취급하지 않고 주파수로 2.4/5/6 GHz를 구분한다.
+  r44의 MLD 링크 1은 5 GHz(채널 36, 160 MHz, 18 dBm), 링크 2는 6 GHz(채널 37, 160 MHz)이며,
+  별도 legacy AP는 2.4 GHz 채널 1이다. `luci-app-wifi7`의 `PKG_RELEASE`는 `20261004`다.
+- `sku_disable` 파일이 없으면 SKU 제한이 해제됐다고 경고하지 않는다. 파일이 실제로 존재하고
+  해제 상태를 보고할 때만 비활성 경고를 표시한다. 기존 실행 ACL과 `E()`의 배열 텍스트 자식 규칙을 유지한다.
+- `999-mlo-scan-notice.patch`는 고정 LuCI `289a7260`에 998을 적용한 뷰를 대상으로 한다.
+  활성 non-MLD netdev가 없는 라디오나 스캔 대상이 MLD인 탭에는
+  "Scanning this band is not available while the radio only carries an MLO network"를 표시하고
+  빈 스캔을 반복하지 않는다. 2.4 GHz의 별도 AP 스캔은 유지한다.
+
+5/6 GHz 스캔 자체는 이 드라이버의 MLO 구성에서 여전히 불가능하다. 999는 이 제약을 UI에서
+설명하는 수정이며, 드라이버의 스캔 기능을 추가하지 않는다. 실제 장치 입력을 사용하는 호스트
+검사는 수정 전 실패·수정 후 통과를 확인한다.
+
+호스트 회귀 결과(PASS / FAIL / SKIP):
+
+| 검사 | 수정 전 | 수정 후 |
+| --- | --- | --- |
+| `test_wifi7_ui.js` (기존 41개 포함) | 42 / 12 / 0 | 54 / 0 / 0 |
+| `test_channel_analysis.js` (고정 원본 + 998 → +999) | 2 / 10 / 0 | 12 / 0 / 0 |
+
+입력은 `tests/fixtures/wifi7-iw-info.txt`와 `tests/fixtures/channel-analysis/`에 식별정보를
+제거해 보존했다. WiFi 7 검사는 실제 뷰와 ACL을, 채널 분석 검사는 실제 패치된 뷰의
+load/render·탭 전환·등록된 poll·수동 새로고침을 실행한다. 후자는 고정 원본을 모듈 디렉터리에
+받고 998, 999를 각각 `patch -p1`로 적용한 뒤 실행한다.
+
+```sh
+node tests/test_wifi7_ui.js
+node tests/test_channel_analysis.js \
+    /path/to/luci-mod-status/htdocs/luci-static/resources/view/status/channel_analysis.js
+```
+
+기존 MLO UI, Wireless MLO 보호(5/0/0), Wireless 런타임(8/0/0), 보드 UI(4/0/0),
+보드 앱(19개) 검사도 통과했다. 선택적 `test_wireless_form_runtime.js`는 이 체크아웃에
+linkedom과 캡처한 `luci.js`·`form.js`가 없어 이번에 실행하지 않았다.
 
 ### 표준 Wireless 다중 라디오 보호 (LuCI 피드 패치 0004)
 
@@ -275,6 +321,8 @@ LuCI 보안·UI (실제 브라우저)
   apk에서 `luci-mod-network`가 `26.250.72430~e81743d-r2`로 올라가는지.
 - wifi7 Overview·Networks·Stations·Diagnostics, MLO 페이지, Fan Status, FlowSense,
   ASU GitHub 목록이 정상 값을 텍스트로 그대로 보여 주는지.
+- 후속 WiFi 7 수정: `hostapd_cli`가 없는 r44에서 Overview의 2.4/5/6 GHz 링크 값과 클라이언트 수가
+  `iw` 출력과 일치하고, `sku_disable`이 없을 때 Overview·Diagnostics에 SKU 비활성 경고가 없는지.
 - `ubus call luci-rpc getWirelessDevices`에 MLD 섹션의 `section`·`ifname`이 있는지(F08 전제).
   MLD Save & apply의 폴링이 `Done -- WiFi active`로 끝나는지. Networks 추가로 만든 legacy AP가 뜨는지.
 - non-root 계정: `luci-app-wifi7` read만 가진 계정은 메뉴는 보이고 명령 실행·저장은 거부,
@@ -306,7 +354,8 @@ LuCI 보안·UI (실제 브라우저)
   'NPU Bypass Detected' 경고가 여전히 뜨는지. 장치에서
   `echo '{"a":1,"a":"x"}' | jsonfilter -e '@.a'`가 `x`인지(json-c 중복 키 동작).
 - netspeedtest: admin에서 aarch64 다운로드·측정(인터넷 필요).
-- 상태 → 채널 분석: 2.4·5·6 GHz 탭이 각자 자기 대역만 보여 주고 5·6 GHz 스캔 결과가 나오는지.
+- 상태 → 채널 분석(후속 999): 2.4 GHz 스캔은 계속 동작하고, MLO 전용 5·6 GHz 탭은
+  빈 그래프·"No data" 대신 스캔 불가 안내를 보이며 반복 스캔을 하지 않는지.
 - 팬 커브: `fan.custom.pointN_*`에 따옴표·`abc`·빈 값·`08`을 넣은 뒤 `getAllCurves`가 유효한 JSON이고
   커브 미리보기가 그려지는지. busybox ash에서 `printf %d`에 숫자 아닌 값을 줘도 응답이 이어지는지.
 - FlowSense 대상: `fe80::1%br-lan` 같은 링크로컬 게이트웨이가 유지되고 busybox ping이 응답하는지,
@@ -378,6 +427,7 @@ snapshot 서명 키(`/etc/apk/keys/openwrt-snapshots.pem`)를 신뢰한다. 그�
    git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0006-luci-base-missing-wifi-device.patch"
    mkdir -p feeds/luci/modules/luci-mod-status/patches
    cp docs/host-fixes-20261003/feed-patches/998-single-wiphy.patch \
+      docs/host-fixes-20261003/feed-patches/999-mlo-scan-notice.patch \
       feeds/luci/modules/luci-mod-status/patches/
    ```
 

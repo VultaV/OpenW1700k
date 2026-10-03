@@ -8,7 +8,8 @@ const path = require('node:path');
 const root = path.resolve(process.argv[2] || path.join(__dirname, '..'));
 const app = path.join(root, 'package/luci-app-wifi7');
 const read = file => fs.readFileSync(path.join(app, file), 'utf8');
-const code = read('htdocs/luci-static/resources/view/wifi7/index.js');
+const code = fs.readFileSync(process.env.WIFI7_VIEW || path.join(app,
+    'htdocs/luci-static/resources/view/wifi7/index.js'), 'utf8');
 const acl = JSON.parse(read('root/usr/share/rpcd/acl.d/luci-app-wifi7.json'));
 const menu = JSON.parse(read('root/usr/share/luci/menu.d/luci-app-wifi7.json'));
 // A failing write may leave an unhandled promise in old code; report, do not abort.
@@ -190,7 +191,8 @@ function makeEnv(fixture, level = 'root', fail = {}) {
             // rpcd file.c: the command path or the whole command line needs "exec"
             if (!allow('file', p.command, 'exec') && !allow('file', line, 'exec')) return [6];
             env.execs.push(line);
-            return [0, {code: 0, stdout: fixture.exec(p.command, p.params || []) || ''}];
+            const result = fixture.exec(p.command, p.params || []);
+            return [0, result && typeof result === 'object' ? result : {code: 0, stdout: result || ''}];
         }
         throw new Error('Object not found');
     };
@@ -498,7 +500,7 @@ async function check(name, fn) {
         const ifnames = cmd => env.execs.filter(l => l.startsWith(cmd + ' ')).map(l => l.split(' ')[2])
             .filter(ifname => ifname !== 'phy0.0-ap0');
         assert.deepEqual([...new Set(ifnames('/usr/sbin/hostapd_cli'))], ['ap-mld0', 'guest-mld']);
-        assert.deepEqual(ifnames('/usr/sbin/iw'), ['ap-mld0', 'guest-mld']);
+        assert.deepEqual([...new Set(ifnames('/usr/sbin/iw'))], ['ap-mld0', 'guest-mld']);
         assert.deepEqual(env.calls.filter(c => c.object.startsWith('hostapd.')).map(c => c.object),
             ['hostapd.ap-mld0']);
     });
@@ -518,6 +520,128 @@ async function check(name, fn) {
         await settle(env);
         // re-enabled once the poll sees hostapd ENABLED; a timeout needs 60 polls
         assert(!apply.disabled, 'apply never saw hostapd come up');
+    });
+
+    // Captured .device/iw-info.txt, with MACs/SSIDs replaced in the committed
+    // fixture. Keep the real iw whitespace, link IDs and channel/power fields.
+    const iwInfo = fs.readFileSync(path.join(__dirname, 'fixtures/wifi7-iw-info.txt'), 'utf8');
+    const infoParts = Object.fromEntries(iwInfo.split('===\n').map(s => s.trim()).map(s =>
+        [s.match(/^Interface (\S+)/)[1], s]));
+    const stationDump = 'Station 02:00:00:00:01:01 (on ap-mld0)\n' +
+        '\tLink 1:\n\t\taddress: 02:00:00:00:01:11\n\t\tsignal: -36 dBm\n' +
+        '\tLink 2:\n\t\taddress: 02:00:00:00:01:12\n\t\tsignal: -40 dBm\n' +
+        'Station 02:00:00:00:01:02 (on ap-mld0)\n\tsignal: -50 dBm\n' +
+        'Station 02:00:00:00:01:03 (on ap-mld0)\n\tsignal: -50 dBm\n';
+    function deviceFixture({unavailable = false, info = infoParts, hostapd = {}, sku = ''} = {}) {
+        const f = fixture({mlo0: mld('Fixture MLO')}, {mlo0: 'ap-mld0'}, hostapd);
+        f.exec = (cmd, args) => {
+            if (cmd === '/usr/sbin/hostapd_cli') {
+                if (unavailable) throw new Error('Executable not found');
+                return (hostapd[args[1]] || {})[args[2] === '-l' ? args[3] : 'legacy'] || '';
+            }
+            if (cmd === '/usr/sbin/iw') return args[2] === 'info' ? info[args[1]] || ''
+                : args[1] === 'ap-mld0' ? stationDump
+                : 'Station 02:00:00:00:02:01 (on phy0.0-ap0)\n';
+            if (cmd === '/bin/cat' && args[0].endsWith('/sku_disable')) return sku;
+            return '';
+        };
+        return f;
+    }
+    const linkCard = (content, label) => all(content, e =>
+        e.children[0]?.children?.[0]?.textContent === label)[0];
+    for (const unavailable of [false, true]) {
+        await check(`I01 ${unavailable ? 'unavailable' : 'empty'} hostapd_cli uses real iw link data`, async () => {
+            const {content} = await open(makeEnv(deviceFixture({unavailable}), 'write'));
+            for (const [band, lid, ch, freq] of [['5 GHz', 1, 36, 5180], ['6 GHz', 2, 37, 6135]]) {
+                const card = linkCard(content, `${band} -- Link ${lid}`);
+                assert(card, 'missing card for ' + band);
+                assert.match(card.textContent, new RegExp(`UP.*CH ${ch}  /  ${freq} MHz  /  160 MHz`));
+                assert.match(card.textContent, /Tx: 18(?:\.00)? dBm/);
+                assert.match(card.textContent, /num_links: 2/);
+                assert(!card.descendants.some(e => e.children.some(c => c instanceof Html)),
+                    'link data was passed to innerHTML');
+            }
+            assert.match(content.textContent, /clients: 3/, 'count stations once, not once per link');
+            assert(!linkCard(content, '2.4 GHz -- Link 0'), 'invented a 2.4 GHz MLD link');
+            assert.match(content.textContent, /Fixture|Legacy/);
+            assert.match(content.textContent, /CH 1  \/  2412 MHz  \/  20 MHz/);
+            assert.match(content.textContent, /Tx: 23(?:\.00)? dBm/);
+            assert.match(content.textContent, /clients: 1/);
+        });
+    }
+    await check('I02 iw link IDs are mapped by frequency, not link number', async () => {
+        const info = {...infoParts, 'ap-mld0': infoParts['ap-mld0']
+            .replace('link ID  1', 'link ID  7').replace('link ID  2', 'link ID  0')};
+        const {content} = await open(makeEnv(deviceFixture({info}), 'write'));
+        assert.match(linkCard(content, '5 GHz -- Link 7')?.textContent || '', /CH 36.*160 MHz/);
+        assert.match(linkCard(content, '6 GHz -- Link 0')?.textContent || '', /CH 37.*160 MHz/);
+    });
+    await check('I03 nonempty hostapd stat remains the preferred link source', async () => {
+        const hostapd = {'ap-mld0': ['',
+            'state=ENABLED\nchannel=100\nfreq=5500\neht_oper_chwidth=2\nmax_txpower=17\nnum_links=2\n', '']};
+        const {content} = await open(makeEnv(deviceFixture({hostapd}), 'write'));
+        const card = linkCard(content, '5 GHz -- Link 1');
+        assert.match(card?.textContent || '', /CH 100  \/  5500 MHz  \/  80 MHz/);
+        assert.match(card.textContent, /Tx: 17 dBm/);
+        assert.match(linkCard(content, '6 GHz -- Link 2')?.textContent || '', /CH 37.*160 MHz/);
+    });
+    for (const level of ['root', 'write', 'read']) {
+        await check(`I04 absent or unreadable sku_disable stays unknown (${level})`, async () => {
+            const {page, content} = await open(makeEnv(deviceFixture(), level));
+            assert.doesNotMatch(content.textContent, /SKU regulation|SKU partially|without country power|\(regulated\)/i);
+            clickTab(page, 'diagnostics');
+            assert.doesNotMatch(content.textContent, /regulation INACTIVE|-- active|sku_idx not set/i);
+            assert.match(content.textContent, /unknown|not available/i);
+        });
+    }
+    await check('I05 sku_disable=1 still reports inactive regulation', async () => {
+        const {page, content} = await open(makeEnv(deviceFixture({sku: '1\n'})));
+        assert.match(content.textContent, /SKU regulation inactive/);
+        clickTab(page, 'diagnostics');
+        assert.match(content.textContent, /regulation INACTIVE/);
+    });
+    await check('I06 hostapd remains preferred for a discovered link ID outside 0..2', async () => {
+        const info = {...infoParts, 'ap-mld0': infoParts['ap-mld0'].replace('link ID  1', 'link ID  7')};
+        const hostapd = {'ap-mld0': {7: 'state=ENABLED\nchannel=100\nfreq=5500\nmax_txpower=17\n'}};
+        const {content} = await open(makeEnv(deviceFixture({info, hostapd}), 'write'));
+        assert.match(linkCard(content, '5 GHz -- Link 7')?.textContent || '', /CH 100.*Tx: 17 dBm/);
+    });
+    await check('I07 legacy hostapd data wins and uses the runtime netdev', async () => {
+        const f = deviceFixture({hostapd: {'legacy-custom': {legacy:
+            'state=ENABLED\nchannel=6\nfreq=2437\neht_oper_chwidth=0\nmax_txpower=16\nnum_sta[0]=4\n'}},
+            info: {...infoParts, 'legacy-custom': infoParts['phy0.0-ap0']}});
+        for (const radio of Object.values(f.runtime))
+            radio.interfaces.find(i => i.section === 'default_radio0').ifname = 'legacy-custom';
+        const env = makeEnv(f, 'write');
+        const {content} = await open(env);
+        assert.match(content.textContent, /UP  \|  CH 6  \/  2437 MHz  \/  20 MHz.*Tx: 16 dBm.*clients: 4/);
+        assert(env.execs.includes('/usr/sbin/hostapd_cli -i legacy-custom stat'));
+        assert(!env.execs.some(cmd => cmd.includes('phy0.0-ap0')));
+    });
+    await check('I08 unresolved and disabled legacy sections do not borrow primary AP measurements', async () => {
+        const f = deviceFixture();
+        f.uci.secondary = {...legacy, ssid: 'Unresolved secondary'};
+        f.uci.disabled = {...legacy, ssid: 'Disabled secondary', disabled: '1'};
+        const {content} = await open(makeEnv(f, 'write'));
+        for (const label of ['Unresolved secondary', 'Disabled secondary']) {
+            const row = all(content, e => e.children.some(c => c.tagName === 'span' && c.textContent === label))[0];
+            assert(row);
+            assert.match(row.textContent, label.startsWith('Unresolved') ? /UNKNOWN/ : /DOWN/);
+            assert.doesNotMatch(row.textContent, /CH 1 |Tx: 23|clients: 1/);
+        }
+    });
+    await check('I09 failed sku_disable reads cannot claim inactive even with stdout', async () => {
+        const f = deviceFixture({sku: {code: 1, stdout: '1\n'}});
+        const {page, content} = await open(makeEnv(f));
+        assert.doesNotMatch(content.textContent, /SKU regulation|SKU partially|without country power/i);
+        clickTab(page, 'diagnostics');
+        assert.match(content.textContent, /unknown -- sku_disable not available/);
+    });
+    await check('I10 an explicit hostapd disabled state wins over iw channel information', async () => {
+        const hostapd = {'ap-mld0': {1: 'state=DISABLED\nchannel=36\nfreq=5180\n'}};
+        const {content} = await open(makeEnv(deviceFixture({hostapd}), 'write'));
+        assert.match(linkCard(content, '5 GHz -- Link 1')?.textContent || '', /DOWNCH 36/);
+        assert.match(linkCard(content, '6 GHz -- Link 2')?.textContent || '', /UPCH 37/);
     });
 
     console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);

@@ -1,0 +1,72 @@
+{
+  "radio0": {
+    "up": true,
+    "disabled": false,
+    "config": {
+      "band": "2g"
+    },
+    "interfaces": [
+      {
+        "section": "default_radio0",
+        "ifname": "phy0.0-ap0",
+        "config": {
+          "device": [
+            "radio0"
+          ]
+        },
+        "iwinfo": {
+          "channel": 1,
+          "frequency": 2412
+        }
+      }
+    ]
+  },
+  "radio1": {
+    "up": true,
+    "disabled": false,
+    "config": {
+      "band": "5g"
+    },
+    "interfaces": [
+      {
+        "section": "default_radio1",
+        "ifname": "ap-mld0",
+        "config": {
+          "device": [
+            "radio1",
+            "radio2"
+          ],
+          "mlo": true
+        },
+        "iwinfo": {
+          "channel": 37,
+          "frequency": 6135
+        }
+      }
+    ]
+  },
+  "radio2": {
+    "up": true,
+    "disabled": false,
+    "config": {
+      "band": "6g"
+    },
+    "interfaces": [
+      {
+        "section": "default_radio1",
+        "ifname": "ap-mld0",
+        "config": {
+          "device": [
+            "radio1",
+            "radio2"
+          ],
+          "mlo": true
+        },
+        "iwinfo": {
+          "channel": 37,
+          "frequency": 6135
+        }
+      }
+    ]
+  }
+}
