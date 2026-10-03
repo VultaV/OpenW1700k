@@ -643,8 +643,8 @@ function renderConflictAlerts(alertData) {
 		return E('div', { 'class': 'alert-item ' + (isErr ? 'alert-error' : 'alert-warning') }, [
 			E('span', { 'class': 'alert-icon' }, isErr ? '\u26A0' : '\u26A1'),
 			E('div', {}, [
-				E('div', { 'class': 'alert-title' }, a.title || ''),
-				E('div', { 'class': 'alert-msg' }, a.message || '')
+				E('div', { 'class': 'alert-title' }, [ a.title || '' ]),
+				E('div', { 'class': 'alert-msg' }, [ a.message || '' ])
 			])
 		]);
 	});

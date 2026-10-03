@@ -56,6 +56,16 @@ check('fan status shows the mode description as text', () => {
     assert(shown(page, payload), 'mode description not shown');
 });
 
+// The latency alert quotes last_ping, which a UCI jitter target can forge.
+check('FlowSense conflict alerts show their text as text', () => {
+    const data = Array(16).fill(null);
+    data[10] = {alerts: [{severity: 'warning', title: payload, message: payload}]};
+    const page = renderView('luci-app-airoha-flowsense/htdocs/luci-static/resources/view/airoha_flowsense/status.js',
+        data);
+    assert(!markup(page, payload), 'alert assigned to innerHTML');
+    assert(shown(page, payload), 'alert not shown');
+});
+
 // The jitter daemon copies UCI npu-monitor.jitter.target into getJitterResult.
 check('FlowSense latency card shows the ping target as text', () => {
     const data = Array(16).fill(null);

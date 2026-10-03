@@ -1248,6 +1248,8 @@ get_conflict_alerts() {
 	if [ "$hw_offload" = "1" ] && [ -f "$jitter_file" ]; then
 		local last_ping
 		last_ping=$(jsonfilter -i "$jitter_file" -e "@.last_ping" 2>/dev/null)
+		# awk runs it as code and the alert quotes it, so it must be a number
+		case "$last_ping" in *[!0-9.]*) last_ping= ;; esac
 		# Warn if ping > 60ms with hw offload on (something is wrong)
 		if [ -n "$last_ping" ] && awk "BEGIN{exit !($last_ping > 60)}"; then
 			[ -n "$alerts" ] && alerts="${alerts},"

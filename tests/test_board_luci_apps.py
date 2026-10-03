@@ -21,7 +21,7 @@ import json,os,pathlib,re,shlex,signal,sys
 base=pathlib.Path(os.environ['FIXTURE'])
 name=pathlib.Path(sys.argv[0]).name
 args=sys.argv[1:]
-data=sys.stdin.read() if name=='jsonfilter' else ''
+data=(open(args[args.index('-i')+1]).read() if '-i' in args else sys.stdin.read()) if name=='jsonfilter' else ''
 with (base/'calls.jsonl').open('a') as f: f.write(json.dumps([name,args])+'\n')
 def sections(pkg):
     path=base/'config'/pkg
@@ -279,6 +279,24 @@ class FlowSense(unittest.TestCase):
         self.assertFalse((fx.base/'injected').exists())
         _, result = self.daemon('192.0.2.1')
         self.assertEqual(json.loads(result)['target'], '192.0.2.1')
+
+    def alerts(self, last_ping):
+        fx = Fixture(self, ['uci', 'jsonfilter'])
+        (fx.base/'config'/'firewall').write_text("config defaults\n\toption flow_offloading_hw '1'\n")
+        jitter = fx.base/'npu-jitter.json'
+        jitter.write_text(json.dumps({'last_ping': last_ping}))
+        result = fx.run(self.APP/'root/usr/libexec/rpcd/luci.airoha_flowsense', ['call', 'getConflictAlerts'],
+                        subs={'. /lib/functions.sh': ':', '/tmp/npu-jitter.json': str(jitter)})
+        return fx, result.stdout
+
+    def test_alerts_read_last_ping_as_a_number(self):
+        # The daemon prints its UCI target into the JSON unescaped, so a target
+        # with quotes can append a second, string last_ping
+        fx, out = self.alerts('system("touch injected")+61)}#<img src=x onerror=alert(1)>')
+        self.assertFalse((fx.base/'injected').exists())
+        self.assertNotIn('<img', out)
+        _, out = self.alerts(75.5)
+        self.assertIn('high (75.5ms)', json.loads(out)['alerts'][0]['message'])
 
 
 if __name__ == '__main__':
