@@ -1,6 +1,6 @@
 {
  "image": "openwrt-ubi2-mlo-host-hardening-r44-20261003-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
- "sha256": "52f11c92da5faec10c8765d373d92625dbe0b91236b9d637648c73681422034c",
+ "sha256": "766846aea05a194f97a78697bb480e57f8e83c80ec7877a713fd1230bcc80929",
  "bytes": 30294889,
  "build": {
   "tree": "case-sensitive APFS volume, incremental on a clean r43 rebuild of the same tree",
@@ -9,7 +9,8 @@
   "seconds": 482,
   "previous_attempt": "First final run stalled for about an hour in package packaging with a hung fakeroot daemon and was stopped; the daemon was killed and the same make was rerun.",
   "build_log_sha256": "2939f391c248d3bd20846920e00b0b6c07f1079d60e0f0c47da7f40ed564f821",
-  "rebuild": "Rebuilt after device testing with LuCI feed patch 0006 (luci-base network.js: singleton wireless device lists and devices without a name); 408 s incremental; modules 74/74, firmware 11/11 and wpad still identical to r43; fit_check_sign 0 and w1700k-fit-check 0 on this image."
+  "rebuild": "Rebuilt after device testing with LuCI feed patch 0006 (luci-base network.js: singleton wireless device lists and devices without a name); 408 s incremental; modules 74/74, firmware 11/11 and wpad still identical to r43; fit_check_sign 0 and w1700k-fit-check 0 on this image.",
+  "rebuild2": "Rebuilt with the luci-app-wifi7 iw fallback (r20261004) and LuCI package patch 999-mlo-scan-notice; 452 s incremental; fit_check_sign 0 and w1700k-fit-check 0."
  },
  "image_verification": {
   "compared_with": "verified r43 image 562c6bae2f23a2bce0403a0a55f483d1ba49af479a3eac7cec824615dcfab4f2",
@@ -237,7 +238,9 @@
   "test_bridge_flow_offload.py OK",
   "hostapd reassoc 1536 / DFS 216",
   "driver tests on the prepared r43 sources (mlo_ps 99/0, active_link 0, link_lifecycle 631/0, forward_path 48/0, npu_aggregation 18/0, npu_red 50, npu watchdog/mailbox/budget, ppe_ownership 16/0)",
-  "test_wireless_runtime.js 8/0 on the patched feed sources, 1/7 on the r43/r44-initial device files"
+  "test_wireless_runtime.js 8/0 on the patched feed sources, 1/7 on the r43/r44-initial device files",
+  "test_wifi7_ui.js 54/0 (42/12 before)",
+  "test_channel_analysis.js 12/0 on the built view (2/10 before)"
  ],
  "kernel_payload_note": "Kernel code identical to r43; FIT kernel bytes differ only in build timestamp and toolchain label metadata.",
  "installed": true,
@@ -248,7 +251,7 @@
   "Browser checks used headless Chrome with the image luci.js; no full LuCI session against a real router.",
   "No MLO, throughput or Air sleep/wake claims.",
   "Wireless upload throughput not measured over Wi-Fi.",
-  "WiFi 7 overview link data and 5/6 GHz channel analysis need a different data source on this image."
+  "5/6 GHz channel scanning is unavailable while those radios only carry the MLO network (driver limitation, explained in the UI)."
  ],
  "device_validation": {
   "date": "2026-10-03",
@@ -295,14 +298,19 @@
   },
   "luci_pages": {
    "Network > Wireless": "TypeError on the first r44 image (upstream network.js with a disabled section whose device is a one-element list, also present in r43); renders after 0006",
-   "WiFi 7": "renders; link cards show DOWN/? because hostapd_cli is not in the image and the sku_disable debugfs file does not exist (pre-existing)",
+   "WiFi 7": "links UP from iw: 5 GHz ch36/5180/160 MHz/18 dBm, 6 GHz ch37/6135/160 MHz, clients 3, MLD MAC; 2.4 GHz ch1/20 MHz/23 dBm; no false SKU banner",
    "MLO": "renders",
-   "Channel Analysis": "one tab per band (998 patch); 2.4 GHz scan 8 results; 5/6 GHz show no data because iwinfo scan on ap-mld0 returns nothing and radio names resolve to the 2.4 GHz netdev (pre-existing with MLO)",
+   "Channel Analysis": "2.4 GHz scan results; 5/6 GHz tabs show \"Scanning this band is not available while the radio only carries an MLO network\" (driver cannot scan those bands on the MLD)",
    "Fan": "renders, Automatic/Balanced",
    "FlowSense": "renders",
    "SoC Status (NPU)": "renders, overclock limited to 1200 MHz",
    "Attended Sysupgrade": "GitHub release list works for the first time (VultaV/OpenW1700k r34-r43 listed as text); nothing installed"
   },
-  "note": "LuCI views do not load in the Claude-in-Chrome automation tab group (request never sent); the same pages render in the user tab."
+  "note": "LuCI views do not load in the Claude-in-Chrome automation tab group (request never sent); the same pages render in the user tab.",
+  "third_install": {
+   "image_sha256": "766846aea05a194f97a78697bb480e57f8e83c80ec7877a713fd1230bcc80929",
+   "from": "r44 52f11c92 (keep settings, Signature check OK)",
+   "boot_seconds": 90
+  }
  }
 }

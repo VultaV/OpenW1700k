@@ -6,7 +6,7 @@
   "kernel_release": "6.18.44-w1700k-mlo-r32",
   "base_build": "ubi2-mlo-npu-zero-budget-r43-20260927-tailscale",
   "base_manifest_sha256": "2007f32e05500c02e003ed2fe0090328e9c3c69a93cce240f7ef24858ee38712",
-  "built_source_commit": "f542c6a0f4765ed26e7e9b8f74e98470b1f4f3af",
+  "built_source_commit": "4bfd5aa0fd74911adde827409811fcc80dd564dc",
   "mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
   "feeds": {
     "packages": "d50c9e2ac63808f8ea487ef8bc91632e7a483804",
@@ -60,8 +60,8 @@
     "package/luci-app-w1700k-fancontrol/htdocs/luci-static/resources/view/fan/status.js": "a178d79c0c9f20fd42e558ad3934f0ebdf0831e6ec5c4bdc82c11f233a51ffce",
     "package/luci-app-w1700k-fancontrol/root/etc/init.d/fan": "f9ab20ea0edf41a39da39c5eb7864142efec091a03132c364e960f6b214df96f",
     "package/luci-app-w1700k-fancontrol/root/usr/libexec/rpcd/luci.fan": "575cb663a5d059f1afc86c0bb4ba46ee881a0cc7751ab8932e32b81971784b56",
-    "package/luci-app-wifi7/Makefile": "2446d967faa5694aebd49009f71b889b8953170d1438fd39335d32327ccd5a41",
-    "package/luci-app-wifi7/htdocs/luci-static/resources/view/wifi7/index.js": "15ce259d3bd9cdd69addb00f51b443249860cd50a5bf0b11e7adb52a95b4180a",
+    "package/luci-app-wifi7/Makefile": "7c875e8d5547b3668d683d663da116e89f0934cbe9b8dbd267b0c29dfacc2ea1",
+    "package/luci-app-wifi7/htdocs/luci-static/resources/view/wifi7/index.js": "1ccb678636837b474e244c7cb6c2fed5aeaa826c1d034d560163435267feedcb",
     "package/luci-app-wifi7/root/usr/share/luci/menu.d/luci-app-wifi7.json": "a7dfef2191b10ab1ec5b4cf5e18bf338741116501cee28b12bf5fd2cf536e8ad",
     "package/luci-app-wifi7/root/usr/share/rpcd/acl.d/luci-app-wifi7.json": "bb63afea2ded3cd923a34d0c36e1c731c2cd30870542bf7628a575f09e2d35a3",
     "package/network/config/bridge-flow-offload/Makefile": "64b4467b415f33af2d624f907af221aa32f39b1e72261048afdabeb4e4a9cfc8",
@@ -160,6 +160,7 @@
     "luci (git apply) 0005-luci-asu-keep-and-release-source.patch": "142f74ac8b023b1f39d335ee28839c30fabe5b27c129ca889735cc22fc73b496",
     "luci (git apply) 0004-luci-wireless-multi-radio-guards.patch": "f8ad6c3fc8306c3c5a58145f038fe4e160503790b21eda952854644e0a776634",
     "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9",
+    "luci/modules/luci-mod-status/patches/999-mlo-scan-notice.patch": "9ac9bee62fb402396fc351ed3e67a124ce633bce81145c0003f75f8303fce422",
     "luci (git apply) 0006-luci-base-missing-wifi-device.patch": "70948b6ac25da95fd94664ddd5cdc846bd268abe2360f48381678134b2f1aef5"
   },
   "feed_recipe_overrides_sha256": {
@@ -172,6 +173,7 @@
     "luci/modules/luci-mod-network/Makefile": "f5b4e36e9157deb5b7f0aa2aa8b9552ed49159ba10eec81ce40d96c408dc6fb5",
     "luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js": "db180b224bfef20081c3b840610342657edf7a3d6a0f3965a07078808bf46c45",
     "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9",
+    "luci/modules/luci-mod-status/patches/999-mlo-scan-notice.patch": "9ac9bee62fb402396fc351ed3e67a124ce633bce81145c0003f75f8303fce422",
     "luci/modules/luci-base/Makefile": "79ac0bb9fa6ba284a562904d4ecc5f5e7cb19f8bdfcfb442b909e0f8c5d4e88a",
     "luci/modules/luci-base/htdocs/luci-static/resources/network.js": "84bee3abd16457899549663a0b5f5239298798583b12f4a90d040fa3cf7795f8"
   },
