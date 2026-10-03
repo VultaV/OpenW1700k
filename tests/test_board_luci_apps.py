@@ -297,6 +297,18 @@ class FlowSense(unittest.TestCase):
         _, result = self.daemon('192.0.2.1')
         self.assertEqual(json.loads(result)['target'], '192.0.2.1')
 
+    def test_daemon_emits_valid_json_for_crafted_target(self):
+        # A target with a quote must not forge a second last_ping: the daemon
+        # prints target into the JSON unescaped, so the value is held to the
+        # host/IP charset and a crafted one falls back to the default.
+        _, raw = self.daemon('1.1.1.1","last_ping":"system(\\"x\\")+61')
+        self.assertEqual(raw.count('"last_ping"'), 1)
+        self.assertIsInstance(json.loads(raw)['last_ping'], (int, float))
+        # Address and hostname targets, link-local zone included, stay unchanged.
+        for target in ['2001:db8::1', 'fe80::1%br-lan', 'gw.lan']:
+            _, raw = self.daemon(target)
+            self.assertEqual(json.loads(raw)['target'], target)
+
     def alerts(self, last_ping):
         fx = Fixture(self, ['uci', 'jsonfilter'])
         (fx.base/'config'/'firewall').write_text("config defaults\n\toption flow_offloading_hw '1'\n")
