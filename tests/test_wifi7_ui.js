@@ -352,6 +352,19 @@ async function check(name, fn) {
         assert(!all(content, e => e.children.some(c => c instanceof Html && c.text.includes(payload))).length,
             'SSID assigned to innerHTML');
     });
+    // A UCI wireless writer (e.g. a luci-app-mlo delegate) controls these strings
+    for (const [tab, name] of [['overview', 'Overview legacy list'], ['legacy', 'Networks tab']]) {
+        await check(`X01 ${name} shows legacy SSID, encryption and device as text, not markup`, async () => {
+            const payload = '<img src=x onerror=alert(1)>';
+            const env = makeEnv(fixture({default_radio0: {...legacy, ssid: payload, encryption: payload,
+                device: payload}}, {}, {}));
+            const {page, content} = await open(env);
+            clickTab(page, tab);
+            assert(content.textContent.includes(payload), 'not shown');
+            const sinks = all(content, e => e.children.some(c => c instanceof Html && c.text.includes(payload)));
+            assert(!sinks.length, 'assigned to innerHTML: ' + sinks.map(e => e.tagName).join(', '));
+        });
+    }
     await check('F07 sole profile with MLO switched off stays selected', async () => {
         const env = makeEnv(mloSwitchedOff);
         const {content} = await open(env, 'mld');

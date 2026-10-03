@@ -68,7 +68,7 @@ function chanUtil(stat) {
 function badge(text, bg, fg) {
     return E('span', { 'style':
         'display:inline-block;font-size:11px;font-weight:bold;padding:2px 7px;' +
-        'border-radius:3px;background:' + bg + ';color:' + fg }, text);
+        'border-radius:3px;background:' + bg + ';color:' + fg }, [ text ]);
 }
 
 function skuBanner(skuOff, skuIdx) {
@@ -591,9 +591,9 @@ return view.extend({
                     'display:flex;align-items:center;gap:8px;padding:5px 0;' +
                     'border-bottom:1px solid #2a2a3a;font-size:12px' }, [
                     badge(bi[0], bi[1], bi[2]),
-                    E('span', { 'style': 'font-family:monospace' }, s['ssid'] || sid),
+                    E('span', { 'style': 'font-family:monospace' }, [ s['ssid'] || sid ]),
                     E('span', { 'style': 'color:#888;margin-left:4px' },
-                        enc === 'none' ? 'open' : enc),
+                        [ enc === 'none' ? 'open' : enc ]),
                     E('span', { 'style':
                         'margin-left:auto;font-size:10px;padding:2px 6px;' +
                         'border-radius:3px;background:#2a2a1a;color:#666;' +
@@ -1767,7 +1767,7 @@ return view.extend({
                         'background:#16213e;padding:7px 12px;font-size:13px;font-weight:bold;' +
                         'display:flex;align-items:center;gap:8px' }, [
                         badge(meta.band, meta.bg, meta.fg),
-                        E('span', {}, s['ssid']||sid),
+                        E('span', {}, [ s['ssid']||sid ]),
                         E('span', { 'style':'font-size:11px;color:#666;margin-left:4px' },
                             s['disabled']==='1' ? '(disabled)' : '')
                     ]),
