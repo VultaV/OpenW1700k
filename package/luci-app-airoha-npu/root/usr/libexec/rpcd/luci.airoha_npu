@@ -287,7 +287,9 @@ set_overclock() {
 	local target_mhz
 	target_mhz=$(echo "$1" | jsonfilter -e "@.freq_mhz" 2>/dev/null)
 
-	case "$target_mhz" in ''|*[!0-9]*|0*)
+	# More than 4 digits can overflow [ -lt ] / [ -gt ], whose errors
+	# would let the value through
+	case "$target_mhz" in ''|*[!0-9]*|0*|?????*)
 		echo '{"error":"missing or invalid freq_mhz parameter"}'
 		return
 		;;

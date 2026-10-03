@@ -227,7 +227,9 @@ class AirohaNpu(unittest.TestCase):
 
     def test_overclock_accepts_only_integer_mhz_up_to_stock(self):
         for freq, ok in [('abc', False), (1600, False), (1250, False), (1200.5, False), (-100, False),
-                         ('0800', False), ('', False), (499, False), (500, True), (1200, True)]:
+                         ('0800', False), ('', False), (499, False), (500, True), (1200, True),
+                         # overflows [ -lt ] / [ -gt ] in ash and bash alike
+                         ('99999999999999999999', False)]:
             with self.subTest(freq=freq):
                 fx = Fixture(self, ['devmem', 'jsonfilter'])
                 (fx.base/'cpu/cpufreq/policy0').mkdir(parents=True)
