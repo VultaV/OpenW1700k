@@ -18,8 +18,7 @@
 			},
 			"file": {
 				"/sys/devices/system/cpu/cpufreq/policy0/scaling_governor": [ "write" ],
-				"/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq": [ "write" ],
-				"/dev/mem": [ "read", "write" ]
+				"/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq": [ "write" ]
 			}
 		}
 	}

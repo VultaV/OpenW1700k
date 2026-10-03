@@ -370,11 +370,10 @@ function renderMaxFreqSelect(avail, cur) {
 }
 
 function renderOcControls() {
-	var inp = E('input',{'id':'oc-freq-input','type':'number','min':'500','max':'1600','step':'50','value':'1400','class':'cbi-input-text','style':'width:100px'});
+	var inp = E('input',{'id':'oc-freq-input','type':'number','min':'500','max':'1200','step':'50','value':'1200','class':'cbi-input-text','style':'width:100px'});
 	var btn = E('button',{'class':'cbi-button cbi-button-action','style':'margin-left:8px','click':function(){
 		var f=parseInt(document.getElementById('oc-freq-input').value);
-		if(isNaN(f)||f<500||f>1600){ui.addNotification(null,E('p',{},_('Must be 500-1600 MHz')),'error');return;}
-		if(f>1400&&!confirm('Frequencies above 1400 MHz may be unstable. Continue?')) return;
+		if(isNaN(f)||f<500||f>1200){ui.addNotification(null,E('p',{},_('Must be 500-1200 MHz')),'error');return;}
 		btn.disabled=true;btn.textContent=_('Applying...');
 		callSetOverclock(f).then(function(r){btn.disabled=false;btn.textContent=_('Apply');
 			if(r&&r.error) ui.addNotification(null,E('p',{},_('Failed: ')+r.error),'error');
@@ -383,7 +382,7 @@ function renderOcControls() {
 	}},_('Apply'));
 	return E('div',{'style':'display:flex;align-items:center;gap:8px;flex-wrap:wrap'},[
 		inp, E('span',{'class':'soc-muted'},'MHz'), btn,
-		E('span',{'class':'soc-muted','style':'font-size:85%;margin-left:8px'},_('Direct PLL. Stock max 1200 MHz. Stable up to 1500 MHz.'))
+		E('span',{'class':'soc-muted','style':'font-size:85%;margin-left:8px'},_('Direct PLL. Limited to the stock 1200 MHz maximum.'))
 	]);
 }
 

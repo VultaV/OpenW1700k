@@ -215,5 +215,37 @@ class FanControl(unittest.TestCase):
             'and(uinteger,range(0,255))', 'and(uinteger,range(0,100))', 'and(uinteger,range(0,255))'])
 
 
+class AirohaNpu(unittest.TestCase):
+    APP = PKG/'luci-app-airoha-npu'
+    RPC = APP/'root/usr/libexec/rpcd/luci.airoha_npu'
+
+    def test_acl_does_not_expose_dev_mem(self):
+        acl = json.loads((self.APP/'root/usr/share/rpcd/acl.d/luci-app-airoha-npu.json').read_text())
+        for scope in acl['luci-app-airoha-npu'].values():
+            if isinstance(scope, dict):
+                self.assertNotIn('/dev/mem', scope.get('file', {}))
+
+    def test_overclock_accepts_only_integer_mhz_up_to_stock(self):
+        for freq, ok in [('abc', False), (1600, False), (1250, False), (1200.5, False), (-100, False),
+                         ('0800', False), ('', False), (499, False), (500, True), (1200, True)]:
+            with self.subTest(freq=freq):
+                fx = Fixture(self, ['devmem', 'jsonfilter'])
+                (fx.base/'cpu/cpufreq/policy0').mkdir(parents=True)
+                result = fx.run(self.RPC, ['call', 'setOverclock'], json.dumps({'freq_mhz': freq}),
+                                {'. /lib/functions.sh': ':', '/sys/devices/system/cpu': str(fx.base/'cpu')})
+                writes = [args for args in fx.calls('devmem') if len(args) == 3]
+                if ok:
+                    self.assertEqual(json.loads(result.stdout)['target_mhz'], freq)
+                    self.assertTrue(writes)
+                else:
+                    self.assertEqual(writes, [])
+                    self.assertIn('error', json.loads(result.stdout))
+
+    def test_ui_offers_stock_maximum_only(self):
+        view = (self.APP/'htdocs/luci-static/resources/view/airoha_npu/status.js').read_text()
+        self.assertEqual(re.findall(r"'id':'oc-freq-input'.*'max':'(\d+)'", view), ['1200'])
+        self.assertEqual(re.findall(r'isNaN\(f\)\|\|f<500\|\|f>(\d+)', view), ['1200'])
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

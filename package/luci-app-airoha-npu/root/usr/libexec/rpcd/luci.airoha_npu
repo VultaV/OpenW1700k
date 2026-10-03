@@ -287,14 +287,15 @@ set_overclock() {
 	local target_mhz
 	target_mhz=$(echo "$1" | jsonfilter -e "@.freq_mhz" 2>/dev/null)
 
-	if [ -z "$target_mhz" ]; then
-		echo '{"error":"missing freq_mhz parameter"}'
+	case "$target_mhz" in ''|*[!0-9]*|0*)
+		echo '{"error":"missing or invalid freq_mhz parameter"}'
 		return
-	fi
+		;;
+	esac
 
-	# Validate range (500-1600, crash likely above 1500 at stock voltage)
-	if [ "$target_mhz" -lt 500 ] || [ "$target_mhz" -gt 1600 ]; then
-		echo '{"error":"frequency must be 500-1600 MHz"}'
+	# Stay within the stock 1200 MHz rating at stock voltage
+	if [ "$target_mhz" -lt 500 ] || [ "$target_mhz" -gt 1200 ]; then
+		echo '{"error":"frequency must be 500-1200 MHz"}'
 		return
 	fi
 

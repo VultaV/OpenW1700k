@@ -26,7 +26,7 @@ Real-time monitoring and management dashboard for the Airoha AN7581 SoC on OpenW
 - Current frequency display with visual bar graph
 - Governor selection (performance, ondemand, schedutil, etc.)
 - Max frequency selection from available OPP entries
-- Direct PLL overclock control (500-1600 MHz) with hardware register programming
+- Direct PLL clock control (500-1200 MHz, the stock maximum) with hardware register programming
 - Overclock detection and warning for unstable frequencies
 
 ### NPU & Offload Engine
