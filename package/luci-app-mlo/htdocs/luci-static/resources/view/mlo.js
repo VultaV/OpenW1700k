@@ -77,7 +77,7 @@ function radioMap(radios) {
 function renderBadge(label, background, foreground) {
 	return E('span', {
 		'style': 'display:inline-block;margin:0 .35em .35em 0;padding:.15em .55em;border-radius:999px;background:%s;color:%s;font-size:12px;line-height:1.3;white-space:nowrap;'.format(background, foreground || '#fff')
-	}, label);
+	}, [ label ]);
 }
 
 function renderMetaLine(label, value) {
@@ -284,7 +284,7 @@ function renderMetric(label, value) {
 		'style': 'flex:1 1 10em;min-width:10em;padding:.85em 1em;border:1px solid #d7d7d7;border-radius:10px;background:#fafafa;'
 	}, [
 		E('div', { 'style': 'font-size:12px;color:#666;margin-bottom:.25em;' }, label),
-		E('div', { 'style': 'font-size:22px;font-weight:600;line-height:1.2;' }, value)
+		E('div', { 'style': 'font-size:22px;font-weight:600;line-height:1.2;' }, [ value ])
 	]);
 }
 

@@ -107,7 +107,39 @@ async function checkCreate(failAt) {
     }
 }
 
+// The real overview helpers with a DOM that models LuCI dom.append(): a lone
+// string child is assigned to innerHTML, array items become text nodes.
+function checkMarkup() {
+    const payload = '-mld<img src=x onerror=alert(1)>';
+    String.prototype.format ??= function(...args) {
+        let i = 0;
+        return this.replace(/%[sd]/g, () => String(args[i++]));
+    };
+    function E(tag, attrs, kids) {
+        if (attrs == null || typeof attrs !== 'object' || Array.isArray(attrs) || attrs.tag)
+            [attrs, kids] = [{}, attrs];
+        if (kids != null && !Array.isArray(kids) && !kids.tag) kids = [{html: String(kids)}];
+        return {tag, attrs, kids: kids || []};
+    }
+    const markup = n => Array.isArray(n) ? n.flatMap(markup) : n && typeof n === 'object'
+        ? (n.html != null ? [n.html] : markup(n.kids)) : [];
+    const cfg = {mode: payload, ssid: payload, mlo: '1', device: ['radio1', 'radio2'], encryption: 'sae'};
+    const helpers = bind(mlo.slice(0, mlo.indexOf('return view.extend(')) +
+        'return {renderSectionOverview, renderSummaryBox};', {
+        rpc: {declare() {}}, L: {toArray: v => v == null ? [] : [].concat(v)},
+        uci: {get: () => cfg}, E, _: text => text
+    });
+    const overview = helpers.renderSectionOverview('mlo0', {});
+    assert.ok(!markup(overview).some(h => h.includes(payload.toUpperCase())),
+              'A UCI mode must not reach innerHTML through renderBadge()');
+    const summary = helpers.renderSummaryBox({radios: [], activeMldIfnames: [payload]},
+        {totalIfaces: 1, mloIfaces: 1, warnings: []});
+    assert.ok(!markup(summary).some(h => h.includes(payload)),
+              'A runtime ifname must not reach innerHTML through renderMetric()');
+}
+
 (async () => {
+    checkMarkup();
     const radios = ['2g', '5g', '6g'].map((band, i) => ({'.name': 'radio' + i, band}));
     await checkDefaults(radios, ['radio1', 'radio2']);
     await checkDefaults(radios.map(r => ({...r, disabled: r.band === '6g' ? '1' : '0'})), ['radio1', 'radio0']);
@@ -121,5 +153,5 @@ async function checkCreate(failAt) {
     assert.equal(flag.default, '0', 'Existing single-link sections must not opt into MLO');
     assert.ok(!wifi7.includes("roValue('mld_allowed_links: 0x07"));
     assert.ok(!wifi7.includes("return 'STR mode"));
-    console.log('PASS: MLO radio defaults/validation and literal UCI credentials, including transaction failures');
+    console.log('PASS: MLO radio defaults/validation and literal UCI credentials, including transaction failures, and UCI/runtime strings as text');
 })().catch(error => { console.error(error); process.exitCode = 1; });
