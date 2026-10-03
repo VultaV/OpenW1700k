@@ -394,6 +394,36 @@ async function check(name, fn) {
         button(content, 'Discard').fire('click');
         assert.equal(ssid().value, 'Saved', 'Discard went back past the save');
     });
+    // Apply polled a netdev fixed at page load: none for a profile with MLO
+    // off, a guess for an MLD that was not running yet.
+    const addNetdev = (f, section, ifnames) => Object.entries(ifnames).forEach(([radio, ifname]) => {
+        f.runtime[radio].interfaces = [...f.runtime[radio].interfaces, {section, ifname}];
+        f.hostapd[ifname] = [];
+    });
+    // netifd creates one netdev per radio for a multi-radio section without MLO
+    const offRuntime = fixture({mlo0: mld('Off', {mlo: '0'})}, {}, {});
+    addNetdev(offRuntime, 'mlo0', {radio1: 'phy0.1-ap1', radio2: 'phy0.2-ap1'});
+    const lateMld = fixture({ap_mld_1: mld('Late')}, {}, {});
+    for (const [name, fix, up, netdevs] of [
+        ['profile with MLO switched off', offRuntime, null, ['phy0.1-ap1', 'phy0.2-ap1']],
+        ['MLD that was down at page load', lateMld,
+            f => addNetdev(f, 'ap_mld_1', {radio1: 'ap-mld0', radio2: 'ap-mld0'}), ['ap-mld0']]
+    ]) {
+        await check(`W02 MLD apply on a ${name} waits for its current netdevs`, async () => {
+            const env = makeEnv(fix);
+            const {content} = await open(env, 'mld');
+            if (up) up(fix);
+            const apply = button(content, 'Save & apply');
+            apply.fire('click');
+            await settle(env);
+            const polled = [...new Set(env.calls.filter(c => c.object.startsWith('hostapd.'))
+                .map(c => c.object.slice(8)))];
+            for (const ifname of netdevs) assert(polled.includes(ifname), 'never polled ' + ifname);
+            // re-enabled once the poll sees hostapd ENABLED; a timeout needs 60 polls
+            assert(!apply.disabled, 'apply never saw hostapd come up');
+        });
+    }
+
     await check('F08 status RPCs use the netdev netifd created for each MLD section', async () => {
         const env = makeEnv(customNames);
         await loadView(env).load();

@@ -34,6 +34,33 @@ var callWirelessDevices = rpc.declare({
     expect: { '': {} }
 });
 
+// section -> netdevs netifd created for it: option ifname, ap-mld<N> for MLO
+// (wireless.uc mlo_vif_create()), one per radio otherwise
+function sectionIfnames(radios) {
+    var ifnames = {};
+    Object.keys(radios).forEach(function(radio) {
+        (radios[radio].interfaces || []).forEach(function(i) {
+            var ifn = i.ifname || (i.config || {}).ifname;
+            if (!i.section || !ifn) return;
+            ifnames[i.section] = ifnames[i.section] || [];
+            if (ifnames[i.section].indexOf(ifn) < 0) ifnames[i.section].push(ifn);
+        });
+    });
+    return ifnames;
+}
+
+// hostapd runs every netdev the section has now
+function sectionUp(sid) {
+    return L.resolveDefault(callWirelessDevices(), {}).then(function(radios) {
+        var ifnames = sectionIfnames(radios)[sid] || [];
+        return Promise.all(ifnames.map(function(ifn) {
+            return L.resolveDefault(callHostapdStatus(ifn), {});
+        })).then(function(states) {
+            return states.length > 0 && states.every(function(st) { return st.status === 'ENABLED'; });
+        });
+    });
+}
+
 function parseStat(raw) {
     var out = {};
     if (!raw) return out;
@@ -306,14 +333,7 @@ return view.extend({
         ]).then(function(phase1) {
         var uciData = phase1[0];
 
-        // MLD netdev per section: option ifname or ap-mld<N> (wireless.uc mlo_vif_create())
-        var ifnames = {};
-        Object.keys(phase1[1]).forEach(function(radio) {
-            (phase1[1][radio].interfaces || []).forEach(function(i) {
-                var ifn = i.ifname || (i.config || {}).ifname;
-                if (i.section && ifn) ifnames[i.section] = ifn;
-            });
-        });
+        var ifnames = sectionIfnames(phase1[1]);
 
         // Collect all MLD sections and legacy interfaces from UCI
         var mldSIDs = [], legacySIDs = [];
@@ -324,7 +344,7 @@ return view.extend({
             else legacySIDs.push(sid);
         });
         var mldIfnames = mldSIDs.map(function(sid) {
-            return ifnames[sid] || uciData[sid]['ifname'] || self._mldIfname(sid);
+            return (ifnames[sid] || [])[0] || uciData[sid]['ifname'] || self._mldIfname(sid);
         });
         var mldDebug = '/sys/kernel/debug/ieee80211/phy0/netdev:' + (mldIfnames[0] || 'ap-mld-1');
 
@@ -814,8 +834,8 @@ return view.extend({
                     tries++;
                     pbar.style.width  = Math.min(80 + tries, 98) + '%';
                     pstat.textContent = 'Polling hostapd (' + tries + '/' + maxTries + ')...';
-                    L.resolveDefault(callHostapdStatus(data._mldIfnames[idx]), {}).then(function(st) {
-                        if (st && st.status === 'ENABLED') {
+                    sectionUp(mldSID).then(function(up) {
+                        if (up) {
                             pbar.style.width  = '100%';
                             pstat.textContent = 'Done -- WiFi active';
                             applyBtn.disabled   = false;
