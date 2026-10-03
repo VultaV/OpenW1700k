@@ -1,7 +1,9 @@
 # 2026-10-03 펌웨어 측 수정 후보 — r43 기반, 실기 미검증
 
 `codex/mlo-r30-bridge-offload`(`0b91431404`, r43 소스 + 문서) 위의 로컬 브랜치
-`claude/r43-host-fixes`다. 사용자 지시에 따라 내부망·실기기가 필요한 시험은 하지 않았다.
+`claude/r44-candidate`다. `claude/r43-host-fixes`(`d8b02b5a25`)에 10월 1일 Codex 후보
+`9ddf8eb185`에서 이식한 변경(2절 W01·W02·0004, 7–9절)을 더했다. 사용자 지시에 따라
+내부망·실기기가 필요한 시험은 하지 않았다.
 소스·호스트 시험·이미지 빌드로 바로 확인되는 것만 처리했고, 장치가 필요한 항목은 아래
 "실기기 시험 대기"에 모았다. 새 r 버전으로 공개하지 않았고 push·설치도 하지 않았다.
 MLO 간헐 멈춤과는 관계없는 수정이다.
@@ -100,10 +102,11 @@ LuCI 패키지 버전이 바뀌지 않으므로 0003처럼 `PKG_VERSION`을 r43 
 (`26.250.72430~e81743d-r2`). Codex 기록의 Wireless 페이지 전체 공백은 원인을 모르며
 이 패치로 고친 것이 아니다.
 
-`./scripts/feeds update -a` 뒤, 빌드 전에 고정 피드에 적용한다:
+`./scripts/feeds update -a` 뒤, 빌드 전에 고정 피드에 적용한다(전체 순서는 7절). `git -C`는 상대
+경로를 피드 폴더 기준으로 읽으므로 패치는 절대 경로로 준다:
 
 ```sh
-git -C feeds/luci apply docs/host-fixes-20261003/feed-patches/0004-luci-wireless-multi-radio-guards.patch
+git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0004-luci-wireless-multi-radio-guards.patch"
 node tests/test_wireless_mlo_guard.js \
     feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
 ```
@@ -120,7 +123,13 @@ node tests/test_wireless_mlo_guard.js \
 
 ## 3. 수정본 이미지
 
-같은 빌드 트리에서 이 브랜치로 다시 만든 이미지(파일 이름의 `r43` 표기는 config의
+이 절의 이미지와 시험은 `claude/r43-host-fixes`(`d8b02b5a25`) 상태다. 그 뒤 이식한 LuCI 0004·W01·W02
+(2절), 피드 잠금(7절), 이미지 구조 검사(8절), GitHub 업데이트(9절)는 들어 있지 않다. 이미지 manifest에
+`w1700k-fit-check`가 없고 `luci-app-attendedsysupgrade`는 `-r3`, `luci-mod-network`는 `26.253.65031~289a726`이다.
+이 후보 전체로는 아직 이미지를 만들지 않았다. `luci-app-wifi7`은 두 상태 모두 `1.0.0-r20261003`이라
+버전으로 구별되지 않는다.
+
+같은 빌드 트리에서 `d8b02b5a25`로 다시 만든 이미지(파일 이름의 `r43` 표기는 config의
 `VERSION_NUMBER`를 바꾸지 않아서 남은 것이다. r43으로 배포하면 안 된다):
 
 - sysupgrade SHA256 `4935f90a62acb4e567855649f662c1090b943ec9b2bba83ad2e891fd76f4206f`, 30,274,410바이트
@@ -131,7 +140,7 @@ node tests/test_wireless_mlo_guard.js \
 - 설치·검증된 r43과 비교: r43에만 있는 파일은 중복 인증서 240개뿐이다. 나머지 차이는 이 브랜치의 수정,
   메타데이터(서명 키·버전 문자열·apk DB·공백만 다른 디버그 스크립트), 빌드 환경에 따른 바이너리 7개다.
 - 커널 모듈은 바뀌지 않았다(검증된 r43과 74/74 일치). DTB 일치. 커널 차이는 빌드 시각 메타데이터뿐이다.
-- 호스트 시험(이 브랜치): `test_board_luci_apps.py`, `test_wifi7_ui.js`, `test_mlo_ui.js`,
+- 호스트 시험(`d8b02b5a25`): `test_board_luci_apps.py`, `test_wifi7_ui.js`, `test_mlo_ui.js`,
   `test_board_luci_views.js`, `test_attendedsysupgrade_images.js`(r3 적용 원본 뷰),
   `test_image_metadata.py`, `test_bridge_flow_offload.py`, hostapd 2종 통과.
 - 이 빌드 트리의 준비된 mt76·커널 소스로 돌린 드라이버 시험: MLO PS 99/0, active link(`--tx-errors`) 0,
@@ -156,6 +165,12 @@ node tests/test_wireless_mlo_guard.js \
   `apk update`가 저장소 0개로 오류 없이 끝나는지, `apk upgrade --simulate`가 아무것도 제안하지 않는지.
   LuCI 시스템 → 소프트웨어의 목록 업데이트·구성 대화상자·설치된 목록. 유지된 `customfeeds.list`에
   snapshot 피드가 없는지.
+- 이미지 구조 검사(8절): `command -v w1700k-fit-check`가 있는지, 설치한 이미지와 검증된 r43 이미지에
+  `sysupgrade -T`가 통과하는지. 거절 대상(1.0.0 `chainload-uboot.itb` 등)에 `sysupgrade -T -F`가
+  `W1700K FIT rejected:`와 "Image check failed."로 끝나는지, LuCI 플래시 화면도 강제 옵션 없이 거절하는지.
+- FIT 잠금 탈출(8절): 이 이미지에서 검증된 r43(`562c6bae…`)으로의 sysupgrade(설정 유지)가 받아들여져
+  부팅되는지, r43에서 `sysupgrade -T -F`가 예전처럼 강제 가능으로 나오는지, r43에서 다시 이 이미지로
+  올라오는지. 시리얼·U-Boot 복구 수단을 확보한 뒤에만.
 
 LuCI 보안·UI (실제 브라우저)
 - 0004: Network > Wireless가 MLO 섹션이 있어도 그려지고, 위쪽 알림에 섹션 이름과 MLO 링크가 보이는지.
@@ -170,6 +185,11 @@ LuCI 보안·UI (실제 브라우저)
   netspeedtest read 계정은 다운로드·측정 거부. 배포 전 `/etc/config/rpcd`에
   `luci-mod-network-config`로 wifi7 메뉴를 쓰던 non-root 계정이 있는지 확인.
 - F05 실패 경로: commit 거부 시 `Failed: …` 표시, Wi-Fi 재시작 없음.
+- GitHub 업데이트(9절): 목록이 `VultaV/OpenW1700k` prerelease를 이미지 버전으로 보여 주고(502 아님)
+  "View on GitHub"가 같은 저장소로 가는지. Keep settings를 켠 채 받기·설치. 끈 채(keep=false) 받으면
+  `sysupgrade --test -n` 검증을 통과한 뒤 곧바로 설정 초기화 설치로 이어지므로, 설정 백업과 유선 접근
+  (192.168.1.1)을 확보한 뒤에만. `keep` 없는 요청이 400인지. apk에서 `luci-app-attendedsysupgrade`가
+  `26.250.72430~e81743d-r4`인지.
 - W01·W02: MLD config에서 SSID를 바꾼 뒤 Discard가 저장값으로 되돌리는지, 저장 뒤 Discard가 새 값을
   유지하는지. MLO를 끈 프로필(`mlo=0`)과 로드 때 내려가 있던 MLD에서 Save & apply가
   `Done -- WiFi active`로 끝나는지(라디오별 netdev가 모두 ENABLED일 때). `psk2` 프로필에서 로드·Discard 뒤
@@ -210,8 +230,9 @@ MLO 원인 조사 (인계서 10절)
   가진 계정은 바이너리를 바꿔치기할 수 있다. upstream 설계이며 고치지 않았다. 다운로드 기능을 빼거나
   root 전용으로 둘지 정해야 한다.
 - 10월 1일 Codex 세션의 `codex/release-hardening-20261001` 후보(로컬 `Documents/Codex/2026-10-01/task/OpenW1700k`)는
-  NPU IRQ·RRO·복구 경로와 sysupgrade 레이아웃 검사를 다루지만 빌드되지 않았다. 이 브랜치와 겹치는
-  F05–F08을 서로 다르게 고쳤으므로 하나를 골라야 한다.
+  빌드되지 않았다. sysupgrade 레이아웃 검사, GitHub 업데이트, 피드 잠금, LuCI 0004, MLD Discard·폴링은
+  이 브랜치로 옮겼다(2·7–9절). 겹치는 F05–F08은 이 브랜치의 수정을 두고 W01·W02만 얹었다. NPU IRQ·RRO·
+  복구 경로, CI, 준비 스크립트·source gate는 옮기지 않았으므로 따로 정해야 한다.
 
 ## 7. 패키지 피드 잠금 (Codex 후보 `9ddf8eb185`에서 이식)
 
@@ -240,15 +261,32 @@ snapshot 서명 키(`/etc/apk/keys/openwrt-snapshots.pem`)를 신뢰한다. 그�
 
 이식하지 않은 것
 - `scripts/prepare-w1700k-release.sh`: distfeeds는 이제 base-files가 만든다. 스크립트의 나머지 단계는
-  이식 대상이 아닌 `build.config`, Codex의 LuCI 0004·0005 패치와 묶여 있다.
+  이식 대상이 아닌 `build.config`, Codex 원본 LuCI 0004·0005 적용과 묶여 있다. 이 브랜치는 고친 0004·0005를
+  아래 순서로 `git apply`한다.
 - `CONFIG_VERSION_REPO`를 unpublished 주소로 바꾸는 것: base-files가 더 이상 `%U`로 피드를 만들지 않는다.
   그래서 rootfs에서 이 값을 쓰는 곳이 없다. r43.config는 기록 그대로 둔다.
 - `docs/release-hardening/sources.lock.json`: Codex source gate용이다. 피드 커밋은 manifest에 이미 있다.
 
 다음 이미지를 만들 때
-1. `cp feeds.conf.release feeds.conf`, `./scripts/feeds update -a`. 피드 패치(libpfring AR, ovpn,
-   LuCI 0003 r3, `998-single-wiphy`)는 지금까지처럼 넣고 `./scripts/feeds install -a`.
-2. `cp docs/mlo-r43/r43.config .config`, overlay를 `files/`에 복사, `make defconfig`, `make`.
+1. `cp feeds.conf.release feeds.conf`, `./scripts/feeds update -a`. 피드 패치를 이 순서로 넣고
+   `./scripts/feeds install -a`. LuCI는 깨끗한 고정 피드에 0003 r3 → 0005 → 0004 순서다.
+
+   ```sh
+   cp docs/mlo-r29/feed-patches/0002-use-target-ar-for-bundled-libraries.patch \
+      feeds/packages/libs/libpfring/patches/
+   git -C feeds/packages apply "$PWD/docs/mlo-r30/feed-patches/0001-ovpn-backports-set-module-version.patch"
+   git -C feeds/luci apply "$PWD/docs/mlo-r34/feed-patches/0003-luci-attendedsysupgrade-github-update.patch"
+   git -C feeds/luci apply "$PWD/docs/mlo-r34/feed-patches/0005-luci-asu-keep-and-release-source.patch"
+   git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0004-luci-wireless-multi-radio-guards.patch"
+   mkdir -p feeds/luci/modules/luci-mod-status/patches
+   cp docs/host-fixes-20261003/feed-patches/998-single-wiphy.patch \
+      feeds/luci/modules/luci-mod-status/patches/
+   ```
+
+2. `cp docs/mlo-r43/r43.config .config`. 빈 `files/`에 이 커밋의 `docs/mlo-r30/overlay/*`를 복사한다
+   (`github_check`·`github_fetch`는 0005와 짝이다, 9절). `files/etc/w1700k-mlo-repair`를
+   `docs/mlo-r43/build-manifest.json`으로 바꾼다(r43 기록이다. 공개하려면 새로 만든다, 6절).
+   `make defconfig` 뒤 `.config`에 `CONFIG_PACKAGE_w1700k-fit-check=y`가 있어야 한다(8절). 그리고 `make`.
    distfeeds를 위한 추가 단계는 없다. 쓰던 빌드 트리에서도 base-files는 Makefile이 바뀌었으므로
    다시 만들어진다.
 3. `files/etc/apk/repositories.d/distfeeds.list`를 두지 않는다. 두면 base-files 결과를 덮는다.
@@ -268,9 +306,72 @@ snapshot 서명 키(`/etc/apk/keys/openwrt-snapshots.pem`)를 신뢰한다. 그�
   `replace` 모드에서는 이전에 snapshot 피드를 ASU 빌드 요청에 넣었지만, 이제는 넣을 피드가 없다.
   owut는 이미지 전체를 ASU(`sysupgrade.openwrt.org`)에 요청한다. 요청 기준은 os-release 버전이다. 이
   버전 문자열은 upstream 릴리스가 아니고, 받는 이미지에는 W1700K 수정이 없다. 이 변경과 관계없는 경로다.
-- `luci-app-attendedsysupgrade`: 이 브랜치의 r3 패치는 GitHub 릴리스 이미지를 overlay CGI(`github_check`,
-  `github_fetch`)로 받는다. 피드를 쓰지 않으므로 바뀌지 않는다. 상태 페이지의 업그레이드 알림
-  (`11_upgrades.js`)은 설정을 켰을 때만 downloads.openwrt.org의 버전 목록을 읽는다. 패키지는 설치하지
+- `luci-app-attendedsysupgrade`: 이 브랜치의 0003 r3·0005 패치는 GitHub 릴리스 이미지를 overlay CGI
+  (`github_check`, `github_fetch`)로 받는다(9절). 피드를 쓰지 않으므로 바뀌지 않는다. 상태 페이지의
+  업그레이드 알림(`11_upgrades.js`)은 설정을 켰을 때만 downloads.openwrt.org의 버전 목록을 읽는다. 패키지는 설치하지
   않는다.
 - 남는 경로: `openwrt-keyring`의 snapshot 키는 계속 신뢰된다. 사용자가 `customfeeds.list`에 snapshot
   피드를 넣으면 다시 설치할 수 있다. 키를 빼면 패키지 선택이 바뀌므로 이번에는 하지 않았다.
+
+## 8. sysupgrade 이미지 구조 검사 (Codex 후보 `9ddf8eb185`에서 이식)
+
+r43까지 `platform_check_image()`에는 `gemtek,w1700k-ubi` 분기가 없어 0을 돌려줬다. 이 보드의 검사는
+fwtool 메타데이터뿐이었고 `sysupgrade -F`로 넘길 수 있었다. 플래시 전에 FIT 해시도, 이 보드의 UBI2
+sysupgrade FIT인지도 보지 않았다. UBI1·ubinized 이미지, recovery·chainloader FIT, 다른 보드 이미지를
+강제로 쓸 수 있었다.
+
+변경
+- `platform.sh`(an7581): W1700K에서 `fit_check_image`(fit_check_sign 해시) 뒤 새 `w1700k-fit-check`를
+  돌린다. 실패는 74(깨진 이미지)라 `sysupgrade -F`, LuCI Force, ubus force 플래그로 넘길 수 없다.
+  fwtool 메타데이터 검사는 지금처럼 강제할 수 있다. GitHub 업데이트의 `sysupgrade --test`도 이 검사를 거친다.
+- `package/utils/w1700k-fit-check`(libfdt): default 구성 하나, gzip 커널·flat_dt·squashfs rootfs가
+  파일 안 FIT 헤더 뒤에 겹치지 않게 놓였는지(external-static, rootfs 4 KiB 정렬), DTB의
+  `gemtek,w1700k-ubi`, UBI2 `ubi`·`reserved_bmt` 위치·크기, 활성 fixed-partitions → spi-nand →
+  en7581-snand 경로와 주소, `chosen/rootdisk`가 `fit` 볼륨인지 본다. ramdisk가 있거나 rootfs가 없는
+  recovery FIT는 거절한다. 이미지를 누가 만들었는지는 증명하지 않는다.
+- `an7581.mk`: `DEVICE_PACKAGES`에 `w1700k-fit-check`.
+
+호스트 시험: `python3 tests/test_w1700k_fit.py --libfdt <dtc-1.8.1/libfdt> [--image <itb>]`가 ASan/UBSan으로
+합성 39개, 변이 400개, platform.sh 분기 4개(도우미가 없어도 74)를 통과한다. 빌드 호스트의 W1700K UBI
+sysupgrade 이미지 58개(2026-08 빌드, r43까지의 MLO 시리즈, upstream·재게시 빌드, 3절 이미지, 1.0.0 릴리스,
+SNAPSHOT r35753)를 모두 받아들이고, 1.0.0 `chainload-uboot.itb`와 r43에서 만든 recovery·다른 compatible·
+UBI1·잘린·squashfs 아닌 이미지는 거절한다. 3절 이미지에는 이 검사가 없다.
+
+주의
+- `w1700k-fit-check`가 빠진 이미지는 모든 sysupgrade를 거절한다(도우미를 못 찾아도 74). r43.config에는
+  이 패키지 줄이 없으므로 `make defconfig`가 장치 기본 패키지로 켜야 한다. 빌드 뒤 `.config`와 이미지
+  manifest에서 확인한다.
+- 잠금 탈출: 이 검사가 정상 이미지를 잘못 거절하거나 다른 레이아웃으로 옮겨야 하면 `-F`가 통하지 않는다.
+  검사가 받아들이는 이전 이미지(예: 검증된 r43 `562c6bae…`)로 먼저 내려가면, 그 이미지에는 이 검사가
+  없으므로 예전처럼 `-F`를 쓸 수 있다. 시리얼·U-Boot 복구는 sysupgrade를 거치지 않는다. 장치에서는
+  확인하지 않았다(5절).
+
+## 9. GitHub 펌웨어 업데이트 (LuCI 피드 패치 0005, overlay CGI)
+
+r43 이미지의 GitHub 업데이트는 릴리스를 받을 수 없었다.
+- 저장소가 fastbuild의 `w1700k/builds`였고, 자산 필터가 `openwrt-airoha-an7581-<x>-squashfs-sysupgrade`와
+  소문자 `sha256sums`만 받았다. 이 트리의 이미지는 `VultaV/OpenW1700k` prerelease에
+  `openwrt-ubi2-…-gemtek_w1700k-ubi-squashfs-sysupgrade.itb`와 `SHA256SUMS`로 올라간다.
+- r29–r43 config는 Oniguruma 없이 빌드한 `jq`를 넣는다(`jq-full` 아님). CGI의 `test()`·`sub()`가 실행 중
+  실패해 `github_fetch`는 모든 요청을 세션 없음(403)으로, `github_check`는 항상 502로 답했다. 호스트 jq에는
+  정규식이 있어 시험이 통과했다.
+- `github_fetch`는 "Keep settings"를 꺼도 설정 유지 모드로 `sysupgrade --test`를 돌렸다. fwtool은 설정 유지
+  때만 compat_version minor 변경을 거절하므로(W1700K UBI 이미지는 2.0) 실제 설치(`-n`)라면 받을 이미지를
+  준비 전에 거절했다.
+
+변경
+- `github_check`·`github_fetch`: 저장소 `VultaV/OpenW1700k`. W1700K UBI sysupgrade `.itb`(버전 접두사 허용)와
+  `SHA256SUMS`만 받는다. 릴리스 이름은 이미지의 버전 접두사, 없으면 태그다. 정규식 대신
+  `startswith`·`endswith`·`ltrimstr`·`rtrimstr`·`explode`로 검사한다. 같은 이름·URL을 받으면서 끝 개행,
+  URL의 제어·비ASCII 문자, `github.com`의 이스케이프 안 된 `.`이 통과시키던 호스트를 더 거절한다.
+  `keep`이 JSON boolean이 아니면 네트워크 접근 전에 400, false면 `sysupgrade --test -n`. 세션·ACL, https
+  전용, 이미지 하나 규칙, SHA256 확인, 준비 전 `--test`는 그대로다.
+- LuCI 피드 패치 0005(0003 r3 위): "View on GitHub" 링크를 `VultaV/OpenW1700k`로 바꾸고 대화상자의
+  Keep settings 값을 `github_fetch`에 보낸다. `PKG_RELEASE:=4`(`26.250.72430~e81743d-r4`). r3의 텍스트 목록은
+  그대로다.
+- 0005와 같은 커밋의 CGI는 짝이다. 0005 없는 뷰는 `keep`을 보내지 않아 400을 받는다.
+
+호스트 시험: `python3 tests/test_github_fetch.py`가 정규식 builtin을 거부하는 `jq`로 9/9 통과한다(jq 수정
+전 CGI는 8/9 실패). `test_attendedsysupgrade_images.js`는 고정 피드에 0003 r3만 넣으면 9 PASS / 3 FAIL,
+0005까지 넣으면 12 / 0이다. 적용 후 SHA256은 `docs/mlo-r34/feed-patches/README.md`에 있다. 3절 이미지에는
+들어 있지 않다(그 이미지의 CGI와 뷰는 위 결함 그대로다).
