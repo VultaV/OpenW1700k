@@ -6,7 +6,7 @@
   "kernel_release": "6.18.44-w1700k-mlo-r32",
   "base_build": "ubi2-mlo-npu-zero-budget-r43-20260927-tailscale",
   "base_manifest_sha256": "2007f32e05500c02e003ed2fe0090328e9c3c69a93cce240f7ef24858ee38712",
-  "built_source_commit": "ee7a2e7241d6fb3c93b14fb58109db2b64bc61b9",
+  "built_source_commit": "f542c6a0f4765ed26e7e9b8f74e98470b1f4f3af",
   "mt76_source": "01367e60db433534ad0aa3d3b6c886de8cb7d44c",
   "feeds": {
     "packages": "d50c9e2ac63808f8ea487ef8bc91632e7a483804",
@@ -22,6 +22,7 @@
     "go_compiler": "1.27.1"
   },
   "changed_source_sha256": {
+    ".device/runtime-check.js": "cb6076613237e2014e22e4e72a3645b75a0eba7b1ad0b21d7ab97de54b98c918",
     "docs/mlo-r34/feed-patches/0003-luci-attendedsysupgrade-github-update.patch": "4a15dad43f7215e89cdfa9fc0452766d0f277023e751f67c8f8d90f2ab43bf7e",
     "include/kernel-defaults.mk": "0950c117cfb423da00f16c630ec85e64e3ee2e72b67d7b5259f3eaa4bea5b949",
     "include/kernel.mk": "fadf6ec392660517de3f8d901eb50a06b05ea0fe37350ce688df4f04760851df",
@@ -140,7 +141,7 @@
     "Board LuCI apps: remove root code execution paths (netspeedtest arch/sed, flowsense awk), drop the /dev/mem ACL, cap the NPU PLL at the stock 1200 MHz with overflow-safe validation, keep the fan out of stuck manual mode, and give luci-app-wifi7 its own ACL group without exec in the read scope (F01).",
     "Render UCI, runtime and GitHub strings as text in the wifi7, MLO, fan, FlowSense and attendedsysupgrade views (XSS), and keep backend JSON well formed.",
     "luci-app-wifi7: stop restarting Wi-Fi after failed UCI writes (F05), edit the profile the page shows (F07), use the netdev netifd created (F08), restore the saved profile on Discard; luci-app-mlo: allow saving a disabled MLO profile (F06).",
-    "Standard Network > Wireless page guards multi-radio MLO sections (LuCI feed patch 0004).",
+    "Standard Network > Wireless page guards multi-radio MLO sections (LuCI feed patch 0004) and no longer fails with a TypeError when a disabled section has a one-element device list (luci-base feed patch 0006).",
     "sysupgrade on gemtek,w1700k-ubi checks FIT hashes and the UBI2 FIT layout (w1700k-fit-check) and refuses mismatching images even with -F.",
     "GitHub updater: release source VultaV/OpenW1700k, SHA256SUMS, keep-settings honoured, and jq checks without the regex builtins the image jq lacks.",
     "Images ship no remote apk feed; ca-certificates no longer duplicates roots on rebuilds; the r43 single-wiphy channel analysis patch is kept in the repository."
@@ -158,7 +159,8 @@
     "luci (git apply) 0003-luci-attendedsysupgrade-github-update.patch r3": "4a15dad43f7215e89cdfa9fc0452766d0f277023e751f67c8f8d90f2ab43bf7e",
     "luci (git apply) 0005-luci-asu-keep-and-release-source.patch": "142f74ac8b023b1f39d335ee28839c30fabe5b27c129ca889735cc22fc73b496",
     "luci (git apply) 0004-luci-wireless-multi-radio-guards.patch": "f8ad6c3fc8306c3c5a58145f038fe4e160503790b21eda952854644e0a776634",
-    "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9"
+    "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9",
+    "luci (git apply) 0006-luci-base-missing-wifi-device.patch": "70948b6ac25da95fd94664ddd5cdc846bd268abe2360f48381678134b2f1aef5"
   },
   "feed_recipe_overrides_sha256": {
     "packages/kernel/ovpn-dco/Makefile": "517be1d65bcb43725496b5b7d0c91b09544ebc82e7629809a5fb2aef1143dff5"
@@ -169,7 +171,9 @@
     "luci/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js": "676ac4e553693c37da1ba3f772276949f9211f75857fb6a1369e233117b6a6cb",
     "luci/modules/luci-mod-network/Makefile": "f5b4e36e9157deb5b7f0aa2aa8b9552ed49159ba10eec81ce40d96c408dc6fb5",
     "luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js": "db180b224bfef20081c3b840610342657edf7a3d6a0f3965a07078808bf46c45",
-    "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9"
+    "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9",
+    "luci/modules/luci-base/Makefile": "79ac0bb9fa6ba284a562904d4ecc5f5e7cb19f8bdfcfb442b909e0f8c5d4e88a",
+    "luci/modules/luci-base/htdocs/luci-static/resources/network.js": "84bee3abd16457899549663a0b5f5239298798583b12f4a90d040fa3cf7795f8"
   },
   "removed_since_r43": [
     "package/luci-app-netspeedtest/.prepare.sh"

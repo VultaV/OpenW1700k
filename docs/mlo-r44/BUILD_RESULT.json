@@ -1,6 +1,6 @@
 {
  "image": "openwrt-ubi2-mlo-host-hardening-r44-20261003-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
- "sha256": "034f9788811c3a58994f4e8acf5e487f2e70ec97636c65323027f163fbd505d6",
+ "sha256": "52f11c92da5faec10c8765d373d92625dbe0b91236b9d637648c73681422034c",
  "bytes": 30294889,
  "build": {
   "tree": "case-sensitive APFS volume, incremental on a clean r43 rebuild of the same tree",
@@ -8,7 +8,8 @@
   "exit_code": 0,
   "seconds": 482,
   "previous_attempt": "First final run stalled for about an hour in package packaging with a hung fakeroot daemon and was stopped; the daemon was killed and the same make was rerun.",
-  "build_log_sha256": "2939f391c248d3bd20846920e00b0b6c07f1079d60e0f0c47da7f40ed564f821"
+  "build_log_sha256": "2939f391c248d3bd20846920e00b0b6c07f1079d60e0f0c47da7f40ed564f821",
+  "rebuild": "Rebuilt after device testing with LuCI feed patch 0006 (luci-base network.js: singleton wireless device lists and devices without a name); 408 s incremental; modules 74/74, firmware 11/11 and wpad still identical to r43; fit_check_sign 0 and w1700k-fit-check 0 on this image."
  },
  "image_verification": {
   "compared_with": "verified r43 image 562c6bae2f23a2bce0403a0a55f483d1ba49af479a3eac7cec824615dcfab4f2",
@@ -235,16 +236,73 @@
   "test_image_metadata.py PASS",
   "test_bridge_flow_offload.py OK",
   "hostapd reassoc 1536 / DFS 216",
-  "driver tests on the prepared r43 sources (mlo_ps 99/0, active_link 0, link_lifecycle 631/0, forward_path 48/0, npu_aggregation 18/0, npu_red 50, npu watchdog/mailbox/budget, ppe_ownership 16/0)"
+  "driver tests on the prepared r43 sources (mlo_ps 99/0, active_link 0, link_lifecycle 631/0, forward_path 48/0, npu_aggregation 18/0, npu_red 50, npu watchdog/mailbox/budget, ppe_ownership 16/0)",
+  "test_wireless_runtime.js 8/0 on the patched feed sources, 1/7 on the r43/r44-initial device files"
  ],
  "kernel_payload_note": "Kernel code identical to r43; FIT kernel bytes differ only in build timestamp and toolchain label metadata.",
- "installed": false,
- "boot_tested": false,
- "wireless_tested": false,
+ "installed": true,
+ "boot_tested": true,
+ "wireless_tested": true,
  "limitations": [
-  "Not installed or booted on a device.",
   "w1700k-fit-check makes sysupgrade fail closed; a wrong rejection on the device would block later upgrades even with -F (r43 can still be installed from r44).",
   "Browser checks used headless Chrome with the image luci.js; no full LuCI session against a real router.",
-  "No MLO, throughput or Air sleep/wake claims."
- ]
+  "No MLO, throughput or Air sleep/wake claims.",
+  "Wireless upload throughput not measured over Wi-Fi.",
+  "WiFi 7 overview link data and 5/6 GHz channel analysis need a different data source on this image."
+ ],
+ "device_validation": {
+  "date": "2026-10-03",
+  "first_install": {
+   "image_sha256": "034f9788811c3a58994f4e8acf5e487f2e70ec97636c65323027f163fbd505d6",
+   "from": "r43 562c6bae (keep settings)",
+   "boot_seconds": 110
+  },
+  "second_install": {
+   "image_sha256": "52f11c92da5faec10c8765d373d92625dbe0b91236b9d637648c73681422034c",
+   "from": "r44 034f9788 (keep settings), first upgrade through the new FIT check (\"Signature check OK\")",
+   "boot_seconds": 90
+  },
+  "fit_checks_on_device": {
+   "r44 sysupgrade": "fit_check_sign 0, w1700k-fit-check 0, sysupgrade -T 0",
+   "r43 sysupgrade": "0/0/0 (downgrade path open)",
+   "r44 chainload-uboot.itb": "w1700k-fit-check 74, sysupgrade -T and -T -F refused, validate_firmware_image valid=false forceable=false",
+   "truncated image": "fit_check_sign 135, w1700k-fit-check 74, refused with -F"
+  },
+  "runtime": {
+   "kernel": "6.18.44-w1700k-mlo-r32",
+   "npu": "zero-budget guard applied, NPU fw version 0.1111",
+   "mlo": "ap-mld0 two links (5 GHz ch36 160 MHz, 6 GHz ch37 160 MHz), hostapd ENABLED",
+   "offload": "4 iperf flows HW_OFFLOAD, PPE BND 8, CPU 89% idle",
+   "distfeeds_remote_urls": 0,
+   "ca_bundle_certs": 121,
+   "kernel_log": "no panic/oops/BUG (3 ramoops lines only)"
+  },
+  "backends": {
+   "fan": "auto, pwm1_enable=2, getStatus/getAllCurves valid JSON",
+   "npu setOverclock": "99999999999999999999 and 1600 rejected",
+   "luci-rpc getWirelessDevices": "returns ap-mld0 for the MLD section (F08 premise holds)",
+   "json-c duplicate key": "last value wins",
+   "fs.protected_symlinks": 1,
+   "flowsense": "kept config pinged 1.1.1.1; target deleted on request, now default gateway"
+  },
+  "throughput_mac_wireless": {
+   "download_60s_4streams_avg_mbps": 1705.1,
+   "min_1s": 172.0,
+   "max_1s": 2130.5,
+   "zero_intervals": 0,
+   "note": "about 14 s at 172-761 Mbps (s5-s18), then 2.1 Gbps; same pattern as the unresolved r43 variation",
+   "upload": "invalid: macOS sent it over the wired 1 GbE interface (941 Mbps)"
+  },
+  "luci_pages": {
+   "Network > Wireless": "TypeError on the first r44 image (upstream network.js with a disabled section whose device is a one-element list, also present in r43); renders after 0006",
+   "WiFi 7": "renders; link cards show DOWN/? because hostapd_cli is not in the image and the sku_disable debugfs file does not exist (pre-existing)",
+   "MLO": "renders",
+   "Channel Analysis": "one tab per band (998 patch); 2.4 GHz scan 8 results; 5/6 GHz show no data because iwinfo scan on ap-mld0 returns nothing and radio names resolve to the 2.4 GHz netdev (pre-existing with MLO)",
+   "Fan": "renders, Automatic/Balanced",
+   "FlowSense": "renders",
+   "SoC Status (NPU)": "renders, overclock limited to 1200 MHz",
+   "Attended Sysupgrade": "GitHub release list works for the first time (VultaV/OpenW1700k r34-r43 listed as text); nothing installed"
+  },
+  "note": "LuCI views do not load in the Claude-in-Chrome automation tab group (request never sent); the same pages render in the user tab."
+ }
 }
