@@ -251,8 +251,12 @@ endif
 
 ifneq ($(CONFIG_USE_APK),)
 	mkdir -p $(1)/etc/apk/repositories.d
-	$(call FeedSourcesAppendAPK,$(1)/etc/apk/repositories.d/distfeeds.list)
-	$(VERSION_SED_SCRIPT) $(1)/etc/apk/repositories.d/distfeeds.list
+	( \
+	  echo '# This file is auto-generated and build-specific, any changes will be intentionally lost in sysupgrade.'; \
+	  echo '# No remote feed is configured: this W1700K image has its own kernel and kmod ABI.'; \
+	  echo '# OpenWrt snapshot and release packages are not built for it; do not add them.'; \
+	  echo '# Install only packages built from the same source, feeds and .config as this image.'; \
+	) > $(1)/etc/apk/repositories.d/distfeeds.list
 
 	rm -f $(1)/etc/uci-defaults/13_fix-group-user
 	rm -f $(1)/sbin/pkg_check
