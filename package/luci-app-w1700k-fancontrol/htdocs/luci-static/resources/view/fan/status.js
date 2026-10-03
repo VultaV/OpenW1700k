@@ -107,10 +107,10 @@ return view.extend({
 					E('div', { 'class': 'cbi-value' }, [
 						E('label', { 'class': 'cbi-value-title', 'style': 'width: 150px;' }, _('Active Preset')),
 						E('div', { 'class': 'cbi-value-field' }, [
-							E('span', { 'id': 'fan-preset' },
+							E('span', { 'id': 'fan-preset' }, [
 								status.uci_mode === 'manual' ? _('Manual Override') :
 								(status.uci_preset || 'balanced').charAt(0).toUpperCase() +
-								(status.uci_preset || 'balanced').slice(1))
+								(status.uci_preset || 'balanced').slice(1) ])
 						])
 					])
 				])
