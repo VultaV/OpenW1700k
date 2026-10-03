@@ -363,7 +363,7 @@ LuCI 보안·UI (실제 브라우저)
 - 런타임 `sysctl fs.protected_symlinks`가 1인지(`/tmp` 고정 이름 파일의 symlink 공격 방어 전제).
 
 MLO 원인 조사 (인계서 10절)
-- iperf3 서버 `192.168.1.118:5203`(CT105)이 10월 3일 응답하지 않았다. 서버 복구 후
+- 내부망 iperf3 서버가 10월 3일 처음에는 응답하지 않았다(이후 복구). 서버를 켠 뒤
   `endpoint-pair` 양단 캡처. 캡처 도구 수정 후보 검토 뒤 sudo 실행.
 - 가속 수명: primary 링크 변경 뒤 PPE binding 갱신, RRO/PPE 삭제 오류·복구 오류 주입.
 - RX31 IRQ·GRO·ring·DMA mask 업스트림 후보 병합 시험, Air 절전 복귀, 장기 운용, 3링크 MLO.
