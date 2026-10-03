@@ -8,11 +8,21 @@ fail() {
     exit 1
 }
 
+# The image's jq is built without regex support (CONFIG_PACKAGE_jq, not
+# jq-full), so test() and sub() always fail there; compare characters instead.
+lib='def hex: all(explode[]; (. >= 48 and . <= 57) or (. >= 65 and . <= 70) or (. >= 97 and . <= 102));
+def image: "-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb" as $board |
+    startswith("openwrt") and endswith($board) and (ltrimstr("openwrt") | rtrimstr($board) |
+        . == "" or (startswith("-") and length > 1 and all(explode[]; . == 45 or . == 46 or . == 95 or
+            (. >= 48 and . <= 57) or (. >= 65 and . <= 90) or (. >= 97 and . <= 122))));
+def release_url: "https://github.com/VultaV/OpenW1700k/releases/download/" as $base |
+    startswith($base) and (ltrimstr($base) | length > 0 and all(explode[]; . > 32 and . < 127 and . != 35 and . != 63));'
+
 [ "$REQUEST_METHOD" = POST ] || fail '405 Method Not Allowed' 'Use POST with a LuCI session'
 case "$CONTENT_LENGTH" in ''|*[!0-9]*) fail '400 Bad Request' 'Invalid request length';; esac
 [ "$CONTENT_LENGTH" -le 1024 ] || fail '413 Content Too Large' 'Request too large'
 body=$(head -c "$CONTENT_LENGTH")
-session=$(printf '%s' "$body" | jq -er '.sessionid | strings | select(test("^[0-9a-f]{32}$"))') ||
+session=$(printf '%s' "$body" | jq -er "$lib"'.sessionid | strings | select(length == 32 and hex and . == ascii_downcase)') ||
     fail '403 Forbidden' 'A valid LuCI session is required'
 
 # Use the same permissions as LuCI firmware uploads, including the destination ACL.
@@ -41,24 +51,22 @@ download() {
 
 download "https://api.github.com/repos/VultaV/OpenW1700k/releases/tags/$encoded_tag" "$workdir/release.json" ||
     fail '502 Bad Gateway' 'Could not fetch release metadata'
-asset=$(jq -ec --arg tag "$tag" '
-    select(.tag_name == $tag) | [.assets[] |
-        select(.name | test("^openwrt(-[A-Za-z0-9._-]+)?-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade\\.itb$"))] |
+asset=$(jq -ec --arg tag "$tag" "$lib"'
+    select(.tag_name == $tag) | [.assets[] | select(.name | image)] |
     select(length == 1) | .[0]' "$workdir/release.json") ||
     fail '502 Bad Gateway' 'Release must contain exactly one sysupgrade image'
-url=$(printf '%s' "$asset" | jq -er '.browser_download_url |
-    select(test("^https://github.com/VultaV/OpenW1700k/releases/download/[^\\s?#]+$"))') ||
+url=$(printf '%s' "$asset" | jq -er "$lib"'.browser_download_url | select(release_url)') ||
     fail '502 Bad Gateway' 'Invalid firmware asset URL'
 filename=$(printf '%s' "$asset" | jq -r '.name')
-sha256=$(printf '%s' "$asset" | jq -r '.digest // "" | select(test("^sha256:[A-Fa-f0-9]{64}$")) | ltrimstr("sha256:")')
+sha256=$(printf '%s' "$asset" | jq -r "$lib"'.digest | strings | select(startswith("sha256:")) | ltrimstr("sha256:") | select(length == 64 and hex)')
 if [ -z "$sha256" ]; then
-    sums_url=$(jq -er '[.assets[] | select(.name == "SHA256SUMS")] | select(length == 1) | .[0].browser_download_url |
-        select(test("^https://github.com/VultaV/OpenW1700k/releases/download/[^\\s?#]+$"))' "$workdir/release.json") ||
+    sums_url=$(jq -er "$lib"'[.assets[] | select(.name == "SHA256SUMS")] | select(length == 1) | .[0].browser_download_url |
+        select(release_url)' "$workdir/release.json") ||
         fail '502 Bad Gateway' 'No SHA256 digest available for firmware'
     download "$sums_url" "$workdir/sha256sums" || fail '502 Bad Gateway' 'Could not download SHA256 checksums'
     sha256=$(awk -v name="$filename" '$2 == name || $2 == "*" name { print $1 }' "$workdir/sha256sums")
 fi
-printf '%s' "$sha256" | jq -eRs 'test("^[A-Fa-f0-9]{64}$")' >/dev/null ||
+printf '%s' "$sha256" | jq -eRs "$lib"'length == 64 and hex' >/dev/null ||
     fail '502 Bad Gateway' 'Missing or ambiguous SHA256 checksum'
 sha256=$(printf '%s' "$sha256" | tr 'A-F' 'a-f')
 

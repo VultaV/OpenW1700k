@@ -79,7 +79,9 @@ On the pinned feed `289a7260` the view test gives **9 PASS / 3 FAIL / 0
 SKIP** with 0003 r3 alone (the two keep checks and the release link) and
 **12 PASS / 0 FAIL / 0 SKIP** with 0003 r3 and 0005.
 `tests/test_github_fetch.py` runs both CGIs with stubbed `curl`, `ubus` and
-`sysupgrade` against the r43 release's asset names and passes 9 of 9.
+`sysupgrade` against the r43 release's asset names and passes 9 of 9. Its `jq`
+refuses regex builtins: the image selects `jq`, built without Oniguruma, not
+`jq-full`, so the CGIs must not use `test()` or `sub()`.
 
 | File relative to LuCI feed | SHA256 after 0003 r3 and 0005 |
 | --- | --- |

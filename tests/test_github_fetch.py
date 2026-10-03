@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Run the real github_check and github_fetch CGIs with stubbed curl, ubus and
-sysupgrade. Nothing is downloaded or flashed; the scripts' /tmp paths are
-redirected into a temporary directory."""
+sysupgrade, and with a jq that refuses regex builtins like the image's. Nothing
+is downloaded or flashed; the scripts' /tmp paths are redirected into a
+temporary directory."""
 import copy
 import hashlib
 import json
@@ -17,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CGI = ROOT/'docs/mlo-r30/overlay/www/cgi-bin'
 # busybox ash is not available on the host; bash in POSIX mode stands in.
 SH = [shutil.which('bash') or 'bash', '--posix']
+JQ = shutil.which('jq')
 DOWNLOAD = 'https://github.com/VultaV/OpenW1700k/releases/download/'
 TAG = 'mlo-r43-20260927'
 # Asset names of the published r43 release (docs/releases/mlo-r43-20260927.md).
@@ -30,7 +32,7 @@ FIRMWARE = 'offline firmware payload\n'
 SHA = hashlib.sha256(FIRMWARE.encode()).hexdigest()
 
 STUB = r'''
-import json, os, pathlib, sys
+import json, os, pathlib, re, sys
 base = pathlib.Path(os.environ['FIXTURE'])
 name, args = pathlib.Path(sys.argv[0]).name, sys.argv[1:]
 with (base/'calls.jsonl').open('a') as f: f.write(json.dumps([name, args]) + '\n')
@@ -49,6 +51,12 @@ elif name == 'curl':
     else: sys.exit(97)
     if '-o' in args: pathlib.Path(args[args.index('-o') + 1]).write_text(data)
     else: sys.stdout.write(data)
+elif name == 'jq':
+    # The image selects CONFIG_PACKAGE_jq, built --without-oniguruma, not
+    # jq-full: every regex builtin fails there at run time.
+    if any(re.search(r'\b(test|match|capture|scan|splits|sub|gsub)\s*\(', a) for a in args):
+        sys.exit('jq: error: jq was compiled without ONIGURUMA regex library.')
+    os.execv(os.environ['REAL_JQ'], ['jq'] + args)
 '''
 
 
@@ -69,13 +77,13 @@ class Fixture:
         self.dir = Path(temp.name)
         bindir = self.dir/'bin'
         bindir.mkdir()
-        for name in ('curl', 'ubus', 'sysupgrade'):
+        for name in ('curl', 'ubus', 'sysupgrade', 'jq'):
             (bindir/name).write_text('#!' + sys.executable + '\n' + STUB)
             (bindir/name).chmod(0o755)
         (self.dir/'case.json').write_text(json.dumps(case))
         (self.dir/'firmware.bin').write_text('previous image')
         self.env = dict(os.environ, PATH=f'{bindir}:{os.environ["PATH"]}',
-                        FIXTURE=str(self.dir), REQUEST_METHOD='POST')
+                        FIXTURE=str(self.dir), REQUEST_METHOD='POST', REAL_JQ=JQ)
 
     def run(self, script, body=''):
         path = self.dir/script
