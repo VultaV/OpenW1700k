@@ -720,11 +720,11 @@ return view.extend({
 
         var callUciSet = rpc.declare({
             object: 'uci', method: 'set',
-            params: ['config', 'section', 'values'], expect: {}
+            params: ['config', 'section', 'values'], expect: {}, reject: true
         });
         var callUciCommit = rpc.declare({
             object: 'uci', method: 'commit',
-            params: ['config'], expect: {}
+            params: ['config'], expect: {}, reject: true
         });
 
         applyBtn.addEventListener('click', function() {
@@ -759,11 +759,11 @@ return view.extend({
             }
             nextStep();
 
-            L.resolveDefault(callUciSet('wireless', mldSID, {
+            callUciSet('wireless', mldSID, {
                 ssid: newSSID, key: newKey,
                 encryption: newEnc, encryption_rsno: newRsno
-            }), null).then(function() {
-                return L.resolveDefault(callUciCommit('wireless'), null);
+            }).then(function() {
+                return callUciCommit('wireless');
             }).then(function() {
                 return callExec('/sbin/wifi', []);
             }).then(function() {
@@ -795,6 +795,12 @@ return view.extend({
                     });
                 }
                 setTimeout(doPoll, 3000);
+            }).catch(function(e) {
+                si = steps.length;
+                pstat.textContent = 'Failed: ' + e.message;
+                pstat.style.color = '#e24b4a';
+                applyBtn.disabled   = false;
+                discardBtn.disabled = false;
             });
         });
 
@@ -821,19 +827,22 @@ return view.extend({
                                 : 'Enable MLO on ap_mld_1.\nThis requires a full reboot to take effect.\nAre you sure?'
                             )) return;
                             var callUciSetMlo = rpc.declare({ object:'uci', method:'set',
-                                params:['config','section','values'], expect:{} });
+                                params:['config','section','values'], expect:{}, reject:true });
                             var callUciCommitMlo = rpc.declare({ object:'uci', method:'commit',
-                                params:['config'], expect:{} });
+                                params:['config'], expect:{}, reject:true });
                             mloBtn.disabled = true;
                             mloBtn.textContent = 'Writing UCI...';
                             var newMlo = mloOn ? '0' : '1';
-                            L.resolveDefault(callUciSetMlo('wireless', mldSID, { mlo: newMlo }), null)
-                            .then(function() { return L.resolveDefault(callUciCommitMlo('wireless'), null); })
+                            callUciSetMlo('wireless', mldSID, { mlo: newMlo })
+                            .then(function() { return callUciCommitMlo('wireless'); })
                             .then(function() {
                                 mloBtn.textContent = 'Done -- REBOOT REQUIRED';
                                 mloBtn.style.background = '#2a1a0a';
                                 mloBtn.style.borderColor = '#f5a623';
                                 mloBtn.style.color = '#fac775';
+                            }, function(e) {
+                                mloBtn.disabled = false;
+                                mloBtn.textContent = 'Failed: ' + e.message;
                             });
                         });
                         var wrap = E('div', { 'style': 'display:flex;align-items:center;gap:10px' }, [
@@ -1147,8 +1156,8 @@ return view.extend({
         r1ch.addEventListener('change',updateDfs); updateDfs();
         var r1chWrap=E('div',{'style':'display:flex;align-items:center'});
         r1chWrap.appendChild(r1ch); r1chWrap.appendChild(dfsNote);
-        var callUciSet=rpc.declare({object:'uci',method:'set',params:['config','section','values'],expect:{}});
-        var callUciCommit=rpc.declare({object:'uci',method:'commit',params:['config'],expect:{}});
+        var callUciSet=rpc.declare({object:'uci',method:'set',params:['config','section','values'],expect:{},reject:true});
+        var callUciCommit=rpc.declare({object:'uci',method:'commit',params:['config'],expect:{},reject:true});
         var progressDiv=E('div',{'style':'display:none;margin-top:12px'},[
             E('div',{'style':'background:#1a1a2e;border:1px solid #444;border-radius:6px;padding:12px 14px;text-align:center'},[
                 E('div',{'style':'font-size:13px;font-weight:bold;margin-bottom:6px'},'Applying radio configuration...'),
@@ -1203,22 +1212,22 @@ return view.extend({
                 }
             });
             var txpWrites = [];
-            if(r0txp._inp.value && i0sid) txpWrites.push(L.resolveDefault(callUciSet('wireless',i0sid,{vif_txpower:r0txp._inp.value}),null));
-            if(r1txp._inp.value && i1sid) txpWrites.push(L.resolveDefault(callUciSet('wireless',i1sid,{vif_txpower:r1txp._inp.value}),null));
-            if(r2txp._inp.value && i2sid) txpWrites.push(L.resolveDefault(callUciSet('wireless',i2sid,{vif_txpower:r2txp._inp.value}),null));
+            if(r0txp._inp.value && i0sid) txpWrites.push(callUciSet('wireless',i0sid,{vif_txpower:r0txp._inp.value}));
+            if(r1txp._inp.value && i1sid) txpWrites.push(callUciSet('wireless',i1sid,{vif_txpower:r1txp._inp.value}));
+            if(r2txp._inp.value && i2sid) txpWrites.push(callUciSet('wireless',i2sid,{vif_txpower:r2txp._inp.value}));
             Promise.all([
-                L.resolveDefault(callUciSet('wireless','radio0',{channel:r0ch.value,htmode:r0ht.value,
+                callUciSet('wireless','radio0',{channel:r0ch.value,htmode:r0ht.value,
                     disabled:r0dis.checked?'1':'0',noscan:r0noscan.checked?'1':'0',country:country,sku_idx:skuIdx,
                     he_twt_responder:r0twt.checked?'1':'0',legacy_rates:r0legacy.checked?'1':'0',
-                    sr_enable:srEnable.checked?'1':'0',etxbfen:etxbfen.checked?'1':'0'}),null),
-                L.resolveDefault(callUciSet('wireless','radio1',{channel:r1ch.value,htmode:r1ht.value,
+                    sr_enable:srEnable.checked?'1':'0',etxbfen:etxbfen.checked?'1':'0'}),
+                callUciSet('wireless','radio1',{channel:r1ch.value,htmode:r1ht.value,
                     disabled:r1dis.checked?'1':'0',background_radar:r1bgr.checked?'1':'0',country:country,sku_idx:skuIdx,
-                    he_twt_responder:r1twt.checked?'1':'0'}),null),
-                L.resolveDefault(callUciSet('wireless','radio2',{channel:r2ch.value,htmode:r2ht.value,
+                    he_twt_responder:r1twt.checked?'1':'0'}),
+                callUciSet('wireless','radio2',{channel:r2ch.value,htmode:r2ht.value,
                     disabled:r2dis.checked?'1':'0',lpi_enable:r2lpi.checked?'1':'0',noscan:r2noscan.checked?'1':'0',
-                    country:country,sku_idx:skuIdx,he_twt_responder:r2twt.checked?'1':'0'}),null)
+                    country:country,sku_idx:skuIdx,he_twt_responder:r2twt.checked?'1':'0'})
             ].concat(txpWrites)
-            ).then(function(){return L.resolveDefault(callUciCommit('wireless'),null);})
+            ).then(function(){return callUciCommit('wireless');})
             .then(function(){return callExec('/sbin/wifi',[]);})
             .then(function(){
                 var tries=0,maxTries=60;
@@ -1234,7 +1243,8 @@ return view.extend({
                     });
                 }
                 setTimeout(doPoll,3000);
-            });
+            }).catch(function(e){si=steps.length;pstat.textContent='Failed: '+e.message;
+                pstat.style.color='#e24b4a';applyBtn.disabled=false;discardBtn.disabled=false;});
         });
         return E('div',{},[
             warnBanner('Country and sku_idx must always be written together and apply to all 3 radios. Country change requires a full reboot -- wifi restart is not sufficient.'),
@@ -1302,13 +1312,13 @@ return view.extend({
         }
 
         var callUciSet = rpc.declare({ object:'uci', method:'set',
-            params:['config','section','values'], expect:{} });
+            params:['config','section','values'], expect:{}, reject:true });
         var callUciCommit = rpc.declare({ object:'uci', method:'commit',
-            params:['config'], expect:{} });
+            params:['config'], expect:{}, reject:true });
         var callUciAdd = rpc.declare({ object:'uci', method:'add',
-            params:['config','type'], expect:{ section:'' } });
+            params:['config','type'], expect:{ section:'' }, reject:true });
         var callUciDelete = rpc.declare({ object:'uci', method:'delete',
-            params:['config','section'], expect:{} });
+            params:['config','section'], expect:{}, reject:true });
 
         var inputStyle = 'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
                          'color:#fff;padding:4px 8px;font-size:12px;width:220px';
@@ -1449,8 +1459,6 @@ return view.extend({
                 addStatusSpan.textContent = 'Creating...';
                 addStatusSpan.style.color = '#f5a623';
 
-                // Generate section name: wifinet_<timestamp>
-                var newSid = 'wifinet_' + Math.floor(Date.now()/1000);
                 var vals = { device: dev, network: 'lan', mode: 'ap',
                              ssid: ssid, encryption: enc, htmode: ht,
                              disabled: '0', mbo: '0' };
@@ -1461,14 +1469,12 @@ return view.extend({
                     if (enc === 'sae') vals.mbo = '1';
                 }
 
-                L.resolveDefault(callUciAdd('wireless', 'wifi-iface'), null)
-                .then(function(r) {
-                    var sid = (r && r.section) ? r.section : newSid;
-                    return L.resolveDefault(callUciSet('wireless', sid, vals), null)
-                        .then(function() { return sid; });
+                callUciAdd('wireless', 'wifi-iface')
+                .then(function(sid) {
+                    return callUciSet('wireless', sid, vals);
                 }).then(function() {
                     addStatusSpan.textContent = 'Committing...';
-                    return L.resolveDefault(callUciCommit('wireless'), null);
+                    return callUciCommit('wireless');
                 }).then(function() {
                     addStatusSpan.textContent = 'Running wifi restart...';
                     return callExec('/sbin/wifi', []);
@@ -1480,6 +1486,10 @@ return view.extend({
                     newSSID.value = ''; newKey.value = '';
                     confirmBtn.disabled = false; cancelBtn.disabled = false;
                     setTimeout(function() { addStatusSpan.textContent = ''; }, 3000);
+                }).catch(function(e) {
+                    addStatusSpan.textContent = 'Failed: ' + e.message;
+                    addStatusSpan.style.color = '#e24b4a';
+                    confirmBtn.disabled = false; cancelBtn.disabled = false;
                 });
             });
 
@@ -1599,10 +1609,10 @@ return view.extend({
                                  wmm:      wmmChk.checked?'1':'0' };
                     if (maxassocInp.value) vals.maxassoc = maxassocInp.value;
                     if (newEnc !== 'none') vals.key = newKey;
-                    L.resolveDefault(callUciSet('wireless', sid, vals), null)
+                    callUciSet('wireless', sid, vals)
                     .then(function() {
                         statusSpan.textContent = 'Committing...';
-                        return L.resolveDefault(callUciCommit('wireless'), null);
+                        return callUciCommit('wireless');
                     }).then(function() {
                         statusSpan.textContent = 'Running wifi restart...';
                         return callExec('/sbin/wifi', []);
@@ -1611,6 +1621,10 @@ return view.extend({
                         statusSpan.style.color = '#1d9e75';
                         saveBtn.disabled = false; discardBtn.disabled = false;
                         setTimeout(function() { statusSpan.textContent = ''; }, 3000);
+                    }).catch(function(e) {
+                        statusSpan.textContent = 'Failed: ' + e.message;
+                        statusSpan.style.color = '#e24b4a';
+                        saveBtn.disabled = false; discardBtn.disabled = false;
                     });
                 });
 
@@ -1640,9 +1654,9 @@ return view.extend({
                     removeBtn.disabled = true;
                     statusSpan.textContent = 'Removing...';
                     statusSpan.style.color = '#e24b4a';
-                    L.resolveDefault(callUciDelete('wireless', sid), null)
+                    callUciDelete('wireless', sid)
                     .then(function() {
-                        return L.resolveDefault(callUciCommit('wireless'), null);
+                        return callUciCommit('wireless');
                     }).then(function() {
                         return callExec('/sbin/wifi', []);
                     }).then(function() {
@@ -1650,6 +1664,9 @@ return view.extend({
                         // Remove card from DOM
                         var card = removeBtn.closest ? removeBtn.closest('.net-card') : null;
                         if (card) card.parentNode.removeChild(card);
+                    }).catch(function(e) {
+                        statusSpan.textContent = 'Failed: ' + e.message;
+                        removeBtn.disabled = false;
                     });
                 });
 

@@ -199,6 +199,8 @@ async function settle(env, rounds = 12) {
 
 const all = (node, pred) => node.descendants.filter(pred);
 const button = (node, label) => all(node, e => e.tagName === 'button' && e.textContent.startsWith(label))[0];
+const input = (node, placeholder) => all(node, e => e.tagName === 'input' && e.attrs.placeholder === placeholder)[0];
+const sets = env => env.calls.filter(c => c.object === 'uci' && c.method === 'set').map(c => c.params);
 const tabs = ['overview', 'mld', 'radio', 'legacy', 'stations', 'diagnostics'];
 function clickTab(page, tab) {
     page.querySelectorAll('.wifi7-tab').find(t => t.getAttribute('data-tab') === tab).fire('click');
@@ -233,6 +235,10 @@ const customNames = fixture({ap_mld_1: mld('Home'), mlo0: mld('Guest', {ifname: 
         'guest-mld': ['', stat(149, '02:00:00:00:00:21'), stat(101, '02:00:00:00:00:22')]},
     {'ap-mld0': 'Station aa:bb:cc:00:00:01 (on ap-mld0)\n',
         'guest-mld': 'Station aa:bb:cc:00:00:02 (on guest-mld)\n'});
+// Netdev names that the old guess also gets right
+const twoProfiles = fixture({mlo0: mld('First'), mlo1: mld('Second')}, {mlo0: 'ap-mld0', mlo1: 'ap-mld1'},
+    {'ap-mld0': [stat(6, '02:00:00:00:00:10'), stat(36, '02:00:00:00:00:11'), stat(37, '02:00:00:00:00:12')],
+        'ap-mld1': [stat(1, '02:00:00:00:00:20'), stat(149, '02:00:00:00:00:21'), stat(5, '02:00:00:00:00:22')]});
 
 let passed = 0, failed = 0;
 async function check(name, fn) {
@@ -266,6 +272,44 @@ async function check(name, fn) {
         await settle(env);
         assert.deepEqual(env.execs, []);
     });
+
+    const actions = {
+        'MLD apply': ['mld', c => button(c, 'Save & apply').fire('click'), true],
+        'radio apply': ['radio', c => button(c, 'Save & apply').fire('click'), true],
+        'network save': ['legacy', c => button(c, 'Save & apply').fire('click'), true],
+        'network add': ['legacy', c => {
+            input(c, 'My Network').value = 'Added';
+            input(c, 'min 8 characters').value = 'added-passphrase';
+            button(c, 'Add network').fire('click');
+        }, true],
+        'network remove': ['legacy', c => button(c, 'Remove').fire('click'), true],
+        'MLO toggle': ['mld', c => button(c, 'Disable MLO').fire('click'), false]
+    };
+    for (const [name, [tab, run, restarts]] of Object.entries(actions)) {
+        for (const [what, fail] of [['write', {set: 4, add: 4, delete: 4}], ['commit', {commit: 'deny'}]]) {
+            await check(`F05 ${name}: failed ${what} is reported and Wi-Fi is not restarted`, async () => {
+                const env = makeEnv(twoProfiles, 'root', fail);
+                const {content} = await open(env, tab);
+                run(content);
+                await settle(env);
+                assert(!env.execs.includes('/sbin/wifi'), 'Wi-Fi restarted after a failed UCI ' + what);
+                assert.match(content.textContent, /Failed/, 'failure not reported');
+                assert.doesNotMatch(content.textContent, /Done/, 'success reported');
+                assert(!all(content, e => e.tagName === 'button').some(b => b.disabled), 'controls left disabled');
+            });
+        }
+        await check(`F05 ${name}: successful writes are committed${restarts ? ' before the restart' : ''}`, async () => {
+            const env = makeEnv(twoProfiles);
+            const {content} = await open(env, tab);
+            run(content);
+            await settle(env);
+            const writes = env.calls.filter(c => c.object === 'uci' && c.method !== 'get');
+            assert.equal(writes.at(-1).method, 'commit');
+            assert.equal(env.execs.includes('/sbin/wifi'), restarts);
+            assert.doesNotMatch(content.textContent, /Failed/, 'failure reported');
+            if (env.added.length) assert.deepEqual(sets(env).map(s => s.section), env.added);
+        });
+    }
 
     console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);
     process.exitCode = failed ? 1 : 0;
