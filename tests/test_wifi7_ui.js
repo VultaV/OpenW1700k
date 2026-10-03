@@ -200,6 +200,7 @@ async function settle(env, rounds = 12) {
 const all = (node, pred) => node.descendants.filter(pred);
 const button = (node, label) => all(node, e => e.tagName === 'button' && e.textContent.startsWith(label))[0];
 const input = (node, placeholder) => all(node, e => e.tagName === 'input' && e.attrs.placeholder === placeholder)[0];
+const textInputs = node => all(node, e => e.tagName === 'input' && e.type === 'text');
 const sets = env => env.calls.filter(c => c.object === 'uci' && c.method === 'set').map(c => c.params);
 const tabs = ['overview', 'mld', 'radio', 'legacy', 'stations', 'diagnostics'];
 function clickTab(page, tab) {
@@ -239,6 +240,7 @@ const customNames = fixture({ap_mld_1: mld('Home'), mlo0: mld('Guest', {ifname: 
 const twoProfiles = fixture({mlo0: mld('First'), mlo1: mld('Second')}, {mlo0: 'ap-mld0', mlo1: 'ap-mld1'},
     {'ap-mld0': [stat(6, '02:00:00:00:00:10'), stat(36, '02:00:00:00:00:11'), stat(37, '02:00:00:00:00:12')],
         'ap-mld1': [stat(1, '02:00:00:00:00:20'), stat(149, '02:00:00:00:00:21'), stat(5, '02:00:00:00:00:22')]});
+const mloSwitchedOff = fixture({mlo0: mld('Off', {mlo: '0'})}, {}, {});
 
 let passed = 0, failed = 0;
 async function check(name, fn) {
@@ -310,6 +312,37 @@ async function check(name, fn) {
             if (env.added.length) assert.deepEqual(sets(env).map(s => s.section), env.added);
         });
     }
+
+    await check('F07 MLD editor edits the profile whose hostapd data it shows', async () => {
+        const env = makeEnv(twoProfiles);
+        const {content} = await open(env, 'mld');
+        assert.equal(textInputs(content)[0].value, 'First');
+        assert.match(content.textContent, /addr: 02:00:00:00:00:10/, 'link data of another profile');
+        button(content, 'Save & apply').fire('click');
+        await settle(env);
+        assert.equal(sets(env)[0].section, 'mlo0');
+    });
+    await check('F07 profile selector retargets the fields, link data and save', async () => {
+        const env = makeEnv(twoProfiles);
+        const {content} = await open(env, 'mld');
+        const select = all(content, e => e.tagName === 'select' && e.options.some(o => o.value === 'mlo1'))[0];
+        assert(select, 'no profile selector');
+        select.value = 'mlo1';
+        select.fire('change');
+        assert.equal(textInputs(content)[0].value, 'Second');
+        assert.match(content.textContent, /addr: 02:00:00:00:00:20/, 'link data of another profile');
+        button(content, 'Save & apply').fire('click');
+        await settle(env);
+        assert.equal(sets(env)[0].section, 'mlo1');
+    });
+    await check('F07 sole profile with MLO switched off stays selected', async () => {
+        const env = makeEnv(mloSwitchedOff);
+        const {content} = await open(env, 'mld');
+        assert.equal(textInputs(content)[0].value, 'Off');
+        button(content, 'Enable MLO').fire('click');
+        await settle(env);
+        assert.deepEqual(sets(env), [{config: 'wireless', section: 'mlo0', values: {mlo: '1'}}]);
+    });
 
     console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);
     process.exitCode = failed ? 1 : 0;

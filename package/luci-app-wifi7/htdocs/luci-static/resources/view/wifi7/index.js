@@ -630,24 +630,40 @@ return view.extend({
     },
 
     renderMLD: function(data) {
+        var self    = this;
         var uciData = data[0];
-        var mldSID  = '';
-        var mldSSID = '', mldEnc = '', mldKey = '', mldRsno = '';
-
-        Object.keys(uciData).forEach(function(sid) {
+        var mldSIDs = data._mldSIDs || [];
+        // Profiles in Overview order, then ones whose MLO was switched off here
+        var profiles = mldSIDs.concat(Object.keys(uciData).sort().filter(function(sid) {
             var s = uciData[sid];
-            if (s['.type'] === 'wifi-iface' && s['mlo'] === '1') {
-                mldSID  = sid;
-                mldSSID = s['ssid']            || '';
-                mldEnc  = s['encryption']      || 'sae';
-                mldKey  = s['key']             || '';
-                mldRsno = s['encryption_rsno'] || 'sae';
-            }
-        });
+            return s['.type'] === 'wifi-iface' && s['mode'] === 'ap' && s['mlo'] === '0';
+        }));
+        var mldSID  = profiles.indexOf(this.mldProfile) >= 0 ? this.mldProfile : (profiles[0] || '');
+        var s       = uciData[mldSID] || {};
+        var mldSSID = s['ssid']            || '';
+        var mldEnc  = s['encryption']      || 'sae';
+        var mldKey  = s['key']             || '';
+        var mldRsno = s['encryption_rsno'] || 'sae';
 
-        var stat0 = parseStat(data[3].stdout || '');
-        var stat1 = parseStat(data[4].stdout || '');
-        var stat2 = parseStat(data[5].stdout || '');
+        // hostapd data of the edited profile
+        var idx   = mldSIDs.indexOf(mldSID);
+        var base  = (data._mldStatBase || 3) + idx * 3;
+        var stat0 = parseStat(idx >= 0 ? (data[base].stdout     || '') : '');
+        var stat1 = parseStat(idx >= 0 ? (data[base + 1].stdout || '') : '');
+        var stat2 = parseStat(idx >= 0 ? (data[base + 2].stdout || '') : '');
+
+        var profileSel = E('select', { 'style':
+            'background:#1a1a2e;border:1px solid #444;border-radius:4px;' +
+            'color:#fff;padding:4px 8px;font-size:12px;width:220px' });
+        profiles.forEach(function(sid) {
+            var opt = E('option', { 'value': sid }, sid + ' (' + (uciData[sid]['ssid'] || '') + ')');
+            if (sid === mldSID) opt.selected = true;
+            profileSel.appendChild(opt);
+        });
+        profileSel.addEventListener('change', function() {
+            self.mldProfile = profileSel.value;
+            root.parentNode.replaceChild(self.renderMLD(data), root);
+        });
 
         var ssidInput = E('input', {
             'type': 'text', 'value': mldSSID,
@@ -804,10 +820,11 @@ return view.extend({
             });
         });
 
-        return E('div', {}, [
-            infoBanner('MLD SSID, password and encryption are stored in ap_mld_1 UCI section. PMF (ieee80211w=2) is mandatory for MLD and enforced automatically.'),
-            sectionBox('ap_mld_1 -- network configuration', '#1d9e75', null,
+        var root = E('div', {}, [
+            infoBanner('MLD SSID, password and encryption are stored in the ' + mldSID + ' UCI section. PMF (ieee80211w=2) is mandatory for MLD and enforced automatically.'),
+            sectionBox(mldSID + ' -- network configuration', '#1d9e75', null,
                 E('div', {}, [
+                    profiles.length > 1 ? fieldRow('Profile', profileSel) : null,
                     fieldRow('SSID',             ssidInput),
                     fieldRow('Password',         keyWrapMld),
                     fieldRow('Encryption',       encSel),
@@ -823,8 +840,8 @@ return view.extend({
                         mloBtn.addEventListener('click', function() {
                             if (!confirm(
                                 mloOn
-                                ? 'WARNING: Disabling MLO will switch ap_mld_1 to single-band mode.\nThis requires a full reboot to take effect.\nAre you sure?'
-                                : 'Enable MLO on ap_mld_1.\nThis requires a full reboot to take effect.\nAre you sure?'
+                                ? 'WARNING: Disabling MLO will switch ' + mldSID + ' to single-band mode.\nThis requires a full reboot to take effect.\nAre you sure?'
+                                : 'Enable MLO on ' + mldSID + '.\nThis requires a full reboot to take effect.\nAre you sure?'
                             )) return;
                             var callUciSetMlo = rpc.declare({ object:'uci', method:'set',
                                 params:['config','section','values'], expect:{}, reject:true });
@@ -1042,6 +1059,7 @@ return view.extend({
                 return E('div', {}, [showAddBtn, addForm]);
             })()
         ]);
+        return root;
     },
 
     renderRadio: function(data) {
