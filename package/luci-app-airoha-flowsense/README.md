@@ -14,7 +14,7 @@ Provides real-time visibility into NPU offload state, PPE flow table health, WiF
   - *Note:* the throughput needle is measured byte-rate (mac80211 per-station counters), so it reads 0 at idle. When traffic is HW-offloaded the byte counters can read 0 under load too — use the frames/sec tachometer and the BND indicator to gauge offloaded activity in that case.
 - **Ethernet port gauges** — per-port TX/RX throughput with link speed and BND/UNB flow counts
 - **Frame engine monitoring** — PSE queue depths, GDM/CDM drop counters via direct hardware register reads
-- **Latency & jitter** — background daemon continuously pings an upstream target (default: 1.1.1.1), independent of routing mode
+- **Latency & jitter** — background daemon continuously pings an upstream target (default: the default gateway), independent of routing mode
 - **Auto mode detection** — adapts UI between Router and AP mode automatically
 - **Conflict alerts** — warns when NPU offload is bypassing SQM/CAKE, physical errors are present, or latency is unexpectedly high despite offload being active
 - **Offload toggles** — enable/disable HW flow offload, VLAN offload, and PPPoE offload from the UI, with persistent sysctl settings
@@ -135,10 +135,9 @@ Kernel / Hardware
 
 ```
 config jitter 'jitter'
-    option target '1.1.1.1'
 ```
 
-Change the target to any reachable host for latency monitoring:
+Set a target to monitor any other reachable host:
 
 ```
 uci set npu-monitor.jitter.target='192.0.2.1'

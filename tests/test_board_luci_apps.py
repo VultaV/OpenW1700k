@@ -91,7 +91,7 @@ class Fixture:
             path = wrapper
         env = dict(os.environ, PATH=f'{self.bin}:{os.environ["PATH"]}', FIXTURE=str(self.base))
         return subprocess.run(SH + [str(path), *args], input=stdin, capture_output=True,
-                              text=True, env=env, timeout=20)
+                              text=True, env=env, cwd=self.base, timeout=20)
 
     def calls(self, name):
         log = self.base/'calls.jsonl'
@@ -245,6 +245,28 @@ class AirohaNpu(unittest.TestCase):
         view = (self.APP/'htdocs/luci-static/resources/view/airoha_npu/status.js').read_text()
         self.assertEqual(re.findall(r"'id':'oc-freq-input'.*'max':'(\d+)'", view), ['1200'])
         self.assertEqual(re.findall(r'isNaN\(f\)\|\|f<500\|\|f>(\d+)', view), ['1200'])
+
+
+class FlowSense(unittest.TestCase):
+    APP = PKG/'luci-app-airoha-flowsense'
+
+    def test_shipped_config_pings_default_gateway(self):
+        fx = Fixture(self, ['uci', 'ip'])
+        shutil.copy(self.APP/'root/etc/config/npu-monitor', fx.base/'config')
+        result = fx.run(self.APP/'root/etc/init.d/npu-jitter', call='start_service')
+        self.assertEqual(result.stdout.split(), ['COMMAND', '/usr/libexec/npu-jitter-daemon', '192.0.2.1'])
+
+    def daemon(self, target):
+        fx = Fixture(self, ['ping', 'sleep'])
+        fx.run(self.APP/'root/usr/libexec/npu-jitter-daemon', [target],
+               subs={'/tmp/npu-jitter.json': str(fx.base/'npu-jitter.json')})
+        return fx, (fx.base/'npu-jitter.json').read_text()
+
+    def test_daemon_passes_target_to_awk_as_data(self):
+        fx, _ = self.daemon('x", system("touch injected"), "')
+        self.assertFalse((fx.base/'injected').exists())
+        _, result = self.daemon('192.0.2.1')
+        self.assertEqual(json.loads(result)['target'], '192.0.2.1')
 
 
 if __name__ == '__main__':

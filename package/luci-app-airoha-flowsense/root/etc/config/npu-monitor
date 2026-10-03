@@ -1,5 +1,4 @@
 config jitter 'jitter'
-	option target '1.1.1.1'
 
 config settings 'settings'
 	# Airtime→goodput efficiency (%) for the offloaded-throughput needle estimate.
