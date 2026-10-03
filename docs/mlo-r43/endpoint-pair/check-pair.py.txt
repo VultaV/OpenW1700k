@@ -1,0 +1,283 @@
+#!/usr/bin/env python3
+"""Offline paired capture observations for one r43 60-second TCP download.
+
+No live calls. JSON stdout contains relative times, sequence ranges and hashes,
+never endpoint addresses, ports, clock session identifiers or input paths.
+"""
+import argparse
+from array import array
+import bisect
+import inspect
+import json
+from pathlib import Path
+import re
+import runpy
+import struct
+
+ROOT = Path(__file__).resolve().parent
+ART = ROOT.parents[1]
+PINS = {
+    'repeat': (ROOT.parent/'check-repeat.py', 'e28ce6ee96e4d318bf5fcb59e16f72364746f592b068e2c92fd9e4a06f519287'),
+    'clock': (ART/'mlo-endpoint-clock-r42-2026-09-27/clock.py', 'cdef187171ec3d3abfa5955e3f2e5d98d5b01a48c44fcb5328cd8960805817b1'),
+    'alignment': (ART/'mlo-endpoint-clock-r42-2026-09-27/check-alignment.py', '7ebfbf812e77cfd54b4e10984ca7da89886fe8378f57272b10e8c16dafb9a2b5'),
+}
+PAD = .000001  # Outward allowance at each pcap timestamp boundary.
+read = lambda p: json.loads(p.read_text())
+
+
+def helpers():
+    import hashlib
+    def sha(p):
+        h = hashlib.sha256()
+        with p.open('rb') as f:
+            for block in iter(lambda: f.read(1024*1024), b''): h.update(block)
+        return h.hexdigest()
+    loaded = {}
+    for name, (path, pin) in PINS.items():
+        assert sha(path) == pin, 'Pinned helper changed: ' + name
+        loaded[name] = runpy.run_path(str(path))
+    loaded['h'] = loaded['repeat']['helpers']()
+    # The reviewed Mac reader has a 32-file ring; the server has 16.
+    source = inspect.getsource(loaded['repeat']['rotation_order'])
+    assert source.count('len(names) < 16') == 1
+    scope = dict(loaded['repeat'])
+    exec(compile(source.replace('len(names) < 16', 'len(names) < 32'), '<mac-rotation-bound>', 'exec'), scope)
+    loaded['mac_rotation'] = scope['rotation_order']
+    loaded['sha'] = sha
+    return loaded
+
+
+def mac_counts(text):
+    values = []
+    for label in ('captured', 'received by filter', 'dropped by kernel'):
+        found = re.findall(r'^(\d+) packets ' + label + r'\s*$', text, re.M)
+        assert len(found) == 1, 'Missing or duplicate Mac capture counter'
+        values.append(int(found[0]))
+    assert values[0] > 0 and values[2] == 0, 'Empty capture or reported BPF buffer drops'
+    return values  # ps_recv is descriptive, not an equality gate on Darwin.
+
+
+def streamed_scope(path, client, server, port, scope):
+    """Bounded record chunks reuse the existing Ethernet/IP/port scope checker."""
+    count, truncated, maximum = 0, 0, 0
+    with path.open('rb') as f:
+        header = f.read(24)
+        assert len(header) == 24 and header[:4] == b'\xd4\xc3\xb2\xa1'
+        assert struct.unpack_from('<II', header, 16) == (96, 1)
+        chunk, n = bytearray(header), 0
+        while raw := f.read(16):
+            assert len(raw) == 16, 'Truncated record header'
+            _, frac, caplen, original = struct.unpack('<4I', raw)
+            assert frac < 1000000 and 0 < caplen <= 96 and original >= caplen
+            body = f.read(caplen); assert len(body) == caplen, 'Truncated record body'
+            chunk.extend(raw); chunk.extend(body); n += 1
+            if n == 4096:
+                got = scope(chunk, client, server, port, n)
+                count += n; truncated += got['truncated_payload_records']; maximum = max(maximum, got['max_original_record_bytes'])
+                chunk, n = bytearray(header), 0
+        if n:
+            got = scope(chunk, client, server, port, n)
+            count += n; truncated += got['truncated_payload_records']; maximum = max(maximum, got['max_original_record_bytes'])
+    return dict(records=count, truncated_payload_records=truncated, max_original_record_bytes=maximum)
+
+
+def direction(row, server_port, ports):
+    if row[2] == server_port and row[3] in ports: return row[3], 'data'
+    if row[3] == server_port and row[2] in ports: return row[2], 'ack'
+    return None, 'control'
+
+
+def membership(t, offset, gap):
+    lo, hi = t-offset[1]-PAD, t-offset[0]+PAD
+    # Gap endpoints are the bounding server ACKs, hence use the open interior.
+    possible = hi > gap[0]-PAD and lo < gap[1]+PAD
+    certain = lo > gap[0]+PAD and hi < gap[1]-PAD
+    return certain, possible
+
+
+def analyze(args, lib):
+    h, sha = lib['h'], lib['sha']
+    data, verified = read(args.iperf), read(args.server_result)
+    test = data['start']['test_start']
+    assert not data.get('error') and test['protocol'] == 'TCP' and test['reverse'] == 1
+    assert test['duration'] == 60 and test['target_bitrate'] == 0 and test['num_streams'] == 4 and test['omit'] == 0
+    bounds = lib['repeat']['application_bounds'](data)
+    con = data['start']['connected']; ports = set(bounds)
+    clients, servers = {x['local_host'] for x in con}, {x['remote_host'] for x in con}
+    assert len(clients) == len(servers) == 1 and {x['remote_port'] for x in con} == {5203}
+    client, server, port = clients.pop(), servers.pop(), 5203
+    assert verified['status'] == 'OFFLINE_REPEAT_CAPTURE_VERIFIED'
+    assert verified['input_sha256']['iperf'] == sha(args.iperf)
+    assert verified['input_sha256']['checker'] == PINS['repeat'][1]
+    assert verified['input_sha256']['tcpdump_log'] == sha(args.server_dir/'tcpdump.log')
+    before, after, responder = map(read, (args.clock_before, args.clock_after, args.mac_responses))
+    lib['alignment']['response_match'](responder, before, after)
+    clock = lib['clock']['bounds'](before, after)
+    offset = tuple(x/1e9 for x in clock['mac_minus_pve_offset_ns'])
+    counts = {
+        'server': h['clock_tcp']['capture_counts']((args.server_dir/'tcpdump.log').read_text()),
+        'mac': mac_counts((args.mac_dir/'capture.log').read_text()),
+    }
+    result = read(args.mac_dir/'result.json')
+    assert result['status'] == 'COMPLETE' and result['tcpdump_exit'] == 0 and result['reason'] in ('stop', 'deadline')
+    assert not (args.mac_dir/'forced-stop').exists(), 'Forced Mac stop cannot prove complete flush'
+    states, captures = {}, {}
+    for owner, directory in (('server', args.server_dir), ('mac', args.mac_dir)):
+        files = (lib['repeat']['rotation_order'] if owner == 'server' else lib['mac_rotation'])(list(directory.glob('test.pcap*')))
+        states[owner] = {p:dict(syn={}, ranges=[], ack_t=array('d'), ack_v=array('I'), fins=[],
+                              first_data=float('inf'), last_data=0., data_records=0, data_bytes=0, repeated_bytes=0) for p in ports}
+        segments, seen, controls, min_t, max_t, last_t, backsteps = [], 0, 0, float('inf'), 0., 0., 0
+        for path in files:
+            scope = streamed_scope(path, client, server, port, h['clock_tcp']['capture_scope'])
+            digest = sha(path)
+            if owner == 'server':
+                expected = next(s for s in verified['capture']['segments'] if s['name'] == path.name)
+                assert expected['sha256'] == digest and expected['records'] == scope['records'] and expected['bytes'] == path.stat().st_size
+            parsed = 0
+            for r in h['parser']['packets'](path, tcp_options=True):
+                parsed += 1; h['tcp']['options'](r[11])
+                t = r[0]; min_t = min(min_t, t); max_t = max(max_t, t); backsteps += t < last_t; last_t = t
+                p, kind = direction(r, port, ports)
+                if p is None: controls += 1; continue
+                state = states[owner][p]
+                if r[6] & 2:
+                    identity = (r[4], r[5], r[6], r[11].hex())
+                    assert kind not in state['syn'] or state['syn'][kind] == identity, 'Conflicting SYN identity'
+                    state['syn'][kind] = identity
+                if kind == 'data' and r[8]:
+                    assert not r[6] & 2 and 'data' in state['syn'], 'Data without captured SYNACK'
+                    base = (state['syn']['data'][0]+1) % 2**32
+                    lo = (r[4]-base) % 2**32; hi = lo+r[8]
+                    assert hi <= bounds[p], 'Data outside application bound; wrap unsupported'
+                    overlap = h['range'](state['ranges'], lo, hi)
+                    state['repeated_bytes'] += overlap; state['data_bytes'] += r[8]; state['data_records'] += 1
+                    state['first_data'] = min(state['first_data'], t); state['last_data'] = max(state['last_data'], t)
+                if kind == 'data' and r[6] & 1: state['fins'].append((t, r[4], r[8]))
+                if kind == 'ack' and r[6] & 16 and not r[6] & (2 | 4):
+                    state['ack_t'].append(t); state['ack_v'].append(r[5])
+            assert parsed == scope['records'], 'Parser/saved-record count mismatch'
+            seen += parsed; segments.append(dict(name=path.name, sha256=digest, bytes=path.stat().st_size, **scope))
+        assert seen == counts[owner][0], 'Saved records differ from tcpdump captured count'
+        if owner == 'server': assert len(segments) == len(verified['capture']['segments'])
+        captures[owner] = dict(segments=segments, records=seen, received_by_filter=counts[owner][1], reported_kernel_drops=counts[owner][2],
+                              timestamp_backsteps=backsteps, other_control_records=controls, first=min_t, last=max_t)
+        for p, s in states[owner].items():
+            assert set(s['syn']) == {'data','ack'} and s['syn']['data'][2] & 16
+            assert s['syn']['data'][1] == (s['syn']['ack'][0]+1) % 2**32
+            assert s['data_records'] and s['ack_t']
+            assert sum(b-a for a,b in s['ranges'])+s['repeated_bytes'] == s['data_bytes']
+            if owner == 'mac': assert s['syn'] == states['server'][p]['syn'], 'Captures do not contain the same SYN/SYNACK'
+    origin = min(s['first_data'] for s in states['server'].values()); end = origin+60
+    assert max(r['t4']['wall']/1e9 for r in before['records']) < origin
+    assert min(r['t1']['wall']/1e9 for r in after['records']) > max(s['last_data'] for s in states['server'].values())
+    assert captures['server']['last'] >= end and captures['mac']['first']-offset[0] < origin and captures['mac']['last']-offset[1] >= end
+    common = None
+    for p, s in states['server'].items():
+        times = sorted(t for t in s['ack_t'] if t >= s['first_data'])
+        gaps = [(a-origin,b-origin) for a,b in zip(times,times[1:]) if b-a > .1]
+        common = gaps if common is None else h['tcp']['intersect'](common, gaps)
+    common = [(max(0,a),min(60,b)) for a,b in common if min(60,b)-max(0,a) > .1]
+    public_gaps = [dict(start_seconds=round(a,6),end_seconds=round(b,6),duration_ms=round((b-a)*1000,3)) for a,b in common]
+    assert public_gaps == verified['common_all_four_no_ack_gaps'], 'Server common gaps differ from verified input'
+    gap_epochs = [(origin+a,origin+b) for a,b in common]
+    observations = [{**g, 'flows': [dict(flow=i, certain=dict(rx_payload_records=0,tx_ack_records=0,tx_ack_progress_records=0,rx_sequence_ranges=[]),
+                                       possible=dict(rx_payload_records=0,tx_ack_records=0,tx_ack_progress_records=0,rx_sequence_ranges=[])) for i in range(1,5)]} for g in public_gaps]
+    starts, ends = [g[0] for g in gap_epochs], [g[1] for g in gap_epochs]
+    def observe(t, number, field, seq=None):
+        low, high = t-offset[1]-PAD, t-offset[0]+PAD
+        left = bisect.bisect_left(ends, low-PAD); right = bisect.bisect_right(starts, high+PAD)
+        for j in range(left,right):
+            certain, possible = membership(t, offset, gap_epochs[j])
+            for key, include in (('certain',certain),('possible',possible)):
+                if include:
+                    entry = observations[j]['flows'][number-1][key]; entry[field] += 1
+                    if seq: h['range'](entry['rx_sequence_ranges'], *seq)
+    flows = []
+    for number, p in enumerate(sorted(ports), 1):
+        s, m = states['server'][p], states['mac'][p]
+        base = (s['syn']['data'][0]+1) % 2**32; high = s['ranges'][-1][1]
+        assert all((seq-base)%2**32+length == high for _,seq,length in s['fins'])
+        maximum_ack, fin_normalized = 0, 0
+        for t, ack_wire in sorted(zip(m['ack_t'],m['ack_v'])):
+            ack = (ack_wire-base) % 2**32
+            if ack > high:
+                assert s['fins'] and ack == high+1 and t-offset[0]+PAD >= min(f[0] for f in s['fins']), 'ACK beyond captured data/final FIN'
+                ack -= 1; fin_normalized += 1
+            observe(t, number, 'tx_ack_records')
+            if ack > maximum_ack:
+                observe(t, number, 'tx_ack_progress_records'); maximum_ack = ack
+        shared = h['tcp']['intersect'](s['ranges'],m['ranges'])
+        flows.append(dict(flow=number, same_syn_and_synack=True, relative_wrap_excluded=True, application_sender_bytes=bounds[p],
+            server_sequence_ranges=s['ranges'], mac_sequence_ranges=m['ranges'], shared_sequence_ranges=shared,
+            server_unique_bytes=sum(b-a for a,b in s['ranges']), mac_unique_bytes=sum(b-a for a,b in m['ranges']),
+            shared_unique_bytes=sum(b-a for a,b in shared), mac_payload_records=m['data_records'],
+            mac_previously_observed_sequence_bytes=m['repeated_bytes'], mac_cumulative_ack_progress_bytes=maximum_ack,
+            verified_final_fin_ack_normalizations=fin_normalized))
+    # A second streaming decode keeps only events in the already bounded gaps.
+    numbers = {p:i for i,p in enumerate(sorted(ports),1)}
+    for path in lib['mac_rotation'](list(args.mac_dir.glob('test.pcap*'))):
+        for r in h['parser']['packets'](path,tcp_options=True):
+            p, kind = direction(r,port,ports)
+            if kind == 'data' and r[8]:
+                base = (states['server'][p]['syn']['data'][0]+1) % 2**32
+                lo = (r[4]-base)%2**32
+                observe(r[0],numbers[p],'rx_payload_records',(lo,lo+r[8]))
+    for owner in captures:
+        captures[owner].pop('first'); captures[owner].pop('last')
+    return dict(status='PAIRED_GAP_OBSERVATIONS' if common else 'NO_COMMON_GAP_HEALTHY_OR_INCONCLUSIVE',
+        input_sha256={**{k:sha(getattr(args,k)) for k in ('iperf','server_result','clock_before','clock_after','mac_responses')},
+                      'mac_capture_log':sha(args.mac_dir/'capture.log'),'mac_result':sha(args.mac_dir/'result.json'),
+                      'checker':sha(Path(__file__)),'helpers':{k:pin for k,(_,pin) in PINS.items()}},
+        captures=captures,clock=clock,flows=flows,window_seconds=60,common_gap_count=len(common),gaps=observations,
+        limits=['Download only: four actual iperf data tuples; other endpoint TCP control records are counted separately.',
+                'Mac received-by-filter is descriptive BPF input accounting, not saved-packet equality. Zero drops means no reported capture-buffer drops.',
+                'Possible counts include certain counts. Every time classification uses the same Mac-minus-PVE offset interval with outward timestamp allowances; no point estimate is used.',
+                'Ranges are TCP bytes relative to the observed server SYNACK. GSO/LRO may change record boundaries; packet counts are not matched across endpoints.',
+                'ACK progress is an increased cumulative ACK value, not merely ACK presence. Final FIN sequence bytes are excluded from payload progress.',
+                'An en0 TX ACK capture does not prove RF transmission or server delivery. Missing/range differences and repeated sequence bytes are observations, not physical loss counts.',
+                'Clock consistency assumes no undetected time-varying offset; API timestamps are not hardware timestamps. Payload identity is not compared.',
+                'No >100ms common any-ACK gap means this trial is healthy or inconclusive for that symptom, not proof of an AP/NPU/Air repair.'])
+
+
+def self_test(lib):
+    assert mac_counts('2 packets captured\n365 packets received by filter\n0 packets dropped by kernel\n') == [2,365,0]
+    row = (10.,0,5203,100,0,0,16,0,10,0,0,b'')
+    assert direction(row,5203,{100}) == (100,'data')
+    assert direction(row[:2]+(100,5203)+row[4:],5203,{100}) == (100,'ack')
+    assert membership(11.5,(1.,1.1),(10.,11.)) == (True,True)
+    assert membership(11.05,(1.,1.1),(10.,11.)) == (False,True)
+    assert membership(12.5,(1.,1.1),(10.,11.)) == (False,False)
+    add = lib['h']['range']; large=[]; split=[]
+    add(large,0,60000)
+    for a,b in ((0,20000),(20000,40000),(40000,60000),(10000,30000)): add(split,a,b)
+    assert large == split == [(0,60000)]
+    assert len(lib['mac_rotation']([Path(f'test.pcap{i:02d}') for i in range(17)])) == 17
+    bad = [lambda:mac_counts('2 packets captured\n365 packets received by filter\n1 packets dropped by kernel\n'),
+           lambda:mac_counts('0 packets captured\n365 packets received by filter\n0 packets dropped by kernel\n'),
+           lambda:mac_counts('-1 packets captured\n365 packets received by filter\n0 packets dropped by kernel\n'),
+           lambda:lib['mac_rotation']([Path('test.pcap00'),Path('test.pcap02')]),
+           lambda:lib['mac_rotation']([Path(f'test.pcap{i:02d}') for i in range(32)]),
+           lambda:add([],0,2**32)]
+    for fn in bad:
+        try: fn()
+        except AssertionError: pass
+        else: raise AssertionError('Invalid counter, rotation or full wrap accepted')
+    return dict(status='PASS',scope='Offline direction, clock-boundary, GSO union, Darwin counter, rotation and wrap checks',negative_cases=len(bad))
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__)
+    for key in ('server-dir','mac-dir','iperf','server-result','clock-before','clock-after','mac-responses'):
+        p.add_argument('--'+key,type=Path)
+    p.add_argument('--self-test',action='store_true')
+    args=p.parse_args(); lib=helpers()
+    if args.self_test: result=self_test(lib)
+    else:
+        assert all(getattr(args,k.replace('-','_')) for k in ('server-dir','mac-dir','iperf','server-result','clock-before','clock-after','mac-responses'))
+        result=analyze(args,lib)
+    text=json.dumps(result,indent=2)
+    assert not re.search(r'(?:\d{1,3}\.){3}\d{1,3}|(?:[0-9a-f]{2}:){5}[0-9a-f]{2}|/Users/|/private/',text,re.I)
+    print(text)
+
+
+if __name__ == '__main__': main()

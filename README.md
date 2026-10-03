@@ -1,11 +1,10 @@
 # W1700K MLO investigation fork
 
-현재 수정·검증 기록: [MLO r41 진행 현황](docs/mlo-r41/README.md).
+작업 전체와 재개 방법: [Claude 인계서 — 2026-10-03](docs/CLAUDE_HANDOFF_20261003.md).
 
-후속 진단: [Neighbor Report 구성 후 초기 전송 비교](docs/mlo-r41/neighbor-report-20260927/NR_CONFIG_COMPARISON_20260927.md). 설정은 확인했지만 Mac의 실제 수신·사용은 미검증이며, 연결 초기 저하와 원래 Air 절전 복귀 문제는 미해결입니다.
+현재 작업 브랜치는 `codex/mlo-r30-bridge-offload`입니다. [r43 실험용 릴리스](https://github.com/VultaV/OpenW1700k/releases/tag/mlo-r43-20260927)는 NPU 실행 DRAM의 zero-budget 경계를 보완하며 설치·전송 검증을 마쳤습니다. 브리지 가속으로 약 2Gbps까지 회복했지만, 원래 Air의 절전 복귀 멈춤과 r43의 간헐 저하는 미해결입니다.
 
-추가 조사: [NPU zero-budget guard 후보 검증](docs/npu-budget-guard-20260926/README.md) — 설치 이미지가 아닌 메모리 내 명령 검증입니다.
-실험용이며 완전 해결 판정 전입니다. 기준 소스와 재현 방법은 위 문서를 참고하세요.
+[r43 변경](docs/mlo-r43/README.md), [저하·정상 비교](docs/mlo-r43/PS_REPEAT_RESULT.md), [ACK 시각 분석](docs/mlo-r43/ACK_TIMESTAMPS.md), [양단 캡처 준비의 현재 한계](docs/mlo-r43/endpoint-pair/README.md)를 함께 확인하세요. 빌드·정적 검증과 증상 해결 판정을 구분합니다.
 
 ![OpenWrt logo](include/logo.png)
 

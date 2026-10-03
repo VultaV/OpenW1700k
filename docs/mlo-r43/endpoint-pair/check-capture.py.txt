@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+"""Offline mocks only: no sudo, network, BPF access or interface changes."""
+from pathlib import Path
+import json
+import os
+import signal
+import subprocess as sp
+import sys
+import tempfile
+import time
+
+SCRIPT = Path(__file__).with_name('mac-capture.sh')
+
+
+def main():
+    source = SCRIPT.read_text()
+    sp.run(['/bin/sh', '-n', str(SCRIPT)], check=True)
+    assert '-i en0 -n -p -U -s 96 -B 8192 -C 64 -W 32' in source
+    assert 'ip and host 192.0.2.175 and host 192.0.2.118 and tcp port 5203' in source
+    tcpdump_line=next(line for line in source.splitlines() if line.startswith('/usr/sbin/tcpdump '))
+    assert ' -I ' not in tcpdump_line and 'ifconfig' not in source and 'sudoers' not in source
+    results = []
+    with tempfile.TemporaryDirectory(prefix='mac-capture-mock-') as directory:
+        test_dir = Path(directory)
+        tools = test_dir/'tools'; tools.mkdir()
+        tool = tools/'mock.py'
+        tool.write_text(f'#!{sys.executable}\n'+'''import json,os,signal,struct,sys,time
+from pathlib import Path
+name=Path(sys.argv[0]).name; args=sys.argv[1:]; case=os.environ['CASE']
+if name=='id': print('1' if case=='not-root' else '0')
+elif name=='df': print('Filesystem 1024-blocks Used Available Capacity Mounted on\\nmock 20000000 0 '+('100' if case=='low-disk' else '10000000')+' 0% /')
+elif name=='route': print('    interface: '+('en0' if case=='bad-route' else 'en12'))
+elif name=='ipconfig': print('192.0.2.245' if args[-1]=='en12' else ('192.0.2.174' if case=='bad-ip' else '192.0.2.175'))
+elif name=='curl': print('200 192.0.2.245')
+elif name=='netstat': print('mock interface counters')
+elif name in ('chown','chgrp'): pass
+elif name=='tcpdump':
+    if case=='early-exit': sys.exit(1)
+    p=Path(args[args.index('-w')+1]+'00')
+    p.write_bytes(struct.pack('<IHHIIII',0xa1b2c3d4,2,4,0,0,96,1))
+    if case=='ring-full': p.with_name('test.pcap31').write_bytes(p.read_bytes())
+    signal.signal(signal.SIGUSR2,lambda *_:None)
+    def finish(*_):
+        print('0 packets captured\\n0 packets received by filter\\n0 packets dropped by kernel',file=sys.stderr,flush=True)
+        sys.exit(0)
+    signal.signal(signal.SIGINT,finish); signal.signal(signal.SIGTERM,finish)
+    print('tcpdump: listening on en0, link-type EN10MB (Ethernet), snapshot length 96 bytes',file=sys.stderr,flush=True)
+    while True: time.sleep(.05)
+else: raise RuntimeError(name)
+''')
+        tool.chmod(0o700)
+        replacements = {'/usr/bin/id':'id','/bin/df':'df','/sbin/route':'route','/usr/sbin/ipconfig':'ipconfig',
+                        '/usr/bin/curl':'curl','/usr/sbin/netstat':'netstat','/usr/sbin/chown':'chown',
+                        '/usr/bin/chgrp':'chgrp','/usr/sbin/tcpdump':'tcpdump'}
+        for name in replacements.values(): (tools/name).symlink_to(tool)
+        for case in ('deadline','stop','signal','stopped-reader','ring-full','low-disk','not-root','bad-route','bad-ip','existing','early-exit','invalid-sudo-uid'):
+            base=test_dir/case; base.mkdir(); private=base/'private';private.mkdir();out=private/'mac-capture'
+            text=source.replace("base='<LOCAL_WORKSPACE>/artifacts/npu-zero-budget-r43-2026-09-27/endpoint-pair'",f"base='{base}'")
+            assert text != source
+            for original,name in replacements.items(): text=text.replace(original,str(tools/name))
+            assert text.count('/bin/sleep 170')==1
+            text=text.replace('/bin/sleep 170','/bin/sleep 1.5')
+            fixture=base/'capture.sh';fixture.write_text(text)
+            if case=='existing': out.mkdir();(out/'preserved').write_text('keep')
+            env=dict(os.environ,CASE=case,SUDO_UID=str(os.getuid()),SUDO_GID=str(os.getgid()))
+            if case=='invalid-sudo-uid': env['SUDO_UID']='1:2'
+            process=sp.Popen(['/bin/sh',str(fixture)],stdout=sp.PIPE,stderr=sp.PIPE,text=True,env=env,start_new_session=True)
+            capture_pid=None; ready=out/'ready.json'; limit=time.monotonic()+8
+            if case in ('stop','signal','stopped-reader'):
+                while not ready.exists() and process.poll() is None and time.monotonic()<limit: time.sleep(.02)
+                assert ready.exists(), (case,process.communicate())
+                capture_pid=json.loads(ready.read_text())['capture_pid']
+                if case=='stopped-reader': os.kill(capture_pid,signal.SIGSTOP)
+                if case=='signal': process.send_signal(signal.SIGTERM)
+                else: (private/'mac-capture.stop').touch()
+            try:
+                stdout,stderr=process.communicate(timeout=15)
+            except sp.TimeoutExpired:
+                os.killpg(process.pid,signal.SIGTERM)
+                try: stdout,stderr=process.communicate(timeout=8)
+                except sp.TimeoutExpired:
+                    os.killpg(process.pid,signal.SIGKILL);stdout,stderr=process.communicate(timeout=3)
+                raise AssertionError((case,'Mock timed out',stdout,stderr))
+            preflight=case in ('low-disk','not-root','bad-route','bad-ip','existing','invalid-sudo-uid')
+            if preflight:
+                assert process.returncode==2, (case,process.returncode,stdout,stderr)
+                assert (out/'preserved').read_text()=='keep' if case=='existing' else not out.exists()
+            else:
+                result=json.loads((out/'result.json').read_text())
+                expected=case in ('deadline','stop')
+                assert (process.returncode==0)==expected and (result['status']=='COMPLETE')==expected, (case,result,stdout,stderr)
+                if ready.exists():
+                    saved=json.loads(ready.read_text())
+                    assert saved['capture_identity'].strip() and saved['timer_identity'].strip()
+                    for field in ('capture_pid','timer_pid'):
+                        pid=saved[field]
+                        check=sp.run(['/bin/ps','-p',str(pid),'-o','stat='],capture_output=True,text=True)
+                        assert not check.stdout.strip(), (case,field,check.stdout)
+                assert out.stat().st_mode & 0o777==0o700
+            results.append({'case':case,'result':'PASS'})
+    print(json.dumps({'status':'PASS','cases':results,'scope':'Local subprocess mocks; no live BPF, privilege, packet format or device validation.'},indent=2))
+
+
+if __name__=='__main__': main()

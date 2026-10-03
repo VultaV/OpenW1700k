@@ -1,0 +1,25 @@
+{
+  "status": "READY_FOR_USER_CAPTURE_RESTART",
+  "updated_at": "2026-09-27T07:38:58.139816+00:00",
+  "live_paired_trial_started": false,
+  "first_preparation_capture": "No traffic started; capture age guard rejected launch; both endpoints ended with zero saved packets.",
+  "mac_capture_present": false,
+  "checks": {
+    "capture_mock_pass": 12,
+    "pair_self_test": "PASS",
+    "actual_empty_capture_negative_control": "PASS",
+    "independent_source_review_blockers": 0
+  },
+  "limits": [
+    "Pair analyzer has not been run against a completed live paired trial.",
+    "Mac received-by-filter is platform-specific and is not a saved packet equality gate.",
+    "No claim that the original stall is fixed."
+  ],
+  "sha256": {
+    "mac-capture.sh": "f1cdb93d9f839e4f5e99d6e47fc8321cbc0ad7bbcd46fb1d780d22eeffe85615",
+    "check-capture.py": "511a8b8dad6fabafe5407ee3036ce2c8396ed67d366e00fc83d5ab454be76850",
+    "run.py": "5f4dd28cab198f2d67ea8151fdea7434eecfd94b1437c9515b39adcbbe615919",
+    "check-pair.py": "ebfc20bb07a079fb4b7c295641880b6a4b4869378fb892ad807e2d96955b6f22",
+    "README.md": "649127f4b562858be4efbde14145175d561a91aceb8aa0af7bba3144504a6c77"
+  }
+}

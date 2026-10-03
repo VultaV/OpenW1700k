@@ -1,0 +1,169 @@
+#!/usr/bin/env python3
+"""Reuse the reviewed r43 60-second PS trial with a live ordinary Mac capture."""
+from pathlib import Path
+import argparse
+import hashlib
+import json
+import os
+import re
+import runpy
+import select
+import shutil
+import signal
+import subprocess as sp
+import sys
+import time
+
+ROOT = Path(__file__).resolve().parent
+SOURCE = ROOT.parent/'ps-repeat/run.py'
+PIN = '90675d18678631b11afb3aed539dc1cfe156c0737893ee079640c788c272344b'
+assert hashlib.sha256(SOURCE.read_bytes()).hexdigest() == PIN
+scope = runpy.run_path(str(SOURCE))
+g = scope['run'].__globals__
+g.update(DATA=ROOT/'private/session', LABEL='endpoint-pair-unlimited-60',
+    PREDICATE='(process == "airportd" AND (eventMessage CONTAINS[c] "scan" OR '
+    'eventMessage CONTAINS[c] "awdl")) OR (process == "wifip2pd" AND '
+    '(eventMessage CONTAINS[c] "awdl" OR eventMessage CONTAINS[c] "channel"))')
+
+
+def ready():
+    directory = ROOT/'private/mac-capture'
+    data = json.loads((directory/'ready.json').read_text())
+    assert data['state'] == 'READY' and type(data['capture_pid']) is int and data['capture_pid'] > 1
+    assert 0 <= time.time()-data['started_epoch'] <= 50, 'Capture too old for a complete paired trial'
+    assert not (directory/'result.json').exists() and not (ROOT/'private/mac-capture.stop').exists()
+    assert not (directory/'test.pcap31').exists(), 'Capture ring reached its last file'
+    for kind in ('capture', 'timer'):
+        pid = data[kind+'_pid']
+        assert type(pid) is int and pid > 1
+        identity = sp.check_output(['/bin/ps', '-p', str(pid), '-o', 'uid=,lstart='],
+            text=True, env=dict(os.environ, LC_ALL='C')).rstrip('\n')
+        assert identity == data[kind+'_identity'], 'Capture process identity changed'
+    process = sp.check_output(['/bin/ps', '-p', str(data['capture_pid']), '-o', 'uid=,stat=,comm='], text=True).split()
+    assert len(process) == 3 and process[0] == '0' and process[2] == '/usr/sbin/tcpdump'
+    assert process[1][0] in ('R', 'S', 'I'), 'Capture reader is not running'
+    assert shutil.disk_usage(ROOT).free >= 4*1024**3, 'At least 4 GiB free space is required'
+    return data
+
+
+def arm_gate(capture, now, marker=None, session=None):
+    assert capture['state'] == 'READY'
+    age = now-capture['started_epoch']
+    assert 0 <= age <= 40, 'Capture exceeds the 40-second arming budget'
+    if marker is not None:
+        assert marker == dict(status='READY', session=session,
+                              capture_started_epoch=capture['started_epoch']), 'Wrong server-ready generation/session'
+    return age
+
+
+def arm():
+    private = ROOT/'private'
+    for name in ('mac-capture', 'mac-capture.stop', 'server-ready.json', 'clock-mac.json', 'paired-inputs.json', 'session'):
+        assert not (private/name).exists() and not (private/name).is_symlink(), 'Previous generation exists: '+name
+    clock_path = ROOT.parents[1]/'mlo-endpoint-clock-r42-2026-09-27/clock.py'
+    assert hashlib.sha256(clock_path.read_bytes()).hexdigest() == 'cdef187171ec3d3abfa5955e3f2e5d98d5b01a48c44fcb5328cd8960805817b1'
+    started, wall = time.monotonic(), time.time()
+    with (private/'arm-start.json').open('x') as f:
+        json.dump(dict(pid=os.getpid(), started_epoch=wall, capture_wait_seconds=600), f)
+    child = None
+    previous = signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(KeyboardInterrupt()))
+    try:
+        print(f'ARMED pid={os.getpid()} capture_wait_seconds=600', flush=True)
+        ready_path = private/'mac-capture/ready.json'
+        while not ready_path.exists():
+            assert time.monotonic()-started < 600, 'Timed out waiting for a new Mac capture'
+            assert not (private/'mac-capture/result.json').exists(), 'Mac capture ended before ready'
+            assert not (private/'mac-capture.stop').exists(), 'Mac capture stop already requested'
+            time.sleep(.1)
+        capture = ready()
+        assert capture['started_epoch'] >= int(wall), 'Capture predates this arm generation'
+        arm_gate(capture, time.time())
+        clock_started = time.monotonic()
+        child = sp.Popen([sys.executable, str(clock_path), 'serve', '--output', str(private/'clock-mac.json')],
+                         stdout=sp.PIPE, text=True)
+        assert select.select([child.stdout], [], [], 5)[0], 'Clock responder did not become ready'
+        line = child.stdout.readline().strip()
+        match = re.fullmatch(r'READY session=([0-9a-f]{32})', line)
+        assert match and child.poll() is None, 'Clock responder failed before readiness'
+        session = match.group(1)
+        age = arm_gate(capture, time.time())
+        print(f'{line} clock_pid={child.pid} capture_started_epoch={capture["started_epoch"]} '
+              f'capture_age_seconds={age:.3f} server_marker_budget_seconds={40-age:.3f}', flush=True)
+        marker_path = private/'server-ready.json'
+        while not marker_path.exists():
+            arm_gate(capture, time.time())
+            assert child.poll() is None, 'Clock responder exited before server readiness'
+            assert not (private/'mac-capture/result.json').exists() and not (private/'mac-capture.stop').exists()
+            time.sleep(.1)
+        assert marker_path.is_file() and not marker_path.is_symlink()
+        arm_gate(capture, time.time(), json.loads(marker_path.read_text()), session)
+        # Re-enter the original --run branch, retaining every existing runtime gate.
+        old_argv = sys.argv
+        try:
+            sys.argv = [str(Path(__file__)), '--run']
+            runpy.run_path(str(Path(__file__)), run_name='__main__')
+        finally:
+            sys.argv = old_argv
+        print(f'TEST_DONE clock_pid={child.pid} after_probes_required=10', flush=True)
+        remaining = 180-(time.monotonic()-clock_started)
+        assert remaining > 0, 'Clock responder deadline expired after test'
+        assert child.wait(timeout=remaining+2) == 0, 'Clock responder failed'
+        response = json.loads((private/'clock-mac.json').read_text())
+        assert response['status'] == 'COMPLETE' and response['session'] == session and len(response['records']) == 20
+        print('PAIR_COMPLETE clock_responses=20', flush=True)
+    finally:
+        if (private/'mac-capture').exists():
+            try:
+                with (private/'mac-capture.stop').open('x'): pass
+            except FileExistsError:
+                pass
+        if child is not None:
+            if child.poll() is None:
+                child.terminate()
+                try: child.wait(timeout=3)
+                except sp.TimeoutExpired:
+                    child.kill(); child.wait(timeout=3)
+            if child.stdout is not None: child.stdout.close()
+        signal.signal(signal.SIGTERM, previous)
+
+
+def arm_self_test():
+    capture = dict(state='READY', started_epoch=100)
+    marker = dict(status='READY', session='a'*32, capture_started_epoch=100)
+    assert arm_gate(capture, 100) == 0 and arm_gate(capture, 140, marker, 'a'*32) == 40
+    for now, changed, session in ((99, marker, 'a'*32), (140.01, marker, 'a'*32),
+                                  (110, dict(marker, capture_started_epoch=99), 'a'*32),
+                                  (110, marker, 'b'*32), (110, dict(marker, status='WAIT'), 'a'*32)):
+        try: arm_gate(capture, now, changed, session)
+        except AssertionError: pass
+        else: raise AssertionError('Invalid arming time or server marker accepted')
+
+
+if __name__ == '__main__':
+    p = argparse.ArgumentParser(description=__doc__)
+    mode = p.add_mutually_exclusive_group(required=True)
+    mode.add_argument('--self-test', action='store_true'); mode.add_argument('--run', action='store_true')
+    mode.add_argument('--arm', action='store_true')
+    args = p.parse_args()
+    if args.self_test:
+        g['setup']()
+        assert g['DATA'] == ROOT/'private/session' and g['DATA'] != scope['DATA']
+        assert g['LABEL'] == 'endpoint-pair-unlimited-60' and g['PREDICATE'].count('awdl') == 2
+        arm_self_test()
+        print('PASS: pinned r43 trial, new one-shot destination and native AWDL predicate; no device calls')
+        print('PASS: arm time bounds and five invalid generation/session/time markers; no subprocess or network')
+    elif args.arm:
+        arm()
+    else:
+        capture = ready()
+        with (ROOT/'private/paired-inputs.json').open('x') as f:
+            json.dump(dict(capture=capture, parent_sha256=PIN,
+                adapter_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest()), f, indent=2)
+        signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(KeyboardInterrupt()))
+        try:
+            g['run']()
+        finally:
+            try:
+                with (ROOT/'private/mac-capture.stop').open('x'): pass
+            except FileExistsError:
+                pass

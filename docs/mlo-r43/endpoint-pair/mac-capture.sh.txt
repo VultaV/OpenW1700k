@@ -1,0 +1,162 @@
+#!/bin/sh
+# Ordinary en0 capture only. No monitor mode or interface/configuration changes.
+set -eu
+PATH=/usr/bin:/bin:/usr/sbin:/sbin
+LC_ALL=C
+export PATH LC_ALL
+umask 027
+base='<LOCAL_WORKSPACE>/artifacts/npu-zero-budget-r43-2026-09-27/endpoint-pair'
+out="$base/private/mac-capture"
+stop="$base/private/mac-capture.stop"
+[ "$#" -eq 0 ] || exit 2
+[ "$(/usr/bin/id -u)" = 0 ] || { echo 'Run the reviewed script with sudo.' >&2; exit 2; }
+case ${SUDO_UID:-} in ''|*[!0-9]*) exit 2;; esac
+case ${SUDO_GID:-} in ''|*[!0-9]*) exit 2;; esac
+[ "$SUDO_UID" -gt 0 ] || exit 2
+[ -n "$(/bin/ps -p "$$" -o uid=,lstart=)" ] || exit 2
+[ -d "$base" ] && [ ! -L "$base" ] || exit 2
+[ ! -e "$out" ] && [ ! -L "$out" ] && [ ! -e "$stop" ] && [ ! -L "$stop" ] || exit 2
+free_kb=$(/bin/df -Pk "$base" | /usr/bin/awk 'END {print $4}')
+case $free_kb in ''|*[!0-9]*) exit 2;; esac
+[ "$free_kb" -ge 4194304 ] || { echo 'At least 4 GiB free space is required.' >&2; exit 2; }
+[ "$(/usr/sbin/ipconfig getifaddr en0)" = 192.0.2.175 ] || exit 2
+/sbin/route -n get 192.0.2.1 | /usr/bin/grep -Eq '^[[:space:]]*interface: en12$' || exit 2
+wired_ip=$(/usr/sbin/ipconfig getifaddr en12)
+case $wired_ip in 192.0.2.[0-9]*) ;; *) exit 2;; esac
+check=$(/usr/bin/curl --interface en12 -4 --max-time 3 -sS -o /dev/null \
+    -w '%{http_code} %{local_ip}' http://192.0.2.1/)
+case $check in "200 $wired_ip"|"302 $wired_ip") ;; *) exit 2;; esac
+if [ ! -e "$base/private" ]; then
+    /bin/mkdir -m 700 "$base/private"
+    /usr/sbin/chown -h "$SUDO_UID:$SUDO_GID" "$base/private"
+fi
+[ -d "$base/private" ] && [ ! -L "$base/private" ] || exit 2
+[ "$(/usr/bin/stat -f %u "$base/private")" = "$SUDO_UID" ] || exit 2
+/bin/mkdir -m 750 "$out"
+out_id=$(/usr/bin/stat -f '%d:%i' "$out")
+capture='' capture_id='' timer='' timer_id='' reason='natural' finish_rc=0
+
+# UID/start survives the child's fork-to-exec transition; comm does not.
+identity() { /bin/ps -p "$1" -o uid=,lstart= 2>/dev/null || true; }
+running() {
+    kill -0 "$1" 2>/dev/null || return 1
+    state=$(/bin/ps -p "$1" -o stat= 2>/dev/null || true)
+    # If ps fails, keep treating a kill-0-visible PID as live: never wait indefinitely.
+    case $state in *Z*) return 1;; *) return 0;; esac
+}
+owned() { [ -n "$2" ] && [ "$(identity "$1")" = "$2" ]; }
+same_out() { [ ! -L "$out" ] && [ "$(/usr/bin/stat -f '%d:%i' "$out" 2>/dev/null)" = "$out_id" ]; }
+wait_gone() {
+    n=0
+    while owned "$1" "$2" && running "$1"; do
+        [ "$n" -lt "$3" ] || return 1
+        /bin/sleep 0.1
+        n=$((n + 1))
+    done
+    # A reused PID is never signalled or waited on as though it were our process.
+    ! running "$1"
+}
+stop_owned() {
+    [ -n "$1" ] || return 0
+    running "$1" || return 0
+    owned "$1" "$2" || return 1
+    kill -"$3" "$1" 2>/dev/null || true
+    wait_gone "$1" "$2" 30 && return 0
+    owned "$1" "$2" || return 1
+    if [ "$4" = capture ]; then : > "$out/forced-stop"; fi
+    kill -TERM "$1" 2>/dev/null || true
+    wait_gone "$1" "$2" 20 && return 0
+    owned "$1" "$2" || return 1
+    kill -KILL "$1" 2>/dev/null || true
+    wait_gone "$1" "$2" 10
+}
+cleanup() {
+    entry_rc=$?
+    trap - EXIT HUP INT TERM
+    set +e
+    stop_owned "$capture" "$capture_id" INT capture || finish_rc=1
+    if [ -n "$capture" ] && ! running "$capture"; then
+        wait "$capture"; capture_rc=$?
+    else capture_rc=1; fi
+    stop_owned "$timer" "$timer_id" TERM timer || finish_rc=1
+    if [ -n "$timer" ] && ! running "$timer"; then wait "$timer"; fi
+    same_out || { echo 'Output identity changed; refusing ownership changes.' >&2; exit 1; }
+    /usr/sbin/netstat -ibn -I en0 > "$out/en0.after.txt" || finish_rc=1
+    /usr/sbin/netstat -ibn -I en12 > "$out/en12.after.txt" || finish_rc=1
+    [ ! -e "$out/forced-stop" ] && [ ! -e "$out/test.pcap31" ] && [ "$capture_rc" -eq 0 ] && [ "$entry_rc" -eq 0 ] || finish_rc=1
+    if [ -f "$out/deadline" ]; then reason='deadline'; fi
+    : > "$out/result.json"
+    # No recursive chown and no following symlinks. Directory remains root-owned until readers stop.
+    for file in "$out"/*; do
+        [ -f "$file" ] && [ ! -L "$file" ] || { finish_rc=1; continue; }
+        /usr/sbin/chown -h "$SUDO_UID:$SUDO_GID" "$file" || finish_rc=1
+    done
+    /usr/sbin/chown -h "$SUDO_UID:$SUDO_GID" "$out" || finish_rc=1
+    /bin/chmod 700 "$out" || finish_rc=1
+    printf '{"status":"%s","reason":"%s","tcpdump_exit":%s,"ended_epoch":%s}\n' \
+        "$(if [ "$finish_rc" -eq 0 ]; then echo COMPLETE; else echo FAILED; fi)" \
+        "$reason" "$capture_rc" "$(/bin/date +%s)" > "$out/result.json"
+    [ "$finish_rc" -eq 0 ] && echo 'Mac capture finished; counters and result saved.'
+    exit "$finish_rc"
+}
+trap cleanup EXIT
+trap 'reason=signal; exit 1' HUP INT TERM
+/usr/bin/chgrp "$SUDO_GID" "$out"
+/bin/chmod 2750 "$out"
+/usr/sbin/netstat -ibn -I en0 > "$out/en0.before.txt"
+/usr/sbin/netstat -ibn -I en12 > "$out/en12.before.txt"
+started=$(/bin/date +%s)
+printf '{"started_epoch":%s,"free_kib":%s,"signal_deadline_seconds":170,"shutdown_grace_seconds":6,"snaplen":96,"buffer_kib":8192,"rotation_decimal_mb":64,"rotation_files":32}\n' \
+    "$started" "$free_kb" > "$out/start.json"
+/usr/sbin/tcpdump -i en0 -n -p -U -s 96 -B 8192 -C 64 -W 32 \
+    -w "$out/test.pcap" \
+    'ip and host 192.0.2.175 and host 192.0.2.118 and tcp port 5203' \
+    2> "$out/capture.log" &
+capture=$!
+capture_id=$(identity "$capture")
+[ -n "$capture_id" ] || exit 1
+# Independent deadline also operates if this parent is stopped or loses its terminal.
+# Start SIGINT at 170 s; bounded escalation leaves margin below the 180 s requested ceiling.
+timer_body() {
+    trap - EXIT
+    delay='' delay_id=''
+    timer_cleanup() {
+        trap - HUP INT TERM
+        stop_owned "$delay" "$delay_id" TERM delay || exit 1
+        if [ -n "$delay" ] && ! running "$delay"; then wait "$delay" 2>/dev/null || true; fi
+        exit 0
+    }
+    trap timer_cleanup HUP INT TERM
+    /bin/sleep 170 &
+    delay=$!; delay_id=$(identity "$delay")
+    wait "$delay" || exit 1
+    delay=''
+    same_out || exit 1
+    : > "$out/deadline"
+    stop_owned "$capture" "$capture_id" INT capture
+}
+timer_body &
+timer=$!; timer_id=$(identity "$timer")
+[ -n "$timer_id" ] || exit 1
+tries=0
+while :; do
+    owned "$capture" "$capture_id" && running "$capture" || { echo 'tcpdump exited before readiness.' >&2; exit 1; }
+    if /usr/bin/grep -q 'listening on en0' "$out/capture.log"; then
+        kill -USR2 "$capture"
+        if [ -f "$out/test.pcap00" ] && [ "$(/usr/bin/stat -f %z "$out/test.pcap00")" -ge 24 ]; then break; fi
+    fi
+    tries=$((tries + 1)); [ "$tries" -lt 50 ] || exit 1
+    /bin/sleep 0.1
+done
+printf '{"state":"READY","capture_pid":%s,"timer_pid":%s,"capture_identity":"%s","timer_identity":"%s","started_epoch":%s,"ready_epoch":%s}\n' \
+    "$capture" "$timer" "$capture_id" "$timer_id" "$started" "$(/bin/date +%s)" > "$out/ready.tmp"
+/bin/mv "$out/ready.tmp" "$out/ready.json"
+echo 'Mac capture ready; run the reviewed paired trial now.'
+while owned "$capture" "$capture_id" && running "$capture"; do
+    if [ -e "$stop" ]; then reason=stop; break; fi
+    if ! owned "$timer" "$timer_id" || ! running "$timer"; then
+        [ -e "$out/deadline" ] || exit 1
+        break
+    fi
+    /bin/sleep 0.1
+done

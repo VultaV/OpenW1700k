@@ -1,0 +1,455 @@
+diff --git a/.github/workflows/fastbuild-base.yaml b/.github/workflows/fastbuild-base.yaml
+index 9f09b23..9e082bf 100644
+--- a/.github/workflows/fastbuild-base.yaml
++++ b/.github/workflows/fastbuild-base.yaml
+@@ -34,8 +34,8 @@ jobs:
+     - name: Initialize environment
+       run: |
+         mkdir -p openwrt_bin ghcache stcache dlcache
+-        curl -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
+-        curl -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
++        curl --fail -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
++        curl --fail -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
+         sudo tee /etc/docker/daemon.json <<< '{"max-concurrent-downloads":50,"max-concurrent-uploads":50,"experimental":true}'
+         sudo systemctl reload docker
+         [ -f "user/${{ matrix.target }}/config.diff" ] || { echo "::error::config.diff not found for ${{ matrix.target }}"; exit 1; }
+@@ -58,7 +58,9 @@ jobs:
+           cd $DK_OPENWRT
+           if [ ! -d .git ]; then git init; fi
+           git remote set-url origin $REPO_URL 2>&- || git remote add origin $REPO_URL
+-          git fetch && git checkout $REPO_BRANCH && git pull --rebase
++          git fetch
++          git checkout "$REPO_BRANCH"
++          git pull --rebase
+           { git log origin/main..$REPO_BRANCH --oneline || echo "(no commits ahead of main)"; } > files/build_info
+           mountpoint $DK_BIN || { echo "::error::not mounted" >&2; exit 1; }
+           cp files/build_info $DK_BIN
+@@ -70,22 +72,24 @@ jobs:
+           cp $bp/config.diff .config
+           cat $bp/patches/*.patch 2>&- | patch -d . -p0 --forward ||:
+           cp -r $bp/files/ . &>/dev/null ||:
+-          bash $bp/custom.sh &>/dev/null ||:
++          if [ -f "$bp/custom.sh" ]; then bash "$bp/custom.sh"; fi
+           make defconfig; echo "CONFIG_VERSION_NUMBER=${{ matrix.target }}" >> .config
+-          make download -j8 2>&1 | tee /dev/stderr | grep -q "ERROR:" || [ $PIPESTATUS -ne 0 ] && exit 1 ||:
++          make download -j8
+         '
+ 
+     - name: Compile OpenWrt
+       run: |
++        status=1
+         for mode in c s; do
+-          docker_exec -e MODE=$mode DK bash -c '
++          docker_exec -e MODE=$mode DK bash -e -c '
+             bash $DK_PROFILE/pre_compile.sh 2>&- ||:
+             cd $DK_OPENWRT
+             export FORCE_UNSAFE_CONFIGURE=1 CCACHE_SLOPPINESS=file_stat_matches,include_file_mtime,time_macros CCACHE_NOHASHDIR=true CCACHE_COMPILERCHECK=content
+             make -j$(($(nproc) + 1)) V=$MODE
+             staging_dir/host/bin/ccache -d /ghcache -sz ||:
+-          ' && break
++          ' && { status=0; break; }
+         done
++        [ "$status" -eq 0 ]
+ 
+     - name: Create release
+       run: |
+diff --git a/.github/workflows/fastbuild-toolchain.yaml b/.github/workflows/fastbuild-toolchain.yaml
+index d078259..b19adc2 100644
+--- a/.github/workflows/fastbuild-toolchain.yaml
++++ b/.github/workflows/fastbuild-toolchain.yaml
+@@ -23,8 +23,8 @@ jobs:
+       run: |
+         docker login ghcr.io -u "${{ github.actor }}" --password-stdin <<< "${{ github.token }}"
+         mkdir -p openwrt_bin ghcache stcache dlcache
+-        curl -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
+-        curl -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
++        curl --fail -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
++        curl --fail -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
+         sudo tee /etc/docker/daemon.json <<< '{"max-concurrent-downloads":50,"max-concurrent-uploads":50,"experimental":true}'
+         sudo systemctl reload docker
+         [ -f "user/${{ matrix.target }}/config.diff" ] || { echo "::error::config.diff not found for ${{ matrix.target }}"; exit 1; }
+@@ -47,7 +47,9 @@ jobs:
+           cd $DK_OPENWRT
+           git init
+           git remote set-url origin $REPO_URL 2>&- || git remote add origin $REPO_URL
+-          git fetch && git checkout $REPO_BRANCH && git pull --rebase
++          git fetch
++          git checkout "$REPO_BRANCH"
++          git pull --rebase
+           { git log origin/main..$REPO_BRANCH --oneline || echo "(no commits ahead of main)"; } > files/build_info
+           mountpoint $DK_BIN || { echo "::error::not mounted" >&2; exit 1; }
+           cp files/build_info $DK_BIN
+@@ -59,22 +61,24 @@ jobs:
+           cp $bp/config.diff .config
+           cat $bp/patches/*.patch 2>&- | patch -d . -p0 --forward ||:
+           cp -r $bp/files/ . &>/dev/null ||:
+-          bash $bp/custom.sh &>/dev/null ||:
++          if [ -f "$bp/custom.sh" ]; then bash "$bp/custom.sh"; fi
+           make defconfig
+-          make download -j8 2>&1 | tee /dev/stderr | grep -q "ERROR:" || [ $PIPESTATUS -ne 0 ] && exit 1 ||:
++          make download -j8
+         '
+ 
+     - name: Compile OpenWrt
+       run: |
++        status=1
+         for mode in c s; do
+-          docker_exec -e MODE=$mode DK bash -c '
++          docker_exec -e MODE=$mode DK bash -e -c '
+             bash $DK_PROFILE/pre_compile.sh 2>&- ||:
+             cd $DK_OPENWRT
+             export FORCE_UNSAFE_CONFIGURE=1 CCACHE_SLOPPINESS=file_stat_matches,include_file_mtime,time_macros CCACHE_NOHASHDIR=true CCACHE_COMPILERCHECK=content
+             make -j$(($(nproc) + 1)) V=$MODE toolchain/install
+             staging_dir/host/bin/ccache -d /ghcache -sz ||:
+-          ' && break
++          ' && { status=0; break; }
+         done
++        [ "$status" -eq 0 ]
+         sudo chown -R "$(id -u):$(id -g)" stcache
+ 
+     - name: Upload builder container
+diff --git a/.github/workflows/fastbuild.yaml b/.github/workflows/fastbuild.yaml
+index 2e6254a..5a2b3c7 100644
+--- a/.github/workflows/fastbuild.yaml
++++ b/.github/workflows/fastbuild.yaml
+@@ -36,8 +36,8 @@ jobs:
+ 
+     - name: Initialize environment
+       run: |
+-        curl -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
+-        curl -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
++        curl --fail -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
++        curl --fail -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
+         [ -f "user/${{ matrix.target }}/config.diff" ] || { echo "::error::config.diff not found for ${{ matrix.target }}"; exit 1; }
+         rsync -aI --mkpath user/default/ user/${{ matrix.target }}/ user/current/ 2>&-
+         echo 'CONFIG_CCACHE_DIR="/ghcache"' >> user/current/config.diff
+@@ -61,7 +61,9 @@ jobs:
+           cd $DK_OPENWRT
+           if [ ! -d .git ]; then git init; fi
+           git remote set-url origin $REPO_URL 2>&- || git remote add origin $REPO_URL
+-          git fetch && git checkout $REPO_BRANCH && git pull --rebase
++          git fetch
++          git checkout "$REPO_BRANCH"
++          git pull --rebase
+           { git log origin/main..$REPO_BRANCH --oneline || echo "(no commits ahead of main)"; } > files/build_info
+           mountpoint $DK_BIN || { echo "::error::not mounted" >&2; exit 1; }
+           cp files/build_info $DK_BIN
+@@ -73,22 +75,24 @@ jobs:
+           cp $bp/config.diff .config
+           cat $bp/patches/*.patch 2>&- | patch -d . -p0 --forward ||:
+           cp -r $bp/files/ . &>/dev/null ||:
+-          bash $bp/custom.sh &>/dev/null ||:
++          if [ -f "$bp/custom.sh" ]; then bash "$bp/custom.sh"; fi
+           make defconfig; echo "CONFIG_VERSION_NUMBER=${{ matrix.target }}" >> .config
+-          make download -j8 2>&1 | tee /dev/stderr | grep -q "ERROR:" || [ $PIPESTATUS -ne 0 ] && exit 1 ||:
++          make download -j8
+         '
+ 
+     - name: Compile OpenWrt
+       run: |
++        status=1
+         for mode in c s; do
+-          docker_exec -e MODE=$mode DK bash -c '
++          docker_exec -e MODE=$mode DK bash -e -c '
+             bash $DK_PROFILE/pre_compile.sh 2>&- ||:
+             cd $DK_OPENWRT
+             export FORCE_UNSAFE_CONFIGURE=1 CCACHE_SLOPPINESS=file_stat_matches,include_file_mtime,time_macros CCACHE_NOHASHDIR=true CCACHE_COMPILERCHECK=content
+             make -j$(($(nproc) + 1)) V=$MODE
+             staging_dir/host/bin/ccache -d /ghcache -sz ||:
+-          ' && break
++          ' && { status=0; break; }
+         done
++        [ "$status" -eq 0 ]
+ 
+     - name: Create release
+       run: |
+diff --git a/.github/workflows/self-host-fastbuild.yaml b/.github/workflows/self-host-fastbuild.yaml
+index 776c921..a006d19 100644
+--- a/.github/workflows/self-host-fastbuild.yaml
++++ b/.github/workflows/self-host-fastbuild.yaml
+@@ -32,15 +32,17 @@ jobs:
+ 
+     - name: Initialize environment
+       run: |
+-        curl -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
+-        curl -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
++        docker rm -f DK 2>&- ||:
++        sudo rm -rf openwrt_bin firmware user/current
++        mkdir -p openwrt_bin ghcache stcache dlcache
++        curl --fail -Z --create-dirs -Lo user/default/files/etc/apk/repositories.d/distfeeds.list https://w1700k.github.io/builds/distfeeds.list
++        curl --fail -Z -Lo user/default/files/etc/vermagic.txt https://w1700k.github.io/builds/vermagic.txt
+         [ -f "user/${{ matrix.target }}/config.diff" ] || { echo "::error::config.diff not found for ${{ matrix.target }}"; exit 1; }
+         rsync -aI --mkpath user/default/ user/${{ matrix.target }}/ user/current/ 2>&-
+         echo 'CONFIG_CCACHE_DIR="/ghcache"' >> user/current/config.diff
+         sudo tee /etc/docker/daemon.json <<< '{"max-concurrent-downloads":50,"max-concurrent-uploads":50,"experimental":true}'
+         sudo systemctl reload docker
+         IMAGE=$IMG_INC; docker pull $IMAGE 2>&- || IMAGE=ghcr.io/w1700k/fastbuild_base:debian
+-        docker rm -f DK 2>&- ||:
+         docker run -dt --name DK -v $PWD/user:$DK_USER -v $PWD/openwrt_bin:$DK_BIN -v $PWD/ghcache:/ghcache -v $PWD/stcache:/stcache -v $PWD/dlcache:/dlcache $IMAGE
+         sudo tee /usr/local/bin/docker_exec > /dev/null <<'DKR'
+         #!/bin/bash
+@@ -59,7 +61,9 @@ jobs:
+           cd $DK_OPENWRT
+           if [ ! -d .git ]; then git init; fi
+           git remote set-url origin $REPO_URL 2>&- || git remote add origin $REPO_URL
+-          git fetch && git checkout $REPO_BRANCH && git pull --rebase
++          git fetch
++          git checkout "$REPO_BRANCH"
++          git pull --rebase
+           { git log origin/main..$REPO_BRANCH --oneline || echo "(no commits ahead of main)"; } > files/build_info
+           mountpoint $DK_BIN || { echo "::error::not mounted" >&2; exit 1; }
+           cp files/build_info $DK_BIN
+@@ -71,22 +75,24 @@ jobs:
+           cp $bp/config.diff .config
+           cat $bp/patches/*.patch 2>&- | patch -d . -p0 --forward ||:
+           cp -r $bp/files/ . &>/dev/null ||:
+-          bash $bp/custom.sh &>/dev/null ||:
++          if [ -f "$bp/custom.sh" ]; then bash "$bp/custom.sh"; fi
+           make defconfig; echo "CONFIG_VERSION_NUMBER=${{ matrix.target }}" >> .config
+-          make download -j8 2>&1 | tee /dev/stderr | grep -q "ERROR:" || [ $PIPESTATUS -ne 0 ] && exit 1 ||:
++          make download -j8
+         '
+ 
+     - name: Compile OpenWrt
+       run: |
++        status=1
+         for mode in c s; do
+-          docker_exec -e MODE=$mode DK bash -c '
++          docker_exec -e MODE=$mode DK bash -e -c '
+             bash $DK_PROFILE/pre_compile.sh 2>&- ||:
+             cd $DK_OPENWRT
+             export FORCE_UNSAFE_CONFIGURE=1 CCACHE_SLOPPINESS=file_stat_matches,include_file_mtime,time_macros CCACHE_NOHASHDIR=true CCACHE_COMPILERCHECK=content
+             make -j$(($(nproc) + 1)) V=$MODE
+             staging_dir/host/bin/ccache -d /ghcache -sz ||:
+-          ' && break
++          ' && { status=0; break; }
+         done
++        [ "$status" -eq 0 ]
+ 
+     - name: Create release
+       run: |
+diff --git a/user/default/custom.sh b/user/default/custom.sh
+index 2599932..544715e 100644
+--- a/user/default/custom.sh
++++ b/user/default/custom.sh
+@@ -1,4 +1,5 @@
+ #!/bin/bash
++set -e
+ echo "=============================================="
+ echo "Running custom commands"
+ mv files/overview.js feeds/luci/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js
+diff --git a/user/default/files/overview.js b/user/default/files/overview.js
+index da5ce23..a890ce9 100644
+--- a/user/default/files/overview.js
++++ b/user/default/files/overview.js
+@@ -49,6 +49,7 @@ const callUpgradeStart = rpc.declare({
+ 	object: 'rpc-sys',
+ 	method: 'upgrade_start',
+ 	params: ['keep'],
++	reject: true,
+ });
+ 
+ const callFileExec = rpc.declare({
+@@ -827,7 +828,7 @@ return view.extend({
+ 					if (selectedRelease) {
+ 						// Clear previous link and create a new one
+ 						urlElement.innerHTML = '';
+-						urlElement.appendChild(E('a', { href: 'https://github.com/w1700k/builds/releases/tag/' + selectedRelease.tag, target: '_blank' }, _('View on GitHub')));
++						urlElement.appendChild(E('a', { href: 'https://github.com/w1700k/builds/releases/tag/' + encodeURIComponent(selectedRelease.tag), target: '_blank', rel: 'noopener noreferrer' }, _('View on GitHub')));
+ 					}
+ 				};
+ 
+@@ -909,10 +910,17 @@ return view.extend({
+ 			),
+ 		]);
+ 
+-		// Call the CGI script to download the firmware to /tmp/firmware.bin
+-		// Pass the selected tag as a parameter to the github_fetch script
+-		fetch(`/cgi-bin/github_fetch?tag=${encodeURIComponent(tag)}`)
+-			.then(response => response.json())
++		return fetch('/cgi-bin/github_fetch', {
++			method: 'POST',
++			headers: { 'Content-Type': 'application/json' },
++			body: JSON.stringify({ tag: tag, sessionid: rpc.getSessionID() }),
++		})
++			.then(async response => {
++				const data = await response.json();
++				if (!response.ok)
++					throw new Error(data.error || _('Firmware download request failed'));
++				return data;
++			})
+ 			.then(data => {
+ 				if (data.error) {
+ 					ui.showModal(_('Error'), [
+@@ -939,7 +947,7 @@ return view.extend({
+ 						]),
+ 					]);
+ 
+-					L.resolveDefault(callUpgradeStart(keep), {}).then((response) => {
++					return callUpgradeStart(keep).then(() => {
+ 						// Wait 10 seconds before we try to reconnect...
+ 						let hosts = keep ? [] : ['192.168.1.1', 'openwrt.lan'];
+ 						setTimeout(() => { ui.awaitReconnect(...hosts); }, 10000);
+diff --git a/user/default/files/www/cgi-bin/github_check b/user/default/files/www/cgi-bin/github_check
+index ed0725b..8de9edd 100755
+--- a/user/default/files/www/cgi-bin/github_check
++++ b/user/default/files/www/cgi-bin/github_check
+@@ -1,32 +1,18 @@
+ #!/bin/sh
+ 
+-# CGI header
+-echo "Content-Type: application/json"
+-echo ""
++fail() {
++    printf 'Status: 502 Bad Gateway\r\nContent-Type: application/json\r\n\r\n'
++    printf '{"error":"Could not fetch valid GitHub releases"}\n'
++    exit 1
++}
+ 
+-# Create a temporary file for the final JSON objects
+-temp_json="/tmp/github_versions_$$.tmp"
+-> "$temp_json"  # Clear the file
+-
+-curl -sS https://api.github.com/repos/w1700k/builds/releases | \
+-jq -r '.[] | "\(.tag_name) \(.assets[] | select(.browser_download_url | contains("sysupgrade")) | .browser_download_url)"' | \
+-while read -r tag url; do
+-    if [ -z "$url" ] || [ -z "$tag" ]; then
+-        continue
+-    fi
+-    version=$(echo "$url" | sed -n 's/.*openwrt-airoha-an7581-\([^/]*\)-squashfs-sysupgrade.*/\1/p')
+-    if [ -n "$version" ]; then
+-        [ -s "$temp_json" ] && printf ','
+-        printf "{\"tag\": \"%s\", \"url\": \"%s\", \"version\": \"%s\"}" "$tag" "$url" "$version"
+-    fi
+-done >> "$temp_json"
+-
+-# Now format the results as a JSON array
+-if [ -s "$temp_json" ]; then
+-    echo "[$(cat "$temp_json")]"
+-else
+-    echo "[]"
+-fi
+-
+-# Clean up
+-rm -f "$temp_json" 2>/dev/null || true
+\ No newline at end of file
++releases=$(curl -fSs --proto '=https' --connect-timeout 15 --max-time 30 \
++    https://api.github.com/repos/w1700k/builds/releases) || fail
++result=$(printf '%s' "$releases" | jq -ec '
++    if type != "array" then error("Invalid release list") else
++    [.[] | .tag_name as $tag | .assets[] |
++        select(.name | test("^openwrt-airoha-an7581-[A-Za-z0-9._-]+-squashfs-sysupgrade\\.(itb|bin)$")) |
++        {tag: $tag, url: .browser_download_url,
++         version: (.name | ltrimstr("openwrt-airoha-an7581-") | sub("-squashfs-sysupgrade\\.(itb|bin)$"; ""))}]
++    end') || fail
++printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n%s\n' "$result"
+diff --git a/user/default/files/www/cgi-bin/github_fetch b/user/default/files/www/cgi-bin/github_fetch
+index 4a6290b..14a9447 100755
+--- a/user/default/files/www/cgi-bin/github_fetch
++++ b/user/default/files/www/cgi-bin/github_fetch
+@@ -1,39 +1,70 @@
+ #!/bin/sh
+ 
+-# CGI header
+-echo "Content-Type: application/json"
+-echo ""
++umask 077
+ 
+-# Parse query string to get the tag parameter
+-QUERY_STRING="${QUERY_STRING:-$1}"
+-TAG=$(echo "$QUERY_STRING" | sed -n 's/.*tag=\([^&]*\).*/\1/p' | sed 's/%2B/+/g; s/%3D/=/g; s/%2F/\//g')
++fail() {
++    printf 'Status: %s\r\nContent-Type: application/json\r\nCache-Control: no-store\r\n\r\n' "$1"
++    jq -nc --arg error "$2" '{error: $error}'
++    exit 1
++}
+ 
+-# If TAG is empty, try to get it directly from the query string
+-if [ -z "$TAG" ]; then
+-    TAG="$QUERY_STRING"
++[ "$REQUEST_METHOD" = POST ] || fail '405 Method Not Allowed' 'Use POST with a LuCI session'
++case "$CONTENT_LENGTH" in ''|*[!0-9]*) fail '400 Bad Request' 'Invalid request length';; esac
++[ "$CONTENT_LENGTH" -le 1024 ] || fail '413 Content Too Large' 'Request too large'
++body=$(head -c "$CONTENT_LENGTH")
++session=$(printf '%s' "$body" | jq -er '.sessionid | strings | select(test("^[0-9a-f]{32}$"))') ||
++    fail '403 Forbidden' 'A valid LuCI session is required'
++
++# Use the same permissions as LuCI firmware uploads, including the destination ACL.
++for permission in 'cgi-io upload' 'file /tmp/firmware.bin'; do
++    set -- $permission
++    access=$(jq -nc --arg session "$session" --arg scope "$1" --arg object "$2" \
++        '{ubus_rpc_session: $session, scope: $scope, object: $object, function: "write"}')
++    ubus call session access "$access" | jq -e '.access == true' >/dev/null ||
++        fail '403 Forbidden' 'Firmware upload permission denied'
++done
++
++tag=$(printf '%s' "$body" | jq -er '.tag | strings | select(length > 0 and length <= 128)') ||
++    fail '400 Bad Request' 'Invalid release tag'
++encoded_tag=$(printf '%s' "$tag" | jq -sRr @uri)
++workdir=$(mktemp -d /tmp/github_firmware.XXXXXX) || fail '500 Internal Server Error' 'Cannot create staging directory'
++trap 'rm -rf "$workdir"' 0
++trap 'exit 1' HUP INT TERM
++
++download() {
++    curl -fSsL --proto '=https' --proto-redir '=https' --connect-timeout 15 --max-time 300 -o "$2" "$1"
++}
++
++download "https://api.github.com/repos/w1700k/builds/releases/tags/$encoded_tag" "$workdir/release.json" ||
++    fail '502 Bad Gateway' 'Could not fetch release metadata'
++asset=$(jq -ec --arg tag "$tag" '
++    select(.tag_name == $tag) | [.assets[] |
++        select(.name | test("^openwrt-airoha-an7581-[A-Za-z0-9._-]+-squashfs-sysupgrade\\.(itb|bin)$"))] |
++    select(length == 1) | .[0]' "$workdir/release.json") ||
++    fail '502 Bad Gateway' 'Release must contain exactly one sysupgrade image'
++url=$(printf '%s' "$asset" | jq -er '.browser_download_url |
++    select(test("^https://github.com/w1700k/builds/releases/download/[^\\s?#]+$"))') ||
++    fail '502 Bad Gateway' 'Invalid firmware asset URL'
++filename=$(printf '%s' "$asset" | jq -r '.name')
++sha256=$(printf '%s' "$asset" | jq -r '.digest // "" | select(test("^sha256:[A-Fa-f0-9]{64}$")) | ltrimstr("sha256:")')
++if [ -z "$sha256" ]; then
++    sums_url=$(jq -er '[.assets[] | select(.name == "sha256sums")] | select(length == 1) | .[0].browser_download_url |
++        select(test("^https://github.com/w1700k/builds/releases/download/[^\\s?#]+$"))' "$workdir/release.json") ||
++        fail '502 Bad Gateway' 'No SHA256 digest available for firmware'
++    download "$sums_url" "$workdir/sha256sums" || fail '502 Bad Gateway' 'Could not download SHA256 checksums'
++    sha256=$(awk -v name="$filename" '$2 == name || $2 == "*" name { print $1 }' "$workdir/sha256sums")
+ fi
+-# Fetch the latest release from GitHub and extract the sysupgrade asset URL
+-URL=$(curl -sS "https://api.github.com/repos/w1700k/builds/releases/tags/$TAG" | jq -r '.assets[] | select(.browser_download_url | contains("sysupgrade")) | select((length == 0) | not) | .browser_download_url')
+-if [ -z "$URL" ] || [ "$URL" = "null" ]; then
+-    echo '{"error": "No sysupgrade firmware found"}'
+-else
+-    SHA256_URL=$(curl -sS "https://api.github.com/repos/w1700k/builds/releases/tags/$TAG" | jq -r '.assets[] | select(.browser_download_url | contains("sha256sums")) | select((length == 0) | not) | .browser_download_url')
+-    if [ -n "$SHA256_URL" ] && [ "$SHA256_URL" != "null" ]; then
+-        FILENAME=$(basename "$URL")
+-        # Get the SHA256 hash for the specific file
+-        SHA256=$(curl -sSL "$SHA256_URL" | sed -n "s|\(.*\) .*${FILENAME}.*|\1|p")
+-    fi
+-    if [ -z "$SHA256" ]; then
+-        SHA256=$(curl -sS "https://api.github.com/repos/w1700k/builds/releases/tags/$TAG" | jq -r '.assets[] | select(.browser_download_url | contains("sysupgrade")) | select((length == 0) | not) | .digest' | sed 's|sha256:||')
+-    fi
+-    if [ -z "$SHA256" ]; then
+-        echo "{\"error\": \"Could not get SHA256 hash for $FILENAME\"}"
+-    else
+-        # Download the firmware file to /tmp/firmware.bin
+-        if curl -sS -L -o /tmp/firmware.bin "$URL"; then
+-            echo "{\"success\": true, \"path\": \"/tmp/firmware.bin\", \"sha256\": \"$SHA256\"}"
+-        else
+-            echo "{\"error\": \"Failed to download firmware from $URL\"}"
+-        fi
+-    fi
+-fi
+\ No newline at end of file
++printf '%s' "$sha256" | jq -eRs 'test("^[A-Fa-f0-9]{64}$")' >/dev/null ||
++    fail '502 Bad Gateway' 'Missing or ambiguous SHA256 checksum'
++sha256=$(printf '%s' "$sha256" | tr 'A-F' 'a-f')
++
++download "$url" "$workdir/firmware.bin" || fail '502 Bad Gateway' 'Could not download firmware'
++actual=$(sha256sum "$workdir/firmware.bin") || fail '500 Internal Server Error' 'Could not compute SHA256 checksum'
++[ "${actual%% *}" = "$sha256" ] || fail '422 Unprocessable Content' 'Firmware SHA256 checksum mismatch'
++# Test the actual image against this device before replacing any prepared image.
++sysupgrade --test "$workdir/firmware.bin" >"$workdir/validation.log" 2>&1 ||
++    fail '422 Unprocessable Content' 'Firmware is not compatible with this device'
++[ ! -d /tmp/firmware.bin ] && mv -f "$workdir/firmware.bin" /tmp/firmware.bin ||
++    fail '500 Internal Server Error' 'Could not prepare firmware for installation'
++printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n'
++jq -nc --arg sha256 "$sha256" '{success: true, path: "/tmp/firmware.bin", sha256: $sha256}'
