@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ca-certificates
 PKG_VERSION:=20260816
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 PKG_MAINTAINER:=
 
 PKG_LICENSE:=GPL-2.0-or-later MPL-2.0
@@ -42,7 +42,15 @@ define Package/ca-bundle
   PROVIDES:=@ca-certs @ca-certificates-any
 endef
 
+# certdata2pem.py writes <name>_2.crt when <name>.crt already exists, so a
+# rebuild in a used build directory would duplicate every certificate.
+define Build/Compile
+	rm -f $(PKG_BUILD_DIR)/mozilla/*.crt
+	$(call Build/Compile/Default)
+endef
+
 define Build/Install
+	rm -rf $(PKG_INSTALL_DIR)/usr/share/ca-certificates
 	mkdir -p \
 		$(PKG_INSTALL_DIR)/usr/sbin \
 		$(PKG_INSTALL_DIR)/usr/share/ca-certificates
