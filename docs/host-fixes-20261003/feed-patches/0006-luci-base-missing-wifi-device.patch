@@ -1,0 +1,50 @@
+From: W1700K MLO maintenance
+Subject: [PATCH] luci-base: avoid constructing a wireless device without a name
+
+Against LuCI 289a7260434d4b8212a9cc6cf6160cb1935270c1.
+A wifi-iface with a list-valued device has no synthetic netid in this
+version. If its runtime section exists without an interface name,
+WifiNetwork.getDevice() constructs Device(undefined). Rendering the
+wireless signal badge calls isUp(), then Device.getType(), which throws
+at this.device.indexOf('.'). This path predates the 0004 view guards.
+
+Return null when there is no device name, as the existing WifiNetwork
+isUp() null check expects. Keep scalar network IDs and runtime MLO names
+unchanged. This does not implement multi-radio synthetic IDs.
+
+The captured r44 status includes ap-mld0 and does not reproduce the error;
+the host regression deliberately removes the runtime interface name.
+Do not treat this hardening as proof of the live incident's root cause.
+Pin the package version/revision so the working-tree patch is visible.
+
+--- a/modules/luci-base/Makefile
++++ b/modules/luci-base/Makefile
+@@ -7,6 +7,8 @@
+ include $(TOPDIR)/rules.mk
+ 
+ PKG_NAME:=luci-base
++PKG_VERSION:=26.253.65031~289a726
++PKG_RELEASE:=2
+ PKG_BUILD_FLAGS:=no-lto
+ 
+ LUCI_TYPE:=mod
+--- a/modules/luci-base/htdocs/luci-static/resources/network.js
++++ b/modules/luci-base/htdocs/luci-static/resources/network.js
+@@ -4480,12 +4480,14 @@ WifiNetwork = baseclass.extend(/** @lends LuCI.network.WifiNetwork.prototype */ {
+ 	/**
+ 	 * Get the associated Linux network device.
+ 	 *
+-	 * @returns {LuCI.network.Device}
++	 * @returns {null|LuCI.network.Device}
+ 	 * Returns a `Network.Device` instance representing the Linux network
+-	 * device associated with this wireless network.
++	 * device associated with this wireless network, or `null` if no device
++	 * name can be resolved.
+ 	 */
+ 	getDevice() {
+-		return Network.prototype.instantiateDevice(this.getIfname());
++		const ifname = this.getIfname();
++		return ifname != null ? Network.prototype.instantiateDevice(ifname) : null;
+ 	},
+ 
+ 	/**

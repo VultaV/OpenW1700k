@@ -121,6 +121,70 @@ node tests/test_wireless_mlo_guard.js \
 
 패치 파일 SHA256 `f8ad6c3fc8306c3c5a58145f038fe4e160503790b21eda952854644e0a776634`.
 
+### Wireless 초기 렌더의 장치 이름 누락 보호 (LuCI 피드 패치 0006)
+
+r44 설치 뒤 보고된 `Cannot read properties of undefined (reading 'indexOf')`를 조사했다.
+**제공된 UCI·RPC 스냅샷 그대로는 r43·r44 양쪽 모두 호스트 렌더가 성공한다.** 따라서
+이 스냅샷으로 실제 브라우저 오류의 원인을 확정하거나 0004의 회귀라고 할 수 없다.
+
+고정 LuCI `289a7260`의 비압축 소스 기준 경로:
+
+1. `wireless.js:891`의 섹션 load → `network.js:1385`의 `getWifiDevices()` → 각
+   `WifiDevice.getWifiNetworks()`(`3620`) → 전체 `getWifiNetworks()`(`1428`).
+2. `lookupWifiNetwork()`(`1690`)는 `getWifiStateBySid()`로 실행 상태를 찾는다.
+   MLO 섹션의 UCI `device`는 배열이라 `getWifiNetidBySid()`(`211`)는 null을 반환하고
+   `getID()`는 undefined다. 정렬은 `Intl.Collator`라 이 값 자체로 예외가 나지 않는다.
+3. 제공된 RPC에는 MLO의 최상위 `ifname`이 있고, 첫 일치 상태가 radio1에 있으므로
+   `getWifiDeviceName()`은 radio1, `getIfname()`(`3863`)은 실행 중 인터페이스 이름이다.
+   비활성 단일 라디오 섹션은 `radio2.network1`이라는 유효한 대체 ID를 얻는다.
+4. **상태 항목은 유지하면서 MLO의 `ifname`만 제거한 파생 입력**은 양쪽 버전에서
+   같은 예외를 낸다. `wireless.js:2579`의 `_badge.textvalue` →
+   `render_network_badge()`(`117`) → `WifiNetwork.isUp()`(`network.js:3930`) →
+   `getDevice()`(`4487`)가 `Device(undefined)` 생성 → `Device.isUp()`(`3131`) →
+   `Device.getType():2992`의 `this.device.indexOf('.')` 순서다. `iwinfo.ifname`도 없고,
+   `config.ifname`은 `getIfname()`이 읽지 않는다. 이는 실기기에서 관측한 입력이라고 주장하지 않는다.
+
+0004의 동작 버튼 보호는 클릭 때, 안내문은 `m.render()`가 성공한 뒤 실행되므로 위 예외를
+만들지 않는다. MLO 상태 항목 전체가 없으면 배열과 라디오 문자열의 비교가 실패해 개요에서
+그 행이 빠지는 별도 한계가 있다. 0006은 다중 라디오 ID·표시 방식을 재설계하지 않는다.
+
+최소 수정은 `WifiNetwork.getDevice()`에서 이름이 null/undefined면 null을 반환하는 것이다.
+기존 `isUp()`의 null 검사가 false를 반환하고 배지는 비활성 상태로 그려진다. 기존 ID와
+실행 중 인터페이스 이름은 유지한다. `luci-base` 버전은 `26.253.65031~289a726-r2`로 명시한다.
+0004와 문자열을 `E()` 배열 자식으로 넣는 규칙은 그대로다.
+
+호스트 검사는 실제 `network.js`와 `wireless.js` 전체를 실행하며 RPC·UCI·DOM·form을 가짜로
+제공한다. 일반 실행은 장치 식별자가 없는 합성 입력을, 마지막 인수는 로컬 증거 디렉터리의
+`uci-wireless.txt`, `getWirelessDevices.json`을 사용한다. 모델이 실제로 호출하는 RPC는
+`luci-rpc.getWirelessDevices`다. 별도 진단 하네스에 원본 `wireless-status.json`을 넣은 경우에도
+r43·r44 개요 렌더는 성공했다. 이 응답에도 MLO 최상위 `ifname`이 있다.
+
+```sh
+git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0006-luci-base-missing-wifi-device.patch"
+node tests/test_wireless_runtime.js \
+    feeds/luci/modules/luci-base/htdocs/luci-static/resources/network.js \
+    feeds/luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js
+# 같은 검사에 로컬 실기기 스냅샷을 공급하려면 마지막 인수로 .device를 추가한다.
+```
+
+검증 결과(각 실행별 PASS / FAIL / SKIP):
+
+| 입력 | 수정 전 | 0006 적용 뒤 |
+| --- | --- | --- |
+| 실기기 RPC 입력 + r43 압축 뷰 | 3 / 2 / 0 | 5 / 0 / 0 |
+| 실기기 RPC 입력 + r44 압축 뷰 | 3 / 2 / 0 | 5 / 0 / 0 |
+| 합성 입력 + r44 뷰 | 3 / 2 / 0 | 5 / 0 / 0 (압축·비압축 각각) |
+
+수정 전 2 FAIL은 이름 누락 파생 입력의 예외와 상태 항목 전체가 없을 때 잘못 생성한 장치
+객체를 검출한다. 원본 활성 스냅샷은 수정 전에도 PASS다. 기존 0004 동작·안내문 검사도
+5 PASS / 0 FAIL / 0 SKIP이다. 고정 LuCI의 `jsmin.c`로 다시 압축한 core·r43 뷰·0004 적용
+r44 뷰는 제공된 장치 파일과 각각 바이트 단위로 일치했고, 같은 도구로 압축한 수정 core도
+위 검사를 통과했다. `git apply --check`와 실제 적용을 고정 피드 소스에서 확인했다.
+
+실제 브라우저의 form·DOM 및 주기적 폴링은 이 검사 범위 밖이다. 실패 시점의 전체 브라우저
+스택과 `luci-rpc.getWirelessDevices` 응답을 함께 확인해야 실기기 원인을 확정할 수 있다.
+이 변경으로 펌웨어를 빌드하거나 장치에 설치·재부팅하거나 배포하지 않았다.
+
 ## 3. 수정본 이미지
 
 이 절의 이미지와 시험은 `claude/r43-host-fixes`(`d8b02b5a25`) 상태다. 그 뒤 이식한 LuCI 0004·W01·W02
@@ -270,7 +334,7 @@ snapshot 서명 키(`/etc/apk/keys/openwrt-snapshots.pem`)를 신뢰한다. 그�
 
 다음 이미지를 만들 때
 1. `cp feeds.conf.release feeds.conf`, `./scripts/feeds update -a`. 피드 패치를 이 순서로 넣고
-   `./scripts/feeds install -a`. LuCI는 깨끗한 고정 피드에 0003 r3 → 0005 → 0004 순서다.
+   `./scripts/feeds install -a`. LuCI는 깨끗한 고정 피드에 0003 r3 → 0005 → 0004 → 0006 순서다.
 
    ```sh
    cp docs/mlo-r29/feed-patches/0002-use-target-ar-for-bundled-libraries.patch \
@@ -279,6 +343,7 @@ snapshot 서명 키(`/etc/apk/keys/openwrt-snapshots.pem`)를 신뢰한다. 그�
    git -C feeds/luci apply "$PWD/docs/mlo-r34/feed-patches/0003-luci-attendedsysupgrade-github-update.patch"
    git -C feeds/luci apply "$PWD/docs/mlo-r34/feed-patches/0005-luci-asu-keep-and-release-source.patch"
    git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0004-luci-wireless-multi-radio-guards.patch"
+   git -C feeds/luci apply "$PWD/docs/host-fixes-20261003/feed-patches/0006-luci-base-missing-wifi-device.patch"
    mkdir -p feeds/luci/modules/luci-mod-status/patches
    cp docs/host-fixes-20261003/feed-patches/998-single-wiphy.patch \
       feeds/luci/modules/luci-mod-status/patches/
