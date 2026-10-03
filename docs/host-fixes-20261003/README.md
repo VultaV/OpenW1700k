@@ -115,6 +115,10 @@ LuCI `E()`는 배열이 아닌 문자열 자식을 `innerHTML`로 넣는다(r43 
 이미지·설치
 - 이 브랜치로 만든 이미지의 sysupgrade(설정 유지) 후 부팅, LuCI 로그인, 무선·MLO 기동,
   가속 flow와 유선 관리 경로 유지.
+- 패키지 피드(7절): sysupgrade(설정 유지) 뒤 `/etc/apk/repositories.d/distfeeds.list`가 주석뿐인지,
+  `apk update`가 저장소 0개로 오류 없이 끝나는지, `apk upgrade --simulate`가 아무것도 제안하지 않는지.
+  LuCI 시스템 → 소프트웨어의 목록 업데이트·구성 대화상자·설치된 목록. 유지된 `customfeeds.list`에
+  snapshot 피드가 없는지.
 
 LuCI 보안·UI (실제 브라우저)
 - wifi7 Overview·Networks·Stations·Diagnostics, MLO 페이지, Fan Status, FlowSense,
@@ -159,3 +163,65 @@ MLO 원인 조사 (인계서 10절)
 - 10월 1일 Codex 세션의 `codex/release-hardening-20261001` 후보(로컬 `Documents/Codex/2026-10-01/task/OpenW1700k`)는
   NPU IRQ·RRO·복구 경로와 sysupgrade 레이아웃 검사를 다루지만 빌드되지 않았다. 이 브랜치와 겹치는
   F05–F08을 서로 다르게 고쳤으므로 하나를 골라야 한다.
+
+## 7. 패키지 피드 잠금 (Codex 후보 `9ddf8eb185`에서 이식)
+
+r43 이미지의 `/etc/apk/repositories.d/distfeeds.list`는 r43.config의 `CONFIG_VERSION_REPO`(snapshot 주소)로
+만든 snapshot 피드 6개를 켠다. kmods 피드는 이 빌드의 vermagic 경로라 upstream에 없다(404). 나머지는 실제로
+있다. 10월 3일 snapshot target 피드는 `base-files 1709~9b95be917b`와 `kernel 6.18.54~c5987c5d`를 내놓았다
+(이미지는 `6.18.44~73da9a42`). base·packages·luci·routing은 다른 피드 커밋의 rolling 빌드다. 라우터는
+snapshot 서명 키(`/etc/apk/keys/openwrt-snapshots.pem`)를 신뢰한다. 그래서 `apk upgrade`나 LuCI 소프트웨어
+페이지가 이 패키지들을 이 이미지의 private kernel·kmod ABI 위에 설치할 수 있다.
+
+변경 (커널 ABI는 바꾸지 않았다)
+- `package/base-files/Makefile`: APK 분기가 피드 목록 대신 주석만 있는 `distfeeds.list`를 쓴다. 평범한
+  `make`에서 r43.config 그대로 적용된다. 준비 스크립트나 `files/`에 기대지 않는다.
+- `feeds.conf.release`: r43 manifest의 피드 커밋 3개와 `feeds.conf.default`의 URL.
+- `tests/test_package_feeds.py`: 실제 `rules.mk`·`version.mk`·`feeds.mk`와 r43.config로 base-files의 APK
+  분기를 실행한다. 수정 전에는 snapshot URL 6줄이 나오고 실패한다. 이 출력은 설치된 r43 이미지의 파일과
+  바이트 단위로 같다. 수정 후에는 아래 주석만 남는다. `feeds.conf.release`가 없거나 manifest와 다르면
+  실패한다.
+
+```
+# This file is auto-generated and build-specific, any changes will be intentionally lost in sysupgrade.
+# No remote feed is configured: this W1700K image has its own kernel and kmod ABI.
+# OpenWrt snapshot and release packages are not built for it; do not add them.
+# Install only packages built from the same source, feeds and .config as this image.
+```
+
+이식하지 않은 것
+- `scripts/prepare-w1700k-release.sh`: distfeeds는 이제 base-files가 만든다. 스크립트의 나머지 단계는
+  이식 대상이 아닌 `build.config`, Codex의 LuCI 0004·0005 패치와 묶여 있다.
+- `CONFIG_VERSION_REPO`를 unpublished 주소로 바꾸는 것: base-files가 더 이상 `%U`로 피드를 만들지 않는다.
+  그래서 rootfs에서 이 값을 쓰는 곳이 없다. r43.config는 기록 그대로 둔다.
+- `docs/release-hardening/sources.lock.json`: Codex source gate용이다. 피드 커밋은 manifest에 이미 있다.
+
+다음 이미지를 만들 때
+1. `cp feeds.conf.release feeds.conf`, `./scripts/feeds update -a`. 피드 패치(libpfring AR, ovpn,
+   LuCI 0003 r3, `998-single-wiphy`)는 지금까지처럼 넣고 `./scripts/feeds install -a`.
+2. `cp docs/mlo-r43/r43.config .config`, overlay를 `files/`에 복사, `make defconfig`, `make`.
+   distfeeds를 위한 추가 단계는 없다. 쓰던 빌드 트리에서도 base-files는 Makefile이 바뀌었으므로
+   다시 만들어진다.
+3. `files/etc/apk/repositories.d/distfeeds.list`를 두지 않는다. 두면 base-files 결과를 덮는다.
+   `docs/mlo-r30/overlay`에는 없다.
+4. 빌드 뒤 `grep -v '^#' build_dir/target-aarch64_cortex-a53_musl/root-airoha/etc/apk/repositories.d/distfeeds.list`가
+   아무것도 출력하지 않아야 한다.
+5. 같은 소스·피드·config·커널로 만든 서명 패키지를 나중에 불변 경로로 게시하면, 그 주소를
+   `files/etc/apk/repositories.d/distfeeds.list`에 넣는다.
+
+라우터에서 달라지는 것
+- LuCI 시스템 → 소프트웨어(`luci-app-package-manager`): 목록 업데이트는 저장소 없이 `apk update`를 돌린다.
+  설치 가능 목록과 업그레이드 목록이 빈다. 이름으로 설치하면 "not available in any configured
+  repository"가 나온다. 설치된 목록, 제거, `.apk` 업로드 설치는 그대로다. 구성 대화상자는 위 주석을
+  보여 준다. `distfeeds.list`·`customfeeds.list` 편집도 여전히 된다(write ACL). 관리자가 피드를 다시
+  넣는 것은 막지 않는다. `distfeeds.list` 편집은 sysupgrade 때 사라지고 `customfeeds.list`는 유지된다.
+- owut(r43.config에 포함): 기본 `repositories_mode`가 `append`라 원래 `distfeeds.list`를 읽지 않는다.
+  `replace` 모드에서는 이전에 snapshot 피드를 ASU 빌드 요청에 넣었지만, 이제는 넣을 피드가 없다.
+  owut는 이미지 전체를 ASU(`sysupgrade.openwrt.org`)에 요청한다. 요청 기준은 os-release 버전이다. 이
+  버전 문자열은 upstream 릴리스가 아니고, 받는 이미지에는 W1700K 수정이 없다. 이 변경과 관계없는 경로다.
+- `luci-app-attendedsysupgrade`: 이 브랜치의 r3 패치는 GitHub 릴리스 이미지를 overlay CGI(`github_check`,
+  `github_fetch`)로 받는다. 피드를 쓰지 않으므로 바뀌지 않는다. 상태 페이지의 업그레이드 알림
+  (`11_upgrades.js`)은 설정을 켰을 때만 downloads.openwrt.org의 버전 목록을 읽는다. 패키지는 설치하지
+  않는다.
+- 남는 경로: `openwrt-keyring`의 snapshot 키는 계속 신뢰된다. 사용자가 `customfeeds.list`에 snapshot
+  피드를 넣으면 다시 설치할 수 있다. 키를 빼면 패키지 선택이 바뀌므로 이번에는 하지 않았다.
