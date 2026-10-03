@@ -374,6 +374,26 @@ async function check(name, fn) {
         assert.deepEqual(sets(env), [{config: 'wireless', section: 'mlo0', values: {mlo: '1'}}]);
     });
 
+    // Ported from the 2026-10-01 candidate: the MLD Discard button had no handler
+    await check('W01 MLD Discard restores the saved profile, also after a save', async () => {
+        const env = makeEnv(twoProfiles);
+        const {content} = await open(env, 'mld');
+        const ssid = () => textInputs(content)[0];
+        const enc = all(content, e => e.tagName === 'select' && e.options.some(o => o.value === 'owe'))[0];
+        ssid().value = 'edited';
+        enc.value = 'owe';
+        button(content, 'Discard').fire('click');
+        assert.equal(ssid().value, 'First');
+        assert.equal(enc.value, 'sae');
+        ssid().value = 'Saved';
+        button(content, 'Save & apply').fire('click');
+        await settle(env);
+        assert.equal(sets(env)[0].values.ssid, 'Saved');
+        assert.doesNotMatch(content.textContent, /Failed/, 'save failed');
+        ssid().value = 'edited again';
+        button(content, 'Discard').fire('click');
+        assert.equal(ssid().value, 'Saved', 'Discard went back past the save');
+    });
     await check('F08 status RPCs use the netdev netifd created for each MLD section', async () => {
         const env = makeEnv(customNames);
         await loadView(env).load();

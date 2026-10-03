@@ -758,6 +758,14 @@ return view.extend({
             params: ['config'], expect: {}, reject: true
         });
 
+        // Back to the profile as last loaded or saved
+        discardBtn.addEventListener('click', function() {
+            ssidInput.value = s['ssid']            || '';
+            keyInput.value  = s['key']             || '';
+            encSel.value    = s['encryption']      || 'sae';
+            rsnoSel.value   = s['encryption_rsno'] || 'sae';
+        });
+
         applyBtn.addEventListener('click', function() {
             var newSSID = ssidInput.value.trim();
             var newKey  = keyInput.value;
@@ -790,12 +798,14 @@ return view.extend({
             }
             nextStep();
 
-            callUciSet('wireless', mldSID, {
+            var values = {
                 ssid: newSSID, key: newKey,
                 encryption: newEnc, encryption_rsno: newRsno
-            }).then(function() {
+            };
+            callUciSet('wireless', mldSID, values).then(function() {
                 return callUciCommit('wireless');
             }).then(function() {
+                Object.assign(s, values);
                 return callExec('/sbin/wifi', []);
             }).then(function() {
                 var tries    = 0;
