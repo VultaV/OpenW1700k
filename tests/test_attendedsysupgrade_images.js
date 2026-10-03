@@ -32,7 +32,9 @@ const ui = {
     createHandlerFn: (self, fn, ...args) => fn.bind(self, ...args),
     awaitReconnect: () => assert.fail('No live reconnect may run')
 };
+// A browser <select> starts on its first option, so value is '0'.
 const E = (tag, attrs, children) => ({tag, attrs, children, kids: [],
+    value: tag === 'select' ? '0' : undefined,
     appendChild(child) { this.kids.push(child); }, addEventListener() {}});
 const nodes = n => Array.isArray(n) ? n.flatMap(nodes)
     : n && n.tag ? [n, ...nodes(n.children), ...nodes(n.kids)] : [];
@@ -124,6 +126,15 @@ async function check(name, fn) {
         // LuCI E() assigns a lone string child to innerHTML; array items become text
         assert(Array.isArray(option.children), 'release tag assigned to innerHTML');
         assert(option.children.join('').includes(tag), 'release tag not shown');
+    });
+    await check('release link points at the repository github_fetch uses', async () => {
+        modals.length = 0;
+        download = {json: async () => [{tag: 'mlo-r43-20260927', version: 'r43'}]};
+        v.handleGithubFirmware(firmware);
+        for (let i = 0; i < 5; i++) await new Promise(setImmediate);
+        const link = nodes(modals.at(-1).body).find(n => n.tag === 'a');
+        assert.equal(link.attrs.href,
+            'https://github.com/VultaV/OpenW1700k/releases/tag/mlo-r43-20260927');
     });
     console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);
     process.exitCode = failed ? 1 : 0;

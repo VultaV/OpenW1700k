@@ -1,0 +1,31 @@
+From: W1700K MLO maintenance
+Subject: [PATCH] luci-app-attendedsysupgrade: link releases of VultaV/OpenW1700k
+
+Against LuCI 289a7260434d4b8212a9cc6cf6160cb1935270c1 after
+0003-luci-attendedsysupgrade-github-update.patch (r3).
+Link releases on VultaV/OpenW1700k, where the W1700K images are published
+and where github_check and github_fetch now look. Bump PKG_RELEASE so the
+changed view gets a new package version.
+
+--- a/applications/luci-app-attendedsysupgrade/Makefile
++++ b/applications/luci-app-attendedsysupgrade/Makefile
+@@ -10,7 +10,7 @@ PKG_MAINTAINER:=Eric Fahlgren <ericfahlgren@gmail.com>, Paul Spooren <paul@spoor
+ PKG_LICENSE:=GPL-2.0
+ 
+ PKG_VERSION:=26.250.72430~e81743d
+-PKG_RELEASE:=3
++PKG_RELEASE:=4
+ 
+ LUCI_DEFAULT:=y if (BUILDBOT && PACKAGE_luci)
+ 
+--- a/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js
++++ b/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js
+@@ -852,7 +852,7 @@ return view.extend({
+ 					if (selectedRelease) {
+ 						// Clear previous link and create a new one
+ 						urlElement.innerHTML = '';
+-						urlElement.appendChild(E('a', { href: 'https://github.com/w1700k/builds/releases/tag/' + encodeURIComponent(selectedRelease.tag), target: '_blank', rel: 'noopener noreferrer' }, _('View on GitHub')));
++						urlElement.appendChild(E('a', { href: 'https://github.com/VultaV/OpenW1700k/releases/tag/' + encodeURIComponent(selectedRelease.tag), target: '_blank', rel: 'noopener noreferrer' }, _('View on GitHub')));
+ 					}
+ 				};
+ 

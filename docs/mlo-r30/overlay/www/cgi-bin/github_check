@@ -7,12 +7,13 @@ fail() {
 }
 
 releases=$(curl -fSs --proto '=https' --connect-timeout 15 --max-time 30 \
-    https://api.github.com/repos/w1700k/builds/releases) || fail
+    https://api.github.com/repos/VultaV/OpenW1700k/releases) || fail
 result=$(printf '%s' "$releases" | jq -ec '
     if type != "array" then error("Invalid release list") else
     [.[] | .tag_name as $tag | .assets[] |
-        select(.name | test("^openwrt-airoha-an7581-[A-Za-z0-9._-]+-squashfs-sysupgrade\\.(itb|bin)$")) |
+        select(.name | test("^openwrt(-[A-Za-z0-9._-]+)?-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade\\.itb$")) |
         {tag: $tag, url: .browser_download_url,
-         version: (.name | ltrimstr("openwrt-airoha-an7581-") | sub("-squashfs-sysupgrade\\.(itb|bin)$"; ""))}]
+         version: (.name | ltrimstr("openwrt-") | sub("-?airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade\\.itb$"; "") |
+             if . == "" then $tag else . end)}]
     end') || fail
 printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n%s\n' "$result"

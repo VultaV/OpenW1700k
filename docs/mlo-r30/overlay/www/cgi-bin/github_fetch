@@ -35,21 +35,21 @@ download() {
     curl -fSsL --proto '=https' --proto-redir '=https' --connect-timeout 15 --max-time 300 -o "$2" "$1"
 }
 
-download "https://api.github.com/repos/w1700k/builds/releases/tags/$encoded_tag" "$workdir/release.json" ||
+download "https://api.github.com/repos/VultaV/OpenW1700k/releases/tags/$encoded_tag" "$workdir/release.json" ||
     fail '502 Bad Gateway' 'Could not fetch release metadata'
 asset=$(jq -ec --arg tag "$tag" '
     select(.tag_name == $tag) | [.assets[] |
-        select(.name | test("^openwrt-airoha-an7581-[A-Za-z0-9._-]+-squashfs-sysupgrade\\.(itb|bin)$"))] |
+        select(.name | test("^openwrt(-[A-Za-z0-9._-]+)?-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade\\.itb$"))] |
     select(length == 1) | .[0]' "$workdir/release.json") ||
     fail '502 Bad Gateway' 'Release must contain exactly one sysupgrade image'
 url=$(printf '%s' "$asset" | jq -er '.browser_download_url |
-    select(test("^https://github.com/w1700k/builds/releases/download/[^\\s?#]+$"))') ||
+    select(test("^https://github.com/VultaV/OpenW1700k/releases/download/[^\\s?#]+$"))') ||
     fail '502 Bad Gateway' 'Invalid firmware asset URL'
 filename=$(printf '%s' "$asset" | jq -r '.name')
 sha256=$(printf '%s' "$asset" | jq -r '.digest // "" | select(test("^sha256:[A-Fa-f0-9]{64}$")) | ltrimstr("sha256:")')
 if [ -z "$sha256" ]; then
-    sums_url=$(jq -er '[.assets[] | select(.name == "sha256sums")] | select(length == 1) | .[0].browser_download_url |
-        select(test("^https://github.com/w1700k/builds/releases/download/[^\\s?#]+$"))' "$workdir/release.json") ||
+    sums_url=$(jq -er '[.assets[] | select(.name == "SHA256SUMS")] | select(length == 1) | .[0].browser_download_url |
+        select(test("^https://github.com/VultaV/OpenW1700k/releases/download/[^\\s?#]+$"))' "$workdir/release.json") ||
         fail '502 Bad Gateway' 'No SHA256 digest available for firmware'
     download "$sums_url" "$workdir/sha256sums" || fail '502 Bad Gateway' 'Could not download SHA256 checksums'
     sha256=$(awk -v name="$filename" '$2 == name || $2 == "*" name { print $1 }' "$workdir/sha256sums")
