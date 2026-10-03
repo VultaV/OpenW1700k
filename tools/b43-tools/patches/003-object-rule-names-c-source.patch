@@ -1,0 +1,26 @@
+Name the C source in the object rule, so $< stays the source file even when
+the compiler lists other files (such as the macOS SDKSettings.json) first in
+the generated dependency file.
+
+--- a/fwcutter/Makefile
++++ b/fwcutter/Makefile
+@@ -40,7 +40,7 @@ $(call DEPS,$(SRCS)): dep/%.d: %.c
+ -include $(call DEPS,$(SRCS))
+ 
+ # Generate object files
+-$(call OBJS,$(SRCS)): obj/%.o:
++$(call OBJS,$(SRCS)): obj/%.o: %.c
+ 	@mkdir -p $(dir $@)
+ 	$(QUIET_SPARSE) $(SPARSEFLAGS) $<
+ 	$(QUIET_CC) -o $@ -c $(CFLAGS) $<
+--- a/assembler/Makefile
++++ b/assembler/Makefile
+@@ -47,7 +47,7 @@ $(call DEPS,$(SRCS)): dep/%.d: %.c
+ -include $(call DEPS,$(SRCS))
+ 
+ # Generate object files
+-$(call OBJS,$(SRCS)): obj/%.o:
++$(call OBJS,$(SRCS)): obj/%.o: %.c
+ 	@mkdir -p $(dir $@)
+ 	$(QUIET_SPARSE) $(SPARSEFLAGS) $<
+ 	$(QUIET_CC) -o $@ -c $(CFLAGS) $<
