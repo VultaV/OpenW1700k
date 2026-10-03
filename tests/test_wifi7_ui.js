@@ -201,6 +201,8 @@ const all = (node, pred) => node.descendants.filter(pred);
 const button = (node, label) => all(node, e => e.tagName === 'button' && e.textContent.startsWith(label))[0];
 const input = (node, placeholder) => all(node, e => e.tagName === 'input' && e.attrs.placeholder === placeholder)[0];
 const textInputs = node => all(node, e => e.tagName === 'input' && e.type === 'text');
+const box = (node, title) => all(node, e => e.children[0] instanceof Element &&
+    e.children[0].textContent.includes(title))[0];
 const sets = env => env.calls.filter(c => c.object === 'uci' && c.method === 'set').map(c => c.params);
 const tabs = ['overview', 'mld', 'radio', 'legacy', 'stations', 'diagnostics'];
 function clickTab(page, tab) {
@@ -342,6 +344,34 @@ async function check(name, fn) {
         button(content, 'Enable MLO').fire('click');
         await settle(env);
         assert.deepEqual(sets(env), [{config: 'wireless', section: 'mlo0', values: {mlo: '1'}}]);
+    });
+
+    await check('F08 status RPCs use the netdev netifd created for each MLD section', async () => {
+        const env = makeEnv(customNames);
+        await loadView(env).load();
+        const ifnames = cmd => env.execs.filter(l => l.startsWith(cmd + ' ')).map(l => l.split(' ')[2])
+            .filter(ifname => ifname !== 'phy0.0-ap0');
+        assert.deepEqual([...new Set(ifnames('/usr/sbin/hostapd_cli'))], ['ap-mld0', 'guest-mld']);
+        assert.deepEqual(ifnames('/usr/sbin/iw'), ['ap-mld0', 'guest-mld']);
+        assert.deepEqual(env.calls.filter(c => c.object.startsWith('hostapd.')).map(c => c.object),
+            ['hostapd.ap-mld0']);
+    });
+    await check('F08 overview, stations and apply follow each profile\'s own netdev', async () => {
+        const env = makeEnv(customNames);
+        const {page, content} = await open(env);
+        assert.match(box(content, 'MLD network -- ap_mld_1').textContent, /CH 6 /, 'ap_mld_1 link data');
+        assert.match(box(content, 'MLD network -- mlo0').textContent, /CH 149 /, 'mlo0 link data');
+        assert.doesNotMatch(box(content, 'MLD network -- mlo0').textContent, /CH 6 /, 'mlo0 shows ap_mld_1');
+        assert.match(content.textContent, /hostapd ap-mld0: ENABLED/, 'hostapd state');
+        clickTab(page, 'stations');
+        assert.match(box(content, 'MLD clients -- ap_mld_1').textContent, /aa:bb:cc:00:00:01/, 'ap_mld_1 clients');
+        assert.match(box(content, 'MLD clients -- mlo0').textContent, /aa:bb:cc:00:00:02/, 'mlo0 clients');
+        clickTab(page, 'mld');
+        const apply = button(content, 'Save & apply');
+        apply.fire('click');
+        await settle(env);
+        // re-enabled once the poll sees hostapd ENABLED; a timeout needs 60 polls
+        assert(!apply.disabled, 'apply never saw hostapd come up');
     });
 
     console.log(`${passed} PASS / ${failed} FAIL / 0 SKIP`);

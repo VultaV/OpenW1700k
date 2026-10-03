@@ -16,7 +16,8 @@
             },
             "ubus": {
                 "hostapd.*": [ "get_status", "get_clients" ],
-                "hostapd.ap-mld-1": [ "get_status" ]
+                "hostapd.ap-mld-1": [ "get_status" ],
+                "luci-rpc": [ "getWirelessDevices" ]
             },
             "uci": [ "wireless" ]
         },

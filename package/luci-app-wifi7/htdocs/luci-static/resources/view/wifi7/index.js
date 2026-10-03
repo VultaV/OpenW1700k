@@ -12,11 +12,13 @@ var callUciGetWireless = rpc.declare({
     reject: true
 });
 
-var callHostapdStatus = rpc.declare({
-    object: 'hostapd.ap-mld-1',
-    method: 'get_status',
-    expect: {}
-});
+function callHostapdStatus(ifname) {
+    return rpc.declare({
+        object: 'hostapd.' + ifname,
+        method: 'get_status',
+        expect: {}
+    })();
+}
 
 var callExec = rpc.declare({
     object: 'file',
@@ -25,15 +27,12 @@ var callExec = rpc.declare({
     expect: {}
 });
 
-// network.wireless status via exec (rpcd ACL for network.wireless is session-restricted)
-function callWirelessStatusExec() {
-    return L.resolveDefault(callExec('/bin/sh', [
-        '-c', 'ubus call network.wireless status 2>/dev/null'
-    ]), { stdout: '' }).then(function(r) {
-        try { return JSON.parse(r.stdout || '{}'); }
-        catch(e) { return {}; }
-    });
-}
+// network.wireless status, with the netdev netifd created for each section
+var callWirelessDevices = rpc.declare({
+    object: 'luci-rpc',
+    method: 'getWirelessDevices',
+    expect: { '': {} }
+});
 
 function parseStat(raw) {
     var out = {};
@@ -288,7 +287,7 @@ return view.extend({
 
     activeTab: 'overview',
 
-    // Derive hostapd/iw ifname from UCI section name
+    // Last-resort guess of hostapd/iw ifname from UCI section name
     // ap_mld_1 -> ap-mld-1, mlo0 -> ap-mld0, mlo1 -> ap-mld1
     _mldIfname: function(sid) {
         if (sid === 'ap_mld_1') return 'ap-mld-1';
@@ -300,8 +299,21 @@ return view.extend({
 
     loadData: function() {
         var self = this;
-        // Phase 1: get UCI data synchronously to know all interfaces
-        return L.resolveDefault(callUciGetWireless('wireless'), {}).then(function(uciData) {
+        // Phase 1: get UCI data and netifd's netdevs to know all interfaces
+        return Promise.all([
+            L.resolveDefault(callUciGetWireless('wireless'), {}),
+            L.resolveDefault(callWirelessDevices(), {})
+        ]).then(function(phase1) {
+        var uciData = phase1[0];
+
+        // MLD netdev per section: option ifname or ap-mld<N> (wireless.uc mlo_vif_create())
+        var ifnames = {};
+        Object.keys(phase1[1]).forEach(function(radio) {
+            (phase1[1][radio].interfaces || []).forEach(function(i) {
+                var ifn = i.ifname || (i.config || {}).ifname;
+                if (i.section && ifn) ifnames[i.section] = ifn;
+            });
+        });
 
         // Collect all MLD sections and legacy interfaces from UCI
         var mldSIDs = [], legacySIDs = [];
@@ -311,19 +323,22 @@ return view.extend({
             if (s['mlo'] === '1') mldSIDs.push(sid);
             else legacySIDs.push(sid);
         });
+        var mldIfnames = mldSIDs.map(function(sid) {
+            return ifnames[sid] || uciData[sid]['ifname'] || self._mldIfname(sid);
+        });
+        var mldDebug = '/sys/kernel/debug/ieee80211/phy0/netdev:' + (mldIfnames[0] || 'ap-mld-1');
 
         // Build dynamic Promise.all
         var calls = [
             Promise.resolve(uciData),                          // [0] UCI
-            L.resolveDefault(callHostapdStatus(), {}),         // [1] hostapd status
+            mldIfnames.length ? L.resolveDefault(callHostapdStatus(mldIfnames[0]), {}) : {}, // [1] hostapd status
             L.resolveDefault(callExec('/bin/cat', [            // [2] sku_disable
                 '/sys/kernel/debug/ieee80211/phy0/mt76/sku_disable'
             ]), { stdout: '1' }),
         ];
 
         // [3..] MLD hostapd stat per link (0,1,2) per MLD network
-        mldSIDs.forEach(function(sid) {
-            var ifn = self._mldIfname(sid);
+        mldIfnames.forEach(function(ifn) {
             calls.push(L.resolveDefault(callExec('/usr/sbin/hostapd_cli',
                 ['-i', ifn, '-l', '0', 'stat']), { stdout: '' }));
             calls.push(L.resolveDefault(callExec('/usr/sbin/hostapd_cli',
@@ -334,8 +349,7 @@ return view.extend({
 
         // [3 + mldSIDs.length*3 ..] MLD station dumps
         var mldStaBase = 3 + mldSIDs.length * 3;
-        mldSIDs.forEach(function(sid) {
-            var ifn = self._mldIfname(sid);
+        mldIfnames.forEach(function(ifn) {
             calls.push(L.resolveDefault(callExec('/usr/sbin/iw',
                 ['dev', ifn, 'station', 'dump']), { stdout: '' }));
         });
@@ -361,12 +375,12 @@ return view.extend({
             ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/mt76/band2/txpower_info']],
             ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/mt76/mat_table']],
             ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/mt76/dfs_status']],
-            ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/netdev:ap-mld-1/link-0/txpower']],
-            ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/netdev:ap-mld-1/link-1/txpower']],
-            ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/netdev:ap-mld-1/link-2/txpower']],
+            ['/bin/cat', [mldDebug + '/link-0/txpower']],
+            ['/bin/cat', [mldDebug + '/link-1/txpower']],
+            ['/bin/cat', [mldDebug + '/link-2/txpower']],
             ['/bin/cat', ['/proc/version']],
             ['/bin/sh',  ['-c', 'for d in /sys/class/thermal/thermal_zone*; do t=$(cat $d/temp 2>/dev/null); n=$(cat $d/type 2>/dev/null); [ -n "$t" ] && [ -n "$n" ] && echo "$n $((t/1000))"; done']],
-            ['/bin/cat', ['/sys/kernel/debug/ieee80211/phy0/netdev:ap-mld-1/mt76_links_info']],
+            ['/bin/cat', [mldDebug + '/mt76_links_info']],
             ['/bin/sh',  ['-c', 'ubus call network.wireless status 2>/dev/null']],
         ].forEach(function(c) {
             calls.push(L.resolveDefault(callExec(c[0], c[1]), { stdout: '' }));
@@ -375,6 +389,7 @@ return view.extend({
         return Promise.all(calls).then(function(data) {
             // Attach index metadata for render functions
             data._mldSIDs     = mldSIDs;
+            data._mldIfnames  = mldIfnames;
             data._legacySIDs  = legacySIDs;
             data._mldStatBase = 3;
             data._mldStaBase  = mldStaBase;
@@ -605,7 +620,7 @@ return view.extend({
         var overviewItems = [
             skuBanner(skuOff, skuIdx),
             E('div', { 'style': 'font-size:12px;margin-bottom:14px;color:#aaa' }, [
-                'hostapd ap-mld-1: ',
+                'hostapd ' + (data._mldIfnames[0] || 'ap-mld') + ': ',
                 E('strong', { 'style': 'color:' + (hapdOK ? '#1d9e75' : '#e24b4a') },
                     hapdOK ? 'ENABLED' : 'NOT RUNNING'),
                 mldNets.length > 1
@@ -763,7 +778,7 @@ return view.extend({
                 [25, 'Committing wireless UCI...'],
                 [40, 'Running wifi restart...'],
                 [60, 'Waiting for hostapd init...'],
-                [80, 'Polling hostapd.ap-mld-1 status...']
+                [80, 'Polling hostapd status...']
             ];
             var si = 0;
             function nextStep() {
@@ -789,7 +804,7 @@ return view.extend({
                     tries++;
                     pbar.style.width  = Math.min(80 + tries, 98) + '%';
                     pstat.textContent = 'Polling hostapd (' + tries + '/' + maxTries + ')...';
-                    L.resolveDefault(callHostapdStatus(), {}).then(function(st) {
+                    L.resolveDefault(callHostapdStatus(data._mldIfnames[idx]), {}).then(function(st) {
                         if (st && st.status === 'ENABLED') {
                             pbar.style.width  = '100%';
                             pstat.textContent = 'Done -- WiFi active';
@@ -1251,7 +1266,7 @@ return view.extend({
                 var tries=0,maxTries=60;
                 function doPoll(){tries++;pbar.style.width=Math.min(80+tries,98)+'%';
                     pstat.textContent='Polling hostapd ('+tries+'/'+maxTries+')...';
-                    L.resolveDefault(callHostapdStatus(),{}).then(function(st){
+                    L.resolveDefault(callHostapdStatus(data._mldIfnames[0]),{}).then(function(st){
                         if(st&&st.status==='ENABLED'){pbar.style.width='100%';pstat.textContent='Done -- WiFi active';
                             applyBtn.disabled=false;discardBtn.disabled=false;
                             setTimeout(function(){progressDiv.style.display='none';pbar.style.width='0%';},2000);
