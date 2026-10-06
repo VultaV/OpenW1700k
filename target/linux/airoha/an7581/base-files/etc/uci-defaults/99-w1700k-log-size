@@ -1,0 +1,15 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+[ "$(board_name)" = "gemtek,w1700k-ubi" ] || exit 0
+
+# Run after kept settings are restored; preserve any non-stock user choice.
+case "$(uci -q get 'system.@system[0].log_size')" in
+	""|128)
+		uci set 'system.@system[0].log_size=1024' || exit 1
+		uci commit system || exit 1
+		;;
+esac
+
+exit 0

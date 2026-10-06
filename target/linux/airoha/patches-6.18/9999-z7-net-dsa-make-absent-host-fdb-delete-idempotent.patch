@@ -1,0 +1,30 @@
+From: VultaV <unc10@naver.com>
+Subject: [PATCH] net: dsa: succeed when deleting an absent host FDB entry
+
+The local mac80211 station teardown notifier can request deletion after
+the bridge has already aged or moved an address, or before it was learned.
+Each bridged DSA user port forwards that notification to the CPU port.
+An absent entry in the CPU port's reference-counted FDB list then returns
+-ENOENT, filling the log with one error per user port and station teardown.
+The mt7530 port_fdb_del operation is not reached in this case.
+
+The requested end state is already satisfied. Keep the not-found trace
+event but return success, as for a reference-count decrement. Leave driver
+errors and deletion of existing entries unchanged. This also preserves
+the station notifier's immediate bridge flow cleanup.
+
+Signed-off-by: VultaV <unc10@naver.com>
+---
+ net/dsa/switch.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+--- a/net/dsa/switch.c
++++ b/net/dsa/switch.c
+@@ -326,7 +326,6 @@ static int dsa_port_do_fdb_del(struct dsa_port *dp, const unsigned char *addr,
+ 	a = dsa_mac_addr_find(&dp->fdbs, addr, vid, db);
+ 	if (!a) {
+ 		trace_dsa_fdb_del_not_found(dp, addr, vid, &db);
+-		err = -ENOENT;
+ 		goto out;
+ 	}
+ 
