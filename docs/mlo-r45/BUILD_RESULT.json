@@ -1,0 +1,56 @@
+{
+ "image": "openwrt-ubi2-mlo-diag-r45-20261006-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "3ac62e6bd9f07d4e03a59f20705f456abb23a7c826d844a13f88e903d4c12c82",
+ "bytes": 30425951,
+ "base": "r44 766846ae (mlo-r44-20261003)",
+ "changes": [
+  "9999-z7 net: dsa: deleting an absent host FDB entry is success (net/dsa/switch.c, built-in; kernel image changes, ABI suffix 6.18.44-w1700k-mlo-r32 unchanged)",
+  "base-files uci-defaults: syslog ring 1024 KiB when unset or stock 128",
+  "w1700k-wifi-watchdog: passive procd service saving one bounded, hourly rate-limited snapshot to /tmp on the all-band deauth outage signature; never restarts Wi-Fi",
+  "docs: r44 outage analysis (OUTAGE_20261005.md)"
+ ],
+ "build": {
+  "command": "make -j15 (incremental on the r44 tree)",
+  "exit_code": 0,
+  "seconds": 756
+ },
+ "image_verification": {
+  "kernel_release": "6.18.44-w1700k-mlo-r32",
+  "modules_identical_to_r43": "74/74",
+  "firmware_identical": "11/11",
+  "fit_check_sign": 0,
+  "w1700k_fit_check": 0,
+  "dsa_patch_in_build": "err = -ENOENT removed from dsa_port_do_fdb_del; switch.o rebuilt"
+ },
+ "host_tests": [
+  "test_dsa_fdb_delete.py PASS (pre-fix failures reproduced)",
+  "test_w1700k_log_defaults.py 29 PASS",
+  "test_w1700k_wifi_watchdog.py OK",
+  "test_wifi7_ui.js 54/0",
+  "test_board_luci_apps.py OK",
+  "test_package_feeds.py PASS",
+  "test_image_metadata.py PASS",
+  "test_bridge_flow_offload.py OK"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "wireless_tested": true,
+ "device_validation": {
+  "date": "2026-10-06",
+  "install": "from r44 766846ae, keep settings, Signature check OK, back in ~110 s",
+  "fdb_delete_messages": "0 after boot and after client reconnects (r44: two lines per client event, 558 in about an hour)",
+  "log_size": 1024,
+  "watchdog": "running (logread -f filter), state dir /tmp/w1700k-wifi-watchdog, no snapshot taken (no outage)",
+  "runtime": "NPU fw 0.1111, MLO two links, WAN up, ping 3 ms",
+  "offload": "iperf flows HW_OFFLOAD 4, PPE BND 8, CPU ~95% idle",
+  "throughput_mac_wireless": {
+   "run1_30s": "avg 722 Mbps, min 147, max 2131, zero 0 (right after the Mac re-joined from a hotspot)",
+   "run2_30s": "avg 1678 Mbps, min 208, max 2166, zero 0",
+   "note": "short dips remain, same pattern as the unresolved r43/r44 MLO variation"
+  }
+ },
+ "limitations": [
+  "Root cause of the 2026-10-05 all-band deauth outage is unknown; r45 only makes the next occurrence diagnosable.",
+  "Snapshot capture has not yet run on a real outage."
+ ]
+}
