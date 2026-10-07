@@ -308,14 +308,14 @@ class Generator(unittest.TestCase):
 GUARD = PACKAGE/'files/usr/share/bridge-flow-offload/ps-guard.sh'
 HW_QUEUES = """STA 76:b7:89:87:2e:9c valid_links:0x0006 primary:2 secondary:1
 \tlink:1 wcid:8 valid:1 ps:1
-\t\ttxfree_status: 3 {a1} {a2} 0
+\t\ttxfree_status: {a0} {a1} {a2} 0
 \t\tps_transitions: {p1}
 \tlink:2 wcid:7 valid:1 ps:0
-\t\ttxfree_status: 23831912 {b1} {b2} 0
+\t\ttxfree_status: {b0} {b1} {b2} 0
 \t\tps_transitions: {p2}
 STA ee:4e:80:e5:20:3e valid_links:0x0002 primary:1 secondary:1
 \tlink:1 wcid:5 valid:1 ps:0
-\t\ttxfree_status: 10023 {c1} 0 0
+\t\ttxfree_status: {c0} {c1} 0 0
 \t\tps_transitions: {p3}
 STA 76:b7:89:87:2e:9c valid_links:0x0006 primary:2 secondary:1
 \tlink:2 wcid:7 valid:1 ps:0
@@ -343,28 +343,35 @@ class PsGuard(unittest.TestCase):
             self.assertEqual(r.returncode, 0, r.stderr)
             return out, r.stdout.split()
 
-    def test_counts_sum_links_and_skip_repeated_band_blocks(self):
-        v = dict(a1=1, a2=2, b1=10, b2=20, c1=5, p1=7, p2=11, p3=4)
-        (counts, _), _ = self.run_guard(v, v)
-        self.assertEqual(counts, {'76:b7:89:87:2e:9c': ['33', '18'], 'ee:4e:80:e5:20:3e': ['5', '4']})
+    BASE = dict(a0=3, a1=0, a2=0, b0=23831912, b1=9220, b2=90489, c0=10023, c1=2,
+                p1=900, p2=901, p3=0)
 
-    def test_rising_holds_only_stations_over_a_threshold(self):
-        base = dict(a1=0, a2=0, b1=9220, b2=90489, c1=2, p1=900, p2=901, p3=0)
-        _, held = self.run_guard(base, dict(base, b2=90489 + 19, c1=2 + 25))
+    def test_counts_sum_links_and_skip_repeated_band_blocks(self):
+        v = dict(self.BASE, a1=1, a2=2, b1=10, b2=20, c1=5, p1=7, p2=11, p3=4)
+        (counts, _), _ = self.run_guard(v, v)
+        self.assertEqual(counts, {'76:b7:89:87:2e:9c': ['33', '18', '23831915'],
+                                  'ee:4e:80:e5:20:3e': ['5', '4', '10023']})
+
+    def test_rejected_frames_hold_a_station(self):
+        _, held = self.run_guard(self.BASE, dict(self.BASE, b2=90489 + 19, c1=2 + 25))
         self.assertEqual(held, ['ee:4e:80:e5:20:3e'])
-        _, held = self.run_guard(base, dict(base, b1=9220 + 5, b2=90489 + 15))
+        _, held = self.run_guard(self.BASE, dict(self.BASE, b1=9220 + 5, b2=90489 + 15))
         self.assertEqual(held, ['76:b7:89:87:2e:9c'])
-        # power-save cycling alone (host path: nothing is rejected)
-        _, held = self.run_guard(base, dict(base, p1=900 + 3, p2=901 + 3, p3=5))
+
+    def test_power_save_cycling_holds_only_busy_stations(self):
+        # host path under load: nothing rejected, client cycles power save
+        busy = dict(self.BASE, p1=900 + 3, p2=901 + 3, b0=23831912 + 24000)
+        _, held = self.run_guard(self.BASE, busy)
         self.assertEqual(held, ['76:b7:89:87:2e:9c'])
-        _, held = self.run_guard(base, dict(base, p1=900 + 2, p2=901 + 3, p3=5))
+        # an idle phone cycling 40 times a second is left alone
+        _, held = self.run_guard(self.BASE, dict(self.BASE, p3=40, c0=10023 + 30))
+        self.assertEqual(held, [])
+        _, held = self.run_guard(self.BASE, dict(busy, p1=900 + 2))
         self.assertEqual(held, [])
 
     def test_quiet_stations_are_not_held(self):
-        base = dict(a1=0, a2=0, b1=0, b2=0, c1=0, p1=0, p2=0, p3=0)
-        _, held = self.run_guard(base, base)
+        _, held = self.run_guard(self.BASE, self.BASE)
         self.assertEqual(held, [])
-
 
 if __name__=='__main__':
     unittest.main(verbosity=2)
