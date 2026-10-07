@@ -3,8 +3,8 @@
 
 Router side: evaluate the APK branch of Package/base-files/install with the
 real rules.mk, version.mk and feeds.mk and docs/mlo-r43/r43.config, and check
-that the generated /etc/apk/repositories.d/distfeeds.list enables no remote
-feed. Build side: feeds.conf.release pins the feeds recorded for r43.
+that the generated /etc/apk/repositories.d/distfeeds.list enables the
+userland feeds but no target or kmods feed. Build side: feeds.conf.release pins the feeds recorded for r43.
 
 Usage: python3 tests/test_package_feeds.py [SOURCE_ROOT]
 SOURCE_ROOT defaults to this checkout. Needs GNU make and GNU sed, like the
@@ -63,7 +63,10 @@ print('distfeeds.list from base-files with r43.config:')
 print(distfeeds, end='')
 feeds = [line for line in distfeeds.splitlines()
          if line.strip() and not line.lstrip().startswith('#')]
-assert not feeds, f'image enables remote feeds built for another kernel ABI: {feeds}'
+bad = [f for f in feeds if '/targets/' in f or '/kmods/' in f]
+assert not bad, f'image enables feeds built for another kernel ABI: {bad}'
+names = {f.rsplit('/', 2)[-2] for f in feeds}
+assert {'base', 'packages', 'luci'} <= names, f'userland feeds missing: {feeds}'
 
 pins = {}
 for line in (root / 'feeds.conf.release').read_text().splitlines():

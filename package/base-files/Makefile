@@ -253,10 +253,15 @@ ifneq ($(CONFIG_USE_APK),)
 	mkdir -p $(1)/etc/apk/repositories.d
 	( \
 	  echo '# This file is auto-generated and build-specific, any changes will be intentionally lost in sysupgrade.'; \
-	  echo '# No remote feed is configured: this W1700K image has its own kernel and kmod ABI.'; \
-	  echo '# OpenWrt snapshot and release packages are not built for it; do not add them.'; \
-	  echo '# Install only packages built from the same source, feeds and .config as this image.'; \
+	  echo '# Userland feeds only: this W1700K image has its own kernel and kmod ABI, so the'; \
+	  echo '# target and kmods feeds are left out. Installed packages are pinned to their'; \
+	  echo '# image versions at first boot (/etc/uci-defaults/99-w1700k-apk-pin).'; \
+	  echo '%U/packages/%A/base/packages.adb'; \
+	  $(foreach feed,$(FEEDS_AVAILABLE), \
+		$(if $(CONFIG_FEED_$(feed)), \
+			echo '$(if $(filter m,$(CONFIG_FEED_$(feed))),# )%U/packages/%A/$(feed)/packages.adb';)) \
 	) > $(1)/etc/apk/repositories.d/distfeeds.list
+	$(VERSION_SED_SCRIPT) $(1)/etc/apk/repositories.d/distfeeds.list
 
 	rm -f $(1)/etc/uci-defaults/13_fix-group-user
 	rm -f $(1)/sbin/pkg_check

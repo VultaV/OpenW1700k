@@ -1,0 +1,18 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+[ "$(board_name)" = "gemtek,w1700k-ubi" ] || exit 0
+command -v apk >/dev/null || exit 0
+
+# distfeeds.list offers the OpenWrt snapshot userland feeds. Pin every package
+# the image ships to its image version, so "apk upgrade" and the LuCI software
+# page cannot replace the patched LuCI, hostapd or base libraries with snapshot
+# builds. New packages can still be installed; one that needs a newer version
+# of a pinned package fails to install instead of upgrading it.
+pins=$(apk query --fields name,version --installed --from system '*' 2>/dev/null |
+	awk '$1 == "Name:" { n = $2 } $1 == "Version:" { print n "=" $2 }')
+[ -n "$pins" ] || exit 1
+
+# shellcheck disable=SC2086
+apk add --no-network --quiet $pins
