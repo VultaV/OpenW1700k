@@ -1,0 +1,67 @@
+{
+ "image": "openwrt-ubi2-mlo-feeds-r46-20261007-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "ca14de90bc9e59dbfd2548f6c2a4362dcae131f8c5659d087f4c07afa79a4ff4",
+ "bytes": 30425952,
+ "base": "r45 3ac62e6b (not released; included here)",
+ "changes": [
+  "distfeeds.list: snapshot base, packages, luci and routing feeds; no target or kmods feed",
+  "99-w1700k-apk-pin: pin every image package to its image version at first boot",
+  "sysctl net.core.rmem_default=1048576"
+ ],
+ "build": {
+  "command": "make -j15 (clean tree, toolchain included)",
+  "exit_code": 0,
+  "seconds": 2446
+ },
+ "image_verification": {
+  "kernel_release": "6.18.44-w1700k-mlo-r32",
+  "modules_and_firmware_identical_to_installed_r45": true,
+  "package_changes_vs_r45": [
+   "base-files 1708 -> 1709"
+  ],
+  "fit_check_sign": 0,
+  "sysupgrade_T_on_device": "Signature check OK"
+ },
+ "host_tests": [
+  "test_wifi7_ui.js 54/0",
+  "test_mlo_ui.js PASS",
+  "test_board_luci_apps.py OK",
+  "test_package_feeds.py PASS",
+  "test_image_metadata.py PASS",
+  "test_bridge_flow_offload.py OK",
+  "test_dsa_fdb_delete.py PASS (pre-patch switch.c)",
+  "test_w1700k_wifi_watchdog.py OK",
+  "test_w1700k_log_defaults.py 29 PASS"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-07",
+  "install": "from r45, keep settings",
+  "apk": {
+   "world_pins": 210,
+   "update_packages": 9246,
+   "upgrade_simulated_changes": 0,
+   "add_simulated_tcpdump": "ok"
+  },
+  "software_page_backend": {
+   "list_available_bytes": 9826467,
+   "list_installed_bytes": 584523
+  },
+  "dns_burst_20_40_80_120": {
+   "r45": [
+    12,
+    12,
+    12,
+    12
+   ],
+   "r46": [
+    20,
+    40,
+    67,
+    85
+   ]
+  },
+  "wireless": "3 radios up; MLO 5 GHz + 6 GHz at 160 MHz; 0 FDB delete errors in log"
+ }
+}
