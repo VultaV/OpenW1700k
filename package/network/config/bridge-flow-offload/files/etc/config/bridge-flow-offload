@@ -5,3 +5,9 @@ config bridge-flow-offload 'main'
 	# Exactly two explicitly trusted, untagged ports. Never discover/add members.
 	list ports 'lan2'
 	list ports 'phy0.2-ap0'
+	# Keep a station off the offload for psguard_hold seconds while it cycles
+	# power save (its offloaded Wi-Fi frames are rejected); see ps-guard.sh.
+	option psguard '1'
+	option psguard_threshold '20'
+	option psguard_ps_threshold '6'
+	option psguard_hold '30'

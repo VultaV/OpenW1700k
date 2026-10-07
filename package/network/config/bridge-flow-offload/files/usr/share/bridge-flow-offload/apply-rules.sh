@@ -96,6 +96,23 @@ EOF
 	done
 }
 
+# Stations held off the offload by ps-guard ("MAC EXPIRY" in /proc/uptime seconds).
+# Applied in the same transaction, so a rebuild never re-offloads a held station.
+HOLD_FILE=${RUN:-/var/run}/bridge-flow-offload.hold
+hold_elements() {
+	local now mac until elems=
+	HOLD_INIT=
+	[ -f "$HOLD_FILE" ] || return 0
+	now=$(cut -d. -f1 /proc/uptime)
+	while read -r mac until; do
+		case "$mac" in [0-9a-f][0-9a-f]:[0-9a-f][0-9a-f]:[0-9a-f][0-9a-f]:[0-9a-f][0-9a-f]:[0-9a-f][0-9a-f]:[0-9a-f][0-9a-f]) :;; *) continue;; esac
+		case "$until" in ''|*[!0-9]*) continue;; esac
+		[ "$until" -gt "$now" ] || continue
+		elems="$elems${elems:+, }$mac timeout $((until - now))s"
+	done < "$HOLD_FILE"
+	[ -z "$elems" ] || HOLD_INIT="elements = { $elems }"
+}
+
 main() {
 	local enabled rc legacy
 	# Filter events by configured names, including removed ports with no master link.
@@ -133,18 +150,23 @@ main() {
 	RULES=$(mktemp /tmp/bridge-flow-offload.XXXXXX) || { reject 'temporary file creation failed'; return 1; }
 	trap 'rm -f "$RULES"' EXIT
 	trap 'exit 1' HUP INT TERM
+	hold_elements
 	cat > "$RULES" <<EOF
 destroy table bridge $TABLE
 table bridge $TABLE {
 	comment "$OWNER"
+	set ps_hold {
+		type ether_addr; flags timeout;
+		$HOLD_INIT
+	}
 	flowtable ft {
 		hook ingress priority 0; devices = { "$PORT_A", "$PORT_B" };
 		flags offload; counter;
 	}
 	chain forward {
 		type filter hook forward priority 10; policy accept;
-		iifname "$PORT_A" oifname "$PORT_B" ether type ip meta l4proto tcp ct state established counter flow add @ft counter
-		iifname "$PORT_B" oifname "$PORT_A" ether type ip meta l4proto tcp ct state established counter flow add @ft counter
+		iifname "$PORT_A" oifname "$PORT_B" ether type ip meta l4proto tcp ct state established ether saddr != @ps_hold ether daddr != @ps_hold counter flow add @ft counter
+		iifname "$PORT_B" oifname "$PORT_A" ether type ip meta l4proto tcp ct state established ether saddr != @ps_hold ether daddr != @ps_hold counter flow add @ft counter
 	}
 }
 EOF

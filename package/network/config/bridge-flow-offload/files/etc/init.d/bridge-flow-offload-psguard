@@ -1,0 +1,26 @@
+#!/bin/sh /etc/rc.common
+
+START=96
+USE_PROCD=1
+
+start_service() {
+	config_load bridge-flow-offload
+	local enabled psguard threshold ps_threshold hold
+	config_get enabled main enabled 0
+	config_get psguard main psguard 1
+	config_get threshold main psguard_threshold 20
+	config_get ps_threshold main psguard_ps_threshold 6
+	config_get hold main psguard_hold 30
+	[ "$enabled" = 1 ] && [ "$psguard" = 1 ] || return 0
+	case "$threshold$ps_threshold$hold" in ''|*[!0-9]*) return 1;; esac
+
+	procd_open_instance
+	procd_set_param command /usr/share/bridge-flow-offload/ps-guard.sh
+	procd_set_param env THRESH="$threshold" PS_THRESH="$ps_threshold" HOLD="$hold"
+	procd_set_param respawn 3600 5 5
+	procd_close_instance
+}
+
+service_triggers() {
+	procd_add_reload_trigger bridge-flow-offload
+}

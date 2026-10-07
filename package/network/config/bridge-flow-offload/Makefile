@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=bridge-flow-offload
 PKG_VERSION:=1.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 PKG_LICENSE:=GPL-2.0
 
 include $(INCLUDE_DIR)/package.mk
@@ -36,6 +36,9 @@ endef
 define Package/bridge-flow-offload/install
 	$(INSTALL_DIR) $(1)/usr/share/bridge-flow-offload
 	$(INSTALL_BIN) ./files/usr/share/bridge-flow-offload/apply-rules.sh $(1)/usr/share/bridge-flow-offload/apply-rules.sh
+	$(INSTALL_BIN) ./files/usr/share/bridge-flow-offload/ps-guard.sh $(1)/usr/share/bridge-flow-offload/ps-guard.sh
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/etc/init.d/bridge-flow-offload-psguard $(1)/etc/init.d/bridge-flow-offload-psguard
 	$(INSTALL_DIR) $(1)/etc/config $(1)/etc/hotplug.d/net $(1)/etc/uci-defaults
 	$(INSTALL_CONF) ./files/etc/config/bridge-flow-offload $(1)/etc/config/bridge-flow-offload
 	$(INSTALL_BIN) ./files/etc/hotplug.d/net/51-bridge-flow-offload $(1)/etc/hotplug.d/net/51-bridge-flow-offload
