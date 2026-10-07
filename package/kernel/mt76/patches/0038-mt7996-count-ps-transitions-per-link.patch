@@ -1,0 +1,49 @@
+From: VultaV <unc10@naver.com>
+Subject: [PATCH] mt7996: count PS transitions per station link
+
+Expose how often each station link changes power-save state in the
+hw-queues debugfs file. bridge-flow-offload ps-guard uses the rate to
+keep power-save cycling clients off the NPU offload, whose frames the
+MT7996 rejects while the client dozes.
+
+Signed-off-by: VultaV <unc10@naver.com>
+---
+--- a/mt7996/debugfs.c
++++ b/mt7996/debugfs.c
+@@ -700,6 +700,8 @@
+ 			   (u32)atomic_read(&msta_link->txfree_status[1]),
+ 			   (u32)atomic_read(&msta_link->txfree_status[2]),
+ 			   (u32)atomic_read(&msta_link->txfree_status[3]));
++		seq_printf(s, "\t\tps_transitions: %u\n",
++			   (u32)atomic_read(&msta_link->ps_transitions));
+ 		seq_printf(s, "\t\ttx_prepared:%u awake_checks:%u awake_redirects:%u wcid_link:%u sta_mlo:%u\n",
+ 			   (u32)atomic_read(&msta_link->tx_prepared),
+ 			   (u32)atomic_read(&msta_link->tx_awake_checks),
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -1162,9 +1162,14 @@
+ 
+ 	old_ps = test_bit(MT_WCID_FLAG_PS, &wcid->flags);
+ 	mt76_sta_ps_transition(&dev->mt76, wcid, ps);
+-	if (old_ps != ps)
++	if (old_ps != ps) {
++		struct mt7996_sta_link *link;
++
++		link = container_of(wcid, struct mt7996_sta_link, wcid);
++		atomic_inc(&link->ps_transitions);
+ 		mt7996_trace_mlo_ps(dev, wcid, 'P',
+ 				    (tag << 2) | (old_ps << 1) | ps);
++	}
+ }
+ 
+ static void
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -314,6 +314,7 @@
+ 	u32 txs_formats[4];
+ 	u32 txs_mpdu_flags[7]; /* TXS0 bits 16..22, only format 0 */
+ 	atomic_t txfree_status[4];
++	atomic_t ps_transitions;
+ 	atomic_t tx_prepared;
+ 	atomic_t tx_awake_checks;
+ 	atomic_t tx_awake_redirects;
