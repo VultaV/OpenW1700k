@@ -181,7 +181,7 @@ class Generator(unittest.TestCase):
 
     def test_unvalidated_kernel_and_legacy_bridge_netfilter(self):
         for kernel in ['6.18.44','6.18.44-w1700k-mlo-r31','6.18.44-w1700k-mlo-r33',
-                       '6.18.44-w1700k-mlo-r32-other']:
+                       '6.18.44-w1700k-mlo-r32-other','6.18.55','6.18.55-w1700k-mlo-r30']:
             self.config['kernel']=kernel;self.seed();self.reject(self.run_script())
         del self.config['kernel']
         (self.base/'proc/sys/net/bridge/bridge-nf-call-iptables').write_text('1\n')
@@ -189,7 +189,7 @@ class Generator(unittest.TestCase):
 
     def test_validated_kernels_in_every_entrypoint(self):
         self.config['bridge-flow-offload.main.network']='lan'
-        for kernel in ['6.18.44-w1700k-mlo-r30','6.18.44-w1700k-mlo-r32']:
+        for kernel in ['6.18.44-w1700k-mlo-r30','6.18.44-w1700k-mlo-r32','6.18.55-w1700k-mlo-r32']:
             self.config['kernel']=kernel
             for args,env in [((),{}),((),{'source':True}),
                              (('--net-event',),{'ACTION':'add','DEVICENAME':'phy0.2-ap0'}),
