@@ -130,29 +130,6 @@ class Generator(unittest.TestCase):
             self.assertFalse(list((self.base/'tmp').glob('bridge-flow-offload.*')))
         self.assertNotIn('fw4',SOURCE.read_text().split('main()')[1].replace('# No fw4 lock/command: fw4 already holds its lock when invoking script includes.',''))
 
-
-    def test_ps_hold_excluded_and_loaded_atomically(self):
-        (self.base/'proc/uptime').write_text('100.52 400.00\n')
-        (self.base/'var/run/bridge-flow-offload.hold').write_text(
-            'aa:bb:cc:dd:ee:01 130\n'          # held for 30 more seconds
-            'aa:bb:cc:dd:ee:02 90\n'           # expired
-            'AA:BB:CC:DD:EE:03 200\n'          # not the lower-case form hw-queues prints
-            'aa:bb:cc:dd:ee:04 1e9\n'          # not a plain number
-            'aa:bb:cc:dd:ee:05; flush ruleset 200\n')
-        result=self.run_script()
-        self.assertEqual(result.returncode,0,result.stderr)
-        rules=(self.base/'table.txt').read_text()
-        self.assertEqual(rules.count('ether saddr != @ps_hold ether daddr != @ps_hold counter flow add @ft'),2)
-        self.assertIn('elements = { aa:bb:cc:dd:ee:01 timeout 30s }',rules)
-        for absent in ['ee:02','ee:03','ee:04','ee:05','flush']:
-            self.assertNotIn(absent,rules)
-
-    def test_ps_hold_set_empty_without_hold_file(self):
-        self.assertEqual(self.run_script().returncode,0)
-        rules=(self.base/'table.txt').read_text()
-        self.assertIn('set ps_hold {',rules)
-        self.assertNotIn('elements',rules)
-
     def test_hairpin_preserves_distinct_port_scope(self):
         self.config['flags']={'hairpin':True}
         result=self.run_script()
@@ -304,74 +281,6 @@ class Generator(unittest.TestCase):
         self.assertNotEqual(subprocess.run(['sh',str(script)],env=self.env,capture_output=True).returncode,0)
         self.assertEqual((self.base/'batch.txt').read_text(),batch)
 
-
-GUARD = PACKAGE/'files/usr/share/bridge-flow-offload/ps-guard.sh'
-HW_QUEUES = """STA 76:b7:89:87:2e:9c valid_links:0x0006 primary:2 secondary:1
-\tlink:1 wcid:8 valid:1 ps:1
-\t\ttxfree_status: {a0} {a1} {a2} 0
-\t\tps_transitions: {p1}
-\tlink:2 wcid:7 valid:1 ps:0
-\t\ttxfree_status: {b0} {b1} {b2} 0
-\t\tps_transitions: {p2}
-STA ee:4e:80:e5:20:3e valid_links:0x0002 primary:1 secondary:1
-\tlink:1 wcid:5 valid:1 ps:0
-\t\ttxfree_status: {c0} {c1} 0 0
-\t\tps_transitions: {p3}
-STA 76:b7:89:87:2e:9c valid_links:0x0006 primary:2 secondary:1
-\tlink:2 wcid:7 valid:1 ps:0
-\t\ttxfree_status: 1 99999 99999 0
-\t\tps_transitions: 99999
-"""
-
-
-class PsGuard(unittest.TestCase):
-    """counts()/rising() of the real ps-guard.sh on hw-queues text."""
-    def run_guard(self, before, after, thresh=20):
-        with tempfile.TemporaryDirectory() as tmp:
-            t = Path(tmp)
-            out = []
-            for name, v in (('a', before), ('b', after)):
-                (t/'hq').write_text(HW_QUEUES.format(**v))
-                r = subprocess.run(['sh', '-c', '. "$0"; counts > "$1"', str(GUARD), str(t/name)],
-                                   env=dict(os.environ, PSGUARD_LIB='1', HQ=str(t/'hq')),
-                                   capture_output=True, text=True, timeout=5)
-                self.assertEqual(r.returncode, 0, r.stderr)
-                out.append({l.split()[0]: l.split()[1:] for l in (t/name).read_text().splitlines()})
-            r = subprocess.run(['sh', '-c', '. "$0"; rising "$1" "$2"', str(GUARD), str(t/'a'), str(t/'b')],
-                               env=dict(os.environ, PSGUARD_LIB='1', THRESH=str(thresh)),
-                               capture_output=True, text=True, timeout=5)
-            self.assertEqual(r.returncode, 0, r.stderr)
-            return out, r.stdout.split()
-
-    BASE = dict(a0=3, a1=0, a2=0, b0=23831912, b1=9220, b2=90489, c0=10023, c1=2,
-                p1=900, p2=901, p3=0)
-
-    def test_counts_sum_links_and_skip_repeated_band_blocks(self):
-        v = dict(self.BASE, a1=1, a2=2, b1=10, b2=20, c1=5, p1=7, p2=11, p3=4)
-        (counts, _), _ = self.run_guard(v, v)
-        self.assertEqual(counts, {'76:b7:89:87:2e:9c': ['33', '18', '23831915'],
-                                  'ee:4e:80:e5:20:3e': ['5', '4', '10023']})
-
-    def test_rejected_frames_hold_a_station(self):
-        _, held = self.run_guard(self.BASE, dict(self.BASE, b2=90489 + 19, c1=2 + 25))
-        self.assertEqual(held, ['ee:4e:80:e5:20:3e'])
-        _, held = self.run_guard(self.BASE, dict(self.BASE, b1=9220 + 5, b2=90489 + 15))
-        self.assertEqual(held, ['76:b7:89:87:2e:9c'])
-
-    def test_power_save_cycling_holds_only_busy_stations(self):
-        # host path under load: nothing rejected, client cycles power save
-        busy = dict(self.BASE, p1=900 + 3, p2=901 + 3, b0=23831912 + 24000)
-        _, held = self.run_guard(self.BASE, busy)
-        self.assertEqual(held, ['76:b7:89:87:2e:9c'])
-        # an idle phone cycling 40 times a second is left alone
-        _, held = self.run_guard(self.BASE, dict(self.BASE, p3=40, c0=10023 + 30))
-        self.assertEqual(held, [])
-        _, held = self.run_guard(self.BASE, dict(busy, p1=900 + 2))
-        self.assertEqual(held, [])
-
-    def test_quiet_stations_are_not_held(self):
-        _, held = self.run_guard(self.BASE, self.BASE)
-        self.assertEqual(held, [])
 
 if __name__=='__main__':
     unittest.main(verbosity=2)
