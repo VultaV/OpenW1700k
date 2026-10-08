@@ -1,0 +1,55 @@
+{
+ "image": "openwrt-ubi2-mlo-kernel55-r48-20261008-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "8d1bde69b98f204b1ed83591792c5276db6a1ff9b4b6bd1895121da98b200d3d",
+ "bytes": 30442339,
+ "base": "r46 ca14de90 (mlo-r46-20261007)",
+ "changes": [
+  "kernel 6.18.44 -> 6.18.55",
+  "77 patches merged upstream dropped; 113 generic/airoha patches refreshed from upstream OpenWrt",
+  "675-02, 675-03, 992-20 rebased; 9999-z3 dropped (in 6.18.55)",
+  "bridge-flow-offload accepts 6.18.55-w1700k-mlo-r32",
+  "mt76 0038 per-link ps_transitions counter"
+ ],
+ "build": {
+  "command": "make -j15 (kernel and all kmods rebuilt)",
+  "exit_code": 0,
+  "seconds": 1020
+ },
+ "image_verification": {
+  "kernel_release": "6.18.55-w1700k-mlo-r32",
+  "module_set_same_as_r46": true,
+  "firmware_identical_to_r46": true,
+  "package_names_same_as_r46": true,
+  "fit_check_sign": 0
+ },
+ "host_tests": [
+  "test_bridge_ttl.py PASS (6.18.55 tree)",
+  "test_bridge_conntrack_ownership.py PASS",
+  "test_bridge_fdb_cleanup.py PASS",
+  "test_dsa_fdb_delete.py PASS (pre-patch switch.c)",
+  "test_bridge_flow_offload.py 21 OK"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-08",
+  "install": "from r46, keep settings, Signature check OK, up in ~80 s",
+  "npu": "TX budget guard applied, NPU version 0.1111",
+  "wireless": "3 radios up; MLO 5 GHz + 6 GHz at 160 MHz",
+  "offloaded_flows": 72,
+  "kernel_warnings": 0,
+  "mac_wifi_mbps": {
+   "download": [
+    1939,
+    1999,
+    1398
+   ],
+   "upload": [
+    1125,
+    1230,
+    1604,
+    1622
+   ]
+  }
+ }
+}
