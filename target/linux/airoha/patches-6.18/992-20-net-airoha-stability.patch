@@ -1,5 +1,7 @@
---- a/drivers/net/ethernet/airoha/airoha_eth.c
-+++ b/drivers/net/ethernet/airoha/airoha_eth.c
+Index: linux-6.18.55/drivers/net/ethernet/airoha/airoha_eth.c
+===================================================================
+--- linux-6.18.55.orig/drivers/net/ethernet/airoha/airoha_eth.c
++++ linux-6.18.55/drivers/net/ethernet/airoha/airoha_eth.c
 @@ -976,11 +976,13 @@ static int airoha_qdma_rx_process(struct
  					     false);
  
@@ -119,7 +121,7 @@
  
  	return read_poll_timeout(airoha_qdma_rr, val,
  				 val & TRTCM_PARAM_RW_DONE_MASK,
-@@ -4242,8 +4254,10 @@ static int airoha_en7581_get_dev_from_sp
+@@ -4238,8 +4250,10 @@ static int airoha_en7581_get_dev_from_sp
  
  	*dev = 0;
  	switch (sport) {
@@ -132,7 +134,7 @@
  		break;
  	case 0x2 ... 0x4:
  		*port = sport - 1;
-@@ -4323,8 +4337,10 @@ static int airoha_an7583_get_dev_from_sp
+@@ -4319,8 +4333,10 @@ static int airoha_an7583_get_dev_from_sp
  
  	*dev = 0;
  	switch (sport) {
@@ -145,8 +147,10 @@
  		break;
  	case 0x2 ... 0x4:
  		*port = sport - 1;
---- a/drivers/net/ethernet/airoha/airoha_eth.h
-+++ b/drivers/net/ethernet/airoha/airoha_eth.h
+Index: linux-6.18.55/drivers/net/ethernet/airoha/airoha_eth.h
+===================================================================
+--- linux-6.18.55.orig/drivers/net/ethernet/airoha/airoha_eth.h
++++ linux-6.18.55/drivers/net/ethernet/airoha/airoha_eth.h
 @@ -195,6 +195,17 @@ struct airoha_queue_entry {
  	u16 dma_len;
  };
@@ -179,6 +183,6 @@
  /* RX queue to IRQ mapping: BIT(q) in IRQ(n) */
 -#define RX_IRQ0_BANK_PIN_MASK			0x839f
 +#define RX_IRQ0_BANK_PIN_MASK			0xbb9f
- #define RX_IRQ1_BANK_PIN_MASK			0x7fe00000
+ #define RX_IRQ1_BANK_PIN_MASK			0xffe00000
  #define RX_IRQ2_BANK_PIN_MASK			0x20
  #define RX_IRQ3_BANK_PIN_MASK			0x40
