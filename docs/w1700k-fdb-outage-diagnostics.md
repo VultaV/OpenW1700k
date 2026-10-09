@@ -92,7 +92,7 @@ Wi-Fi 설정 변경이나 자동 재시작은 하지 않는다.
   넘으면 수집한다. 조회 실패/비활성 AP는 이 연속 시간을 끊는다.
 - 기존 logread ring은 detector 시작 시 재생하지 않는다. 시간 창과 rate limit은
   wall clock/NTP 대신 `/proc/uptime`을 사용한다.
-- `/tmp/w1700k-wifi-watchdog/snapshot.txt` 하나만 유지한다. 0700 디렉터리,
+- `/var/run/w1700k-wifi-watchdog/snapshot.txt` 하나만 유지한다. 0700 디렉터리,
   0600 파일이며 자동 전송하지 않는다. 이 파일에는 단말 주소가 포함될 수 있으므로
   외부 공유 전에 비식별화한다. 부팅하면 `/tmp` 증거는 사라진다.
 - 수집 시작 전에 시간을 기록하므로 실패해도 1시간 안에 다시 수집하지 않는다.

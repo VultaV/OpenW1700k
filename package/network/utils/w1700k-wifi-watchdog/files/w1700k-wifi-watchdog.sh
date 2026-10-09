@@ -1,7 +1,8 @@
 #!/bin/sh
 # SPDX-License-Identifier: GPL-2.0-only
 
-state_dir=/tmp/w1700k-wifi-watchdog
+# /var/run is root-owned and not world-writable, so nobody can pre-create the directory or a lock symlink.
+state_dir=/var/run/w1700k-wifi-watchdog
 known=
 deauth_mld=
 deauth_legacy=
