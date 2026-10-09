@@ -79,13 +79,12 @@
     "target/linux/airoha/an7581/base-files/etc/hotplug.d/iface/51-bridge-flow-offload": "c737b91f9b31d9ee06dd7f8913e5ba0e5751bf2ab22f6f623b62e47a52fb2413",
     "target/linux/airoha/an7581/base-files/etc/uci-defaults/99-w1700k-log-size": "de1a0773df0d8bc3a761c81c2c9d03af3db8f17c23c824ec6aed7b5f77632003",
     "target/linux/airoha/an7581/base-files/lib/upgrade/platform.sh": "c26cbaebfc07c2ab1358a158cf2af475bc6cd36303fc1c008bf8b058c0bbec36",
-    "target/linux/airoha/an7581/config-6.18": "9989976c82ea2bb1b8aa35102286d15c43a035daf76ec35b9cbc3a7d553eeeca",
+    "target/linux/airoha/an7581/config-6.18": "766152dfc296dbd4f9c0089115d3e623b9915ad457bbdbee6ea10b967fe9d51f",
     "target/linux/airoha/image/an7581.mk": "aaf01bb2989123d6c186c40ef17cf2f67519080cba598505ef6b195df1ac8df3",
     "target/linux/airoha/patches-6.18/9998-netfilter-flowtable-preserve-bridge-ttl.patch": "4052eea8f8eadabad481e6880a1401510d7d9eaefca7aed1c792b1baa9e9b07e",
     "target/linux/airoha/patches-6.18/9999-net-airoha-honor-flow-action-keep-ttl.patch": "6a017d18eb71be7cc408a35cec88ecfa69eaac3594918c97b8a7982f1d0b282d",
     "target/linux/airoha/patches-6.18/9999-z1-netfilter-bridge-fdb-cleanup.patch": "068962034fa8711193e57e20f51c1899f119cb9de2c82cbbd9780ba847cdebcb",
     "target/linux/airoha/patches-6.18/9999-z2-net-airoha-ppe-slot-ownership.patch": "89204638491fe9214d02ab20b5014a2bc3ef3da131836d4cb1f85622bf8b88ad",
-    "target/linux/airoha/patches-6.18/9999-z3-net-airoha-npu-fix-watchdog-work-lifetime.patch": "84a4ae9ece77bf27693aa16ca0041d81bc366adb40b437135a5704d9f67237cc",
     "target/linux/airoha/patches-6.18/9999-z4-net-airoha-npu-preserve-pending-mailbox.patch": "df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8",
     "target/linux/airoha/patches-6.18/9999-z5-net-airoha-ppe-propagate-sram-flush-error.patch": "32d9299fd17625fc7159bf20073d47e1e4800f88d4e4a5a4509e448095bc70b1",
     "target/linux/airoha/patches-6.18/9999-z6-net-airoha-npu-guard-zero-budget.patch": "600825478da0fc3c5f5e5d5372615478344f88434dcacf36ca4c21896d27c128",
@@ -97,7 +96,7 @@
     "tests/test_airoha_npu_watchdog.py": "82cc21f8415a22d3226f9b152c206dbd16a66fa86b9a41b3a15c52f153f5c074",
     "tests/test_airoha_ppe_ownership.py": "38a03dee81b781b573a97faf7e5a3c2230648fcdc34409c4bcbff6f837bacb47",
     "tests/test_attendedsysupgrade_images.js": "fae9da36712be763a4a3184615d2ffc7321f1343e44c1620eb28d5ed69851d2f",
-    "tests/test_bridge_flow_offload.py": "022f690c341c59368ec522c43b0f8e944f4337f5b8ec46a39f5089094cc90ccd",
+    "tests/test_bridge_flow_offload.py": "87511d318d7f20df72ea35f3cbb22daeed07ea57c5f38a76044dd9ab38c873ad",
     "tests/test_mt76_npu_rx.py": "cc68a14cb67d44ab19b4a15f97d0e087a42e412682b9192a086eb4dc8cad2c93",
     "tests/test_mt7996_forward_path.py": "edae19c0ed2e69d23e04265df9a4522f8b9e35141fbbc29b85d80c5667193cdc",
     "tests/test_mt7996_link_lifecycle.py": "ded03cc2e0fadffe46708e80abfb94a988f41b4630481ab499cadc628a33f98c",
@@ -195,6 +194,7 @@
     "luci/modules/luci-base/htdocs/luci-static/resources/network.js": "84bee3abd16457899549663a0b5f5239298798583b12f4a90d040fa3cf7795f8"
   },
   "removed_since_r43": [
-    "package/luci-app-netspeedtest/.prepare.sh"
+    "package/luci-app-netspeedtest/.prepare.sh",
+    "target/linux/airoha/patches-6.18/9999-z3-net-airoha-npu-fix-watchdog-work-lifetime.patch"
   ]
 }
