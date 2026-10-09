@@ -82,10 +82,17 @@ case "$1" in
 					exit
 				fi
 
-				[ -n "$url" ] && curl -sSL --url "$url" --user-agent "$UA" | tar -xvz -C /tmp >/dev/null
-				mkdir -p ${OOKLA_SPEEDTEST%/*} 2>/dev/null
-				cp -f /tmp/speedtest $OOKLA_SPEEDTEST
-				chmod 755 $OOKLA_SPEEDTEST
+				# Private staging directory: a pre-existing /tmp/speedtest must never be installed.
+				stage=$(mktemp -d /tmp/ookla.XXXXXX) || stage=
+				if [ -n "$stage" ] &&
+				   curl -sSL --url "$url" --user-agent "$UA" -o "$stage/speedtest.tgz" &&
+				   tar -xzf "$stage/speedtest.tgz" -C "$stage" speedtest &&
+				   [ -f "$stage/speedtest" ] && [ ! -L "$stage/speedtest" ]; then
+					mkdir -p ${OOKLA_SPEEDTEST%/*} 2>/dev/null
+					cp -f "$stage/speedtest" $OOKLA_SPEEDTEST
+					chmod 755 $OOKLA_SPEEDTEST
+				fi
+				[ -z "$stage" ] || rm -rf "$stage"
 				if ookla_verify; then
 					json_init
 					json_add_boolean "result" 1

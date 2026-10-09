@@ -16,12 +16,6 @@
 		"write": {
 			"ubus": {
 				"luci.airoha_flowsense": [ "setVlanOffload", "setFlowOffload", "setPppoeOffload" ]
-			},
-			"file": {
-				"/proc/sys/net/bridge/bridge-nf-filter-vlan-tagged": [ "read", "write" ],
-				"/proc/sys/net/bridge/bridge-nf-filter-pppoe-tagged": [ "read", "write" ],
-				"/etc/sysctl.d/14-vlan-offload.conf": [ "write" ],
-				"/etc/sysctl.d/15-pppoe-offload.conf": [ "write" ]
 			}
 		}
 	}

@@ -105,10 +105,14 @@ class NetSpeedTest(unittest.TestCase):
     ARCHES = ['i386', 'x86_64', 'armel', 'armhf', 'aarch64']
     URL = 'https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-%s.tgz'
 
-    def download(self, arch):
+    def download(self, arch, stale=False):
         fx = Fixture(self, ['uci', 'jsonfilter', 'curl', 'tar', 'cp', 'chmod', 'mkdir', 'rm'])
         links = ''.join(f'<a href="{self.URL % a}">{a}</a> ' for a in self.ARCHES)
         (fx.base/'page.html').write_text(f'<div>Download for Linux: {links}</div>\n')
+        if stale:
+            # A file another local process planted at the old extraction path.
+            (fx.base/'speedtest').write_text('#!/bin/sh\n')
+            (fx.base/'speedtest').chmod(0o755)
         jshn = fx.base/'jshn.sh'
         jshn.write_text('json_init() { _json=; }\n'
                         'json_add_boolean() { _json="$_json,\\"$1\\":$([ "$2" = 1 ] && echo true || echo false)"; }\n'
@@ -117,7 +121,7 @@ class NetSpeedTest(unittest.TestCase):
         result = fx.run(self.RPC, ['call', 'download_ookla'], json.dumps({'arch': arch}), {
             '. /lib/functions.sh': ':',
             '/usr/share/libubox/jshn.sh': str(jshn),
-            '/usr/libexec/netspeedtest/speedtest': str(fx.base/'speedtest'),
+            '/usr/libexec/netspeedtest/speedtest': str(fx.base/'opt/speedtest'),
             '/tmp/': str(fx.base) + '/'})
         return fx, json.loads(result.stdout or '{}')
 
@@ -126,6 +130,13 @@ class NetSpeedTest(unittest.TestCase):
         acl = acl['luci-app-netspeedtest']
         self.assertEqual(acl['read']['ubus']['luci.netspeedtest'], ['ookla_verify'])
         self.assertEqual(sorted(acl['write']['ubus']['luci.netspeedtest']), ['download_ookla', 'speedtest'])
+        # A read-only session must not be able to exec the init script (stop commits the config).
+        self.assertNotIn('exec', sum(acl['read'].get('file', {}).values(), []))
+
+    def test_failed_download_never_installs_a_planted_tmp_binary(self):
+        fx, reply = self.download('aarch64', stale=True)
+        self.assertEqual(fx.calls('cp'), [])
+        self.assertEqual(reply, {'result': False, 'error': 'invalid executable file'})
 
     def test_unknown_arch_is_rejected_before_any_download(self):
         for arch in ['|https://evil.invalid/pwn.tgz|p;#', 'mips', '']:
@@ -277,6 +288,12 @@ class AirohaNpu(unittest.TestCase):
 
 
 class FlowSense(unittest.TestCase):
+    def test_acl_grants_no_file_writes(self):
+        acl = json.loads((self.APP/'root/usr/share/rpcd/acl.d/luci-app-airoha-flowsense.json').read_text())
+        acl = acl['luci-app-airoha-flowsense']
+        self.assertNotIn('file', acl['write'])
+        self.assertNotIn('write', sum(acl['read']['file'].values(), []))
+
     APP = PKG/'luci-app-airoha-flowsense'
 
     def test_shipped_config_pings_default_gateway(self):
