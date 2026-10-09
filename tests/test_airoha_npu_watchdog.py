@@ -2,9 +2,13 @@
 """Compile real NPU probe/remove/IRQ paths and the kernel's devm work helper.
 
 Usage: python3 tests/test_airoha_npu_watchdog.py PATH_TO_PREPARED_KERNEL
-Applies/reverses the backport only in a temporary copy. Fake devres/IRQs check
-initialization, reverse release order and every probe failure boundary. This
-does not model actual IRQ concurrency, firmware behavior or device throughput.
+Fake devres/IRQs check initialization, reverse release order and every probe
+failure boundary. The fix is upstream since 6.18.55 (Linux 4bdee806), so the
+fork's 9999-z3 backport no longer exists; when that patch file is absent the
+kernel must already contain the fix and only the fixed lifecycle is compiled.
+With the patch present (older trees) it is applied/reversed in a temporary copy
+to also compile the unfixed negative control. This does not model actual IRQ
+concurrency, firmware behavior or device throughput.
 """
 from pathlib import Path
 import re
@@ -77,6 +81,7 @@ struct airoha_npu {
 #define IS_ERR(p) ((intptr_t)(p) < 0)
 #define PTR_ERR(p) ((int)(intptr_t)(p))
 #define dev_info(...) ((void)0)
+#define dev_err_probe(dev, err, ...) (err)
 #define msleep(...) ((void)0)
 #define usleep_range(...) ((void)0)
 #define spin_lock_init(p) (*(p) = 0)
@@ -211,6 +216,36 @@ def main():
         root = Path(tmp)
         path = root / relative
         path.parent.mkdir(parents=True)
+        if not patch.exists():
+            assert 'devm_work_autocancel(dev, &core->wdt_work,' in source, \
+                'z3 patch is gone but the kernel lacks the upstream watchdog fix'
+            cases = [('after', source)]
+        else:
+            cases = roundtrip(source, patch, root, path)
+        for label, text in cases:
+            c = root / (label + '.c')
+            c.write_text(harness(text, helpers))
+            binary = root / label
+            subprocess.run(['cc', '-std=gnu11', '-O1', '-g', '-fsanitize=address,undefined',
+                            '-Werror=implicit-function-declaration', str(c), '-o', str(binary)], check=True)
+            for immediate in (0, 1):
+                result = subprocess.run([str(binary), str(immediate)], cwd=root,
+                                        capture_output=True, text=True)
+                if label == 'before':
+                    assert result.returncode != 0, 'unfixed lifecycle unexpectedly passed'
+                    expected = '(w->initialized)' if immediate else '(w->initialized && !c->irq_active)'
+                    assert 'Assertion' in result.stderr and expected in result.stderr, result.stderr
+                    print(f'EXPECTED FAIL before immediate_irq={immediate}')
+                else:
+                    assert result.returncode == 0, result.stderr
+                    print(result.stdout.strip())
+    if patch.exists():
+        print('PASS patch applicability/byte-exact roundtrip, unchanged watchdog bodies, kernel helper compatibility and both negative controls')
+    else:
+        print('PASS upstream watchdog fix present, kernel helper compatibility and fixed lifecycle (no negative control: z3 patch absent)')
+
+
+def roundtrip(source, patch, root, path):
         # The later budget guard adds this include inside z3's leading context.
         # Normalize only the temporary patch input, not the actual fixed probe.
         crypto_include = '#include <crypto/sha2.h>\n'
@@ -232,25 +267,7 @@ def main():
         subprocess.run(restore + ['--dry-run'], cwd=root, check=True, capture_output=True)
         subprocess.run(restore, cwd=root, check=True, capture_output=True)
         assert path.read_text() == patch_source, 'Watchdog patch roundtrip changed the temporary input'
-        for label, text in [('before', before), ('after', after)]:
-            c = root / (label + '.c')
-            c.write_text(harness(text, helpers))
-            binary = root / label
-            subprocess.run(['cc', '-std=gnu11', '-O1', '-g', '-fsanitize=address,undefined',
-                            '-Werror=implicit-function-declaration', str(c), '-o', str(binary)], check=True)
-            for immediate in (0, 1):
-                result = subprocess.run([str(binary), str(immediate)], cwd=root,
-                                        capture_output=True, text=True)
-                if label == 'before':
-                    assert result.returncode != 0, 'unfixed lifecycle unexpectedly passed'
-                    expected = '(w->initialized)' if immediate else '(w->initialized && !c->irq_active)'
-                    assert 'Assertion' in result.stderr and expected in result.stderr, result.stderr
-                    print(f'EXPECTED FAIL before immediate_irq={immediate}')
-                else:
-                    assert result.returncode == 0, result.stderr
-                    print(result.stdout.strip())
-    print('PASS patch applicability/byte-exact roundtrip, unchanged watchdog bodies, kernel helper compatibility and both negative controls')
-
+        return [('before', before), ('after', after)]
 
 if __name__ == '__main__':
     main()
