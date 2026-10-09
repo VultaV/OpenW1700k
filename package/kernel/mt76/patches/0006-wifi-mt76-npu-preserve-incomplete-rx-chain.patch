@@ -18,7 +18,7 @@ Normal received data keeps its existing zero-copy path.
 
 --- a/npu.c
 +++ b/npu.c
-@@ -66,19 +66,31 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
+@@ -66,19 +66,37 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
  	struct airoha_npu_rx_dma_desc *desc = (void *)q->desc;
  	int i, nframes, index = q->tail;
  	struct sk_buff *skb = NULL;
@@ -32,8 +32,14 @@ Normal received data keeps its existing zero-copy path.
 +	nframes = FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK,
 +			    READ_ONCE(desc[index].info));
  	nframes = max_t(int, nframes, 1);
-+	if (nframes > q->queued)
++	if (nframes > q->queued) {
++		/* A corrupt count can never complete; leave the ring alone but
++		 * make the resulting stall visible instead of silent.
++		 */
++		dev_err_ratelimited(dev->dev, "npu rx: %d frames but only %d queued\n",
++				    nframes, q->queued);
 +		return NULL;
++	}
 +
 +	/* Keep every buffer owned by the ring until the whole packet is ready. */
 +	for (i = 1; i < nframes; i++) {

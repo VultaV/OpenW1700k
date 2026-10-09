@@ -42,6 +42,7 @@ typedef uint32_t u32;
 #define Q_WRITE(q, reg, value) ((q)->reg = (value))
 #define READ_ONCE(v) (*(volatile __typeof__(v) *)&(v))
 #define dma_rmb() __asm__ __volatile__("" ::: "memory")
+#define dev_err_ratelimited(dev, ...) ((void)(dev))
 #define dma_sync_single_for_cpu(...) ((void)0)
 #define page_pool_get_dma_dir(...) 0
 struct page { bool recycled; u32 dma; unsigned char data[64]; };
@@ -60,7 +61,7 @@ struct mt76_queue {
     int tail, head, ndesc, queued, buf_size, dma_idx;
     void *page_pool;
 };
-struct mt76_dev { void *dma_dev; };
+struct mt76_dev { void *dma_dev; void *dev; };
 static int recycled_page_reuses, allocations, fail_allocation;
 static struct page *virt_to_head_page(void *buf) {
     return (void *)((char *)buf - offsetof(struct page, data));

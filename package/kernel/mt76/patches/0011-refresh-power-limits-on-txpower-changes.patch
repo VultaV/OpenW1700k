@@ -75,18 +75,21 @@ index 560fe30df..c32e7819f 100644
  }
  
  static int
-@@ -1025,9 +1068,24 @@ mt7996_link_info_changed(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
+@@ -1025,9 +1068,27 @@ mt7996_link_info_changed(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
  		mt7996_update_mu_group(hw, link, info);
  
  	if (changed & BSS_CHANGED_TXPOWER &&
 +	    info->txpower != INT_MIN &&
  	    info->txpower != phy->txpower) {
++		int old_txpower = phy->txpower;
 +		int ret;
 +
  		phy->txpower = info->txpower;
 -		mt7996_mcu_set_txpower_sku(phy);
 +		ret = mt7996_mcu_set_txpower_sku(phy);
 +		if (ret) {
++			/* Keep the cache honest so the same request is retried. */
++			phy->txpower = old_txpower;
 +			dev_err_ratelimited(dev->mt76.dev,
 +					    "failed to update txpower SKU: %d\n",
 +					    ret);

@@ -55,6 +55,7 @@ struct mt7996_sta_link {
     u32 txs_formats[4], txs_mpdu_flags[7];
     atomic_t txfree_status[4];
     atomic_t tx_prepared, tx_awake_checks, tx_awake_redirects;
+    atomic_t ps_transitions;  /* 0038 */
 };
 struct mt7996_vif {
     struct mt7996_vif_link deflink;
