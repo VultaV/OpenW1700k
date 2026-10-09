@@ -26,7 +26,9 @@
                 "/usr/sbin/hostapd_cli": [ "exec" ],
                 "/usr/sbin/iw": [ "exec" ],
                 "/sbin/wifi": [ "exec" ],
-                "/sbin/iw": [ "exec" ]
+                "/sbin/iw": [ "exec" ],
+                "/bin/dmesg": [ "exec" ],
+                "/sbin/logread": [ "exec" ]
             },
             "uci": [ "wireless" ],
             "ubus": {

@@ -4,6 +4,14 @@
 
 . /lib/functions.sh
 
+# Root writes under /tmp: create via mktemp and rename so a planted symlink
+# at the predictable name is never followed.
+write_state() {
+	local tmp
+	tmp=$(mktemp "$1.XXXXXX") || return 1
+	printf '%s\n' "$2" > "$tmp" && mv -f "$tmp" "$1"
+}
+
 get_status() {
 	# === NPU Status ===
 	local npu_fw="/lib/firmware/airoha/en7581_MT7996_npu_rv32.bin"
@@ -852,7 +860,7 @@ ${d}" ;;
 			}
 			printf "%s %s %s %s %s %s\n", tx0, tx1, tx2, rx0, rx1, rx2
 		}' /dev/null)
-	echo "$now $sta_tx0 $sta_tx1 $sta_tx2 $sta_rx0 $sta_rx1 $sta_rx2" > /tmp/npu-wifi-bytes.prev
+	write_state /tmp/npu-wifi-bytes.prev "$now $sta_tx0 $sta_tx1 $sta_tx2 $sta_rx0 $sta_rx1 $sta_rx2"
 	local tx0_mbps tx1_mbps tx2_mbps rx0_mbps rx1_mbps rx2_mbps
 	tx0_mbps=$(echo "$_rates" | awk '{print $1}')
 	tx1_mbps=$(echo "$_rates" | awk '{print $2}')
@@ -964,7 +972,7 @@ ${d}" ;;
 			}
 			printf "%s %s %s\n", f0, f1, f2
 		}' /dev/null)
-	echo "$now $fcur0 $fcur1 $fcur2" > /tmp/npu-wifi-frames.prev
+	write_state /tmp/npu-wifi-frames.prev "$now $fcur0 $fcur1 $fcur2"
 	frames0=$(echo "$_fps" | awk '{print $1}')
 	frames1=$(echo "$_fps" | awk '{print $2}')
 	frames2=$(echo "$_fps" | awk '{print $3}')
@@ -1005,8 +1013,10 @@ ${d}" ;;
 			END{printf "%d %d %d", c0+0,c1+0,c2+0}' /sys/kernel/debug/ppe/bind 2>/dev/null)
 		bn0=$(echo "$_bn"|awk '{print $1}'); bn1=$(echo "$_bn"|awk '{print $2}'); bn2=$(echo "$_bn"|awk '{print $3}')
 	fi
-	local _air
-	_air=$(awk -v now="$now" -v seed="$AIR_EFF" -v a0="$a0" -v a1="$a1" -v a2="$a2" \
+	local _air air_new
+	# awk writes the learned state through a mktemp path; renamed below (no symlink following).
+	air_new=$(mktemp /tmp/npu-wifi-airtime.XXXXXX) || air_new=/dev/null
+	_air=$(awk -v now="$now" -v seed="$AIR_EFF" -v a0="$a0" -v a1="$a1" -v a2="$a2" -v pfnew="$air_new" \
 		-v tx0="$tx0_mbps" -v rx0="$rx0_mbps" -v tx1="$tx1_mbps" -v rx1="$rx1_mbps" -v tx2="$tx2_mbps" -v rx2="$rx2_mbps" \
 		-v bn0="$bn0" -v bn1="$bn1" -v bn2="$bn2" '
 		BEGIN {
@@ -1038,9 +1048,10 @@ ${d}" ;;
 				}
 			}
 			close(pf)
-			printf "%.0f %.0f %.0f %.0f %.0f %.0f %.0f %.3f %.3f %.3f\n", now, ctd[0],ctd[1],ctd[2],crd[0],crd[1],crd[2], eff[0],eff[1],eff[2] > pf
-			printf "%s %s %s %.0f %.0f %.0f\n", air[0],air[1],air[2], eff[0]*100,eff[1]*100,eff[2]*100
+			printf "%.0f %.0f %.0f %.0f %.0f %.0f %.0f %.3f %.3f %.3f\n", now, ctd[0],ctd[1],ctd[2],crd[0],crd[1],crd[2], eff[0],eff[1],eff[2] > pfnew
+			printf "%s %s %.0f %.0f %.0f\n", air[0],air[1],air[2], eff[0]*100,eff[1]*100,eff[2]*100
 		}' /dev/null)
+	[ "$air_new" = /dev/null ] || mv -f "$air_new" /tmp/npu-wifi-airtime.prev
 	local air0 air1 air2 aireff0 aireff1 aireff2
 	air0=$(echo "$_air"|awk '{print $1}'); air1=$(echo "$_air"|awk '{print $2}'); air2=$(echo "$_air"|awk '{print $3}')
 	aireff0=$(echo "$_air"|awk '{print $4}'); aireff1=$(echo "$_air"|awk '{print $5}'); aireff2=$(echo "$_air"|awk '{print $6}')
@@ -1185,7 +1196,7 @@ get_npu_bypass() {
 				wan_mbps=$(( delta * 8 / elapsed / 1000000 ))
 			fi
 		fi
-		printf "%s %s" "$cur_tx" "$(date +%s)" > "$tx_file"
+		write_state "$tx_file" "$cur_tx $(date +%s)"
 	fi
 
 	# Determine NPU path status using PPE bound entries as ground truth

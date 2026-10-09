@@ -437,6 +437,16 @@ async function check(name, fn) {
     }
     // A network outside lan/wan/guest/iot loaded as lan with the custom field
     // still shown, so Save moved e.g. a guest SSID onto the LAN bridge.
+    // OWE hides the key field; the 8-character check still blocked the save.
+    await check('W02 Networks save accepts OWE without a key', async () => {
+        const {key, ...noKey} = legacy;
+        const env = makeEnv(fixture({default_radio0: {...noKey, encryption: 'owe'}}, {}, {}));
+        const {content} = await open(env, 'legacy');
+        button(content, 'Save & apply').fire('click');
+        await settle(env);
+        assert.equal(sets(env)[0].values.encryption, 'owe');
+        assert.ok(!('key' in sets(env)[0].values), 'stale key written for OWE');
+    });
     await check('W04 Networks save keeps a custom network', async () => {
         const env = makeEnv(fixture({default_radio0: {...legacy, network: 'guest2'}}, {}, {}));
         const {content} = await open(env, 'legacy');

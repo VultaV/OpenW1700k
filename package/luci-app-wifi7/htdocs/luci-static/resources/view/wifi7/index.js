@@ -1758,8 +1758,9 @@ return view.extend({
                     var newSSIDv = ssidInp.value.trim();
                     var newEnc  = encSel.value;
                     var newKey  = keyInp.value;
+                    var noKey = newEnc === 'none' || newEnc === 'owe' || newEnc === 'owe-transition';
                     if (!newSSIDv) { alert('SSID cannot be empty'); return; }
-                    if (newEnc !== 'none' && newKey.length < 8) {
+                    if (!noKey && newKey.length < 8) {
                         alert('Password must be at least 8 characters'); return; }
                     saveBtn.disabled = true; discardBtn.disabled = true;
                     statusSpan.textContent = 'Writing UCI...';
@@ -1773,7 +1774,7 @@ return view.extend({
                                  isolate:  isolateChk.checked?'1':'0',
                                  wmm:      wmmChk.checked?'1':'0' };
                     if (maxassocInp.value) vals.maxassoc = maxassocInp.value;
-                    if (newEnc !== 'none') vals.key = newKey;
+                    if (!noKey) vals.key = newKey;
                     callUciSet('wireless', sid, vals)
                     .then(function() {
                         statusSpan.textContent = 'Committing...';
@@ -2186,11 +2187,17 @@ return view.extend({
                         logBtn.addEventListener('click', function() {
                             logBtn.disabled = true;
                             logStatus.textContent = 'Collecting...';
-                            L.resolveDefault(callExec('/bin/sh', ['-c',
-                                'echo "=== dmesg WiFi ===" && dmesg | grep -i "mt76\|wifi\|mld\|hostapd" | tail -100 && ' +
-                                'echo "=== logread ===" && logread 2>/dev/null | tail -200'
-                            ]), { stdout: '' }).then(function(r) {
-                                var blob = new Blob([r.stdout || 'No output'], { type: 'text/plain' });
+                            // The ACL lists these two binaries; /bin/sh is not granted.
+                            Promise.all([
+                                L.resolveDefault(callExec('/bin/dmesg', []), { stdout: '' }),
+                                L.resolveDefault(callExec('/sbin/logread', []), { stdout: '' })
+                            ]).then(function(r) {
+                                var dmesg = (r[0].stdout || '').split('\n')
+                                    .filter(function(l) { return /mt76|wifi|mld|hostapd/i.test(l); }).slice(-100);
+                                var logread = (r[1].stdout || '').split('\n').slice(-200);
+                                var text = '=== dmesg WiFi ===\n' + dmesg.join('\n') +
+                                           '\n=== logread ===\n' + logread.join('\n');
+                                var blob = new Blob([text], { type: 'text/plain' });
                                 var url = URL.createObjectURL(blob);
                                 var a = document.createElement('a');
                                 a.href = url;

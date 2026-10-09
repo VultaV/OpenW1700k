@@ -319,34 +319,38 @@ set_overclock() {
 	# Lock governor to performance to prevent cpufreq from fighting
 	echo performance > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor 2>/dev/null
 
+	# Every write is checked; one failure turns the reply into an error.
+	local wfail=0
+	wr() { devmem "$1" 32 "$2" > /dev/null 2>&1 || wfail=1; }
+
 	# Read current register values
 	local cur_clkmux=$(($(devmem 0x1fa201e0)))
 	local cur_pcw=$(($(devmem 0x1fa202b4)))
 	local cur_chg=$(($(devmem 0x1fa202b8)))
 
 	# Step 1: Enable PLL2 path in CLK_MUX (set bit 2)
-	devmem 0x1fa201e0 32 $(printf "0x%08X" $((cur_clkmux | 0x4)))
+	wr 0x1fa201e0 $(printf "0x%08X" $((cur_clkmux | 0x4)))
 
 	# Step 2: MCUCFG switch to PLL2 (sel=3 in bits[10:9])
 	local cur_u=$(($(devmem 0x1efbe640)))
-	devmem 0x1efbe640 32 $(printf "0x%08X" $(((cur_u & 0xFFFFFFE0) | 0x12)))
+	wr 0x1efbe640 $(printf "0x%08X" $(((cur_u & 0xFFFFFFE0) | 0x12)))
 	local cur_s=$(($(devmem 0x1efbe7c0)))
-	devmem 0x1efbe7c0 32 $(printf "0x%08X" $(((cur_s & 0xFFFFF9FF) | (3 << 9))))
+	wr 0x1efbe7c0 $(printf "0x%08X" $(((cur_s & 0xFFFFF9FF) | (3 << 9))))
 
 	# Step 3: Unlock PLL registers
 	local cur_p=$(($(devmem 0x1fa20268)))
-	devmem 0x1fa20268 32 $(printf "0x%08X" $(((cur_p & 0xFFFFFF00) | 0x12)))
+	wr 0x1fa20268 $(printf "0x%08X" $(((cur_p & 0xFFFFFF00) | 0x12)))
 
 	# Step 4: Write new PCW integer
-	devmem 0x1fa202b4 32 $(printf "0x%08X" $(((cur_pcw & 0x00FFFFFF) | (pcw_int << 24))))
+	wr 0x1fa202b4 $(printf "0x%08X" $(((cur_pcw & 0x00FFFFFF) | (pcw_int << 24))))
 
 	# Step 5: Write posdiv and toggle CHG bit
 	local chg_bit=$((cur_chg & 1))
 	local cleared=$((cur_chg & 0xFFFFFF8E))
 	if [ "$chg_bit" -eq 1 ]; then
-		devmem 0x1fa202b8 32 $(printf "0x%08X" $((cleared | (posdiv << 4))))
+		wr 0x1fa202b8 $(printf "0x%08X" $((cleared | (posdiv << 4))))
 	else
-		devmem 0x1fa202b8 32 $(printf "0x%08X" $((cleared | (posdiv << 4) | 1)))
+		wr 0x1fa202b8 $(printf "0x%08X" $((cleared | (posdiv << 4) | 1)))
 	fi
 
 	# Step 6: Wait for PLL lock
@@ -354,21 +358,21 @@ set_overclock() {
 
 	# Step 7: Enable ARMPLL path in CLK_MUX (set bit 0)
 	local cur_clkmux2=$(($(devmem 0x1fa201e0)))
-	devmem 0x1fa201e0 32 $(printf "0x%08X" $((cur_clkmux2 | 0x1)))
+	wr 0x1fa201e0 $(printf "0x%08X" $((cur_clkmux2 | 0x1)))
 
 	# Step 8: MCUCFG switch back to ARMPLL
 	local cur_u2=$(($(devmem 0x1efbe640)))
-	devmem 0x1efbe640 32 $(printf "0x%08X" $(((cur_u2 & 0xFFFFFFE0) | 0x12)))
+	wr 0x1efbe640 $(printf "0x%08X" $(((cur_u2 & 0xFFFFFFE0) | 0x12)))
 	local cur_s2=$(($(devmem 0x1efbe7c0)))
-	devmem 0x1efbe7c0 32 $(printf "0x%08X" $(((cur_s2 & 0xFFFFF9FF) | (1 << 9))))
+	wr 0x1efbe7c0 $(printf "0x%08X" $(((cur_s2 & 0xFFFFF9FF) | (1 << 9))))
 
 	# Step 9: Clear PLL2 path in CLK_MUX
 	local cur_clkmux3=$(($(devmem 0x1fa201e0)))
-	devmem 0x1fa201e0 32 $(printf "0x%08X" $((cur_clkmux3 & 0xFFFFFFFB)))
+	wr 0x1fa201e0 $(printf "0x%08X" $((cur_clkmux3 & 0xFFFFFFFB)))
 
 	# Step 10: Re-lock PLL registers
 	local cur_p2=$(($(devmem 0x1fa20268)))
-	devmem 0x1fa20268 32 $(printf "0x%08X" $((cur_p2 & 0xFFFFFF00)))
+	wr 0x1fa20268 $(printf "0x%08X" $((cur_p2 & 0xFFFFFF00)))
 
 	# Verify
 	local final_pcw=$(($(devmem 0x1fa202b4)))
@@ -382,6 +386,11 @@ set_overclock() {
 		read_freq=$((read_pcw * 50 / (1 << read_posdiv)))
 	fi
 
+	if [ "$wfail" -ne 0 ]; then
+		printf '{"error":"register write failed","target_mhz":%d,"actual_mhz":%d,"pcw":%d,"posdiv":%d}' \
+			"$target_mhz" "$read_freq" "$read_pcw" "$read_posdiv"
+		return
+	fi
 	printf '{"result":"ok","target_mhz":%d,"actual_mhz":%d,"pcw":%d,"posdiv":%d}' \
 		"$target_mhz" "$read_freq" "$read_pcw" "$read_posdiv"
 }

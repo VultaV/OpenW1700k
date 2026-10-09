@@ -79,7 +79,7 @@ return view.extend({
 					if (result_content.length) {
 						if (result_content[0] == 'Testing')
 							dom.content(result_stat, [ Testing ]);
-						else if (result_content[0].match(/https?:\S+/))
+						else if (result_content[0].match(/^https?:\/\/\S+$/))
 							dom.content(result_stat, [ TestS(result_content[0]) ]);
 						else if (result_content[0] == 'No available servers')
 							dom.content(result_stat, [ NoSer ]);

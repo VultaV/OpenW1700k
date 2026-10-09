@@ -74,12 +74,14 @@ while true; do
 				jitter, last, c, t, cpu
 		}')
 
-		# Write atomically so a reader never sees a half-written file
-		echo "$result" > "$RESULT_FILE.tmp" && mv "$RESULT_FILE.tmp" "$RESULT_FILE"
+		# Write atomically so a reader never sees a half-written file; mktemp so
+		# a planted symlink at a predictable name is never followed by root.
+		tmp=$(mktemp "$RESULT_FILE.XXXXXX") && echo "$result" > "$tmp" && mv -f "$tmp" "$RESULT_FILE"
 	else
 		# Unreachable — preserve sample count but mark unreachable
+		tmp=$(mktemp "$RESULT_FILE.XXXXXX") && \
 		printf '{"jitter":0,"last_ping":0,"samples":%d,"target":"%s","reachable":false,"available":true,"cpu_pct":%d}\n' \
-			"$count" "$TARGET" "$cpu_pct" > "$RESULT_FILE.tmp" && mv "$RESULT_FILE.tmp" "$RESULT_FILE"
+			"$count" "$TARGET" "$cpu_pct" > "$tmp" && mv -f "$tmp" "$RESULT_FILE"
 	fi
 
 	sleep "$INTERVAL"

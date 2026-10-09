@@ -204,8 +204,8 @@ return view.extend({
 			o.rmempty = false;
 		}
 
-		// Draw curve after render
-		m.render().then(function(node) {
+		// Draw curve after render (single render: the listener must live on the returned node)
+		return m.render().then(function(node) {
 			requestAnimationFrame(function() {
 				var preset = uci.get('fan', 'settings', 'curve_preset') || 'balanced';
 				drawCurveCanvas('curve-canvas', curves, preset);
@@ -220,7 +220,5 @@ return view.extend({
 			});
 			return node;
 		});
-
-		return m.render();
 	}
 });

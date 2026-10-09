@@ -47,6 +47,7 @@ if name=='jsonfilter':
         except (KeyError,IndexError,TypeError): sys.exit(1)
     print(v if isinstance(v,str) else json.dumps(v))
 elif name=='curl' and '--url' not in args: sys.stdout.write((base/'page.html').read_text())
+elif name=='devmem' and len(args)==3 and os.environ.get('DEVMEM_FAIL'): sys.exit(1)
 elif name=='devmem' and len(args)==1: print('0x00000000')
 elif name=='ip': print('default via 192.0.2.1 dev wan proto static')
 elif name=='ping': print('round-trip min/avg/max = 1.234/1.234/1.234 ms')
@@ -150,6 +151,11 @@ class NetSpeedTest(unittest.TestCase):
         urls = [args[args.index('--url') + 1] for args in fx.calls('curl') if '--url' in args]
         self.assertEqual(urls, [self.URL % 'aarch64'])
 
+    def test_result_link_needs_a_full_http_url(self):
+        view = (self.APP/'htdocs/luci-static/resources/view/netspeedtest/speedtest.js').read_text()
+        # Anchored, so "javascript:alert(1)//http://x" never becomes the href.
+        self.assertIn(r"match(/^https?:\/\/\S+$/)", view)
+
     def test_build_does_not_empty_package_for_gitcode_remotes(self):
         self.assertNotIn('PKG_UNPACK', (self.APP/'Makefile').read_text())
         self.assertFalse((self.APP/'.prepare.sh').exists())
@@ -247,6 +253,12 @@ class FanControl(unittest.TestCase):
                 result = fx.run(self.RPC, ['call', 'getCurve'], json.dumps({'preset': 'quiet'}))
                 self.assertEqual(json.loads(result.stdout)['points'][4], {'temp': 0, 'pwm': 0})
 
+    def test_settings_view_renders_once(self):
+        # The preset listener is attached to the rendered node; a second render would discard it.
+        view = (self.APP/'htdocs/luci-static/resources/view/fan/settings.js').read_text()
+        self.assertEqual(view.count('m.render()'), 1)
+        self.assertIn('return m.render().then(', view)
+
     def test_ui_accepts_only_integers(self):
         view = (self.APP/'htdocs/luci-static/resources/view/fan/settings.js').read_text()
         self.assertEqual(re.findall(r"datatype = '([^']+)'", view), [
@@ -281,6 +293,17 @@ class AirohaNpu(unittest.TestCase):
                     self.assertEqual(writes, [])
                     self.assertIn('error', json.loads(result.stdout))
 
+    def test_overclock_reports_failed_register_writes(self):
+        os.environ['DEVMEM_FAIL'] = '1'
+        self.addCleanup(os.environ.pop, 'DEVMEM_FAIL', None)
+        fx = Fixture(self, ['devmem', 'jsonfilter'])
+        (fx.base/'cpu/cpufreq/policy0').mkdir(parents=True)
+        result = fx.run(self.RPC, ['call', 'setOverclock'], json.dumps({'freq_mhz': 1000}),
+                        {'. /lib/functions.sh': ':', '/sys/devices/system/cpu': str(fx.base/'cpu')})
+        reply = json.loads(result.stdout)
+        self.assertEqual(reply.get('error'), 'register write failed')
+        self.assertNotIn('result', reply)
+
     def test_ui_offers_stock_maximum_only(self):
         view = (self.APP/'htdocs/luci-static/resources/view/airoha_npu/status.js').read_text()
         self.assertEqual(re.findall(r"'id':'oc-freq-input'.*'max':'(\d+)'", view), ['1200'])
@@ -288,6 +311,16 @@ class AirohaNpu(unittest.TestCase):
 
 
 class FlowSense(unittest.TestCase):
+    def test_root_state_files_are_renamed_into_place(self):
+        # Root must not open predictable /tmp names: every state write goes mktemp -> mv.
+        for script in ('root/usr/libexec/rpcd/luci.airoha_flowsense', 'root/usr/libexec/npu-jitter-daemon'):
+            text = (self.APP/script).read_text()
+            self.assertIsNone(re.search(r'>\s*"?/tmp/', text), script)
+            self.assertIn('mktemp', text)
+        rpcd = (self.APP/'root/usr/libexec/rpcd/luci.airoha_flowsense').read_text()
+        self.assertEqual(rpcd.count('write_state /tmp/') + rpcd.count('write_state "$tx_file"'), 3)
+        self.assertIn('> pfnew', rpcd)
+
     def test_acl_grants_no_file_writes(self):
         acl = json.loads((self.APP/'root/usr/share/rpcd/acl.d/luci-app-airoha-flowsense.json').read_text())
         acl = acl['luci-app-airoha-flowsense']
