@@ -161,11 +161,10 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  	int ret;
 --- a/drivers/net/dsa/mt7530.h
 +++ b/drivers/net/dsa/mt7530.h
-@@ -938,6 +938,13 @@ static inline void INIT_MT7530_DUMMY_POL
+@@ -938,6 +938,12 @@ static inline void INIT_MT7530_DUMMY_POL
  
  int mt7530_probe_common(struct mt7530_priv *priv);
  void mt7530_remove_common(struct mt7530_priv *priv);
-+void mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val);
 +void mt7530_write(struct mt7530_priv *priv, u32 reg, u32 val);
 +u32 mt7530_read(struct mt7530_priv *priv, u32 reg);
 +int mt7531_ind_c45_phy_read(struct mt7530_priv *priv, int port, int devad, int regnum);
@@ -177,7 +176,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  extern const struct mt753x_info mt753x_table[];
 --- /dev/null
 +++ b/drivers/net/dsa/mt7530_nl.c
-@@ -0,0 +1,314 @@
+@@ -0,0 +1,321 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (c) 2018 MediaTek Inc.
@@ -341,6 +340,11 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
 +			value = mt7531_ind_c22_phy_read(sw_priv, phy, reg);
 +		else
 +			value = mt7531_ind_c45_phy_read(sw_priv, phy, devad, reg);
++		/* The indirect PHY accessors return -errno on MDIO failure. */
++		if (value < 0) {
++			ret = value;
++			goto err;
++		}
 +	} else
 +		value = mt7530_read(sw_priv, reg);
 +
@@ -384,9 +388,11 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
 +
 +	if (phy >= 0) {
 +		if (devad < 0)
-+			mt7531_ind_c22_phy_write(sw_priv, phy, reg, value);
++			ret = mt7531_ind_c22_phy_write(sw_priv, phy, reg, value);
 +		else
-+			mt7531_ind_c45_phy_write(sw_priv, phy, devad, reg, value);
++			ret = mt7531_ind_c45_phy_write(sw_priv, phy, devad, reg, value);
++		if (ret < 0)
++			goto err;
 +	} else
 +		mt7530_write(sw_priv, reg, value);
 +
