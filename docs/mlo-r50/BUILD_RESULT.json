@@ -1,0 +1,58 @@
+{
+ "image": "openwrt-ubi2-mlo-txpower-r50-20261010-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "cf4d2e9cc89ef74ce531c12e14bb6cba19c12042a891f973946c43c5365b315c",
+ "bytes": 30446434,
+ "base": "r49 870b534159 (mlo-r49-20261010)",
+ "built_source_commit": "1e7d147b8795bcad2c4f6a1d7716ea29efd16c3e",
+ "changes": [
+  "mt76 0039: mt7996_get_txpower() resolves the phy by link_id (kmod-mt76 r35)",
+  "luci-app-wifi7 r20261010: Collect logs help text"
+ ],
+ "build": {
+  "command": "make package/kernel/mt76/{clean,compile}; make -j15",
+  "exit_code": 0,
+  "seconds": 788,
+  "warnings": 0,
+  "host": "Darwin arm64 (macOS 27), GNU make 4.4.1"
+ },
+ "image_verification": {
+  "kernel_release": "6.18.55-w1700k-mlo-r32",
+  "module_count": 74,
+  "package_names_same_as_r49": true,
+  "changed_package_versions": [
+   "kmod-mt76-* r34->r35",
+   "luci-app-wifi7 r20261009->r20261010"
+  ],
+  "fit_check_sign_on_device": "Signature check OK"
+ },
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-10",
+  "install": "from r49, keep settings; wired HTTP monitor first failure 16:26:30, recovered 16:28:08 KST",
+  "config_preserved": "wireless, bridge-flow-offload md5 unchanged; tailscale running",
+  "npu": "NPU TX budget guard applied, NPU fw version 0.1111",
+  "kernel_warnings": 0,
+  "txpower_readout": {
+   "2g": 23,
+   "5g_link1": 23,
+   "6g_link2": 18,
+   "regulatory_kr": {
+    "2g": 23,
+    "5150-5230": 23,
+    "5925-6425": 18
+   }
+  },
+  "luci_wifi7_overview": "Link 1 Tx 23.00 dBm, Link 2 Tx 18.00 dBm",
+  "mac_wifi_mbps": {
+   "mlo_5_6": {
+    "download": [
+     1964
+    ],
+    "upload": [
+     1810
+    ]
+   }
+  }
+ }
+}
