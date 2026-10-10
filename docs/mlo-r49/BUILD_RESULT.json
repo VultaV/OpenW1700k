@@ -1,0 +1,157 @@
+{
+ "image": "openwrt-ubi2-mlo-hardening-r49-20261010-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "35c2219b1c89c058004246ceec43e91cec2affce2a878530dfdfc2e713a84e4a",
+ "bytes": 30446436,
+ "base": "r48 226efdb471 (mlo-r48-20261008)",
+ "built_source_commit": "b4695e771e59f478f39b88074beef550c3d76f0b",
+ "changes": [
+  "airoha 999-dsa-01: MT7531 netlink PHY read/write errors propagated; 992-21: NPU BA reserved-memory command uses the retry helper",
+  "mt76 0011 txpower cache restored on SKU update failure; 0006 rate-limited log for corrupt NPU RX frame counts; kmod-mt76 r34",
+  "w1700k-wifi-watchdog 2: state and lock under /var/run",
+  "luci-app-airoha-flowsense 1.1.9-r8, luci-app-airoha-npu 1.0.3-r3, luci-app-wifi7 r20261009, luci-app-w1700k-fancontrol, luci-app-netspeedtest: atomic state writes, PLL write error reporting, OWE save, Collect logs via dmesg/logread, preset preview, anchored result link"
+ ],
+ "build": {
+  "command": "make target/linux/clean; make -j15; then mt76 PKG_RELEASE 34: make -j15 package/kernel/mt76/compile; make -j15",
+  "exit_code": 0,
+  "seconds": 1126,
+  "rebuild_seconds": 836,
+  "warnings": 0,
+  "host": "Darwin arm64 (macOS 27), GNU make 4.4.1"
+ },
+ "image_verification": {
+  "kernel_release": "6.18.55-w1700k-mlo-r32",
+  "module_count": 74,
+  "package_names_same_as_r48": true,
+  "changed_package_versions": [
+   "luci-app-airoha-flowsense 1.1.9-r6->r8",
+   "luci-app-airoha-npu 1.0.3-r2->r3",
+   "luci-app-netspeedtest 26.276.17113~d22beb3->26.282.29911~444da36",
+   "luci-app-w1700k-fancontrol 26.276.20652~b836ac1->26.282.29911~444da36",
+   "luci-app-wifi7 1.0.0-r20261004->r20261009",
+   "w1700k-wifi-watchdog 1->2",
+   "kmod-mt76-* r33->r34"
+  ],
+  "distfeeds_userland_feeds": 4,
+  "fit_check_sign_on_device": "Signature check OK"
+ },
+ "host_tests": [
+  "test_wifi7_ui.js 55 PASS / 0 FAIL",
+  "test_mlo_ui.js PASS",
+  "test_board_luci_apps.py 25 OK",
+  "test_w1700k_wifi_watchdog.py 14 OK",
+  "test_board_luci_views.js 4 PASS",
+  "test_image_metadata.py PASS"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-10",
+  "install": "from r48, keep settings, sysupgrade -T Signature check OK; wired HTTP monitor (lan4): first failure 15:06:57, recovered 15:08:37 KST",
+  "config_preserved": "wireless, network, firewall, dhcp, bridge-flow-offload md5 unchanged; tailscale running",
+  "npu": "NPU TX budget guard applied, NPU fw version 0.1111, NPU RED WM ACK",
+  "wireless": "3 radios up; MLO 5 GHz ch36 + 6 GHz ch37 at 160 MHz; bridge offload lan2<->ap-mld0",
+  "kernel_warnings": 0,
+  "watchdog_state": "/var/run/w1700k-wifi-watchdog (nothing under /tmp)",
+  "luci_safari": "Overview, Wireless, MLO, WiFi 7 (Overview/Diagnostics, Collect logs downloads dmesg+logread), SoC Status, FlowSense, Fan (preset preview updates), SpeedTest, Channel Analysis, Attended Sysupgrade rendered without error strings",
+  "wired_mbps": {
+   "lan4_to_lan2_server": {
+    "down": 844,
+    "up": 932
+   },
+   "router_cpu_endpoint": {
+    "down": 864,
+    "up": 930
+   },
+   "wan_networkquality_wired": {
+    "down": 815,
+    "up": 818
+   },
+   "wan_networkquality_wifi": {
+    "down": 870,
+    "up": 724
+   }
+  },
+  "mac_wifi_mbps": {
+   "mlo_5_6": {
+    "download": [
+     1216,
+     1993,
+     1984
+    ],
+    "upload": [
+     1812,
+     1804
+    ],
+    "links": "1+2, primary 6 GHz",
+    "download_min_interval": [
+     76,
+     1859,
+     1838
+    ]
+   },
+   "single_5g_cpu_path": {
+    "download": [
+     1478,
+     1398
+    ],
+    "upload": [
+     789
+    ]
+   },
+   "single_5g_offload": {
+    "download": [
+     1987,
+     1977
+    ],
+    "upload": [
+     1797
+    ]
+   },
+   "single_6g_offload": {
+    "download": [
+     1670,
+     1965
+    ],
+    "upload": [
+     1775
+    ],
+    "download_min_interval": [
+     411,
+     1864
+    ]
+   },
+   "mlo_2_5_6_assoc_via_2g": {
+    "download": [
+     158,
+     158
+    ],
+    "upload": [
+     108
+    ],
+    "links": "0+2, primary 2.4 GHz"
+   },
+   "mlo_2_5_6_assoc_via_6g": {
+    "download": [
+     637,
+     1977
+    ],
+    "upload": [
+     1529
+    ],
+    "links": "0+1+2, primary 6 GHz",
+    "zero_intervals_first_run": 6
+   },
+   "mlo_5_6_restored": {
+    "download": [
+     1966,
+     1959
+    ],
+    "upload": [
+     1810
+    ]
+   }
+  },
+  "test_conditions": "iperf3 3.21, 4 streams, 30 s wireless / 20 s wired, 2.5GbE Linux server on lan2, Mac M5 Pro macOS 27, AWDL on (no sudo), macOS Wi-Fi settings pane closed",
+  "config_restored": "wireless and bridge-flow-offload restored byte-identical after the tests"
+ }
+}
