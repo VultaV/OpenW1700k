@@ -2177,7 +2177,7 @@ return view.extend({
             sectionBox('Log collection', '#444', null,
                 E('div', {}, [
                     E('div', { 'style': 'font-size:12px;color:#aaa;margin-bottom:8px' },
-                        'Collect kernel + WiFi logs for debugging. Output opens in new tab.'),
+                        'Collect kernel + WiFi logs for debugging. The output is downloaded as a text file.'),
                     (function() {
                         var logBtn = E('button', { 'style':
                             'background:#2a2a3a;color:#ccc;border:1px solid #444;border-radius:4px;' +
