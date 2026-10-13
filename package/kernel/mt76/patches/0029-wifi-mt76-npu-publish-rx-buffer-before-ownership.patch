@@ -8,9 +8,11 @@ when the shared refill function is called from NAPI or queue reset.
 Based on the RX ownership analysis published by NoTengoBattery:
 https://forum.openwrt.org/t/quantum-fiber-w1700k-support/222776/3890
 
---- a/npu.c
-+++ b/npu.c
-@@ -32,8 +32,12 @@
+Index: mt76-2026.10.08~639e1287/npu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/npu.c
++++ mt76-2026.10.08~639e1287/npu.c
+@@ -32,8 +32,12 @@ int mt76_npu_fill_rx_queue(struct mt76_d
  		page = virt_to_head_page(e->buf);
  		e->dma_addr[0] = page_pool_get_dma_addr(page) + offset;
  

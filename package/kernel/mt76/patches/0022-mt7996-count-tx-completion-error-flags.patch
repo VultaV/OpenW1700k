@@ -6,9 +6,11 @@ identify TCP packets. TXFREE bins use atomics across completion queues.
 No radio commands, status frequency, TX selection, PS flags or ACK
 classification are changed. This is not an MLO stall fix.
 
---- a/mt7996/debugfs.c
-+++ b/mt7996/debugfs.c
-@@ -682,6 +682,24 @@
+Index: mt76-2026.10.08~639e1287/mt7996/debugfs.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/debugfs.c
++++ mt76-2026.10.08~639e1287/mt7996/debugfs.c
+@@ -817,6 +817,24 @@ mt7996_sta_hw_queue_read(void *data, str
  			   (unsigned long long)txs,
  			   READ_ONCE(msta_link->wcid.stats.tx_retries),
  			   READ_ONCE(msta_link->wcid.stats.tx_failed));
@@ -31,11 +33,13 @@ classification are changed. This is not an MLO stall fix.
 +			   (u32)atomic_read(&msta_link->txfree_status[2]),
 +			   (u32)atomic_read(&msta_link->txfree_status[3]));
  
- 		mphy = mt76_vif_link_phy(mlink);
- 		if (!mphy)
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -1232,6 +1232,16 @@
+ 		phy = mt7996_vif_link_phy(container_of(mlink,
+ 						       struct mt7996_vif_link,
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -1232,6 +1232,16 @@ out:
  	mt76_put_txwi(mdev, t);
  }
  
@@ -52,7 +56,7 @@ classification are changed. This is not an MLO stall fix.
  static void
  mt7996_mac_tx_free(struct mt7996_dev *dev, void *data, int len)
  {
-@@ -1310,6 +1320,7 @@
+@@ -1310,6 +1320,7 @@ next:
  
  			wcid->stats.tx_retries += tx_retries;
  			wcid->stats.tx_failed += tx_failed;
@@ -60,12 +64,10 @@ classification are changed. This is not an MLO stall fix.
  			continue;
  		}
  
-@@ -1337,6 +1348,22 @@
- 		skb_list_del_init(skb);
- 		napi_consume_skb(skb, 1);
+@@ -1339,6 +1350,22 @@ next:
  	}
-+}
-+
+ }
+ 
 +static void mt7996_mac_txs_diag(struct mt76_wcid *wcid, u32 txs)
 +{
 +	struct mt7996_sta_link *link;
@@ -80,10 +82,12 @@ classification are changed. This is not an MLO stall fix.
 +		return;
 +	for (bit = 0; bit < ARRAY_SIZE(link->txs_mpdu_flags); bit++)
 +		link->txs_mpdu_flags[bit] += !!(txs & BIT(16 + bit));
- }
- 
++}
++
  static bool
-@@ -1357,6 +1384,7 @@
+ mt7996_mac_add_txs_skb(struct mt7996_dev *dev, struct mt76_wcid *wcid,
+ 		       int pid, __le32 *txs_data)
+@@ -1357,6 +1384,7 @@ mt7996_mac_add_txs_skb(struct mt7996_dev
  	txs = le32_to_cpu(txs_data[0]);
  
  	mt76_tx_status_lock(mdev, &list);
@@ -91,9 +95,11 @@ classification are changed. This is not an MLO stall fix.
  
  	/* only report MPDU TXS */
  	if (le32_get_bits(txs_data[0], MT_TXS0_TXS_FORMAT) == 0) {
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -307,6 +307,11 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -308,6 +308,11 @@ struct mt7996_sta_link {
  	} twt;
  
  	struct rcu_head rcu_head;
@@ -104,4 +110,4 @@ classification are changed. This is not an MLO stall fix.
 +	atomic_t txfree_status[4];
  };
  
- struct mt7996_sta {
+ struct mt7996_sta_ba {

@@ -1,6 +1,8 @@
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -3319,6 +3319,11 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -3361,6 +3361,11 @@ int mt7996_mcu_add_sta(struct mt7996_dev
  out:
  	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
  				    MCU_WMWA_UNI_CMD(STA_REC_UPDATE), true);

@@ -8,9 +8,11 @@ MT7996 rejects while the client dozes.
 
 Signed-off-by: VultaV <unc10@naver.com>
 ---
---- a/mt7996/debugfs.c
-+++ b/mt7996/debugfs.c
-@@ -700,6 +700,8 @@
+Index: mt76-2026.10.08~639e1287/mt7996/debugfs.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/debugfs.c
++++ mt76-2026.10.08~639e1287/mt7996/debugfs.c
+@@ -835,6 +835,8 @@ mt7996_sta_hw_queue_read(void *data, str
  			   (u32)atomic_read(&msta_link->txfree_status[1]),
  			   (u32)atomic_read(&msta_link->txfree_status[2]),
  			   (u32)atomic_read(&msta_link->txfree_status[3]));
@@ -19,9 +21,11 @@ Signed-off-by: VultaV <unc10@naver.com>
  		seq_printf(s, "\t\ttx_prepared:%u awake_checks:%u awake_redirects:%u wcid_link:%u sta_mlo:%u\n",
  			   (u32)atomic_read(&msta_link->tx_prepared),
  			   (u32)atomic_read(&msta_link->tx_awake_checks),
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -1162,9 +1162,14 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -1206,9 +1206,14 @@ mt7996_mcu_ps_transition(struct mt7996_d
  
  	old_ps = test_bit(MT_WCID_FLAG_PS, &wcid->flags);
  	mt76_sta_ps_transition(&dev->mt76, wcid, ps);
@@ -37,9 +41,11 @@ Signed-off-by: VultaV <unc10@naver.com>
  }
  
  static void
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -314,6 +314,7 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -315,6 +315,7 @@ struct mt7996_sta_link {
  	u32 txs_formats[4];
  	u32 txs_mpdu_flags[7]; /* TXS0 bits 16..22, only format 0 */
  	atomic_t txfree_status[4];

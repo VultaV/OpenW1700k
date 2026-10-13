@@ -8,9 +8,11 @@ kick cannot protect the earlier ownership publication.
 Order the copied TXWI and address before publishing DONE, as for RX refill.
 Keep descriptor contents, ring accounting and queue metadata unchanged.
 
---- a/npu.c
-+++ b/npu.c
-@@ -231,9 +231,12 @@
+Index: mt76-2026.10.08~639e1287/npu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/npu.c
++++ mt76-2026.10.08~639e1287/npu.c
+@@ -236,9 +236,12 @@ int mt76_npu_dma_add_buf(struct mt76_phy
  	/* TODO: Take into account unlinear skbs */
  	memcpy(desc[q->head].txwi, txwi_ptr, txwi_len);
  	desc[q->head].addr = buf->addr;

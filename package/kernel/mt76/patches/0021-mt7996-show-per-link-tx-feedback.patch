@@ -8,21 +8,22 @@ TXS reports are sampled feedback, not successful-packet counts. TXFREE failed
 attempts include retries as well as the terminal status bit. Snapshots are
 not coherent across counters. No TX path, MCU queries or counter writers change.
 
---- a/mt7996/debugfs.c
-+++ b/mt7996/debugfs.c
-@@ -659,6 +659,7 @@
- 		struct mt7996_sta_link *msta_link;
- 		struct mt76_vif_link *mlink;
- 		struct mt76_phy *mphy;
-+		u64 txs = 0;
+Index: mt76-2026.10.08~639e1287/mt7996/debugfs.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/debugfs.c
++++ mt76-2026.10.08~639e1287/mt7996/debugfs.c
+@@ -795,6 +795,7 @@ mt7996_sta_hw_queue_read(void *data, str
+ 		unsigned int cr;
+ 		u16 wlan_idx;
  		u8 ac;
++		u64 txs = 0;
  
  		mlink = rcu_dereference(mvif->mt76.link[link_id]);
-@@ -673,6 +674,14 @@
- 			   link_id, msta_link->wcid.idx,
+ 		if (!mlink)
+@@ -809,6 +810,14 @@ mt7996_sta_hw_queue_read(void *data, str
  			   READ_ONCE(msta_link->wcid.link_valid),
  			   test_bit(MT_WCID_FLAG_PS, &msta_link->wcid.flags));
-+
+ 
 +		/* TXS reports are sampled status, not delivered MPDU counts. */
 +		for (ac = 0; ac < ARRAY_SIZE(msta_link->wcid.stats.tx_mode); ac++)
 +			txs += READ_ONCE(msta_link->wcid.stats.tx_mode[ac]);
@@ -30,6 +31,7 @@ not coherent across counters. No TX path, MCU queries or counter writers change.
 +			   (unsigned long long)txs,
 +			   READ_ONCE(msta_link->wcid.stats.tx_retries),
 +			   READ_ONCE(msta_link->wcid.stats.tx_failed));
- 
- 		mphy = mt76_vif_link_phy(mlink);
- 		if (!mphy)
++
+ 		phy = mt7996_vif_link_phy(container_of(mlink,
+ 						       struct mt7996_vif_link,
+ 						       mt76));

@@ -1,8 +1,10 @@
 Subject: mt7996: count host WCID preparation and awake-selector decisions
 
---- a/mt7996/debugfs.c
-+++ b/mt7996/debugfs.c
-@@ -700,6 +700,12 @@
+Index: mt76-2026.10.08~639e1287/mt7996/debugfs.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/debugfs.c
++++ mt76-2026.10.08~639e1287/mt7996/debugfs.c
+@@ -835,6 +835,12 @@ mt7996_sta_hw_queue_read(void *data, str
  			   (u32)atomic_read(&msta_link->txfree_status[1]),
  			   (u32)atomic_read(&msta_link->txfree_status[2]),
  			   (u32)atomic_read(&msta_link->txfree_status[3]));
@@ -13,11 +15,13 @@ Subject: mt7996: count host WCID preparation and awake-selector decisions
 +			   msta_link->wcid.link_id,
 +			   sta->mlo);
  
- 		mphy = mt76_vif_link_phy(mlink);
- 		if (!mphy)
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -952,9 +952,12 @@
+ 		phy = mt7996_vif_link_phy(container_of(mlink,
+ 						       struct mt7996_vif_link,
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -952,9 +952,12 @@ mt7996_tx_awake_link(struct ieee80211_st
  	    other->wcid.link_id != other_id)
  		return preferred;
  
@@ -31,11 +35,10 @@ Subject: mt7996: count host WCID preparation and awake-selector decisions
  
  	return preferred;
  }
-@@ -1058,6 +1061,14 @@
- 	}
+@@ -1059,6 +1062,14 @@ int mt7996_tx_prepare_skb(struct mt76_de
  
  	wcid = mt7996_get_tx_wcid(wcid);
-+
+ 
 +	/* Host preparation count; this does not prove firmware admission. */
 +	if (wcid->sta) {
 +		struct mt7996_sta_link *prepared;
@@ -43,12 +46,15 @@ Subject: mt7996: count host WCID preparation and awake-selector decisions
 +		prepared = container_of(wcid, struct mt7996_sta_link, wcid);
 +		atomic_inc(&prepared->tx_prepared);
 +	}
- 
++
  	pid = mt76_tx_status_skb_add(mdev, wcid, tx_info->skb);
  	memset(txwi_ptr, 0, MT_TXD_SIZE);
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -312,6 +312,9 @@
+ 	/* Transmit non qos data by 802.11 header and need to fill txd by host*/
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -313,6 +313,9 @@ struct mt7996_sta_link {
  	u32 txs_formats[4];
  	u32 txs_mpdu_flags[7]; /* TXS0 bits 16..22, only format 0 */
  	atomic_t txfree_status[4];
@@ -57,4 +63,4 @@ Subject: mt7996: count host WCID preparation and awake-selector decisions
 +	atomic_t tx_awake_redirects;
  };
  
- struct mt7996_sta {
+ struct mt7996_sta_ba {

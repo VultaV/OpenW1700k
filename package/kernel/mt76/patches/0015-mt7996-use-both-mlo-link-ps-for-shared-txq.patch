@@ -3,13 +3,14 @@ Subject: mt7996: use both MLO link PS states for the shared station TXQ
 Default enabled for two-link MLO; validates current primary and secondary WCIDs.
 Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
 
---- a/tx.c
-+++ b/tx.c
-@@ -44,6 +44,15 @@
- 	spin_lock_bh(&dev->status_lock);
+Index: mt76-2026.10.08~639e1287/tx.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/tx.c
++++ mt76-2026.10.08~639e1287/tx.c
+@@ -45,6 +45,15 @@ mt76_tx_status_lock(struct mt76_dev *dev
  }
  EXPORT_SYMBOL_GPL(mt76_tx_status_lock);
-+
+ 
 +static bool
 +mt76_txq_is_ps(struct mt76_dev *dev, struct mt76_wcid *wcid)
 +{
@@ -18,10 +19,11 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
 +
 +	return test_bit(MT_WCID_FLAG_PS, &wcid->flags);
 +}
- 
++
  static void
  mt76_txq_wake_ps(struct mt76_dev *dev, struct mt76_wcid *completed,
-@@ -72,7 +81,7 @@
+ 		 struct ieee80211_sta *sta)
+@@ -72,7 +81,7 @@ mt76_txq_wake_ps(struct mt76_dev *dev, s
  		if (!wcid)
  			continue;
  
@@ -30,7 +32,7 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
  		if (!ps && !completed_ps)
  			continue;
  
-@@ -532,7 +541,7 @@
+@@ -537,7 +546,7 @@ mt76_txq_send_burst(struct mt76_phy *phy
  	bool stop = false;
  	int idx;
  
@@ -39,7 +41,7 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
  		if (!(dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING))
  			return 0;
  		if (ieee80211_txq_aql_pending(phy->hw, txq))
-@@ -558,7 +567,7 @@
+@@ -563,7 +572,7 @@ mt76_txq_send_burst(struct mt76_phy *phy
  	if (idx < 0)
  		return idx;
  
@@ -48,7 +50,7 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
  		goto out;
  
  	do {
-@@ -622,7 +631,7 @@
+@@ -627,7 +636,7 @@ mt76_txq_schedule_list(struct mt76_phy *
  
  		q = phy->q_tx[qid];
  
@@ -57,9 +59,11 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
  			if (!(dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING))
  				continue;
  
---- a/mt76.h
-+++ b/mt76.h
-@@ -569,6 +569,7 @@
+Index: mt76-2026.10.08~639e1287/mt76.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt76.h
++++ mt76-2026.10.08~639e1287/mt76.h
+@@ -569,6 +569,7 @@ struct mt76_driver_ops {
  				struct mt76_queue_entry *e);
  
  	bool (*tx_status_data)(struct mt76_dev *dev, u8 *update);
@@ -67,13 +71,14 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
  
  	bool (*rx_check)(struct mt76_dev *dev, void *data, int len);
  
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -6,6 +6,48 @@
- #include "mt7996.h"
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -7,6 +7,48 @@
  #include "mcu.h"
  #include "mac.h"
-+
+ 
 +static bool mlo_ps_gate_fix = true;
 +module_param_named(mlo_ps_gate_fix, mlo_ps_gate_fix, bool, 0600);
 +MODULE_PARM_DESC(mlo_ps_gate_fix,
@@ -115,12 +120,15 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
 +	 */
 +	return test_bit(MT_WCID_FLAG_PS, &secondary->wcid.flags);
 +}
- 
++
  int mt7996_run(struct mt7996_phy *phy)
  {
---- a/mt7996/mmio.c
-+++ b/mt7996/mmio.c
-@@ -842,6 +842,7 @@
+ 	struct mt7996_dev *dev = phy->dev;
+Index: mt76-2026.10.08~639e1287/mt7996/mmio.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mmio.c
++++ mt76-2026.10.08~639e1287/mt7996/mmio.c
+@@ -842,6 +842,7 @@ struct mt7996_dev *mt7996_mmio_probe(str
  				SURVEY_INFO_TIME_BSS_RX,
  		.token_size = MT7996_TOKEN_SIZE,
  		.tx_prepare_skb = mt7996_tx_prepare_skb,
@@ -128,9 +136,11 @@ Leaves firmware PS flags, actual TX WCID choice and BA commands unchanged.
  		.tx_complete_skb = mt76_connac_tx_complete_skb,
  		.rx_skb = mt7996_queue_rx_skb,
  		.rx_check = mt7996_rx_check,
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -956,6 +956,7 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -1002,6 +1002,7 @@ u16 mt7996_mac_sta_links(struct mt7996_d
  void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
  			      struct ieee80211_sta *sta,
  			      struct ieee80211_twt_setup *twt);

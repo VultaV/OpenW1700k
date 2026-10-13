@@ -22,11 +22,11 @@ Signed-off-by: Yanghan Ye <yyh94306@gmail.com>
  mt7996/mt7996.h |   6 +
  6 files changed, 411 insertions(+), 20 deletions(-)
 
-diff --git a/eeprom.c b/eeprom.c
-index 28dbda6f9..440a89dca 100644
---- a/eeprom.c
-+++ b/eeprom.c
-@@ -511,6 +511,15 @@ s8 mt76_get_rate_power_limits(struct mt76_phy *phy,
+Index: mt76-2026.10.08~639e1287/eeprom.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/eeprom.c
++++ mt76-2026.10.08~639e1287/eeprom.c
+@@ -516,6 +516,15 @@ s8 mt76_get_rate_power_limits(struct mt7
  				     ARRAY_SIZE(dest->ru), val, len, target_power,
  				     txs_delta, &max_power, n_chains, MT76_SKU_RATE);
  
@@ -42,11 +42,11 @@ index 28dbda6f9..440a89dca 100644
  	val = mt76_get_of_array_s8(np, "paths-cck", &len, ARRAY_SIZE(dest->path.cck));
  	mt76_apply_array_limit(dev, dest->path.cck, ARRAY_SIZE(dest->path.cck), val,
  			       target_power, txs_delta, &max_power, n_chains, MT76_SKU_BACKOFF);
-diff --git a/mt7996/init.c b/mt7996/init.c
-index 2bf3ddd8c..21c359f56 100644
---- a/mt7996/init.c
-+++ b/mt7996/init.c
-@@ -362,15 +362,23 @@ static void __mt7996_init_txpower(struct mt7996_phy *phy,
+Index: mt76-2026.10.08~639e1287/mt7996/init.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/init.c
++++ mt76-2026.10.08~639e1287/mt7996/init.c
+@@ -362,15 +362,23 @@ static void __mt7996_init_txpower(struct
  	int i, n_chains = hweight16(phy->mt76->chainmask);
  	int path_delta = mt76_tx_power_path_delta(n_chains);
  	int pwr_delta = mt7996_eeprom_get_power_delta(dev, sband->band);
@@ -72,7 +72,7 @@ index 2bf3ddd8c..21c359f56 100644
  							  target_power);
  		target_power += path_delta;
  		target_power = DIV_ROUND_UP(target_power, 2);
-@@ -379,6 +387,8 @@ static void __mt7996_init_txpower(struct mt7996_phy *phy,
+@@ -379,6 +387,8 @@ static void __mt7996_init_txpower(struct
  		phy->txpower = max(phy->txpower, chan->max_power);
  		chan->orig_mpwr = target_power;
  	}
@@ -81,7 +81,7 @@ index 2bf3ddd8c..21c359f56 100644
  }
  
  void mt7996_init_txpower(struct mt7996_phy *phy)
-@@ -386,6 +396,8 @@ void mt7996_init_txpower(struct mt7996_phy *phy)
+@@ -386,6 +396,8 @@ void mt7996_init_txpower(struct mt7996_p
  	if (!phy)
  		return;
  
@@ -90,31 +90,28 @@ index 2bf3ddd8c..21c359f56 100644
  	if (phy->mt76->cap.has_2ghz)
  		__mt7996_init_txpower(phy, &phy->mt76->sband_2g.sband);
  	if (phy->mt76->cap.has_5ghz)
-diff --git a/mt7996/main.c b/mt7996/main.c
-index c32e7819f..f3fec5485 100644
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -34,6 +34,16 @@ int mt7996_run(struct mt7996_phy *phy)
- 	if (ret)
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -35,7 +35,12 @@ int mt7996_run(struct mt7996_phy *phy)
  		return ret;
  
-+	ret = mt7996_mcu_set_tx_power_ctrl(phy, UNI_TXPOWER_SKU_POWER_LIMIT_CTRL,
+ 	ret = mt7996_mcu_set_tx_power_ctrl(phy, UNI_TXPOWER_SKU_POWER_LIMIT_CTRL,
+-					   true);
 +					   phy->sku_limit_en);
 +	if (ret)
 +		return ret;
 +
 +	ret = mt7996_mcu_set_tx_power_ctrl(phy, UNI_TXPOWER_BACKOFF_POWER_LIMIT_CTRL,
 +					   phy->sku_path_en);
-+	if (ret)
-+		return ret;
-+
- 	set_bit(MT76_STATE_RUNNING, &phy->mt76->state);
+ 	if (ret)
+ 		return ret;
  
- 	ieee80211_queue_delayed_work(dev->mphy.hw, &phy->mt76->mac_work,
-diff --git a/mt7996/mcu.c b/mt7996/mcu.c
-index c0b9b1bf7..bf66f6d25 100644
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
 @@ -5,6 +5,7 @@
  
  #include <linux/firmware.h>
@@ -366,46 +363,7 @@ index c0b9b1bf7..bf66f6d25 100644
  static u8
  mt7996_mcu_get_sta_nss(u16 mcs_map)
  {
-@@ -5404,9 +5641,46 @@ int mt7996_mcu_set_sniffer_mode(struct mt7996_phy *phy, bool enabled)
- 				 sizeof(req), true);
- }
- 
-+int mt7996_mcu_set_tx_power_ctrl(struct mt7996_phy *phy, u8 power_ctrl_id,
-+				 u8 data)
-+{
-+	struct mt7996_dev *dev = phy->dev;
-+	struct tx_power_ctrl req = {
-+		.tag = cpu_to_le16(power_ctrl_id),
-+		.len = cpu_to_le16(sizeof(req) - 4),
-+		.power_ctrl_id = power_ctrl_id,
-+		.band_idx = phy->mt76->band_idx,
-+	};
-+
-+	switch (power_ctrl_id) {
-+	case UNI_TXPOWER_SKU_POWER_LIMIT_CTRL:
-+		req.sku_enable = !!data;
-+		break;
-+	case UNI_TXPOWER_PERCENTAGE_CTRL:
-+		req.percentage_ctrl_enable = !!data;
-+		break;
-+	case UNI_TXPOWER_PERCENTAGE_DROP_CTRL:
-+		req.power_drop_level = data;
-+		break;
-+	case UNI_TXPOWER_BACKOFF_POWER_LIMIT_CTRL:
-+		req.bf_backoff_enable = !!data;
-+		break;
-+	case UNI_TXPOWER_ATE_MODE_CTRL:
-+		req.ate_mode_enable = !!data;
-+		break;
-+	default:
-+		req.sku_enable = !!data;
-+		break;
-+	}
-+
-+	return mt76_mcu_send_msg(&dev->mt76, MCU_WM_UNI_CMD(TXPOWER),
-+				 &req, sizeof(req), false);
-+}
-+
+@@ -5882,6 +6119,7 @@ int mt7996_mcu_set_tx_power_ctrl(struct
  int mt7996_mcu_set_txpower_sku(struct mt7996_phy *phy)
  {
  #define TX_POWER_LIMIT_TABLE_RATE	0
@@ -413,7 +371,7 @@ index c0b9b1bf7..bf66f6d25 100644
  	struct mt7996_dev *dev = phy->dev;
  	struct mt76_phy *mphy = phy->mt76;
  	struct tx_power_limit_table_ctrl {
-@@ -5424,45 +5698,100 @@ int mt7996_mcu_set_txpower_sku(struct mt7996_phy *phy)
+@@ -5899,45 +6137,100 @@ int mt7996_mcu_set_txpower_sku(struct mt
  		.power_limit_type = TX_POWER_LIMIT_TABLE_RATE,
  		.band_idx = phy->mt76->band_idx,
  	};
@@ -532,50 +490,11 @@ index c0b9b1bf7..bf66f6d25 100644
  }
  
  int mt7996_mcu_cp_support(struct mt7996_dev *dev, u8 mode)
-diff --git a/mt7996/mcu.h b/mt7996/mcu.h
-index 55d42c9e6..fe7b7d9d0 100644
---- a/mt7996/mcu.h
-+++ b/mt7996/mcu.h
-@@ -1030,9 +1030,34 @@ enum {
- };
- 
- enum {
-+	UNI_TXPOWER_SKU_POWER_LIMIT_CTRL = 0,
-+	UNI_TXPOWER_PERCENTAGE_CTRL = 1,
-+	UNI_TXPOWER_PERCENTAGE_DROP_CTRL = 2,
-+	UNI_TXPOWER_BACKOFF_POWER_LIMIT_CTRL = 3,
- 	UNI_TXPOWER_POWER_LIMIT_TABLE_CTRL = 4,
-+	UNI_TXPOWER_ATE_MODE_CTRL = 6,
-+	UNI_TXPOWER_SHOW_INFO = 7,
- };
- 
-+struct tx_power_ctrl {
-+	u8 _rsv[4];
-+
-+	__le16 tag;
-+	__le16 len;
-+
-+	u8 power_ctrl_id;
-+	union {
-+		bool sku_enable;
-+		bool ate_mode_enable;
-+		bool percentage_ctrl_enable;
-+		bool bf_backoff_enable;
-+		u8 show_info_category;
-+		u8 power_drop_level;
-+	};
-+	u8 band_idx;
-+	u8 rsv[1];
-+} __packed;
-+
- enum {
- 	UNI_CMD_ACCESS_REG_BASIC = 0x0,
- 	UNI_CMD_ACCESS_RF_REG_BASIC,
-diff --git a/mt7996/mt7996.h b/mt7996/mt7996.h
-index 0d6488522..7e9e106f6 100644
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -400,6 +400,8 @@ struct mt7996_phy {
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -463,6 +463,8 @@ struct mt7996_phy {
  	bool has_aux_rx;
  	bool counter_reset;
  	bool rdd_tx_paused;
@@ -584,14 +503,12 @@ index 0d6488522..7e9e106f6 100644
  };
  
  struct mt7996_dev {
-@@ -775,6 +777,10 @@ int mt7996_mcu_get_chan_mib_info(struct mt7996_phy *phy, bool chan_switch);
+@@ -875,6 +877,8 @@ int mt7996_mcu_get_chan_mib_info(struct
  int mt7996_mcu_get_temperature(struct mt7996_phy *phy);
  int mt7996_mcu_set_thermal_throttling(struct mt7996_phy *phy, u8 state);
  int mt7996_mcu_set_thermal_protect(struct mt7996_phy *phy, bool enable);
 +bool mt7996_has_power_path_limits(struct mt76_phy *mphy,
 +				  struct ieee80211_channel *chan);
-+int mt7996_mcu_set_tx_power_ctrl(struct mt7996_phy *phy, u8 power_ctrl_id,
-+				 u8 data);
  int mt7996_mcu_set_txpower_sku(struct mt7996_phy *phy);
+ int mt7996_mcu_set_tx_power_ctrl(struct mt7996_phy *phy, u8 power_ctrl_id, u8 data);
  int mt7996_mcu_rdd_resume_tx(struct mt7996_phy *phy);
- int mt7996_mcu_rdd_cmd(struct mt7996_dev *dev, int cmd, u8 rdd_idx, u8 val);

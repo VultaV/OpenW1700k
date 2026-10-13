@@ -1,6 +1,8 @@
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -1337,8 +1337,9 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -1337,8 +1337,9 @@ static void
  mt7996_trace_tx_drop(struct mt7996_dev *dev, struct mt76_txwi_cache *t,
  		     struct mt76_wcid *wcid, u32 free_info)
  {
@@ -12,7 +14,7 @@
  	struct sk_buff *skb = t->skb;
  	struct mt76_connac_txp_common *txp;
  	struct ethhdr ethbuf, *eth;
-@@ -1370,7 +1371,9 @@
+@@ -1370,7 +1371,9 @@ mt7996_trace_tx_drop(struct mt7996_dev *
  	if (!tcp || tcp->source != htons(5203) || tcp->doff < 5)
  		return;
  	thl = tcp->doff * 4;
@@ -23,7 +25,7 @@
  		return;
  
  	txp = mt76_connac_txwi_to_txp(&dev->mt76, t);
-@@ -1425,7 +1428,8 @@
+@@ -1425,7 +1428,8 @@ out:
  	mt76_put_txwi(mdev, t);
  }
  
@@ -33,7 +35,7 @@
  {
  	struct mt7996_sta_link *link;
  
-@@ -1433,6 +1437,8 @@
+@@ -1433,6 +1437,8 @@ static void mt7996_mac_txfree_diag(struc
  		return;
  	link = container_of(wcid, struct mt7996_sta_link, wcid);
  	atomic_inc(&link->txfree_status[FIELD_GET(MT_TXFREE_INFO_STAT, info)]);
@@ -42,7 +44,7 @@
  }
  
  static void
-@@ -1516,7 +1522,7 @@
+@@ -1516,7 +1522,7 @@ next:
  
  			wcid->stats.tx_retries += tx_retries;
  			wcid->stats.tx_failed += tx_failed;
@@ -51,9 +53,11 @@
  			continue;
  		}
  
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -1097,16 +1097,74 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -1141,16 +1141,74 @@ mt7996_mcu_wed_rro_event(struct mt7996_d
  	}
  }
  
@@ -129,7 +133,7 @@
  }
  
  static void
-@@ -1141,7 +1199,7 @@
+@@ -1185,7 +1243,7 @@ mt7996_mcu_rx_ps_sync(struct mt7996_dev
  
  			mt7996_mcu_ps_transition(dev,
  						 le16_to_cpu(info->wlan_idx),
@@ -138,7 +142,7 @@
  			break;
  		}
  		case UNI_PS_MULTI_CLIENT_INFO: {
-@@ -1159,7 +1217,7 @@
+@@ -1203,7 +1261,7 @@ mt7996_mcu_rx_ps_sync(struct mt7996_dev
  
  				mt7996_mcu_ps_transition(dev,
  					FIELD_GET(MT7996_PS_MULTI_WCID, entry),
@@ -147,7 +151,7 @@
  			}
  			break;
  		}
-@@ -1170,7 +1228,7 @@
+@@ -1214,7 +1272,7 @@ mt7996_mcu_rx_ps_sync(struct mt7996_dev
  
  			for (i = 0; i < bitmap_len * 8; i++)
  				mt7996_mcu_ps_transition(dev, i,
@@ -156,9 +160,11 @@
  			break;
  		}
  		}
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -967,6 +967,8 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -1013,6 +1013,8 @@ void mt7996_mac_add_twt_setup(struct iee
  			      struct ieee80211_sta *sta,
  			      struct ieee80211_twt_setup *twt);
  bool mt7996_txq_ps(struct mt76_wcid *wcid);

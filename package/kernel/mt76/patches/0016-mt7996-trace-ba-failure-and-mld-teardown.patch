@@ -1,6 +1,8 @@
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -1748,6 +1748,7 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -1792,6 +1792,7 @@ mt7996_mcu_sta_ba(struct mt7996_dev *dev
  {
  	struct sta_rec_ba_uni *ba;
  	struct sk_buff *skb;
@@ -8,7 +10,7 @@
  	struct tlv *tlv;
  
  	skb = __mt76_connac_mcu_alloc_sta_req(&dev->mt76, mvif, wcid,
-@@ -1766,8 +1767,15 @@
+@@ -1810,8 +1811,15 @@ mt7996_mcu_sta_ba(struct mt7996_dev *dev
  	ba->tid = params->tid;
  	ba->ba_rdd_rro = !tx && enable && mt7996_has_hwrro(dev);
  
@@ -26,7 +28,7 @@
  }
  
  /** starec & wtbl **/
-@@ -3324,6 +3332,7 @@
+@@ -3366,6 +3374,7 @@ int mt7996_mcu_teardown_mld_sta(struct m
  				struct mt7996_sta_link *msta_link)
  {
  	struct sk_buff *skb;
@@ -34,7 +36,7 @@
  
  	skb = __mt76_connac_mcu_alloc_sta_req(&dev->mt76, &link->mt76,
  					      &msta_link->wcid,
-@@ -3333,8 +3342,14 @@
+@@ -3375,8 +3384,14 @@ int mt7996_mcu_teardown_mld_sta(struct m
  
  	mt76_connac_mcu_add_tlv(skb, STA_REC_MLD_OFF, sizeof(struct tlv));
  
@@ -50,4 +52,4 @@
 +	return ret;
  }
  
- void mt7996_mcu_update_sta_rec_bw(void *data, struct ieee80211_sta *sta)
+ int mt7996_mcu_update_mld_sta(struct mt7996_dev *dev,

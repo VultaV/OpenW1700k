@@ -12,9 +12,11 @@ valid-link mask after the callback returns, so that rollback boundary
 requires separate handling. No sleep/wake hardware fix is claimed here.
 
 ---
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -1483,10 +1483,11 @@
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -1971,10 +1971,11 @@ mt7996_mac_sta_change_links(struct ieee8
  			    struct ieee80211_sta *sta, u16 old_links,
  			    u16 new_links)
  {
@@ -27,9 +29,9 @@ requires separate handling. No sleep/wake hardware fix is claimed here.
  
  	mutex_lock(&dev->mt76.mutex);
  
-@@ -1493,6 +1494,24 @@
- 	mt7996_mac_sta_remove_links(dev, vif, sta, rem, false);
- 	ret = mt7996_mac_sta_add_links(dev, vif, sta, add);
+@@ -1992,6 +1993,24 @@ mt7996_mac_sta_change_links(struct ieee8
+ 		mt7996_mac_sta_links_sync(dev, vif, sta, new_links & ~add, 0);
+ 	}
  
 +	if (!ret && sta->mlo &&
 +	    msta->deflink_id < IEEE80211_MLD_MAX_NUM_LINKS &&
@@ -49,6 +51,6 @@ requires separate handling. No sleep/wake hardware fix is claimed here.
 +		}
 +	}
 +
+ out:
  	mutex_unlock(&dev->mt76.mutex);
  
- 	return ret;

@@ -16,13 +16,13 @@ Useful for diagnosing token pool starvation between NPU-offloaded
 bands (2.4GHz/6GHz) and DMA-path bands (5GHz).
 
 Signed-off-by: Ryan Chen <rchen14b@gmail.com>
-Index: mt76-2026.03.05~9f95baf9/mt7996/debugfs.c
+Index: mt76-2026.10.08~639e1287/mt7996/debugfs.c
 ===================================================================
---- mt76-2026.03.05~9f95baf9.orig/mt7996/debugfs.c
-+++ mt76-2026.03.05~9f95baf9/mt7996/debugfs.c
-@@ -851,6 +851,68 @@ mt7996_rf_regval_set(void *data, u64 val
- DEFINE_DEBUGFS_ATTRIBUTE(fops_rf_regval, mt7996_rf_regval_get,
- 			 mt7996_rf_regval_set, "0x%08llx\n");
+--- mt76-2026.10.08~639e1287.orig/mt7996/debugfs.c
++++ mt76-2026.10.08~639e1287/mt7996/debugfs.c
+@@ -990,6 +990,68 @@ static int mt7996_vow_atf_get(void *data
+ DEFINE_DEBUGFS_ATTRIBUTE(fops_vow_atf, mt7996_vow_atf_get, mt7996_vow_atf_set,
+ 			 "%lld\n");
  
 +static int mt7996_token_info_read(struct seq_file *s, void *data)
 +{
@@ -89,7 +89,7 @@ Index: mt76-2026.03.05~9f95baf9/mt7996/debugfs.c
  int mt7996_init_debugfs(struct mt7996_dev *dev)
  {
  	struct dentry *dir;
-@@ -883,6 +945,8 @@ int mt7996_init_debugfs(struct mt7996_de
+@@ -1021,6 +1083,8 @@ int mt7996_init_debugfs(struct mt7996_de
  			    &fops_radar_trigger);
  	debugfs_create_devm_seqfile(dev->mt76.dev, "rdd_monitor", dir,
  				    mt7996_rdd_monitor);

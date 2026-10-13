@@ -19,13 +19,14 @@ This does not track a previously blocked queue across a primary replacement
 when both the completing link and the new primary are awake. That existing
 link-lifecycle case needs separate handling; no new TXQ state is introduced.
 
---- a/tx.c
-+++ b/tx.c
-@@ -44,6 +44,49 @@
- 	spin_lock_bh(&dev->status_lock);
+Index: mt76-2026.10.08~639e1287/tx.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/tx.c
++++ mt76-2026.10.08~639e1287/tx.c
+@@ -45,6 +45,49 @@ mt76_tx_status_lock(struct mt76_dev *dev
  }
  EXPORT_SYMBOL_GPL(mt76_tx_status_lock);
-+
+ 
 +static void
 +mt76_txq_wake_ps(struct mt76_dev *dev, struct mt76_wcid *completed,
 +		 struct ieee80211_sta *sta)
@@ -68,10 +69,11 @@ link-lifecycle case needs separate handling; no new TXQ state is introduced.
 +	if (wake)
 +		mt76_worker_schedule(&dev->tx_worker);
 +}
- 
++
  void
  mt76_tx_status_unlock(struct mt76_dev *dev, struct sk_buff_head *list)
-@@ -80,6 +123,7 @@
+ 		      __releases(&dev->status_lock)
+@@ -80,6 +123,7 @@ mt76_tx_status_unlock(struct mt76_dev *d
  		spin_lock_bh(&dev->rx_lock);
  		ieee80211_tx_status_ext(hw, &status);
  		spin_unlock_bh(&dev->rx_lock);
@@ -79,11 +81,10 @@ link-lifecycle case needs separate handling; no new TXQ state is introduced.
  	}
  	rcu_read_unlock();
  }
-@@ -268,21 +312,6 @@
- 
+@@ -274,21 +318,6 @@ void __mt76_tx_complete_skb(struct mt76_
  	wcid = __mt76_wcid_ptr(dev, wcid_idx);
  	mt76_tx_check_non_aql(dev, wcid, skb);
--
+ 
 -	if (wcid && (dev->drv->drv_flags & MT_DRV_HW_PS_BUFFERING) &&
 -	    test_bit(MT_WCID_FLAG_PS, &wcid->flags)) {
 -		struct ieee80211_sta *sta = wcid_to_sta(wcid);
@@ -98,10 +99,11 @@ link-lifecycle case needs separate handling; no new TXQ state is introduced.
 -			mt76_worker_schedule(&dev->tx_worker);
 -		}
 -	}
- 
+-
  #ifdef CONFIG_NL80211_TESTMODE
  	if (mt76_is_testmode_skb(dev, skb, &hw)) {
-@@ -311,6 +340,7 @@
+ 		struct mt76_phy *phy = hw->priv;
+@@ -316,6 +345,7 @@ void __mt76_tx_complete_skb(struct mt76_
  		spin_lock_bh(&dev->rx_lock);
  		ieee80211_tx_status_ext(hw, &status);
  		spin_unlock_bh(&dev->rx_lock);

@@ -7,9 +7,11 @@ link, so the old lookup discards rate updates before queuing rc_work.
 Resolve the existing VIF link indexed by the affected station WCID, and
 retain the guards for removed links and missing channel contexts.
 
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -2002,14 +2002,20 @@
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -2518,14 +2518,20 @@ static void mt7996_link_rate_ctrl_update
  					 struct mt7996_sta_link *msta_link)
  {
  	struct mt7996_sta *msta = msta_link->sta;

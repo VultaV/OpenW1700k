@@ -16,10 +16,11 @@ using skb->len, which includes fragments outside the linear head. Linearize
 control reports before dispatch and refresh the data pointers afterwards.
 Normal received data keeps its existing zero-copy path.
 
---- a/npu.c
-+++ b/npu.c
-@@ -66,19 +66,37 @@ static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
- 	struct airoha_npu_rx_dma_desc *desc = (void *)q->desc;
+Index: mt76-2026.10.08~639e1287/npu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/npu.c
++++ mt76-2026.10.08~639e1287/npu.c
+@@ -67,18 +67,36 @@ static struct sk_buff *mt76_npu_dequeue(
  	int i, nframes, index = q->tail;
  	struct sk_buff *skb = NULL;
  
@@ -63,9 +64,11 @@ Normal received data keeps its existing zero-copy path.
  
  		dma_sync_single_for_cpu(dev->dma_dev, e->dma_addr[0],
  					e->dma_len[0],
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -1706,6 +1706,14 @@ void mt7996_queue_rx_skb(struct mt76_dev *mdev, enum mt76_rxq_id q,
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -1565,6 +1565,14 @@ void mt7996_queue_rx_skb(struct mt76_dev
  			type = PKT_TYPE_NORMAL;
  	}
  

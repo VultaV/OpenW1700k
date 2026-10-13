@@ -2,9 +2,11 @@ Subject: [PATCH] wifi: mt76: mt7996: restore opt-in NSTR test on corrected TXQ b
 
 Default empty selector leaves firmware TLVs unchanged. This is a diagnostic, not automatic NSTR negotiation. Reuses the r8 test with PS and hostapd recovery fixes retained.
 
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -5,11 +5,17 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -5,12 +5,18 @@
  
  #include <linux/firmware.h>
  #include <linux/fs.h>
@@ -14,15 +16,16 @@ Default empty selector leaves firmware TLVs unchanged. This is a diagnostic, not
  #include "mcu.h"
  #include "mac.h"
  #include "eeprom.h"
-+
+ 
 +/* Diagnostic only; empty by default. Apply on the selected peer's next association. */
 +static char nstr_test_peer[18];
 +module_param_string(nstr_test_peer, nstr_test_peer, sizeof(nstr_test_peer), 0600);
 +MODULE_PARM_DESC(nstr_test_peer, "Test NSTR firmware bitmap for one two-link peer MAC");
- 
++
  #define fw_name(_dev, name, ...)	({			\
  	char *_fw;						\
-@@ -3235,19 +3241,49 @@
+ 	switch (mt76_chip(&(_dev)->mt76)) {			\
+@@ -3272,19 +3278,49 @@ mt7996_mcu_sta_mld_setup_tlv(struct mt79
  	}
  }
  
@@ -74,15 +77,15 @@ Default empty selector leaves firmware TLVs unchanged. This is a diagnostic, not
  }
  
  int mt7996_mcu_add_sta(struct mt7996_dev *dev,
-@@ -3260,6 +3296,7 @@
- 	struct mt76_wcid *wcid = msta_link ? &msta_link->wcid : link->mt76.wcid;
+@@ -3298,6 +3334,7 @@ int mt7996_mcu_add_sta(struct mt7996_dev
  	struct ieee80211_sta *sta = link_sta ? link_sta->sta : NULL;
+ 	u16 weight = IEEE80211_DEFAULT_AIRTIME_WEIGHT;
  	struct sk_buff *skb;
 +	bool nstr_test = false;
  	int ret;
  
- 	skb = __mt76_connac_mcu_alloc_sta_req(&dev->mt76, &link->mt76, wcid,
-@@ -3312,13 +3349,17 @@
+ 	if (sta)
+@@ -3354,13 +3391,17 @@ int mt7996_mcu_add_sta(struct mt7996_dev
  		if (sta->mlo) {
  			mt7996_mcu_sta_mld_setup_tlv(dev, skb, link_conf->vif,
  						     sta);

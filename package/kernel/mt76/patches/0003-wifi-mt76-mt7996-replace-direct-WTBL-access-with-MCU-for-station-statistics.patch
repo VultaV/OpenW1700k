@@ -52,10 +52,11 @@ Signed-off-by: Joshua Klinesmith <joshuaklinesmith@gmail.com>
  .../mt7996/mt7996.h    |   2 +-
  5 files changed, 168 insertions(+), 142 deletions(-)
 
-diff --git a/mt76_connac_mcu.h b/mt76_connac_mcu.h
---- a/mt76_connac_mcu.h
-+++ b/mt76_connac_mcu.h
-@@ -1446,6 +1446,13 @@
+Index: mt76-2026.10.08~639e1287/mt76_connac_mcu.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt76_connac_mcu.h
++++ mt76-2026.10.08~639e1287/mt76_connac_mcu.h
+@@ -1452,6 +1452,13 @@ enum {
  	UNI_OFFLOAD_OFFLOAD_BMC_RPY_DETECT,
  };
  
@@ -69,10 +70,11 @@ diff --git a/mt76_connac_mcu.h b/mt76_connac_mcu.h
  enum UNI_ALL_STA_INFO_TAG {
  	UNI_ALL_STA_TXRX_RATE,
  	UNI_ALL_STA_TX_STAT,
-diff --git a/mt7996/mac.c b/mt7996/mac.c
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -72,118 +72,6 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -72,118 +72,6 @@ u32 mt7996_mac_wtbl_lmac_addr(struct mt7
  	return MT_WTBL_LMAC_OFFS(wcid, dw);
  }
  
@@ -191,7 +193,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  
  /* The HW does not translate the mac header to 802.3 for mesh point */
  static int mt7996_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
-@@ -479,7 +367,6 @@
+@@ -479,7 +367,6 @@ mt7996_mac_fill_rx(struct mt7996_dev *de
  		msta_link = container_of(status->wcid, struct mt7996_sta_link,
  					 wcid);
  		msta = msta_link->sta;
@@ -199,7 +201,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  	}
  
  	status->freq = mphy->chandef.chan->center_freq;
-@@ -1391,9 +1278,6 @@
+@@ -1391,9 +1278,6 @@ mt7996_mac_tx_free(struct mt7996_dev *de
  		info = le32_to_cpu(*cur_info);
  		if (info & MT_TXFREE_INFO_PAIR) {
  			struct ieee80211_sta *sta;
@@ -209,7 +211,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  			u16 idx;
  
  			idx = FIELD_GET(MT_TXFREE_INFO_WLAN_ID, info);
-@@ -1407,22 +1291,6 @@
+@@ -1407,22 +1291,6 @@ mt7996_mac_tx_free(struct mt7996_dev *de
  			link_sta = rcu_dereference(sta->link[wcid->link_id]);
  			if (!link_sta)
  				goto next;
@@ -232,7 +234,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  next:
  			/* ver 7 has a new DW with pair = 1, skip it */
  			if (ver == 7 && ((void *)(cur_info + 1) < end) &&
-@@ -1460,8 +1328,6 @@
+@@ -1460,8 +1328,6 @@ next:
  		}
  	}
  
@@ -241,7 +243,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  	if (wake)
  		mt76_set_tx_blocked(&dev->mt76, false);
  
-@@ -1626,7 +1492,6 @@
+@@ -1627,7 +1493,6 @@ out:
  
  static void mt7996_mac_add_txs(struct mt7996_dev *dev, void *data)
  {
@@ -249,7 +251,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  	struct mt76_wcid *wcid;
  	__le32 *txs_data = data;
  	u16 wcidx;
-@@ -1646,12 +1511,6 @@
+@@ -1647,12 +1512,6 @@ static void mt7996_mac_add_txs(struct mt
  
  	mt7996_mac_add_txs_skb(dev, wcid, pid, txs_data);
  
@@ -262,7 +264,7 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  out:
  	rcu_read_unlock();
  }
-@@ -2993,6 +2852,8 @@
+@@ -3002,6 +2861,8 @@ void mt7996_mac_work(struct work_struct
  		mt7996_mac_update_stats(phy);
  
  		mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_RATE);
@@ -271,10 +273,11 @@ diff --git a/mt7996/mac.c b/mt7996/mac.c
  		if (mtk_wed_device_active(&phy->dev->mt76.mmio.wed)) {
  			mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_ADM_STAT);
  			mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_MSDU_COUNT);
-diff --git a/mt7996/mcu.c b/mt7996/mcu.c
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -696,6 +696,33 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -740,6 +740,33 @@ mt7996_mcu_rx_all_sta_info_event(struct
  			wcid->stats.rx_packets +=
  				le32_to_cpu(res->msdu_cnt[i].rx_msdu_cnt);
  			break;
@@ -308,7 +311,7 @@ diff --git a/mt7996/mcu.c b/mt7996/mcu.c
  		default:
  			break;
  		}
-@@ -5593,6 +5620,112 @@
+@@ -5672,6 +5699,112 @@ int mt7996_mcu_get_all_sta_info(struct m
  				 &req, sizeof(req), false);
  }
  
@@ -421,10 +424,11 @@ diff --git a/mt7996/mcu.c b/mt7996/mcu.c
  int mt7996_mcu_wed_rro_reset_sessions(struct mt7996_dev *dev, u16 id)
  {
  	struct {
-diff --git a/mt7996/mcu.h b/mt7996/mcu.h
---- a/mt7996/mcu.h
-+++ b/mt7996/mcu.h
-@@ -255,6 +255,31 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.h
++++ mt76-2026.10.08~639e1287/mt7996/mcu.h
+@@ -255,6 +255,31 @@ struct mt7996_mcu_all_sta_info_event {
  			__le32 tx_msdu_cnt;
  			__le32 rx_msdu_cnt;
  		} __packed, msdu_cnt);
@@ -456,18 +460,19 @@ diff --git a/mt7996/mcu.h b/mt7996/mcu.h
  	} __packed;
  } __packed;
  
-diff --git a/mt7996/mt7996.h b/mt7996/mt7996.h
---- a/mt7996/mt7996.h
-+++ b/mt7996/mt7996.h
-@@ -293,7 +293,6 @@
- 	struct mt7996_sta *sta;
+Index: mt76-2026.10.08~639e1287/mt7996/mt7996.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mt7996.h
++++ mt76-2026.10.08~639e1287/mt7996/mt7996.h
+@@ -294,7 +294,6 @@ struct mt7996_sta_link {
+ 	bool connected;
  
  	struct list_head rc_list;
 -	u32 airtime_ac[8];
  
  	int ack_signal;
  	struct ewma_avg_signal avg_ack_signal;
-@@ -848,6 +847,7 @@
+@@ -894,6 +893,7 @@ int mt7996_mcu_trigger_assert(struct mt7
  void mt7996_mcu_rx_event(struct mt7996_dev *dev, struct sk_buff *skb);
  void mt7996_mcu_exit(struct mt7996_dev *dev);
  int mt7996_mcu_get_all_sta_info(struct mt7996_phy *phy, u16 tag);

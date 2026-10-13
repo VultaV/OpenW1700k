@@ -1,7 +1,8 @@
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -1382,9 +1382,9 @@ mt7996_mac_tx_free(struct mt7996_dev *dev, void *data, int len)
- 	for (cur_info = &tx_free[2]; count < total; cur_info++) {
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -1270,8 +1270,8 @@ mt7996_mac_tx_free(struct mt7996_dev *de
  		u32 msdu, info;
  		u8 i;
  

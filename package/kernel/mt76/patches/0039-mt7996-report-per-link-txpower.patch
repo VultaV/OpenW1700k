@@ -9,9 +9,11 @@ default link only when it has no phy.
 
 Signed-off-by: VultaV <unc10@naver.com>
 ---
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -922,11 +922,25 @@ mt7996_get_txpower(struct ieee80211_hw *
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -923,11 +923,25 @@ mt7996_get_txpower(struct ieee80211_hw *
  		   unsigned int link_id, int *dbm)
  {
  	struct mt7996_vif *mvif = (struct mt7996_vif *)vif->drv_priv;

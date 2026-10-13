@@ -4,9 +4,11 @@ Experimental backport of MediaTek non-WED offload RED initialization.
 Use current host token budget, preserve other device/offload paths.
 WM acknowledgement is not WA configuration readback.
 
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -4309,6 +4309,68 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -4372,6 +4372,68 @@ mt7996_mcu_init_rx_airtime(struct mt7996
  				     MCU_WM_UNI_CMD(VOW), true);
  }
  
@@ -75,19 +77,21 @@ WM acknowledgement is not WA configuration readback.
  int mt7996_mcu_init_firmware(struct mt7996_dev *dev)
  {
  	int ret;
-@@ -4350,6 +4412,9 @@
- 	ret = mt7996_mcu_init_rx_airtime(dev);
+@@ -4414,6 +4476,9 @@ int mt7996_mcu_init_firmware(struct mt79
  	if (ret)
  		return ret;
-+
+ 
 +	if (is_mt7996(&dev->mt76) && mt76_npu_device_active(&dev->mt76))
 +		return mt7996_mcu_init_npu_red(dev);
- 
++
  	return mt7996_mcu_wa_cmd(dev, MCU_WA_PARAM_CMD(SET),
  				 MCU_WA_PARAM_RED, 0, 0);
---- a/mt7996/mcu.h
-+++ b/mt7996/mcu.h
-@@ -420,6 +420,7 @@
+ }
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.h
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.h
++++ mt76-2026.10.08~639e1287/mt7996/mcu.h
+@@ -420,6 +420,7 @@ enum {
  	MCU_WA_PARAM_CPU_UTIL = 0x0b,
  	MCU_WA_PARAM_RED = 0x0e,
  	MCU_WA_PARAM_HW_PATH_HIF_VER = 0x2f,
@@ -95,7 +99,7 @@ WM acknowledgement is not WA configuration readback.
  };
  
  enum mcu_mmps_mode {
-@@ -1023,6 +1024,7 @@
+@@ -1023,6 +1024,7 @@ enum {
  	UNI_VOW_FEATURE_CTRL,
  	UNI_VOW_RX_AT_AIRTIME_EN = 0x0b,
  	UNI_VOW_RX_AT_AIRTIME_CLR_EN = 0x0e,

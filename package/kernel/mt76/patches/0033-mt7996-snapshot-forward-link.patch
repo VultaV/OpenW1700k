@@ -14,9 +14,11 @@ invalidate previously installed PPE entries. A link can still change after
 the final check.
 
 ---
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -2597,17 +2597,28 @@
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -3081,17 +3081,28 @@ mt7996_net_fill_forward_path(struct ieee
  			     struct net_device_path *path)
  {
  	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
@@ -25,10 +27,9 @@ the final check.
  	struct mtk_wed_device *wed = &dev->mt76.mmio.wed;
  	struct mt7996_sta_link *msta_link;
  	struct mt7996_vif_link *link;
--
--	link = mt7996_vif_link(dev, vif, msta->deflink_id);
 +	u8 link_id = READ_ONCE(msta->deflink_id);
-+
+ 
+-	link = mt7996_vif_link(dev, vif, msta->deflink_id);
 +	if (link_id >= IEEE80211_MLD_MAX_NUM_LINKS)
 +		return -EIO;
 +
@@ -49,7 +50,7 @@ the final check.
  		return -EIO;
  
  	if (!msta_link->wcid.sta || msta_link->wcid.idx > MT7996_WTBL_STA)
-@@ -2643,6 +2654,14 @@
+@@ -3127,6 +3138,14 @@ mt7996_net_fill_forward_path(struct ieee
  		path->mtk_wdma.amsdu = msta_link->wcid.amsdu;
  	else
  		path->mtk_wdma.amsdu = 0;

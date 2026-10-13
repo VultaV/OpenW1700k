@@ -1,8 +1,10 @@
 Subject: mt7996: add default-off awake-WCID experiment for two-link MLO data
 
---- a/mt7996/mac.c
-+++ b/mt7996/mac.c
-@@ -918,6 +918,47 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mac.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mac.c
++++ mt76-2026.10.08~639e1287/mt7996/mac.c
+@@ -918,6 +918,47 @@ mt7996_tx_use_mgmt(struct mt7996_dev *de
  	return false;
  }
  
@@ -50,7 +52,7 @@ Subject: mt7996: add default-off awake-WCID experiment for two-link MLO data
  int mt7996_tx_prepare_skb(struct mt76_dev *mdev, void *txwi_ptr,
  			  enum mt76_txq_id qid, struct mt76_wcid *wcid,
  			  struct ieee80211_sta *sta,
-@@ -949,6 +990,7 @@
+@@ -949,6 +990,7 @@ int mt7996_tx_prepare_skb(struct mt76_de
  		u8 tid = tx_info->skb->priority & IEEE80211_QOS_CTL_TID_MASK;
  
  		link_id = (tid % 2) ? msta->seclink_id : msta->deflink_id;

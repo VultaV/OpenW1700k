@@ -19,11 +19,11 @@ Signed-off-by: Yanghan Ye <yyh94306@gmail.com>
  mt7996/main.c | 62 +++++++++++++++++++++++++++++++++++++++++++++++++--
  1 file changed, 60 insertions(+), 2 deletions(-)
 
-diff --git a/mt7996/main.c b/mt7996/main.c
-index 560fe30df..c32e7819f 100644
---- a/mt7996/main.c
-+++ b/mt7996/main.c
-@@ -736,7 +736,50 @@ static int mt7996_set_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
+Index: mt76-2026.10.08~639e1287/mt7996/main.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/main.c
++++ mt76-2026.10.08~639e1287/mt7996/main.c
+@@ -759,7 +759,50 @@ static int mt7996_set_key(struct ieee802
  
  static int mt7996_config(struct ieee80211_hw *hw, int radio_idx, u32 changed)
  {
@@ -75,7 +75,7 @@ index 560fe30df..c32e7819f 100644
  }
  
  static int
-@@ -1025,9 +1068,27 @@ mt7996_link_info_changed(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
+@@ -1059,9 +1102,27 @@ mt7996_link_info_changed(struct ieee8021
  		mt7996_update_mu_group(hw, link, info);
  
  	if (changed & BSS_CHANGED_TXPOWER &&

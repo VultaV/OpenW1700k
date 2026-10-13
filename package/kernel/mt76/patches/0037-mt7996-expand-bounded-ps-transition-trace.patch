@@ -6,9 +6,11 @@ Keep tracing off by default, the F-event limit at eight, and all eligibility,
 sequence and log-format behavior unchanged. This is diagnostic capacity,
 not a PS scheduling fix or proof of firmware/RF wake or the original stall.
 
---- a/mt7996/mcu.c
-+++ b/mt7996/mcu.c
-@@ -1107,7 +1107,7 @@
+Index: mt76-2026.10.08~639e1287/mt7996/mcu.c
+===================================================================
+--- mt76-2026.10.08~639e1287.orig/mt7996/mcu.c
++++ mt76-2026.10.08~639e1287/mt7996/mcu.c
+@@ -1151,7 +1151,7 @@ MODULE_PARM_DESC(ps_trace, "Trace MLO PS
  void mt7996_trace_mlo_ps(struct mt7996_dev *dev, struct mt76_wcid *wcid,
  			 char kind, u32 detail)
  {
