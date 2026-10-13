@@ -28,6 +28,7 @@ preamble = r'''
 #include <stdarg.h>
 #include <assert.h>
 typedef uint8_t u8;
+typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 typedef struct { u32 counter; } atomic_t;
@@ -78,6 +79,10 @@ struct seq_file { unsigned stations, links, last_link, feedback, formats, flags,
 #define MT_FL_Q0_CTRL 0
 #define MT_FL_Q3_CTRL 0
 #define MT_PLE_AC_QEMPTY(a,i) 0
+/* 639e1287 hw-queues: per-link PHY, PLE AC queue lookup by WLAN index */
+#define IEEE80211_NUM_ACS 4
+#define MT_QUEUE_PORT_LMAC 0
+struct mt7996_hw_queue { const char *name; unsigned pid, qid, tgid; };
 #define READ_ONCE(x) (x)
 #define rcu_dereference(x) (x)
 #define rcu_read_lock() ((void)0)
@@ -98,7 +103,12 @@ struct seq_file { unsigned stations, links, last_link, feedback, formats, flags,
 static struct mt76_phy *mt76_vif_link_phy(struct mt76_vif_link *link) { return link->phy; }
 static struct mt7996_phy *mt7996_vif_link_phy(struct mt7996_vif_link *link) { return link->mt76.phy ? link->mt76.phy->priv : NULL; }
 static struct mt7996_dev *mt7996_hw_dev(struct ieee80211_hw *hw) { return hw->dev; }
+static unsigned mt7996_ple_sta_cr(struct mt7996_dev *d, unsigned i) { (void)d; return i; }
 static struct mt7996_sta_link *mt7996_sta_link(struct mt7996_sta *s, unsigned id) { return s->link[id]; }
+static void seq_puts(struct seq_file *s, const char *t) { (void)s; (void)t; }
+static void mt7996_fl_queue_show(struct seq_file *s, struct mt7996_dev *d, bool pse,
+                                 const struct mt7996_hw_queue *q, unsigned w)
+{ (void)s; (void)d; (void)pse; (void)q; (void)w; assert(!"queue reads are mocked empty"); }
 static void seq_printf(struct seq_file *s, const char *fmt, ...) {
     if (!strncmp(fmt,"STA ",4)) s->stations++;
     va_list args;

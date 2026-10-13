@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Exercise pinned mt76 PS scheduling and both TX status paths, before/after 0008.
 
-Usage: python3 tests/test_mt76_ps_wake.py --source-dir PATH_TO_MT76_01367e60
+Usage: python3 tests/test_mt76_ps_wake.py --source-dir PATH_TO_PINNED_MT76
 The default mac80211 source is ../mac80211-regular/backports-7.2; override it
 with --mac80211-dir. Requires cc and patch, and never changes either source tree.
 The compiled functions are extracted verbatim, including mac80211's actual AQL
@@ -488,9 +488,11 @@ def main():
     parser.add_argument('--mac80211-dir', type=Path)
     args = parser.parse_args()
     source = (args.source_dir / 'tx.c').read_text()
-    if hashlib.sha256(source.encode()).hexdigest() != (
-            'c80cde5856b25008e04c5d91046fe8d2a46dcd55456e0ebf09d68fd2fbb8ce3b'):
-        raise SystemExit('Expected unmodified tx.c from pinned mt76 01367e60.')
+    # Unmodified tx.c of the pinned mt76 (01367e60, then 639e1287).
+    if hashlib.sha256(source.encode()).hexdigest() not in (
+            'c80cde5856b25008e04c5d91046fe8d2a46dcd55456e0ebf09d68fd2fbb8ce3b',
+            '030ce55e0b62478bef1dc97ac164327cb3c2b247e263e972ad115eb2f6f20356'):
+        raise SystemExit('Expected unmodified tx.c from the pinned mt76.')
     mac_dir = args.mac80211_dir or args.source_dir.parent / 'mac80211-regular/backports-7.2'
     mac_tx = (mac_dir / 'net/mac80211/tx.c').read_text()
     mac_sta = (mac_dir / 'net/mac80211/sta_info.c').read_text()
