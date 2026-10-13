@@ -1,0 +1,65 @@
+{
+ "image": "openwrt-ubi2-mlo-mt76-r51-20261013-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "01cbb7d0f73e3f9872ffd61108fa01e8e8776d832d3a43a377cfc678b01b48b1",
+ "bytes": 30450527,
+ "base": "r50 (mlo-r50-20261010)",
+ "changes": [
+  "mt76 01367e60 -> 639e1287 (2026-10-08)",
+  "0030, 0031, 0035 dropped (fixed upstream)",
+  "0009, 0010, 0021, 0022, 0024, 0032 rebased; rest refreshed without fuzz",
+  "tests: active_link shims and ps_wake pin follow 639e1287"
+ ],
+ "build": {
+  "command": "make -j15",
+  "exit_code": 0,
+  "seconds": 415
+ },
+ "image_verification": {
+  "kernel_release": "6.18.55-w1700k-mlo-r32",
+  "package_changes_vs_r50": "mt76 kmods only (5)",
+  "module_changes_vs_r50": [
+   "mt76.ko",
+   "mt76-connac-lib.ko",
+   "mt7996e.ko"
+  ],
+  "firmware_identical_to_r50": true,
+  "fit_check_sign": 0,
+  "mt76_compile_warnings": 0
+ },
+ "host_tests": [
+  "test_mt76_npu_rx.py PASS",
+  "test_mt76_ps_wake.py 29/0",
+  "test_mt7996_mlo_ps.py 99/0",
+  "test_mt7996_active_link.py 0 failing",
+  "test_mt7996_forward_path.py 48/0",
+  "test_mt7996_npu_aggregation.py 18/0"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-13",
+  "install": "from r50, keep settings, Signature check OK, up in ~80 s",
+  "npu": "TX budget guard applied, NPU version 0.1111",
+  "wireless": "3 radios; MLO 5 GHz + 6 GHz 160 MHz; 5 GHz after ~1 min DFS CAC",
+  "txpower_dbm": {
+   "5g": 23,
+   "6g": 18,
+   "2g": 23
+  },
+  "mac_reconnects": "3/3 MLO with both links",
+  "kernel_warnings": 0,
+  "offloaded_flows": 160,
+  "scan": "iw 6 GHz scan finds BSS; 5 GHz and full scan EBUSY on the DFS channel; iwinfo MLD scan still 0",
+  "mac_wifi_mbps": {
+   "download": [
+    1954,
+    1868,
+    1980
+   ],
+   "upload": [
+    1809,
+    1791
+   ]
+  }
+ }
+}
