@@ -35,3 +35,7 @@ git-src
 .cproject
 .ccache
 .vscode*
+
+# Local agent instructions
+/CLAUDE.md
+/AGENTS.md
