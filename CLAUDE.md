@@ -32,7 +32,6 @@ These tests don't use a framework. Each script extracts real functions from the 
 ```sh
 node tests/test_mlo_ui.js
 python3 tests/test_image_metadata.py
-python3 tests/test_hostapd_mld_reassoc.py
 python3 tests/test_hostapd_dfs_pending_link.py
 python3 tests/test_mt76_npu_rx.py --source-dir "$PRISTINE_MT76"
 python3 tests/test_mt76_ps_wake.py --source-dir "$PRISTINE_MT76" --mac80211-dir "$BACKPORTS"
@@ -66,10 +65,8 @@ These harnesses don't emulate radio firmware, and passing them doesn't prove fie
   - 0015: shared-TXQ PS gate (`mlo_ps_gate_fix`)
 
   Most of the rest are diagnostics (per-link PS/TX/BA/MCU tracing and counters). The experiments 0020 (`nstr_test_peer`) and 0023 (`mlo_tx_awake_test`) are module params that default to empty or OFF and must stay OFF. Forcing the awake-link choice measurably hurt throughput.
-- **hostapd**: these three patches in `package/network/services/hostapd/patches/` are the fork's:
-  - `999-preserve-link-id-for-unknown-station.patch`
-  - `9999-reset-expired-mld-before-link-setup.patch`
-  - `9999-deliver-dfs-state-to-unconfigured-links.patch`
+- **hostapd**: this patch in `package/network/services/hostapd/patches/` is the fork's:
+  - `9999-deliver-dfs-state-to-unconfigured-links.patch` (since r54 the other two fork patches are upstream as 181 and 185)
 
   The `mtk-*` patches there come from MediaTek's SDK.
 - **LuCI apps**: `package/luci-app-mlo` and `package/luci-app-wifi7`, tested by `test_mlo_ui.js`. The `luci-app-airoha-*`, `luci-app-w1700k-fancontrol` and `luci-app-netspeedtest` apps were added for this board.

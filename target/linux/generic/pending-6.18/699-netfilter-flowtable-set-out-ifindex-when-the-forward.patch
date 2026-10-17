@@ -48,12 +48,12 @@ Signed-off-by: Hauke Mehrtens <hauke@hauke-m.de>
 
 --- a/net/netfilter/nf_flow_table_path.c
 +++ b/net/netfilter/nf_flow_table_path.c
-@@ -205,6 +205,8 @@ static void nft_dev_forward_path(struct
+@@ -249,6 +249,8 @@ static int nft_dev_forward_path(struct n
  
  	if (info.outdev)
  		route->tuple[dir].out.ifindex = info.outdev->ifindex;
 +	else
 +		route->tuple[dir].out.ifindex = dst->dev->ifindex;
  
- 	if (!info.indev || !nft_flowtable_find_dev(info.indev, ft))
- 		return;
+ 	if (!info.indev ||
+ 	    (!is_bridging && !nft_flowtable_find_dev(info.indev, ft)))

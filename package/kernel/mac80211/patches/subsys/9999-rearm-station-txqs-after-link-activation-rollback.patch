@@ -12,14 +12,14 @@ of an observed firmware or client power-save stall.
 
 --- a/net/mac80211/sta_info.c
 +++ b/net/mac80211/sta_info.c
-@@ -3495,8 +3495,24 @@
+@@ -3537,8 +3537,24 @@
  	ret = drv_change_sta_links(sdata->local, sdata, &sta->sta,
  				   old_links, new_links);
  	if (ret) {
 +		int i;
 +
  		sta->sta.valid_links = old_links;
- 		sta_remove_link(sta, link_id, false);
+ 		sta_remove_link(sta, link_id, false, NULL);
 +
 +		/* A driver may have stopped a shared TXQ while the temporary
 +		 * link mask was visible. Rearm after the rollback is complete.
