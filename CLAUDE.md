@@ -55,7 +55,7 @@ These harnesses don't emulate radio firmware, and passing them doesn't prove fie
 
 ## Device testing
 
-`.device/mac-wifi-check.sh` runs the Mac Wi-Fi regression check (optional reconnects, MLO link state, iperf3 4-stream 30 s down/up, offloaded flows, kernel warnings). It refuses to run when the route to the iperf3 server does not leave through Wi-Fi: a wired adapter ranked first or a Tailscale subnet route for the LAN silently takes the test elsewhere. Close System Settings' Wi-Fi pane while measuring, because its scans stall the link. The first download right after a new association is often slow; record it separately.
+`.device/mac-wifi-check.sh` runs the Mac Wi-Fi regression check (optional reconnects, MLO link state, iperf3 4-stream 30 s down/up, offloaded flows, kernel warnings). It refuses to run when the route to the iperf3 server does not leave through Wi-Fi: a wired adapter ranked first or a Tailscale subnet route for the LAN silently takes the test elsewhere. Close System Settings' Wi-Fi pane while measuring, because its scans stall the link. macOS runs a background roam scan about 17 s after joining that stalls the link for about 16 s (`docs/mlo-r53/JOIN_DIP_20261017.md`), so the script waits 40 s after reconnects.
 
 ## Where the fork's changes live
 

@@ -31,6 +31,9 @@ for n in $(seq 1 ${1:-0}); do
 	for i in $(seq 1 30); do ping -c1 -t1 $ROUTER >/dev/null 2>&1 && break; done
 	echo "reconnect $n: $(links)"
 done
+# macOS runs a background roam scan ~17 s after joining that stalls the
+# link for ~16 s (docs/mlo-r53/JOIN_DIP_20261017.md); let it finish.
+[ ${1:-0} -gt 0 ] && sleep 40
 echo "links: $(links)"
 for k in 1 2 3; do run down$k -R; done
 for k in 1 2; do run up$k ""; done
