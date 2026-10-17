@@ -1,0 +1,42 @@
+{
+ "image": "openwrt-ubi2-mlo-upstream-r52-20261014-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "32eb44fbe5eb09dcf023ab7f51b656ccc8372340e3e4138a0ce31bd07610f162",
+ "bytes": 30450531,
+ "base": "r51 (mlo-r51-20261013)",
+ "changes": [
+  "upstream 5ee6f1fdbe wifi-scripts: fix handling for 0 dBm TX power setting",
+  "upstream 3a985c7398 kernel: backport mt7530 VLAN fixes from v7.1 (721-01, 721-02)"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0
+ },
+ "image_verification": {
+  "kernel_release": "6.18.55-w1700k-mlo-r32",
+  "package_manifest_identical_to_r51": true,
+  "changed_files": [
+   "lib/netifd/wireless/mac80211.sh",
+   "mt7530-dsa.ko",
+   "mt7530-mmio.ko"
+  ]
+ },
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-16",
+  "install": "from r51, keep settings, Signature check OK, up in ~95 s",
+  "npu": "NPU version 0.1111",
+  "wireless": "MLO 5 GHz + 6 GHz 160 MHz, 2.4 GHz",
+  "txpower_dbm": {
+   "5g": 23,
+   "6g": 18,
+   "2g": 23
+  },
+  "wired": "wan, lan2, lan3, br-lan up; internet OK",
+  "kernel_warnings": 0,
+  "pending": [
+   "Mac MLO reconnects and iperf3 throughput",
+   "txpower 0 on 2.4 GHz"
+  ]
+ }
+}
