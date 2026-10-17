@@ -238,6 +238,17 @@ class Generator(unittest.TestCase):
         (self.base/'sys/class/net/phy0.2-ap0/master').unlink()
         self.reject(self.run_script('--net-event',ACTION='remove',DEVICENAME='phy0.2-ap0'))
 
+    def test_added_port_refreshes_once_bridged(self):
+        state=self.base/'sys/class/net/phy0.2-ap0/brport/state'
+        state.write_text('0\n')
+        r=self.run_script('--net-event',ACTION='add',DEVICENAME='phy0.2-ap0')
+        self.assertEqual(r.returncode,0,r.stderr)
+        self.assertFalse((self.base/'table.txt').exists())
+        state.write_text('3\n')
+        deadline=time.monotonic()+5
+        while not (self.base/'table.txt').exists() and time.monotonic()<deadline: time.sleep(0.1)
+        self.assertIn('flags offload;',(self.base/'table.txt').read_text())
+
     def test_overlapping_final_removal_not_dropped(self):
         self.config['check_delay']=0.4;self.write_config();self.seed()
         first=subprocess.Popen(['sh',str(self.script)],env=self.env,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)

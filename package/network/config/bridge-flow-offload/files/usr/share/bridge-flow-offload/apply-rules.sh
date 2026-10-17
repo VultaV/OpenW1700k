@@ -107,7 +107,20 @@ main() {
 			[ "${INTERFACE:-}" = "$(get network)" ] || return 0;;
 		--net-event)
 			case "${ACTION:-}" in add|remove) :;; *) return 0;; esac
-			case " $PORTS $BRIDGE " in *" ${DEVICENAME:-/} "*) :;; *) return 0;; esac;;
+			case " $PORTS $BRIDGE " in *" ${DEVICENAME:-/} "*) :;; *) return 0;; esac
+			# A recreated port (wifi reload) is added before netifd bridges it, and
+			# no later event follows: refresh once it forwards, or after 30 s.
+			if [ "$ACTION" = add ] && [ "$DEVICENAME" != "$BRIDGE" ] &&
+			   [ "$(cat "/sys/class/net/$DEVICENAME/brport/state" 2>/dev/null)" != 3 ]; then
+				(
+					i=0
+					while [ $i -lt 30 ] && [ "$(cat "/sys/class/net/$DEVICENAME/brport/state" 2>/dev/null)" != 3 ]; do
+						sleep 1; i=$((i + 1))
+					done
+					exec sh "$0"
+				) </dev/null >/dev/null 2>&1 &
+				return 0
+			fi;;
 		'') :;;
 		*) note 'error: unsupported invocation'; return 1;;
 	esac
