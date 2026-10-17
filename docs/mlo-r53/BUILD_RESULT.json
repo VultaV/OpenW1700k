@@ -1,0 +1,47 @@
+{
+ "image": "openwrt-ubi2-mlo-airoha-r53-20261017-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "c93f487d3baeb048cdaa988fdeae667e8a87d9699487b9f570e95100932ec876",
+ "bytes": 30446433,
+ "base": "r52 (mlo-r52-20261014)",
+ "changes": [
+  "upstream 002faeed3c, 059895c014, d4083ed9ee, e1bd479ba8 (airoha_eth backports, LRO v7)",
+  "992-20 and keep-ttl rebased; 9990 and 9999-z5 dropped (superseded)",
+  "W25N04LV SPI-NAND support (OpenWRT-fanboy ba9f3bf306)"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 521
+ },
+ "image_verification": {
+  "kernel_release": "6.18.55-w1700k-mlo-r32",
+  "package_manifest_identical_to_r52": true
+ },
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-17",
+  "install": "from r52, keep settings, Signature check OK, up in ~95 s",
+  "npu": "NPU version 0.1111",
+  "kernel_warnings": 0,
+  "wired": "eth0 10G, lan2 2.5G, wan 1G, lan3/lan4 up",
+  "txpower_dbm": {
+   "5g": 23,
+   "6g": 18,
+   "2g": 23
+  },
+  "mac_reconnects": "3/3 MLO valid_links 0x0006",
+  "offloaded_flows": 204,
+  "iperf3_download_mbps": [
+   1979,
+   1972,
+   2006
+  ],
+  "iperf3_download_first_after_join_mbps": 919,
+  "iperf3_upload_mbps": [
+   1839,
+   1838
+  ],
+  "mac_to_router_cpu_mbps": 575
+ }
+}
