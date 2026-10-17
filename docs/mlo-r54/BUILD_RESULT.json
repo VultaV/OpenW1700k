@@ -1,0 +1,46 @@
+{
+ "image": "openwrt-ubi2-mlo-wireless-r54-20261017-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "7386156497314ad976f4088a3e152b3c7e96963385fead5d07b32f96ce1345da",
+ "bytes": 30487395,
+ "base": "r53 (mlo-r53-20261017)",
+ "changes": [
+  "hostapd, wifi-scripts, netifd, ubus, ucode, mac80211, nftables, libnftnl follow upstream main",
+  "hostapd 999-preserve-link-id and 9999-reset-expired-mld dropped (upstream 185, 181)",
+  "upstream aa9479b02e (flowtable out ifindex) and d42c59d039 (SPI-NAND QE)",
+  "bridge-flow-offload r4: refresh after a recreated port joins the bridge"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 627
+ },
+ "host_tests": [
+  "test_bridge_flow_offload.py 22/0",
+  "test_hostapd_dfs_pending_link.py PASS"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-17",
+  "install": "from r53, keep settings, Signature check OK, up in ~90 s",
+  "kernel_warnings": 0,
+  "npu": "NPU version 0.1111",
+  "txpower_dbm": {
+   "5g": 23,
+   "6g": 18,
+   "2g": 23
+  },
+  "mac_reconnects": "3/3 MLO valid_links 0x0006",
+  "iperf3_download_mbps": [
+   1729,
+   2003,
+   1972
+  ],
+  "iperf3_upload_mbps": [
+   1796,
+   1816
+  ],
+  "radio0_config_change": "MLO client stayed connected, offload kept",
+  "mlo_ssid_config_change": "client re-associated with both links, offload kept"
+ }
+}
