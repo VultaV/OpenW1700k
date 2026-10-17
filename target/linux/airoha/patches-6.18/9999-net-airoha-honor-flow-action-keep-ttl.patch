@@ -12,15 +12,15 @@ full kernel/module build with a unique kernel release.
 ---
 --- a/drivers/net/ethernet/airoha/airoha_ppe.c
 +++ b/drivers/net/ethernet/airoha/airoha_ppe.c
-@@ -1097,6 +1097,7 @@
+@@ -1095,6 +1095,7 @@ static int airoha_ppe_flow_offload_repla
+ 	struct net_device *odev = NULL;
  	struct flow_action_entry *act;
- 	struct airoha_foe_entry hwe;
  	u8 dsfield = 0, l4proto = 0;
 +	bool keep_ttl = false;
+ 	struct airoha_foe_entry hwe;
  	int err, i, offload_type;
  	u16 addr_type = 0;
- 
-@@ -1160,6 +1161,12 @@
+@@ -1159,6 +1160,12 @@ static int airoha_ppe_flow_offload_repla
  
  	flow_action_for_each(i, act, &rule->action) {
  		switch (act->id) {
@@ -33,7 +33,7 @@ full kernel/module build with a unique kernel release.
  		case FLOW_ACTION_MANGLE:
  			if (offload_type == PPE_PKT_TYPE_BRIDGE)
  				return -EOPNOTSUPP;
-@@ -1203,6 +1210,8 @@
+@@ -1202,6 +1209,8 @@ static int airoha_ppe_flow_offload_repla
  					   &data, l4proto, dsfield);
  	if (err)
  		return err;
