@@ -34,9 +34,20 @@
   },
   "wired": "wan, lan2, lan3, br-lan up; internet OK",
   "kernel_warnings": 0,
-  "pending": [
-   "Mac MLO reconnects and iperf3 throughput",
-   "txpower 0 on 2.4 GHz"
-  ]
+  "tests_2026_10_17": {
+   "txpower_0": "fixed 000 -> iw 0.00 dBm; unset -> 23.00 dBm",
+   "mac_reconnects": "3/3 MLO valid_links 0x0006",
+   "offloaded_flows": 123,
+   "iperf3_download_mbps": [
+    2013,
+    2024,
+    2018
+   ],
+   "iperf3_upload_mbps": [
+    1833,
+    1832
+   ],
+   "intervals_under_500": 0
+  }
  }
 }
