@@ -1,0 +1,49 @@
+{
+ "image": "openwrt-ubi2-mlo-ucode-r55-20261019-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "889c5ff902fe279697509461a193f27f2343f6e14825b2b9ec290b6a5bdd0cc6",
+ "bytes": 30520160,
+ "base": "r54 (mlo-r54-20261017)",
+ "image_source_commit": "12aac184d2",
+ "embedded_manifest_source_commit": "e6073c24a3",
+ "changes": [
+  "ucode 2026-10-18 (upstream a4e922953c), soname libucode20261009",
+  "uhttpd follows upstream (2026-08-24)",
+  "uhttpd and rpcd handle STATUS_BREAK",
+  "udebug follows upstream (2026-09-25)",
+  "ucode consumers rebuilt"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 432
+ },
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-19",
+  "install": "from r54, keep settings, Signature check OK, up in ~95 s",
+  "kernel_warnings": 0,
+  "npu": "NPU version 0.1111",
+  "luci": "login page, /ubus session RPC, rpcd ucode plugins respond",
+  "txpower_dbm": {
+   "5g": 23,
+   "6g": 18,
+   "2g": 23
+  },
+  "mac_reconnects": "3/3 MLO valid_links 0x0006",
+  "iperf3_download_mbps": [
+   1980,
+   1991,
+   1989
+  ],
+  "iperf3_upload_mbps": [
+   1643,
+   1735,
+   1831,
+   1812
+  ],
+  "radio0_config_change": "MLO client stayed connected",
+  "mlo_ssid_config_change": "client re-associated with both links, offload kept",
+  "ucode_exceptions": 0
+ }
+}
