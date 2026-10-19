@@ -1,0 +1,17 @@
+From: VultaV <unc1010@gmail.com>
+Subject: [PATCH] ucode: handle the STATUS_BREAK status
+
+ucode 2026-10-18 adds STATUS_BREAK to uc_vm_status_t for debugger break
+requests. rpcd never requests a break, but -Werror=switch fails the
+build. Treat it like a runtime error.
+
+--- a/ucode.c
++++ b/ucode.c
+@@ -1018,6 +1018,7 @@ rpc_ucode_script_execute(struct ubus_con
+ 		fprintf(stderr, "Compilation error while executing ucode script %s\n", path);
+ 		break;
+ 
++	case STATUS_BREAK:
+ 	case ERROR_RUNTIME:
+ 		fprintf(stderr, "Runtime error while executing ucode script %s\n", path);
+ 		break;
