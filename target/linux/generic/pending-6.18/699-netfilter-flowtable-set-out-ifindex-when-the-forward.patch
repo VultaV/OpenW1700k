@@ -1,3 +1,4 @@
+From 20c314bb8600cd378264d477a653bb14ec3955ea Mon Sep 17 00:00:00 2001
 From: Hauke Mehrtens <hauke@hauke-m.de>
 Date: Wed, 2 Sep 2026 22:15:00 +0200
 Subject: [PATCH] netfilter: flowtable: set out ifindex when the forward path
