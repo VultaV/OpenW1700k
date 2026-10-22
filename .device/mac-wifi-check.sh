@@ -26,7 +26,7 @@ print(sys.argv[1], round(d["end"]["sum_received"]["bits_per_second"] / 1e6), "Mb
       round(min(iv)), ", intervals under 500:", sum(x < 500 for x in iv))' $1
 }
 
-for n in $(seq 1 ${1:-0}); do
+n=0; while [ $n -lt ${1:-0} ]; do n=$((n + 1))
 	networksetup -setairportpower $IF off; sleep 3; networksetup -setairportpower $IF on
 	for i in $(seq 1 30); do ping -c1 -t1 $ROUTER >/dev/null 2>&1 && break; done
 	echo "reconnect $n: $(links)"
