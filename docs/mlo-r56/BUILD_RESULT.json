@@ -1,0 +1,73 @@
+{
+ "image": "openwrt-ubi2-mlo-hostapd-r56-20261022-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "739161e93e362c5e01917a1e2b7784df8190bba65ef83037beee1dfc6878c04f",
+ "bytes": 30524258,
+ "base": "r55 (mlo-r55-20261019)",
+ "changes": [
+  "hostapd follows upstream main (2026-10-21)",
+  "uhttpd 2026-10-19; fork uhttpd patch dropped"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 382
+ },
+ "host_tests": [
+  "test_hostapd_dfs_pending_link.py PASS"
+ ],
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-22",
+  "install": "from r55, keep settings, Signature check OK",
+  "kernel_warnings": 0,
+  "npu": "NPU version 0.1111",
+  "txpower_dbm": {
+   "5g": 23,
+   "6g": 18,
+   "2g": 23
+  },
+  "luci": "login page and /ubus session RPC",
+  "mac_after_reboot": {
+   "download_mbps": [
+    1849,
+    1998
+   ],
+   "upload_mbps": [
+    1801
+   ],
+   "ps_transitions": 0
+  },
+  "reconnect_ab_same_day": {
+   "r56": {
+    "links": "8/8 6 GHz",
+    "download_15s_mbps": [
+     594,
+     1126,
+     633,
+     522,
+     562,
+     493,
+     895,
+     482
+    ]
+   },
+   "r55": {
+    "links": "4 6 GHz / 4 5 GHz",
+    "download_15s_mbps_6g": [
+     870,
+     662,
+     1006,
+     761
+    ],
+    "download_15s_mbps_5g": [
+     585,
+     553,
+     706,
+     790
+    ]
+   }
+  },
+  "note": "Mac-side power-save cycling (~17/s) lowered both firmwares that day; reboot of the Mac cleared it."
+ }
+}
