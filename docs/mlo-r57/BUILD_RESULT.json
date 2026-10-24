@@ -1,0 +1,44 @@
+{
+ "image": "openwrt-ubi2-mlo-roaming-r57-20261024-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "304328fdebdca8c842829553237710b245e82b1a831f72a5e32fbbd47673ed82",
+ "bytes": 30528354,
+ "base": "r56 (mlo-r56-20261022)",
+ "changes": [
+  "upstream 279704475c (706-01, 706-02, 708)",
+  "upstream d014acb494 (mac80211 007)",
+  "675-01/675-02 rebased"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 1539
+ },
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-25",
+  "install": "from r56, keep settings, Signature check OK, up in ~115 s",
+  "kernel_warnings": 0,
+  "flowtables": "fw4 ft (br-lan, tailscale0, wan); bridge ft (ap-mld0, lan2, offload)",
+  "offloaded_flows_after_boot": 204,
+  "mac_reconnects": "3/3 MLO valid_links 0x0006",
+  "iperf3_download_mbps": [
+   1962,
+   1971,
+   1960
+  ],
+  "iperf3_upload_mbps": [
+   1802,
+   1802
+  ],
+  "internet_networkquality_mbps": {
+   "down": 887,
+   "up": 783
+  },
+  "not_covered": [
+   "AP-to-AP roaming",
+   "DSA port move",
+   "Tailscale forwarded path"
+  ]
+ }
+}
