@@ -1,0 +1,62 @@
+{
+ "image": "openwrt-ubi2-mlo-upstream-r58-20261028-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "e9a029c3ed90a6e107f59a36a97a979d80a8bcf09f7881b73077474f247a5bee",
+ "bytes": 30536547,
+ "base": "r57 (mlo-r57-20261024)",
+ "changes": [
+  "16 upstream commits (dnsmasq CVEs, musl CVE, flowtable 706-03/706-04/708 v9, DSA 642/643, wifi-scripts sae_pwe, ucode, firewall4, netifd)",
+  "675-02 rebased onto 706-03",
+  "9999-z7 dropped"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 529
+ },
+ "code_review": "2026-10-28, 8 findings; z7 dropped, dead netifd change reverted, VLAN/708 interaction deferred",
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-28",
+  "install": "from r57, keep settings, Signature check OK, up in ~100 s",
+  "kernel_warnings": 0,
+  "fw4_flowtable_devices": [
+   "ap-mld0",
+   "lan2",
+   "lan3",
+   "lan4",
+   "phy0.0-ap0",
+   "tailscale0",
+   "wan"
+  ],
+  "bridge_flowtable_devices": [
+   "ap-mld0",
+   "lan2"
+  ],
+  "offloaded_flows_after_boot": 241,
+  "rps": {
+   "eth0": "e",
+   "lan2": "e",
+   "wan": "e",
+   "ap-mld0": "8",
+   "phy0.0-ap0": "8"
+  },
+  "mt76_tx_task_cpu": "8",
+  "wifi_napi_cpu": "4",
+  "mac_reconnects": "3/3 MLO valid_links 0x0006",
+  "iperf3_download_mbps": [
+   1936,
+   1956,
+   1958
+  ],
+  "iperf3_upload_mbps": [
+   1791,
+   1818
+  ],
+  "internet_networkquality_mbps": {
+   "down": 898,
+   "up": 773
+  },
+  "note": "one transient 'No route to host' to the iperf server after the first reconnect run; not reproduced in 5 further reconnects"
+ }
+}
