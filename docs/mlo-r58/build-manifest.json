@@ -6,7 +6,7 @@
   "kernel_release": "6.18.55-w1700k-mlo-r32",
   "base_build": "ubi2-mlo-roaming-r57-20261024-tailscale",
   "base_manifest_sha256": "5b32ae7de2d0388633ce7d841a5b505aa88ae8b7575b2c26a90e0029427f5f0f",
-  "built_source_commit": "747418314ef94522613c7ee2fe7b6f81d5dedf67",
+  "built_source_commit": "197ed8be787ebaab4e4766168eedb9138a6672b4",
   "mt76_source": "https://github.com/OpenWRT-fanboy/mt76-firmware 639e128702780b398c1c36782b77899ce6bcb1fa (2026-10-08)",
   "feeds": {
     "packages": "d50c9e2ac63808f8ea487ef8bc91632e7a483804",
@@ -66,7 +66,7 @@
     "package/network/config/bridge-flow-offload/files/etc/hotplug.d/net/51-bridge-flow-offload": "c6721af7e2fc6cdc3332b0727df8abc3cd0ca02dd28fcd4c0cc88d02637b8362",
     "package/network/config/bridge-flow-offload/files/etc/uci-defaults/90-bridge-flow-offload": "2c7c2a6b37a9d245f7d2b027d2bf05a0aebe616c3e0b105bc0124e79c089019c",
     "package/network/config/bridge-flow-offload/files/usr/share/bridge-flow-offload/apply-rules.sh": "d9564372debb28f195718a546b32b85ed46aff7ad3cc0ab53d8b6048a25b20a7",
-    "package/network/config/netifd/files/usr/libexec/network/packet-steering.uc": "0881adcffded9e3db5d9211d2fa7bd4be91accc8b863cab4745ed99351502df1",
+    "package/network/config/netifd/files/usr/libexec/network/packet-steering.uc": "822352593ead162fc86bb193c497814fce253ac4cc13339e6a879fce7973993c",
     "package/network/utils/w1700k-wifi-watchdog/Makefile": "f7eb50d15fe5b7b313b6e29a6f47ab5901c8adf3fec8effb4635fa12905b6449",
     "package/network/utils/w1700k-wifi-watchdog/files/w1700k-wifi-watchdog.init": "855bb54bc6d2ce84c9896bdd9759d017e5b9099124e33cce439f884261f88473",
     "package/network/utils/w1700k-wifi-watchdog/files/w1700k-wifi-watchdog.sh": "4c306d35576f7174926cd4e90af35463549f30ac5290600ade6749d921888304",
@@ -84,7 +84,6 @@
     "target/linux/airoha/patches-6.18/9999-z2-net-airoha-ppe-slot-ownership.patch": "89204638491fe9214d02ab20b5014a2bc3ef3da131836d4cb1f85622bf8b88ad",
     "target/linux/airoha/patches-6.18/9999-z4-net-airoha-npu-preserve-pending-mailbox.patch": "df75104a758615d912fa8d499cc7cdccf21e7ecdad6aa4b51c0ed16ab02b05e8",
     "target/linux/airoha/patches-6.18/9999-z6-net-airoha-npu-guard-zero-budget.patch": "600825478da0fc3c5f5e5d5372615478344f88434dcacf36ca4c21896d27c128",
-    "target/linux/airoha/patches-6.18/9999-z7-net-dsa-make-absent-host-fdb-delete-idempotent.patch": "653137b769d957d10aa858ebba66783a776d796a37acf57a9ed13d09c2a2d7ff",
     "target/linux/generic/pending-6.18/675-03-netfilter-bridge-conntrack-vlan-pppoe-encapsulation.patch": "1fea1c3b3b2a4fb554a67ff678c76366d3abccb32c13169e4cb7c26e28b0eadd",
     "tests/check_npu_firmware_paths.py": "878bc0e5372eb159d01d45be16a8565a5073ac3a1d0b5634a9923c95b9235eed",
     "tests/test_airoha_npu_budget.py": "045917193d636bf61951e98748232b4f3319ac71276626abe7b81a1cc92b10bf",
@@ -436,7 +435,7 @@
     "ucode follows upstream main (2026-10-18, upstream a4e922953c): use-after-free fixes in json, zlib, gc sweep and poll/filter value anchoring, ubus deferred reply leak; the rtnl ACK fix is now in the ucode source. uhttpd follows upstream (2026-08-24, Basic Auth realm enforcement for URL-prefix handlers); uhttpd and rpcd handle the new STATUS_BREAK; every ucode consumer rebuilt against the new headers.",
     "hostapd follows upstream main (2026-10-21): patch set rebased onto the hostap submissions with AP MLD first-link restart, shared authenticator, per-link EAP mode, aborted-scan retry, link ID and not-started-link association fixes; uhttpd 2026-10-19 (handles ucode STATUS_BREAK, validates ubus list parameters), the fork uhttpd patch dropped.",
     "kernel/mac80211: upstream roaming fixes under flow offloading (279704475c, d014acb494): dev_fill_forward_path takes a path ctx (706-01), ieee80211 forward path restored (706-02, mac80211 007), direct-xmit flows torn down when their output device changes (708); 675-01/675-02 rebased onto them.",
-    "upstream: dnsmasq CVE fixes (6db25ee835 with 71588f0d76, 0dfc92701b); flowtable forward path bail-out 706-03 replacing 699 (2d7e2a4ae6), 708 v9 (09fe0f8140), VLAN ID fix 706-04 (be75fbfa9b), DSA host fdb per port (c7924dcd74); musl regcomp CVE (f1d43d5297); wifi-scripts sae_pwe on AP MLD with 6 GHz (c9ea07732f, 035a94fdb5); ucode 2026-10-23 (fff992f940); firewall4 2026-10-26 (e2e50c9dc4); netifd 2026-10-28 and packet steering (e1dd989404, cd6b08f2b5, 8a97b52c3a, 0747c5b488). Fork: 675-02 rebased onto 706-03; W1700K mt76 TX task placement handles an RPS CPU list."
+    "upstream: dnsmasq CVE fixes (6db25ee835 with 71588f0d76, 0dfc92701b); flowtable forward path bail-out 706-03 replacing 699 (2d7e2a4ae6), 708 v9 (09fe0f8140), VLAN ID fix 706-04 (be75fbfa9b), DSA host fdb per port (c7924dcd74); musl regcomp CVE (f1d43d5297); wifi-scripts sae_pwe on AP MLD with 6 GHz (c9ea07732f, 035a94fdb5); ucode 2026-10-23 (fff992f940); firewall4 2026-10-26 (e2e50c9dc4); netifd 2026-10-28 and packet steering (e1dd989404, cd6b08f2b5, 8a97b52c3a, 0747c5b488). Fork: 675-02 rebased onto 706-03; 9999-z7 dropped (superseded by DSA host fdb tracking 643)."
   ],
   "status": "upstream batch candidate on r57; built, not installed.",
   "remote_access": {
