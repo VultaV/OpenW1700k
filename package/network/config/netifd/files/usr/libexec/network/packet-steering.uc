@@ -400,8 +400,6 @@ for (let devname in phys_devs) {
 for (let devname in phys_devs) {
 	let dev = phys_devs[devname];
 	let cpu = dev.rps_cpu;
-	if (type(cpu) == "array")
-		cpu = length(cpu) ? join(",", cpu) : null;
 	if (disable || all_cpus || dev.napi_cpu == null ||
 	    cpu == null || cpu < 0 || cpu == dev.napi_cpu)
 		cpu = join(",", map(cpus, (cpu) => cpu.id));
