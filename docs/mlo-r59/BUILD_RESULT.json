@@ -1,0 +1,71 @@
+{
+ "image": "openwrt-ubi2-mlo-upstream-r59-20261030-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+ "sha256": "78aef3635449e30451a5d23f0f370ae0f30bb001b78b75ff13fb61a37145b779",
+ "bytes": 30585699,
+ "base": "r58 (mlo-r58-20261028)",
+ "changes": [
+  "kernel 6.18.55 -> 6.18.59 (stable network fixes; 438 spinand QE backport dropped, 706-03/675-02/675-03 rebased)",
+  "openssl 3.5.8 -> 3.5.9 (CVE-2026-84782 High and 12 Low) with upstream ATOMIC64_DEPENDS",
+  "rpcd 2026-10-28 (session ACLs for non-root ubus callers, session files not named after the session id); STATUS_BREAK patch dropped",
+  "procd 2026-10-18 (ujail hardening, hotplug drop-in dirs, audio-support split)",
+  "bridge-flow-offload accepts 6.18.59-w1700k-mlo-r32",
+  "ubus 2026-10-28 (needed by rpcd 2026-10-28; libubus ABI 20261028, consumers rebuilt)",
+  "kmod packaging for 6.18.57+: krb5/krb5enc with NFS secure RPC, new kmod-libeth-xdp for ice",
+  "mac80211 backports: no sockaddr_unsized redefinition on 6.18.57+ (PKG_RELEASE 11)",
+  "kmod-pf-ring disabled in the config (PF_RING 9.2.0 does not build on 6.18.57+; not in the image)"
+ ],
+ "build": {
+  "command": "make -j12",
+  "exit_code": 0,
+  "seconds": 420,
+  "note": "final image pass after the manifest refresh; earlier passes stopped on kmod-pf-ring, rpcd/ubus, kmod packaging, backports sockaddr_unsized and stale out-of-tree kmods"
+ },
+ "installed": true,
+ "boot_tested": true,
+ "device_validation": {
+  "date": "2026-10-30",
+  "install": "from r58, keep settings, Signature check OK, up in ~100 s",
+  "kernel_release": "6.18.59-w1700k-mlo-r32",
+  "kernel_warnings": 0,
+  "packages": [
+   "libopenssl3-3.5.9-r2",
+   "rpcd-2026.10.28~469d7852-r1",
+   "procd-2026.10.18~5aef7c33-r1",
+   "ubus-2026.10.28~db20eff5-r1",
+   "libubus20261028",
+   "bridge-flow-offload-1.0-r5"
+  ],
+  "bridge_offload_status": "enabled: IPv4 TCP lan2 <-> ap-mld0 on br-lan",
+  "fw4_flowtable_devices": [
+   "ap-mld0",
+   "lan2",
+   "lan3",
+   "lan4",
+   "phy0.0-ap0",
+   "tailscale0",
+   "wan"
+  ],
+  "bridge_flowtable_devices": [
+   "ap-mld0",
+   "lan2"
+  ],
+  "mlo": "5 GHz ch36 160 MHz + 6 GHz ch37 160 MHz",
+  "luci_rpcd": "LuCI login page served; anonymous ubus session access works and privileged calls are denied",
+  "watchdog": "running, timeout 24 s",
+  "mac_wifi_check": {
+   "reconnects": 1,
+   "links": "valid_links:0x0006 primary:2 secondary:1",
+   "down_mbps": [
+    1983,
+    1990,
+    1988
+   ],
+   "up_mbps": [
+    1830,
+    1805
+   ],
+   "intervals_under_500": 0,
+   "offloaded_flows": 72
+  }
+ }
+}
