@@ -14,7 +14,7 @@ unique kernel release. Target build and hardware validation are pending.
 ---
 --- a/include/net/flow_offload.h
 +++ b/include/net/flow_offload.h
-@@ -184,6 +184,8 @@
+@@ -184,6 +184,8 @@ enum flow_action_id {
  	FLOW_ACTION_VLAN_PUSH_ETH,
  	FLOW_ACTION_VLAN_POP_ETH,
  	FLOW_ACTION_CONTINUE,
@@ -25,8 +25,8 @@ unique kernel release. Target build and hardware validation are pending.
  
 --- a/include/net/netfilter/nf_flow_table.h
 +++ b/include/net/netfilter/nf_flow_table.h
-@@ -173,6 +173,7 @@
- 	NF_FLOW_HW_PENDING,
+@@ -177,6 +177,7 @@ enum nf_flow_flags {
+ 	NF_FLOW_HW_DEAD,
  	NF_FLOW_HW_BIDIRECTIONAL,
  	NF_FLOW_HW_ESTABLISHED,
 +	NF_FLOW_BRIDGE,
@@ -35,7 +35,7 @@ unique kernel release. Target build and hardware validation are pending.
  enum flow_offload_type {
 --- a/net/netfilter/nft_flow_offload.c
 +++ b/net/netfilter/nft_flow_offload.c
-@@ -138,6 +138,8 @@
+@@ -138,6 +138,8 @@ static void nft_flow_offload_eval(const
  	nft_flow_set_dscp(pkt, flow, !dir);
  
  	flow_offload_route_init(flow, &route);
@@ -46,7 +46,7 @@ unique kernel release. Target build and hardware validation are pending.
  
 --- a/net/netfilter/nf_flow_table_ip.c
 +++ b/net/netfilter/nf_flow_table_ip.c
-@@ -412,7 +412,8 @@
+@@ -421,7 +421,8 @@ static int nf_flow_offload_forward(struc
  				    FIELD_PREP(INET_DSCP_MASK,
  					       tuplehash->tuple.dscp));
  
@@ -56,7 +56,7 @@ unique kernel release. Target build and hardware validation are pending.
  	skb_clear_tstamp(skb);
  
  	if (flow_table->flags & NF_FLOWTABLE_COUNTER)
-@@ -697,7 +698,8 @@
+@@ -716,7 +717,8 @@ static int nf_flow_offload_ipv6_forward(
  				    FIELD_PREP(INET_DSCP_MASK,
  					       tuplehash->tuple.dscp));
  
@@ -68,7 +68,7 @@ unique kernel release. Target build and hardware validation are pending.
  	if (flow_table->flags & NF_FLOWTABLE_COUNTER)
 --- a/net/netfilter/nf_flow_table_offload.c
 +++ b/net/netfilter/nf_flow_table_offload.c
-@@ -691,6 +691,15 @@
+@@ -691,6 +691,15 @@ nf_flow_rule_route_common(struct net *ne
  	const struct flow_offload_tuple *tuple;
  	int i;
  

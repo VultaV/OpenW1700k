@@ -15,7 +15,7 @@ retry it, reset the firmware, or change callers' recovery policy.
 ---
 --- a/drivers/net/ethernet/airoha/airoha_npu.c
 +++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -191,6 +191,15 @@
+@@ -191,6 +191,15 @@ static int __airoha_npu_send_msg(struct
  	 */
  	spin_lock_bh(&core->lock);
  
@@ -31,7 +31,7 @@ retry it, reset the firmware, or change callers' recovery policy.
  	memcpy(core->buf, data, len);
  
  	regmap_write(npu->regmap, REG_CR_MBQ0_CTRL(0) + offset, core->addr);
-@@ -210,7 +219,7 @@
+@@ -210,7 +219,7 @@ static int __airoha_npu_send_msg(struct
  	/* Copy the trailing reply_len bytes of the response. */
  	if (!ret && reply)
  		memcpy(reply, core->buf + len - reply_len, reply_len);

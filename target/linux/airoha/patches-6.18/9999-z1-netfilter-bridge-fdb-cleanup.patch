@@ -5,7 +5,7 @@ Not installed; review and runtime validation required.
 ---
 --- a/include/net/netfilter/nf_flow_table.h
 +++ b/include/net/netfilter/nf_flow_table.h
-@@ -187,6 +187,9 @@
+@@ -191,6 +191,9 @@ struct flow_offload {
  	unsigned long				flags;
  	u16					type;
  	u32					timeout;
@@ -17,20 +17,19 @@ Not installed; review and runtime validation required.
  
 --- a/net/netfilter/nf_flow_table_core.c
 +++ b/net/netfilter/nf_flow_table_core.c
-@@ -5,6 +5,8 @@
- #include <linux/netfilter.h>
+@@ -6,6 +6,8 @@
  #include <linux/rhashtable.h>
+ #include <linux/if_vlan.h>
  #include <linux/netdevice.h>
 +#include <linux/etherdevice.h>
 +#include <net/switchdev.h>
  #include <net/ip.h>
  #include <net/ip6_route.h>
  #include <net/netfilter/nf_flow_table.h>
-@@ -15,6 +17,21 @@
- 
+@@ -17,6 +19,21 @@
  static DEFINE_MUTEX(flowtable_lock);
  static LIST_HEAD(flowtables);
-+
+ 
 +#if IS_ENABLED(CONFIG_NET_SWITCHDEV)
 +/* Serialize publication with the event cutoff, not with packet forwarding. */
 +static DEFINE_SPINLOCK(flow_fdb_lock);
@@ -45,10 +44,11 @@ Not installed; review and runtime validation required.
 +	u8 addr[ETH_ALEN];
 +};
 +#endif
- 
++
  static void
  flow_offload_fill_dir(struct flow_offload *flow,
-@@ -315,7 +332,8 @@
+ 		      enum flow_offload_tuple_dir dir)
+@@ -327,7 +344,8 @@ unsigned long flow_offload_get_timeout(s
  	return timeout;
  }
  
@@ -58,7 +58,7 @@ Not installed; review and runtime validation required.
  {
  	int err;
  
-@@ -346,6 +364,26 @@
+@@ -359,6 +377,26 @@ int flow_offload_add(struct nf_flowtable
  
  	return 0;
  }
@@ -85,7 +85,7 @@ Not installed; review and runtime validation required.
  EXPORT_SYMBOL_GPL(flow_offload_add);
  
  void flow_offload_refresh(struct nf_flowtable *flow_table,
-@@ -381,9 +419,14 @@
+@@ -394,9 +432,14 @@ static void flow_offload_del(struct nf_f
  
  void flow_offload_teardown(struct flow_offload *flow)
  {
@@ -103,7 +103,7 @@ Not installed; review and runtime validation required.
  }
  EXPORT_SYMBOL_GPL(flow_offload_teardown);
  
-@@ -748,6 +791,99 @@
+@@ -802,6 +845,99 @@ void nf_flow_table_cleanup(struct net_de
  }
  EXPORT_SYMBOL_GPL(nf_flow_table_cleanup);
  
@@ -203,7 +203,7 @@ Not installed; review and runtime validation required.
  void nf_flow_table_free(struct nf_flowtable *flow_table)
  {
  	mutex_lock(&flowtable_lock);
-@@ -846,8 +982,24 @@
+@@ -900,8 +1036,24 @@ static int __init nf_flow_table_module_i
  	if (ret)
  		goto out_bpf;
  
@@ -228,7 +228,7 @@ Not installed; review and runtime validation required.
  out_bpf:
  	nf_flow_table_offload_exit();
  out_offload:
-@@ -857,6 +1009,10 @@
+@@ -911,6 +1063,10 @@ out_offload:
  
  static void __exit nf_flow_table_module_exit(void)
  {
@@ -237,5 +237,5 @@ Not installed; review and runtime validation required.
 +	destroy_workqueue(flow_fdb_wq);
 +#endif
  	unregister_netdevice_notifier(&flow_offload_netdev_notifier);
+ 	rcu_barrier();
  	nf_flow_table_offload_exit();
- 	unregister_pernet_subsys(&nf_flow_table_net_ops);

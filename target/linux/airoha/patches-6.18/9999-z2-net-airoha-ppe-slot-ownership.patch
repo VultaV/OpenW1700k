@@ -13,7 +13,7 @@ Hardware timing and reconnect behavior still need runtime validation.
 ---
 --- a/drivers/net/ethernet/airoha/airoha_ppe.c
 +++ b/drivers/net/ethernet/airoha/airoha_ppe.c
-@@ -737,7 +737,8 @@
+@@ -741,7 +741,8 @@ static bool airoha_ppe_foe_compare_entry
  	int type = FIELD_GET(AIROHA_FOE_IB1_BIND_PACKET_TYPE, e->data.ib1);
  	int len;
  
@@ -23,7 +23,7 @@ Hardware timing and reconnect behavior still need runtime validation.
  		return false;
  
  	if (type > PPE_PKT_TYPE_IPV4_DSLITE)
-@@ -806,19 +807,48 @@
+@@ -810,19 +811,48 @@ unlock:
  	return err;
  }
  
@@ -79,7 +79,7 @@ Hardware timing and reconnect behavior still need runtime validation.
  	if (e->type == FLOW_TYPE_L2_SUBFLOW) {
  		hlist_del_init(&e->l2_subflow_node);
  		kfree(e);
-@@ -896,7 +926,10 @@
+@@ -900,7 +930,10 @@ airoha_ppe_foe_commit_subflow_entry(stru
  	}
  
  	hwe.bridge.data = e->data.bridge.data;
@@ -91,7 +91,7 @@ Hardware timing and reconnect behavior still need runtime validation.
  
  	return 0;
  }
-@@ -905,10 +938,9 @@
+@@ -909,10 +942,9 @@ static void airoha_ppe_foe_insert_entry(
  					struct sk_buff *skb,
  					u32 hash, bool rx_wlan)
  {
@@ -103,7 +103,7 @@ Hardware timing and reconnect behavior still need runtime validation.
  	struct hlist_node *n;
  	u32 index, state;
  
-@@ -919,30 +951,34 @@
+@@ -923,30 +955,34 @@ static void airoha_ppe_foe_insert_entry(
  		goto unlock;
  
  	state = FIELD_GET(AIROHA_FOE_IB1_BIND_STATE, hwe->ib1);
@@ -124,26 +124,22 @@ Hardware timing and reconnect behavior still need runtime validation.
  				airoha_ppe_foe_remove_flow(ppe, e);
 +				continue;
  			}
-+		}
-+		if (e->type == FLOW_TYPE_L2_SUBFLOW)
- 			continue;
--		}
+-			continue;
+ 		}
 -
 -		if (!airoha_ppe_foe_compare_entry(e, hwe))
--			continue;
--
++		if (e->type == FLOW_TYPE_L2_SUBFLOW)
+ 			continue;
+ 
 -		airoha_ppe_foe_commit_entry(ppe, &e->data, hash, rx_wlan);
 -		commit_done = true;
 -		e->hash = hash;
--	}
--
--	if (commit_done)
-+
 +		/* Registration adds at the head: only the newest matching rule wins. */
 +		if (!entry && airoha_ppe_foe_compare_entry(e, hwe))
 +			entry = e;
-+	}
-+
+ 	}
+ 
+-	if (commit_done)
 +	if (entry) {
 +		if (airoha_ppe_foe_clear_entry(ppe, entry))
 +			goto unlock;
@@ -154,7 +150,7 @@ Hardware timing and reconnect behavior still need runtime validation.
  
  	airoha_ppe_foe_set_bridge_addrs(&br, eth_hdr(skb));
  	e = rhashtable_lookup_fast(&ppe->l2_flows, &br,
-@@ -1033,7 +1069,8 @@
+@@ -1037,7 +1073,8 @@ airoha_ppe_foe_flow_l2_entry_update(stru
  
  		ib1 = READ_ONCE(hwe->ib1);
  		state = FIELD_GET(AIROHA_FOE_IB1_BIND_STATE, ib1);
@@ -164,7 +160,7 @@ Hardware timing and reconnect behavior still need runtime validation.
  			iter->hash = 0xffff;
  			airoha_ppe_foe_remove_flow(ppe, iter);
  			continue;
-@@ -1069,7 +1106,9 @@
+@@ -1073,7 +1110,9 @@ static void airoha_ppe_foe_flow_entry_up
  		goto unlock;
  
  	memcpy(&hwe, hwe_p, sizeof(*hwe_p));

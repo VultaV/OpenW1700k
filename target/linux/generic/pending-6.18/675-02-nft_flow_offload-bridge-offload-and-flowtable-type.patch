@@ -114,19 +114,16 @@
  			if (is_zero_ether_addr(info->h_source))
  				memcpy(info->h_source, path->dev->dev_addr, ETH_ALEN);
  
-@@ -156,15 +158,20 @@ static int nft_dev_path_info(const struc
- 				info->num_encaps++;
+@@ -157,7 +159,7 @@ static int nft_dev_path_info(const struc
  				break;
  			case DEV_PATH_BR_VLAN_UNTAG:
--				if (WARN_ON_ONCE(info->num_encaps-- == 0))
+ 				if (info->num_encaps == 0)
 -					return -1;
--
-+				if (WARN_ON_ONCE(info->num_encaps == 0))
 +					break;
-+				info->num_encaps--;
+ 
+ 				info->num_encaps--;
  				break;
- 			case DEV_PATH_BR_VLAN_KEEP:
- 				break;
+@@ -166,6 +168,11 @@ static int nft_dev_path_info(const struc
  			}
  			info->xmit_type = FLOW_OFFLOAD_XMIT_DIRECT;
  			break;
@@ -138,7 +135,7 @@
  		default:
  			return -1;
  		}
-@@ -198,22 +205,58 @@ static bool nft_flowtable_find_dev(const
+@@ -199,22 +206,58 @@ static bool nft_flowtable_find_dev(const
  	return found;
  }
  
@@ -204,7 +201,7 @@
  		return -ENOENT;
  
  	if (info.outdev)
-@@ -241,11 +284,44 @@ int nft_flow_route(const struct nft_pkti
+@@ -242,11 +285,44 @@ int nft_flow_route(const struct nft_pkti
  		   struct nf_flow_route *route, enum ip_conntrack_dir dir,
  		   struct nft_flowtable *ft)
  {
@@ -253,7 +250,7 @@
  	switch (nft_pf(pkt)) {
  	case NFPROTO_IPV4:
  		fl.u.ip4.daddr = ct->tuplehash[dir].tuple.src.u3.ip;
-@@ -276,15 +352,16 @@ int nft_flow_route(const struct nft_pkti
+@@ -277,15 +353,16 @@ int nft_flow_route(const struct nft_pkti
  		return -ENOENT;
  	}
  

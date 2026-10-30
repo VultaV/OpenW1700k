@@ -1,7 +1,5 @@
-Index: linux-6.18.55/include/linux/netfilter_bridge.h
-===================================================================
---- linux-6.18.55.orig/include/linux/netfilter_bridge.h
-+++ linux-6.18.55/include/linux/netfilter_bridge.h
+--- a/include/linux/netfilter_bridge.h
++++ b/include/linux/netfilter_bridge.h
 @@ -10,6 +10,12 @@ struct nf_bridge_frag_data {
  	bool    vlan_present;
  	u16     vlan_tci;
@@ -15,10 +13,8 @@ Index: linux-6.18.55/include/linux/netfilter_bridge.h
  };
  
  #if IS_ENABLED(CONFIG_BRIDGE_NETFILTER)
-Index: linux-6.18.55/net/bridge/netfilter/nf_conntrack_bridge.c
-===================================================================
---- linux-6.18.55.orig/net/bridge/netfilter/nf_conntrack_bridge.c
-+++ linux-6.18.55/net/bridge/netfilter/nf_conntrack_bridge.c
+--- a/net/bridge/netfilter/nf_conntrack_bridge.c
++++ b/net/bridge/netfilter/nf_conntrack_bridge.c
 @@ -16,6 +16,10 @@
  #include <net/netfilter/nf_conntrack_helper.h>
  #include <net/netfilter/nf_conntrack_bridge.h>
@@ -30,7 +26,7 @@ Index: linux-6.18.55/net/bridge/netfilter/nf_conntrack_bridge.c
  #include <linux/netfilter/nf_tables.h>
  #include <net/netfilter/nf_tables.h>
  
-@@ -237,59 +241,118 @@ static int nf_ct_br_ipv6_check(const str
+@@ -241,59 +245,118 @@ static int nf_ct_br_ipv6_check(const str
  	return 0;
  }
  
@@ -123,7 +119,7 @@ Index: linux-6.18.55/net/bridge/netfilter/nf_conntrack_bridge.c
 -			return NF_ACCEPT;
 +			goto notrack;
  
- 		len = sizeof(struct ipv6hdr) + ntohs(ipv6_hdr(skb)->payload_len);
+ 		len = sizeof(struct ipv6hdr) + skb_ipv6_payload_len(skb);
  		if (pskb_trim_rcsum(skb, len))
 -			return NF_ACCEPT;
 +			goto notrack;
@@ -160,7 +156,7 @@ Index: linux-6.18.55/net/bridge/netfilter/nf_conntrack_bridge.c
  }
  
  static unsigned int nf_ct_bridge_in(void *priv, struct sk_buff *skb,
-@@ -342,37 +405,67 @@ nf_ct_bridge_refrag(struct sk_buff *skb,
+@@ -346,37 +409,67 @@ nf_ct_bridge_refrag(struct sk_buff *skb,
  				  struct sk_buff *))
  {
  	struct nf_bridge_frag_data data;

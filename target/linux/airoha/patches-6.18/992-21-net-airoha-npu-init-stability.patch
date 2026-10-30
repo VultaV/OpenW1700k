@@ -1,6 +1,6 @@
 --- a/drivers/net/ethernet/airoha/airoha_npu.c
 +++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -202,7 +202,7 @@ static int __airoha_npu_send_msg(struct
+@@ -203,7 +203,7 @@ static int __airoha_npu_send_msg(struct
  	ret = regmap_read_poll_timeout_atomic(npu->regmap,
  					      REG_CR_MBQ0_CTRL(3) + offset,
  					      val, (val & MBOX_MSG_DONE),
@@ -9,7 +9,7 @@
  	if (!ret && FIELD_GET(MBOX_MSG_STATUS, val) != NPU_MBOX_SUCCESS)
  		ret = -EINVAL;
  
-@@ -549,29 +549,55 @@ airoha_npu_wlan_set_reserved_memory(stru
+@@ -552,43 +552,69 @@ airoha_npu_wlan_set_reserved_memory(stru
  					sizeof(val), GFP_KERNEL);
  }
  
@@ -70,7 +70,6 @@
  	if (err)
  		return err;
  
-@@ -584,14 +610,14 @@ static int airoha_npu_wlan_init_memory(s
  	if (of_property_match_string(npu->dev->of_node, "memory-region-names",
  				     "ba") >= 0) {
  		cmd = WLAN_FUNC_SET_WAIT_DRAM_BA_NODE_ADDR;

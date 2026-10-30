@@ -1,6 +1,6 @@
 --- a/include/linux/if_bridge.h
 +++ b/include/linux/if_bridge.h
-@@ -119,6 +119,8 @@
+@@ -119,6 +119,8 @@ int br_vlan_get_info(const struct net_de
  		     struct bridge_vlan_info *p_vinfo);
  int br_vlan_get_info_rcu(const struct net_device *dev, u16 vid,
  			 struct bridge_vlan_info *p_vinfo);
@@ -9,7 +9,7 @@
  bool br_mst_enabled(const struct net_device *dev);
  int br_mst_get_info(const struct net_device *dev, u16 msti, unsigned long *vids);
  int br_mst_get_state(const struct net_device *dev, u16 msti, u8 *state);
-@@ -155,6 +157,7 @@
+@@ -155,6 +157,7 @@ static inline int br_vlan_get_info_rcu(c
  	return -EINVAL;
  }
  
@@ -19,7 +19,7 @@
  	return false;
 --- a/net/bridge/br_vlan.c
 +++ b/net/bridge/br_vlan.c
-@@ -1554,6 +1554,23 @@
+@@ -1554,6 +1554,23 @@ int br_vlan_get_info_rcu(const struct ne
  }
  EXPORT_SYMBOL_GPL(br_vlan_get_info_rcu);
  

@@ -48,8 +48,8 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  }
  
  static void
-@@ -238,6 +252,7 @@ mt7530_remove(struct mdio_device *mdiode
- 			ret);
+@@ -240,6 +254,7 @@ mt7530_remove(struct mdio_device *mdiode
+ 	}
  
  	mt7530_remove_common(priv);
 +	mt7530_nl_exit();
@@ -66,7 +66,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  
  static const struct of_device_id mt7988_of_match[] = {
  	{ .compatible = "airoha,an7583-switch", .data = &mt753x_table[ID_AN7583], },
-@@ -61,7 +62,20 @@ mt7988_probe(struct platform_device *pde
+@@ -62,7 +63,20 @@ mt7988_probe(struct platform_device *pde
  	if (IS_ERR(priv->regmap))
  		return PTR_ERR(priv->regmap);
  
@@ -88,7 +88,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  }
  
  static void mt7988_remove(struct platform_device *pdev)
-@@ -70,6 +84,8 @@ static void mt7988_remove(struct platfor
+@@ -71,6 +85,8 @@ static void mt7988_remove(struct platfor
  
  	if (priv)
  		mt7530_remove_common(priv);
@@ -99,7 +99,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  static void mt7988_shutdown(struct platform_device *pdev)
 --- a/drivers/net/dsa/mt7530.c
 +++ b/drivers/net/dsa/mt7530.c
-@@ -178,8 +178,7 @@ mt7530_mii_read(struct mt7530_priv *priv
+@@ -181,8 +181,7 @@ mt7530_mii_read(struct mt7530_priv *priv
  	return val;
  }
  
@@ -109,7 +109,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  {
  	mt7530_mutex_lock(priv);
  
-@@ -202,8 +201,7 @@ _mt7530_read(struct mt7530_dummy_poll *p
+@@ -205,8 +204,7 @@ _mt7530_read(struct mt7530_dummy_poll *p
  	return val;
  }
  
@@ -119,7 +119,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  {
  	struct mt7530_dummy_poll p;
  
-@@ -536,8 +534,7 @@ static int mt7530_phy_write_c45(struct m
+@@ -539,8 +537,7 @@ static int mt7530_phy_write_c45(struct m
  	return mdiobus_c45_write_nested(priv->bus, port, devad, regnum, val);
  }
  
@@ -129,7 +129,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  			int regnum)
  {
  	u32 reg, val;
-@@ -581,8 +578,7 @@ out:
+@@ -584,8 +581,7 @@ out:
  	return ret;
  }
  
@@ -139,7 +139,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  			 int regnum, u16 data)
  {
  	u32 val, reg;
-@@ -625,8 +621,7 @@ out:
+@@ -628,8 +624,7 @@ out:
  	return ret;
  }
  
@@ -149,7 +149,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  {
  	int ret;
  	u32 val;
-@@ -659,8 +654,7 @@ out:
+@@ -662,8 +657,7 @@ out:
  	return ret;
  }
  
@@ -161,7 +161,7 @@ Subject: [PATCH] net: dsa: add mt7531 netlink support for switch app
  	int ret;
 --- a/drivers/net/dsa/mt7530.h
 +++ b/drivers/net/dsa/mt7530.h
-@@ -938,6 +938,12 @@ static inline void INIT_MT7530_DUMMY_POL
+@@ -947,6 +947,12 @@ static inline void INIT_MT7530_DUMMY_POL
  
  int mt7530_probe_common(struct mt7530_priv *priv);
  void mt7530_remove_common(struct mt7530_priv *priv);

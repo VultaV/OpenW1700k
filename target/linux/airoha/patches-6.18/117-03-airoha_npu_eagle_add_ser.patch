@@ -4,7 +4,7 @@
 
 --- a/drivers/net/ethernet/airoha/airoha_npu.c
 +++ b/drivers/net/ethernet/airoha/airoha_npu.c
-@@ -183,7 +183,7 @@ static int airoha_npu_send_msg(struct ai
+@@ -184,7 +184,7 @@ static int airoha_npu_send_msg(struct ai
  	ret = regmap_read_poll_timeout_atomic(npu->regmap,
  					      REG_CR_MBQ0_CTRL(3) + offset,
  					      val, (val & MBOX_MSG_DONE),
