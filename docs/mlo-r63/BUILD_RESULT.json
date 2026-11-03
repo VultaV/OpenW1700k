@@ -1,0 +1,146 @@
+{
+  "image": "openwrt-ubi2-mlo-npu-mlo-r63-20261103-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "a5dd57dc17ed9efd126fbc26130794d67d6956e23ad87d739e657b4c7b813bca",
+  "bytes": 30589794,
+  "source_commit": "015d9e9eb2b69af348fbd430f0d50dcb25cab8ef",
+  "manifest_sha256": "56f3113f8ca7c8063d3838bab1a8766e59136d8e99ff89dec5215b1e62f2d367",
+  "base": "r62 local candidate on published r59",
+  "build": {
+    "command": "gmake -j12 V=s",
+    "exit_code": 0,
+    "seconds": 427.0
+  },
+  "installed": false,
+  "boot_tested": false,
+  "hardware_throughput_tested": false,
+  "kernel_release": "6.18.59-w1700k-mlo-r32",
+  "package_versions": {
+    "mt76": "6.18.59.2026.10.08~639e1287-r39",
+    "airoha-en7581-mt7996-npu-firmware": "0.8-r1"
+  },
+  "host_checks": {
+    "mlo_backports": {
+      "checks": 20,
+      "candidate_failed": 0,
+      "baseline_failed": 5,
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ]
+    },
+    "best_link": {
+      "checks": 10,
+      "failed": 0
+    },
+    "ps_wake": {
+      "checks": 29,
+      "baseline_failed": 19,
+      "candidate_failed": 0
+    },
+    "mlo_ps": {
+      "checks": [
+        29,
+        99
+      ],
+      "failed": 0
+    },
+    "active_link": {
+      "status": "PASS"
+    },
+    "npu_old_guard": {
+      "cases": 24,
+      "status": "PASS"
+    },
+    "npu_v08_loader": {
+      "cases": 2,
+      "status": "PASS",
+      "real_binary_hashes": true,
+      "bytes_unchanged": true
+    },
+    "legacy_link_transition": {
+      "status": "NOT_RUN_INCOMPATIBLE",
+      "reason": "Harness requires mt7996_sta_update_link_ids, absent from current pin before r63"
+    },
+    "hardware": {
+      "installed": false,
+      "boot_tested": false,
+      "throughput_tested": false
+    },
+    "limits": [
+      "Host kernel services are shims; no proof of radio/NPU timing or concurrency, DMA visibility or firmware execution.",
+      "MLO stalls and overnight association outage remain unproven fixed."
+    ],
+    "fit_checker_fixtures": {
+      "layout_cases": 39,
+      "deterministic_mutations": 400,
+      "platform_dispatch_cases": 4,
+      "status": "PASS",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ]
+    }
+  },
+  "image_checks": {
+    "status": "PASS",
+    "image": "openwrt-ubi2-mlo-npu-mlo-r63-20261103-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "a5dd57dc17ed9efd126fbc26130794d67d6956e23ad87d739e657b4c7b813bca",
+    "bytes": 30589794,
+    "payloads": [
+      {
+        "name": "kernel-1",
+        "bytes": 5851420,
+        "sha256": "d539adf6f86654d26ec228d16860c281b78fb6ca8360d07dfd95b22aa1f2cbf4",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "fdt-1",
+        "bytes": 22871,
+        "sha256": "e4425ab34b3e4a37b73ff551b6971e992e4ce8559256114fbdac981718433c63",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "rootfs-1",
+        "bytes": 24707072,
+        "sha256": "671e58c5d8b8286aecd22ccac18ad0495418e3adbc214563570a8707f01c52f0",
+        "sha1_crc32_verified": true
+      }
+    ],
+    "fwtool_supported_devices": [
+      "gemtek,w1700k-ubi"
+    ],
+    "compat_version": "2.0",
+    "ubi2_layout_check": "PASS_ASAN_UBSAN",
+    "fit_check_sign_exit_code": 0,
+    "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+    "kernel_module_abi": "6.18.59-w1700k-mlo-r32",
+    "packaged_firmware": {
+      "en7581_MT7996_npu_rv32.bin": {
+        "bytes": 125832,
+        "sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea"
+      },
+      "en7581_MT7996_npu_data.bin": {
+        "bytes": 3092,
+        "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+      }
+    },
+    "packaged_modules_sha256": {
+      "mt76.ko": "2169118ec3834664cfe951e6a1e5ab2e28c45ec809b4a0e38aec043b34dbc6a7",
+      "mt76-connac-lib.ko": "9631c8978cd228b910c45f770e5f362a5a3fd23c037a528963386dba83a956c2",
+      "mt7996e.ko": "3271035e06297715260aca58b3b309925617e803529205e7078baf07dc777bbb"
+    },
+    "embedded_manifest_matches": true,
+    "private_runtime_state_absent": true,
+    "package_versions_verified": true,
+    "kernel_dtb_identical_to_preserved_r62_image": true
+  },
+  "build_warnings": [
+    "U-Boot empty install-bin target returned Error 1 (ignored); its recipe intentionally stages image files via InstallDev, not a rootfs package. Only the verified sysupgrade image is published here; no new chainloader is supplied."
+  ],
+  "remaining_risks": [
+    "v0.8 is a vendor test firmware pair. The old exact-pair NPU budget guard is not applicable; its equivalent zero-budget handling is not established.",
+    "No runtime verification of NPU execution, DMA visibility, radio concurrency, link reconfiguration or sleep/wake stability.",
+    "Intermittent MLO stalls, 2.4 GHz-inclusive downlink stalls and overnight association failures remain unproven fixed.",
+    "The legacy link-transition harness is incompatible and is recorded as not run, not passed."
+  ]
+}

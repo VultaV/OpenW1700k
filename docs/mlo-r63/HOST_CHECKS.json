@@ -1,0 +1,63 @@
+{
+  "mlo_backports": {
+    "checks": 20,
+    "candidate_failed": 0,
+    "baseline_failed": 5,
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "best_link": {
+    "checks": 10,
+    "failed": 0
+  },
+  "ps_wake": {
+    "checks": 29,
+    "baseline_failed": 19,
+    "candidate_failed": 0
+  },
+  "mlo_ps": {
+    "checks": [
+      29,
+      99
+    ],
+    "failed": 0
+  },
+  "active_link": {
+    "status": "PASS"
+  },
+  "npu_old_guard": {
+    "cases": 24,
+    "status": "PASS"
+  },
+  "npu_v08_loader": {
+    "cases": 2,
+    "status": "PASS",
+    "real_binary_hashes": true,
+    "bytes_unchanged": true
+  },
+  "legacy_link_transition": {
+    "status": "NOT_RUN_INCOMPATIBLE",
+    "reason": "Harness requires mt7996_sta_update_link_ids, absent from current pin before r63"
+  },
+  "hardware": {
+    "installed": false,
+    "boot_tested": false,
+    "throughput_tested": false
+  },
+  "limits": [
+    "Host kernel services are shims; no proof of radio/NPU timing or concurrency, DMA visibility or firmware execution.",
+    "MLO stalls and overnight association outage remain unproven fixed."
+  ],
+  "fit_checker_fixtures": {
+    "layout_cases": 39,
+    "deterministic_mutations": 400,
+    "platform_dispatch_cases": 4,
+    "status": "PASS",
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  }
+}
