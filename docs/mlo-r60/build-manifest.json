@@ -1,0 +1,111 @@
+{
+  "build_label": "ubi2-mlo-upstream-r60-20261101-tailscale",
+  "base_source": "6d74443bce54df63f6d877040d406cdbcfc16f81",
+  "build_profile": "ubi2",
+  "kernel_source": "https://cdn.kernel.org linux-6.18.59 sha256 53a55ac9863a5547e292b8e381d4e4c2240dd1127d5428a7c44dbc550be23963",
+  "kernel_release": "6.18.59-w1700k-mlo-r32",
+  "base_build": "ubi2-mlo-upstream-r59-20261030-tailscale",
+  "base_manifest_sha256": "58e2d199b1552f2a81a78b0b658175a62358a84d63504e1b2ea25adaaa3336bc",
+  "built_source_commit": "e70a62dfe8 plus the uncommitted r60 mt76/hostapd patches",
+  "mt76_source": "https://github.com/OpenWRT-fanboy/mt76-firmware 639e128702780b398c1c36782b77899ce6bcb1fa (2026-10-08)",
+  "feeds": {
+    "packages": "d50c9e2ac63808f8ea487ef8bc91632e7a483804",
+    "luci": "289a7260434d4b8212a9cc6cf6160cb1935270c1",
+    "routing": "4b9891b9136259f93294a424507ed24c5e8c1cbd"
+  },
+  "host_build": {
+    "platform": "Darwin arm64 (macOS 27, Apple clang 21)",
+    "gnu_make": "4.4.1",
+    "tfa_host_cflags": "-include stdint.h",
+    "path": "/opt/homebrew/opt/make/libexec/gnubin:/opt/homebrew/opt/gnu-getopt/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "go_bootstrap": "1.26.5",
+    "go_compiler": "1.27.1"
+  },
+  "changed_source_sha256": {
+    "package/kernel/mt76/Makefile": "9615c8f68177fa0223ab30032ab93bfae7506a836251b9488c99071318dd9b26",
+    "package/kernel/mt76/patches/0040-wifi-mt76-mt7996-advertise-eht-to-firmware-rate-control.patch": "f2126ea4f5e04f582424d9e9c78d6501d7d74f29f9b55904aa2b3d43b785ab32",
+    "package/kernel/mt76/patches/0041-wifi-mt76-mt7996-fill-160mhz-bf-fallback-for-eht-320.patch": "c8637373490a399d26505941af2257247dfad2afdd0c41139c163f4cfda15570",
+    "package/network/services/hostapd/Makefile": "e2082cfc60801bb4036bc63fd4f94a67c76146e54ed91c46958f0fb4ebd21c3e",
+    "package/network/services/hostapd/patches/9998-omit-mlo-link-id-for-non-mlo-sta-vlan-binding.patch": "cd3136e462807b4280103a0b63e34774c4b2efc6b74a616b9bacf13e63b52330"
+  },
+  "inherited_mt76_patch_sha256": {
+    "0001-wifi-mt76-mt7996-add-token-and-NPU-debugfs-counters.patch": "77d0a0062e5dca50c7826b4658f7184f76da494377f3e9d8eb2ef171645c2cfc",
+    "0003-wifi-mt76-mt7996-replace-direct-WTBL-access-with-MCU-for-station-statistics.patch": "ecf631c32f7ab34e6561d77b6bbf8608cc647d81130e74af76382888fe657ffe",
+    "0005-wifi-mt76-mt7996-guard-txfree-overrun.patch": "a72432e24994da12a696526b1ed9cf07d6808c791c72543a0555656164721eca",
+    "0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch": "1c95c77d6bf3ea78db53434bd3a765d8ea05ecfdc41e9a6fdfc463e874231d25",
+    "0008-mt76-wake-ps-txqs-after-aql-return.patch": "bc2ff96344b6ecee7fccebc24422e82502497c4e40437cfe828b89e92c197f14",
+    "0009-mt7996-show-per-link-power-save-state.patch": "5f30d874e5738039dd60d93b45f729c6591e9e9ca9e71f719e4a4b9e4057bc0e",
+    "0010-enable-firmware-txpower-limit.patch": "05f9681867e383db495da66798658d13618d04e7b5697442f81c5da41433e4dd",
+    "0011-refresh-power-limits-on-txpower-changes.patch": "6bad8c32446076787d6beb167378963f328b189c69604357483e8a0a3cf6c9de",
+    "0012-mt7996-resolve-rate-control-phy-from-active-link.patch": "d41b664238f94d34caca9a42dd28d57c64f689aa92f10ebb303608383aa781bf",
+    "0015-mt7996-use-both-mlo-link-ps-for-shared-txq.patch": "89c74d661917f8cec5480ccf594c40eae78ea7deb8a5aaec9a3c1c508ff947cc",
+    "0016-mt7996-trace-ba-failure-and-mld-teardown.patch": "cdacdc137c5faac74ff104c3da51f84b9b4a8c72e459400630da00d00aaa07fe",
+    "0018-mt7996-trace-station-disconnect-result.patch": "ac5c029a61339037b1ea8dc8afa9917d3deffa60274e15003177904855ee4974",
+    "0020-mt7996-test-selected-peer-nstr-on-r17.patch": "32712dae485297c7bc7e17cbe0312a057680d34a49eac348af2a469cda2762c4",
+    "0021-mt7996-show-per-link-tx-feedback.patch": "9859593bad278cd7cfde053af219941bf720f55d69aa960bc30b5998867dea0a",
+    "0022-mt7996-count-tx-completion-error-flags.patch": "9f70cc0c06b58a594c8fc23e0a3e20de4fc1c39700663632ef1dee8b674ed941",
+    "0023-mt7996-test-awake-link-tx-selection.patch": "26ba061b2d18cd5f0c58d5bfebdfb0a986be93d62b669c026eb8516bd6577077",
+    "0024-mt7996-count-tx-link-selection.patch": "63f7fb23a7edd63f9b610e4f6693fd1744e3c1093d9461512ab1eecfdc3569b3",
+    "0025-mt7996-trace-failed-test-packet-headers.patch": "8533c2d95f3775c0c6f9a6669f5697da7ff05118c972d6a9cc53e1d96f5e453b",
+    "0026-mt7996-trace-ba-frames-and-mcu-results.patch": "49209bc838ccc14c15a7d8792f906b257b539e610584a8741ee64afd7a9e80fc",
+    "0027-mt7996-trace-mlo-ps-event-order.patch": "726341e7bd4d50eb3cbe6867e5dfa42d7f83912708480916fb40809469eaa88d",
+    "0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch": "abe333bb399c5205120f0156aa87fdb588e12d0436621e27627abcd3ef2adf02",
+    "0032-mt7996-rearm-txqs-after-link-change.patch": "591d5776f6255ea2c8882ec86be99aed9d681c864b399742c6c3e024893039f2",
+    "0033-mt7996-snapshot-forward-link.patch": "feac104a934e301b6d20429c206ee3c1153f8aaf438c8875f4d7e444338af815",
+    "0034-wifi-mt76-npu-order-tx-descriptor-publication.patch": "df3d14be8fc30ddcc146c3f8e4c8c011fb439e84cce57d76087b12212b8c2b43",
+    "0036-mt7996-initialize-red-for-npu-offload.patch": "482fde3ee0fdbc75efb7255ca16035df8cbf2bc676d4d51f0e7b113e0b657601",
+    "0037-mt7996-expand-bounded-ps-transition-trace.patch": "ded41cb5d1854b41d3e7f0216852719052a19f5a41d256d8588bd9653eaf3e4d",
+    "0038-mt7996-count-ps-transitions-per-link.patch": "91cc7cfcc3858d67ebdd3851c906e38ac376c745af98756c501bbbe4c37dcfba",
+    "0039-mt7996-report-per-link-txpower.patch": "cffb86e633a00a1624b65b16de7d2c20859b27602500af1f09c30e8b8bdd13a0"
+  },
+  "inherited_hostapd_patch_sha256": {
+    "999-preserve-link-id-for-unknown-station.patch": "588ee2b838896ee2aadc0c3ebb9bd40aacedab8f4416cc433a6b511bd15e8bea",
+    "9999-reset-expired-mld-before-link-setup.patch": "00b1bf17fdd9128b92e12aa087335aa7bdbd59e9fac605f4cb4c80f14e3cf99d",
+    "9999-deliver-dfs-state-to-unconfigured-links.patch": "39fcc81774817202a22d1b8844af8966ceeb6af94874d1b2d2849ffb6f6766e5"
+  },
+  "changes": [
+    "mt76 0040: set MODE_EHT in the firmware rate-control TLV of EHT stations (from hurryman2212/OpenW1700k-test 53b15a77b5)",
+    "mt76 0041: fill the 160 MHz beamforming fallback nibble for EHT 320 MHz stations (same source)",
+    "hostapd 9998: pass an MLO link ID to the VLAN binding only for MLD stations (from hurryman2212/OpenW1700k-test 121bce6733)",
+    "mt76 PKG_RELEASE 37, hostapd PKG_RELEASE 8",
+    "not taken: hurryman2212 9992 (NPU RRO data queue); our NPU RX uses MT_RXQ_NPU0/1 without MT_QFLAG_WED_RRO, so the branch it changes is not reached"
+  ],
+  "status": "mt76/hostapd patch candidate on r59; built, not installed.",
+  "remote_access": {
+    "package": "tailscale",
+    "version": "1.102.2-r1",
+    "state_file": "/etc/tailscale/tailscaled.state",
+    "preserve_settings_required": true,
+    "private_state_embedded": false
+  },
+  "feed_patch_sha256": {
+    "packages/libs/libpfring/patches/0002-use-target-ar-for-bundled-libraries.patch": "ba0ccdc34e3ed16e7ca58f901d37b0ff55b0e199e5c02b02a9dc7823623a398d",
+    "luci (git apply) 0003-luci-attendedsysupgrade-github-update.patch r3": "4a15dad43f7215e89cdfa9fc0452766d0f277023e751f67c8f8d90f2ab43bf7e",
+    "luci (git apply) 0005-luci-asu-keep-and-release-source.patch": "142f74ac8b023b1f39d335ee28839c30fabe5b27c129ca889735cc22fc73b496",
+    "luci (git apply) 0004-luci-wireless-multi-radio-guards.patch": "f8ad6c3fc8306c3c5a58145f038fe4e160503790b21eda952854644e0a776634",
+    "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9",
+    "luci/modules/luci-mod-status/patches/999-mlo-scan-notice.patch": "9ac9bee62fb402396fc351ed3e67a124ce633bce81145c0003f75f8303fce422",
+    "luci (git apply) 0006-luci-base-missing-wifi-device.patch": "70948b6ac25da95fd94664ddd5cdc846bd268abe2360f48381678134b2f1aef5"
+  },
+  "feed_recipe_overrides_sha256": {
+    "packages/kernel/ovpn-dco/Makefile": "517be1d65bcb43725496b5b7d0c91b09544ebc82e7629809a5fb2aef1143dff5"
+  },
+  "validation_scope": "Snapshot at image build time; later device validation is recorded separately.",
+  "feed_source_sha256": {
+    "luci/applications/luci-app-attendedsysupgrade/Makefile": "0c595cc0826d5c990b06fac7427ee26d716bc19c6a67c872b87715e1219df42c",
+    "luci/applications/luci-app-attendedsysupgrade/htdocs/luci-static/resources/view/attendedsysupgrade/overview.js": "676ac4e553693c37da1ba3f772276949f9211f75857fb6a1369e233117b6a6cb",
+    "luci/modules/luci-mod-network/Makefile": "f5b4e36e9157deb5b7f0aa2aa8b9552ed49159ba10eec81ce40d96c408dc6fb5",
+    "luci/modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js": "db180b224bfef20081c3b840610342657edf7a3d6a0f3965a07078808bf46c45",
+    "luci/modules/luci-mod-status/patches/998-single-wiphy.patch": "6b1ac6f1935b046f8028ccfb2ebe159e5b335c1750861202416d402d384d85c9",
+    "luci/modules/luci-mod-status/patches/999-mlo-scan-notice.patch": "9ac9bee62fb402396fc351ed3e67a124ce633bce81145c0003f75f8303fce422",
+    "luci/modules/luci-base/Makefile": "79ac0bb9fa6ba284a562904d4ecc5f5e7cb19f8bdfcfb442b909e0f8c5d4e88a",
+    "luci/modules/luci-base/htdocs/luci-static/resources/network.js": "84bee3abd16457899549663a0b5f5239298798583b12f4a90d040fa3cf7795f8"
+  },
+  "removed_since_r43": [
+    "package/luci-app-netspeedtest/.prepare.sh",
+    "target/linux/airoha/patches-6.18/9999-z3-net-airoha-npu-fix-watchdog-work-lifetime.patch",
+    "package/system/rpcd/patches/100-ucode-handle-break-status.patch",
+    "target/linux/generic/backport-6.18/438-v7.3-mtd-spinand-Do-not-update-the-QE-bit-on-devices-without-one.patch"
+  ],
+  "upstream_packages_from": "79aba5e09246e52081935700b003167e9540ba63"
+}

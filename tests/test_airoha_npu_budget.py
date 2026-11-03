@@ -93,6 +93,7 @@ static int devm_request_irq(struct device *d,int irq,void *fn,int flags,const ch
 static int devm_work_autocancel(struct device *d,int *work,void *fn) { return 0; }
 static void spin_lock_init(int *p) {}
 static int dma_set_coherent_mask(struct device *d,uint64_t mask) { return 0; }
+static int dma_set_mask_and_coherent(struct device *d,uint64_t mask) { return dma_set_coherent_mask(d,mask); }
 static void *dmam_alloc_coherent(struct device *d,size_t n,uintptr_t *a,int f) { *a=1;return allocate(n); }
 static void *of_device_get_match_data(struct device *d) { return match_missing ? NULL:&soc; }
 static void *devm_ioremap_resource(struct device *d,struct resource *r) { return map_error?ERR_PTR(map_error):program_io; }
@@ -231,6 +232,11 @@ int main(int argc,char **argv) {
 '''
 
 
+DUMMY_NAMES=['airoha_npu_ppe_init','airoha_npu_ppe_deinit','airoha_npu_ppe_stats_setup','airoha_npu_ppe_flush_sram_entries',
+        'airoha_npu_foe_commit_entry','airoha_npu_wlan_init_memory','airoha_npu_wlan_msg_send','airoha_npu_wlan_queue_addr_get',
+        'airoha_npu_wlan_irq_status_set','airoha_npu_wlan_irq_status_get','airoha_npu_wlan_irq_enable','airoha_npu_wlan_irq_disable',
+        'airoha_npu_mbox_handler','airoha_npu_wdt_work','airoha_npu_wdt_handler']
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--source',type=Path,required=True)
@@ -245,11 +251,8 @@ def main():
     source=args.source.read_text()
     names=['airoha_npu_load_firmware','airoha_npu_load_firmware_from_dts','airoha_npu_run_firmware','airoha_npu_probe']
     funcs='\n'.join(function(source,n) for n in names)
-    dummy_names=['airoha_npu_ppe_init','airoha_npu_ppe_deinit','airoha_npu_ppe_stats_setup','airoha_npu_ppe_flush_sram_entries',
-        'airoha_npu_foe_commit_entry','airoha_npu_wlan_init_memory','airoha_npu_wlan_msg_send','airoha_npu_wlan_queue_addr_get',
-        'airoha_npu_wlan_irq_status_set','airoha_npu_wlan_irq_status_get','airoha_npu_wlan_irq_enable','airoha_npu_wlan_irq_disable',
-        'airoha_npu_mbox_handler','airoha_npu_wdt_work','airoha_npu_wdt_handler']
-    prefix=PREFIX.replace('@DUMMIES@','\n'.join(f'#define {n} dummy' for n in dummy_names))
+
+    prefix=PREFIX.replace('@DUMMIES@','\n'.join(f'#define {n} dummy' for n in DUMMY_NAMES))
     with tempfile.TemporaryDirectory(prefix='npu-loader-host-') as tmp:
         c=Path(tmp)/'check.c';exe=Path(tmp)/'check';c.write_text(prefix+funcs+TESTS)
         command=['cc','-std=gnu11','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer','-Werror',

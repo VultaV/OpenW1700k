@@ -1,0 +1,206 @@
+From: VultaV <unc1010@gmail.com>
+Subject: wifi: mt76: mt7996: send MLO data on the best link
+
+The data link of an MLO station was picked by TID parity: even TIDs on
+the primary link, which is the link the station associated on, and odd
+TIDs on the secondary link. A Wi-Fi 7 client that associates on 2.4 GHz
+then gets all best-effort downlink on 2.4 GHz, even next to the AP with
+a 6 GHz link up, and the data never moves when a link fades.
+
+Once a second, after the firmware RSSI query, make the highest-band link
+with a usable signal the primary link and send all data on it. A link
+needs -72 dBm to take over and the current link keeps it down to -78
+dBm; when no link qualifies the strongest one wins, with 6 dB in favour
+of the current link. A new link must win three checks in a row.
+Offloaded bridge flows carry the WCID of the old link, so they are
+dropped through the FDB delete notification and offloaded again on the
+new link, and the station TXQs are rescheduled as after a link change.
+
+The mlo_best_link parameter restores the TID parity split. The uplink
+link is still the station's choice.
+
+Signed-off-by: VultaV <unc1010@gmail.com>
+---
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -333,6 +333,8 @@
+ 	u8 deflink_id;
+ 	u8 seclink_id;
+ 	u8 conn_state;
++	u8 data_link_cand;
++	u8 data_link_votes;
+ 
+ 	unsigned long wcid_flags;
+ 	u16 airtime_weight;
+@@ -997,6 +999,8 @@
+ void mt7996_mac_update_beacons(struct mt7996_phy *phy);
+ void mt7996_mac_set_coverage_class(struct mt7996_phy *phy);
+ void mt7996_mac_work(struct work_struct *work);
++void mt7996_mac_sta_data_link_update(struct mt7996_dev *dev);
++extern bool mt7996_mlo_best_link;
+ void mt7996_mac_reset_work(struct work_struct *work);
+ void mt7996_mac_dump_work(struct work_struct *work);
+ void mt7996_mac_sta_rc_work(struct work_struct *work);
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2022 MediaTek Inc.
+  */
+ 
++#include <net/switchdev.h>
+ #include "mt7996.h"
+ #include "mcu.h"
+ #include "mac.h"
+@@ -1351,6 +1352,130 @@
+ 	return msta->deflink_id;
+ }
+ 
++bool mt7996_mlo_best_link = true;
++module_param_named(mlo_best_link, mt7996_mlo_best_link, bool, 0600);
++MODULE_PARM_DESC(mlo_best_link,
++	"Send MLO data on the highest-band link with a usable signal (default on)");
++
++/* Signal in dBm a link needs to become the data link, or to remain it */
++#define MT7996_DATA_LINK_ENTER		-72
++#define MT7996_DATA_LINK_STAY		-78
++/* Seconds a better link has to stay better before data moves to it */
++#define MT7996_DATA_LINK_VOTES		3
++
++static int
++mt7996_sta_link_signal(struct mt7996_sta_link *msta_link)
++{
++	/* the average holds the negated signal and is 0 before a sample */
++	return -(int)ewma_avg_signal_read(&msta_link->avg_ack_signal);
++}
++
++static u8
++mt7996_sta_best_link(struct mt7996_dev *dev, struct ieee80211_sta *sta)
++{
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++	u8 best = IEEE80211_LINK_UNSPECIFIED, strongest = msta->deflink_id;
++	unsigned long valid = READ_ONCE(sta->valid_links);
++	int best_band = -1, strongest_signal = INT_MIN;
++	unsigned int link_id;
++
++	for_each_set_bit(link_id, &valid, IEEE80211_MLD_MAX_NUM_LINKS) {
++		struct mt7996_sta_link *msta_link;
++		bool current_link;
++		int signal, needed;
++
++		msta_link = mt7996_sta_link_protected(dev, msta, link_id);
++		if (!msta_link || !msta_link->wcid.link_valid)
++			continue;
++
++		/* ponytail: the firmware RSSI of a link the station stops
++		 * using goes stale; probe it if links fail to recover.
++		 */
++		signal = mt7996_sta_link_signal(msta_link);
++		if (!signal)
++			continue;
++
++		/* the current link must be beaten by 6 dB to lose the fallback */
++		current_link = link_id == msta->deflink_id;
++		if (signal + (current_link ? 6 : 0) > strongest_signal) {
++			strongest_signal = signal + (current_link ? 6 : 0);
++			strongest = link_id;
++		}
++
++		/* the band index orders the links by speed: 2.4, 5, 6 GHz */
++		needed = current_link ? MT7996_DATA_LINK_STAY :
++					MT7996_DATA_LINK_ENTER;
++		if (signal >= needed && msta_link->wcid.phy_idx > best_band) {
++			best_band = msta_link->wcid.phy_idx;
++			best = link_id;
++		}
++	}
++
++	/* no link has a usable signal: keep to the strongest one */
++	return best != IEEE80211_LINK_UNSPECIFIED ? best : strongest;
++}
++
++static void
++mt7996_sta_data_link_iter(void *data, struct ieee80211_sta *sta)
++{
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++	struct switchdev_notifier_fdb_info fdb = {
++		.addr = sta->addr,
++	};
++	struct mt7996_sta_link *msta_link;
++	struct mt7996_dev *dev = data;
++	struct ieee80211_vif *vif;
++	struct wireless_dev *wdev;
++	u8 link_id, old_id = msta->deflink_id;
++	int i;
++
++	if (!sta->mlo || old_id >= IEEE80211_MLD_MAX_NUM_LINKS)
++		return;
++
++	link_id = mt7996_sta_best_link(dev, sta);
++	if (link_id >= IEEE80211_MLD_MAX_NUM_LINKS || link_id == old_id) {
++		msta->data_link_votes = 0;
++		return;
++	}
++
++	if (link_id != msta->data_link_cand) {
++		msta->data_link_cand = link_id;
++		msta->data_link_votes = 0;
++	}
++	if (++msta->data_link_votes < MT7996_DATA_LINK_VOTES)
++		return;
++
++	msta->data_link_votes = 0;
++	msta_link = mt7996_sta_link_protected(dev, msta, link_id);
++	mt7996_sta_deflink_set(sta, link_id, msta_link->wcid.idx);
++	msta->seclink_id = old_id;
++	/* as after a link change, a TXQ gated by the old link must rearm */
++	for (i = 0; i < ARRAY_SIZE(sta->txq); i++)
++		if (sta->txq[i])
++			ieee80211_schedule_txq(dev->mt76.hw, sta->txq[i]);
++	mt76_worker_schedule(&dev->mt76.tx_worker);
++	dev_info(dev->mt76.dev, "MLO data link of %pM: %u -> %u (%d dBm)\n",
++		 sta->addr, old_id, link_id,
++		 mt7996_sta_link_signal(msta_link));
++
++	/* Offloaded bridge flows keep the WCID of the old link: drop them */
++	vif = container_of((void *)msta->vif, struct ieee80211_vif, drv_priv);
++	wdev = ieee80211_vif_to_wdev(vif);
++	if (wdev && wdev->netdev && netif_is_bridge_port(wdev->netdev))
++		call_switchdev_notifiers(SWITCHDEV_FDB_DEL_TO_DEVICE,
++					 wdev->netdev, &fdb.info, NULL);
++}
++
++void mt7996_mac_sta_data_link_update(struct mt7996_dev *dev)
++{
++	lockdep_assert_held(&dev->mt76.mutex);
++
++	if (READ_ONCE(mt7996_mlo_best_link))
++		ieee80211_iterate_stations_atomic(dev->mt76.hw,
++						  mt7996_sta_data_link_iter,
++						  dev);
++}
++
+ static int
+ mt7996_mac_sta_init_link(struct mt7996_dev *dev,
+ 			 struct ieee80211_link_sta *link_sta,
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -1070,7 +1070,9 @@
+ 	    likely(tx_info->skb->protocol != cpu_to_be16(ETH_P_PAE))) {
+ 		u8 tid = tx_info->skb->priority & IEEE80211_QOS_CTL_TID_MASK;
+ 
+-		link_id = (tid % 2) ? msta->seclink_id : msta->deflink_id;
++		/* with the best link chosen, all data goes on it */
++		link_id = (tid % 2 && !READ_ONCE(mt7996_mlo_best_link)) ?
++			  msta->seclink_id : msta->deflink_id;
+ 		link_id = mt7996_tx_awake_link(sta, link_id);
+ 	} else {
+ 		link_id = u32_get_bits(info->control.flags,
+@@ -3101,6 +3103,8 @@
+ 		mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_RATE);
+ 		mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_AIR_TIME);
+ 		mt7996_mcu_get_per_sta_info(phy, UNI_PER_STA_RSSI);
++		if (mphy->band_idx == MT_BAND0)
++			mt7996_mac_sta_data_link_update(phy->dev);
+ 		if (mtk_wed_device_active(&phy->dev->mt76.mmio.wed)) {
+ 			mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_ADM_STAT);
+ 			mt7996_mcu_get_all_sta_info(phy, UNI_ALL_STA_TXRX_MSDU_COUNT);

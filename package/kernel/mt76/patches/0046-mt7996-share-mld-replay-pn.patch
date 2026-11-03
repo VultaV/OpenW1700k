@@ -1,0 +1,170 @@
+From 59b149d24e2752dfc6ff076cbe92ebe1dd94256f Mon Sep 17 00:00:00 2001
+From: Felix Fietkau <nbd@nbd.name>
+Date: Wed, 28 Oct 2026 13:24:01 +0100
+Subject: [PATCH] wifi: mt76: check the RX PN of an MLD peer once per peer
+
+For a frame that the hardware decrypted, mt76_check_ccmp_pn() compares
+the PN with the last PN of status->wcid. For an MLD peer, mt7996 reports
+each frame on the wcid of the link it arrived on, so every link keeps
+its own replay counter, although all links of the MLD share the PN space
+of the key. With the IV stripped, the function also sets
+RX_FLAG_PN_VALIDATED, so mac80211 skips its own check per key. A frame
+received on one link and replayed on another one thus passes the replay
+check whenever the second link has seen lower PNs.
+
+Keep the replay counters of a peer on its default wcid (def_wcid), like
+the reorder state in mt76_rx_aggr_reorder(). The key check still uses
+the wcid of the link. This also applies to mt7925, which sets def_wcid
+for the links of an MLD station.
+
+A key install resets these counters to the RX sequence of the key in
+mac80211, which frames marked RX_FLAG_PN_VALIDATED never advance. In
+mt7996 and mt7925, the key of a station is set up link by link, and in
+mt7996 a link that is added later gets the installed keys again. Each
+of these setups would reset the counters of the whole peer, so that a
+frame of the new key received on one link could be replayed after the
+setup of the next one. Seed the counters on the default wcid once per
+key install, before the key reaches any link of the station, and only
+enable the check on each link.
+
+Fixes: dd82a9e02c05 ("wifi: mt76: mt7996: Rely on mt7996_sta_link in sta_add/sta_remove callbacks")
+Link: https://patch.msgid.link/20261028122403.796394-23-nbd@nbd.name
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+---
+ mac80211.c    | 18 ++++++++----------
+ mt76.h        |  7 +++++++
+ mt7925/main.c | 13 +++++++++++--
+ mt7996/main.c | 11 ++++++++++-
+ 4 files changed, 36 insertions(+), 13 deletions(-)
+
+Backported onto mt76 639e1287 with the local r62 patch stack.
+Context refreshed; upstream behavior retained.
+
+--- a/mt76.h
++++ b/mt76.h
+@@ -1582,6 +1582,13 @@
+ int mt76_rx_aggr_start(struct mt76_dev *dev, struct mt76_wcid *wcid, u8 tid,
+ 		       u16 ssn, u16 size);
+ void mt76_rx_aggr_stop(struct mt76_dev *dev, struct mt76_wcid *wcid, u8 tid);
++
++static inline void
++mt76_wcid_key_link_setup(struct mt76_wcid *wcid,
++			 struct ieee80211_key_conf *key)
++{
++	wcid->rx_check_pn = key && key->cipher == WLAN_CIPHER_SUITE_CCMP;
++}
+ 
+ void mt76_wcid_key_setup(struct mt76_dev *dev, struct mt76_wcid *wcid,
+ 			 struct ieee80211_key_conf *key);
+--- a/mac80211.c
++++ b/mac80211.c
+@@ -1214,15 +1214,9 @@
+ 	struct ieee80211_key_seq seq;
+ 	int i;
+ 
+-	wcid->rx_check_pn = false;
+-
+-	if (!key)
+-		return;
+-
+-	if (key->cipher != WLAN_CIPHER_SUITE_CCMP)
+-		return;
+-
+-	wcid->rx_check_pn = true;
++	mt76_wcid_key_link_setup(wcid, key);
++	if (!wcid->rx_check_pn)
++		return;
+ 
+ 	/* data frame */
+ 	for (i = 0; i < IEEE80211_NUM_TIDS; i++) {
+@@ -1329,6 +1323,7 @@
+ 	struct mt76_rx_status *status = (struct mt76_rx_status *)skb->cb;
+ 	struct mt76_wcid *wcid = status->wcid;
+ 	struct ieee80211_hdr *hdr;
++	struct mt76_wcid *pn_wcid;
+ 	int security_idx;
+ 	int ret;
+ 
+@@ -1340,6 +1335,9 @@
+ 
+ 	if (!wcid || !wcid->rx_check_pn)
+ 		return;
++
++	/* the links of an MLD peer share one PN space per key */
++	pn_wcid = mt76_wcid_primary(wcid);
+ 
+ 	security_idx = status->qos_ctl & IEEE80211_QOS_CTL_TID_MASK;
+ 	if (status->flag & RX_FLAG_8023)
+@@ -1368,14 +1366,14 @@
+ 
+ skip_hdr_check:
+ 	BUILD_BUG_ON(sizeof(status->iv) != sizeof(wcid->rx_key_pn[0]));
+-	ret = memcmp(status->iv, wcid->rx_key_pn[security_idx],
++	ret = memcmp(status->iv, pn_wcid->rx_key_pn[security_idx],
+ 		     sizeof(status->iv));
+ 	if (ret <= 0) {
+ 		status->flag |= RX_FLAG_ONLY_MONITOR;
+ 		return;
+ 	}
+ 
+-	memcpy(wcid->rx_key_pn[security_idx], status->iv, sizeof(status->iv));
++	memcpy(pn_wcid->rx_key_pn[security_idx], status->iv, sizeof(status->iv));
+ 
+ 	if (status->flag & RX_FLAG_IV_STRIPPED)
+ 		status->flag |= RX_FLAG_PN_VALIDATED;
+--- a/mt7925/main.c
++++ b/mt7925/main.c
+@@ -707,8 +707,11 @@
+ 	else
+ 		goto out;
+ 
+-	mt76_wcid_key_setup(&dev->mt76, wcid,
+-			    cmd == SET_KEY ? key : NULL);
++	if (sta)
++		mt76_wcid_key_link_setup(wcid, cmd == SET_KEY ? key : NULL);
++	else
++		mt76_wcid_key_setup(&dev->mt76, wcid,
++				    cmd == SET_KEY ? key : NULL);
+ 
+ 	err = mt7925_mcu_add_key(&dev->mt76, vif, &mlink->bip,
+ 				 key, MCU_UNI_CMD(STA_REC_UPDATE),
+@@ -748,6 +751,12 @@
+ 		return -EOPNOTSUPP;
+ 
+ 	mt792x_mutex_acquire(dev);
++
++	/* the links of a station share one RX PN state, seeded before the
++	 * key reaches any of them
++	 */
++	if (sta && cmd == SET_KEY)
++		mt76_wcid_key_setup(&dev->mt76, &msta->deflink.wcid, key);
+ 
+ 	if (ieee80211_vif_is_mld(vif)) {
+ 		unsigned int link_id;
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -311,7 +311,7 @@
+ 	if (cmd != SET_KEY && !is_bigtk)
+ 		return 0;
+ 
+-	mt76_wcid_key_setup(&dev->mt76, &msta_link->wcid, key);
++	mt76_wcid_key_link_setup(&msta_link->wcid, key);
+ 
+ 	err = mt7996_mcu_add_key(&dev->mt76, link, key,
+ 				 MCU_WMWA_UNI_CMD(STA_REC_UPDATE),
+@@ -789,6 +789,15 @@
+ 		links = vif->valid_links;
+ 	else
+ 		links = BIT(0);
++
++	/* the links of a station share one RX PN state, seeded before the
++	 * key reaches any of them
++	 */
++	if (sta && cmd == SET_KEY) {
++		struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++
++		mt76_wcid_key_setup(&dev->mt76, &msta->deflink.wcid, key);
++	}
+ 
+ 	for_each_set_bit(link_id, &links, IEEE80211_MLD_MAX_NUM_LINKS) {
+ 		err = mt7996_set_hw_key(hw, cmd, vif, sta, link_id, key);

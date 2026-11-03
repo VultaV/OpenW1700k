@@ -1,0 +1,258 @@
+[
+  {
+    "label": "control_off",
+    "direction": "down",
+    "started_epoch": 1793620249.270648,
+    "average_mbps": 917.8799614210286,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 1274.349709335573,
+    "zero_intervals": 2,
+    "below_500_intervals": 19,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0005"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "2": 1453646
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": [
+      "439",
+      "439",
+      "0.0"
+    ]
+  },
+  {
+    "label": "control_on1",
+    "direction": "down",
+    "started_epoch": 1793620158.840992,
+    "average_mbps": 1014.3260873799484,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 1896.9151047084695,
+    "zero_intervals": 36,
+    "below_500_intervals": 37,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0005"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "2": 1567546
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": [
+      "440",
+      "439",
+      "0.2"
+    ]
+  },
+  {
+    "label": "control_on2",
+    "direction": "down",
+    "started_epoch": 1793620340.02777,
+    "average_mbps": 118.54685650293536,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 1752.0048965570277,
+    "zero_intervals": 82,
+    "below_500_intervals": 83,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0005"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "2": 184703
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": [
+      "437",
+      "437",
+      "0.0"
+    ]
+  },
+  {
+    "label": "mlo24_5_6_down",
+    "direction": "down",
+    "started_epoch": 1793619635.6485791,
+    "average_mbps": 207.8781207940413,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 1070.1061341063275,
+    "zero_intervals": 25,
+    "below_500_intervals": 75,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0007"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "1": 0,
+      "2": 334283
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo24_5_6_up",
+    "direction": "up",
+    "started_epoch": 1793619726.379235,
+    "average_mbps": 1756.293047199731,
+    "minimum_interval_mbps": 695.187545691663,
+    "maximum_interval_mbps": 1871.1813331175924,
+    "zero_intervals": 0,
+    "below_500_intervals": 0,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0007"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "1": 0,
+      "2": 111904
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo24_5_down",
+    "direction": "down",
+    "started_epoch": 1793619120.404715,
+    "average_mbps": 573.5868342086126,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 2035.9478171776957,
+    "zero_intervals": 58,
+    "below_500_intervals": 62,
+    "primary_sequence": [
+      1
+    ],
+    "valid_links_seen": [
+      "0x0003"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "1": 892577
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo24_5_up",
+    "direction": "up",
+    "started_epoch": 1793619214.902432,
+    "average_mbps": 1707.6520843918372,
+    "minimum_interval_mbps": 806.2108325273574,
+    "maximum_interval_mbps": 1866.4782963407727,
+    "zero_intervals": 0,
+    "below_500_intervals": 0,
+    "primary_sequence": [
+      1
+    ],
+    "valid_links_seen": [
+      "0x0003"
+    ],
+    "txfree_completed_delta": {
+      "0": 0,
+      "1": 105809
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo24_6_down",
+    "direction": "down",
+    "started_epoch": 1793619350.016533,
+    "average_mbps": 72.90298302592966,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 960.091289184945,
+    "zero_intervals": 69,
+    "below_500_intervals": 85,
+    "primary_sequence": [
+      0
+    ],
+    "valid_links_seen": [
+      "0x0005"
+    ],
+    "txfree_completed_delta": {
+      "0": 117548,
+      "2": 0
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo24_6_up",
+    "direction": "up",
+    "started_epoch": 1793619440.397829,
+    "average_mbps": 971.7789825870256,
+    "minimum_interval_mbps": 0.0,
+    "maximum_interval_mbps": 1863.577489560154,
+    "zero_intervals": 3,
+    "below_500_intervals": 28,
+    "primary_sequence": [
+      0
+    ],
+    "valid_links_seen": [
+      "0x0005"
+    ],
+    "txfree_completed_delta": {
+      "0": 116148,
+      "2": 0
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo5_6_down",
+    "direction": "down",
+    "started_epoch": 1793619861.640542,
+    "average_mbps": 1348.0094585862646,
+    "minimum_interval_mbps": 162.52846625407423,
+    "maximum_interval_mbps": 1811.10584693598,
+    "zero_intervals": 0,
+    "below_500_intervals": 4,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0006"
+    ],
+    "txfree_completed_delta": {
+      "1": 0,
+      "2": 1501070
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  },
+  {
+    "label": "mlo5_6_up",
+    "direction": "up",
+    "started_epoch": 1793619952.159391,
+    "average_mbps": 1350.101017769741,
+    "minimum_interval_mbps": 553.6381621793907,
+    "maximum_interval_mbps": 1804.8556384617125,
+    "zero_intervals": 0,
+    "below_500_intervals": 0,
+    "primary_sequence": [
+      2
+    ],
+    "valid_links_seen": [
+      "0x0006"
+    ],
+    "txfree_completed_delta": {
+      "1": 0,
+      "2": 76460
+    },
+    "client_disconnects_in_measurement": 0,
+    "ping_summary": null
+  }
+]

@@ -1,0 +1,40 @@
+From d8d24d7cbf5dc30d52077ddbeccbeac5fdb569e8 Mon Sep 17 00:00:00 2001
+From: Felix Fietkau <nbd@nbd.name>
+Date: Wed, 28 Oct 2026 13:24:02 +0100
+Subject: [PATCH] wifi: mt76: mt7996: send no MLD_SETUP when station links only
+ go away
+
+Since links added after association are brought up in
+mt7996_mac_sta_links_sync(), the remaining links of an MLO station also
+get an MLD_SETUP when links are only removed, with a link list that no
+longer holds the removed links. After that MLD_SETUP, the remaining
+links pass no traffic in either direction, although TX completes
+without failures. Traffic only resumes once a link is added again.
+
+Send the MLD_SETUP to the other links only when a link joins. The
+MediaTek driver also sends no firmware command when a link station
+goes, and tears down all links with STA_REC_MLD_OFF at disassociation.
+This also applies to the restore after a failed link add.
+
+Fixes: 1aef01d3cbbe ("wifi: mt76: mt7996: bring up station links added after association")
+Link: https://patch.msgid.link/20261028122403.796394-24-nbd@nbd.name
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+---
+ mt7996/main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Backported onto mt76 639e1287 with the local r62 patch stack.
+Context refreshed; upstream behavior retained.
+
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -2031,7 +2031,8 @@
+ 		mt7996_mac_sta_link_ps_leave(dev, link, msta_link);
+ 	}
+ 
+-	updated = sta->mlo ? links & ~updated : 0;
++	/* a link list without a removed link stalls the remaining links */
++	updated = sta->mlo && joined ? links & ~updated : 0;
+ 	for_each_set_bit(link_id, &updated, IEEE80211_MLD_MAX_NUM_LINKS) {
+ 		struct mt7996_sta_link *msta_link;
+ 		struct mt7996_vif_link *link;

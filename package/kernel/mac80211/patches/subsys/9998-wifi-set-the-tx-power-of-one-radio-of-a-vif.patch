@@ -1,0 +1,42 @@
+From: VultaV <unc1010@gmail.com>
+Subject: wifi: cfg80211/mac80211: set the TX power of one radio of a vif
+
+On a multi-radio wiphy, a SET_WIPHY request with a radio index went to
+nl80211_set_wiphy_radio(), which handles only the RTS threshold and
+returns, so a TX power setting with a radio index was dropped while the
+request still succeeded. Pass such a setting on with its radio index.
+
+The per-vif path in mac80211 then applied the level to every link of
+the interface. Apply it only to the links whose channel is on the given
+radio, so one link of an AP MLD can be attenuated on its own.
+
+Signed-off-by: VultaV <unc1010@gmail.com>
+---
+--- a/net/wireless/nl80211.c
++++ b/net/wireless/nl80211.c
+@@ -4315,7 +4315,9 @@
+ 		if (radio_idx >= rdev->wiphy.n_radio)
+ 			return -EINVAL;
+ 
+-		return nl80211_set_wiphy_radio(info, rdev, radio_idx);
++		/* A TX power setting takes the radio index to the driver below */
++		if (!info->attrs[NL80211_ATTR_WIPHY_TX_POWER_SETTING])
++			return nl80211_set_wiphy_radio(info, rdev, radio_idx);
+ 	}
+ 
+ 	if (info->attrs[NL80211_ATTR_WIPHY_TXQ_PARAMS]) {
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -3767,6 +3767,12 @@
+ 			if (!link)
+ 				continue;
+ 
++			/* A radio index limits the setting to the links on it */
++			if (radio_idx >= 0 &&
++			    cfg80211_get_radio_idx_by_chan(wiphy,
++					link->conf->chanreq.oper.chan) != radio_idx)
++				continue;
++
+ 			link->user_power_level = user_power_level;
+ 
+ 			if (txp_type != link->conf->txpower_type) {

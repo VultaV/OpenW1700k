@@ -1,0 +1,43 @@
+From 46b67e5b7c49313d11b2b2d83df3c8025406d63e Mon Sep 17 00:00:00 2001
+From: Felix Fietkau <nbd@nbd.name>
+Date: Wed, 28 Oct 2026 13:24:03 +0100
+Subject: [PATCH] wifi: mt76: mt7996: keep a unicast management frame on its
+ MLO link
+
+mt7996_mac_write_txwi_80211() sets MT_TXD5_FL for an MLD interface only
+on multicast, EAPOL and 4-address null frames. A unicast management
+frame to an MLD peer goes out on a link that the hardware picks among
+the links of the peer, not on the link of its TXD. ML reconfiguration
+depends on that link: mac80211 removes a link before it sends the Link
+Reconfiguration Request, so that the request leaves on a remaining
+link, and the AP MLD sends the Response on the link where the request
+was received. With hardware link selection, the request leaves on the
+removed link, or the AP sends the Response there. The station then
+drops the Response, and the link removal ends with a disconnection.
+
+Set MT_TXD5_FL for unicast management frames to a station of an MLD
+interface, so that they keep the link that mac80211 or the driver
+selected.
+
+Fixes: f0b0b239b8f3 ("wifi: mt76: mt7996: rework mt7996_mac_write_txwi() for MLO support")
+Link: https://patch.msgid.link/20261028122403.796394-25-nbd@nbd.name
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+---
+ mt7996/mac.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+Backported onto mt76 639e1287 with the local r62 patch stack.
+Context refreshed; upstream behavior retained.
+
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -816,7 +816,8 @@
+ 	}
+ 
+ 	if (vif && ieee80211_vif_is_mld(vif) &&
+-	    (multicast || unlikely(skb->protocol == cpu_to_be16(ETH_P_PAE))))
++	    (multicast || unlikely(skb->protocol == cpu_to_be16(ETH_P_PAE)) ||
++	     (ieee80211_is_mgmt(fc) && wcid->sta)))
+ 		txwi[5] |= cpu_to_le32(MT_TXD5_FL);
+ 
+ 	if (ieee80211_is_nullfunc(fc) && ieee80211_has_a4(fc) &&

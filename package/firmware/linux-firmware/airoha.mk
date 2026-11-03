@@ -29,12 +29,15 @@ endef
 $(eval $(call BuildPackage,airoha-en7581-npu-firmware))
 
 
-Package/airoha-en7581-mt7996-npu-firmware = $(call Package/firmware-default,Airoha EN7581+MT7996 NPU firmware,,LICENSE.airoha)
+define Package/airoha-en7581-mt7996-npu-firmware
+  $(call Package/firmware-default,Airoha EN7581+MT7996 NPU firmware,,LICENSE.airoha)
+  VERSION:=0.8-r1
+endef
 define Package/airoha-en7581-mt7996-npu-firmware/install
 	$(INSTALL_DIR) $(1)/lib/firmware/airoha
 	$(CP) \
-		$(PKG_BUILD_DIR)/airoha/en7581_MT7996_npu_data.bin \
-		$(PKG_BUILD_DIR)/airoha/en7581_MT7996_npu_rv32.bin \
+		$(CURDIR)/files/airoha/en7581_MT7996_npu_data.bin \
+		$(CURDIR)/files/airoha/en7581_MT7996_npu_rv32.bin \
 		$(1)/lib/firmware/airoha
 endef
 
