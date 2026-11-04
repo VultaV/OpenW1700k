@@ -1,0 +1,78 @@
+From: Codex <codex@openai.com>
+Subject: [PATCH] wifi: mt76: mt7996: scope radar to its channel and resume after restart
+
+All mt7996 radios share one ieee80211_hw. Passing a NULL channel context
+marks every context as radar-detected, including non-DFS 2.4/6 GHz links.
+Find the reporting radio's active context while the mac80211 iterator
+holds RCU; do not dereference a saved channel pointer outside that scope.
+Leave background radar and absent-context reports separate.
+
+A DFS AP restart or CAC fallback does not always run post_channel_switch.
+After a successful operating-channel configuration, resume a previously
+paused firmware MAC only for disabled/active DFS state. Keep CAC, unknown
+state, offchannel operation and failed setup paused, and propagate errors.
+Also reject a truncated RDD report before reading its band selector.
+
+Signed-off-by: Codex <codex@openai.com>
+---
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -775,11 +775,27 @@
+ }
+ 
+ static void
++mt7996_radar_detected_iter(struct ieee80211_hw *hw,
++			   struct ieee80211_chanctx_conf *conf, void *data)
++{
++	struct mt76_phy *mphy = data;
++
++	/* The radios share one hw; keep the event on the reporting channel. */
++	if ((void *)conf->drv_priv != READ_ONCE(mphy->chanctx))
++		return;
++
++	ieee80211_radar_detected(hw, conf);
++}
++
++static void
+ mt7996_mcu_rx_radar_detected(struct mt7996_dev *dev, struct sk_buff *skb)
+ {
+ 	struct mt76_phy *mphy = &dev->mt76.phy;
+ 	struct mt7996_mcu_rdd_report *r;
+ 
++	if (skb->len < offsetofend(struct mt7996_mcu_rdd_report, rdd_idx))
++		return;
++
+ 	r = (struct mt7996_mcu_rdd_report *)skb->data;
+ 
+ 	switch (r->rdd_idx) {
+@@ -809,7 +825,8 @@
+ 		struct mt7996_phy *phy = mphy->priv;
+ 
+ 		phy->rdd_tx_paused = true;
+-		ieee80211_radar_detected(mphy->hw, NULL);
++		ieee80211_iter_chan_contexts_atomic(mphy->hw,
++						    mt7996_radar_detected_iter, mphy);
+ 	}
+ 	dev->hw_pattern++;
+ 
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -724,6 +724,18 @@
+ 		goto out;
+ 
+ 	ret = mt7996_dfs_init_radar_detector(phy);
++	if (ret)
++		goto out;
++
++	/* AP restart/CAC fallback can bypass post_channel_switch(). */
++	if (!mphy->offchannel &&
++	    (mphy->dfs_state == MT_DFS_STATE_DISABLED ||
++	     mphy->dfs_state == MT_DFS_STATE_ACTIVE)) {
++		ret = mt7996_mcu_rdd_resume_tx(phy);
++		if (ret)
++			goto out;
++	}
++
+ 	mt7996_mac_cca_stats_reset(phy);
+ 
+ 	mt7996_mac_reset_counters(phy);

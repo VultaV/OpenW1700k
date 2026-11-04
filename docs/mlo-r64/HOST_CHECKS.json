@@ -1,0 +1,30 @@
+{
+  "dfs_recovery": {
+    "baseline_checks": 21,
+    "baseline_failed": 8,
+    "candidate_checks": 22,
+    "candidate_failed": 0,
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "mlo_backports": {
+    "checks": 20,
+    "failed": 0
+  },
+  "best_link": {
+    "checks": 10,
+    "failed": 0
+  },
+  "mlo_ps": {
+    "checks": [
+      29,
+      99
+    ],
+    "failed": 0
+  },
+  "limits": [
+    "Extracted C uses kernel/firmware shims. Hardware behavior, IRQ timing and RCU concurrency require device validation."
+  ]
+}
