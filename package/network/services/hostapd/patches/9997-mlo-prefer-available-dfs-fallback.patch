@@ -1,0 +1,43 @@
+From: Codex <codex@openai.com>
+Subject: [PATCH] hostapd: prefer an available narrower channel before MLD DFS restart
+
+A 160 MHz radar event can leave no immediately usable 160 MHz target.
+The existing fallback first chooses a CAC-required channel at that width,
+disables the interface and tears down the MLD station even when a legal
+80 MHz target is available. Prefer available narrower widths for an MLD
+so the existing per-link CSA path can preserve the surviving links.
+
+Keep ETSI uniform-spreading selection and legacy AP behavior unchanged.
+Use the existing regulatory/DFS filter and restore the original width
+before the original CAC/NOP fallback when no available target exists.
+
+Signed-off-by: Codex <codex@openai.com>
+---
+--- a/src/ap/dfs.c
++++ b/src/ap/dfs.c
+@@ -1482,6 +1482,25 @@
+ 					&oper_centr_freq_seg1_idx,
+ 					channel_type);
+ 
++#ifdef CONFIG_IEEE80211BE
++	/* Avoid restarting an MLD for CAC when a narrower channel is ready. */
++	if (!channel && channel_type == DFS_AVAILABLE &&
++	    iface->bss[0]->conf->mld_ap) {
++		int width = current_vht_oper_chwidth;
++
++		while (!channel && width > CONF_OPER_CHWIDTH_USE_HT) {
++			hostapd_set_oper_chwidth(iface->conf, --width);
++			channel = dfs_get_valid_channel(iface, &secondary_channel,
++						&oper_centr_freq_seg0_idx,
++						&oper_centr_freq_seg1_idx,
++						DFS_AVAILABLE);
++		}
++		if (!channel)
++			hostapd_set_oper_chwidth(iface->conf,
++						current_vht_oper_chwidth);
++	}
++#endif /* CONFIG_IEEE80211BE */
++
+ 	if (!channel) {
+ 		/*
+ 		 * If there is no channel to switch immediately to, check if
