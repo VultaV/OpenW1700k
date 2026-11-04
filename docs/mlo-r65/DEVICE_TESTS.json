@@ -1,0 +1,667 @@
+{
+  "status": "DFS_RECOVERY_FIXED; TRANSIENT_TCP_PAUSE_AND_SLOW_FLOW_UNRESOLVED",
+  "recorded_utc": "2026-11-04T17:45:34.034985+00:00",
+  "release": "mlo-r65-20261105",
+  "image_sha256": "f96a2516380a983e63646a3d0c05d76209d27299b20ba360817a858d9debcdff",
+  "source_commit": "447f3823006507b792e518764230ce931a4e6381",
+  "kernel_abi": "6.18.59-w1700k-mlo-r32",
+  "fixes": [
+    "mt76 r40 (r64): scope radar report to the active radio channel context; successful operational channel change resumes paused firmware TX, excluding CAC/offchannel/error states.",
+    "hostapd r9 (r65): prefer a legal available narrower MLO DFS fallback before CAC-required interface restart. ETSI and legacy paths unchanged."
+  ],
+  "installation": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "f96a2516380a983e63646a3d0c05d76209d27299b20ba360817a858d9debcdff",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r32",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "npu_runtime_version": "0.8",
+    "seconds_to_ssh": 108.7
+  },
+  "matrix": {
+    "trials": [
+      {
+        "label": "mlo24_5_down",
+        "direction": "down",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1918.0482010419544,
+        "minimum_interval_mbps": 973.8746044589601,
+        "maximum_interval_mbps": 2013.7101414231481,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          1
+        ],
+        "links_mask": 3,
+        "wifi_ping_sent": 444,
+        "wifi_ping_received": 444,
+        "wifi_ping_duplicates": 1,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo24_5_up",
+        "direction": "up",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1813.9842520979541,
+        "minimum_interval_mbps": 1766.2109695013812,
+        "maximum_interval_mbps": 1866.4671712519164,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          1
+        ],
+        "links_mask": 3,
+        "wifi_ping_sent": 435,
+        "wifi_ping_received": 435,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo24_6_down",
+        "direction": "down",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1953.4303859940283,
+        "minimum_interval_mbps": 1833.9822361980866,
+        "maximum_interval_mbps": 2004.5203471414186,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ],
+        "links_mask": 5,
+        "wifi_ping_sent": 443,
+        "wifi_ping_received": 443,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo24_6_up",
+        "direction": "up",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1834.628615173425,
+        "minimum_interval_mbps": 1781.5253146408231,
+        "maximum_interval_mbps": 1885.3585271890483,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ],
+        "links_mask": 5,
+        "wifi_ping_sent": 436,
+        "wifi_ping_received": 436,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo24_5_6_down",
+        "direction": "down",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1895.4184412254212,
+        "minimum_interval_mbps": 938.1054340024887,
+        "maximum_interval_mbps": 1980.6526364480032,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ],
+        "links_mask": 7,
+        "wifi_ping_sent": 445,
+        "wifi_ping_received": 445,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo24_5_6_up",
+        "direction": "up",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1828.5897486609415,
+        "minimum_interval_mbps": 1716.518912,
+        "maximum_interval_mbps": 1890.0159584137928,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ],
+        "links_mask": 7,
+        "wifi_ping_sent": 436,
+        "wifi_ping_received": 436,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo5_6_down",
+        "direction": "down",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1958.2565593527759,
+        "minimum_interval_mbps": 1875.5741451610968,
+        "maximum_interval_mbps": 1990.5056396813372,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ],
+        "links_mask": 6,
+        "wifi_ping_sent": 443,
+        "wifi_ping_received": 443,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "label": "mlo5_6_up",
+        "direction": "up",
+        "duration": 90,
+        "bind_device": "en0",
+        "average_mbps": 1833.2827804741262,
+        "minimum_interval_mbps": 1765.5608714570183,
+        "maximum_interval_mbps": 1930.8230942685734,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ],
+        "links_mask": 6,
+        "wifi_ping_sent": 435,
+        "wifi_ping_received": 435,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      }
+    ],
+    "radio_power": "auto, fixed near-AP position; no attenuation",
+    "configuration_sha256_restored": true,
+    "weak_signal_fallback_tested": false,
+    "observation": "One duplicate ICMP reply during 2.4+5GHz download; no packet loss or zero-throughput interval. Cause not established."
+  },
+  "associated_idle": {
+    "idle_seconds": 120,
+    "full_os_sleep": false,
+    "links_mask": 6,
+    "trials": [
+      {
+        "direction": "down",
+        "seconds": 120,
+        "average_mbps": 1957.4843316865101,
+        "min_mbps": 1796.156313480488,
+        "zero_intervals": 0
+      },
+      {
+        "direction": "up",
+        "seconds": 60,
+        "average_mbps": 1793.4948798082723,
+        "min_mbps": 1744.8356640154973,
+        "zero_intervals": 0
+      }
+    ],
+    "observed_idle_ps": [
+      {
+        "seconds": 0,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      },
+      {
+        "seconds": 20,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      },
+      {
+        "seconds": 40,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      },
+      {
+        "seconds": 60,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      },
+      {
+        "seconds": 80,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      },
+      {
+        "seconds": 100,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      },
+      {
+        "seconds": 120,
+        "links": [
+          {
+            "link": 1,
+            "ps": 1
+          },
+          {
+            "link": 2,
+            "ps": 1
+          }
+        ]
+      }
+    ]
+  },
+  "standalone_24ghz": {
+    "radio": "2.4GHz legacy AP",
+    "channel": 1,
+    "width_mhz": 20,
+    "duration_seconds": 30,
+    "average_mbps": 143.39471461907343,
+    "min_mbps": 124.0460532655602,
+    "zero_intervals": 0,
+    "dns_https_wan_checks": [
+      {
+        "type": "DNS",
+        "name": "example.com",
+        "ok": true,
+        "milliseconds": 9.13,
+        "bound_device": "en0"
+      },
+      {
+        "type": "DNS",
+        "name": "github.com",
+        "ok": true,
+        "milliseconds": 8.46,
+        "bound_device": "en0"
+      },
+      {
+        "type": "DNS",
+        "name": "google.com",
+        "ok": true,
+        "milliseconds": 5.91,
+        "bound_device": "en0"
+      },
+      {
+        "type": "HTTPS",
+        "ok": true,
+        "response": "HTTP/1.1 200 OK",
+        "bound_device": "en0",
+        "tls_certificate_verified": true
+      },
+      {
+        "type": "WAN_ICMP",
+        "sent": 20,
+        "received": 20,
+        "loss_percent": 0.0,
+        "bound_device": "en0"
+      }
+    ]
+  },
+  "sustained": {
+    "trials": [
+      {
+        "index": 1,
+        "direction": "down",
+        "duration_seconds": 300,
+        "average_mbps": 1877.9622994776253,
+        "min_mbps": 0.0,
+        "zero_intervals": 5,
+        "wifi_ping_sent": 1472,
+        "wifi_ping_received": 1472,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "index": 2,
+        "direction": "down",
+        "duration_seconds": 300,
+        "average_mbps": 1953.2975601985588,
+        "min_mbps": 1825.264051016916,
+        "zero_intervals": 0,
+        "wifi_ping_sent": 1470,
+        "wifi_ping_received": 1470,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      },
+      {
+        "index": 3,
+        "direction": "up",
+        "duration_seconds": 300,
+        "average_mbps": 1724.2670560465892,
+        "min_mbps": 934.2774292653479,
+        "zero_intervals": 0,
+        "wifi_ping_sent": 1442,
+        "wifi_ping_received": 1442,
+        "wifi_ping_duplicates": 0,
+        "wifi_ping_loss_percent": 0.0
+      }
+    ]
+  },
+  "reconnect": {
+    "trials": [
+      {
+        "round": 1,
+        "reconnection": "same-SSID radio cycle",
+        "duration_seconds": 45,
+        "association_settle_seconds": 40,
+        "average_mbps": 1934.8972665360566,
+        "min_mbps": 1323.989974085754,
+        "zero_intervals": 0,
+        "zero_ranges_seconds": []
+      },
+      {
+        "round": 2,
+        "reconnection": "2.4GHz profile return",
+        "duration_seconds": 45,
+        "association_settle_seconds": 40,
+        "average_mbps": 1906.3787445524345,
+        "min_mbps": 1826.8731442613,
+        "zero_intervals": 0,
+        "zero_ranges_seconds": []
+      },
+      {
+        "round": 3,
+        "reconnection": "same-SSID radio cycle",
+        "duration_seconds": 45,
+        "association_settle_seconds": 40,
+        "average_mbps": 385.08388156151426,
+        "min_mbps": 33.53136386987721,
+        "zero_intervals": 0,
+        "zero_ranges_seconds": []
+      }
+    ]
+  },
+  "fresh_tcp_flows": {
+    "trials": [
+      {
+        "round": 1,
+        "duration_seconds": 30,
+        "average_mbps": 1898.119919462171,
+        "minimum_mbps": 1754.4870953376292,
+        "zero_intervals": 0,
+        "sender_retransmits": 340,
+        "server_output_fields": [
+          "server_output_text"
+        ]
+      },
+      {
+        "round": 2,
+        "duration_seconds": 30,
+        "average_mbps": 1917.6372981363666,
+        "minimum_mbps": 1778.2161580258864,
+        "zero_intervals": 0,
+        "sender_retransmits": 891,
+        "server_output_fields": [
+          "server_output_text"
+        ]
+      },
+      {
+        "round": 3,
+        "duration_seconds": 30,
+        "average_mbps": 1955.0114089956649,
+        "minimum_mbps": 1598.5186561967416,
+        "zero_intervals": 0,
+        "sender_retransmits": 971,
+        "server_output_fields": [
+          "server_output_text"
+        ]
+      }
+    ]
+  },
+  "dfs160_excluded_attempt": {
+    "status": "RADAR_OCCURRED_BEFORE_TRAFFIC; NOT_A_CONTINUITY_PASS",
+    "observed_radar_time_utc": "2026-11-04 17:00:03",
+    "next_legal_reuse_not_before_utc": "2026-11-04 17:30:03",
+    "transition": {
+      "from_channel": 100,
+      "from_width_mhz": 160,
+      "to_channel": 36,
+      "to_width_mhz": 80,
+      "ap_disabled_during_observed_transition": false,
+      "beacon_error_during_observed_transition": false
+    },
+    "post_event_throughput": {
+      "duration_seconds": 90,
+      "average_mbps": 1959.6990369148389,
+      "minimum_mbps": 1709.71819202488,
+      "zero_intervals": 0
+    },
+    "configuration_restored": true,
+    "reason": "Pre-traffic log already contains the radar and completed CSA. Scheduled trigger cannot demonstrate traffic continuity in this attempt."
+  },
+  "dfs160_valid_retest": {
+    "average_mbps": 1636.1932098494046,
+    "min_mbps": 124.5741235405848,
+    "zero_intervals": 0,
+    "longest_zero_seconds": 0,
+    "radar_event_frequencies": [
+      5500
+    ],
+    "no_non_dfs_band_radar": true,
+    "traffic_first_10s_mbps": 1801.2860023339467,
+    "traffic_last_30s_mbps": 1954.4489592781306,
+    "target": "5GHz channel100/160 after completed CAC",
+    "channel_switches": [
+      {
+        "freq": 5180,
+        "width_mhz": 80
+      }
+    ],
+    "ap_disabled": false,
+    "beacon_error": false,
+    "cac_restart": false,
+    "wifi_ping": {
+      "sent": 441,
+      "received": 441,
+      "loss_percent": 0.0
+    },
+    "radar_during_traffic": true,
+    "emulation_requested": true,
+    "pre_event_nonzero_intervals": 5,
+    "event_seconds_after_iperf_start": 6.0,
+    "pass": true,
+    "below_500_mbps_intervals": 12,
+    "below_1000_mbps_intervals": 16
+  },
+  "dfs_result_analyzer_checks": {
+    "script_sha256": "ee15872ceed824df1a017083683f2d4d7df173f84bd85453bd39d9915d3bb5f5",
+    "fixture_checks": [
+      {
+        "fixture": "r64 DFS80 actual traffic and CSA",
+        "expected_pass": true,
+        "matched": true
+      },
+      {
+        "fixture": "r64 DFS160 AP restart and 27 zero intervals",
+        "expected_pass": false,
+        "matched": true
+      },
+      {
+        "fixture": "r65 radar occurred before traffic",
+        "expected_pass": false,
+        "matched": true
+      }
+    ],
+    "ping_parser_ordinary_and_duplicate_reply_checked": true
+  },
+  "final_wireless_network_checks": [
+    {
+      "type": "DNS",
+      "name": "example.com",
+      "ok": true,
+      "milliseconds": 11.77,
+      "bound_device": "en0"
+    },
+    {
+      "type": "DNS",
+      "name": "github.com",
+      "ok": true,
+      "milliseconds": 5.51,
+      "bound_device": "en0"
+    },
+    {
+      "type": "DNS",
+      "name": "google.com",
+      "ok": true,
+      "milliseconds": 5.79,
+      "bound_device": "en0"
+    },
+    {
+      "type": "HTTPS",
+      "ok": true,
+      "response": "HTTP/1.1 200 OK",
+      "bound_device": "en0",
+      "tls_certificate_verified": true
+    },
+    {
+      "type": "WAN_ICMP",
+      "sent": 20,
+      "received": 20,
+      "loss_percent": 0.0,
+      "bound_device": "en0"
+    }
+  ],
+  "final_health": {
+    "installed_version": "ubi2-mlo-dfs-r65-20261105-tailscale",
+    "kernel_abi": "6.18.59-w1700k-mlo-r32",
+    "config_hashes_preserved": true,
+    "uci_pending_empty": true,
+    "legacy_24_ap_enabled": true,
+    "mlo_5_6_links_enabled": true,
+    "mac_client_links_mask": 6,
+    "ethernet_management_device": "en10",
+    "server_lan_speed_mbps": 2500,
+    "management_lan_speed_mbps": 1000,
+    "wpad_module_hashes_match_image": true,
+    "npu_runtime_version": "0.8",
+    "critical_kernel_errors": [],
+    "no_owned_wifi_rollback_guards_running": true,
+    "tailscale_running_online": true,
+    "wifi_snapshot_service_running": true
+  },
+  "wired_monitor": {
+    "phases": {
+      "build": {
+        "samples": 392,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 79,
+        "wan_ping_failed": 0
+      },
+      "install-reboot-r65": {
+        "samples": 63,
+        "link_inactive": 4,
+        "router_ping_failed": 33,
+        "wan_samples": 12,
+        "wan_ping_failed": 10
+      },
+      "postinstall": {
+        "samples": 809,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 163,
+        "wan_ping_failed": 0
+      },
+      "mlo-matrix": {
+        "samples": 1055,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 211,
+        "wan_ping_failed": 0
+      },
+      "dfs-test": {
+        "samples": 351,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 69,
+        "wan_ping_failed": 0
+      },
+      "idle-wake": {
+        "samples": 345,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 69,
+        "wan_ping_failed": 0
+      },
+      "standalone24": {
+        "samples": 133,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 27,
+        "wan_ping_failed": 0
+      },
+      "sustained": {
+        "samples": 984,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 197,
+        "wan_ping_failed": 0
+      },
+      "reconnect": {
+        "samples": 350,
+        "link_inactive": 0,
+        "router_ping_failed": 0,
+        "wan_samples": 70,
+        "wan_ping_failed": 0
+      }
+    },
+    "planned_install_reboot_phase": "install-reboot-r65",
+    "sample_interval_seconds_approx": 1,
+    "no_failures_outside_planned_install": true
+  },
+  "remaining_limits": [
+    "Initial 5-second TCP download pause (intervals 4-9s) in the first sustained transfer after returning from the 2.4GHz SSID. Wi-Fi ping 1472/1472; queue recording started later, so cause is not established. This failed trial remains included.",
+    "Third reconnect downlink averaged 385.084Mbps (minimum33.531), zero retransmissions, PHY2401Mbps and primary6GHz. A fresh TCP flow on the same unchanged wireless connection recovered to1933.830Mbps; cause not established.",
+    "DFS160 CSA preserved traffic but temporarily lowered TCP throughput to 124.574Mbps; final 30 seconds recovered to 1954.449Mbps.",
+    "One duplicate ICMP reply during the matrix 2.4+5GHz downlink; no ping loss. Cause not established.",
+    "Fixed near-AP position; no genuine weak-signal 5/6-to-2.4GHz fallback verification.",
+    "Associated idle with observed per-link PS=1 is not full macOS sleep or overnight validation.",
+    "NPU 0.8 is an unchanged vendor test firmware pair; the old identity-specific TX budget guard does not apply.",
+    "Active MLO link masks do not prove simultaneous data aggregation across those links."
+  ]
+}
