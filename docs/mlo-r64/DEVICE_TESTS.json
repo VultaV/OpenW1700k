@@ -1,0 +1,191 @@
+{
+  "status": "PARTIAL_FIX_DFS160_FAILED",
+  "installed": true,
+  "npu_version": "0.8",
+  "matrix": [
+    {
+      "label": "mlo24_5_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1971.9461369377862,
+      "minimum_interval_mbps": 1826.116551977819,
+      "maximum_interval_mbps": 2006.4229673476889,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "valid_links_seen": [
+        "0x0007"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo24_5_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1830.0112699523845,
+      "minimum_interval_mbps": 1780.592857905949,
+      "maximum_interval_mbps": 1890.5692309685226,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "valid_links_seen": [
+        "0x0007"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo24_5_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1944.3414565816374,
+      "minimum_interval_mbps": 1757.4594830583212,
+      "maximum_interval_mbps": 2008.2206697974354,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "valid_links_seen": [
+        "0x0003"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo24_5_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1541.8530641031311,
+      "minimum_interval_mbps": 545.3027721128248,
+      "maximum_interval_mbps": 1871.806465647536,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "valid_links_seen": [
+        "0x0003"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1979.2647169295208,
+      "minimum_interval_mbps": 1702.2557834626352,
+      "maximum_interval_mbps": 2011.5703702741387,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "valid_links_seen": [
+        "0x0005"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1830.8730054360026,
+      "minimum_interval_mbps": 1771.6740478776646,
+      "maximum_interval_mbps": 1871.2190352630034,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "valid_links_seen": [
+        "0x0005"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo5_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1949.4212087929352,
+      "minimum_interval_mbps": 1840.7534768837793,
+      "maximum_interval_mbps": 1984.8331138611486,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "valid_links_seen": [
+        "0x0006"
+      ],
+      "ping_loss_percent": 0.0
+    },
+    {
+      "label": "mlo5_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1801.9738403323772,
+      "minimum_interval_mbps": 1741.2802594615414,
+      "maximum_interval_mbps": 1851.1648800664345,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "valid_links_seen": [
+        "0x0006"
+      ],
+      "ping_loss_percent": 0.0
+    }
+  ],
+  "idle": {
+    "idle_seconds": 120,
+    "full_os_sleep": false,
+    "links_mask": 6,
+    "trials": [
+      {
+        "direction": "down",
+        "seconds": 300,
+        "average_mbps": 1950.1676105431527,
+        "min_mbps": 1626.3548786405647,
+        "zero_intervals": 0
+      },
+      {
+        "direction": "up",
+        "seconds": 90,
+        "average_mbps": 1726.03558992937,
+        "min_mbps": 1629.8701579007547,
+        "zero_intervals": 0
+      }
+    ]
+  },
+  "dfs80": {
+    "average_mbps": 1942.3902226384582,
+    "min_mbps": 1293.9770097158525,
+    "zero_intervals": 0,
+    "longest_zero_seconds": 0,
+    "radar_event_frequencies": [
+      5500
+    ],
+    "no_non_dfs_band_radar": true,
+    "traffic_first_10s_mbps": 1934.0375463216485,
+    "traffic_last_30s_mbps": 1972.429360226462,
+    "target": "5GHz channel100/80 after completed CAC"
+  },
+  "dfs160": {
+    "average_mbps": 901.314627805844,
+    "min_mbps": 0.0,
+    "zero_intervals": 27,
+    "longest_zero_seconds": 27,
+    "radar_event_frequencies": [
+      5500
+    ],
+    "no_non_dfs_band_radar": true,
+    "traffic_first_10s_mbps": 1962.47754500184,
+    "traffic_last_30s_mbps": 1030.7411994390227,
+    "target": "5GHz channel100/160 after completed CAC"
+  },
+  "conclusion": "Cross-band radar propagation and permanent TX queue stall were prevented, but 160MHz DFS selected a CAC-required full-width target and restarted the MLD, interrupting traffic for 27 seconds. r65 narrows the available-channel selection before that restart."
+}
