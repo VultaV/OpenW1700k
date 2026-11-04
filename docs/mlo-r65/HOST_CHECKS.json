@@ -1,0 +1,23 @@
+{
+  "mlo_dfs_fallback": {
+    "baseline_checks": 13,
+    "baseline_failed": 3,
+    "candidate_checks": 13,
+    "candidate_failed": 0,
+    "legacy_checks": 10,
+    "legacy_failed": 0,
+    "actual_prepared_source_matches_candidate": true,
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "dfs_dispatch_regression": "PASS 216 dispatcher cases (baseline reproduces lost pending-link events)\nPASS 216 dispatcher cases (fixed)",
+  "inherited_checks": {
+    "from": "docs/mlo-r64/HOST_CHECKS.json",
+    "mt76_unchanged": true
+  },
+  "limits": [
+    "Availability is a controlled fixture; real firmware and channel-switch behavior require device tests."
+  ]
+}
