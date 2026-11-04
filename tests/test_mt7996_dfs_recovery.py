@@ -8,6 +8,7 @@ cut=runpy.run_path(str(ROOT/'tests/test_mt76_ps_wake.py'))['extract']
 mcu=(a.source/'mt7996/mcu.c').read_text();main=(a.source/'mt7996/main.c').read_text()
 header=a.source/'mt7996/mcu.h'
 h=header.read_text();wire=cut(h,'struct mt7996_mcu_rxd {','struct mt7996_mcu_uni_event')+cut(h,'struct mt7996_mcu_rdd_report {','struct mt7996_mcu_background_chain_ctrl')
+wire+=cut((a.source/'mt7996/mt7996.h').read_text(),'enum rdd_idx {','enum mt7996_rdd_cmd')
 shim=r'''
 #include <assert.h>
 #include <stdbool.h>
@@ -21,9 +22,6 @@ typedef uint8_t u8;typedef uint16_t __le16;typedef uint32_t __le32;
 #define container_of(p,t,m) ((t *)((char *)(p)-offsetof(t,m)))
 #define READ_ONCE(x) (x)
 #define cpu_to_le16(x) (x)
-#define MT_RDD_IDX_BAND1 1
-#define MT_RDD_IDX_BAND2 2
-#define MT_RDD_IDX_BACKGROUND 3
 #define MT_BAND1 1
 #define MT_BAND2 2
 #define GFP_ATOMIC 0
