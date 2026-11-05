@@ -1,0 +1,373 @@
+{
+  "version": "r69",
+  "installed_then_restored_stock_r67": true,
+  "install_checks": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "2df9193f585cfe5f1f6d7091366e15af7986aeeab26515c0d08367af055c2e6d",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r67",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "npu_runtime_version": "0.8",
+    "lan2_endpoints_ready_bound_en10": true,
+    "seconds_to_ssh": 97.6
+  },
+  "controlled_first_flows": [
+    {
+      "label": "early_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 378.9886246920677,
+      "minimum_interval_mbps": 100.4483320325993,
+      "maximum_interval_mbps": 1135.6766127795095,
+      "zero_intervals": 0,
+      "below_500_intervals": 51,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "early_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 452.57977093610344,
+      "minimum_interval_mbps": 45.021819803085364,
+      "maximum_interval_mbps": 731.6417843371187,
+      "zero_intervals": 0,
+      "below_500_intervals": 32,
+      "primary_sequence": [
+        2
+      ]
+    }
+  ],
+  "one_active_6ghz_mld_association": [
+    {
+      "label": "one_active_6_down",
+      "direction": "down",
+      "duration": 30,
+      "bind_device": "en0",
+      "average_mbps": 406.1390665565364,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 1736.3573019323471,
+      "zero_intervals": 21,
+      "below_500_intervals": 22,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "one_active_6_up",
+      "direction": "up",
+      "duration": 30,
+      "bind_device": "en0",
+      "average_mbps": 1808.157682530097,
+      "minimum_interval_mbps": 1764.9841497060183,
+      "maximum_interval_mbps": 1893.9334180484793,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    }
+  ],
+  "same_association_offload_control": [
+    {
+      "label": "off",
+      "direction": "down",
+      "duration": 20,
+      "bind_device": "en0",
+      "average_mbps": 1063.5239451683103,
+      "minimum_interval_mbps": 965.7636330743924,
+      "maximum_interval_mbps": 1162.2674170823007,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "on_after",
+      "direction": "down",
+      "duration": 20,
+      "bind_device": "en0",
+      "average_mbps": 1948.0948093328893,
+      "minimum_interval_mbps": 1869.928405958396,
+      "maximum_interval_mbps": 1976.9107800424358,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "on_repeat",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1952.935791866744,
+      "minimum_interval_mbps": 1644.2964705131371,
+      "maximum_interval_mbps": 1995.5484515842584,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    }
+  ],
+  "stock_r67_control_install": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "ed0b0a8d2bc264f2d1e92fb7b9f8822a2848f6dbd60ac772ab184b0d527d5108",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r67",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "npu_runtime_version": "0.8",
+    "lan2_endpoints_ready_bound_en10": true,
+    "seconds_to_ssh": 105.5
+  },
+  "stock_r67_fresh_association": [
+    {
+      "label": "early_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1640.45225283984,
+      "minimum_interval_mbps": 1467.4791531342578,
+      "maximum_interval_mbps": 1694.7891991656709,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "early_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1827.6706115212348,
+      "minimum_interval_mbps": 1757.1555464728276,
+      "maximum_interval_mbps": 1869.6092250017005,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "repeat_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1636.971406014246,
+      "minimum_interval_mbps": 1548.937270084541,
+      "maximum_interval_mbps": 1715.9829831942027,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    }
+  ],
+  "stock_r67_four_combination_matrix": [
+    {
+      "label": "mlo24_5_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 9.663562599992629,
+      "minimum_interval_mbps": 1.0519517076284468,
+      "maximum_interval_mbps": 27.23511300535155,
+      "zero_intervals": 0,
+      "below_500_intervals": 60,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "mlo24_5_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 639.780123683694,
+      "minimum_interval_mbps": 28.321067634671248,
+      "maximum_interval_mbps": 1680.8555059581486,
+      "zero_intervals": 0,
+      "below_500_intervals": 30,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "mlo24_5_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1681.8475462505505,
+      "minimum_interval_mbps": 1628.7324333875242,
+      "maximum_interval_mbps": 1765.8964128401615,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ]
+    },
+    {
+      "label": "mlo24_5_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1814.613596007317,
+      "minimum_interval_mbps": 1769.9998750072693,
+      "maximum_interval_mbps": 1863.7642481636185,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ]
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1022.7652327044293,
+      "minimum_interval_mbps": 63.644338001750995,
+      "maximum_interval_mbps": 1653.9185954760992,
+      "zero_intervals": 0,
+      "below_500_intervals": 1,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1801.2082993857894,
+      "minimum_interval_mbps": 1331.5098588335,
+      "maximum_interval_mbps": 1865.407364296762,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "mlo5_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1027.8743354604796,
+      "minimum_interval_mbps": 937.3385709424996,
+      "maximum_interval_mbps": 1258.6117353632844,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "mlo5_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1828.7866593415558,
+      "minimum_interval_mbps": 1751.1183712571917,
+      "maximum_interval_mbps": 1861.7490690735663,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    }
+  ],
+  "matrix_each_direction_seconds": 60,
+  "interrupted_r69_matrix_excluded": true,
+  "r69_matrix_first_24_5_ap_readiness_failed": true,
+  "harness_readiness_fix": "240-second bound, no mid-CAC reload; transienttimeout/deadline/100pollCAC mock tests pass",
+  "r69_guard_decision": "Withdrawn: benefit not established, vendor zero API intent and service fairness unknown; not proof that guard caused stalls",
+  "cause_boundary": "Generic offload unbind ordering defect present in source; no hardware orphan-entry measurement; not established as cause of these failures",
+  "guard_source_commit": "d87567e496d602d2dba1cd266bc98c6f2289d0c4",
+  "withdrawal_source_commit": "3659d8a7186350ac4289ea080b7f2024a61f6563",
+  "control_settings_retained": true,
+  "limits": [
+    "Trials have different active link sets/durations; not randomized causal proof.",
+    "Offload OFF/ON also started new TCP flows; no within-flow flush comparison.",
+    "One-active6GHz on MLD is not a legacy SLO test.",
+    "Fixed near-AP position; no real weak-signal fallback, full OS sleep or overnight test.",
+    "Wired management1Gbps; this wiredbaseline cannot verify2.5Gbps server capacity.",
+    "Build/installation reboots explicitly authorized; monitor gaps exist during interruption."
+  ],
+  "wired_monitor_by_phase": {
+    "r65-before-r69-baseline": {
+      "samples": 357,
+      "failed_samples": 0
+    },
+    "install-reboot-r69": {
+      "samples": 47,
+      "failed_samples": 24
+    },
+    "postinstall": {
+      "samples": 197,
+      "failed_samples": 0
+    },
+    "early-traffic": {
+      "samples": 118,
+      "failed_samples": 0
+    },
+    "four-config-matrix": {
+      "samples": 196,
+      "failed_samples": 0
+    },
+    "resume-r69-baseline": {
+      "samples": 299,
+      "failed_samples": 0
+    },
+    "resume-one-active-6": {
+      "samples": 377,
+      "failed_samples": 0
+    },
+    "resume-offload-current": {
+      "samples": 288,
+      "failed_samples": 0
+    },
+    "resume-r69-repeat-flow": {
+      "samples": 72,
+      "failed_samples": 0
+    },
+    "stock-control-reboot-r67": {
+      "samples": 48,
+      "failed_samples": 26
+    },
+    "stock-control-r67": {
+      "samples": 281,
+      "failed_samples": 0
+    },
+    "stock-r67-early-traffic": {
+      "samples": 177,
+      "failed_samples": 0
+    },
+    "stock-r67-post-early": {
+      "samples": 8,
+      "failed_samples": 0
+    },
+    "stock-r67-matrix": {
+      "samples": 776,
+      "failed_samples": 0
+    },
+    "stock-r67-restored": {
+      "samples": 1135,
+      "failed_samples": 21
+    }
+  }
+}
