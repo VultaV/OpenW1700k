@@ -1,0 +1,316 @@
+From 1e1ca91c2b703832565f22cd707660d9c2ac1116 Mon Sep 17 00:00:00 2001
+From: Felix Fietkau <nbd@nbd.name>
+Date: Wed, 28 Oct 2026 13:23:51 +0100
+Subject: [PATCH] wifi: mt76: mt7996: describe an MLD peer with the PEER_MLD
+ command
+
+The firmware learns about an MLD peer only from the MLD_SETUP TLV of
+STA_REC_UPDATE. The vendor driver for the same firmware describes the
+peer with the PEER_MLD command instead: a PEER_MLD_INFO TLV with the
+links of the peer, its primary, secondary and setup WCID, and a
+PEER_MLD_CAP TLV with the A-MSDU limits. It flags every MLD_SETUP TLV
+with EXTRA_INFO_MLD_SKIP, so that the firmware takes the MLD setup from
+PEER_MLD.
+
+Send PEER_MLD at the association of an MLO peer, before the STA_REC of
+its first link. The firmware MLD index of the peer is the WCID of its
+primary link. The teardown stays with STA_REC_MLD_OFF.
+
+Flag an MLD_SETUP TLV only while its links are the links that PEER_MLD
+described. mac80211 activates the partner links of a station after the
+association, so PEER_MLD of a station covers only the assoc link. The
+firmware refuses a flagged MLD_SETUP for the full link set, and
+change_sta_links then fails with a warning in
+_ieee80211_set_active_links(). An unflagged MLD_SETUP sets up the links
+that join or leave later, as before.
+
+While the PEER_MLD description is valid, keep its MLD index as the
+setup and primary WCID of each MLD_SETUP, also after mt7996 makes
+another link the primary link when the first one goes away. With the
+WCID of the new primary link, the next association of the peer gets no
+MLD record from its PEER_MLD, and the firmware refuses the MLD_SETUP of
+that association:
+
+  NULL MLDREC of WCID 1
+
+A link keeps its WCID until the station is removed, also after its link
+station goes. TX still moves to another link; only the MLD description
+in the firmware keeps the primary of the association.
+
+Co-developed-by: Shayne Chen <shayne.chen@mediatek.com>
+Signed-off-by: Shayne Chen <shayne.chen@mediatek.com>
+Link: https://patch.msgid.link/20261028122403.796394-13-nbd@nbd.name
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Backport full upstream commit1e1ca91c2b703832565f22cd707660d9c2ac1116
+to639e1287. Refresh local0042 field context and0045 bool-function
+context only; preserve0044 removal-only and0045 management selection.
+
+---
+--- a/mt76_connac_mcu.h
++++ b/mt76_connac_mcu.h
+@@ -1362,6 +1362,7 @@
+ 	MCU_UNI_CMD_FACT_CAL = 0x7c,
+ 	MCU_UNI_CMD_RADIO_STATUS = 0x80,
+ 	MCU_UNI_CMD_MLD = 0x82,
++	MCU_UNI_CMD_PEER_MLD = 0x83,
+ 	MCU_UNI_CMD_SDO = 0x88,
+ 	MCU_UNI_CMD_AXIDMA = 0xa2,
+ };
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -1724,6 +1724,7 @@
+ 	msta->deflink_id = IEEE80211_LINK_UNSPECIFIED;
+ 	msta->seclink_id = IEEE80211_LINK_UNSPECIFIED;
+ 	msta->conn_state = CONN_STATE_DISCONNECT;
++	msta->peer_mld_links = 0;
+ 	msta->ba_tx_mask = 0;
+ 	msta->ba_rx_mask = 0;
+ 	msta->vif = mvif;
+@@ -1842,6 +1843,12 @@
+ 
+ 	mutex_lock(&dev->mt76.mutex);
+ 
++	if (ev == MT76_STA_EVENT_ASSOC && sta->mlo) {
++		err = mt7996_mcu_set_peer_mld(dev, vif, sta);
++		if (err)
++			goto out;
++	}
++
+ 	err = mt7996_mac_sta_links_event(dev, vif, sta,
+ 					 mt7996_mac_sta_links(dev, vif, sta),
+ 					 ev);
+@@ -1857,6 +1864,7 @@
+ 		break;
+ 	case MT76_STA_EVENT_DISASSOC:
+ 		msta->conn_state = CONN_STATE_DISCONNECT;
++		msta->peer_mld_links = 0;
+ 		mt7996_mac_sta_clear_connected(dev, msta);
+ 		break;
+ 	}
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -3361,13 +3361,19 @@
+ 	mld_setup = (struct sta_rec_mld_setup *)tlv;
+ 	memcpy(mld_setup->mld_addr, sta->addr, ETH_ALEN);
+ 	mld_setup->setup_wcid = cpu_to_le16(msta_link->wcid.idx);
+-	mld_setup->primary_id = cpu_to_le16(msta_link->wcid.idx);
++	/* the firmware keeps the MLD record of PEER_MLD under fw_mld_idx */
++	if (msta->peer_mld_links)
++		mld_setup->setup_wcid = cpu_to_le16(msta->fw_mld_idx);
++	mld_setup->primary_id = mld_setup->setup_wcid;
+ 
+ 	if (links & BIT(msta->seclink_id))
+ 		seclink_id = msta->seclink_id;
+ 	msta_link = mt7996_sta_link_protected(dev, msta, seclink_id);
+ 	mld_setup->seconed_id = cpu_to_le16(msta_link->wcid.idx);
+ 	mld_setup->link_num = nlinks;
++	/* PEER_MLD_INFO holds only the links of the association */
++	if (links == msta->peer_mld_links)
++		mld_setup->extra_info = EXTRA_INFO_MLD_SKIP;
+ 
+ 	mld_setup_link = (struct mld_setup_link *)mld_setup->link_info;
+ 	for_each_set_bit(link_id, &links, IEEE80211_MLD_MAX_NUM_LINKS) {
+@@ -3380,6 +3386,108 @@
+ 		mld_setup_link->bss_idx = link->mt76.idx;
+ 		mld_setup_link++;
+ 	}
++}
++
++static u32 mt7996_mcu_peer_mld_amsdu_len(u16 max_amsdu_len)
++{
++	switch (max_amsdu_len) {
++	case IEEE80211_MAX_MPDU_LEN_VHT_11454:
++		return IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_11454;
++	case IEEE80211_MAX_MPDU_LEN_HT_7935:
++	case IEEE80211_MAX_MPDU_LEN_VHT_7991:
++		return IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_7991;
++	default:
++		return IEEE80211_VHT_CAP_MAX_MPDU_LENGTH_3895;
++	}
++}
++
++int mt7996_mcu_set_peer_mld(struct mt7996_dev *dev, struct ieee80211_vif *vif,
++			    struct ieee80211_sta *sta)
++{
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++	unsigned long links = mt7996_mac_sta_links(dev, vif, sta);
++	unsigned int nlinks = hweight16(links);
++	struct peer_mld_cap_entry *cap_entry;
++	struct peer_mld_link_info *link_info;
++	struct mt7996_sta_link *msta_link;
++	u8 seclink_id = msta->deflink_id;
++	struct peer_mld_req_hdr *hdr;
++	u16 max_amsdu_len = U16_MAX;
++	struct peer_mld_info *info;
++	struct peer_mld_cap *cap;
++	unsigned int link_id;
++	struct sk_buff *skb;
++	struct tlv *tlv;
++	u16 fw_mld_idx;
++	int len, ret;
++
++	if (!(links & BIT(msta->deflink_id)))
++		return 0;
++
++	len = sizeof(*hdr) + sizeof(*info) + nlinks * sizeof(*link_info) +
++	      sizeof(*cap) + 2 * sizeof(*cap_entry);
++	skb = mt76_mcu_msg_alloc(&dev->mt76, NULL, len);
++	if (!skb)
++		return -ENOMEM;
++
++	msta_link = mt7996_sta_link_protected(dev, msta, msta->deflink_id);
++
++	fw_mld_idx = msta_link->wcid.idx;
++	hdr = skb_put_zero(skb, sizeof(*hdr));
++	hdr->fw_mld_idx = cpu_to_le16(fw_mld_idx);
++	memcpy(hdr->peer_mld_addr, sta->addr, ETH_ALEN);
++
++	tlv = mt7996_mcu_add_uni_tlv(skb, UNI_CMD_PEER_MLD_INFO,
++				     sizeof(*info) +
++				     nlinks * sizeof(*link_info));
++	info = (struct peer_mld_info *)tlv;
++	info->link_num = nlinks;
++	info->primary_id = cpu_to_le16(msta_link->wcid.idx);
++	info->setup_wcid = cpu_to_le16(msta_link->wcid.idx);
++
++	if (links & BIT(msta->seclink_id))
++		seclink_id = msta->seclink_id;
++	msta_link = mt7996_sta_link_protected(dev, msta, seclink_id);
++	info->second_id = cpu_to_le16(msta_link->wcid.idx);
++
++	link_info = info->link_info;
++	for_each_set_bit(link_id, &links, IEEE80211_MLD_MAX_NUM_LINKS) {
++		struct ieee80211_link_sta *link_sta;
++		struct mt7996_vif_link *link;
++
++		msta_link = mt7996_sta_link_protected(dev, msta, link_id);
++		link = mt7996_vif_link(dev, vif, link_id);
++		link_sta = link_sta_dereference_protected(sta, link_id);
++
++		max_amsdu_len = min(max_amsdu_len, link_sta->agg.max_amsdu_len);
++
++		link_info->fw_link_id = cpu_to_le16(msta_link->wcid.idx);
++		link_info->link_id = link_id;
++		link_info->bss_idx = link->mt76.idx;
++		link_info->wlan_idx = cpu_to_le16(msta_link->wcid.idx);
++		link_info->band_idx = link->mt76.band_idx;
++		link_info++;
++	}
++
++	tlv = mt7996_mcu_add_uni_tlv(skb, UNI_CMD_PEER_MLD_CAP,
++				     sizeof(*cap) + 2 * sizeof(*cap_entry));
++	cap = (struct peer_mld_cap *)tlv;
++
++	cap_entry = cap->entry;
++	cap_entry->type = cpu_to_le32(UNI_CMD_PEER_MLD_CAP_TYPE_AMSDU_MAX_LEN);
++	cap_entry->val = cpu_to_le32(mt7996_mcu_peer_mld_amsdu_len(max_amsdu_len));
++	cap_entry++;
++	cap_entry->type = cpu_to_le32(UNI_CMD_PEER_MLD_CAP_TYPE_AMSDU_MAX_CNT);
++	cap_entry->val = cpu_to_le32(31);
++
++	ret = mt76_mcu_skb_send_msg(&dev->mt76, skb,
++				    MCU_WMWA_UNI_CMD(PEER_MLD), true);
++	if (!ret) {
++		msta->peer_mld_links = links;
++		msta->fw_mld_idx = fw_mld_idx;
++	}
++
++	return ret;
+ }
+ 
+ static bool
+--- a/mt7996/mcu.h
++++ b/mt7996/mcu.h
+@@ -756,7 +756,8 @@
+ 	__le16 seconed_id;
+ 	__le16 setup_wcid;
+ 	u8 link_num;
+-	u8 info;
++#define EXTRA_INFO_MLD_SKIP	BIT(2)
++	u8 extra_info;
+ 	u8 __rsv[2];
+ 	u8 link_info[];
+ } __packed;
+@@ -797,6 +798,62 @@
+ enum {
+ 	UNI_CMD_MLD_RECONF_AP_REM_TIMER = 0x03,
+ 	UNI_CMD_MLD_RECONF_STOP_LINK = 0x04,
++};
++
++struct peer_mld_req_hdr {
++	u8 ver;
++	u8 peer_mld_addr[ETH_ALEN];
++	u8 rsv;
++	__le16 fw_mld_idx;
++	__le16 flag;
++	u8 buf[];
++} __packed;
++
++struct peer_mld_link_info {
++	__le16 fw_link_id;
++	u8 link_id;
++	u8 bss_idx;
++	__le16 wlan_idx;
++	u8 band_idx;
++	u8 rsv;
++} __packed;
++
++struct peer_mld_info {
++	__le16 tag;
++	__le16 len;
++	u8 ver;
++	u8 link_num;
++	u8 rsv[2];
++	__le16 primary_id;
++	__le16 second_id;
++	__le16 setup_wcid;
++	u8 rsv2[2];
++	struct peer_mld_link_info link_info[];
++} __packed;
++
++struct peer_mld_cap_entry {
++	__le32 type;
++	__le32 val;
++} __packed;
++
++struct peer_mld_cap {
++	__le16 tag;
++	__le16 len;
++	u8 ver;
++	u8 rsv;
++	__le16 bitmap;
++	u8 rsv2[8];
++	struct peer_mld_cap_entry entry[];
++} __packed;
++
++enum {
++	UNI_CMD_PEER_MLD_INFO = 0x01,
++	UNI_CMD_PEER_MLD_CAP = 0x02,
++};
++
++enum {
++	UNI_CMD_PEER_MLD_CAP_TYPE_AMSDU_MAX_LEN = 0x01,
++	UNI_CMD_PEER_MLD_CAP_TYPE_AMSDU_MAX_CNT = 0x02,
+ };
+ 
+ struct hdr_trans_en {
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -333,6 +333,8 @@
+ 	u8 deflink_id;
+ 	u8 seclink_id;
+ 	u8 conn_state;
++	u16 peer_mld_links;
++	u16 fw_mld_idx;
+ 	u8 data_link_cand;
+ 	u8 data_link_votes;
+ 
+@@ -823,6 +825,8 @@
+ 		       struct mt7996_vif_link *link,
+ 		       struct mt7996_sta_link *msta_link,
+ 		       int conn_state, bool newly);
++int mt7996_mcu_set_peer_mld(struct mt7996_dev *dev, struct ieee80211_vif *vif,
++			    struct ieee80211_sta *sta);
+ int mt7996_mcu_teardown_mld_sta(struct mt7996_dev *dev,
+ 				struct mt7996_vif_link *link,
+ 				struct mt7996_sta_link *msta_link);
