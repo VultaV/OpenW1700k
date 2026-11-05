@@ -1,0 +1,353 @@
+{
+  "version": "r68",
+  "status": "FAILED_RUNTIME_PERFORMANCE; test aborted; exact r65 recovery completed",
+  "source_commit": "27277fde72ddd6f24dc3448bf558ff97793dbfde",
+  "build_tag": "mlo-r68-20261105",
+  "firmware_sha256": "4912b42d4fc32000cfe6392bf129e4f61c1c193445a31d08ed6b172c87e4615a",
+  "install": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "4912b42d4fc32000cfe6392bf129e4f61c1c193445a31d08ed6b172c87e4615a",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r67",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "npu_runtime_version": "0.8",
+    "lan2_endpoints_ready_bound_en10": true,
+    "seconds_to_ssh": 101.8
+  },
+  "runtime_pool": {
+    "status": "PASS",
+    "pool_base": "0xbf000000",
+    "pool_bytes": 16777216,
+    "alignment_bytes": 2097152,
+    "pool_within_reachable_dram": true,
+    "npu_device_assigned_pool": true,
+    "mailbox_register_read_only": "0x1ec0c030",
+    "observed_mailbox_dma_address": "0xbf000000",
+    "mailbox_address_inside_pool": true,
+    "firmware_version": "0.8",
+    "scope": "Pool assignment and one live mailbox address observed; individual mt76 ring addresses not independently sampled."
+  },
+  "completed_trials": [
+    {
+      "label": "early_down",
+      "direction": "down",
+      "duration": 30,
+      "average_mbps": 795.9996053259667,
+      "minimum_interval_mbps": 458.0746594739832,
+      "maximum_interval_mbps": 1697.8044169578661,
+      "zero_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "scope": "original5+6GHz"
+    },
+    {
+      "label": "early_up",
+      "direction": "up",
+      "duration": 30,
+      "average_mbps": 735.3969342966196,
+      "minimum_interval_mbps": 578.4683881410809,
+      "maximum_interval_mbps": 856.2409285637225,
+      "zero_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "scope": "original5+6GHz"
+    },
+    {
+      "label": "mlo24_5_down",
+      "direction": "down",
+      "duration": 30,
+      "average_mbps": 1.3278179270786443,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 2.117094987496792,
+      "zero_intervals": 7,
+      "primary_sequence": [
+        1
+      ],
+      "scope": "profile-smoke"
+    },
+    {
+      "label": "mlo24_5_up",
+      "direction": "up",
+      "duration": 30,
+      "average_mbps": 24.142716140357084,
+      "minimum_interval_mbps": 4.152611593627159,
+      "maximum_interval_mbps": 50.254456566944,
+      "zero_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "scope": "profile-smoke"
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 30,
+      "average_mbps": 184.9070289616239,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 1554.1077539509379,
+      "zero_intervals": 6,
+      "primary_sequence": [
+        2
+      ],
+      "scope": "profile-smoke"
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 30,
+      "average_mbps": 38.55999414242367,
+      "minimum_interval_mbps": 2.0971541250021533,
+      "maximum_interval_mbps": 191.44945243772733,
+      "zero_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "scope": "profile-smoke"
+    }
+  ],
+  "abort": {
+    "reason": "Severe2.4+5 throughput regression1.33Mbps/7zero vs r67 baseline1969Mbps/0zero; do not continue candidate",
+    "owned_smoke_controllers_interrupted": [
+      33317
+    ],
+    "recovery_target": "r65"
+  },
+  "recovery": {
+    "recovered": true,
+    "installed_version": "ubi2-mlo-dfs-r65-20261105-tailscale",
+    "kernel_abi": "6.18.59-w1700k-mlo-r32",
+    "image_sha256": "f96a2516380a983e63646a3d0c05d76209d27299b20ba360817a858d9debcdff",
+    "current_settings_retained": true,
+    "ssh_return_seconds": 108.6
+  },
+  "recovery_lan": {
+    "actual_version": "ubi2-mlo-dfs-r65-20261105-tailscale",
+    "bound_device": "en10",
+    "server_and_proxmox_tcp_ready": true
+  },
+  "wired_monitor_snapshot_by_phase": {
+    "r67-before-r68-baseline": {
+      "samples": 536,
+      "link_active": {
+        "checks": 536,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 536,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 536,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 108,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 108,
+        "failed": 0
+      }
+    },
+    "install-reboot-r68": {
+      "samples": 51,
+      "link_active": {
+        "checks": 51,
+        "failed": 3
+      },
+      "router_ping_ok": {
+        "checks": 51,
+        "failed": 21
+      },
+      "server_ping_ok": {
+        "checks": 51,
+        "failed": 20
+      },
+      "proxmox_ping_ok": {
+        "checks": 10,
+        "failed": 4
+      },
+      "wan_ping_ok": {
+        "checks": 10,
+        "failed": 8
+      }
+    },
+    "postinstall": {
+      "samples": 197,
+      "link_active": {
+        "checks": 197,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 197,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 197,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 40,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 40,
+        "failed": 0
+      }
+    },
+    "early-traffic": {
+      "samples": 60,
+      "link_active": {
+        "checks": 60,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 60,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 60,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 12,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 12,
+        "failed": 0
+      }
+    },
+    "matrix-smoke": {
+      "samples": 360,
+      "link_active": {
+        "checks": 360,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 360,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 360,
+        "failed": 1
+      },
+      "proxmox_ping_ok": {
+        "checks": 72,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 72,
+        "failed": 0
+      }
+    },
+    "post-smoke": {
+      "samples": 40,
+      "link_active": {
+        "checks": 40,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 40,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 40,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 8,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 8,
+        "failed": 0
+      }
+    },
+    "recovery-reboot-r65": {
+      "samples": 49,
+      "link_active": {
+        "checks": 49,
+        "failed": 2
+      },
+      "router_ping_ok": {
+        "checks": 49,
+        "failed": 21
+      },
+      "server_ping_ok": {
+        "checks": 49,
+        "failed": 21
+      },
+      "proxmox_ping_ok": {
+        "checks": 10,
+        "failed": 4
+      },
+      "wan_ping_ok": {
+        "checks": 10,
+        "failed": 8
+      }
+    },
+    "post-recovery-r65": {
+      "samples": 259,
+      "link_active": {
+        "checks": 259,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 259,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 259,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 51,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 51,
+        "failed": 0
+      }
+    },
+    "r65-recovery-smoke": {
+      "samples": 30,
+      "link_active": {
+        "checks": 30,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 30,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 30,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 6,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 6,
+        "failed": 0
+      }
+    }
+  },
+  "not_performed": [
+    "Tri-band and final5+6GHz smoke profiles were not run after severe earlier regression.",
+    "Long sustained/reconnect/DFS/sleep tests not run.",
+    "True weak-signal fallback and overnight stability not run."
+  ],
+  "causality_limits": [
+    "Host fixture99+20 passed and MCU association succeeded; this did not establish runtime performance compatibility.",
+    "Do not call upstream1e1ca91 universally broken: current local0042/NPU0.8/backports integration is not validated.",
+    "Exact reason for regression remains under review. New PEER_MLD will be withdrawn from r69, which uses r67 driver semantics and a separate NPU guard."
+  ]
+}
