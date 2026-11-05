@@ -1,0 +1,162 @@
+{
+  "version": "r67",
+  "tag": "mlo-r67-20261105",
+  "firmware_sha256": "ed0b0a8d2bc264f2d1e92fb7b9f8822a2848f6dbd60ac772ab184b0d527d5108",
+  "status": "FAILED_24_6_REGRESSION_CRITERIA; isolation tests in progress",
+  "installation": "Booted, preserved settings/SSH/Tailscale, LAN2 TCP targets ready; runtime pool/mailbox placement verified",
+  "matrix_fixed_power": [
+    {
+      "label": "mlo24_5_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1926.3015582665205,
+      "minimum_interval_mbps": 1769.760814399242,
+      "maximum_interval_mbps": 1970.9659399726906,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 446,
+        "received": 446,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_5_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1803.2385334906367,
+      "minimum_interval_mbps": 883.1273556898203,
+      "maximum_interval_mbps": 1887.408600421327,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 445,
+        "received": 445,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_5_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1969.144992635874,
+      "minimum_interval_mbps": 1693.4780575383465,
+      "maximum_interval_mbps": 2022.643183411757,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "wifi_ping": {
+        "sent": 446,
+        "received": 446,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_5_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1794.2178405732066,
+      "minimum_interval_mbps": 1707.4697021377312,
+      "maximum_interval_mbps": 1859.1307886415125,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "wifi_ping": {
+        "sent": 444,
+        "received": 444,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 14.376367797169857,
+      "minimum_interval_mbps": 5.240286283777923,
+      "maximum_interval_mbps": 95.34346934955495,
+      "zero_intervals": 0,
+      "below_500_intervals": 90,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 449,
+        "received": 447,
+        "loss_percent": 0.4
+      }
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 852.8436097304963,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 917.501265633149,
+      "zero_intervals": 1,
+      "below_500_intervals": 6,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 443,
+        "received": 443,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo5_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1934.2107300505,
+      "minimum_interval_mbps": 1698.5364089118618,
+      "maximum_interval_mbps": 1985.829672805607,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 446,
+        "received": 446,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo5_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1761.776723177524,
+      "minimum_interval_mbps": 1547.698176,
+      "maximum_interval_mbps": 1845.874973743147,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 444,
+        "received": 444,
+        "loss_percent": 0.0
+      }
+    }
+  ],
+  "interpretation": "Do not attribute this to coherent pool versus existing MLO behavior from one trial. NPU0.8/mt76/hostapd bytes and QDMA behavior retained from r65; pool is the isolated new driver change.",
+  "first_interrupted_matrix": {
+    "preserved": true,
+    "excluded_from_primary_comparison": true,
+    "reason": "Mac en10 detach/reattach and LAN4 physical link events during initial run, then20s ubus query timeout before next profile. User does not recall physical changes.",
+    "configuration_restored": true
+  },
+  "wireless_weak_signal_fallback_tested": false,
+  "isolation_pending": "Same-association bridge offload ON/OFF/ON"
+}
