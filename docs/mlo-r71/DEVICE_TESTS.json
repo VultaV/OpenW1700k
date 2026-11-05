@@ -1,0 +1,1218 @@
+{
+  "version": "r71",
+  "date": "2026-11-05",
+  "source_commit": "12518d34d71c20770fcaf5fb45a102a11024969d",
+  "build_tag": "mlo-r71-20261105",
+  "build_tag_commit": "7d57e6cf16f624e4810ae24954f4e6500ddcae62",
+  "overall_verdict": "Mixed-band performance failures remain; not a complete MLO stability fix.",
+  "install": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "5b256cbc0ba7e325b4f1ba4ae69af42bb1732f188c7638fb096411252fe4a4a7",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r70",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "tailscale_node_identity_preserved": true,
+    "npu_runtime_version": "0.8",
+    "lan2_endpoints_ready_bound_en10": true,
+    "seconds_to_ssh": 102.6
+  },
+  "runtime_pool": {
+    "status": "PASS",
+    "pool_base": "0xbf000000",
+    "pool_bytes": 16777216,
+    "alignment_bytes": 2097152,
+    "pool_within_reachable_dram": true,
+    "npu_device_assigned_pool": true,
+    "mailbox_register_read_only": "0x1ec0c030",
+    "observed_mailbox_dma_address": "0xbf000000",
+    "mailbox_address_inside_pool": true,
+    "firmware_version": "0.8",
+    "scope": "Pool assignment and one live mailbox address observed; individual mt76 ring addresses not independently sampled.",
+    "loaded_stock_read_only_address": "0x8400a494",
+    "loaded_stock_word": "0xff57493",
+    "loaded_stock_word_matches_vendor_0_8": true,
+    "loaded_word_scope": "One source-verified code word; not a runtime branch-hit counter or causality proof."
+  },
+  "early": [
+    {
+      "label": "early_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1969.6840691631357,
+      "minimum_interval_mbps": 1889.2804898802303,
+      "maximum_interval_mbps": 2020.6541033681194,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        6
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.6530535605321208,
+          "max_window_busy_percent": 2.388059701492537,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.6593661350990032,
+          "max_window_busy_percent": 2.06286836935167,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 11.434904163621518,
+          "max_window_busy_percent": 13.306852035749753,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 5.230793428370013,
+          "max_window_busy_percent": 6.357214934409687,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "early_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1793.202051267834,
+      "minimum_interval_mbps": 1718.9787786542133,
+      "maximum_interval_mbps": 1867.1887130561677,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        6
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.5461306963087886,
+          "max_window_busy_percent": 1.9095477386934674,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.9885829230724563,
+          "max_window_busy_percent": 2.167487684729064,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 6.091931312630164,
+          "max_window_busy_percent": 6.972111553784861,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 3.101538184212309,
+          "max_window_busy_percent": 4.141414141414141,
+          "windows": 5
+        }
+      }
+    }
+  ],
+  "hardware_flow_cleanup": {
+    "same_tcp_connection": true,
+    "target_mbps": 100,
+    "ppe_reads_during_lowrate_diagnostic_not_performance_measurement": true,
+    "events": [
+      {
+        "label": "on_before",
+        "matched_bind_entries": 2
+      },
+      {
+        "label": "off",
+        "matched_bind_entries": 0
+      },
+      {
+        "label": "on_after",
+        "matched_bind_entries": 2
+      }
+    ],
+    "minimum_interval_mbps": 99.17567908601166,
+    "zero_intervals": 0,
+    "hardware_removal_and_rebind_observed": true,
+    "config_sha_restored": true,
+    "limits": [
+      "Single bounded flow/normal memory conditions; does not prove arbitrary concurrency or the cause of old stalls."
+    ]
+  },
+  "integrity": {
+    "status": "PASS",
+    "bytes": 33554432,
+    "sha256": "e6072f0f94acec6171f394c762e7791f980c18bcf05be86991af00ad86144c63",
+    "bound_device": "en0",
+    "ssh_remote_source_matches_wifi_ip": true,
+    "upload_remote_download_hashes_equal": true,
+    "seconds": 4.31,
+    "scope": "Authenticated SSH payloads over Wi-Fi; not a throughput benchmark or exhaustive DMA test."
+  },
+  "capped_host_rx_stress": {
+    "status": "COMPLETED",
+    "direction": "upload",
+    "target_mbps": 300,
+    "seconds": 45,
+    "bind_device": "en0",
+    "streams": 1,
+    "bridge_offload_disabled_for_trial": true,
+    "npu_firmware_still_active": true,
+    "average_mbps": 299.96075552584415,
+    "minimum_interval_mbps": 298.866122670301,
+    "zero_intervals": 0,
+    "scope": "Capped host RX/CPU-bridge stress, not fullNPUdisabled or maximumthroughput."
+  },
+  "initial_matrix": [
+    {
+      "label": "mlo24_5_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1596.3894033471383,
+      "minimum_interval_mbps": 126.507911883329,
+      "maximum_interval_mbps": 2005.3404788261555,
+      "zero_intervals": 0,
+      "below_500_intervals": 11,
+      "primary_sequence": [
+        1
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        3
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.6243813099876316,
+          "max_window_busy_percent": 2.3622047244094486,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.6601220681961717,
+          "max_window_busy_percent": 1.8700787401574803,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 9.211395643543439,
+          "max_window_busy_percent": 11.144278606965175,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 3.6403503745088495,
+          "max_window_busy_percent": 4.343434343434343,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo24_5_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1772.8910147283123,
+      "minimum_interval_mbps": 1297.5462282426802,
+      "maximum_interval_mbps": 1838.8537578555713,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        3
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.6859348071951161,
+          "max_window_busy_percent": 2.270483711747285,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 2.0660241753327115,
+          "max_window_busy_percent": 2.65748031496063,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 4.744535036252275,
+          "max_window_busy_percent": 4.995004995004995,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.1259119669499706,
+          "max_window_busy_percent": 2.59222333000997,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 15.623399105941935,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 33.554532000298025,
+      "zero_intervals": 3,
+      "below_500_intervals": 60,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 3.0062559843063354,
+      "sample_count": 61,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.7508493306310478,
+          "max_window_busy_percent": 2.3833167825223436,
+          "windows": 6
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.9863922510376693,
+          "max_window_busy_percent": 3.155818540433925,
+          "windows": 6
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 2.659194690328749,
+          "max_window_busy_percent": 3.510531594784353,
+          "windows": 6
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.7708245340155138,
+          "max_window_busy_percent": 4.17910447761194,
+          "windows": 6
+        }
+      }
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 77.51111045939216,
+      "minimum_interval_mbps": 29.18327721649687,
+      "maximum_interval_mbps": 172.30909225721646,
+      "zero_intervals": 0,
+      "below_500_intervals": 60,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.9220111074269783,
+          "max_window_busy_percent": 2.380952380952381,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 2.0259443354648883,
+          "max_window_busy_percent": 2.7450980392156863,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 3.3674042739941727,
+          "max_window_busy_percent": 4.174950298210735,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.901489007465435,
+          "max_window_busy_percent": 3.543307086614173,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo24_5_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 62.7545918871067,
+      "minimum_interval_mbps": 6.300187977405465,
+      "maximum_interval_mbps": 190.95960399815038,
+      "zero_intervals": 0,
+      "below_500_intervals": 60,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 61,
+      "sampled_client_link_masks": [
+        7
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 2.1423831277784084,
+          "max_window_busy_percent": 4.446640316205533,
+          "windows": 6
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.646934599223474,
+          "max_window_busy_percent": 2.1653543307086616,
+          "windows": 6
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 3.0947501246054974,
+          "max_window_busy_percent": 3.711133400200602,
+          "windows": 6
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.1556818708191883,
+          "max_window_busy_percent": 2.7805362462760677,
+          "windows": 6
+        }
+      }
+    },
+    {
+      "label": "mlo24_5_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 229.39953510554355,
+      "minimum_interval_mbps": 73.74730192908622,
+      "maximum_interval_mbps": 565.6083588801597,
+      "zero_intervals": 0,
+      "below_500_intervals": 59,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        7
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 2.0196893173008794,
+          "max_window_busy_percent": 2.3692003948667324,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.7550121305420234,
+          "max_window_busy_percent": 2.1717670286278383,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 2.8405587939620704,
+          "max_window_busy_percent": 4.356435643564357,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.213949038937526,
+          "max_window_busy_percent": 2.753195673549656,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo5_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1935.5137931849947,
+      "minimum_interval_mbps": 1816.307627566104,
+      "maximum_interval_mbps": 1986.694371863938,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        6
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.2542350462934453,
+          "max_window_busy_percent": 1.8924302788844622,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.8097747248272618,
+          "max_window_busy_percent": 2.2549019607843137,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 11.573101819475301,
+          "max_window_busy_percent": 12.14859437751004,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 3.6914830496402553,
+          "max_window_busy_percent": 4.133064516129032,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo5_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1780.8836570827982,
+      "minimum_interval_mbps": 1601.0950401180976,
+      "maximum_interval_mbps": 1856.18414185663,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        6
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.4005883317969248,
+          "max_window_busy_percent": 1.8036072144288577,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.516334179824085,
+          "max_window_busy_percent": 1.7699115044247788,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 5.578091002944062,
+          "max_window_busy_percent": 6.416584402764067,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.7811757104550003,
+          "max_window_busy_percent": 3.7438423645320196,
+          "windows": 5
+        }
+      }
+    }
+  ],
+  "associated_idle": {
+    "idle_seconds": 300,
+    "full_os_sleep": false,
+    "links_mask": 6
+  },
+  "post_idle_trials": [
+    {
+      "label": "sustained_down",
+      "direction": "down",
+      "duration": 180,
+      "bind_device": "en0",
+      "average_mbps": 1954.6462963728595,
+      "minimum_interval_mbps": 1573.8043358113532,
+      "maximum_interval_mbps": 1984.3672649182,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 177,
+      "sampled_client_link_masks": [
+        6
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.5326049330174403,
+          "max_window_busy_percent": 2.0812685827552033,
+          "windows": 17
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.4350228467079371,
+          "max_window_busy_percent": 2.2549019607843137,
+          "windows": 17
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 11.27759109404465,
+          "max_window_busy_percent": 12.890625,
+          "windows": 17
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 3.5556176676836286,
+          "max_window_busy_percent": 4.321608040201005,
+          "windows": 17
+        }
+      }
+    },
+    {
+      "label": "sustained_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1826.9333953818975,
+      "minimum_interval_mbps": 1763.7118754031278,
+      "maximum_interval_mbps": 1887.7245551181243,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        6
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.5454843878186026,
+          "max_window_busy_percent": 2.0710059171597632,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.3408884855403778,
+          "max_window_busy_percent": 2.1589793915603535,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 4.144521452252102,
+          "max_window_busy_percent": 4.776119402985074,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.0956968106479303,
+          "max_window_busy_percent": 2.982107355864811,
+          "windows": 5
+        }
+      }
+    }
+  ],
+  "selector_y_n_y_control": [
+    {
+      "label": "y_before",
+      "direction": "down",
+      "duration": 45,
+      "bind_device": "en0",
+      "average_mbps": 1919.5827663113384,
+      "minimum_interval_mbps": 1606.663113883685,
+      "maximum_interval_mbps": 1968.172696735151,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 45,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.8605929296821906,
+          "max_window_busy_percent": 2.4703557312252964,
+          "windows": 4
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.6789959481155352,
+          "max_window_busy_percent": 1.9801980198019802,
+          "windows": 4
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 11.931929417835317,
+          "max_window_busy_percent": 12.887112887112886,
+          "windows": 4
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 4.239557115830971,
+          "max_window_busy_percent": 5.449041372351161,
+          "windows": 4
+        }
+      }
+    },
+    {
+      "label": "n",
+      "direction": "down",
+      "duration": 45,
+      "bind_device": "en0",
+      "average_mbps": 510.82219621370234,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 1986.9929726193657,
+      "zero_intervals": 22,
+      "below_500_intervals": 33,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 22.002014696598053,
+      "sample_count": 45,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.338749334928732,
+          "max_window_busy_percent": 1.6898608349900597,
+          "windows": 4
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 2.283172653558747,
+          "max_window_busy_percent": 2.5540275049115913,
+          "windows": 4
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 4.485943625985448,
+          "max_window_busy_percent": 10.724925521350546,
+          "windows": 4
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 2.2177738739869044,
+          "max_window_busy_percent": 3.229061553985873,
+          "windows": 4
+        }
+      }
+    },
+    {
+      "label": "y_after",
+      "direction": "down",
+      "duration": 45,
+      "bind_device": "en0",
+      "average_mbps": 1945.8885202619467,
+      "minimum_interval_mbps": 1751.0410019455003,
+      "maximum_interval_mbps": 1983.4383676260331,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 45,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.4614130666536542,
+          "max_window_busy_percent": 1.7769002961500493,
+          "windows": 4
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.7960051319476933,
+          "max_window_busy_percent": 2.156862745098039,
+          "windows": 4
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 10.700004171672372,
+          "max_window_busy_percent": 12.118226600985222,
+          "windows": 4
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 4.430408304081933,
+          "max_window_busy_percent": 4.7283702213279675,
+          "windows": 4
+        }
+      }
+    }
+  ],
+  "quiet_retake_readiness": [
+    {
+      "profile": "mlo24_6",
+      "reported_connected_seconds": 60,
+      "stable_samples": 16,
+      "all_expected_links": true
+    },
+    {
+      "profile": "mlo24_5_6",
+      "reported_connected_seconds": 60,
+      "stable_samples": 15,
+      "all_expected_links": true
+    }
+  ],
+  "quiet_retake_trials": [
+    {
+      "label": "mlo24_5_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1903.8056914529911,
+      "minimum_interval_mbps": 1776.9171603513591,
+      "maximum_interval_mbps": 1957.0287958937633,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        7
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.4705076812493534,
+          "max_window_busy_percent": 1.7839444995044598,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.6788251776716276,
+          "max_window_busy_percent": 2.1632251720747298,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 11.100083510595345,
+          "max_window_busy_percent": 11.911911911911911,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 4.345664915394981,
+          "max_window_busy_percent": 4.909819639278557,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo24_5_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1518.7699540479566,
+      "minimum_interval_mbps": 1335.8804095219455,
+      "maximum_interval_mbps": 1787.8489341533593,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        7
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.9083851795869446,
+          "max_window_busy_percent": 3.0753968253968256,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.6164863360897748,
+          "max_window_busy_percent": 1.8682399213372665,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 4.524653167858036,
+          "max_window_busy_percent": 5.96562184024267,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 3.0245925449515143,
+          "max_window_busy_percent": 6.01577909270217,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 1695.039289267836,
+      "minimum_interval_mbps": 6.30709138538274,
+      "maximum_interval_mbps": 1991.2446832087558,
+      "zero_intervals": 0,
+      "below_500_intervals": 7,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 2.954662418001536,
+          "max_window_busy_percent": 3.4414945919370696,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.8074206944601516,
+          "max_window_busy_percent": 2.0568070519098924,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 11.929379587753687,
+          "max_window_busy_percent": 13.676042677012608,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 4.316799306228633,
+          "max_window_busy_percent": 4.709418837675351,
+          "windows": 5
+        }
+      }
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 60,
+      "bind_device": "en0",
+      "average_mbps": 106.742021661593,
+      "minimum_interval_mbps": 13.584728697810581,
+      "maximum_interval_mbps": 178.85274442324072,
+      "zero_intervals": 0,
+      "below_500_intervals": 60,
+      "primary_sequence": [
+        2
+      ],
+      "zero_interval_total_seconds": 0,
+      "sample_count": 60,
+      "sampled_client_link_masks": [
+        5
+      ],
+      "sampled_peer_link_identity_stable": true,
+      "router_cpu_approximately_10_second_windows": {
+        "cpu0": {
+          "mean_window_busy_percent": 1.425478621509366,
+          "max_window_busy_percent": 1.8774703557312253,
+          "windows": 5
+        },
+        "cpu1": {
+          "mean_window_busy_percent": 1.7372507932663546,
+          "max_window_busy_percent": 2.156862745098039,
+          "windows": 5
+        },
+        "cpu2": {
+          "mean_window_busy_percent": 2.5478986550470095,
+          "max_window_busy_percent": 3.081510934393638,
+          "windows": 5
+        },
+        "cpu3": {
+          "mean_window_busy_percent": 3.0333330792173294,
+          "max_window_busy_percent": 3.864734299516908,
+          "windows": 5
+        }
+      }
+    }
+  ],
+  "network": [
+    {
+      "type": "DNS",
+      "name": "example.com",
+      "ok": true,
+      "milliseconds": 12.1,
+      "bound_device": "en0"
+    },
+    {
+      "type": "DNS",
+      "name": "github.com",
+      "ok": true,
+      "milliseconds": 5.14,
+      "bound_device": "en0"
+    },
+    {
+      "type": "DNS",
+      "name": "google.com",
+      "ok": true,
+      "milliseconds": 5.77,
+      "bound_device": "en0"
+    },
+    {
+      "type": "HTTPS",
+      "ok": true,
+      "response": "HTTP/1.1 200 OK",
+      "bound_device": "en0",
+      "tls_certificate_verified": true
+    },
+    {
+      "type": "WAN_ICMP",
+      "sent": 20,
+      "received": 20,
+      "loss_percent": 0.0,
+      "bound_device": "en0"
+    }
+  ],
+  "final_state": {
+    "installed_version": "ubi2-mlo-npu-rx-refill-r71-20261105-tailscale",
+    "kernel_abi": "6.18.59-w1700k-mlo-r70",
+    "config_hashes_preserved": true,
+    "uci_pending_empty": true,
+    "legacy_24_ap_enabled": true,
+    "mlo_5_6_links_enabled": true,
+    "mac_client_links_mask": 6,
+    "ethernet_management_device": "en10",
+    "server_and_proxmox_tcp_ready_via_en10": true,
+    "server_lan_speed_mbps": 2500,
+    "management_lan_speed_mbps": 1000,
+    "wpad_module_hashes_match_image": true,
+    "npu_runtime_version": "0.8",
+    "critical_kernel_errors": [],
+    "no_owned_wifi_rollback_guards_running": true,
+    "tailscale_running_online": true,
+    "wifi_snapshot_service_running": true,
+    "runtime_parameters_restored": true,
+    "nstr_test_peer_empty": true
+  },
+  "wired_observation": {
+    "all_observed_phases": {
+      "r71-build-live-r70": {
+        "samples": 947,
+        "link_checks": 947,
+        "link_failed": 0,
+        "router_checks": 947,
+        "router_failed": 0,
+        "server_checks": 947,
+        "server_failed": 0,
+        "wan_checks": 190,
+        "wan_failed": 0,
+        "proxmox_checks": 190,
+        "proxmox_failed": 0
+      },
+      "install-reboot-r71": {
+        "samples": 47,
+        "link_checks": 47,
+        "link_failed": 2,
+        "router_checks": 47,
+        "router_failed": 21,
+        "server_checks": 47,
+        "server_failed": 20,
+        "wan_checks": 9,
+        "wan_failed": 8,
+        "proxmox_checks": 9,
+        "proxmox_failed": 4
+      },
+      "postinstall": {
+        "samples": 550,
+        "link_checks": 550,
+        "link_failed": 0,
+        "router_checks": 550,
+        "router_failed": 0,
+        "server_checks": 550,
+        "server_failed": 0,
+        "wan_checks": 109,
+        "wan_failed": 0,
+        "proxmox_checks": 109,
+        "proxmox_failed": 0
+      },
+      "early-traffic": {
+        "samples": 118,
+        "link_checks": 118,
+        "link_failed": 0,
+        "router_checks": 118,
+        "router_failed": 0,
+        "server_checks": 118,
+        "server_failed": 0,
+        "wan_checks": 24,
+        "wan_failed": 0,
+        "proxmox_checks": 24,
+        "proxmox_failed": 0
+      },
+      "r71-lowrate-cleanup-diagnostic": {
+        "samples": 104,
+        "link_checks": 104,
+        "link_failed": 0,
+        "router_checks": 104,
+        "router_failed": 0,
+        "server_checks": 104,
+        "server_failed": 0,
+        "wan_checks": 21,
+        "wan_failed": 0,
+        "proxmox_checks": 21,
+        "proxmox_failed": 0
+      },
+      "r71-capped-host-rx-stress": {
+        "samples": 45,
+        "link_checks": 45,
+        "link_failed": 0,
+        "router_checks": 45,
+        "router_failed": 0,
+        "server_checks": 45,
+        "server_failed": 0,
+        "wan_checks": 9,
+        "wan_failed": 0,
+        "proxmox_checks": 9,
+        "proxmox_failed": 0
+      },
+      "r71-matrix": {
+        "samples": 774,
+        "link_checks": 774,
+        "link_failed": 0,
+        "router_checks": 774,
+        "router_failed": 0,
+        "server_checks": 774,
+        "server_failed": 0,
+        "wan_checks": 155,
+        "wan_failed": 0,
+        "proxmox_checks": 155,
+        "proxmox_failed": 0
+      },
+      "idle-wake": {
+        "samples": 584,
+        "link_checks": 584,
+        "link_failed": 0,
+        "router_checks": 584,
+        "router_failed": 0,
+        "server_checks": 584,
+        "server_failed": 0,
+        "wan_checks": 117,
+        "wan_failed": 0,
+        "proxmox_checks": 117,
+        "proxmox_failed": 0
+      },
+      "r71-selector-yny-control": {
+        "samples": 264,
+        "link_checks": 264,
+        "link_failed": 0,
+        "router_checks": 264,
+        "router_failed": 0,
+        "server_checks": 264,
+        "server_failed": 0,
+        "wan_checks": 53,
+        "wan_failed": 0,
+        "proxmox_checks": 53,
+        "proxmox_failed": 0
+      },
+      "r71-selector-restored": {
+        "samples": 291,
+        "link_checks": 291,
+        "link_failed": 0,
+        "router_checks": 291,
+        "router_failed": 0,
+        "server_checks": 291,
+        "server_failed": 0,
+        "wan_checks": 58,
+        "wan_failed": 0,
+        "proxmox_checks": 58,
+        "proxmox_failed": 0
+      },
+      "r71-final-restored": {
+        "samples": 141,
+        "link_checks": 141,
+        "link_failed": 0,
+        "router_checks": 141,
+        "router_failed": 0,
+        "server_checks": 141,
+        "server_failed": 0,
+        "wan_checks": 28,
+        "wan_failed": 0,
+        "proxmox_checks": 28,
+        "proxmox_failed": 0
+      },
+      "r71-quiet-preparation": {
+        "samples": 2,
+        "link_checks": 2,
+        "link_failed": 0,
+        "router_checks": 2,
+        "router_failed": 0,
+        "server_checks": 2,
+        "server_failed": 0,
+        "wan_checks": 1,
+        "wan_failed": 0,
+        "proxmox_checks": 1,
+        "proxmox_failed": 0
+      },
+      "r71-quiet-retake": {
+        "samples": 424,
+        "link_checks": 424,
+        "link_failed": 0,
+        "router_checks": 424,
+        "router_failed": 0,
+        "server_checks": 424,
+        "server_failed": 0,
+        "wan_checks": 85,
+        "wan_failed": 0,
+        "proxmox_checks": 85,
+        "proxmox_failed": 0
+      },
+      "r71-quiet-restored": {
+        "samples": 42,
+        "link_checks": 42,
+        "link_failed": 0,
+        "router_checks": 42,
+        "router_failed": 0,
+        "server_checks": 42,
+        "server_failed": 0,
+        "wan_checks": 8,
+        "wan_failed": 0,
+        "proxmox_checks": 8,
+        "proxmox_failed": 0
+      },
+      "r71-postquiet-final-restored": {
+        "samples": 7,
+        "link_checks": 7,
+        "link_failed": 0,
+        "router_checks": 7,
+        "router_failed": 0,
+        "server_checks": 7,
+        "server_failed": 0,
+        "wan_checks": 1,
+        "wan_failed": 0,
+        "proxmox_checks": 1,
+        "proxmox_failed": 0
+      }
+    },
+    "outside_authorized_install_reboot": {
+      "samples": 4293,
+      "link_checks": 4293,
+      "link_failed": 0,
+      "router_checks": 4293,
+      "router_failed": 0,
+      "server_checks": 4293,
+      "server_failed": 0,
+      "wan_checks": 859,
+      "wan_failed": 0,
+      "proxmox_checks": 859,
+      "proxmox_failed": 0
+    },
+    "r71_post_install_outside_reboot": {
+      "samples": 3346,
+      "link_checks": 3346,
+      "link_failed": 0,
+      "router_checks": 3346,
+      "router_failed": 0,
+      "server_checks": 3346,
+      "server_failed": 0,
+      "wan_checks": 669,
+      "wan_failed": 0,
+      "proxmox_checks": 669,
+      "proxmox_failed": 0
+    },
+    "first_sample_utc": "2026-11-05T09:38:25.677870+00:00",
+    "last_sample_utc": "2026-11-05T10:57:11.855074+00:00",
+    "maximum_sampling_gap_seconds": 204.150975,
+    "gaps_above_5_seconds": 5,
+    "scope": "Observed samples only; the monitor was stopped/restarted once. Sampling gaps are not network-outage evidence."
+  },
+  "limits": [
+    "Initial matrix used 40 seconds from Wi-Fi power-on, not from verified association. Its failures remain recorded.",
+    "Quiet retake requires reported station age >=60s and stable expected link identities; not an atomic scan/per-link association trace.",
+    "Selector N changes odd-TID software routing and disables periodic selection; not an isolated selector identity control.",
+    "Stable sampled peer identities do not exclude off-channel scanning.",
+    "Primary/completion counters do not prove simultaneous multi-link data aggregation or weak-signal fallback.",
+    "Exact native NPU0.8 HOST RX guard is (P+2)%512 DONE; host next-index observer is not native firmware equivalence.",
+    "Bridge offload OFF does not disable NPU firmware. No firmware byte modification or runtime NPU-disable experiment.",
+    "No full OS sleep, overnight, real weak-signal or physical iPhone regression test in this r71 run.",
+    "No critical kernel log match does not establish absence of firmware/radio faults.",
+    "Router CPU windows do not exclude sub-window spikes, client CPU limits or NPU/firmware stalls.",
+    "One bounded cleanup flow and capped host RX test do not prove arbitrary concurrency, OOM liveness or DMA timing."
+  ]
+}
