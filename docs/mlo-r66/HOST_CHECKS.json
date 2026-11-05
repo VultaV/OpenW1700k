@@ -1,0 +1,57 @@
+{
+  "npu_coherent_pool": {
+    "cases": 7,
+    "failed": 0,
+    "source": "actual prepared probe block and release callback",
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "mailbox_regression": {
+    "baseline": {
+      "cases": 145,
+      "failed": 66
+    },
+    "candidate": {
+      "cases": 145,
+      "failed": 0
+    },
+    "baseline_scope": "Synthetic reversal of existing mailbox guard, not a comparison against r65"
+  },
+  "qdma_source_audit": {
+    "qdma_queue_lock_calls": 8,
+    "all_queue_locks_bh": true,
+    "hard_irq_handler_schedules_napi_without_queue_lock": true,
+    "unused_queue_counters_removed": true,
+    "rx_irq_mask_preserved": "0xbb9f",
+    "source_port_mapping_preserved": true
+  },
+  "limits": [
+    "Host fixtures do not emulate hardware allocation, IRQ concurrency or firmware execution. Image DTB layout and hardware pool address still require verification."
+  ],
+  "bridge_offload_regression": {
+    "status": "PASS",
+    "log_summary": [
+      "Ran 22 tests in 70.980s",
+      "",
+      "OK"
+    ]
+  },
+  "dfs_recovery_regression": {
+    "checks": 22,
+    "failed": 0,
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "hostapd_dfs_regression": {
+    "checks": 13,
+    "failed": 0
+  },
+  "compiled_dtb": {
+    "candidate_pool_phandles_ramoops": "PASS_ASAN_UBSAN",
+    "r65_dtb_rejected_for_missing_pool": true
+  }
+}
