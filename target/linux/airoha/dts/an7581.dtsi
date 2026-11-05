@@ -38,6 +38,15 @@
 			record-size = <0x1000>;
 		};
 
+		/* Coherent NPU buffers must stay within its reachable DRAM window. */
+		npu_dma: dma-pool {
+			compatible = "shared-dma-pool";
+			no-map;
+			size = <0x0 0x100000>;
+			alignment = <0x0 0x200000>;
+			alloc-ranges = <0x0 0x80000000 0x0 0x40000000>;
+		};
+
 		qdma0_buf: qdma0-buf@87000000 {
 			no-map;
 			reg = <0x0 0x87000000 0x0 0x2000000>;

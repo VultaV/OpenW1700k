@@ -54,8 +54,8 @@ else
     LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-$(strip $(lastword $(subst -, ,$(LINUX_VERSION))))
   endif
 
-  # Private flow/FDB and KEEP_TTL ABI: reject modules from older images.
-  LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-w1700k-mlo-r32
+  # Private flow/FDB, NPU DMA and QDMA layout ABI: reject older modules.
+  LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-w1700k-mlo-r66
 
   LINUX_KERNEL:=$(KERNEL_BUILD_DIR)/vmlinux
 
