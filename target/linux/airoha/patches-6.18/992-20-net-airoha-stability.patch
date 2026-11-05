@@ -1,6 +1,98 @@
 --- a/drivers/net/ethernet/airoha/airoha_eth.c
 +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-@@ -4338,8 +4338,10 @@
+@@ -984,11 +984,13 @@ static int airoha_qdma_rx_process(struct
+ 					     false);
+ 
+ 		done++;
++		q->count.rx.rx_count++;
+ 		napi_gro_receive(&q->napi, q->skb);
+ 		q->skb = NULL;
+ 		continue;
+ free_frag:
+ 		if (q->skb) {
++			q->count.rx.rx_error_count++;
+ 			dev_kfree_skb(q->skb);
+ 			q->skb = NULL;
+ 		}
+@@ -1248,12 +1250,13 @@ static int airoha_qdma_tx_napi_poll(stru
+ 		q = &qdma->q_tx[qid];
+ 		if (!q->ndesc)
+ 			continue;
++		q->count.tx.tx_count++;
+ 
+ 		index = FIELD_GET(IRQ_DESC_IDX_MASK, val);
+ 		if (index >= q->ndesc)
+ 			continue;
+ 
+-		spin_lock_bh(&q->lock);
++		spin_lock_irq(&q->lock);
+ 
+ 		if (!q->queued)
+ 			goto unlock;
+@@ -1303,7 +1306,7 @@ static int airoha_qdma_tx_napi_poll(stru
+ 		}
+ 
+ unlock:
+-		spin_unlock_bh(&q->lock);
++		spin_unlock_irq(&q->lock);
+ 	}
+ 
+ 	if (done) {
+@@ -1436,7 +1439,7 @@ static void airoha_qdma_tx_cleanup(struc
+ 		if (!q->ndesc)
+ 			continue;
+ 
+-		spin_lock_bh(&q->lock);
++		spin_lock_irq(&q->lock);
+ 
+ 		q->flushing = true;
+ 		for (j = 0; j < q->ndesc; j++) {
+@@ -1481,7 +1484,7 @@ static void airoha_qdma_tx_cleanup(struc
+ 		airoha_qdma_rmw(qdma, REG_TX_DMA_IDX(i), TX_RING_DMA_IDX_MASK,
+ 				FIELD_PREP(TX_RING_DMA_IDX_MASK, index));
+ 
+-		spin_unlock_bh(&q->lock);
++		spin_unlock_irq(&q->lock);
+ 	}
+ }
+ 
+@@ -2672,7 +2675,7 @@ static netdev_tx_t airoha_dev_xmit(struc
+ 	if (WARN_ON_ONCE(!q->ndesc))
+ 		goto error;
+ 
+-	spin_lock_bh(&q->lock);
++	spin_lock_irq(&q->lock);
+ 
+ 	if (q->flushing)
+ 		goto error_unlock;
+@@ -2684,7 +2687,7 @@ static netdev_tx_t airoha_dev_xmit(struc
+ 		/* not enough space in the queue */
+ 		netif_tx_stop_queue(txq);
+ 		q->txq_stopped = true;
+-		spin_unlock_bh(&q->lock);
++		spin_unlock_irq(&q->lock);
+ 		rcu_read_unlock();
+ 
+ 		return NETDEV_TX_BUSY;
+@@ -2751,7 +2754,7 @@ static netdev_tx_t airoha_dev_xmit(struc
+ 				TX_RING_CPU_IDX_MASK,
+ 				FIELD_PREP(TX_RING_CPU_IDX_MASK, index));
+ 
+-	spin_unlock_bh(&q->lock);
++	spin_unlock_irq(&q->lock);
+ 	rcu_read_unlock();
+ 
+ 	return NETDEV_TX_OK;
+@@ -2761,7 +2764,7 @@ error_unmap:
+ 		airoha_unmap_xmit_buf(dev->eth, e);
+ 	list_splice(&tx_list, &q->tx_list);
+ error_unlock:
+-	spin_unlock_bh(&q->lock);
++	spin_unlock_irq(&q->lock);
+ error:
+ 	dev_kfree_skb_any(skb);
+ 	netdev->stats.tx_dropped++;
+@@ -4338,8 +4341,10 @@ static int airoha_en7581_get_dev_from_sp
  
  	*dev = 0;
  	switch (sport) {
@@ -13,7 +105,7 @@
  		break;
  	case 0x2 ... 0x4:
  		*port = sport - 1;
-@@ -4419,8 +4421,10 @@
+@@ -4419,8 +4424,10 @@ static int airoha_an7583_get_dev_from_sp
  
  	*dev = 0;
  	switch (sport) {
@@ -28,7 +120,33 @@
  		*port = sport - 1;
 --- a/drivers/net/ethernet/airoha/airoha_eth.h
 +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-@@ -555,7 +555,7 @@
+@@ -205,6 +205,17 @@ struct airoha_queue_entry {
+ 	u16 dma_len;
+ };
+ 
++union airoha_qdma_count {
++	struct {
++		u32 rx_count;
++		u32 rx_error_count;
++	} rx;
++	struct {
++		u32 tx_count;
++		u32 tx_error_count;
++	} tx;
++};
++
+ struct airoha_queue {
+ 	struct airoha_qdma *qdma;
+ 
+@@ -227,6 +238,7 @@ struct airoha_queue {
+ 	struct sk_buff *skb;
+ 
+ 	struct list_head tx_list;
++	union airoha_qdma_count count;
+ };
+ 
+ struct airoha_tx_irq_queue {
+@@ -552,7 +564,7 @@ struct airoha_wdma_info {
  };
  
  /* RX queue to IRQ mapping: BIT(q) in IRQ(n) */

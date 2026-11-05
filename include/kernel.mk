@@ -55,7 +55,7 @@ else
   endif
 
   # Private flow/FDB, NPU DMA and QDMA layout ABI: reject older modules.
-  LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-w1700k-mlo-r66
+  LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-w1700k-mlo-r67
 
   LINUX_KERNEL:=$(KERNEL_BUILD_DIR)/vmlinux
 
