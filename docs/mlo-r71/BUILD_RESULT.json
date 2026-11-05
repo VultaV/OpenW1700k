@@ -1,0 +1,129 @@
+{
+  "phase": "BUILT_IMAGE_VERIFIED_BEFORE_INSTALLATION",
+  "source_commit": "12518d34d71c20770fcaf5fb45a102a11024969d",
+  "image": "openwrt-ubi2-mlo-npu-rx-refill-r71-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "5b256cbc0ba7e325b4f1ba4ae69af42bb1732f188c7638fb096411252fe4a4a7",
+  "bytes": 30593896,
+  "build": {
+    "command": "gmake -j12 V=s",
+    "exit_code": 0,
+    "seconds": 472.5
+  },
+  "installed": false,
+  "boot_tested": false,
+  "host_checks": {
+    "status": "PASS_ACTUAL_PREPARED_SOURCE",
+    "rx_publication_cases": 50,
+    "baseline_early_publication_reproduced": true,
+    "wrong_endpoint_rejected": true,
+    "existing_npu_rx_tx_groups": 4,
+    "existing_missing_barrier_controls_rejected": true,
+    "reviewed_callers": [
+      "RXinitialization",
+      "NAPIpoll",
+      "genericRXreset"
+    ],
+    "common_kernel_abi": "6.18.59-w1700k-mlo-r70",
+    "unchanged_kernel_ttl_loader_checks_inherited_from": "mlo-r70-20261105",
+    "limits": [
+      "Host model assumes upstream next-index/reserved-slot contract; no actual firmware execution or weak-memory timing proof.",
+      "Initial total allocation failure progress and producer quiescence not proved.",
+      "Causal link to r70per-peer TXstall not established."
+    ],
+    "actual_prepared_source_checked": true
+  },
+  "image_checks": {
+    "status": "PASS",
+    "image": "openwrt-ubi2-mlo-npu-rx-refill-r71-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "5b256cbc0ba7e325b4f1ba4ae69af42bb1732f188c7638fb096411252fe4a4a7",
+    "bytes": 30593896,
+    "payloads": [
+      {
+        "name": "kernel-1",
+        "bytes": 5851422,
+        "sha256": "092707cca2008c5c76aafe3d2dd574fb54275e44d3f7a03e5c5f1a5a77ec050e",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "fdt-1",
+        "bytes": 23046,
+        "sha256": "9b32a37ddc789214bc53f36cabe7baf76ad561caa3434a61f5c6eaa188b96843",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "rootfs-1",
+        "bytes": 24711168,
+        "sha256": "24a1d1fe4eca9d51fbba300b0f42892e27e3bf4ec17f70fdf9ec17a6d6391329",
+        "sha1_crc32_verified": true
+      }
+    ],
+    "fwtool_supported_devices": [
+      "gemtek,w1700k-ubi"
+    ],
+    "compat_version": "2.0",
+    "ubi2_layout_check": "PASS_ASAN_UBSAN",
+    "fit_check_sign_exit_code": 0,
+    "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+    "kernel_module_abi": "6.18.59-w1700k-mlo-r70",
+    "packaged_firmware": {
+      "en7581_MT7996_npu_rv32.bin": {
+        "bytes": 125832,
+        "sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea"
+      },
+      "en7581_MT7996_npu_data.bin": {
+        "bytes": 3092,
+        "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+      }
+    },
+    "packaged_modules_sha256": {
+      "mt76.ko": "c82e8c04e3e4e65506f869b99e085fec4cb69b0d5b83392c3ae525ba4555934c",
+      "mt76-connac-lib.ko": "838e4eb76196439e9989881377fd0f0093dfec3cc00066e91e8865dee10e31c6",
+      "mt7996e.ko": "6e3a6f08abd9bf4f75a197d2d19e6470ea45f6ceafe0985f945947d4a045ad7b",
+      "airoha_npu.ko": "ecb6bcf07451fc83a398181c900cf22b106e201456c4b046a69106f63883d3c8",
+      "airoha-eth.ko": "377bf3f95bc50bcc2e138387eedd8f6dc32e6e215a2b3715d71cd1e1b5d5d3d1",
+      "nf_flow_table.ko": "425fc51508ab8ba6b64b455016ddad26b66162af2913629db4838d84af1dcab7"
+    },
+    "embedded_manifest_matches": true,
+    "private_runtime_state_absent": true,
+    "package_versions_verified": true,
+    "packaged_wpad_sha256": "2e30c67018a5b8805f835290dcf44fcc87a025fcba4d00daee9676f4c205024a",
+    "npu_pool_dtb_layout_checked": true,
+    "only_expected_abi_kernel_modules_packaged": true,
+    "bridge_offload_r67_abi_supported": true,
+    "npu_data_and_wpad_identical_to_r65": true,
+    "wifi_firmware_identical_to_r67": {
+      "mt7996_dsp.bin": {
+        "bytes": 192688,
+        "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d"
+      },
+      "mt7996_eeprom.bin": {
+        "bytes": 7680,
+        "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6"
+      },
+      "mt7996_eeprom_2i5i6i.bin": {
+        "bytes": 7680,
+        "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28"
+      },
+      "mt7996_rom_patch.bin": {
+        "bytes": 37216,
+        "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400"
+      },
+      "mt7996_wa.bin": {
+        "bytes": 510064,
+        "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448"
+      },
+      "mt7996_wm.bin": {
+        "bytes": 2666168,
+        "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+      }
+    },
+    "npu_program_identical_to_stock_r67": true,
+    "kernel_dtb_identical_to_r70": true,
+    "mt76_core_changed_and_three_kernel_modules_match_r70": true
+  },
+  "remaining_risks": [
+    "Open upstreamproposal, not a merge claim.",
+    "Firmware0.8CSR/producercontract and presentstallcausality not fully proved; hostobserver follows proposed ringcontract.",
+    "Initial totalallocationfailure progress, DMAweakmemory/producerquiescence, fullOSsleep/overnight and realweak-signal notproved."
+  ]
+}

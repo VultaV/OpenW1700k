@@ -1,0 +1,21 @@
+{
+  "status": "PASS_ACTUAL_PREPARED_SOURCE",
+  "rx_publication_cases": 50,
+  "baseline_early_publication_reproduced": true,
+  "wrong_endpoint_rejected": true,
+  "existing_npu_rx_tx_groups": 4,
+  "existing_missing_barrier_controls_rejected": true,
+  "reviewed_callers": [
+    "RXinitialization",
+    "NAPIpoll",
+    "genericRXreset"
+  ],
+  "common_kernel_abi": "6.18.59-w1700k-mlo-r70",
+  "unchanged_kernel_ttl_loader_checks_inherited_from": "mlo-r70-20261105",
+  "limits": [
+    "Host model assumes upstream next-index/reserved-slot contract; no actual firmware execution or weak-memory timing proof.",
+    "Initial total allocation failure progress and producer quiescence not proved.",
+    "Causal link to r70per-peer TXstall not established."
+  ],
+  "actual_prepared_source_checked": true
+}

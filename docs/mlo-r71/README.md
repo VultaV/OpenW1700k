@@ -1,0 +1,7 @@
+# r71 — Return NPU RX ring slots after refill
+
+The remaining publication-order part of openwrt/mt76 PR1169 commit105e1b13a25c874fd7d750d28cd06ab05a778921 is backported. Previously dequeue advanced the hardware DMA index while replacement buffers were posted only after the NAPI budget. The guard slot could still be unfilled, or an old buffer could already belong to the network stack. Refill now publishes(head+1)%ndesc after posting replacements; dequeue only advances software state. Existing whole-chain/DONE-read/descriptor andTX ordering fixes remain.
+
+Actual fill/dequeue host observer checks cover50initialization,wrap,partial/zeroallocation andguard-slot cases. The old source fails and the candidate passes; a wrong-index variant is rejected. Four existing RX/TXgroups andmissing-barriercontrols pass. These models use the upstream proposed next-index contract, not actual firmware execution. Initial total allocation failure progress, producer quiescence and the exact cause of r70's per-peerTXstall remain unproved.
+
+mt76r43; kernel/commonABI6.18.59-w1700k-mlo-r70, r70offloadcleanup, exactstockNPU0.8/package0.8-r3, hostapd9 andsixWiFifirmwarefiles remain. There is no new vendorfirmware or byteguard. Build/image/boot/traffic results are separate. r70 had healthyactiveflows but a realidle/posttrafficTXstall; a latergood matrix never erases thatfailure. Weak-signal/fullOSsleep/overnightoperation remains untested.
