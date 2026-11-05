@@ -1,3 +1,5 @@
+> **Runtime failure; not recommended.** r69 reproduced a downlink stall:406Mbps and21 zero intervals/30s on an MLD association with only6GHz active; uplink1808Mbps had none. Same-association offload OFF1064→ON1948Mbps and a subsequent60-second1953Mbps flow were healthy; this does not separate table recreation from starting a new flow. Exact stock r67 was restored with settings/SSH/Tailscale and wired endpoint checks. The guard is withdrawn from the active source; its effect is unproved and its original zero API contract is unknown. The original build record below remains tied to the immutable r69 image.
+
 # r69 — Exact NPU0.8 zero-budget guard
 
 The driver returns to r67 semantics after r68's PEER_MLD runtime regression. All five prepared MT76 files touched by that experiment match the r67 baseline; mt76 package release42 identifies the rebuilt set. The16MiB coherent pool/original QDMA/common ABI6.18.59-w1700k-mlo-r67 and prior DFS fixes remain.

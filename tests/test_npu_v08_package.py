@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Check guarded v0.8 identities and actual loader copying without the old guard."""
+"""Check stock v0.8 identities and actual loader copying without the old guard."""
 import hashlib,pathlib,runpy,subprocess,sys,tempfile
 root=pathlib.Path(__file__).resolve().parents[1]
 h=runpy.run_path(str(root/'tests/test_airoha_npu_budget.py'))
 files=root/'package/firmware/linux-firmware/files/airoha'
 program=files/'en7581_MT7996_npu_rv32.bin';data=files/'en7581_MT7996_npu_data.bin'
-assert hashlib.sha256(program.read_bytes()).hexdigest()=='b821c8f3ac47624a93c833070405ea19c19bcd89ffa7bf57c735550120044e0e'
+assert hashlib.sha256(program.read_bytes()).hexdigest()=='7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea'
 assert hashlib.sha256(data.read_bytes()).hexdigest()=='6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49'
 source=pathlib.Path(sys.argv[1]).read_text()
 funcs='\n'.join(h['function'](source,n) for n in ['airoha_npu_load_firmware','airoha_npu_load_firmware_from_dts','airoha_npu_run_firmware','airoha_npu_rmem_release','airoha_npu_probe'])
@@ -31,7 +31,7 @@ int main(int argc,char **argv) {
   assert(!memcmp(p,p_before,sizeof(p))&&!memcmp(d,d_before,sizeof(d)));
  }
  reset();free(program_io);free(data_io);
- puts("PASS: guarded v0.8 hashes and 2 actual loader/probe cases; file bytes retained, old guard not applicable");
+ puts("PASS: stock v0.8 hashes and 2 actual loader/probe cases; file bytes retained, old guard not applicable");
 }
 '''
 with tempfile.TemporaryDirectory(prefix='npu-v08-') as t:

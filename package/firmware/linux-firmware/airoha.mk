@@ -31,7 +31,7 @@ $(eval $(call BuildPackage,airoha-en7581-npu-firmware))
 
 define Package/airoha-en7581-mt7996-npu-firmware
   $(call Package/firmware-default,Airoha EN7581+MT7996 NPU firmware,,LICENSE.airoha)
-  VERSION:=0.8-r2
+  VERSION:=0.8-r3
 endef
 define Package/airoha-en7581-mt7996-npu-firmware/install
 	$(INSTALL_DIR) $(1)/lib/firmware/airoha
