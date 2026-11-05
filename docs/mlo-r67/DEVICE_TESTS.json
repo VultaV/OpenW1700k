@@ -1,0 +1,533 @@
+{
+  "version": "r67",
+  "source_commit": "ebedcf0066bfff1dc9902bac9bf673bdfcc525c7",
+  "build_tag": "mlo-r67-20261105",
+  "tag_commit": "1cf51481a43d31d5919d360d963787a6ca9bf676",
+  "firmware_sha256": "ed0b0a8d2bc264f2d1e92fb7b9f8822a2848f6dbd60ac772ab184b0d527d5108",
+  "status": "FAILED_24_6_STABILITY_CRITERIA; original settings restored; r68 follow-up pending",
+  "install": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "ed0b0a8d2bc264f2d1e92fb7b9f8822a2848f6dbd60ac772ab184b0d527d5108",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r67",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "npu_runtime_version": "0.8",
+    "lan2_endpoints_ready_bound_en10": true,
+    "seconds_to_ssh": 101.6
+  },
+  "runtime_pool": {
+    "status": "PASS",
+    "pool_base": "0xbf000000",
+    "pool_bytes": 16777216,
+    "alignment_bytes": 2097152,
+    "pool_within_reachable_dram": true,
+    "npu_device_assigned_pool": true,
+    "mailbox_register_read_only": "0x1ec0c030",
+    "observed_mailbox_dma_address": "0xbf000000",
+    "mailbox_address_inside_pool": true,
+    "firmware_version": "0.8",
+    "scope": "Pool assignment and one live mailbox address observed; individual mt76 ring addresses not independently sampled."
+  },
+  "early": [
+    {
+      "label": "early_down",
+      "direction": "down",
+      "duration": 60,
+      "average_mbps": 1835.2252311161283,
+      "minimum_interval_mbps": 1363.282365191481,
+      "maximum_interval_mbps": 1977.444374858143,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    },
+    {
+      "label": "early_up",
+      "direction": "up",
+      "duration": 60,
+      "average_mbps": 1768.80426903495,
+      "minimum_interval_mbps": 1682.2129790818187,
+      "maximum_interval_mbps": 1839.6714699804936,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ]
+    }
+  ],
+  "integrity": {
+    "status": "PASS",
+    "bytes": 33554432,
+    "sha256": "bdf13f686873b212b3f90a68e7cdb80d6885d3f6f62c2c6e65f8e499160c3746",
+    "bound_device": "en0",
+    "ssh_remote_source_matches_wifi_ip": true,
+    "upload_remote_download_hashes_equal": true,
+    "seconds": 4.13,
+    "scope": "Authenticated SSH payloads over Wi-Fi; not a throughput benchmark or exhaustive DMA test."
+  },
+  "matrix": [
+    {
+      "label": "mlo24_5_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1926.3015582665205,
+      "minimum_interval_mbps": 1769.760814399242,
+      "maximum_interval_mbps": 1970.9659399726906,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 446,
+        "received": 446,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_5_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1803.2385334906367,
+      "minimum_interval_mbps": 883.1273556898203,
+      "maximum_interval_mbps": 1887.408600421327,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 445,
+        "received": 445,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_5_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1969.144992635874,
+      "minimum_interval_mbps": 1693.4780575383465,
+      "maximum_interval_mbps": 2022.643183411757,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "wifi_ping": {
+        "sent": 446,
+        "received": 446,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_5_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1794.2178405732066,
+      "minimum_interval_mbps": 1707.4697021377312,
+      "maximum_interval_mbps": 1859.1307886415125,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        1
+      ],
+      "wifi_ping": {
+        "sent": 444,
+        "received": 444,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo24_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 14.376367797169857,
+      "minimum_interval_mbps": 5.240286283777923,
+      "maximum_interval_mbps": 95.34346934955495,
+      "zero_intervals": 0,
+      "below_500_intervals": 90,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 449,
+        "received": 447,
+        "loss_percent": 0.4
+      }
+    },
+    {
+      "label": "mlo24_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 852.8436097304963,
+      "minimum_interval_mbps": 0.0,
+      "maximum_interval_mbps": 917.501265633149,
+      "zero_intervals": 1,
+      "below_500_intervals": 6,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 443,
+        "received": 443,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo5_6_down",
+      "direction": "down",
+      "duration": 90,
+      "average_mbps": 1934.2107300505,
+      "minimum_interval_mbps": 1698.5364089118618,
+      "maximum_interval_mbps": 1985.829672805607,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 446,
+        "received": 446,
+        "loss_percent": 0.0
+      }
+    },
+    {
+      "label": "mlo5_6_up",
+      "direction": "up",
+      "duration": 90,
+      "average_mbps": 1761.776723177524,
+      "minimum_interval_mbps": 1547.698176,
+      "maximum_interval_mbps": 1845.874973743147,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "wifi_ping": {
+        "sent": 444,
+        "received": 444,
+        "loss_percent": 0.0
+      }
+    }
+  ],
+  "offload_same_association": {
+    "links_mask": 5,
+    "same_association_and_wcids": true,
+    "trials": [
+      {
+        "label": "on_before",
+        "direction": "down",
+        "duration": 60,
+        "average_mbps": 1163.1927104748527,
+        "minimum_interval_mbps": 325.096927027969,
+        "maximum_interval_mbps": 1834.421104201384,
+        "zero_intervals": 0,
+        "below_500_intervals": 13,
+        "primary_sequence": [
+          2
+        ]
+      },
+      {
+        "label": "off",
+        "direction": "down",
+        "duration": 60,
+        "average_mbps": 1031.231404608836,
+        "minimum_interval_mbps": 862.3088776012032,
+        "maximum_interval_mbps": 1187.3326223675865,
+        "zero_intervals": 0,
+        "below_500_intervals": 0,
+        "primary_sequence": [
+          2
+        ]
+      },
+      {
+        "label": "on_after",
+        "direction": "down",
+        "duration": 60,
+        "average_mbps": 344.7340364264242,
+        "minimum_interval_mbps": 0.0,
+        "maximum_interval_mbps": 1624.4488214831752,
+        "zero_intervals": 3,
+        "below_500_intervals": 48,
+        "primary_sequence": [
+          2
+        ]
+      }
+    ],
+    "observer": {
+      "zero_intervals_seconds": [
+        [
+          13.003573,
+          14.004461
+        ],
+        [
+          14.004461,
+          15.003564
+        ],
+        [
+          15.003564,
+          16.003562
+        ]
+      ],
+      "ppe_debugfs_read_seconds_after_start": [
+        17.24,
+        32.46
+      ],
+      "interpretation": "Zero intervals predate manual PPE reads; later throughput may still be perturbed. Debugfs reads use SRAM request/ACK polling, not a passive memory-only dump."
+    },
+    "interpretation": "OFF was stable at about1Gbps; ON degraded. This is an experimental clue, not proof of firmware causality. Manual PPE reads followed the zero intervals but may perturb later throughput."
+  },
+  "wired_monitor_by_phase": {
+    "r65-baseline": {
+      "samples": 1067,
+      "link_active": {
+        "checks": 1067,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 1067,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 1067,
+        "failed": 2
+      },
+      "proxmox_ping_ok": {
+        "checks": 214,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 214,
+        "failed": 0
+      }
+    },
+    "install-reboot-r67": {
+      "samples": 48,
+      "link_active": {
+        "checks": 48,
+        "failed": 2
+      },
+      "router_ping_ok": {
+        "checks": 48,
+        "failed": 21
+      },
+      "server_ping_ok": {
+        "checks": 48,
+        "failed": 20
+      },
+      "proxmox_ping_ok": {
+        "checks": 9,
+        "failed": 4
+      },
+      "wan_ping_ok": {
+        "checks": 9,
+        "failed": 8
+      }
+    },
+    "postinstall": {
+      "samples": 141,
+      "link_active": {
+        "checks": 141,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 141,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 141,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 28,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 28,
+        "failed": 0
+      }
+    },
+    "early-traffic": {
+      "samples": 118,
+      "link_active": {
+        "checks": 118,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 118,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 118,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 24,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 24,
+        "failed": 0
+      }
+    },
+    "four-config-matrix": {
+      "samples": 529,
+      "link_active": {
+        "checks": 529,
+        "failed": 7
+      },
+      "router_ping_ok": {
+        "checks": 529,
+        "failed": 8
+      },
+      "server_ping_ok": {
+        "checks": 529,
+        "failed": 8
+      },
+      "proxmox_ping_ok": {
+        "checks": 106,
+        "failed": 2
+      },
+      "wan_ping_ok": {
+        "checks": 106,
+        "failed": 2
+      }
+    },
+    "restored-investigating-lan4-flap": {
+      "samples": 107,
+      "link_active": {
+        "checks": 107,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 107,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 107,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 21,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 21,
+        "failed": 0
+      }
+    },
+    "four-config-matrix-retest": {
+      "samples": 1119,
+      "link_active": {
+        "checks": 1119,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 1119,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 1119,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 224,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 224,
+        "failed": 0
+      }
+    },
+    "offload-isolation": {
+      "samples": 230,
+      "link_active": {
+        "checks": 230,
+        "failed": 0
+      },
+      "router_ping_ok": {
+        "checks": 230,
+        "failed": 0
+      },
+      "server_ping_ok": {
+        "checks": 230,
+        "failed": 0
+      },
+      "proxmox_ping_ok": {
+        "checks": 46,
+        "failed": 0
+      },
+      "wan_ping_ok": {
+        "checks": 46,
+        "failed": 0
+      }
+    },
+    "post-isolation": {
+      "samples": 1591,
+      "link_active": {
+        "checks": 1591,
+        "failed": 15
+      },
+      "router_ping_ok": {
+        "checks": 1591,
+        "failed": 17
+      },
+      "server_ping_ok": {
+        "checks": 1591,
+        "failed": 16
+      },
+      "proxmox_ping_ok": {
+        "checks": 318,
+        "failed": 3
+      },
+      "wan_ping_ok": {
+        "checks": 318,
+        "failed": 3
+      }
+    }
+  },
+  "mac_detach_event": {
+    "kst": "2026-11-05T12:08:50.004+09:00",
+    "reattach_kst": "2026-11-05T12:08:54.968+09:00",
+    "kernel_lan4_flaps_correlated": true,
+    "user_recall": "unknown",
+    "initial_matrix_preserved_but_excluded": true,
+    "do_not_claim_uninterrupted_lan_for_initial_run": true
+  },
+  "final_health": {
+    "installed_version": "ubi2-mlo-npu-dma-only-r67-20261105-tailscale",
+    "kernel_abi": "6.18.59-w1700k-mlo-r67",
+    "config_hashes_preserved": true,
+    "uci_pending_empty": true,
+    "legacy_24_ap_enabled": true,
+    "mlo_5_6_links_enabled": true,
+    "mac_client_links_mask": 6,
+    "ethernet_management_device": "en10",
+    "server_and_proxmox_tcp_ready_via_en10": true,
+    "server_lan_speed_mbps": 2500,
+    "management_lan_speed_mbps": 1000,
+    "wpad_module_hashes_match_image": true,
+    "npu_runtime_version": "0.8",
+    "critical_kernel_errors": [],
+    "no_owned_wifi_rollback_guards_running": true,
+    "tailscale_running_online": true,
+    "wifi_snapshot_service_running": true
+  },
+  "not_performed": [
+    "Long sustained/reconnect/DFS retest deferred after profile failure to prioritize isolation and a source fix.",
+    "True weak-signal fallback at fixed near-AP location.",
+    "Full Mac OS sleep or overnight stability."
+  ],
+  "causality_limits": [
+    "One Mac at one position; not simultaneous multi-link data aggregation proof.",
+    "Coherent pool versus pre-existing MLO behavior is not isolated by a single build.",
+    "r65 also had historical transient TCP stalls; no claim of full resolution.",
+    "NPU0.8 zero-budget defect was found statically later; no runtime-hit attribution in these tests."
+  ]
+}
