@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "actual_stock_loader_probe_cases": 2,
+  "program_sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea",
+  "data_sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49",
+  "stock_program_identical_to_immutable_r67": true,
+  "common_kernel_abi": "6.18.59-w1700k-mlo-r70",
+  "unchanged_kernel_mt76_wpad": false,
+  "candidate_only_test": "Removed from active source; preserved in immutable r69 tag; no assertion that guard improved hardware",
+  "r69_full_runtime_result": "failed downlink stall criteria; separate version-specific record",
+  "unchanged_mt76_wpad_and_forwarding_ttl_sources": true,
+  "offload_setup_host_cases": 13,
+  "baseline_stale_rule_reproduced": true,
+  "negative_controls_rejected": [
+    "missing secondGC",
+    "missing deleteflush"
+  ],
+  "bridge_host_cases": 22,
+  "proposed_kernel_fix": {
+    "source": "https://lore.kernel.org/netfilter-devel/20261026035651.40052-1-plcharriere@gmail.com/",
+    "proposal_not_merge_claim": true,
+    "original_bind_unbind_and_netdev_paths_unchanged": true,
+    "pending_add_and_old_gc_cases": 13,
+    "baseline_stale_rule_reproduced": true,
+    "missing_second_gc_and_delete_flush_negative_controls_rejected": true,
+    "limits": [
+      "Host stubs do not prove real kernel lock/worker or hardware behavior.",
+      "OOM/delete-work allocation failure and arbitrary concurrent network lifecycle not proved.",
+      "Not yet established as the cause of current throughput failures."
+    ]
+  },
+  "forwarding_ttl_source_checks": {
+    "status": "PASS",
+    "structural_passed": 12,
+    "extracted_c": {
+      "passed": 2091,
+      "failed": 0,
+      "scope": "extracted source guards and allocation only"
+    },
+    "limitations": [
+      "Extracted guards only; not a kernel build or full forwarding test.",
+      "IPv4 checksum helper and kernel context are stubs.",
+      "Does not prove PPE bit semantics, packet checksums, or module ABI isolation."
+    ]
+  },
+  "actual_prepared_source_checked": true
+}
