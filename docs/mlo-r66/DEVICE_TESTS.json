@@ -1,0 +1,40 @@
+{
+  "status": "EARLY_CONNECTIVITY_FAILED_AND_ROLLED_BACK",
+  "r66_image_sha256": "e2338a015a0ec7ac2f54edac76fa1aa0bcf6d0c248d2079535774e0a4bfafb02",
+  "installed_and_pool_verified": {
+    "status": "PASS",
+    "pool_base": "0xbf000000",
+    "pool_bytes": 16777216,
+    "alignment_bytes": 2097152,
+    "pool_within_reachable_dram": true,
+    "npu_device_assigned_pool": true,
+    "mailbox_register_read_only": "0x1ec0c030",
+    "observed_mailbox_dma_address": "0xbf000000",
+    "mailbox_address_inside_pool": true,
+    "firmware_version": "0.8",
+    "scope": "Pool assignment and one live mailbox address observed; individual mt76 ring addresses not independently sampled."
+  },
+  "early_test": {
+    "iperf_started": false,
+    "error": "TCP5203 timeout",
+    "wifi_server_ping_sent": 305,
+    "wifi_server_ping_received": 0,
+    "wifi_router_and_wan_ping": true,
+    "wired_and_wifi_proxmox_server_unreachable": true
+  },
+  "rollback": {
+    "recovered": true,
+    "installed_version": "ubi2-mlo-dfs-r65-20261105-tailscale",
+    "kernel_abi": "6.18.59-w1700k-mlo-r32",
+    "image_sha256": "f96a2516380a983e63646a3d0c05d76209d27299b20ba360817a858d9debcdff",
+    "current_settings_retained": true,
+    "ssh_return_seconds": 102.1
+  },
+  "after_r65_recovery": {
+    "proxmox_tcp8006_connect": true,
+    "iperf_tcp5203_connect": true,
+    "router_tcp22_connect": true
+  },
+  "causality": "Temporal correlation reproduced across rollback; combined DMA/QDMA changes are not yet isolated. Next candidate retains DMA but restores original QDMA.",
+  "raw_private_logs": true
+}
