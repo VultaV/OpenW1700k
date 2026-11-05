@@ -1,0 +1,37 @@
+From: Paul-Louis Charriere <plcharriere@gmail.com>
+Subject: [PATCH] netfilter: flowtable: remove hardware flows before unbinding
+
+Backport the 2026-10-26 pre-unbind cleanup proposal to Linux6.18.59.
+Keep the existing BIND/UNBIND/error/netdev lifecycle and drain pending
+hardware work before its callbacks are removed. The second GC handles
+flows skipped while offload work was pending or GC preceded teardown.
+
+This is the proposed pre-unbind fix, not the later hook-release rewrite.
+It does not establish the cause of W1700K MLO throughput stalls.
+
+Link: https://lore.kernel.org/netfilter-devel/20261026035651.40052-1-plcharriere@gmail.com/
+Fixes: 13210fc63f35 ("netfilter: nf_tables: imbalance in flowtable binding")
+Signed-off-by: Paul-Louis Charriere <plcharriere@gmail.com>
+---
+--- a/net/netfilter/nf_flow_table_offload.c
++++ b/net/netfilter/nf_flow_table_offload.c
+@@ -1273,6 +1273,19 @@
+ 	if (!nf_flowtable_hw_offload(flowtable))
+ 		return nf_flow_offload_xdp_setup(flowtable, dev, cmd);
+ 
++	/* Hardware rules are deleted through the block callbacks, so delete
++	 * the rules of this device's flows before unbinding it.  Run the GC
++	 * twice: the first run may skip flows with pending offload work, or
++	 * have started before the teardown.
++	 */
++	if (cmd == FLOW_BLOCK_UNBIND) {
++		nf_flow_table_gc_cleanup(flowtable, dev);
++		mod_delayed_work(system_power_efficient_wq,
++				 &flowtable->gc_work, 0);
++		flush_delayed_work(&flowtable->gc_work);
++		flush_workqueue(nf_flow_offload_del_wq);
++	}
++
+ 	if (dev->netdev_ops->ndo_setup_tc)
+ 		err = nf_flow_table_offload_cmd(&bo, flowtable, dev, cmd,
+ 						&extack);
