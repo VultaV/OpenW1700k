@@ -127,7 +127,7 @@ int main(void) {
     fail_allocation = 0;
     struct sk_buff *skb = mt76_npu_dequeue(&dev, &q, &info);
     assert(skb && skb->len == 20 && skb->shinfo.nr_frags == 1);
-    assert(q.tail == 1 && q.queued == 1 && q.dma_idx == 1);
+    assert(q.tail == 1 && q.queued == 1 && q.dma_idx == 0);
     assert(recycled_page_reuses == 0);
     dev_kfree_skb(skb);
     /* A count exceeding the posted descriptors must not consume anything. */
@@ -462,7 +462,8 @@ with tempfile.TemporaryDirectory(prefix='mt76-npu-rx-test-') as tmp:
         if patched and not args.applied:
             for patch in ('0006-wifi-mt76-npu-preserve-incomplete-rx-chain.patch',
                           '0029-wifi-mt76-npu-publish-rx-buffer-before-ownership.patch',
-                          '0034-wifi-mt76-npu-order-tx-descriptor-publication.patch'):
+                          '0034-wifi-mt76-npu-order-tx-descriptor-publication.patch',
+                          '0048-mt76-npu-return-rx-slots-after-refill.patch'):
                 subprocess.run(['patch', '-s', '-F', '0', '-p1', '-i', str(patches / patch)],
                                cwd=temp, check=True)
         label = 'patched' if patched else 'baseline'

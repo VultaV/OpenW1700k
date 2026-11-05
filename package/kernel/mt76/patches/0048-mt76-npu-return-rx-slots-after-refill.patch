@@ -1,0 +1,35 @@
+From: Florian Maurer <fmaurer@disroot.org>
+Subject: [PATCH] wifi: mt76: return NPU RX slots only after refill
+
+Backport the remaining publication-order part of PR1169 commit
+105e1b13a25c874fd7d750d28cd06ab05a778921. The existing local chain and
+ownership-barrier fixes remain; do not release the ring from dequeue
+while the just-consumed buffers are still owned by the network stack.
+Partial refill advances only to the posted head plus reserved slot.
+
+Link: https://github.com/openwrt/mt76/pull/1169
+Assisted-by: LLM
+Fixes: 7fb554b1b623 ("wifi: mt76: Introduce the NPU generic layer")
+---
+--- a/npu.c
++++ b/npu.c
+@@ -43,6 +43,11 @@
+ 		q->queued++;
+ 		nframes++;
+ 	}
++
++	/* Return slots only after their replacement buffers are posted,
++	 * leaving one reserved slot in front of the producer.
++	 */
++	Q_WRITE(q, dma_idx, (q->head + 1) % q->ndesc);
+ 
+ 	return nframes;
+ }
+@@ -130,7 +135,6 @@
+ 	}
+ 	q->tail = index;
+ 	q->queued -= i;
+-	Q_WRITE(q, dma_idx, q->tail);
+ 
+ 	return skb;
+ }
