@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "image": "openwrt-ubi2-mlo-npu-dma-only-r67-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "ed0b0a8d2bc264f2d1e92fb7b9f8822a2848f6dbd60ac772ab184b0d527d5108",
+  "bytes": 30593895,
+  "payloads": [
+    {
+      "name": "kernel-1",
+      "bytes": 5851423,
+      "sha256": "ae664123ad83af4c47da3fbef8d006af6e35159ee6fd5568085fed793b93eb31",
+      "sha1_crc32_verified": true
+    },
+    {
+      "name": "fdt-1",
+      "bytes": 23046,
+      "sha256": "9b32a37ddc789214bc53f36cabe7baf76ad561caa3434a61f5c6eaa188b96843",
+      "sha1_crc32_verified": true
+    },
+    {
+      "name": "rootfs-1",
+      "bytes": 24711168,
+      "sha256": "250a398eb021b8a69db93bb8c3a3e0de041acaf773eb8a00c5e683d7a4bed9ae",
+      "sha1_crc32_verified": true
+    }
+  ],
+  "fwtool_supported_devices": [
+    "gemtek,w1700k-ubi"
+  ],
+  "compat_version": "2.0",
+  "ubi2_layout_check": "PASS_ASAN_UBSAN",
+  "fit_check_sign_exit_code": 0,
+  "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+  "kernel_module_abi": "6.18.59-w1700k-mlo-r67",
+  "packaged_firmware": {
+    "en7581_MT7996_npu_rv32.bin": {
+      "bytes": 125832,
+      "sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea"
+    },
+    "en7581_MT7996_npu_data.bin": {
+      "bytes": 3092,
+      "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+    }
+  },
+  "packaged_modules_sha256": {
+    "mt76.ko": "0125c97493a409cd52e78e03b0a212ced1e3c2604a688bded9ca483662ddda39",
+    "mt76-connac-lib.ko": "dd6426fdf73862601539b63958f068385518e599ef9be6e1e3fcdccd747430bd",
+    "mt7996e.ko": "12bf6a5bbd5422303007e8853f0ce01ddc01cf2f5db1c6d373dcf7eabc1dbaff",
+    "airoha_npu.ko": "c0e380836c3db6922a5f4d1759967cbb39898c7011dbc66db71c583a1361c479",
+    "airoha-eth.ko": "0c7f9d57ebfecba886ab7cb911d0c2915337268d618fc23517368e13cebb0700"
+  },
+  "embedded_manifest_matches": true,
+  "private_runtime_state_absent": true,
+  "package_versions_verified": true,
+  "packaged_wpad_sha256": "2e30c67018a5b8805f835290dcf44fcc87a025fcba4d00daee9676f4c205024a",
+  "npu_pool_dtb_layout_checked": true,
+  "only_r67_kernel_modules_packaged": true,
+  "bridge_offload_r67_abi_supported": true,
+  "npu_firmware_and_wpad_identical_to_r65": true
+}

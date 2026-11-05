@@ -1,0 +1,58 @@
+{
+  "npu_coherent_pool": {
+    "cases": 7,
+    "failed": 0,
+    "source": "actual r67 prepared probe/release",
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "bridge_offload_regression": {
+    "cases": 22,
+    "failed": 0,
+    "exact_failed_r66_abi_rejected_extra_case": true
+  },
+  "qdma": {
+    "identical_to_tag": "mlo-r65-20261105",
+    "patch_sha256": "1ef92c0ab82d285743a3c2d66fc66dea2189229dcf21165d7e042d1a9584b16b",
+    "reason": "r66 mixed DMA/QDMA change failed initial LAN2 readiness; do not attribute cause yet"
+  },
+  "limits": [
+    "Host fixtures do not emulate DMA/IRQ hardware. Reserved layout passed, installation and runtime pool/readiness are pending."
+  ],
+  "prepared_ethernet_identical_to_r65": {
+    "airoha_eth.c": {
+      "prepared_sha256": "3a3bbc37eb4041c4325d71605a0e8f0acab026dd35f8d4074bda2b6c2f0b4ee4",
+      "r65_saved_sha256": "3a3bbc37eb4041c4325d71605a0e8f0acab026dd35f8d4074bda2b6c2f0b4ee4"
+    },
+    "airoha_eth.h": {
+      "prepared_sha256": "b51a075db92ba18b54c6fd7e1e597362243548e8331abae4a1cbcc41fa21072f",
+      "r65_saved_sha256": "b51a075db92ba18b54c6fd7e1e597362243548e8331abae4a1cbcc41fa21072f"
+    }
+  },
+  "mailbox_regression": {
+    "baseline": {
+      "cases": 145,
+      "failed": 66
+    },
+    "candidate": {
+      "cases": 145,
+      "failed": 0
+    },
+    "baseline_scope": "Synthetic reversal of existing mailbox guard; not r65 comparison"
+  },
+  "dfs_recovery_regression": {
+    "checks": 22,
+    "failed": 0,
+    "source": "r67 prepared mt76, ASan/UBSan"
+  },
+  "hostapd_dfs_regression": {
+    "checks": 13,
+    "failed": 0,
+    "source": "prepared hostapd actual C, ASan/UBSan"
+  },
+  "compiled_dtb": {
+    "pool_phandles_ramoops": "PASS_ASAN_UBSAN"
+  }
+}

@@ -1,5 +1,7 @@
 # r66 — NPU coherent DMA pool and QDMA locking
 
+**FAILED initial LAN2 readiness; recovered r65.** The pool and firmware initialized, but both the iperf server and Proxmox became unreachable even through wired management. Exact r65 recovery restored both. See `DEVICE_TESTS.json`; r66 is not recommended. r67 isolates the coherent pool with the exact r65 QDMA patch.
+
 This build retains r65's tested radio-scoped radar/DFS CSA changes and unchanged NPU0.8 firmware. It adds the complete coherent-pool change from OpenWrt PR25928 at `23d295c6cb760da37e958aec725024bd3f25f527` (unmerged when integrated), plus the smaller community QDMA patch from `e0da9590bbfd937199371b77ab5018d7d2e92fa3`.
 
 The NPU device attaches a16MiB coherent pool inside physical DRAM `0x80000000–0xbfffffff` before allocating the existing924 coherent mailbox buffers. Streaming packet DMA is unchanged; DTS memory-region names/phandles and the binding are updated together. Existing ramoops is retained. The prepared-source tests cover seven optional-pool/error/cleanup cases with ASan/UBSan; they do not emulate DMA hardware.
