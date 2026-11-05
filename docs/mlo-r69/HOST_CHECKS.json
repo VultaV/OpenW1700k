@@ -1,0 +1,67 @@
+{
+  "firmware_guard": {
+    "status": "PASS_BOUNDED_INSTRUCTION_EQUIVALENCE",
+    "source_program_sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea",
+    "candidate_program_sha256": "b821c8f3ac47624a93c833070405ea19c19bcd89ffa7bf57c735550120044e0e",
+    "data_sha256_unchanged": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49",
+    "bands": [
+      0,
+      1,
+      2
+    ],
+    "budgets_per_band": 265,
+    "positive_prefix_states_identical": 792,
+    "zero_prefix_epilogue_states_passed": 3,
+    "actual_success_decrement_blocks_checked": 795,
+    "negative_controls_rejected": [
+      "wrong_program_identity",
+      "wrong_data_identity",
+      "original_is_not_candidate",
+      "wrong_region_byte",
+      "wrong_instruction_fixture"
+    ],
+    "generic_semantics_reused": "Old checker State.load/store/run/snapshot only; all old initializer, identities and offsets excluded",
+    "instruction_fixture_provenance": "Ghidra12.1.4 original/candidate decode at fixture generation; fixed fixture replay plus independent raw branch checks",
+    "input_program_and_data_unchanged": true,
+    "limits": [
+      "Only fixed prefix/epilogue/decrement code runs in a scalar host model. Packet/allocator/DMA/MMIO/IRQ/reset/other-hart behavior is not emulated.",
+      "No actual firmware execution, boot, throughput or causal stall result is established.",
+      "Original vendor zero-means-unlimited API intent and concurrent cached-consumer reset writers are unknown."
+    ]
+  },
+  "actual_loader_probe_cases": {
+    "checks": 2,
+    "failed": 0,
+    "scope": "Current loader/probe with optional pool absent; guarded file bytes retained, old identity guard inactive",
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "coherent_pool_cases": {
+    "checks": 7,
+    "failed": 0,
+    "source": "actual current probe block/release",
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "mlo_backport_regression": {
+    "checks": 20,
+    "failed": 0
+  },
+  "driver_baseline": {
+    "prepared_five_files_identical_to_r67": {
+      "mt76_connac_mcu.h": "203f8290084b762a7984473e16ad7973b0c1184e92873a7b3d186b82fc32678e",
+      "mt7996/main.c": "21ef65b2b4d4053c958b7196bb89b23f719bed5eb59900b039f74938a6d479f6",
+      "mt7996/mcu.c": "4c74b034c5b190b58b59d334b52f9cad8e2c4bd883a211fc9fe7e61adeb02e69",
+      "mt7996/mcu.h": "d21bee474bb3aca3f838775cbf645ab300e74a2515a4fbf0aaacde05fbbd3f23",
+      "mt7996/mt7996.h": "f1a54bd05ab54d46e0ead2225f53c2f327452a0f4b2321c09523600985885574"
+    },
+    "package_release_only_changed_to": 42
+  },
+  "limits": [
+    "Instruction model/host fixtures do not execute actual NPU firmware, emulate IRQ/reset concurrency, or prove MLO stall causality."
+  ]
+}

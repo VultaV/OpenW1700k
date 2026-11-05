@@ -1,0 +1,9 @@
+# r69 — Exact NPU0.8 zero-budget guard
+
+The driver returns to r67 semantics after r68's PEER_MLD runtime regression. All five prepared MT76 files touched by that experiment match the r67 baseline; mt76 package release42 identifies the rebuilt set. The16MiB coherent pool/original QDMA/common ABI6.18.59-w1700k-mlo-r67 and prior DFS fixes remain.
+
+Only four program bytes change in the exact vendor0.8 image: file0xa494,9374f50f→e284e1c5. A reachable caller conditionfree7 passes budget0 after decrement/reservation. Original successful consumption then underflows the budget and can exceed its normal128-item bound. The guarded consumer takes the existing zero-processed epilogue, including its cached-consumer writeback. Positive-budget state is identical. This is not described as a true no-op or as proved safe against concurrent writers. Other callers' zero-means-unlimited contract is unknown.
+
+ProgramSHA b821c8f3ac47624a93c833070405ea19c19bcd89ffa7bf57c735550120044e0e; data remains6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49. Package is0.8-r2; runtime firmware still reports0.8. Verify by file hash and loaded instruction word, not that version string. The kernel's old0.7 identity-specific loader guard remains inactive and does not use these addresses.
+
+The new source test checks exact identity/reverse-vendor hash,4B delta, raw instruction fixture/branch,792 positive states,3 zero epilogues,795 decrement/backedge cases and5 negative controls. Two actual loader/probe copy cases,7 coherent-pool and20 existing MLO tests pass. These are bounded models/host checks. Runtime compatibility, hit count and performance remain separate; no current MLO causality claim is made. Prior r67/R68 failures remain recorded. Weak-signal fallback/full OS sleep/overnight are untested.

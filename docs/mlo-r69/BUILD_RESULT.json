@@ -1,0 +1,179 @@
+{
+  "phase": "immutable pre-install build snapshot; hardware results separate",
+  "source_commit": "d87567e496d602d2dba1cd266bc98c6f2289d0c4",
+  "image": "openwrt-ubi2-mlo-npu-v08-guard-r69-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "2df9193f585cfe5f1f6d7091366e15af7986aeeab26515c0d08367af055c2e6d",
+  "bytes": 30593896,
+  "build": {
+    "command": "gmake -j12 V=s",
+    "exit_code": 0,
+    "seconds": 412.5
+  },
+  "installed": false,
+  "boot_tested": false,
+  "host_checks": {
+    "firmware_guard": {
+      "status": "PASS_BOUNDED_INSTRUCTION_EQUIVALENCE",
+      "source_program_sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea",
+      "candidate_program_sha256": "b821c8f3ac47624a93c833070405ea19c19bcd89ffa7bf57c735550120044e0e",
+      "data_sha256_unchanged": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49",
+      "bands": [
+        0,
+        1,
+        2
+      ],
+      "budgets_per_band": 265,
+      "positive_prefix_states_identical": 792,
+      "zero_prefix_epilogue_states_passed": 3,
+      "actual_success_decrement_blocks_checked": 795,
+      "negative_controls_rejected": [
+        "wrong_program_identity",
+        "wrong_data_identity",
+        "original_is_not_candidate",
+        "wrong_region_byte",
+        "wrong_instruction_fixture"
+      ],
+      "generic_semantics_reused": "Old checker State.load/store/run/snapshot only; all old initializer, identities and offsets excluded",
+      "instruction_fixture_provenance": "Ghidra12.1.4 original/candidate decode at fixture generation; fixed fixture replay plus independent raw branch checks",
+      "input_program_and_data_unchanged": true,
+      "limits": [
+        "Only fixed prefix/epilogue/decrement code runs in a scalar host model. Packet/allocator/DMA/MMIO/IRQ/reset/other-hart behavior is not emulated.",
+        "No actual firmware execution, boot, throughput or causal stall result is established.",
+        "Original vendor zero-means-unlimited API intent and concurrent cached-consumer reset writers are unknown."
+      ]
+    },
+    "actual_loader_probe_cases": {
+      "checks": 2,
+      "failed": 0,
+      "scope": "Current loader/probe with optional pool absent; guarded file bytes retained, old identity guard inactive",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ]
+    },
+    "coherent_pool_cases": {
+      "checks": 7,
+      "failed": 0,
+      "source": "actual current probe block/release",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ]
+    },
+    "mlo_backport_regression": {
+      "checks": 20,
+      "failed": 0
+    },
+    "driver_baseline": {
+      "prepared_five_files_identical_to_r67": {
+        "mt76_connac_mcu.h": "203f8290084b762a7984473e16ad7973b0c1184e92873a7b3d186b82fc32678e",
+        "mt7996/main.c": "21ef65b2b4d4053c958b7196bb89b23f719bed5eb59900b039f74938a6d479f6",
+        "mt7996/mcu.c": "4c74b034c5b190b58b59d334b52f9cad8e2c4bd883a211fc9fe7e61adeb02e69",
+        "mt7996/mcu.h": "d21bee474bb3aca3f838775cbf645ab300e74a2515a4fbf0aaacde05fbbd3f23",
+        "mt7996/mt7996.h": "f1a54bd05ab54d46e0ead2225f53c2f327452a0f4b2321c09523600985885574"
+      },
+      "package_release_only_changed_to": 42
+    },
+    "limits": [
+      "Instruction model/host fixtures do not execute actual NPU firmware, emulate IRQ/reset concurrency, or prove MLO stall causality."
+    ]
+  },
+  "image_checks": {
+    "status": "PASS",
+    "image": "openwrt-ubi2-mlo-npu-v08-guard-r69-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "2df9193f585cfe5f1f6d7091366e15af7986aeeab26515c0d08367af055c2e6d",
+    "bytes": 30593896,
+    "payloads": [
+      {
+        "name": "kernel-1",
+        "bytes": 5851423,
+        "sha256": "ae664123ad83af4c47da3fbef8d006af6e35159ee6fd5568085fed793b93eb31",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "fdt-1",
+        "bytes": 23046,
+        "sha256": "9b32a37ddc789214bc53f36cabe7baf76ad561caa3434a61f5c6eaa188b96843",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "rootfs-1",
+        "bytes": 24711168,
+        "sha256": "5ce3bfae89bf1809b51a957dd4eef0bc866eb810d636d0effdf7eee5b47d95d7",
+        "sha1_crc32_verified": true
+      }
+    ],
+    "fwtool_supported_devices": [
+      "gemtek,w1700k-ubi"
+    ],
+    "compat_version": "2.0",
+    "ubi2_layout_check": "PASS_ASAN_UBSAN",
+    "fit_check_sign_exit_code": 0,
+    "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+    "kernel_module_abi": "6.18.59-w1700k-mlo-r67",
+    "packaged_firmware": {
+      "en7581_MT7996_npu_rv32.bin": {
+        "bytes": 125832,
+        "sha256": "b821c8f3ac47624a93c833070405ea19c19bcd89ffa7bf57c735550120044e0e"
+      },
+      "en7581_MT7996_npu_data.bin": {
+        "bytes": 3092,
+        "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+      }
+    },
+    "packaged_modules_sha256": {
+      "mt76.ko": "0125c97493a409cd52e78e03b0a212ced1e3c2604a688bded9ca483662ddda39",
+      "mt76-connac-lib.ko": "dd6426fdf73862601539b63958f068385518e599ef9be6e1e3fcdccd747430bd",
+      "mt7996e.ko": "12bf6a5bbd5422303007e8853f0ce01ddc01cf2f5db1c6d373dcf7eabc1dbaff",
+      "airoha_npu.ko": "c0e380836c3db6922a5f4d1759967cbb39898c7011dbc66db71c583a1361c479",
+      "airoha-eth.ko": "0c7f9d57ebfecba886ab7cb911d0c2915337268d618fc23517368e13cebb0700"
+    },
+    "embedded_manifest_matches": true,
+    "private_runtime_state_absent": true,
+    "package_versions_verified": true,
+    "packaged_wpad_sha256": "2e30c67018a5b8805f835290dcf44fcc87a025fcba4d00daee9676f4c205024a",
+    "npu_pool_dtb_layout_checked": true,
+    "only_expected_abi_kernel_modules_packaged": true,
+    "bridge_offload_r67_abi_supported": true,
+    "npu_data_and_wpad_identical_to_r65": true,
+    "wifi_firmware_identical_to_r67": {
+      "mt7996_dsp.bin": {
+        "bytes": 192688,
+        "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d"
+      },
+      "mt7996_eeprom.bin": {
+        "bytes": 7680,
+        "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6"
+      },
+      "mt7996_eeprom_2i5i6i.bin": {
+        "bytes": 7680,
+        "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28"
+      },
+      "mt7996_rom_patch.bin": {
+        "bytes": 37216,
+        "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400"
+      },
+      "mt7996_wa.bin": {
+        "bytes": 510064,
+        "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448"
+      },
+      "mt7996_wm.bin": {
+        "bytes": 2666168,
+        "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+      }
+    },
+    "npu_program_guard_delta_verified": {
+      "bytes": 4,
+      "file_offset": "0xa494",
+      "original_bytes": "9374f50f",
+      "guarded_bytes": "e284e1c5"
+    },
+    "kernel_and_dtb_identical_to_r67": true
+  },
+  "remaining_risks": [
+    "Vendor zero-means-unlimited API convention outside known callers",
+    "Concurrent writer/reset of cached consumer state",
+    "Causal link to observed MLO stalls",
+    "Actual NPU execution/performance/branch hit and overnight are not established by host checks."
+  ]
+}
