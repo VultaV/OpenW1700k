@@ -1,0 +1,130 @@
+{
+  "phase": "immutable pre-install build publication snapshot; actual device results separate",
+  "image": "openwrt-ubi2-mlo-peer-mld-r68-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "4912b42d4fc32000cfe6392bf129e4f61c1c193445a31d08ed6b172c87e4615a",
+  "bytes": 30593891,
+  "source_commit": "27277fde72ddd6f24dc3448bf558ff97793dbfde",
+  "build": {
+    "command": "gmake -j12 V=s",
+    "exit_code": 0,
+    "seconds": 402.6,
+    "prior_mt76_compile_seconds": 374.8
+  },
+  "installed": false,
+  "boot_tested": false,
+  "host_checks": {
+    "peer_mld": {
+      "checks": 99,
+      "failed": 0,
+      "source": "actual r68 prepared C serializers, caller and packed header structures",
+      "sanitizers": [
+        "ASan",
+        "UBSan"
+      ]
+    },
+    "existing_mlo_backports": {
+      "checks": 20,
+      "failed": 0,
+      "note": "Invoked internally by new harness; count once"
+    },
+    "baseline_reversal": {
+      "checks": 3,
+      "expected_failures": 2,
+      "scope": "Reverse only fixed firmware association index; fixture fails setup and primary WCID after host data-link change"
+    },
+    "limits": [
+      "MCU transport/mac80211 selection/IRQ/locking/firmware remain fixtures. Runtime command acceptance and performance are pending."
+    ]
+  },
+  "image_checks": {
+    "status": "PASS",
+    "image": "openwrt-ubi2-mlo-peer-mld-r68-20261105-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+    "sha256": "4912b42d4fc32000cfe6392bf129e4f61c1c193445a31d08ed6b172c87e4615a",
+    "bytes": 30593891,
+    "payloads": [
+      {
+        "name": "kernel-1",
+        "bytes": 5851423,
+        "sha256": "ae664123ad83af4c47da3fbef8d006af6e35159ee6fd5568085fed793b93eb31",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "fdt-1",
+        "bytes": 23046,
+        "sha256": "9b32a37ddc789214bc53f36cabe7baf76ad561caa3434a61f5c6eaa188b96843",
+        "sha1_crc32_verified": true
+      },
+      {
+        "name": "rootfs-1",
+        "bytes": 24711168,
+        "sha256": "cc7db52e7ccd51017ac5a5bd8f3822460593ba8a97647753d573ca2497c2b443",
+        "sha1_crc32_verified": true
+      }
+    ],
+    "fwtool_supported_devices": [
+      "gemtek,w1700k-ubi"
+    ],
+    "compat_version": "2.0",
+    "ubi2_layout_check": "PASS_ASAN_UBSAN",
+    "fit_check_sign_exit_code": 0,
+    "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+    "kernel_module_abi": "6.18.59-w1700k-mlo-r67",
+    "packaged_firmware": {
+      "en7581_MT7996_npu_rv32.bin": {
+        "bytes": 125832,
+        "sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea"
+      },
+      "en7581_MT7996_npu_data.bin": {
+        "bytes": 3092,
+        "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+      }
+    },
+    "packaged_modules_sha256": {
+      "mt76.ko": "0125c97493a409cd52e78e03b0a212ced1e3c2604a688bded9ca483662ddda39",
+      "mt76-connac-lib.ko": "dd6426fdf73862601539b63958f068385518e599ef9be6e1e3fcdccd747430bd",
+      "mt7996e.ko": "65ccff47eddc2f80920ba4e9292f2f6381e9805516c8a5382131bee3869dcf8d",
+      "airoha_npu.ko": "c0e380836c3db6922a5f4d1759967cbb39898c7011dbc66db71c583a1361c479",
+      "airoha-eth.ko": "0c7f9d57ebfecba886ab7cb911d0c2915337268d618fc23517368e13cebb0700"
+    },
+    "embedded_manifest_matches": true,
+    "private_runtime_state_absent": true,
+    "package_versions_verified": true,
+    "packaged_wpad_sha256": "2e30c67018a5b8805f835290dcf44fcc87a025fcba4d00daee9676f4c205024a",
+    "npu_pool_dtb_layout_checked": true,
+    "only_expected_abi_kernel_modules_packaged": true,
+    "bridge_offload_r67_abi_supported": true,
+    "npu_firmware_and_wpad_identical_to_r65": true,
+    "wifi_firmware_identical_to_r67": {
+      "mt7996_dsp.bin": {
+        "bytes": 192688,
+        "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d"
+      },
+      "mt7996_eeprom.bin": {
+        "bytes": 7680,
+        "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6"
+      },
+      "mt7996_eeprom_2i5i6i.bin": {
+        "bytes": 7680,
+        "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28"
+      },
+      "mt7996_rom_patch.bin": {
+        "bytes": 37216,
+        "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400"
+      },
+      "mt7996_wa.bin": {
+        "bytes": 510064,
+        "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448"
+      },
+      "mt7996_wm.bin": {
+        "bytes": 2666168,
+        "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+      }
+    }
+  },
+  "remaining_risks": [
+    "Runtime PEER_MLD command compatibility not yet tested.",
+    "No causal claim for r67 MLO throughput failures.",
+    "NPU0.8 zero-budget guard is NOT applied in this build.",
+    "True weak-signal/full sleep/overnight not tested."
+  ]
+}

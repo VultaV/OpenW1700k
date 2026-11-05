@@ -1,0 +1,24 @@
+{
+  "peer_mld": {
+    "checks": 99,
+    "failed": 0,
+    "source": "actual r68 prepared C serializers, caller and packed header structures",
+    "sanitizers": [
+      "ASan",
+      "UBSan"
+    ]
+  },
+  "existing_mlo_backports": {
+    "checks": 20,
+    "failed": 0,
+    "note": "Invoked internally by new harness; count once"
+  },
+  "baseline_reversal": {
+    "checks": 3,
+    "expected_failures": 2,
+    "scope": "Reverse only fixed firmware association index; fixture fails setup and primary WCID after host data-link change"
+  },
+  "limits": [
+    "MCU transport/mac80211 selection/IRQ/locking/firmware remain fixtures. Runtime command acceptance and performance are pending."
+  ]
+}
