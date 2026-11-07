@@ -1,0 +1,258 @@
+{
+  "version": "r72",
+  "date": "2026-11-08",
+  "source_commit": "8e4d25a332",
+  "build_tag": "mlo-r72-20261108",
+  "build_tag_commit": "6ad7da164f04fd92c54ba67153197b96f3a2f023",
+  "overall_verdict": "Installed and bounded restoration/traffic checks passed. The intermittent MLO stall remains unresolved.",
+  "install": {
+    "installed": true,
+    "boot_tested": true,
+    "image_sha256": "87181d65092f54ea27a7e29911df726a2826eac7fbee9d5126a34bbcfaf95325",
+    "board": "gemtek,w1700k-ubi",
+    "kernel_abi": "6.18.59-w1700k-mlo-r72",
+    "wpad_modules_npu_hashes_match_image": true,
+    "config_hashes_preserved": true,
+    "ssh_key_retained": true,
+    "tailscale_running_online": true,
+    "tailscale_node_identity_preserved": true,
+    "npu_runtime_version": "0.8",
+    "lan2_endpoints_ready_bound_en10": true,
+    "seconds_to_ssh": 102.6
+  },
+  "restored_layout": {
+    "main_ssid": "OpenWrt_5G",
+    "mlo_bands_ghz": [
+      5,
+      6
+    ],
+    "standalone_ssid": "OpenWrt_2G",
+    "standalone_band_ghz": 2.4,
+    "temporary_5ghz_compat_removed": true,
+    "config_baseline": "Five configuration files captured after the requested layout restoration; network, wireless, dhcp, firewall and bridge-flow-offload retained across installation.",
+    "dns_scope": "LAN and Tailscale interfaces; previous DNS fix retained."
+  },
+  "mac_wifi_traffic": [
+    {
+      "label": "default-down",
+      "direction": "down",
+      "duration": 30,
+      "bind_device": "en0",
+      "average_mbps": 1970.977429087202,
+      "minimum_interval_mbps": 1883.068591236168,
+      "maximum_interval_mbps": 2022.030071238729,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "sample_count": 30,
+      "sampled_client_link_masks": [
+        6
+      ]
+    },
+    {
+      "label": "default-up",
+      "direction": "up",
+      "duration": 30,
+      "bind_device": "en0",
+      "average_mbps": 1827.96487015199,
+      "minimum_interval_mbps": 1791.9930991775586,
+      "maximum_interval_mbps": 1884.8676518491693,
+      "zero_intervals": 0,
+      "below_500_intervals": 0,
+      "primary_sequence": [
+        2
+      ],
+      "sample_count": 30,
+      "sampled_client_link_masks": [
+        6
+      ]
+    }
+  ],
+  "authenticated_wifi_integrity": {
+    "status": "PASS",
+    "bytes": 33554432,
+    "sha256": "362c5984cc1bb0b7c88877e91a28e987dfd620dedeb70e979012073b03c13ef5",
+    "bound_device": "en0",
+    "ssh_remote_source_matches_wifi_ip": true,
+    "upload_remote_download_hashes_equal": true,
+    "seconds": 4.21,
+    "scope": "Authenticated SSH payloads over Wi-Fi; not a throughput benchmark or exhaustive DMA test."
+  },
+  "network_checks": {
+    "mlo5-6": [
+      {
+        "type": "DNS",
+        "name": "example.com",
+        "ok": true,
+        "milliseconds": 10.42,
+        "bound_device": "en0"
+      },
+      {
+        "type": "DNS",
+        "name": "github.com",
+        "ok": true,
+        "milliseconds": 10.41,
+        "bound_device": "en0"
+      },
+      {
+        "type": "DNS",
+        "name": "google.com",
+        "ok": true,
+        "milliseconds": 7.68,
+        "bound_device": "en0"
+      },
+      {
+        "type": "HTTPS",
+        "ok": true,
+        "response": "HTTP/1.1 200 OK",
+        "bound_device": "en0",
+        "tls_certificate_verified": true
+      },
+      {
+        "type": "WAN_ICMP",
+        "sent": 20,
+        "received": 20,
+        "loss_percent": 0.0,
+        "bound_device": "en0"
+      }
+    ],
+    "single24": [
+      {
+        "type": "DNS",
+        "name": "example.com",
+        "ok": true,
+        "milliseconds": 8.07,
+        "bound_device": "en0"
+      },
+      {
+        "type": "DNS",
+        "name": "github.com",
+        "ok": true,
+        "milliseconds": 5.71,
+        "bound_device": "en0"
+      },
+      {
+        "type": "DNS",
+        "name": "google.com",
+        "ok": true,
+        "milliseconds": 4.75,
+        "bound_device": "en0"
+      },
+      {
+        "type": "HTTPS",
+        "ok": true,
+        "response": "HTTP/1.1 200 OK",
+        "bound_device": "en0",
+        "tls_certificate_verified": true
+      },
+      {
+        "type": "WAN_ICMP",
+        "sent": 20,
+        "received": 20,
+        "loss_percent": 0.0,
+        "bound_device": "en0"
+      }
+    ]
+  },
+  "single24_initial_setup_attempt": {
+    "association_verified": false,
+    "internet_test_run": false,
+    "retry": "Repeated only the 2.4 GHz phase with the current router credentials; association, DNS, TLS and WAN checks then passed. Mac returned to the original MLO AP.",
+    "interpretation": "Retained harness setup failure; not evidence that firmware or radio failed."
+  },
+  "final_health": {
+    "installed_version": "ubi2-mlo-thermal-r72-20261108-tailscale",
+    "kernel_abi": "6.18.59-w1700k-mlo-r72",
+    "config_hashes_preserved": true,
+    "uci_pending_empty": true,
+    "legacy_24_ap_enabled": true,
+    "mlo_5_6_links_enabled": true,
+    "mac_client_links_mask": 6,
+    "ethernet_management_device": "en10",
+    "server_and_proxmox_tcp_ready_via_en10": true,
+    "server_lan_speed_mbps": 2500,
+    "management_lan_speed_mbps": 1000,
+    "wpad_module_hashes_match_image": true,
+    "npu_runtime_version": "0.8",
+    "critical_kernel_errors": [],
+    "no_owned_wifi_rollback_guards_running": true,
+    "tailscale_running_online": true,
+    "wifi_snapshot_service_running": true,
+    "runtime_parameters_restored": true,
+    "nstr_test_peer_empty": true,
+    "cpu_thermal_millicelsius": 61800,
+    "temporary_5ghz_AP_absent": true,
+    "DNS_LAN_Tailscale_scope_preserved": true
+  },
+  "wired_observation": {
+    "started_utc": "2026-11-07T16:13:56.456112+00:00",
+    "ended_utc": "2026-11-07T17:16:47.738054+00:00",
+    "span_seconds": 3771.28,
+    "max_sampling_gap_seconds": 5.08,
+    "phases": {
+      "r72-build": 814,
+      "install-reboot-r72": 45,
+      "postinstall": 2336,
+      "r72-postinstall-traffic": 146,
+      "r72-postinstall": 282
+    },
+    "outside_authorized_install_reboot": {
+      "samples": 3578,
+      "link_active": {
+        "samples": 3578,
+        "failures": 0
+      },
+      "router_ping_ok": {
+        "samples": 3578,
+        "failures": 0
+      },
+      "server_ping_ok": {
+        "samples": 3578,
+        "failures": 0
+      },
+      "wan_ping_ok": {
+        "samples": 716,
+        "failures": 0
+      },
+      "proxmox_ping_ok": {
+        "samples": 716,
+        "failures": 0
+      }
+    },
+    "authorized_install_reboot": {
+      "samples": 45,
+      "link_active": {
+        "samples": 45,
+        "failures": 2
+      },
+      "router_ping_ok": {
+        "samples": 45,
+        "failures": 21
+      },
+      "server_ping_ok": {
+        "samples": 45,
+        "failures": 21
+      },
+      "wan_ping_ok": {
+        "samples": 9,
+        "failures": 8
+      },
+      "proxmox_ping_ok": {
+        "samples": 9,
+        "failures": 4
+      }
+    },
+    "monitor_stopped": true,
+    "scope": "Discrete wired probes, including r71 build-time and r72 postinstall observations; not proof of service between samples."
+  },
+  "limits": [
+    "Mac Wi-Fi only in this r72 traffic check; no new iPhone throughput run.",
+    "30 seconds per direction; no full mixed-band matrix, full OS sleep, weak-signal transition or overnight stability claim.",
+    "Existing MLO per-peer TX stalls remain unresolved; successful bounded runs do not erase earlier failures.",
+    "Thermal source ordering and live temperature verified; hardware interrupt injection, probe failure and driver unbind not exercised.",
+    "GPIO PR26508 deferred for W1700K pin/boot validation.",
+    "Three inherited feed recursive-dependency messages and ignored U-Boot empty-package cleanup error remain documented."
+  ]
+}

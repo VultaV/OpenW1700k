@@ -8,4 +8,4 @@ The source-order check rejects the old driver and accepts the patched driver. Th
 
 Three inherited feed recursive-dependency messages and the inherited ignored U-Boot empty-package cleanup error remain recorded. GPIO PR26508 is deferred pending board-specific pin and boot validation. Hardware interrupt injection and driver unbind were not exercised.
 
-Device installation and traffic checks are pending at initial publication. Subsequent results belong in DEVICE_REPORT.md and DEVICE_TESTS.json.
+Device installation and bounded checks subsequently passed: see [DEVICE_REPORT.md](DEVICE_REPORT.md), [DEVICE_TESTS.json](DEVICE_TESTS.json) and DEVICE_SHA256SUMS. The requested 5+6 GHz MLO and separate 2.4 GHz layout is restored, with the temporary compatibility AP removed. Mac Wi-Fi download/upload averaged 1971/1828 Mbps for 30 seconds each without zero intervals. Both APs passed DNS/TLS/WAN checks. The intermittent MLO fault remains unresolved. Initial release build assets remain unchanged and describe the build-time snapshot.
