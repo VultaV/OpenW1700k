@@ -42,7 +42,7 @@ reject() {
 validate() {
 	local port master value tables line details
 	case "$(uname -r)" in
-		6.18.44-w1700k-mlo-r30|6.18.44-w1700k-mlo-r32|6.18.55-w1700k-mlo-r32|6.18.59-w1700k-mlo-r32|6.18.59-w1700k-mlo-r67|6.18.59-w1700k-mlo-r70) :;;
+		6.18.44-w1700k-mlo-r30|6.18.44-w1700k-mlo-r32|6.18.55-w1700k-mlo-r32|6.18.59-w1700k-mlo-r32|6.18.59-w1700k-mlo-r67|6.18.59-w1700k-mlo-r70|6.18.59-w1700k-mlo-r72) :;;
 		*) reject 'unvalidated kernel TTL behavior'; return 1;;
 	esac
 	[ "$(cat /tmp/sysinfo/board_name 2>/dev/null)" = 'gemtek,w1700k-ubi' ] || { reject 'unvalidated board'; return 1; }

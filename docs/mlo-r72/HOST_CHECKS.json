@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "old_source_rejected": true,
+  "patched_source_passes": true,
+  "IRQ_registered_in_post_probe_after_zone_and_drvdata": true,
+  "ADC_monitor_setup_preserved": true,
+  "patch_applies_without_fuzz": true,
+  "source_scope": "Source ordering checks, followed by the native kernel build. Hardware interrupt injection and driver unbind are not tested.",
+  "upstream": "https://github.com/torvalds/linux/commit/7efceedd23678cd58e98b2c64d4b2b7be03f6cf9",
+  "patch_sha256": "dde88f3929276f0b3584fab833c3fe297c43ca485121ddc22f0df05025caf49b",
+  "bridge_flow_offload_tests": 22,
+  "bridge_flow_offload_status": "PASS"
+}

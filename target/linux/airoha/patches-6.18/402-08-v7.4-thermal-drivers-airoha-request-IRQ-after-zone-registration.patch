@@ -1,0 +1,69 @@
+From 7efceedd23678cd58e98b2c64d4b2b7be03f6cf9 Mon Sep 17 00:00:00 2001
+From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Subject: [PATCH] thermal/drivers/airoha: Request the EN7581 IRQ after zone registration
+
+Registering the IRQ before the thermal zone allows a pending monitor
+interrupt to dereference priv->tz before it is initialized. Request it
+in post_probe, after zone registration and platform_set_drvdata(). This
+also makes devres release the IRQ before the zone on unbind.
+
+Backport to the local 6.18.59 thermal driver, retaining its IRQ error
+message. The ADC and monitor initialization remain in the early probe.
+
+Fixes: 42de37f40e1b ("thermal/drivers: Add support for Airoha EN7581 thermal sensor")
+Upstream: https://github.com/torvalds/linux/commit/7efceedd23678cd58e98b2c64d4b2b7be03f6cf9
+Link: https://github.com/openwrt/openwrt/pull/26337
+Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
+---
+--- a/drivers/thermal/airoha_thermal.c
++++ b/drivers/thermal/airoha_thermal.c
+@@ -524,7 +524,7 @@ static int en7581_thermal_probe(struct p
+ 	struct device_node *chip_scu_np;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *base;
+-	int i, irq, ret;
++	int i;
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+@@ -563,6 +563,18 @@ static int en7581_thermal_probe(struct p
+ 	of_address_to_resource(chip_scu_np, 0, &priv->scu_adc_res);
+ 	of_node_put(chip_scu_np);
+ 
++	en7581_thermal_setup_monitor(priv);
++	en7581_thermal_setup_adc_val(dev, priv);
++
++	return 0;
++}
++
++static int en7581_thermal_post_probe(struct platform_device *pdev)
++{
++	struct airoha_thermal_priv *priv = platform_get_drvdata(pdev);
++	int irq, ret;
++
++	/* The handler uses priv->tz, which is registered before post_probe. */
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
+@@ -574,20 +586,10 @@ static int en7581_thermal_probe(struct p
+ 					pdev->name, priv);
+ 	if (ret) {
+-		dev_err(dev, "Can't get interrupt working.\n");
++		dev_err(&pdev->dev, "Can't get interrupt working.\n");
+ 		return ret;
+ 	}
+ 
+-	en7581_thermal_setup_monitor(priv);
+-	en7581_thermal_setup_adc_val(dev, priv);
+-
+-	return 0;
+-}
+-
+-static int en7581_thermal_post_probe(struct platform_device *pdev)
+-{
+-	struct airoha_thermal_priv *priv = platform_get_drvdata(pdev);
+-
+ 	/* Enable LOW and HIGH interrupt (if supported) */
+ 	regmap_write(priv->map, EN7581_TEMPMONINT,
+ 		     EN7581_HOFSINTEN0 | EN7581_LOFSINTEN0);
