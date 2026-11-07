@@ -1,0 +1,9 @@
+{
+  "command": "gmake -j12 V=s",
+  "exit_code": 0,
+  "seconds": 594.5,
+  "native_thermal_object_built": true,
+  "prepared_source_matches_checked_candidate": true,
+  "inherited_feed_recursive_dependency_warnings": 3,
+  "inherited_ignored_uboot_empty_package_cleanup_error": true
+}

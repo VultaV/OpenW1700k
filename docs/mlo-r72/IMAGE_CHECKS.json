@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "image": "openwrt-ubi2-mlo-thermal-r72-20261108-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "87181d65092f54ea27a7e29911df726a2826eac7fbee9d5126a34bbcfaf95325",
+  "bytes": 30593890,
+  "payloads": [
+    {
+      "name": "kernel-1",
+      "bytes": 5851236,
+      "sha256": "e31f82d92da0a3a773b874e08efcd77149c5a87ab5cbd293f9c4857e54b43f02",
+      "sha1_crc32_verified": true
+    },
+    {
+      "name": "fdt-1",
+      "bytes": 23046,
+      "sha256": "9b32a37ddc789214bc53f36cabe7baf76ad561caa3434a61f5c6eaa188b96843",
+      "sha1_crc32_verified": true
+    },
+    {
+      "name": "rootfs-1",
+      "bytes": 24711168,
+      "sha256": "56f5fec6cbc3d9f8524a1ee143982eed6b54a5a01c05eb056ba892be0893f1de",
+      "sha1_crc32_verified": true
+    }
+  ],
+  "fwtool_supported_devices": [
+    "gemtek,w1700k-ubi"
+  ],
+  "compat_version": "2.0",
+  "ubi2_layout_check": "PASS_ASAN_UBSAN",
+  "fit_check_sign_exit_code": 0,
+  "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+  "kernel_module_abi": "6.18.59-w1700k-mlo-r72",
+  "packaged_firmware": {
+    "en7581_MT7996_npu_rv32.bin": {
+      "bytes": 125832,
+      "sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea"
+    },
+    "en7581_MT7996_npu_data.bin": {
+      "bytes": 3092,
+      "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+    }
+  },
+  "packaged_modules_sha256": {
+    "mt76.ko": "bd5c8ef0fc7a8a6d1aae1714a8bc793ee4d819c645c6105ade140ce85e157284",
+    "mt76-connac-lib.ko": "244cc9e63fecd7296662b3e193c5955689132cc2f8260ba5ac0893a9a070f00b",
+    "mt7996e.ko": "96b7b0df3d5f475074ba41e36e037eaba415c440f28a4fd89577d5cf8adf621d",
+    "airoha_npu.ko": "9a19d4eaaabf273461f4cfc8683ef23404064413fd543611e1acef8e1025cd53",
+    "airoha-eth.ko": "9b2f0c48c8f3aa55944cd3fdd2783222fb55c3a7b782f167ad29f81d40b1fc0a",
+    "nf_flow_table.ko": "51daf9129e7c96d14abea10716c822ac6c8d75231a0054dfc0c145b65b702108"
+  },
+  "embedded_manifest_matches": true,
+  "private_runtime_state_absent": true,
+  "package_versions_verified": true,
+  "packaged_wpad_sha256": "2e30c67018a5b8805f835290dcf44fcc87a025fcba4d00daee9676f4c205024a",
+  "npu_pool_dtb_layout_checked": true,
+  "only_expected_abi_kernel_modules_packaged": true,
+  "bridge_offload_r72_abi_supported": true,
+  "npu_data_and_wpad_identical_to_r65": true,
+  "wifi_firmware_identical_to_r67": {
+    "mt7996_dsp.bin": {
+      "bytes": 192688,
+      "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d"
+    },
+    "mt7996_eeprom.bin": {
+      "bytes": 7680,
+      "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6"
+    },
+    "mt7996_eeprom_2i5i6i.bin": {
+      "bytes": 7680,
+      "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28"
+    },
+    "mt7996_rom_patch.bin": {
+      "bytes": 37216,
+      "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400"
+    },
+    "mt7996_wa.bin": {
+      "bytes": 510064,
+      "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448"
+    },
+    "mt7996_wm.bin": {
+      "bytes": 2666168,
+      "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+    }
+  },
+  "npu_program_identical_to_stock_r67": true,
+  "dtb_identical_to_r71": true,
+  "kernel_changed_from_r71": true,
+  "native_prepared_thermal_source_matches_checked_candidate": true
+}
