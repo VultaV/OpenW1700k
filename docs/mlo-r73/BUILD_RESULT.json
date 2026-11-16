@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "built": true,
+  "first_full_build": {
+    "command": "gmake -j12 V=s",
+    "exit_code": 2,
+    "seconds": 650.0,
+    "failure": "Cached gpio-button-hotplug APK required the r72 kernel ABI."
+  },
+  "recovery": "Cleaned and rebuilt gpio-button-hotplug for the r73 ABI, then reran the full build.",
+  "successful_full_build": {
+    "command": "gmake -j12 V=s",
+    "exit_code": 0,
+    "seconds": 537.7
+  },
+  "inherited_messages": {
+    "defconfig_recursive_dependency_diagnostics": 3,
+    "ignored_uboot_empty_package_cleanup_error": 1
+  },
+  "image_check_status": "PASS",
+  "hardware": {
+    "flashed": false,
+    "boot_tested": false,
+    "mlo_tested": false
+  }
+}

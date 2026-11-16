@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "txfree_word_span_host_cases": 10,
+  "eml_capability_host_profiles": 5,
+  "bridge_flow_offload_tests": 22,
+  "dfs_dispatcher_fixed_cases": 216,
+  "npu_loader_cases": 2,
+  "npu_rx_tx_groups": 4,
+  "npu_refill_publication_cases": 50,
+  "mt7996_active_link_regression": "PASS",
+  "mac80211_subsys_485_through_490_prepared_and_compiled": true,
+  "checked_build_inputs": "r72 source and feed file hashes plus r73 source changes",
+  "limits": [
+    "Host tests cover source behavior and selected contracts.",
+    "No on-device boot, radio traffic, DMA timing or iPhone stall recovery result."
+  ]
+}
