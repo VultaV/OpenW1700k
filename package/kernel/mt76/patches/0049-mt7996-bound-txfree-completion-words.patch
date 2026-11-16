@@ -1,0 +1,48 @@
+Subject: [PATCH] wifi: mt76: mt7996: bound TX completion words
+
+Backport the length checks from the community partial TXFREE fix at
+https://github.com/OpenWRT-fanboy/OpenW1700k/commit/aa332819f707311fd99e945d1bb6e293211812c4
+
+Keep the existing partial-batch cleanup and the RX caller's skb
+linearization. End the word range at the last complete dword, including
+for the optional version 7 pair word.
+
+---
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -1459,11 +1459,16 @@
+ 	struct mt76_wcid *wcid = NULL;
+ 	LIST_HEAD(free_list);
+ 	struct sk_buff *skb, *tmp;
+-	void *end = data + len;
++	__le32 *end;
+ 	bool wake = false;
+ 	u32 free_info = 0;
+ 	u16 total, count = 0;
+ 	u8 ver;
++
++	if (len < 2 * (int)sizeof(*tx_free))
++		return;
++
++	end = tx_free + len / sizeof(*tx_free);
+ 
+ 	/* clean DMA queues and unmap buffers first */
+ 	mt76_queue_tx_cleanup(dev, dev->mphy.q_tx[MT_TXQ_PSD], false);
+@@ -1486,7 +1491,7 @@
+ 		u32 msdu, info;
+ 		u8 i;
+ 
+-		if ((void *)cur_info >= end)
++		if (cur_info >= end)
+ 			break;
+ 		/* 1'b1: new wcid pair.
+ 		 * 1'b0: msdu_id with the same 'wcid pair' as above.
+@@ -1510,7 +1515,7 @@
+ 				goto next;
+ next:
+ 			/* ver 7 has a new DW with pair = 1, skip it */
+-			if (ver == 7 && ((void *)(cur_info + 1) < end) &&
++			if (ver == 7 && cur_info + 1 < end &&
+ 			    (le32_to_cpu(*(cur_info + 1)) & MT_TXFREE_INFO_PAIR))
+ 				cur_info++;
+ 			continue;
