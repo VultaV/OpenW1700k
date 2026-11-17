@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "built_source_commit": "708381770678e3d45c0d0a249b973c20e230fa70",
+  "host_go": "1.27.4",
+  "phases": [
+    {
+      "targets": [
+        "defconfig"
+      ],
+      "exit_code": 0,
+      "seconds": 11.17
+    },
+    {
+      "targets": [
+        "package/feeds/packages/golang1.27/host/compile"
+      ],
+      "exit_code": 0,
+      "seconds": 121.39
+    },
+    {
+      "targets": [
+        "package/feeds/packages/tailscale/compile"
+      ],
+      "exit_code": 0,
+      "seconds": 605.23
+    },
+    {
+      "targets": [
+        "package/install"
+      ],
+      "exit_code": 0,
+      "seconds": 28.71
+    },
+    {
+      "targets": [
+        "target/install"
+      ],
+      "exit_code": 0,
+      "seconds": 14.8
+    },
+    {
+      "targets": [
+        "package/base-files/compile"
+      ],
+      "exit_code": 0,
+      "seconds": 327.97
+    },
+    {
+      "targets": [
+        "package/install"
+      ],
+      "exit_code": 0,
+      "seconds": 16.05
+    },
+    {
+      "targets": [
+        "target/install"
+      ],
+      "exit_code": 0,
+      "seconds": 12.04
+    }
+  ],
+  "first_image_rejected": "Root filesystem carried the cached r73 release label. Rebuilt base-files, root filesystem and image.",
+  "build_warnings": "The inherited feed configuration reported three Kconfig recursive dependency diagnostics during defconfig. Defconfig returned exit code 0 and changed only the selected firmware label.",
+  "final_image_verification": "PASS",
+  "hardware_installation_tested": false
+}
