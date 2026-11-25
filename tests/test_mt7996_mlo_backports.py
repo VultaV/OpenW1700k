@@ -21,10 +21,17 @@ prefix=r'''
 #include <string.h>
 typedef uint8_t u8;
 #define WLAN_CIPHER_SUITE_CCMP 1
+#define WLAN_CIPHER_SUITE_CCMP_256 2
+#define WLAN_CIPHER_SUITE_GCMP 3
+#define WLAN_CIPHER_SUITE_GCMP_256 4
+#define WLAN_CIPHER_SUITE_AES_CMAC 5
+#define WLAN_CIPHER_SUITE_BIP_CMAC_256 6
+#define WLAN_CIPHER_SUITE_BIP_GMAC_128 7
+#define WLAN_CIPHER_SUITE_BIP_GMAC_256 8
 struct mt76_dev {};
 struct ieee80211_key_conf { int cipher; u8 pn[6]; };
-struct ieee80211_key_seq { struct { u8 pn[6]; } ccmp; };
-static void ieee80211_get_key_rx_seq(struct ieee80211_key_conf *key,int tid,struct ieee80211_key_seq *seq) { memcpy(seq->ccmp.pn,key->pn,6); }
+struct ieee80211_key_seq { struct { u8 pn[6]; } ccmp, gcmp; };
+static void ieee80211_get_key_rx_seq(struct ieee80211_key_conf *key,int tid,struct ieee80211_key_seq *seq) { memcpy(seq->ccmp.pn,key->pn,6); memcpy(seq->gcmp.pn,key->pn,6); }
 #define RX_FLAG_DECRYPTED 1
 #define RX_FLAG_ONLY_MONITOR 2
 #define RX_FLAG_8023 4
@@ -34,7 +41,7 @@ static void ieee80211_get_key_rx_seq(struct ieee80211_key_conf *key,int tid,stru
 #define IEEE80211_QOS_CTL_TID_MASK 15
 #define BUILD_BUG_ON(x) do { _Static_assert(!(x),"size"); } while(0)
 struct mt76_wcid { bool rx_check_pn,sta; u8 rx_key_pn[17][6]; struct mt76_wcid *def_wcid; u8 link_id; };
-struct mt76_rx_status { unsigned flag; struct mt76_wcid *wcid; unsigned qos_ctl; u8 iv[6]; };
+struct mt76_rx_status { unsigned flag; struct mt76_wcid *wcid; unsigned qos_ctl; u8 iv[6]; bool skip_pn_check; };
 struct ieee80211_hdr { unsigned frame_control,seq_ctrl; };
 struct sk_buff { union { struct mt76_rx_status status; unsigned char cb[128]; }; struct ieee80211_hdr hdr; unsigned priority,protocol; };
 static struct ieee80211_hdr *mt76_skb_get_hdr(struct sk_buff *s) { return &s->hdr; }
@@ -73,7 +80,8 @@ else:
  # Baseline callers seed every link instead of just enabling the check.
  link_setup='static void mt76_wcid_key_link_setup(struct mt76_wcid *w,struct ieee80211_key_conf *k) { mt76_wcid_key_setup(0,w,k); }'
  key_setup,link_setup=link_setup,key_setup
-body=prefix+'\n'+primary+'\n'+link_setup+'\n'+key_setup+'\n'+extract(core,'mt76_check_ccmp_pn')
+helpers=cut(header,'static inline bool\nmt76_key_has_rx_pn','static inline void\nmt76_wcid_key_link_setup') if 'mt76_key_has_rx_pn' in header else ''
+body=prefix+'\n'+primary+'\n'+helpers+'\n'+link_setup+'\n'+key_setup+'\n'+extract(re.sub(r'^void(?=\s+mt76_check_ccmp_pn)', 'static void', core, flags=re.M),'mt76_check_ccmp_pn')
 body+='''
 static u8 tx_link(bool encap,bool mlo,u8 own,unsigned priority) {
  struct mt7996_dev d={}; struct mt7996_dev *dev=&d;
@@ -129,6 +137,24 @@ int main(void) {
  assert(peer.rx_key_pn[0][5]==20&&(frame(&b,0,19)&RX_FLAG_ONLY_MONITOR));
  mt76_wcid_key_setup(0,&peer,&key);
  assert(frame(&b,0,6)&RX_FLAG_PN_VALIDATED);
+ for (int cipher=1; cipher<=4; cipher++) {
+  key.cipher=cipher; key.pn[5]=5; mt76_wcid_key_setup(0,&peer,&key);
+  assert(peer.rx_check_pn && peer.rx_key_pn[0][5]==5 && peer.rx_key_pn[16][5]==5);
+  assert(frame(&a,0,20)&RX_FLAG_PN_VALIDATED);
+  for (int bip=5; bip<=8; bip++) {
+   struct ieee80211_key_conf integrity={.cipher=bip};
+   mt76_wcid_key_setup(0,&peer,&integrity);
+   assert(peer.rx_check_pn && peer.rx_key_pn[0][5]==20);
+   assert(frame(&b,0,19)&RX_FLAG_ONLY_MONITOR);
+  }
+ }
+ struct sk_buff reordered={}; reordered.status.wcid=&a;
+ reordered.status.flag=RX_FLAG_8023|RX_FLAG_DECRYPTED|RX_FLAG_IV_STRIPPED;
+ reordered.status.iv[5]=21;
+ mt76_check_ccmp_pn(&reordered); assert(reordered.status.flag&RX_FLAG_PN_VALIDATED);
+ reordered.status.skip_pn_check=true;
+ mt76_check_ccmp_pn(&reordered); assert(!(reordered.status.flag&RX_FLAG_ONLY_MONITOR));
+ mt76_wcid_key_setup(0,&peer,0);assert(!peer.rx_check_pn);
  printf("MLO backports: %d checks, %d failed\n",checks,failed);
  return failed ? 1 : 0;
 }

@@ -1,0 +1,1340 @@
+diff --git a/cmd/uow/main.go b/cmd/uow/main.go
+index a423c7a..a7a7a07 100644
+--- a/cmd/uow/main.go
++++ b/cmd/uow/main.go
+@@ -205,10 +205,11 @@ func main() {
+ 			log.Fatal(err)
+ 		}
+ 	}
+-	if *apAddr == "local" { // the daemon runs on the AP: logread is ours
++	manageAP := ap != nil && *apply
++	if manageAP && *apAddr == "local" { // the daemon runs on the AP: logread is ours
+ 		go syslogForwarder(x, *stateDir)
+ 	}
+-	if portalListen != "" {
++	if manageAP && portalListen != "" {
+ 		if x.S.GuestToken == "" {
+ 			t, err := device.NewGuestToken()
+ 			if err != nil {
+@@ -258,8 +259,10 @@ func main() {
+ 					info.Authorized[m] = true
+ 				}
+ 			}
+-			shapeReconcile(ap, s)
+-			minRSSIKick(ap, s)
++			if manageAP {
++				shapeReconcile(ap, s)
++				minRSSIKick(ap, s)
++			}
+ 			f := s.Fields(prev, info, radioCaps)
+ 			scans.fields(f, s, info)
+ 			prev = s
+@@ -326,10 +329,10 @@ func main() {
+ 	lastHealth := time.Now()
+ 	x.RestoreFromMgmtCfg()
+ 	ledCfgPath = filepath.Join(*stateDir, "system_cfg.txt")
+-	if ap != nil {
++	if manageAP {
+ 		ledUpdate(ap, x) // flashing white until the controller answers
+ 	}
+-	if ap != nil && *apply && *ftOn && *apAddr == "local" {
++	if manageAP && *ftOn && *apAddr == "local" {
+ 		loadFTPeers(filepath.Join(*stateDir, "ft_peers.json"))
+ 		startFT(ap, *ftVerbose)
+ 		defer closeFT()
+@@ -361,7 +364,7 @@ func main() {
+ 		cfgBefore := x.S.CfgVersion
+ 		liveInformURL.Store(x.S.InformURL)
+ 		next, ok := informOnce(x, client, statePath)
+-		if ap != nil && time.Since(lastFT) >= 15*time.Second {
++		if ftRelay != nil && time.Since(lastFT) >= 15*time.Second {
+ 			lastFT = time.Now()
+ 			if updateFTPeers(scans.siblingFT()) {
+ 				log.Printf("FT: the other APs of a WLAN offer fast roaming for other key types than this AP: planning again")
+@@ -369,14 +372,14 @@ func main() {
+ 			}
+ 			syncFT(ap)
+ 		}
+-		if ap != nil && *apply && ok && !next.ServerTime.IsZero() && time.Since(clockChecked) >= time.Minute {
++		if manageAP && ok && !next.ServerTime.IsZero() && time.Since(clockChecked) >= time.Minute {
+ 			clockChecked = time.Now()
+ 			checkClock(ap, &clockGuard, next.ServerTime)
+ 		}
+ 		if ok && !ledStarted {
+ 			ledStarted = true
+ 		}
+-		if ap != nil {
++		if manageAP {
+ 			for _, a := range next.Actions {
+ 				runAction(ap, x, a)
+ 			}
+@@ -386,11 +389,11 @@ func main() {
+ 			lastBan = time.Time{} // a wifi reload drops hostapd's bans
+ 			scans.rrmSoon()       // ... and its neighbour lists
+ 		}
+-		if ap != nil {
++		if manageAP {
+ 			ledUpdate(ap, x)
+ 			scans.background(ap)
+ 		}
+-		if ap != nil && len(x.S.Blocked) > 0 && time.Since(lastBan) >= openwrt.BanTime/3 {
++		if manageAP && len(x.S.Blocked) > 0 && time.Since(lastBan) >= openwrt.BanTime/3 {
+ 			if err := ap.EnforceBlocked(x.S.Blocked); err != nil {
+ 				log.Printf("blocked clients: %v", err)
+ 			} else {
+diff --git a/internal/device/session.go b/internal/device/session.go
+index 5bf036c..d6aa624 100644
+--- a/internal/device/session.go
++++ b/internal/device/session.go
+@@ -172,11 +172,16 @@ func (x *Session) Payload(now time.Time) ([]byte, error) {
+ 		m["state"] = 4 // device-side "managed"; the controller does not read it
+ 		m["x_aes_gcm"] = x.S.GCM
+ 		m["bootrom_version"] = "unknown"
+-		m["sys_stats"] = map[string]any{
+-			"loadavg_1": "0.05", "loadavg_5": "0.04", "loadavg_15": "0.01",
+-			"mem_total": 129130496, "mem_used": 64565248, "mem_buffer": 4194304,
++		// AC-Pro defaults only where the real AP (Extra) reported nothing
++		if _, ok := m["sys_stats"]; !ok {
++			m["sys_stats"] = map[string]any{
++				"loadavg_1": "0.05", "loadavg_5": "0.04", "loadavg_15": "0.01",
++				"mem_total": 129130496, "mem_used": 64565248, "mem_buffer": 4194304,
++			}
++		}
++		if _, ok := m["radio_table_stats"]; !ok {
++			m["radio_table_stats"] = radioStats(d.Radios)
+ 		}
+-		m["radio_table_stats"] = radioStats(d.Radios)
+ 	}
+ 	return json.Marshal(m)
+ }
+diff --git a/internal/device/session_test.go b/internal/device/session_test.go
+index 92cf93a..b4ba8e0 100644
+--- a/internal/device/session_test.go
++++ b/internal/device/session_test.go
+@@ -303,3 +303,28 @@ func TestRawReplyHidesSecrets(t *testing.T) {
+ 		t.Errorf("a secret is in the raw reply: %q", all)
+ 	}
+ }
++
++// Adoption must not swap the real AP's stats for the AC-Pro defaults.
++func TestAdoptedKeepsRealStats(t *testing.T) {
++	x := newSession(t)
++	x.Extra = func() map[string]any {
++		return map[string]any{
++			"sys_stats":         map[string]any{"mem_total": 1896046592},
++			"radio_table_stats": []map[string]any{{"name": "wifi0", "num_sta": 1}, {"name": "wifi1", "num_sta": 1}, {"name": "wifi2", "num_sta": 0}},
++		}
++	}
++	x.ApplyAdopt(AdoptRequest{URL: "http://192.168.1.1:8080/inform", Key: newKey})
++	js, _ := x.Payload(time.Now())
++	var m struct {
++		Sys struct {
++			MemTotal int64 `json:"mem_total"`
++		} `json:"sys_stats"`
++		Stats []struct {
++			NumSta int `json:"num_sta"`
++		} `json:"radio_table_stats"`
++	}
++	json.Unmarshal(js, &m)
++	if m.Sys.MemTotal != 1896046592 || len(m.Stats) != 3 || m.Stats[0].NumSta+m.Stats[1].NumSta != 2 {
++		t.Fatalf("adopted payload replaced real stats: %+v", m)
++	}
++}
+diff --git a/internal/models/catalog.json b/internal/models/catalog.json
+index 310d282..6f2a5fa 100644
+--- a/internal/models/catalog.json
++++ b/internal/models/catalog.json
+@@ -760,9 +760,9 @@
+   },
+   {
+    "model": "UAPA697",
+-   "display": "UAPA697",
++   "display": "E7",
+    "version": "8.6.11.18870",
+-   "gen": 0,
++   "gen": 7,
+    "radios": [
+     {
+      "band": "ng",
+@@ -772,13 +772,13 @@
+     },
+     {
+      "band": "na",
+-     "nss": 2,
++     "nss": 4,
+      "min_tx": 5,
+      "max_tx": 29
+     },
+     {
+      "band": "6e",
+-     "nss": 2,
++     "nss": 4,
+      "min_tx": 5,
+      "max_tx": 29
+     }
+diff --git a/internal/models/models_test.go b/internal/models/models_test.go
+index dbf1dc1..4519969 100644
+--- a/internal/models/models_test.go
++++ b/internal/models/models_test.go
+@@ -30,6 +30,18 @@ func TestSuggest(t *testing.T) {
+ 	}
+ }
+ 
++func TestE7Catalog(t *testing.T) {
++	m, ok := Lookup("UAPA697")
++	if !ok || m.Display != "E7" || m.Gen != 7 || m.Bands() != "ng+na+6e" {
++		t.Fatalf("E7 identity or bands: %+v", m)
++	}
++	for i, want := range []int{2, 4, 4} {
++		if got := m.Radios[i].NSS; got != want {
++			t.Errorf("%s: NSS %d, want %d", m.Radios[i].Band, got, want)
++		}
++	}
++}
++
+ func TestRearUplinkPort(t *testing.T) {
+ 	for code, want := range map[string]int{"U6IW": 5, "U6ENTIW": 5, "U7IW": 3, "U7PG2": 0} {
+ 		m, ok := Lookup(code)
+diff --git a/internal/openwrt/collect.go b/internal/openwrt/collect.go
+index 47faef7..dca3f1a 100644
+--- a/internal/openwrt/collect.go
++++ b/internal/openwrt/collect.go
+@@ -118,6 +118,7 @@ const collectScript = `
+ echo "=== board"; ubus call system board
+ echo "=== info"; ubus call system info
+ echo "=== route"; ip route show default
++echo "=== countries"; iw reg get | awk '$1 == "country" { sub(/:$/, "", $2); print $2 }'
+ echo "=== cpu"; head -1 /proc/stat
+ echo "=== arp"; cat /proc/net/arp
+ for i in $(ubus call iwinfo devices | jsonfilter -e '@.devices[*]'); do
+@@ -127,7 +128,23 @@ for i in $(ubus call iwinfo devices | jsonfilter -e '@.devices[*]'); do
+   echo "=== assoc $i"; ubus call iwinfo assoclist "{\"device\":\"$i\"}"
+   echo "=== hostapd $i"; ubus call hostapd.$i get_clients 2>/dev/null
+   echo "=== txpw $i"; ubus call iwinfo txpowerlist "{\"device\":\"$i\"}"
+-  echo "=== ant $i"; iw phy $p info | grep 'Available Antennas'
++  echo "=== ant $i"; iw phy $p info | awk '
++    /Available Antennas/ { print }
++    $1 == "Band" { band = $2; ap = 0 }
++    $2 == "Iftypes:" { ap = $0 ~ /(^|[ ,])AP([ ,]|$)/ }
++    /Supported Channel Width: 160 MHz/ || (ap && /HE160\/5GHz/) { w160[band] = 1 }
++    ap && /320MHz in 6GHz Supported/ { w320[band] = 1 }
++    band == "4:" && $1 == "*" && $3 == "MHz" && $2 >= 5925 && $2 <= 7125 && !/disabled|no IR|radar detection/ { usable6 = 1 }
++    $2 == "streams:" && $3 == "MCS" && $1+0 > n[band]+0 { n[band] = $1 }
++    END { for (b in n) print "band", b, n[b]
++          for (b in w160) print "width", b, 160
++          for (b in w320) print "width", b, 320
++          if (usable6) print "usable", "4:", "6g" }'
++  echo "=== channels $i"; iw dev "$i" info | grep -E 'channel [0-9]|txpower'
++  echo "=== mld $i"; for l in $(iw dev "$i" info | awk '$2 == "link" && $3 == "ID" { print $4 }'); do
++    hostapd_cli -i "$i" -l "$l" status | grep -E '^(freq|ieee80211(ac|ax|be)|bssid\[0\])=' | sed "s/^/$l /"
++    hostapd_cli -i "$i" -l "$l" list_sta | sed "s/^/$l sta=/"
++  done
+   echo "=== survey $i"; iw dev $i survey dump | grep -A6 'in use'
+   echo "=== stats $i"; for f in rx_bytes tx_bytes rx_packets tx_packets rx_errors tx_errors rx_dropped tx_dropped; do printf '%s=%s\n' $f $(cat /sys/class/net/$i/statistics/$f); done
+ done
+@@ -140,6 +157,7 @@ for e in $(ls /sys/class/net); do
+   for f in rx_bytes tx_bytes rx_packets tx_packets; do printf '%s=%s\n' $f $(cat /sys/class/net/$e/statistics/$f); done
+   b=$(readlink /sys/class/net/$e/brport/bridge 2>/dev/null)
+   [ "${b##*/}" = br-lan ] && printf 'brport=%s\n' $(cat /sys/class/net/$e/brport/port_no)
++  echo "=== port-link $e"; ubus call network.device status "{\"name\":\"$e\"}" 2>/dev/null
+ done
+ echo "=== fdb"; hexdump -v -e '6/1 "%02x" 1/1 " %u" 1/1 " %u" 1/4 " %u" 1/1 " %u" 3/1 "" "\n"' /sys/class/net/br-lan/brforward 2>/dev/null
+ echo "=== lldp"; lldpctl -f json0 2>/dev/null || true
+@@ -164,6 +182,7 @@ type Snapshot struct {
+ 	IP       string
+ 	Netmask  string
+ 	Gateway  string
++	Country  string // effective kernel country, when all reported domains agree
+ 	Radios   []Radio
+ 	Ports    []Port
+ 	ARP      map[string]string // mac -> ip
+@@ -191,25 +210,26 @@ type FDBEntry struct {
+ }
+ 
+ type Radio struct {
+-	Iface, Phy  string
+-	Section     string // UCI wifi-device (radio0, ...) from network.wireless status
+-	Mode        string // iwinfo mode: "Master" (AP), "Client" (STA: mesh uplink), ...
+-	Band        string // "ng" (2.4 GHz) or "na" (5 GHz)
+-	SSID, BSSID string
+-	Channel     int
+-	Width       int // MHz
+-	TxPower     int
+-	TxMin       int
+-	TxMax       int
+-	Noise       int
+-	NSS         int
+-	HWName      string
+-	Encryption  string
+-	VHT, HE     bool // hardware supports 802.11ac / ax
+-	W160        bool // hardware supports 160 MHz (iwinfo htmodes)
+-	Survey      Survey
+-	Stats       map[string]int64
+-	Stations    []Station
++	Iface, Phy   string
++	Section      string // UCI wifi-device (radio0, ...) from network.wireless status
++	Mode         string // iwinfo mode: "Master" (AP), "Client" (STA: mesh uplink), ...
++	Band         string // "ng" (2.4 GHz) or "na" (5 GHz)
++	SSID, BSSID  string
++	Channel      int
++	Width        int // MHz
++	TxPower      int
++	TxMin        int
++	TxMax        int
++	Noise        int
++	NSS          int
++	HWName       string
++	Encryption   string
++	VHT, HE, EHT bool // hardware supports 802.11ac / ax / be
++	W160, W320   bool // hardware supports the width on this band
++	Usable6      bool // 6 GHz spectrum available for an AP under current regulatory rules
++	Survey       Survey
++	Stats        map[string]int64
++	Stations     []Station
+ 	// VAPs: on a phy-level Radio, one entry per AP interface on that radio
+ 	// (each carries its own SSID, BSSID, Stats, Stations).
+ 	VAPs []Radio
+@@ -230,12 +250,12 @@ type Station struct {
+ 	RxPackets, TxPackets int64
+ 	RxRate, TxRate       int // kbit/s
+ 	TxRetries, TxFailed  int64
+-	// HT, VHT, HE: 802.11n/ac/ax as hostapd negotiated them at association
++	// HT, VHT, HE, EHT: 802.11n/ac/ax/be as hostapd negotiated them at association
+ 	// or as the current rates show them, whichever says yes
+-	HT, VHT, HE bool
+-	MHz         int
+-	NSS         int // spatial streams of the current rates (the more of rx/tx), 0 = legacy rates
+-	TxMCS       int // MCS index of the tx rate, -1 = a legacy rate
++	HT, VHT, HE, EHT bool
++	MHz              int
++	NSS              int // spatial streams of the current rates (the more of rx/tx), 0 = legacy rates
++	TxMCS            int // MCS index of the tx rate, -1 = a legacy rate
+ }
+ 
+ type Port struct {
+@@ -245,6 +265,7 @@ type Port struct {
+ 	RxBytes, TxBytes int64
+ 	RxPkts, TxPkts   int64
+ 	BridgePort       int // port number in br-lan, 0 = not a br-lan member
++	link             portLink
+ }
+ 
+ // sortVAPs puts a radio's AP interfaces before its uplink (client)
+@@ -274,6 +295,13 @@ func (cl *Client) Collect() (*Snapshot, error) {
+ func Parse(out []byte, now time.Time) (*Snapshot, error) {
+ 	secs := sections(out)
+ 	s := &Snapshot{Time: now, ARP: map[string]string{}}
++	for _, cc := range strings.Fields(string(secs.get("countries"))) {
++		if s.Country != "" && s.Country != cc {
++			s.Country = ""
++			break
++		}
++		s.Country = cc
++	}
+ 
+ 	var board struct {
+ 		Hostname string                       `json:"hostname"`
+@@ -347,6 +375,7 @@ func Parse(out []byte, now time.Time) (*Snapshot, error) {
+ 			kv := keyvals(secs.get(name))
+ 			p := Port{Name: f[1], MAC: kv["mac"], Up: kv["oper"] == "up", FullDuplex: kv["duplex"] == "full"}
+ 			p.Speed = int(atoi(kv["speed"]))
++			p.link = parsePortLink(secs.get("port-link " + p.Name))
+ 			p.RxBytes, p.TxBytes = atoi(kv["rx_bytes"]), atoi(kv["tx_bytes"])
+ 			p.RxPkts, p.TxPkts = atoi(kv["rx_packets"]), atoi(kv["tx_packets"])
+ 			if n, err := strconv.ParseInt(kv["brport"], 0, 32); err == nil {
+@@ -367,7 +396,11 @@ func Parse(out []byte, now time.Time) (*Snapshot, error) {
+ 	var radios []Radio
+ 	idx := map[string]int{}
+ 	for _, r := range s.Radios {
+-		key := radioKey(r, devs)
++		key := "phy " + r.Phy
++		if dev := radioDevice(r, devs); dev != nil {
++			r.Section, r.Band = dev.Section, dev.Band
++			key = "dev " + dev.Section
++		}
+ 		i, ok := idx[key]
+ 		if !ok {
+ 			base := r
+@@ -378,13 +411,27 @@ func Parse(out []byte, now time.Time) (*Snapshot, error) {
+ 		}
+ 		radios[i].VAPs = append(radios[i].VAPs, r)
+ 	}
+-	for i := range radios {
+-		sortVAPs(radios[i].VAPs)
+-	}
+ 	s.Radios = withDevices(radios, devs)
+ 	if off := offDevices(secs.get("wstatus")); len(s.Radios) < len(devs)+len(off) {
+ 		s.OffRadios = off // (fewer radios than wifi-devices: none of them is seen through a leftover interface)
+ 	}
++	for i := range s.Radios {
++		r := &s.Radios[i]
++		if r.Section == "" && r.Iface != "" {
++			readLinkInfo(r, r.Iface, secs)
++		}
++		for _, dev := range devs {
++			if dev.Section == r.Section {
++				for _, iface := range dev.Ifaces {
++					readLinkInfo(r, iface, secs)
++				}
++			}
++		}
++	}
++	splitMLD(s.Radios, devs, secs)
++	for i := range s.Radios {
++		sortVAPs(s.Radios[i].VAPs)
++	}
+ 	// ng before na; within a band by wifi-device, so the names we report
+ 	// (wifiN) stay put when an idle radio comes up
+ 	sort.SliceStable(s.Radios, func(i, j int) bool {
+@@ -479,15 +526,199 @@ func offDevices(b []byte) []string {
+ 	return out
+ }
+ 
+-// radioKey is the radio an interface belongs to: its wifi-device section
+-// when the wireless status lists the interface, else its phy.
+-func radioKey(r Radio, devs []wifiDevice) string {
+-	for _, d := range devs {
++// Multiple MLO wifi-devices can own the same netdev. Keep its aggregate
++// counters on the band iwinfo sampled, once across the whole snapshot.
++func radioDevice(r Radio, devs []wifiDevice) *wifiDevice {
++	var first *wifiDevice
++	for i := range devs {
++		d := &devs[i]
+ 		if slices.Contains(d.Ifaces, r.Iface) {
+-			return "dev " + d.Section
++			if d.Band == r.Band {
++				return d
++			}
++			if first == nil {
++				first = d
++			}
++		}
++	}
++	return first
++}
++
++func readLinkInfo(r *Radio, iface string, secs *secMap) {
++	band := map[string]string{"ng": "1:", "na": "2:", "6e": "4:"}[r.Band]
++	for _, line := range strings.Split(string(secs.get("ant "+iface)), "\n") {
++		f := strings.Fields(line)
++		if len(f) != 3 || f[1] != band {
++			continue
++		}
++		switch f[0] {
++		case "band":
++			r.NSS = int(atoi(f[2]))
++		case "width":
++			r.W160 = r.W160 || f[2] == "160" || f[2] == "320"
++			r.W320 = r.W320 || (r.Band == "6e" && f[2] == "320")
++		case "usable":
++			r.Usable6 = r.Usable6 || (r.Band == "6e" && f[2] == "6g")
++		}
++	}
++	lines := strings.Split(string(secs.get("channels "+iface)), "\n")
++	for i, line := range lines {
++		var channel, freq, width int
++		if n, _ := fmt.Sscanf(strings.TrimSpace(line), "channel %d (%d MHz), width: %d MHz", &channel, &freq, &width); n == 3 && frequencyBand(freq) == r.Band {
++			r.Channel, r.Width = channel, width
++			r.W160 = r.W160 || width >= 160
++			r.W320 = r.W320 || (r.Band == "6e" && width == 320)
++			var dbm float64
++			if i+1 < len(lines) {
++				if n, _ := fmt.Sscanf(strings.TrimSpace(lines[i+1]), "txpower %f dBm", &dbm); n == 1 {
++					r.TxPower = int(dbm)
++					r.TxMax = max(r.TxMax, r.TxPower)
++				}
++			}
++			return
++		}
++	}
++}
++
++// mldLink is one affiliated link of an MLD AP interface (hostapd -l <id>).
++type mldLink struct {
++	ID           int
++	Band, BSSID  string
++	VHT, HE, EHT bool
++	Stations     map[string]bool
++}
++
++func parseMLD(b []byte) []mldLink {
++	var out []mldLink
++	at := map[int]int{}
++	for _, line := range strings.Split(string(b), "\n") {
++		number, kv, ok := strings.Cut(strings.TrimSpace(line), " ")
++		k, v, ok2 := strings.Cut(kv, "=")
++		id, err := strconv.Atoi(number)
++		if !ok || !ok2 || err != nil || id < 0 || id > 15 {
++			continue
++		}
++		i, seen := at[id]
++		if !seen {
++			out = append(out, mldLink{ID: id, Stations: map[string]bool{}})
++			i = len(out) - 1
++			at[id] = i
++		}
++		l := &out[i]
++		switch k {
++		case "freq":
++			l.Band = frequencyBand(int(atoi(v)))
++		case "bssid[0]":
++			if mac, err := net.ParseMAC(v); err == nil && len(mac) == 6 {
++				l.BSSID = mac.String()
++			}
++		case "ieee80211ac":
++			l.VHT = v == "1"
++		case "ieee80211ax":
++			l.HE = v == "1"
++		case "ieee80211be":
++			l.EHT = v == "1"
++		case "sta":
++			l.Stations[strings.ToLower(v)] = true
++		}
++	}
++	sort.Slice(out, func(i, j int) bool { return out[i].ID < out[j].ID })
++	return out
++}
++
++// splitMLD spreads an MLD interface's VAP over the radios of its links:
++// each link's radio gets the link's capabilities and a VAP with the clients
++// on that link. iwinfo sees only one link (the netdev's), so without this
++// the other band shows no WLAN, no clients, Wi-Fi 4 and 0 dBm. A client
++// affiliated with several links is counted once, on its lowest link ID.
++// ponytail: no per-link traffic split; the netdev counters stay on the
++// VAP iwinfo sampled. Without hostapd_cli the VAP stays where it was.
++func splitMLD(radios []Radio, devs []wifiDevice, secs *secMap) {
++	type move struct {
++		to  int
++		vap Radio
++	}
++	var moves []move
++	ifaces := map[string][]string{}
++	for _, d := range devs {
++		ifaces[d.Section] = d.Ifaces
++	}
++	for ri := range radios {
++		for vi := range radios[ri].VAPs {
++			v := &radios[ri].VAPs[vi]
++			links := parseMLD(secs.get("mld " + v.Iface))
++			if len(links) == 0 {
++				continue
++			}
++			// The same band may exist on unrelated radios. Only sections
++			// owning this MLD netdev are candidates for its other links.
++			byBand := map[string]int{}
++			for i, r := range radios {
++				if i != ri && !slices.Contains(ifaces[r.Section], v.Iface) {
++					continue
++				}
++				if _, found := byBand[r.Band]; found {
++					byBand[r.Band] = -1 // cannot disambiguate by frequency band
++				} else {
++					byBand[r.Band] = i
++				}
++			}
++			remaining := v.Stations
++			v.Stations = nil
++			ownerSeen := false
++			for _, l := range links {
++				to, known := byBand[l.Band]
++				if l.Band == "" || !known || to < 0 {
++					continue
++				}
++				r := &radios[to]
++				r.VHT, r.HE, r.EHT = r.VHT || l.VHT, r.HE || l.HE, r.EHT || l.EHT
++				owner := to == ri && !ownerSeen
++				if !owner && l.BSSID == "" {
++					continue
++				}
++				var matched []Station
++				keep := remaining[:0]
++				for _, st := range remaining {
++					if l.Stations[st.MAC] {
++						matched = append(matched, st)
++					} else {
++						keep = append(keep, st)
++					}
++				}
++				remaining = keep
++				if owner {
++					ownerSeen = true
++					if l.BSSID != "" {
++						v.BSSID = l.BSSID
++					}
++					v.Stations = matched
++					continue
++				}
++				c := *v
++				c.BSSID, c.Stats, c.Stations = l.BSSID, nil, matched
++				moves = append(moves, move{to, c})
++			}
++			// Missing hostapd evidence must never erase an iwinfo client.
++			v.Stations = append(v.Stations, remaining...)
+ 		}
+ 	}
+-	return "phy " + r.Phy
++	for _, m := range moves {
++		radios[m.to].VAPs = append(radios[m.to].VAPs, m.vap)
++	}
++}
++
++func frequencyBand(mhz int) string {
++	switch {
++	case mhz <= 0 || mhz > 7125:
++		return ""
++	case mhz < 3000:
++		return "ng"
++	case mhz > 5925:
++		return "6e"
++	default:
++		return "na"
++	}
+ }
+ 
+ // withDevices takes each radio's band from its wifi-device (an interface
+@@ -498,11 +729,10 @@ func radioKey(r Radio, devs []wifiDevice) string {
+ func withDevices(radios []Radio, devs []wifiDevice) []Radio {
+ 	for _, d := range devs {
+ 		found := false
+-		for i := range radios {
+-			for _, v := range radios[i].VAPs {
+-				if slices.Contains(d.Ifaces, v.Iface) {
+-					radios[i].Section, radios[i].Band, found = d.Section, d.Band, true
+-				}
++		for _, r := range radios {
++			if r.Section == d.Section {
++				found = true
++				break
+ 			}
+ 		}
+ 		if !found {
+@@ -540,17 +770,9 @@ func parseRadio(iface, phy string, secs *secMap) (Radio, error) {
+ 	}
+ 	r.SSID, r.BSSID, r.Mode = info.SSID, strings.ToLower(info.BSSID), info.Mode
+ 	r.Channel, r.TxPower, r.Noise, r.HWName = info.Channel, info.TxPower, info.Noise, info.Hardware.Name
+-	r.Band = "na"
+-	switch {
+-	case info.Frequency == 0:
+-		r.Band = "" // not on a channel (DFS wait, failed start): see withDevices
+-	case info.Frequency < 3000:
+-		r.Band = "ng"
+-	case info.Frequency > 5925:
+-		r.Band = "6e" // 6 GHz (UniFi's name for the band)
+-	}
++	r.Band = frequencyBand(info.Frequency)
+ 	r.Width = 20
+-	for _, w := range []int{160, 80, 40} {
++	for _, w := range []int{320, 160, 80, 40} {
+ 		if strings.HasSuffix(info.HTMode, strconv.Itoa(w)) {
+ 			r.Width = w
+ 			break
+@@ -560,9 +782,11 @@ func parseRadio(iface, phy string, secs *secMap) (Radio, error) {
+ 	for _, m := range info.HWModes {
+ 		r.VHT = r.VHT || m == "ac"
+ 		r.HE = r.HE || m == "ax"
++		r.EHT = r.EHT || m == "be"
+ 	}
+ 	for _, m := range info.HTModes {
+-		r.W160 = r.W160 || strings.HasSuffix(m, "160")
++		r.W160 = r.W160 || (r.Band == "na" || r.Band == "6e") && strings.HasSuffix(m, "160")
++		r.W320 = r.W320 || r.Band == "6e" && m == "EHT320"
+ 	}
+ 
+ 	var tp struct {
+@@ -617,7 +841,7 @@ func parseRadio(iface, phy string, secs *secMap) (Radio, error) {
+ 	// hostapd's flags per client, by lower-case MAC (no output for a STA
+ 	// interface: it has no hostapd object)
+ 	var hc struct {
+-		Clients map[string]struct{ HT, VHT, HE bool } `json:"clients"`
++		Clients map[string]struct{ HT, VHT, HE, EHT bool } `json:"clients"`
+ 	}
+ 	_ = json.Unmarshal(secs.get("hostapd "+iface), &hc)
+ 	for _, a := range al.Results {
+@@ -626,7 +850,7 @@ func parseRadio(iface, phy string, secs *secMap) (Radio, error) {
+ 			Inactive: a.Inactive, Connected: a.Connected, Authorized: a.Authorized,
+ 			RxBytes: a.Rx.Bytes, TxBytes: a.Tx.Bytes, RxPackets: a.Rx.Packets, TxPackets: a.Tx.Packets,
+ 			RxRate: a.Rx.Rate, TxRate: a.Tx.Rate, TxRetries: a.Tx.Retries, TxFailed: a.Tx.Failed,
+-			HT: a.Rx.HT || a.Tx.HT, VHT: a.Rx.VHT || a.Tx.VHT, HE: a.Rx.HE || a.Tx.HE, MHz: max(a.Rx.MHz, a.Tx.MHz), // rx alone is 20 after a legacy-rate keep-alive
++			HT: a.Rx.HT || a.Tx.HT, VHT: a.Rx.VHT || a.Tx.VHT, HE: a.Rx.HE || a.Tx.HE, EHT: a.Rx.EHT || a.Tx.EHT, MHz: max(a.Rx.MHz, a.Tx.MHz), // rx alone is 20 after a legacy-rate keep-alive
+ 			NSS: max(a.Rx.streams(), a.Tx.streams()), TxMCS: a.Tx.mcs(),
+ 		}
+ 		// the rates show what the last frames used (a Wi-Fi 4 client's
+@@ -635,6 +859,7 @@ func parseRadio(iface, phy string, secs *secMap) (Radio, error) {
+ 		// flag must not take away what the rates show.
+ 		if c, ok := hc.Clients[st.MAC]; ok {
+ 			st.HT, st.VHT, st.HE = st.HT || c.HT, st.VHT || c.VHT, st.HE || c.HE
++			st.EHT = st.EHT || c.EHT
+ 		}
+ 		r.Stations = append(r.Stations, st)
+ 	}
+diff --git a/internal/openwrt/dump.go b/internal/openwrt/dump.go
+index 753fb8e..8142bd6 100644
+--- a/internal/openwrt/dump.go
++++ b/internal/openwrt/dump.go
+@@ -68,6 +68,12 @@ func Scrub(out []byte) []byte {
+ 		kind := strings.Fields(name + " x")[0]
+ 		body := secs.get(name)
+ 		switch {
++		case kind == "port-link":
++			// netifd also returns addresses and unrelated interface details.
++			// The port report only needs the supported modes and autoneg.
++			link, _ := json.Marshal(parsePortLink(body))
++			b.Write(link)
++			b.WriteByte('\n')
+ 		case dumpJSON[kind]:
+ 			b.Write(s.json(kind, body))
+ 		case kind == "fdb":
+diff --git a/internal/openwrt/dump_test.go b/internal/openwrt/dump_test.go
+index 598c9a0..f8b80cf 100644
+--- a/internal/openwrt/dump_test.go
++++ b/internal/openwrt/dump_test.go
+@@ -74,3 +74,13 @@ not json at all, 0a:11:22:33:44:55 hunter2
+ 		t.Error("two dumps of one reading differ")
+ 	}
+ }
++func TestPortLinkDumpOnlyIncludesCapabilities(t *testing.T) {
++	raw := []byte(`=== port-link lan2
++{"link-supported":["2500baseT-F"],"autoneg":true,"ipv6-address":[{"address":"fd00::1"}],"ifalias":"private-device"}
++`)
++	scrubbed := Scrub(raw)
++	link := parsePortLink(sections(scrubbed).get("port-link lan2"))
++	if link.speedCaps() != (1<<20|64) || strings.Contains(string(scrubbed), "fd00") || strings.Contains(string(scrubbed), "private-device") {
++		t.Fatalf("unexpected scrubbed netifd report: %s", scrubbed)
++	}
++}
+diff --git a/internal/openwrt/ports.go b/internal/openwrt/ports.go
+new file mode 100644
+index 0000000..99b1def
+--- /dev/null
++++ b/internal/openwrt/ports.go
+@@ -0,0 +1,53 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++
++package openwrt
++
++import (
++	"encoding/json"
++	"strings"
++)
++
++// netifd exposes the PHY-supported modes even when no cable is connected.
++type portLink struct {
++	Supported []string `json:"link-supported"`
++	Autoneg   *bool    `json:"autoneg"`
++}
++
++func parsePortLink(data []byte) portLink {
++	var link portLink
++	if json.Unmarshal(data, &link) != nil {
++		return portLink{}
++	}
++	return link
++}
++
++func (p portLink) autoNegotiating() bool {
++	return p.Autoneg == nil || *p.Autoneg
++}
++
++// UniFi PORTSPEED_* bits, keyed by speed in Mbps and duplex. Different
++// Ethernet media of the same speed map to the same bit.
++var portSpeedBits = map[string]int{
++	"10-H": 1, "10-F": 2, "100-H": 4, "100-F": 8, "1000-H": 16, "1000-F": 32,
++	"2500-F": 64, "5000-F": 128, "10000-F": 256, "20000-F": 4096,
++	"25000-F": 8192, "40000-F": 16384, "50000-F": 32768, "100000-F": 65536,
++}
++
++func (p portLink) speedCaps() int {
++	caps := 0
++	if p.Supported == nil {
++		// Preserve the historical copper GE default on older netifd.
++		caps = 1 | 2 | 4 | 8 | 32
++	}
++	for _, mode := range p.Supported {
++		speed, media, ok := strings.Cut(mode, "base")
++		if ok && len(media) > 2 {
++			caps |= portSpeedBits[speed+media[len(media)-2:]]
++		}
++	}
++	// netifd reports current autoneg, not a separate capability flag.
++	if p.autoNegotiating() {
++		caps |= 1 << 20
++	}
++	return caps
++}
+diff --git a/internal/openwrt/ports_test.go b/internal/openwrt/ports_test.go
+index e10015b..fc01673 100644
+--- a/internal/openwrt/ports_test.go
++++ b/internal/openwrt/ports_test.go
+@@ -8,6 +8,48 @@ import (
+ 	"time"
+ )
+ 
++func TestNetifdPortCapabilities(t *testing.T) {
++	out := `=== board
++{"hostname":"ap","model":"m","release":{}}
++=== port wan
++mac=02:00:00:00:00:01
++oper=up
++speed=1000
++duplex=full
++=== port-link wan
++{"link-supported":["10baseT-H","10baseT-F","100baseT-H","100baseT-F","1000baseT-F","2500baseT-F","5000baseT-F","10000baseT-F"],"link-partner-advertising":["1000baseT-F"],"autoneg":true}
++=== port lan2
++mac=02:00:00:00:00:02
++oper=down
++speed=-1
++=== port-link lan2
++{"link-supported":["1000baseT-F","2500baseT-F","5000baseT-F","10000baseT-F"],"autoneg":true}
++=== port lan3
++mac=02:00:00:00:00:03
++oper=up
++speed=10
++=== port-link lan3
++{"link-supported":["10baseT-H","10baseT-F","100baseT-H","100baseT-F","1000baseT-F"],"autoneg":false}
++=== port lan4
++mac=02:00:00:00:00:04
++oper=down
++`
++	s, err := Parse([]byte(out), time.Time{})
++	if err != nil {
++		t.Fatal(err)
++	}
++	s.UplinkName = "wan"
++	rows := s.Fields(nil, CfgInfo{}, nil)["port_table"].([]map[string]any)
++	var got []any
++	for _, row := range rows {
++		got = append(got, row["ifname"], row["speed_caps"], row["speed"], row["autoneg"])
++	}
++	want := []any{"wan", 1049071, 1000, true, "lan2", 1049056, 0, true, "lan3", 47, 10, false, "lan4", 1048623, 0, true}
++	if !reflect.DeepEqual(got, want) {
++		t.Errorf("port capabilities = %v, want %v", got, want)
++	}
++}
++
+ func TestParseFDB(t *testing.T) {
+ 	got := parseFDB([]byte("aabbccddeeff 2 0 1234 0\n085566770001 1 1 0 0\n112233445566 3 0 5 1\nbad line\n"))
+ 	want := []FDBEntry{
+diff --git a/internal/openwrt/radios_test.go b/internal/openwrt/radios_test.go
+index eafe228..5d4aa19 100644
+--- a/internal/openwrt/radios_test.go
++++ b/internal/openwrt/radios_test.go
+@@ -140,11 +140,59 @@ func TestHT160(t *testing.T) {
+ 	for _, r := range s.Fields(nil, CfgInfo{}, nil)["radio_table"].([]map[string]any) {
+ 		got[r["radio"]] = r["has_ht160"]
+ 	}
+-	if got["na"] != true || got["ng"] != nil {
++	if got["na"] != true || got["ng"] != false {
+ 		t.Errorf("has_ht160 by band = %v, want na only", got)
+ 	}
+ }
+ 
++func TestSixGHzInformReflectsKernelDomainAndBand(t *testing.T) {
++	const raw = `=== board
++{}
++=== countries
++KR
++KR
++=== iface ap6 phy0
++{"frequency":6135,"channel":37,"htmode":"EHT160","hwmodes":["ax","be"]}
++=== assoc ap6
++{"results":[{"mac":"02:00:00:00:00:01","rx":{"eht":true,"mhz":320},"tx":{"he":true,"nss":2,"mcs":9}}]}
++=== hostapd ap6
++{"clients":{"02:00:00:00:00:01":{"eht":true}}}
++=== ant ap6
++width 2: 160
++width 4: 320
++usable 4: 6g
++`
++	for _, tc := range []struct {
++		name, data       string
++		usable, width320 bool
++		country          any
++	}{
++		{"active", raw, true, true, 410},
++		{"EHT negotiated but latest RX is HE", strings.Replace(raw, "\"eht\":true,\"mhz\"", "\"he\":true,\"mhz\"", 1), true, true, 410},
++		{"no usable channels", strings.ReplaceAll(raw, "usable 4: 6g", ""), false, true, 410},
++		{"no 320 capability", strings.ReplaceAll(raw, "width 4: 320", ""), true, false, 410},
++		{"conflicting domains", strings.ReplaceAll(raw, "KR\nKR", "KR\nUS"), true, true, nil},
++		{"world domain", strings.ReplaceAll(raw, "KR", "00"), true, true, nil},
++	} {
++		t.Run(tc.name, func(t *testing.T) {
++			s, err := Parse([]byte(tc.data), time.Time{})
++			if err != nil {
++				t.Fatal(err)
++			}
++			m := s.Fields(nil, CfgInfo{}, nil)
++			r := m["radio_table"].([]map[string]any)[0]
++			if m["country_code"] != tc.country || m["support_wifi6e"] != tc.usable ||
++				r["has_eht320"] != tc.width320 || r["ht"] != "160" || r["is_11be"] != true {
++				t.Fatalf("country=%v usable=%v radio=%v", m["country_code"], m["support_wifi6e"], r)
++			}
++			sta := m["vap_table"].([]map[string]any)[0]["sta_table"].([]map[string]any)[0]
++			if sta["is_11be"] != true || sta["chwidth"] != 5 || sta["nss"] != 2 || sta["tx_mcs"] != 9 {
++				t.Errorf("station generation or width: %v", sta)
++			}
++		})
++	}
++}
++
+ // Channel use is the change of a radio's own survey counters. On a
+ // multi-radio wiphy the radios share one phy, so the earlier snapshot's radio
+ // is found by wifi-device, not by phy.
+@@ -200,3 +248,154 @@ func TestSortVAPs(t *testing.T) {
+ 		t.Errorf("order: %s", got)
+ 	}
+ }
++
++func TestMLDSharedInterface(t *testing.T) {
++	const sample = `=== board
++{"model":"Gemtek W1700K"}
++=== iface ap-mld0 phy0
++{"mode":"Master","ssid":"mlo","channel":37,"frequency":6135,"hwmodes":["ax","be"]}
++=== assoc ap-mld0
++{"results":[{"mac":"02:00:00:00:00:01"}]}
++=== ant ap-mld0
++Available Antennas: TX 0xfff RX 0xfff
++band 2: 4
++band 4: 4
++=== channels ap-mld0
++channel 36 (5180 MHz), width: 160 MHz, center1: 5250 MHz
++channel 37 (6135 MHz), width: 160 MHz, center1: 6185 MHz
++=== wstatus
++{"radio1":{"config":{"band":"5g","channel":"auto","htmode":"EHT160"},"interfaces":[{"ifname":"ap-mld0"}]},
++ "radio2":{"config":{"band":"6g","channel":"auto","htmode":"EHT160"},"interfaces":[{"ifname":"ap-mld0"}]}}
++`
++	for _, tc := range []struct{ freq, owner string }{{"6135", "radio2"}, {"5180", "radio1"}} {
++		s, err := Parse([]byte(strings.Replace(sample, "6135", tc.freq, 1)), time.Time{})
++		if err != nil {
++			t.Fatal(err)
++		}
++		if len(s.Radios) != 2 || s.Describe().Gen != 7 {
++			t.Fatalf("radios=%d generation=%d", len(s.Radios), s.Describe().Gen)
++		}
++		for i, r := range s.Radios {
++			if r.Channel != []int{36, 37}[i] || r.Width != 160 || r.NSS != 4 {
++				t.Errorf("%s: channel %d, width %d, NSS %d", r.Section, r.Channel, r.Width, r.NSS)
++			}
++			if r.Section == tc.owner {
++				if len(r.VAPs) != 1 || len(r.VAPs[0].Stations) != 1 {
++					t.Fatal("missing aggregate client")
++				}
++			} else if len(r.VAPs) != 0 {
++				t.Fatal("duplicated MLO VAP")
++			}
++		}
++	}
++}
++
++// W1700K: iwinfo samples ap-mld0 on 6 GHz while the client is on the 5 GHz
++// link; a second client is affiliated with both links.
++func TestMLDLinksSplitClients(t *testing.T) {
++	const sample = `=== board
++{"model":"Gemtek W1700K"}
++=== iface ap-mld0 phy0
++{"mode":"Master","ssid":"mlo","bssid":"02:00:00:00:01:02","channel":37,"frequency":6135,"txpower":0,"htmode":"NOHT","hwmodes":["ac","ax","be"]}
++=== assoc ap-mld0
++{"results":[{"mac":"02:00:00:00:00:01"},{"mac":"02:00:00:00:00:02"}]}
++=== txpw ap-mld0
++{"results":[{"dbm":0},{"dbm":18}]}
++=== ant ap-mld0
++Available Antennas: TX 0xfff RX 0xfff
++band 2: 4
++band 4: 4
++=== channels ap-mld0
++	   channel 36 (5180 MHz), width: 160 MHz, center1: 5250 MHz
++	   txpower 23.00 dBm
++	   channel 37 (6135 MHz), width: 160 MHz, center1: 6185 MHz
++	   txpower 18.00 dBm
++=== mld ap-mld0
++1 freq=5180
++1 ieee80211ac=1
++1 ieee80211ax=1
++1 ieee80211be=1
++1 bssid[0]=02:00:00:00:01:03
++1 sta=02:00:00:00:00:01
++1 sta=02:00:00:00:00:02
++2 freq=6135
++2 ieee80211ac=0
++2 ieee80211ax=1
++2 ieee80211be=1
++2 bssid[0]=02:00:00:00:01:04
++2 sta=02:00:00:00:00:02
++=== stats ap-mld0
++rx_bytes=1000
++=== wstatus
++{"radio1":{"config":{"band":"5g","channel":"auto","htmode":"EHT160"},"interfaces":[{"ifname":"ap-mld0"}]},
++ "radio2":{"config":{"band":"6g","channel":"auto","htmode":"EHT160"},"interfaces":[{"ifname":"ap-mld0"}]}}
++`
++	s, err := Parse([]byte(sample), time.Time{})
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(s.Radios) != 2 {
++		t.Fatalf("radios=%d", len(s.Radios))
++	}
++	na, e6 := s.Radios[0], s.Radios[1]
++	if na.Band != "na" || na.Channel != 36 || na.Width != 160 || !na.W160 || !na.HE || !na.EHT || na.TxPower != 23 || na.TxMax != 23 {
++		t.Errorf("5 GHz radio %+v", na)
++	}
++	if e6.Band != "6e" || e6.Channel != 37 || e6.TxPower != 18 || !e6.EHT {
++		t.Errorf("6 GHz radio %+v", e6)
++	}
++	if len(na.VAPs) != 1 || len(na.VAPs[0].Stations) != 2 || na.VAPs[0].BSSID != "02:00:00:00:01:03" || na.VAPs[0].Stats != nil {
++		t.Fatalf("5 GHz VAP %+v", na.VAPs)
++	}
++	if len(e6.VAPs) != 1 || len(e6.VAPs[0].Stations) != 0 || e6.VAPs[0].Stats["rx_bytes"] != 1000 || e6.VAPs[0].BSSID != "02:00:00:00:01:04" {
++		t.Fatalf("6 GHz VAP %+v", e6.VAPs)
++	}
++	f := s.Fields(nil, CfgInfo{}, nil)
++	if f["num_sta"] != 2 {
++		t.Errorf("num_sta %v, want each client once", f["num_sta"])
++	}
++	for _, r := range f["radio_table"].([]map[string]any) {
++		if r["radio"] == "na" && (r["is_11ax"] != true || r["has_ht160"] != true || r["ht"] != "160") {
++			t.Errorf("5 GHz radio_table %v", r)
++		}
++	}
++
++	// Link 10 is collected first; link 2 still claims the shared client.
++	before, mld, _ := strings.Cut(sample, "=== mld ap-mld0\n")
++	first, rest, _ := strings.Cut(mld, "2 freq=6135")
++	second, after, _ := strings.Cut("2 freq=6135"+rest, "=== stats")
++	reversed := before + "=== mld ap-mld0\n" + strings.ReplaceAll(second, "2 ", "10 ") +
++		strings.ReplaceAll(first, "1 ", "2 ") + "=== stats" + after
++	for _, tc := range []struct {
++		name, sample string
++		wantFive     int
++	}{
++		{"numeric link order", reversed, 2},
++		{"missing link frequency", strings.Replace(sample, "1 freq=5180\n", "", 1), 0},
++		{"missing link BSSID", strings.Replace(sample, "1 bssid[0]=02:00:00:00:01:03\n", "", 1), 0},
++		{"unrelated 5 GHz radio", strings.Replace(sample, "ap-mld0\"}]},", "other-iface\"}]},", 1), 0},
++	} {
++		t.Run(tc.name, func(t *testing.T) {
++			s, err := Parse([]byte(tc.sample), time.Time{})
++			if err != nil {
++				t.Fatal(err)
++			}
++			fields := s.Fields(nil, CfgInfo{}, nil)
++			if n := fields["num_sta"]; n != 2 {
++				t.Fatalf("aggregate station count = %v, want 2", n)
++			}
++			var rx int64
++			for _, vap := range fields["vap_table"].([]map[string]any) {
++				rx += vap["rx_bytes"].(int64)
++			}
++			if rx != 1000 {
++				t.Errorf("rx_bytes across link VAPs = %d, want 1000", rx)
++			}
++			for _, row := range fields["radio_table_stats"].([]map[string]any) {
++				if row["radio"] == "na" && row["num_sta"] != tc.wantFive {
++					t.Errorf("5 GHz stations = %v, want %d", row["num_sta"], tc.wantFive)
++				}
++			}
++		})
++	}
++}
+diff --git a/internal/openwrt/unifi.go b/internal/openwrt/unifi.go
+index ea2c660..d53c348 100644
+--- a/internal/openwrt/unifi.go
++++ b/internal/openwrt/unifi.go
+@@ -53,6 +53,10 @@ func (s *Snapshot) Fields(prev *Snapshot, info CfgInfo, caps map[string]RadioCap
+ 	if s.Gateway != "" {
+ 		m["gateway_ip"] = s.Gateway
+ 	}
++	if code := translate.NumericCountryCode(s.Country); code != 0 {
++		m["country_code"] = code
++	}
++	m["support_wifi6e"] = false
+ 	// system-stats: what the controller graphs as CPU / Memory (strings, like a UAP)
+ 	cpu := 0.0
+ 	if prev != nil && s.CPUTotal > prev.CPUTotal {
+@@ -110,8 +114,8 @@ func (s *Snapshot) Fields(prev *Snapshot, info CfgInfo, caps map[string]RadioCap
+ 			uplink := i == 0 && p.Up
+ 			row := map[string]any{
+ 				"port_idx": idx, "name": name, "media": "GE", "ifname": p.Name,
+-				"poe_caps": 0, "port_poe": false, "speed_caps": 1048623, // 10/100/1000, autoneg
+-				"enable": true, "autoneg": true, "op_mode": "switch",
++				"poe_caps": 0, "port_poe": false, "speed_caps": p.link.speedCaps(),
++				"enable": true, "autoneg": p.link.autoNegotiating(), "op_mode": "switch",
+ 				"up": p.Up, "speed": speed, "full_duplex": p.Up && p.FullDuplex,
+ 				"is_uplink": uplink,
+ 				"rx_bytes":  p.RxBytes, "tx_bytes": p.TxBytes, "rx_packets": p.RxPkts, "tx_packets": p.TxPkts,
+@@ -164,12 +168,12 @@ func (s *Snapshot) Fields(prev *Snapshot, info CfgInfo, caps map[string]RadioCap
+ 			"min_txpower": r.TxMin, "max_txpower": r.TxMax, "nss": r.NSS,
+ 			"tx_power": r.TxPower, "tx_power_mode": "custom",
+ 			"radio_caps": 0, "antenna_gain": 3, "builtin_antenna": true, "builtin_ant_gain": 3,
+-			"is_11ac": r.VHT, "is_11ax": r.HE,
++			"is_11ac": r.VHT, "is_11ax": r.HE, "is_11be": r.EHT,
++			"has_ht160":  (r.Band == "na" || r.Band == "6e") && r.W160,
++			"has_eht320": r.Band == "6e" && r.EHT && r.W320,
+ 		})
+-		if r.W160 {
+-			// the controller offers 160 MHz only to a radio row with
+-			// has_ht160 (DRUVu); is_11ac/is_11ax alone cap it at 80
+-			radios[len(radios)-1]["has_ht160"] = true
++		if r.Band == "6e" && (r.HE || r.EHT) && r.Usable6 {
++			m["support_wifi6e"] = true
+ 		}
+ 		if c, ok := caps[r.Band]; ok {
+ 			rr := radios[len(radios)-1]
+@@ -242,7 +246,7 @@ func (s *Snapshot) Fields(prev *Snapshot, info CfgInfo, caps map[string]RadioCap
+ 					"tx_retries_mov": retMov, "wifi_tx_dropped": st.TxFailed, "wifi_tx_dropped_mov": dropMov,
+ 					"tx_retry_burst_count": 0, "tx_mcs": st.TxMCS, "tx_power": 2 * r.TxPower,
+ 					"uptime": st.Connected, "idletime": st.Inactive / 1000,
+-					"is_11n": st.HT, "is_11ac": st.VHT, "is_11ax": st.HE,
++					"is_11n": st.HT, "is_11ac": st.VHT, "is_11ax": st.HE, "is_11be": st.EHT,
+ 					"channel": r.Channel, "radio": r.Band, "essid": v.SSID, "bssid": v.BSSID,
+ 					"state": 15, "state_ht": st.HT, "state_pwrmgt": false,
+ 					"is_guest": guest,
+@@ -257,9 +261,8 @@ func (s *Snapshot) Fields(prev *Snapshot, info CfgInfo, caps map[string]RadioCap
+ 				if n := clientNSS(st.MAC, st.NSS, s.Time); n > 0 {
+ 					row["nss"] = n
+ 				}
+-				// chwidth: index into 20/40/80/160 MHz (controller: NRLJigwa,
+-				// enum HT_20=0 .. HT_160=3); without it the panel guesses 20
+-				if w, ok := map[int]int{20: 0, 40: 1, 80: 2, 160: 3}[st.MHz]; ok {
++				// The controller stores station width as an enum, unlike the AP radio's MHz.
++				if w, ok := map[int]int{20: 0, 40: 1, 80: 2, 160: 3, 240: 4, 320: 5}[st.MHz]; ok {
+ 					row["chwidth"] = w
+ 				}
+ 				sr := staSatisfaction(st, r.Band == "na", avail, s.Time)
+@@ -632,6 +635,9 @@ func (s *Snapshot) Describe() models.AP {
+ 		if r.HE {
+ 			g = 6
+ 		}
++		if r.EHT {
++			g = 7
++		}
+ 		d.Gen = max(d.Gen, g)
+ 	}
+ 	return d
+diff --git a/internal/translate/countries.go b/internal/translate/countries.go
+index 90c1372..72a1e9d 100644
+--- a/internal/translate/countries.go
++++ b/internal/translate/countries.go
+@@ -2,6 +2,20 @@
+ 
+ package translate
+ 
++import "strconv"
++
++// NumericCountryCode returns the controller code for a kernel regulatory
++// country. The world domain and unfamiliar codes have no numeric equivalent.
++func NumericCountryCode(alpha2 string) int {
++	for numeric, country := range countryAlpha2 {
++		if country == alpha2 {
++			n, _ := strconv.Atoi(numeric)
++			return n
++		}
++	}
++	return 0
++}
++
+ // countryAlpha2 maps ISO 3166-1 numeric country codes (as the controller
+ // sends them, without leading zeros) to the alpha-2 codes OpenWrt uses.
+ var countryAlpha2 = map[string]string{
+diff --git a/internal/translate/translate.go b/internal/translate/translate.go
+index 509839e..1359450 100644
+--- a/internal/translate/translate.go
++++ b/internal/translate/translate.go
+@@ -172,7 +172,7 @@ func Plan(cfg Cfg, cur UCI, f Features) Result {
+ 		if ch := cfg[p+"channel"]; ch != "" {
+ 			want["channel"] = ch // "auto" or a number
+ 		}
+-		if ht := htmode(mode, cur[k+"htmode"]); ht != "" {
++		if ht := htmode(mode, cur[k+"htmode"], band); ht != "" {
+ 			want["htmode"] = ht
+ 		}
+ 		if cc, raw := countryCode(cfg[p+"countrycode"], cfg["radio.countrycode"]); cc != "" {
+@@ -483,10 +483,22 @@ func indices(cfg Cfg, top string) []string {
+ // OpenWrt htmode. On a 5 GHz radio that already runs VHT, HE or EHT, n-mode
+ // widths keep that mode at the new width (the UniFi names a U7PG2's AC radio
+ // "na"). HT has no 80 or 160 MHz, so those widths are at least VHT.
+-func htmode(mode, cur string) string {
++func htmode(mode, cur, band string) string {
+ 	if mode == "" {
+ 		return ""
+ 	}
++	// UniFi also spells a Wi-Fi 7 radio's requested width "11naht320".
++	// OpenWrt exposes 320 MHz only as EHT320 on 6 GHz.
++	eht := strings.Contains(mode, "eht") || strings.Contains(mode, "11be")
++	if strings.HasSuffix(mode, "320") {
++		if band == "6g" && (eht || strings.HasPrefix(cur, "EHT")) {
++			return "EHT320"
++		}
++		return ""
++	}
++	if strings.HasSuffix(mode, "240") {
++		return "" // OpenWrt has no EHT240 htmode
++	}
+ 	width := "20"
+ 	for _, w := range []string{"160", "80", "40"} {
+ 		if strings.HasSuffix(mode, w) {
+@@ -495,6 +507,8 @@ func htmode(mode, cur string) string {
+ 		}
+ 	}
+ 	switch {
++	case eht, strings.HasPrefix(cur, "EHT") && (strings.Contains(mode, "naht") || strings.Contains(mode, "nght")):
++		return "EHT" + width
+ 	case strings.Contains(mode, "he"):
+ 		return "HE" + width
+ 	case strings.Contains(mode, "vht"):
+diff --git a/internal/translate/translate_test.go b/internal/translate/translate_test.go
+index c0f0da6..3cf4635 100644
+--- a/internal/translate/translate_test.go
++++ b/internal/translate/translate_test.go
+@@ -125,12 +125,28 @@ func TestHTMode(t *testing.T) {
+ 		{"11naht80", "HE80"}: "HE80", {"11naht40", "HE80"}: "HE40", {"11naht80", "EHT160"}: "EHT80",
+ 		{"11naht80", "HT40"}: "VHT80", {"11naht80", ""}: "VHT80",
+ 	} {
+-		if got := htmode(in[0], in[1]); got != want {
++		if got := htmode(in[0], in[1], "5g"); got != want {
+ 			t.Errorf("htmode(%v) = %s, want %s", in, got, want)
+ 		}
+ 	}
+ }
+ 
++func TestEHTWidth(t *testing.T) {
++	for _, tc := range []struct{ mode, current, band, want string }{
++		{"11naht320", "EHT160", "6g", "EHT320"},
++		{"11beeht320", "EHT80", "6g", "EHT320"},
++		{"11naht320", "HE160", "6g", ""},
++		{"11naht320", "EHT160", "5g", ""},
++		{"11beeht240", "EHT160", "5g", ""},
++		{"11nght20", "EHT20", "2g", "EHT20"},
++		{"11beeht160", "HE80", "6g", "EHT160"},
++	} {
++		if got := htmode(tc.mode, tc.current, tc.band); got != tc.want {
++			t.Errorf("%+v: got %q", tc, got)
++		}
++	}
++}
++
+ func TestClampUnsupported(t *testing.T) {
+ 	c := cfg + "aaa.1.bss_transition=enabled\n"
+ 	for _, f := range []Features{{}, {V: true}} {
+diff --git a/packaging/files/etc/config/unifi-openwrt b/packaging/files/etc/config/unifi-openwrt
+index 91f314b..0c57865 100644
+--- a/packaging/files/etc/config/unifi-openwrt
++++ b/packaging/files/etc/config/unifi-openwrt
+@@ -2,15 +2,15 @@ config unifi 'main'
+ 	# 1 = run the daemon (adopt this AP into a UniFi controller)
+ 	option enabled '0'
+ 	# UniFi model to be adopted as (uow -models; uow -ap local -suggest)
+-	option model 'U7PG2'
++	option model 'UAPA697'
+ 	# controller inform URL (IP literal)
+-	option inform_url 'http://192.168.1.1:8080/inform'
++	option inform_url ''
+ 	# name reported before the controller names the device (default: the system hostname)
+ 	#option hostname 'OpenWrt'
+ 	# 1 = apply the controller's settings (0 = log the plan only)
+-	option apply '1'
++	option apply '0'
+ 	# claim the UniFi model's full capabilities (U7PG2 profile)
+-	option profile_caps '1'
++	option profile_caps '0'
+ 	# beep on Locate (APs with a speaker)
+ 	option locate_beep '1'
+ 	# 1 = mesh: when no cable has link for 20 s, uplink over Wi-Fi to the site's mesh
+diff --git a/packaging/files/etc/init.d/unifi-openwrt b/packaging/files/etc/init.d/unifi-openwrt
+index c7da4f7..a15dfbb 100755
+--- a/packaging/files/etc/init.d/unifi-openwrt
++++ b/packaging/files/etc/init.d/unifi-openwrt
+@@ -12,11 +12,12 @@ start_service() {
+ 	local inform_every hw_caps mesh_uplink enabled model inform_url hostname apply profile_caps locate_beep ssh_port console
+ 	config_get_bool enabled main enabled 0
+ 	[ "$enabled" = 1 ] || { echo "unifi-openwrt disabled (uci set unifi-openwrt.main.enabled=1)"; return 0; }
+-	config_get model main model 'U7PG2'
+-	config_get inform_url main inform_url 'http://192.168.1.1:8080/inform'
++	config_get model main model 'UAPA697'
++	config_get inform_url main inform_url ''
++	[ -n "$inform_url" ] || { echo 'Set the UniFi server inform_url first'; return 1; }
+ 	config_get hostname main hostname "$(uci -q get system.@system[0].hostname)"
+-	config_get_bool apply main apply 1
+-	config_get_bool profile_caps main profile_caps 1
++	config_get_bool apply main apply 0
++	config_get_bool profile_caps main profile_caps 0
+ 	config_get_bool locate_beep main locate_beep 1
+ 	config_get ssh_port main ssh_port 2222
+ 	config_get console main console ''
+@@ -52,14 +53,14 @@ start_service() {
+ 	procd_close_instance
+ 
+ 	# the mesh-uplink watcher runs on its own, so it keeps working without the daemon
+-	if [ "$mesh_uplink" = 1 ] && [ -x /etc/unifi-openwrt/mesh.sh ]; then
++	if [ "$apply" = 1 ] && [ "$mesh_uplink" = 1 ] && [ -x /etc/unifi-openwrt/mesh.sh ]; then
+ 		procd_open_instance mesh
+ 		procd_set_param command /etc/unifi-openwrt/mesh.sh
+ 		procd_set_param respawn 3600 5 0
+ 		procd_close_instance
+ 	fi
+ 	# SNMP as the UniFi configures it (the daemon writes the config)
+-	if [ -s /etc/unifi-openwrt/snmpd.conf ] && [ -x /usr/sbin/snmpd ]; then
++	if [ "$apply" = 1 ] && [ -s /etc/unifi-openwrt/snmpd.conf ] && [ -x /usr/sbin/snmpd ]; then
+ 		mkdir -p /var/lib/snmp
+ 		procd_open_instance snmp
+ 		procd_set_param command /usr/sbin/snmpd -f -C -Lsd -c /etc/unifi-openwrt/snmpd.conf
+diff --git a/packaging/openwrt/unifi-openwrt/Makefile b/packaging/openwrt/unifi-openwrt/Makefile
+index 929fd86..1b65413 100644
+--- a/packaging/openwrt/unifi-openwrt/Makefile
++++ b/packaging/openwrt/unifi-openwrt/Makefile
+@@ -15,7 +15,7 @@
+ include $(TOPDIR)/rules.mk
+ 
+ PKG_NAME:=unifi-openwrt
+-PKG_VERSION:=0.3.0
++PKG_VERSION:=0.3.0_p20261122
+ PKG_RELEASE:=1
+ 
+ # PKG_SOURCE_PROTO:=git
+diff --git a/tools/gen-models.py b/tools/gen-models.py
+index 78f8ebc..b784749 100644
+--- a/tools/gen-models.py
++++ b/tools/gen-models.py
+@@ -27,6 +27,13 @@ for m in d["models"]:
+     if not radios:
+         continue
+     disp = m.get("model_display") or m["model"]
++    if m["model"] == "UAPA697":
++        # E7 specifications: https://techspecs.ui.com/unifi/wifi/e7
++        disp = "E7"
++        streams = {"ng": 2, "na": 4, "6e": 4}
++        for r in radios:
++            if r["band"] in streams:
++                r["nss"] = streams[r["band"]]
+     g = gen(disp)
+     if disp == m["model"] and m["model"].startswith("UAPA"):
+         g = 0  # codename only: generation unknown, not suggested
+diff --git a/tools/mkapk.sh b/tools/mkapk.sh
+index 496b5c4..828d574 100755
+--- a/tools/mkapk.sh
++++ b/tools/mkapk.sh
+@@ -126,6 +126,17 @@ echo /etc/unifi-openwrt/ > "$r/lib/upgrade/keep.d/$pkg"
+ echo /etc/config/unifi-openwrt > "$work/conffiles"
+ desc=$(sed -n "/^define Package\/$pkg\/description\$/,/^endef\$/p" "$mk" | sed '1d;$d' | tr -s ' \t\n' ' ' | sed 's/^ //;s/ $//')
+ 
++# The Darwin apk build resolves owners from macOS even with --root.
++# fakeroot and an empty owner database make apk encode root:root.
++make_package() {
++	if [ "$(uname -s)" = Darwin ]; then
++		mkdir -p "$work/empty"
++		"${FAKEROOT:-fakeroot}" "$APK" --root "$work/empty" mkpkg --no-xattrs "$@"
++	else
++		"$APK" --root "$work/ids" mkpkg "$@"
++	fi
++}
++
+ built=0
+ for arch; do
+ 	b=$(go_bin "$arch")
+@@ -144,7 +155,7 @@ for arch; do
+ 	chmod 644 "$p"/*
+ 	[ -z "$SOURCE_DATE_EPOCH" ] || find "$r" -exec touch -h -d "@$SOURCE_DATE_EPOCH" {} +
+ 	f=$OUT/${pkg}_${VERSION}_$arch.apk
+-	"$APK" --root "$work/ids" mkpkg \
++	make_package \
+ 		--info "name:$pkg" \
+ 		--info "version:$VERSION" \
+ 		--info "description:$desc" \

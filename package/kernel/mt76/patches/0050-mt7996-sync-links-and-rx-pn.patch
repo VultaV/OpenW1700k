@@ -1,0 +1,362 @@
+From: Codex <codex@local>
+Subject: [PATCH] wifi: mt7996: synchronize MLO links and receive PN checks
+
+Backport the missing association, link-pair and RX PN fixes onto the
+r74 patch stack. Keep the existing data-link selector and NPU RX
+publication-order protections.
+
+Upstream commits:
+06ff80b55450685ac53653f217fab76ab62100d3
+e6b93c1741ab047a78f300eee62c6ea1545ad8df
+ad7f25333da9277555f6e8dea92edf3b24e680d9
+028951c4bf7820a70669755d3f0519d19c0d5e49
+aa7fc23961a115cf1cc54db7f19ef9bcda269438
+3c17c4d96e584233334935416abfac23fb0f5617
+
+The secondary-link TLV adaptation retains this baseline's primary-WCID
+encoding. This baseline uses its existing STA_REC_MLD command encoding.
+---
+diff --git a/agg-rx.c b/agg-rx.c
+index 3d34caf..58967fb 100644
+--- a/agg-rx.c
++++ b/agg-rx.c
+@@ -12,6 +12,15 @@ static unsigned long mt76_aggr_tid_to_timeo(u8 tidno)
+ 	return HZ / (tidno >= 4 ? 25 : 10);
+ }
+ 
++static void
++mt76_rx_aggr_pn_check(struct sk_buff *skb)
++{
++	struct mt76_rx_status *status = (struct mt76_rx_status *)skb->cb;
++
++	mt76_check_ccmp_pn(skb);
++	status->skip_pn_check = true;
++}
++
+ static void
+ mt76_aggr_release(struct mt76_rx_tid *tid, struct sk_buff_head *frames, int idx)
+ {
+@@ -25,6 +34,7 @@ mt76_aggr_release(struct mt76_rx_tid *tid, struct sk_buff_head *frames, int idx)
+ 
+ 	tid->reorder_buf[idx] = NULL;
+ 	tid->nframes--;
++	mt76_rx_aggr_pn_check(skb);
+ 	__skb_queue_tail(frames, skb);
+ }
+ 
+@@ -204,6 +214,7 @@ void mt76_rx_aggr_reorder(struct sk_buff *skb, struct sk_buff_head *frames)
+ 	}
+ 
+ 	if (seqno == head) {
++		mt76_rx_aggr_pn_check(skb);
+ 		tid->head = ieee80211_sn_inc(head);
+ 		if (tid->nframes)
+ 			mt76_rx_aggr_release_head(tid, frames);
+diff --git a/mac80211.c b/mac80211.c
+index 9423e36..2e249bd 100644
+--- a/mac80211.c
++++ b/mac80211.c
+@@ -1212,21 +1212,28 @@ void mt76_wcid_key_setup(struct mt76_dev *dev, struct mt76_wcid *wcid,
+ 			 struct ieee80211_key_conf *key)
+ {
+ 	struct ieee80211_key_seq seq;
++	u8 *pn;
+ 	int i;
+ 
+ 	mt76_wcid_key_link_setup(wcid, key);
+-	if (!wcid->rx_check_pn)
++	if (!key || !mt76_key_has_rx_pn(key))
+ 		return;
+ 
++	if (key->cipher == WLAN_CIPHER_SUITE_GCMP ||
++	    key->cipher == WLAN_CIPHER_SUITE_GCMP_256)
++		pn = seq.gcmp.pn;
++	else
++		pn = seq.ccmp.pn;
++
+ 	/* data frame */
+ 	for (i = 0; i < IEEE80211_NUM_TIDS; i++) {
+ 		ieee80211_get_key_rx_seq(key, i, &seq);
+-		memcpy(wcid->rx_key_pn[i], seq.ccmp.pn, sizeof(seq.ccmp.pn));
++		memcpy(wcid->rx_key_pn[i], pn, sizeof(wcid->rx_key_pn[i]));
+ 	}
+ 
+ 	/* robust management frame */
+ 	ieee80211_get_key_rx_seq(key, -1, &seq);
+-	memcpy(wcid->rx_key_pn[i], seq.ccmp.pn, sizeof(seq.ccmp.pn));
++	memcpy(wcid->rx_key_pn[i], pn, sizeof(wcid->rx_key_pn[i]));
+ 
+ }
+ EXPORT_SYMBOL(mt76_wcid_key_setup);
+@@ -1317,8 +1324,7 @@ mt76_rx_convert(struct mt76_dev *dev, struct sk_buff *skb,
+ 	*hw = mt76_phy_hw(dev, mstat.phy_idx);
+ }
+ 
+-static void
+-mt76_check_ccmp_pn(struct sk_buff *skb)
++void mt76_check_ccmp_pn(struct sk_buff *skb)
+ {
+ 	struct mt76_rx_status *status = (struct mt76_rx_status *)skb->cb;
+ 	struct mt76_wcid *wcid = status->wcid;
+@@ -1333,6 +1339,9 @@ mt76_check_ccmp_pn(struct sk_buff *skb)
+ 	if (status->flag & RX_FLAG_ONLY_MONITOR)
+ 		return;
+ 
++	if (status->skip_pn_check)
++		return;
++
+ 	if (!wcid || !wcid->rx_check_pn)
+ 		return;
+ 
+diff --git a/mt76.h b/mt76.h
+index 3402265..01e66f2 100644
+--- a/mt76.h
++++ b/mt76.h
+@@ -773,7 +773,7 @@ struct mt76_rx_status {
+ 		} eht;
+ 	};
+ 
+-	u8 amsdu:1, first_amsdu:1, last_amsdu:1;
++	u8 amsdu:1, first_amsdu:1, last_amsdu:1, skip_pn_check:1;
+ 	u8 rate_idx;
+ 	u8 nss:5, band:3;
+ 	u8 chains;
+@@ -1583,11 +1583,43 @@ int mt76_rx_aggr_start(struct mt76_dev *dev, struct mt76_wcid *wcid, u8 tid,
+ 		       u16 ssn, u16 size);
+ void mt76_rx_aggr_stop(struct mt76_dev *dev, struct mt76_wcid *wcid, u8 tid);
+ 
++static inline bool
++mt76_key_has_rx_pn(struct ieee80211_key_conf *key)
++{
++	switch (key->cipher) {
++	case WLAN_CIPHER_SUITE_CCMP:
++	case WLAN_CIPHER_SUITE_CCMP_256:
++	case WLAN_CIPHER_SUITE_GCMP:
++	case WLAN_CIPHER_SUITE_GCMP_256:
++		return true;
++	default:
++		return false;
++	}
++}
++
++static inline bool
++mt76_key_is_bip(struct ieee80211_key_conf *key)
++{
++	switch (key->cipher) {
++	case WLAN_CIPHER_SUITE_AES_CMAC:
++	case WLAN_CIPHER_SUITE_BIP_CMAC_256:
++	case WLAN_CIPHER_SUITE_BIP_GMAC_128:
++	case WLAN_CIPHER_SUITE_BIP_GMAC_256:
++		return true;
++	default:
++		return false;
++	}
++}
++
+ static inline void
+ mt76_wcid_key_link_setup(struct mt76_wcid *wcid,
+ 			 struct ieee80211_key_conf *key)
+ {
+-	wcid->rx_check_pn = key && key->cipher == WLAN_CIPHER_SUITE_CCMP;
++	/* an IGTK or BIGTK shares the wcid of the GTK */
++	if (key && mt76_key_is_bip(key))
++		return;
++
++	wcid->rx_check_pn = key && mt76_key_has_rx_pn(key);
+ }
+ 
+ void mt76_wcid_key_setup(struct mt76_dev *dev, struct mt76_wcid *wcid,
+@@ -1836,6 +1868,7 @@ void mt76_rx_complete(struct mt76_dev *dev, struct sk_buff_head *frames,
+ void mt76_rx_poll_complete(struct mt76_dev *dev, enum mt76_rxq_id q,
+ 			   struct napi_struct *napi);
+ void mt76_rx_aggr_reorder(struct sk_buff *skb, struct sk_buff_head *frames);
++void mt76_check_ccmp_pn(struct sk_buff *skb);
+ void mt76_testmode_tx_pending(struct mt76_phy *phy);
+ void mt76_queue_tx_complete(struct mt76_dev *dev, struct mt76_queue *q,
+ 			    struct mt76_queue_entry *e);
+diff --git a/mt7996/mac.c b/mt7996/mac.c
+index c5c1dc3..97511dd 100644
+--- a/mt7996/mac.c
++++ b/mt7996/mac.c
+@@ -668,12 +668,15 @@ mt7996_mac_fill_rx(struct mt7996_dev *dev, enum mt76_rxq_id q,
+ 		}
+ 	}
+ 
+-	if (!status->wcid || !ieee80211_is_data_qos(fc) || hw_aggr)
++	if (!status->wcid || !ieee80211_is_data_qos(fc))
++		return 0;
++
++	status->qos_ctl = qos_ctl;
++	if (hw_aggr)
+ 		return 0;
+ 
+ 	status->aggr = unicast &&
+ 		       !ieee80211_is_qos_nullfunc(fc);
+-	status->qos_ctl = qos_ctl;
+ 	status->seqno = IEEE80211_SEQ_TO_SN(seq_ctrl);
+ 
+ 	return 0;
+diff --git a/mt7996/main.c b/mt7996/main.c
+index b149af5..e0bb176 100644
+--- a/mt7996/main.c
++++ b/mt7996/main.c
+@@ -255,9 +255,6 @@ mt7996_set_hw_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
+ 	if (!link)
+ 		return 0;
+ 
+-	if (!mt7996_vif_link_phy(link))
+-		return 0;
+-
+ 	if (sta) {
+ 		struct mt7996_sta *msta;
+ 
+@@ -269,6 +266,9 @@ mt7996_set_hw_key(struct ieee80211_hw *hw, enum set_key_cmd cmd,
+ 		if (!msta_link->wcid.sta)
+ 			return -EOPNOTSUPP;
+ 	} else {
++		if (!mt7996_vif_link_phy(link))
++			return 0;
++
+ 		msta_link = &link->msta_link;
+ 	}
+ 	wcid_keyidx = &msta_link->wcid.hw_key_idx;
+@@ -1298,6 +1298,8 @@ mt7996_sta_deflink_set(struct ieee80211_sta *sta, unsigned int link_id,
+ 	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
+ 
+ 	msta->deflink_id = link_id;
++	if (msta->seclink_id == IEEE80211_LINK_UNSPECIFIED)
++		msta->seclink_id = link_id;
+ 	mt7996_sta_init_txq_wcid(sta, idx);
+ }
+ 
+@@ -1335,6 +1337,9 @@ mt7996_sta_deflink_release(struct mt7996_dev *dev, struct ieee80211_sta *sta,
+ 	if (msta->deflink_id != link_id)
+ 		return;
+ 
++	if (msta->seclink_id == link_id)
++		msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
++
+ 	msta->deflink_id = IEEE80211_LINK_UNSPECIFIED;
+ 	if (msta->seclink_id == link_id)
+ 		return;
+@@ -1347,8 +1352,7 @@ mt7996_sta_deflink_release(struct mt7996_dev *dev, struct ieee80211_sta *sta,
+ 				       msta_seclink->wcid.idx);
+ }
+ 
+-static u8
+-mt7996_sta_seclink_get(struct mt7996_dev *dev, struct mt7996_sta *msta)
++u8 mt7996_sta_seclink_get(struct mt7996_dev *dev, struct mt7996_sta *msta)
+ {
+ 	struct mt7996_sta_link *msta_link;
+ 	unsigned int link_id;
+@@ -1548,7 +1552,6 @@ mt7996_mac_sta_init_link(struct mt7996_dev *dev,
+ 	ewma_signal_init(&msta_link->wcid.rssi);
+ 
+ 	rcu_assign_pointer(msta->link[link_id], msta_link);
+-	msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
+ 
+ 	mt7996_mac_wtbl_update(dev, idx, MT_WTBL_UPDATE_ADM_COUNT_CLEAR);
+ 
+@@ -1584,7 +1587,9 @@ void mt7996_mac_sta_remove_link(struct mt7996_dev *dev,
+ 
+ 		mt7996_sta_deflink_release(dev, sta, link_id);
+ 		msta_link->wcid.link_valid = false;
+-		msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
++		/* the firmware keeps the link pair of its last MLD setup */
++		if (msta->seclink_id == link_id)
++			msta->seclink_id = msta->deflink_id;
+ 	}
+ 
+ 	if (flush) {
+@@ -1665,7 +1670,6 @@ mt7996_mac_sta_add_links(struct mt7996_dev *dev, struct ieee80211_vif *vif,
+ 			if (msta->deflink_id == IEEE80211_LINK_UNSPECIFIED)
+ 				mt7996_sta_deflink_set(sta, link_id,
+ 						       msta_link->wcid.idx);
+-			msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
+ 			returned |= BIT(link_id);
+ 			continue;
+ 		}
+@@ -1728,6 +1732,8 @@ mt7996_mac_sta_add(struct mt7996_dev *dev, struct ieee80211_vif *vif,
+ 	msta->ba_rx_mask = 0;
+ 	msta->vif = mvif;
+ 	err = mt7996_mac_sta_add_links(dev, vif, sta, links);
++	if (!err)
++		msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
+ 
+ 	mutex_unlock(&dev->mt76.mutex);
+ 
+@@ -1758,6 +1764,9 @@ mt7996_mac_sta_links_event(struct mt7996_dev *dev, struct ieee80211_vif *vif,
+ 
+ 		switch (ev) {
+ 		case MT76_STA_EVENT_ASSOC:
++			msta_link->wcid.sta = 1;
++			msta_link->wcid.sta_disabled = 0;
++
+ 			err = mt7996_mcu_add_sta(dev, link_conf, link_sta,
+ 						 link, msta_link,
+ 						 CONN_STATE_CONNECT, true);
+@@ -1991,8 +2000,10 @@ mt7996_mac_sta_links_sync(struct mt7996_dev *dev, struct ieee80211_vif *vif,
+ 	unsigned int link_id;
+ 	int err;
+ 
+-	if (msta->conn_state == CONN_STATE_DISCONNECT)
++	if (msta->conn_state == CONN_STATE_DISCONNECT) {
++		msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
+ 		return 0;
++	}
+ 
+ 	links &= mt7996_mac_sta_links(dev, vif, sta);
+ 	for_each_set_bit(link_id, &links, IEEE80211_MLD_MAX_NUM_LINKS) {
+@@ -2065,6 +2076,9 @@ mt7996_mac_sta_links_sync(struct mt7996_dev *dev, struct ieee80211_vif *vif,
+ 			return err;
+ 	}
+ 
++	if (joined)
++		msta->seclink_id = mt7996_sta_seclink_get(dev, msta);
++
+ 	return mt7996_mac_sta_links_ba_add(dev, vif, sta, new_links | resumed);
+ }
+ 
+diff --git a/mt7996/mcu.c b/mt7996/mcu.c
+index b7474f3..0e808c8 100644
+--- a/mt7996/mcu.c
++++ b/mt7996/mcu.c
+@@ -3339,13 +3339,13 @@ mt7996_mcu_sta_mld_setup_tlv(struct mt7996_dev *dev, struct sk_buff *skb,
+ 			     struct ieee80211_vif *vif,
+ 			     struct ieee80211_sta *sta)
+ {
+-	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
+ 	unsigned long links = mt7996_mac_sta_links(dev, vif, sta);
++	struct mt7996_sta *msta = (struct mt7996_sta *)sta->drv_priv;
++	u8 seclink_id = mt7996_sta_seclink_get(dev, msta);
+ 	unsigned int nlinks = hweight16(links);
+ 	struct mld_setup_link *mld_setup_link;
+ 	struct sta_rec_mld_setup *mld_setup;
+ 	struct mt7996_sta_link *msta_link;
+-	u8 seclink_id = msta->deflink_id;
+ 	unsigned int link_id;
+ 	struct tlv *tlv;
+ 
+@@ -3363,8 +3363,8 @@ mt7996_mcu_sta_mld_setup_tlv(struct mt7996_dev *dev, struct sk_buff *skb,
+ 	mld_setup->setup_wcid = cpu_to_le16(msta_link->wcid.idx);
+ 	mld_setup->primary_id = cpu_to_le16(msta_link->wcid.idx);
+ 
+-	if (links & BIT(msta->seclink_id))
+-		seclink_id = msta->seclink_id;
++	if (!(links & BIT(seclink_id)))
++		seclink_id = msta->deflink_id;
+ 	msta_link = mt7996_sta_link_protected(dev, msta, seclink_id);
+ 	mld_setup->seconed_id = cpu_to_le16(msta_link->wcid.idx);
+ 	mld_setup->link_num = nlinks;
+diff --git a/mt7996/mt7996.h b/mt7996/mt7996.h
+index 16d821a..fe274df 100644
+--- a/mt7996/mt7996.h
++++ b/mt7996/mt7996.h
+@@ -1014,6 +1014,7 @@ void mt7996_mac_sta_remove_link(struct mt7996_dev *dev,
+ 				unsigned int link_id, bool flush);
+ u16 mt7996_mac_sta_links(struct mt7996_dev *dev, struct ieee80211_vif *vif,
+ 			 struct ieee80211_sta *sta);
++u8 mt7996_sta_seclink_get(struct mt7996_dev *dev, struct mt7996_sta *msta);
+ void mt7996_mac_add_twt_setup(struct ieee80211_hw *hw,
+ 			      struct ieee80211_sta *sta,
+ 			      struct ieee80211_twt_setup *twt);
