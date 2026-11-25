@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "built_source_commit": "d902fc855c8c3caed8c180201713fb95dde27ae7",
+  "kernel_abi": "6.18.64-w1700k-mlo-r75",
+  "host_go": "1.27.4",
+  "phases": [
+    {
+      "target": "target/linux/prepare",
+      "exit_code": 0,
+      "seconds": 28.84,
+      "log": "target-linux-prepare.log"
+    },
+    {
+      "target": "package/kernel/mac80211/prepare",
+      "exit_code": 0,
+      "seconds": 9.6,
+      "log": "package-kernel-mac80211-prepare.log"
+    },
+    {
+      "target": "package/kernel/mt76/prepare",
+      "exit_code": 0,
+      "seconds": 6.23,
+      "log": "package-kernel-mt76-prepare.log"
+    },
+    {
+      "target": "package/network/services/hostapd/prepare",
+      "exit_code": 0,
+      "seconds": 7.13,
+      "log": "package-network-services-hostapd-prepare.log"
+    },
+    {
+      "target": "package/network/services/unifi-openwrt/prepare",
+      "exit_code": 0,
+      "seconds": 5.65,
+      "log": "package-network-services-unifi-openwrt-prepare.log"
+    },
+    {
+      "target": "target/linux/compile",
+      "exit_code": 0,
+      "seconds": 459.62,
+      "log": "target-linux-compile.log"
+    },
+    {
+      "target": "package/network/services/unifi-openwrt/compile",
+      "exit_code": 0,
+      "seconds": 277.95,
+      "log": "package-network-services-unifi-openwrt-compile.log"
+    },
+    {
+      "target": "world",
+      "exit_code": 2,
+      "seconds": 338.98,
+      "log": "world-initial.log"
+    },
+    {
+      "target": "package/kernel/mac80211/prepare",
+      "exit_code": 0,
+      "seconds": 10.21,
+      "log": "package-kernel-mac80211-prepare.log"
+    },
+    {
+      "target": "world",
+      "exit_code": 0,
+      "seconds": 517.88,
+      "log": "world.log"
+    }
+  ],
+  "resolved_build_failures": [
+    "Initial stable-kernel SFP patch context was refreshed without changing its added quirk.",
+    "Initial full build rejected the inherited sockaddr_unsized guard; verified official 6.18.57-64 headers, corrected 6.18.61+ coverage, passed 11 version cases and the old-guard negative control, then completed full world build."
+  ],
+  "build_warnings": [
+    "Inherited feed configuration reported recursive Kconfig dependency diagnostics; defconfig exited 0.",
+    "Inherited U-Boot empty-package install cleanup Error 1 was explicitly ignored by its recipe; full build exited 0."
+  ],
+  "final_image_verification": "PASS",
+  "hardware_installation_tested": false
+}

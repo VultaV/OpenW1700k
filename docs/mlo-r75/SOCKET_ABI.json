@@ -1,0 +1,50 @@
+{
+  "6.18.57": {
+    "sockaddr_unsized": true,
+    "check_size_macro": true,
+    "sha256": "cb3cae3ee647fa9914939a78c6ba81939e275d455df919c32d8e8b70590408a6",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.57/include/linux/socket.h"
+  },
+  "6.18.58": {
+    "sockaddr_unsized": true,
+    "check_size_macro": true,
+    "sha256": "cb3cae3ee647fa9914939a78c6ba81939e275d455df919c32d8e8b70590408a6",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.58/include/linux/socket.h"
+  },
+  "6.18.59": {
+    "sockaddr_unsized": true,
+    "check_size_macro": true,
+    "sha256": "cb3cae3ee647fa9914939a78c6ba81939e275d455df919c32d8e8b70590408a6",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.59/include/linux/socket.h"
+  },
+  "6.18.60": {
+    "sockaddr_unsized": true,
+    "check_size_macro": true,
+    "sha256": "cb3cae3ee647fa9914939a78c6ba81939e275d455df919c32d8e8b70590408a6",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.60/include/linux/socket.h"
+  },
+  "6.18.61": {
+    "sockaddr_unsized": false,
+    "check_size_macro": true,
+    "sha256": "be4fced57587c50436643cdcdafc786e4d5628a1dc8992ac0aa552ae6a9bd18e",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.61/include/linux/socket.h"
+  },
+  "6.18.62": {
+    "sockaddr_unsized": false,
+    "check_size_macro": true,
+    "sha256": "be4fced57587c50436643cdcdafc786e4d5628a1dc8992ac0aa552ae6a9bd18e",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.62/include/linux/socket.h"
+  },
+  "6.18.63": {
+    "sockaddr_unsized": false,
+    "check_size_macro": true,
+    "sha256": "be4fced57587c50436643cdcdafc786e4d5628a1dc8992ac0aa552ae6a9bd18e",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.63/include/linux/socket.h"
+  },
+  "6.18.64": {
+    "sockaddr_unsized": false,
+    "check_size_macro": true,
+    "sha256": "be4fced57587c50436643cdcdafc786e4d5628a1dc8992ac0aa552ae6a9bd18e",
+    "source": "https://raw.githubusercontent.com/gregkh/linux/v6.18.64/include/linux/socket.h"
+  }
+}

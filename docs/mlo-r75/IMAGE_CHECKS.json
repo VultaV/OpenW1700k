@@ -1,0 +1,164 @@
+{
+  "status": "PASS",
+  "image": "openwrt-ubi2-mlo-fixes-r75-20261125-tailscale-r36182-6d74443bce-airoha-an7581-gemtek_w1700k-ubi-squashfs-sysupgrade.itb",
+  "sha256": "ac32632476b9aa4349b019b45aaee069bbfb39c09b1b4f97df6d4d0ab8f58c15",
+  "bytes": 33469280,
+  "payloads": [
+    {
+      "name": "kernel-1",
+      "bytes": 5859916,
+      "sha256": "bb0af1a251e9cc28a1460294390eb0993257b289c894e8e77a3a218d1ed4824f",
+      "sha1_crc32_verified": true
+    },
+    {
+      "name": "fdt-1",
+      "bytes": 23046,
+      "sha256": "9b32a37ddc789214bc53f36cabe7baf76ad561caa3434a61f5c6eaa188b96843",
+      "sha1_crc32_verified": true
+    },
+    {
+      "name": "rootfs-1",
+      "bytes": 27578368,
+      "sha256": "67d1304ebe2cbd0c31f58a9628716be5598d2b9e8291d398d5f0e545a6b397cb",
+      "sha1_crc32_verified": true
+    }
+  ],
+  "fwtool_supported_devices": [
+    "gemtek,w1700k-ubi"
+  ],
+  "compat_version": "2.0",
+  "ubi2_layout_check": "PASS_ASAN_UBSAN",
+  "fit_check_sign_exit_code": 0,
+  "fit_authenticity_limit": "Unsigned FIT: payload hash checks, no trusted signing key validation.",
+  "kernel_module_abi": "6.18.64-w1700k-mlo-r75",
+  "packaged_firmware": {
+    "en7581_MT7996_npu_rv32.bin": {
+      "bytes": 125832,
+      "sha256": "7068a987bb95e89129a69de10d598f234a4400023eb23aacc8eb377e5f0fe0ea"
+    },
+    "en7581_MT7996_npu_data.bin": {
+      "bytes": 3092,
+      "sha256": "6fd9506e399ebb309801ac2ecc74d3e10fa66731afc828c76fde8a67b2153f49"
+    }
+  },
+  "packaged_modules_sha256": {
+    "mt76.ko": "969a7ad7709c63a8d0413cbb0c7229ad42f249af66bd2e70e123a6a6e5f79f81",
+    "mt76-connac-lib.ko": "049b8fdae5d2d4780cdb8a6daa9da2dc9f38b1415c470ecfbf223c37b8e84089",
+    "mt7996e.ko": "13c6eef84a01eaa6a0dece4eae24cbe647a397241775b1f697f7285edd32cce7",
+    "airoha-eth.ko": "759f488f549d12cdff1e62289ba614a089240ed11c754d75508e1b149bfcabc7",
+    "airoha_npu.ko": "4c44d9b341a360f25af859fbb3661e6343bca507c998676c6a5dcb4a45c43afb",
+    "authenc.ko": "be12a1a21d16ba0a106c50663ae6ab8587d42d30a33b856db3497d3547303a50",
+    "authencesn.ko": "7d220581bf8c9a7b4b5d889b27eec88cd8a2c1502712b88ae4e2e9300cf5bcc1",
+    "cfg80211.ko": "1151e3cbd930489bd84d04d67d01471c04e308980768b01e968062556fce0528",
+    "cmac.ko": "fc5fd882cf483689f1592dd64f9dab45a549caa358fbfffa47ed02e45ecdde69",
+    "compat.ko": "ea4b400db6af7714e0894fd979257bff3396cf2c95d32e5575f711b2e72a302c",
+    "crypto-hw-eip93.ko": "25aa9204357f89360077eefc928caad4fec0bc813dfd49e5f68ab55cf0c5df8f",
+    "des_generic.ko": "f7e8cd20abbd291b48b7ee05da0e2538abc98ed53a73533b3bbe258b306f0540",
+    "drbg.ko": "4f1e00fea27ee86f151090b36c75d0494bbc91a64423142ac7c4f622ce1251c7",
+    "geniv.ko": "15d464a6a719a9f757be09190f11631058d42a0d1c2e7d092d94ebdb8339e1d1",
+    "gpio-button-hotplug.ko": "d8fc069d5af7c1066461f01b9e28b8bf537bc19de4c480f241f3d32802ab3cd4",
+    "hmac.ko": "f48edbe78723ec776a9604e8240dec9428508e5ae7365da150ce3b1cbc25a2ce",
+    "hwmon.ko": "f83b60d6cc9d7f438254b9f6f92174bda7b7dca7c5804bcb7f4365a78565615d",
+    "jitterentropy_rng.ko": "1d00b6be4c3d51c57aa62877f5eec9f34eef664cc54e1ee63ec6c1d946932402",
+    "leds-gpio.ko": "52bb22af41b2f15971b4c6cb971e8252e2a4a27e74a99f615e06f324048189e0",
+    "libdes.ko": "281e6df1554c6da7cdd34e2f2209a9521bc21e5fbf60f24cd7b6d7b4b167e36a",
+    "libmd5.ko": "86d228be3084af379e46a56619d4f0b9645292b300fecaa1c46fc00ad0a37f53",
+    "libsha512.ko": "556141848a3adae84e9bfebaefdfb464a648f836512281149ecda6a1c95c8c20",
+    "mac80211.ko": "c9b977e2311d2e452dce7b62042475a18bc3dd3e56828c475d80ebbe0763060f",
+    "md5.ko": "b10280bd9326854d43a8d65a5e54b0824cea7673d95e709ddf81d73976bfd8d5",
+    "mt7530-dsa.ko": "b959fd2fda2efc37c2d76aabb2d3087f6686876f72b6980648552d5db8bc7697",
+    "mt7530-mmio.ko": "614f45602c7cfaa171d6c176182c299e82263bffdd5e99de68fb2c44c38b631f",
+    "nct7802.ko": "8dfd6fce920ec7e4ad28a2f43e5082405710e204d359d0a5e929d45eb541a32f",
+    "nf_conntrack.ko": "4676f0ee37945d59dcb6c3a9e3306a3281e27af8ac23847d6220a471c8e6fa5d",
+    "nf_conntrack_bridge.ko": "43a618b3688a0b16ee227602b68ca414cc62afa793ca07bb21b48950d14e67eb",
+    "nf_defrag_ipv4.ko": "eae5896d472a9832edec12188ec04d0d6bf8226f50e7a692f135d52329802a6b",
+    "nf_defrag_ipv6.ko": "b1b653aa5beb0fc156cb504ac968e82f6aa9c73a89ba23ebfab80f5bc459d160",
+    "nf_flow_table.ko": "a47dde85e48e8b0da08acd9d8c8db854af6d34b82755ce16de0c6e06167cbd59",
+    "nf_flow_table_inet.ko": "151cd4a4a896449e97d447cdf57e5e6993444bb4f4b906a3fcee180e5f672d5c",
+    "nf_log_syslog.ko": "bf8d7e227ca5baa1e7cb4e366cc42f959429ece90c4a0927118f0ccab9469175",
+    "nf_nat.ko": "dd7ad3228ed292bb4bbf49d2b1e8a26f59d328fe96183c4da6a53f87e4222e55",
+    "nf_reject_ipv4.ko": "5b2028b45252deb0a2438decd3fe1cdbf0ccd2c97fb931f98eceb344721f74e6",
+    "nf_reject_ipv6.ko": "2eba4df880fd5cc76a012bd3592bcf975dfd00a54048e911483aa33cc39041ba",
+    "nf_tables.ko": "d8fc537604ac60e24650030a6792c9dde0bfc9b388fed2a4c5ba06abded978b1",
+    "nfnetlink.ko": "58e1eb6a3473f2dda317e0451dc3a5e4e4b039f69f4afb180d3419a3645c9ba9",
+    "nft_chain_nat.ko": "872a5c993551ceefad68c48b2de217e86f6c9c2a11692511b9e4bb0297c77e84",
+    "nft_ct.ko": "928497d29ecc23a715b733ad8e97b7e303a35014b960cc115d3ddd794b7df46a",
+    "nft_fib.ko": "e7a0d7628a928a4372526a466075d0a2d9edb347c317b29feded0fe8a10cdf4a",
+    "nft_fib_inet.ko": "567fb47e0d0e0747e8eade2ea3348f068ee110fbaf728962e92bc9d09388a65b",
+    "nft_fib_ipv4.ko": "27589cbe4415f8e3ed0a7ddd296dce8d27cab5879bbe0434065fc72dc7b0fee4",
+    "nft_fib_ipv6.ko": "f0d3422eefc17ed141c67ecb912998eeec303a04a8e75f5aa39de25d06f13801",
+    "nft_flow_offload.ko": "86057122b7c37bc652629681c07c3e7b1e57ca2c71fe66de24e9264de42e361f",
+    "nft_hash.ko": "8bfa7ccba90199b0b8f6063241967f81b9b6bc2483b54bb6da7badcf8d68c2c6",
+    "nft_limit.ko": "ce92fe8f32191263c4d62c635d9688dc01de3b59f2fc1f473bb320f08486a399",
+    "nft_log.ko": "43e022a207022f9b66ccd2fd93e7711ee2a1fbf315051fc506dd06466517e85a",
+    "nft_masq.ko": "54563cc14d40bcd719904381f50603f29b5a52befbfbc0d7d3f31c847ac26642",
+    "nft_meta_bridge.ko": "21823f28676448cc5a189bda1ca1c0caa365eb4b42ff9b422ad0718abcba1c3a",
+    "nft_nat.ko": "b636627203ebff8e8739816dcd5ba2908bf409a3b3e5a5bbb54079a1257fe8a3",
+    "nft_numgen.ko": "8a69a8b3a984607426ce542cf602c9a7f4ede2fafcff72c2e5d2e6eef6b6b5a2",
+    "nft_quota.ko": "55bb95ff65100441fc73fca125ef08fa462ec3a3071de86aac9fca3ba130cf44",
+    "nft_redir.ko": "78d6c2efbe68c70dd112dcbef29cd391fcce95a070b2e89de2161d99fe4cb296",
+    "nft_reject.ko": "018ee57c93c69e1739b3bee4fe3352dfb885554a91a0949b39342f278ce5d973",
+    "nft_reject_bridge.ko": "b320466a06c015e49c56858c36ba74a883c8f2f9f99dd75b1d10a901393198b6",
+    "nft_reject_inet.ko": "ecca30f3b1ccd0c763ca6974c80caa0c580995eee3a373fc6ffa2262f3278069",
+    "nft_reject_ipv4.ko": "720590914cc4496655a527cc4b768e75515ed055cee4963f58892029b017f78e",
+    "nft_reject_ipv6.ko": "3b4b6cf3586239bb5cf03e94ed7ca99cd578f283cc3205d82a98e83db5bf0641",
+    "ppp_async.ko": "e506240bad43f07fd16b12b1503267636c8e66da66588931299a76b5ca7ad5b9",
+    "ppp_generic.ko": "9790618c4e38b675fe6911b1d402dae4094391ec4ee3d83be6f9ea5b6103a0b2",
+    "pppoe.ko": "d1219e0031fd06b1e40891affd5a24e4fabf46c849b6b25e7ff0016e25a32f62",
+    "pppox.ko": "57c2ce6653b11742b22a63b23b481e3647838ca91018de1a540a4d77a1260f72",
+    "realtek.ko": "4aa4fe636029ee49b7e0dabbc34f554cf0b2716ef7f144f9c6d5aec02dbc55c2",
+    "regmap-i2c.ko": "20f774488c7667d0f11143fa7061da6629034faa1e127584cf278e4747928af8",
+    "rtk-rtl8261ce-phy.ko": "b48150fbd9f3e5ddd9b4f9ac464cffea0ee878d7b22ec687d56d20ec7abc99b0",
+    "seqiv.ko": "2aa2846ba392333d973ba2dc59f71317d7896a3c38f18895c94995b069434a5d",
+    "sha1.ko": "09a0956885da456d430980eab57cafa0cf92b00d73a3265c78109f939da172bb",
+    "sha256.ko": "3eab09fc05f3299fa532a1ed0bcf5345199262fa9ea81df4ef3b19d60fd799b4",
+    "sha3_generic.ko": "8a74a4e6028047d9553c7662531791cd6c1fc9eed7ca0a651597726b8f547d4d",
+    "sha512.ko": "faec3e10110f608d87b19432eda5d10d425809ae05cf606c606ae35509873c97",
+    "slhc.ko": "eb6dfc771693487a52c02eac7877e134afc8c18df1a58e857499a07f5a1530b5",
+    "tun.ko": "66726eb820bb08008078fa1dbb67b8b8d5be47fbfb4ffc87e5bbeac285c01589",
+    "veth.ko": "dac85e20dfc4daf32ebeafc7211180d8530888049705ad3d23632d84abfb3be9"
+  },
+  "embedded_manifest_matches": true,
+  "private_runtime_state_absent": true,
+  "package_versions_verified": true,
+  "packaged_wpad_sha256": "5da742ad04a3ac3f14cc2993fff08d6cc22155846619bdfa0fa3dc6980cdd900",
+  "all_kernel_modules_vermagic_checked": 75,
+  "npu_pool_dtb_layout_checked": true,
+  "wifi_firmware": {
+    "mt7996_dsp.bin": {
+      "bytes": 192688,
+      "sha256": "7c4d3854fbac6a09b511a5894dbad84c1a09327d98732ddf078fe62a472d228d"
+    },
+    "mt7996_eeprom.bin": {
+      "bytes": 7680,
+      "sha256": "86611acc8560d05a8e18780838cf8400e82ba313cdc9329d0097422d591199d6"
+    },
+    "mt7996_eeprom_2i5i6i.bin": {
+      "bytes": 7680,
+      "sha256": "22f5caa4400963ecacb840d8acb7c004260b567709b1c09c6e2309a6050d9f28"
+    },
+    "mt7996_rom_patch.bin": {
+      "bytes": 37216,
+      "sha256": "12e3b4cbb49bd175f8ef9be82f2bb36af47c441a645cc0be790b1f979fbae400"
+    },
+    "mt7996_wa.bin": {
+      "bytes": 510064,
+      "sha256": "06106c918866c7ae3da47b27223da17030212a1a4adcb5c23871325291d06448"
+    },
+    "mt7996_wm.bin": {
+      "bytes": 2666168,
+      "sha256": "99020e57ff91fdee09b833f9d35f97ff70722d0ef32fa8b02f70c8d3c6f95592"
+    }
+  },
+  "npu_firmware_identical_to_r74": true,
+  "thermal_irq_order_fix_retained": true,
+  "runtime_package_count": 213,
+  "tailscale_package": "1.104.7-r1",
+  "tailscale_go_version": "go1.27.4",
+  "tailscale_binary_sha256": "382f10910f41845717712ff235975ee155c9a8c6bae0cba9b625aee1eba54bce",
+  "unifi_package": "0.3.0_p20261122-r1",
+  "unifi_binary_sha256": "8042de971191f87f14291388395f6288bd641217b28faa7a28901ea838e69856",
+  "unifi_go_version": "go1.27.4",
+  "remote_services_autostart_and_state_keep_verified": true,
+  "hardware_installation_tested": false
+}

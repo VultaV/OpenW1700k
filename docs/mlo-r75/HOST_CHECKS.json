@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "name": "mlo-pn",
+      "exit_code": 0,
+      "passed": true,
+      "output": "MLO backports: 63 checks, 0 failed"
+    },
+    {
+      "name": "link-pair",
+      "exit_code": 0,
+      "passed": true,
+      "output": "PASS: 36 link-pair/TLV fixtures plus initial-primary and removal fallback, ASan/UBSan"
+    },
+    {
+      "name": "bridge",
+      "exit_code": 0,
+      "passed": true,
+      "output": "test_added_port_refreshes_once_bridged (__main__.Generator.test_added_port_refreshes_once_bridged) ... ok\ntest_bridge_absent_and_port_not_forwarding (__main__.Generator.test_bridge_absent_and_port_not_forwarding) ... ok\ntest_disabled_clears_only_owned (__main__.Generator.test_disabled_clears_only_owned) ... ok\ntest_events_filter_unrelated_and_refresh_removed_name (__main__.Generator.test_events_filter_unrelated_and_refresh_removed_name) ... ok\ntest_hairpin_preserves_distinct_port_scope (__main__.Generator.test_hairpin_preserves_distinct_port_scope) ... ok\ntest_include_registration_collision_and_idempotence (__main__.Generator.test_include_registration_collision_and_idempotence) ... ok\ntest_inet_ingress_policy (__main__.Generator.test_inet_ingress_policy) ... ok\ntest_invalid_inputs (__main__.Generator.test_invalid_inputs) ... ok\ntest_isolation_locked_and_unknown_flags (__main__.Generator.test_isolation_locked_and_unknown_flags) ... ok\ntest_legacy_migration_is_explicit (__main__.Generator.test_legacy_migration_is_explicit) ... ok\ntest_lock_failure_is_visible (__main__.Generator.test_lock_failure_is_visible) ... ok\ntest_missing_or_moved_port (__main__.Generator.test_missing_or_moved_port) ... ok\ntest_nft_check_and_apply_failure_remove_stale (__main__.Generator.test_nft_check_and_apply_failure_remove_stale) ... ok\ntest_other_bridge_and_netdev_policy (__main__.Generator.test_other_bridge_and_netdev_policy) ... ok\ntest_overlapping_final_removal_not_dropped (__main__.Generator.test_overlapping_final_removal_not_dropped) ... ok\ntest_owned_name_collision_preserved (__main__.Generator.test_owned_name_collision_preserved) ... ok\ntest_packaged_default_is_disabled_and_preserved (__main__.Generator.test_packaged_default_is_disabled_and_preserved) ... ok\ntest_recreate_after_external_flush (__main__.Generator.test_recreate_after_external_flush) ... ok\ntest_unvalidated_kernel_and_legacy_bridge_netfilter (__main__.Generator.test_unvalidated_kernel_and_legacy_bridge_netfilter) ... ok\ntest_valid_direct_and_dot_source (__main__.Generator.test_valid_direct_and_dot_source) ... ok\ntest_validated_kernels_in_every_entrypoint (__main__.Generator.test_validated_kernels_in_every_entrypoint) ... ok\ntest_vlan_filtering_and_vlan_port (__main__.Generator.test_vlan_filtering_and_vlan_port) ... ok\n\n----------------------------------------------------------------------\nRan 22 tests in 144.211s\n\nOK"
+    },
+    {
+      "name": "rx-publication",
+      "exit_code": 0,
+      "passed": true,
+      "output": "PASS: 50 actual RX publication cases; consume/refill, wrap, partial/zero allocation, reserved slot\nScope: host observer contract only; firmware ownership, DMA timing and OOM progress not proved."
+    },
+    {
+      "name": "npu-rx",
+      "exit_code": 0,
+      "passed": true,
+      "output": "patched: ordered ownership, wrap, allocation failure and reserved slot pass\nbaseline: NPU can observe ownership before the replacement address\npatched: partial chain, wrap, allocation failure, count bound and empty ring pass\npatched: fragmented controls, refreshed pointers, normal zero-copy and allocation failure pass\nTX publication: 8 cases, 0 contract failures (wrap, clamp, metadata preserved)\nTX publication: 8 cases, 8 contract failures (wrap, clamp, metadata preserved)\nFour exact-source RX/TX groups passed; missing-barrier controls rejected."
+    },
+    {
+      "name": "wireless-existing",
+      "exit_code": 0,
+      "passed": true,
+      "output": "PASS: 10 TXFREE word-span cases and 5 EML capability profiles"
+    },
+    {
+      "name": "dfs-fallback",
+      "exit_code": 0,
+      "passed": true,
+      "output": "MLO DFS fallback: 13 checks, 0 failed; actual selection C with availability fixtures, ASan/UBSan"
+    },
+    {
+      "name": "pn-baseline-rejected",
+      "exit_code": 1,
+      "passed": true,
+      "output": "Baseline violated the expected assertion."
+    },
+    {
+      "name": "pair-baseline-rejected",
+      "exit_code": 1,
+      "passed": true,
+      "output": "Baseline violated the expected assertion."
+    },
+    {
+      "name": "source-control-flow-guards",
+      "passed": true,
+      "checks": 8
+    },
+    {
+      "name": "r75-bridge-abi",
+      "passed": true,
+      "checks": 4,
+      "output": "r75 ABI accepted in all four bridge offload entrypoints"
+    },
+    {
+      "name": "stable-socket-type-compatibility",
+      "passed": true,
+      "checks": 11,
+      "output": "PASS: 11 kernel header type-availability cases",
+      "official_headers": "6.18.57-60 define sockaddr_unsized; 6.18.61-64 do not. All still define __sockaddr_check_size."
+    },
+    {
+      "name": "socket-r74-guard-negative-control",
+      "passed": true,
+      "expected_compiler_failure": "sizeof incomplete sockaddr_unsized on 6.18.61"
+    }
+  ],
+  "limitations": [
+    "Host C fixtures do not execute the MCU, radio, NPU firmware, RCU or concurrent kernel locks.",
+    "No new iPhone application, weak-signal transition or overnight stability measurement.",
+    "The historical link_lifecycle fixture predates the r74 link-reset APIs and failed to compile; replaced here by direct current link-pair/TLV extraction rather than counted as passed."
+  ]
+}
