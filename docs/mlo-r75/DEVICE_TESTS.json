@@ -1,0 +1,62 @@
+{
+  "status": "PASS_FIRMWARE_INSTALL_WITH_PREEXISTING_CONTROLLER_ISSUE",
+  "installation": {
+    "status": "PASS",
+    "firmware": "ubi2-mlo-fixes-r75-20261125-tailscale",
+    "kernel_abi": "6.18.64-w1700k-mlo-r75",
+    "tailscale": "1.104.7-r1",
+    "seconds_to_tailscale_ssh": 111.4,
+    "boot_id_changed": true,
+    "settings_preserved": true,
+    "tailnet_identity_preserved": true,
+    "binary_sha256_verified": true,
+    "unifi_package": "0.3.0_p20261122-r1",
+    "unifi_identity_preserved": true,
+    "unifi_service_running": true,
+    "unifi_apply_zero_preserved": true,
+    "ssh_and_unifi_hostkeys_preserved": true,
+    "configuration_files_verified": 9,
+    "lan_interface_up": true,
+    "ipv4_default_route_present": true,
+    "wifi_ap_interfaces": 2,
+    "wifi_client_traffic_tested": false
+  },
+  "router_health": {
+    "status": "PASS",
+    "module_sha256_verified": 75,
+    "wpad_firmware_manifest_sha256_verified": true,
+    "all_wireless_radios_up": true,
+    "ap_frequency_mhz": [
+      5180,
+      6135,
+      2412
+    ],
+    "lan_and_wan_up": true,
+    "wan_ping_five_packets_zero_loss": true,
+    "instagram_dcinside_local_dns": true,
+    "outbound_verified_https": true,
+    "bridge_hardware_offload_table_present": true,
+    "fresh_kernel_error_filter_matches": 0,
+    "unifi_recent_log_lines": 5,
+    "client_throughput_or_iphone_apps_tested": false,
+    "scope": "Firmware, preserved local service state and router network checks; remote UniFi controller connectivity is a separate pre-existing failure.",
+    "unifi_controller": {
+      "status": "UNREACHABLE_PREEXISTING",
+      "baseline_no_route_lines": 252,
+      "postboot_no_route_lines": 5,
+      "same_endpoint_confirmed": true,
+      "service_and_adoption_identity_preserved": true,
+      "cause_not_established": true
+    }
+  },
+  "package_preservation": {
+    "installed": 213,
+    "packaged": 213,
+    "missing_from_image": []
+  },
+  "limitations": [
+    "No new iPhone application or throughput benchmark.",
+    "No weak-signal, sleep/wake or overnight stability validation.",
+    "UniFi remote controller connectivity failed before and after installation; controller cause remains unestablished."
+  ]
+}
